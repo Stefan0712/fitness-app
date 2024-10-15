@@ -1,0 +1,124 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    background-color: #111214;
+    min-height: 100vh;
+}
+
+
+
+
+.week-day-button{
+    height: 50px;
+    width: calc(100% / 7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    opacity: 50%;
+}
+.week-days-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.week-day-button h3,
+.week-day-button p{
+    background-color: transparent;
+}
+.navigate-week-button{
+    width: 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: transparent;
+}
+.navigate-week-button img{
+    width: 25px;
+    filter: invert(100%);
+    background-color: transparent;
+}
+.active-week-button{
+    background-color: #EB5928;
+    border-radius: 3px;
+    opacity: 100%;
+}
+.dashboard .subtitle{
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* summary cell */
+
+
+.summary-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.summary-cell-body{
+    width: 45%;
+    height: 90px;
+    display: flex;
+    background-color: #1A1A1B;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.summary-cell-body .left{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.summary-cell-body .right{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.summary-cell-body .outer-circle{
+    width: 50px;
+    height: 50px;
+    background-color: #86868642;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.summary-cell-body .outer-circle .inner-circle{
+    width: 35%;
+    height: 35%;
+    background-color: #FFC926;
+    border-radius: 50%;
+}
+.cell-value p{
+    color: #FFC926;
+}
+.cell-value{
+    display: flex;
+    gap: 5px;
+    height: 50%;
+}
+.cell-name{
+    display: flex;
+    height:  50%;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
