@@ -69,3 +69,12 @@ nav{
 .header .date{
   opacity: 50%;
 }
+
+.orange-button{
+    background-color: #EB5928;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+}

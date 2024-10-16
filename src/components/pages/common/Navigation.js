@@ -6,11 +6,13 @@ import profileIcon from '../../../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import QuickMenu from './QuickMenu';
 import { useState } from 'react';
+import LogForm from './LogForm';
 
 
 const Navigation = () => {
 
     const [showQuickmenu, setShowQuickmenu] = useState(false)
+    const [logWindow, setLogWindow] = useState(null)
 
 
     const toggleQuickmenu = () =>{
@@ -19,10 +21,17 @@ const Navigation = () => {
     const closeQuickmenu = () => {
         setShowQuickmenu(false)
     }
-
+    const showLog = (buttonData) =>{
+        closeQuickmenu();
+        setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
+    }
+    const hideLog = () =>{
+        setLogWindow(null);
+    }
     return ( 
         <nav>
-            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu}/>) : ''}
+            {logWindow}
+            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} showLog={showLog} />) : ''}
             <Link to='/dashboard' className='nav-button'>
                 <img src={homeIcon} alt=''></img>
                 <p>Home</p>

@@ -3,8 +3,8 @@ import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
-import QuickMenu from './common/QuickMenu';
-
+import ProgressCircle from './common/ProgressCircle';
+import LogForm from './common/LogForm';
 
 
 
@@ -48,8 +48,6 @@ const Dashboard = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
-
-
                     <div className='week-days-container'>
                         <button className='navigate-week-button' onClick={prevWeek}><img src={arrowIcon} style={{transform: 'rotate(180deg)'}} alt=''/></button>
                         {weekDates.map((date, index) => (
@@ -76,9 +74,15 @@ const Dashboard = () => {
                         <div className='cell-value'><p>450</p>/1500</div>
                     </div>
                     <div className='right'>
-                        <div className='outer-circle'>
-                            <div className='inner-circle'></div>
-                        </div>
+                    {/* <ProgressCircle 
+                        currentAmount={60} 
+                        targetAmount={100} 
+                        size={120} 
+                        strokeWidth={5} 
+                        color="#3498db"
+                        radiusSize={5} 
+                    /> */}
+
                         
                     </div>
                 </div>

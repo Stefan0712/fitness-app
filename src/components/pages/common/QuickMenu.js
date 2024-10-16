@@ -13,24 +13,24 @@ import closeIcon from '../../../assets/close.svg';
 import { useState } from 'react';
 
 
-const QuickMenu = ({closeQuickmenu}) => {
+const QuickMenu = ({closeQuickmenu, showLog}) => {
 
     const [buttons, setButtons] = useState([ 
-        { src: foodIcon, name: "Food", functionName: "handleFood" },
-        { src: waterIcon, name: "Water", functionName: "handleWater" },
-        { src: caloriesIcon, name: "Calories", functionName: "handleCalories" },
-        { src: stepsIcon, name: "Steps", functionName: "handleSteps" },
-        { src: exerciseIcon, name: "Exercise", functionName: "handleExercise" },
-        { src: weightIcon, name: "Weight", functionName: "handleWeight" },
-        { src: sleepIcon, name: "Sleep", functionName: "handleSleep" },
-        { src: customIcon, name: "Custom", functionName: "handleCustom" }])
-
+        { src: foodIcon, name: "Food", type: "food" },
+        { src: waterIcon, name: "Water", type: "water" },
+        { src: caloriesIcon, name: "Calories", type: "calories" },
+        { src: stepsIcon, name: "Steps", type: "steps" },
+        { src: exerciseIcon, name: "Exercise", type: "exercise" },
+        { src: weightIcon, name: "Weight", type: "weight" },
+        { src: sleepIcon, name: "Sleep", type: "sleep" },
+        { src: customIcon, name: "Custom", type: "custom" }])
 
 
 
 
     return ( 
         <div className="quick-menu">
+            
             <button id='quick-menu-close-btn' onClick={closeQuickmenu}>
                 <img src={closeIcon} alt=''></img>
             </button>
@@ -43,7 +43,7 @@ const QuickMenu = ({closeQuickmenu}) => {
             </button>
             <h2>Quick Logs</h2>
             {buttons.map((btn)=>(
-                <button className='quick-button' onClick={`handle${btn.name}`}>
+                <button className='quick-button' onClick={()=>showLog(btn)}>
                     <img src={btn.src} alt=''></img>
                     <p>{btn.name}</p>
                 </button>

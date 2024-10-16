@@ -11,7 +11,7 @@
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
-    z-index: 10;
+    z-index: 15;
     border-radius: 5px;
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;
