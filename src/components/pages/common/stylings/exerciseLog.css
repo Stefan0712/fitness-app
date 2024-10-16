@@ -1,0 +1,146 @@
+.exercise-log{
+    width: 100%;
+    bottom: 0px;
+    height: 100vh;
+    position: absolute;
+    background-color: #1A1A1B;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: rgba(211, 211, 211, 0.3);
+    z-index: 15;
+    animation-name: exerciseLogAnimation;
+    animation-duration: 0.1s;
+    z-index: 10;
+}
+@keyframes exerciseLogAnimation {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 100vh;
+    }
+}
+.exercise-log .top-bar img{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    filter: invert(100%);
+}
+.exercise-log .top-bar button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.exercise-log .top-bar{
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.exercise-log h3{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.exercise-log input,
+.exercise-log select{
+    height: 40px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: white;
+    color: gray;
+    padding-left: 15px;
+}
+.exercise-log option{
+    color: black;
+    background-color: white;
+}
+.exercise-log .main-info{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+}
+.exercise-log .main-info input{
+    width: 100%;
+    
+}
+.exercise-log .values-container{
+    flex-wrap: wrap;
+    display: flex;
+    width: 90%;
+    gap: 20px;
+}
+.values-container input{
+    width: calc(50% - 10px)
+}
+.exercise-log .value-type{
+    width: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    justify-content: space-between;
+}
+.selected-input{
+    width: calc(50% - 10px);
+    height: 40px;
+    
+}
+.input-container{
+    display: flex;
+    margin-top: 10px;
+}
+.selected-input button{
+    height: 40px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.selected-input button img{
+    width: 30px;
+    height: 30px;
+    filter: invert(100%);
+}
+.select-inputs{
+    height: 40px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(211, 211, 211, 0.3);
+    transition: height 0.2s;
+    overflow: hidden;
+}
+.expand-select-inputs{
+    height: 300px !important;
+    transition: height 0.2s;
+    overflow-y: auto;
+}
+.select-input h3{
+    height: 40px;
+}
+.selected-input .input-value{
+    width: 40%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid rgba(211, 211, 211, 0.3)
+}
+.selected-input .input-unit{
+    width: 40%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.exercise-log .submit-button{
+    width: 150px;
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: 30px;
+}

@@ -5,6 +5,7 @@
     align-items: center;
     background-color: #111214;
     min-height: 100vh;
+    z-index: 1;
 }
 
 

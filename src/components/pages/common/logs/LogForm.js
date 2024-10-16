@@ -2,6 +2,7 @@ import { useState } from "react";
 import closeIcon from '../../../../assets/close.svg';
 import ProgressCircle from "../ProgressCircle";
 import '../stylings/logForm.css'
+import '../stylings/logs.css'
 
 
 

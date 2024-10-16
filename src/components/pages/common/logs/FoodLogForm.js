@@ -1,6 +1,10 @@
 import { useState } from "react";
 import closeIcon from '../../../../assets/close.svg';
-import '../stylings/foodLogForm.css'
+import '../stylings/logs.css';
+import '../stylings/foodLogForm.css';
+
+
+
 const FoodLogForm = ({data, closeLogWindow}) => {
     return ( 
         <div className="food-log-form">

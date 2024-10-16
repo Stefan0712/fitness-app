@@ -8,6 +8,7 @@ import QuickMenu from './QuickMenu';
 import { useState } from 'react';
 import LogForm from './logs/LogForm';
 import FoodLogForm from './logs/FoodLogForm';
+import ExerciseLog from './logs/ExerciseLog';
 
 
 const Navigation = () => {
@@ -26,6 +27,8 @@ const Navigation = () => {
         closeQuickmenu();
         if(buttonData.type==='food'){
             setLogWindow(<FoodLogForm data={buttonData} closeLogWindow={hideLog}/>)
+        }else if(buttonData.type==='exercise'){
+            setLogWindow(<ExerciseLog data={buttonData} closeLogWindow={hideLog}/>)
         }else{
             setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
         }

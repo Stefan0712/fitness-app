@@ -1,0 +1,44 @@
+.log-form-body{
+    width: 100%;
+    bottom: 0px;
+    height: 60vh;
+    position: absolute;
+    background-color: #1A1A1B;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: rgba(211, 211, 211, 0.3);
+    z-index: 15;
+    animation-name: quickMenuAnimation;
+    animation-duration: 0.1s;
+}
+@keyframes quickMenuAnimation {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 60vh;
+    }
+}
+.log-form-body .top-bar img{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    filter: invert(100%);
+}
+.log-form-body .top-bar button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.log-form-body .top-bar{
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
