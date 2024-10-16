@@ -9,6 +9,7 @@ import { useState } from 'react';
 import LogForm from './logs/LogForm';
 import FoodLogForm from './logs/FoodLogForm';
 import ExerciseLog from './logs/ExerciseLog';
+import Stopwatch from './Stopwatch';
 
 
 const Navigation = () => {
@@ -29,6 +30,8 @@ const Navigation = () => {
             setLogWindow(<FoodLogForm data={buttonData} closeLogWindow={hideLog}/>)
         }else if(buttonData.type==='exercise'){
             setLogWindow(<ExerciseLog data={buttonData} closeLogWindow={hideLog}/>)
+        }else if(buttonData.type==='stopwatch'){
+            setLogWindow(<Stopwatch closeLogWindow={hideLog} />)
         }else{
             setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
         }

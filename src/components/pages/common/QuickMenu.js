@@ -37,7 +37,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             <h1>Quick Menu</h1>
 
             <h2>Tools</h2>
-            <button className='quick-button'>
+            <button className='quick-button' onClick={()=>showLog({type:'stopwatch'})}>
                 <img src={stopwatchIcon} alt=''></img>
                 <p>Stopwatch</p>
             </button>
