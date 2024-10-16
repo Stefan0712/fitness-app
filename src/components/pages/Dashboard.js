@@ -3,6 +3,7 @@ import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
+import QuickMenu from './common/QuickMenu';
 
 
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
     const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
     const [currentMonday, setCurrentMonday] = useState(startOfWeek);
     const [selectedDate, setSelectedDate] = useState(dayjs().format('dddd, D MMM'))
+    
 
     // Function to get the full week array starting from currentMonday
     const getWeekDates = (monday) => {
@@ -36,12 +38,13 @@ const Dashboard = () => {
         setSelectedDate(date.format('YYYY-MM-DD'))
     };
 
-
+   
 
 
 
     return ( 
         <div className="dashboard">
+            
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
