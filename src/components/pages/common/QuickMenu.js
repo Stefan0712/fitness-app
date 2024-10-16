@@ -10,8 +10,25 @@ import sleepIcon from '../../../assets/sleep.svg';
 import customIcon from '../../../assets/plus.svg';
 import closeIcon from '../../../assets/close.svg';
 
+import { useState } from 'react';
+
 
 const QuickMenu = ({closeQuickmenu}) => {
+
+    const [buttons, setButtons] = useState([ 
+        { src: foodIcon, name: "Food", functionName: "handleFood" },
+        { src: waterIcon, name: "Water", functionName: "handleWater" },
+        { src: caloriesIcon, name: "Calories", functionName: "handleCalories" },
+        { src: stepsIcon, name: "Steps", functionName: "handleSteps" },
+        { src: exerciseIcon, name: "Exercise", functionName: "handleExercise" },
+        { src: weightIcon, name: "Weight", functionName: "handleWeight" },
+        { src: sleepIcon, name: "Sleep", functionName: "handleSleep" },
+        { src: customIcon, name: "Custom", functionName: "handleCustom" }])
+
+
+
+
+
     return ( 
         <div className="quick-menu">
             <button id='quick-menu-close-btn' onClick={closeQuickmenu}>
@@ -25,38 +42,12 @@ const QuickMenu = ({closeQuickmenu}) => {
                 <p>Stopwatch</p>
             </button>
             <h2>Quick Logs</h2>
-            <button className='quick-button'>
-                <img src={foodIcon} alt=''></img>
-                <p>Food</p>
-            </button>
-            <button className='quick-button'>
-                <img src={waterIcon} alt=''></img>
-                <p>Water</p>
-            </button>
-            <button className='quick-button'>
-                <img src={caloriesIcon} alt=''></img>
-                <p>Calories</p>
-            </button>
-            <button className='quick-button'>
-                <img src={stepsIcon} alt=''></img>
-                <p>Steps</p>
-            </button>
-            <button className='quick-button'>
-                <img src={exerciseIcon} alt=''></img>
-                <p>Exercise</p>
-            </button>
-            <button className='quick-button'>
-                <img src={weightIcon} alt=''></img>
-                <p>Weight</p>
-            </button>
-            <button className='quick-button'>
-                <img src={sleepIcon} alt=''></img>
-                <p>Sleep</p>
-            </button>
-            <button className='quick-button'>
-                <img src={customIcon} alt=''></img>
-                <p>Custom</p>
-            </button>
+            {buttons.map((btn)=>(
+                <button className='quick-button' onClick={`handle${btn.name}`}>
+                    <img src={btn.src} alt=''></img>
+                    <p>{btn.name}</p>
+                </button>
+                ))}
         </div>
      );
 }
