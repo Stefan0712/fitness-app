@@ -20,7 +20,7 @@ const Stopwatch = (closeLogWindow) => {
 
     const [laps, setLaps] = useState(['00:03:00','00:03:15','00:05:00']);
     const [isStarted, setIsStarted] = useState(false);
-
+    const [isMinimized, setIsMinimized] = useState(false)
 
     const handleStart = () =>{
         setIsStarted(true);
@@ -34,10 +34,18 @@ const Stopwatch = (closeLogWindow) => {
     const handleReset = () =>{
         setLaps([]);
     }
+    const handleMinimize = () =>{
+        setIsMinimized(true)
+    }
+    const handleMaximize = () =>{
+        setIsMinimized(false)
+    }
     return ( 
-        <div className="stopwatch">
+        <div className={`stopwatch ${isMinimized ? 'minimized-stopwatch' : ''}`}>
             <div className="top-bar">
-                <button onClick={closeLogWindow}><img src={minimizeIcon} alt=""></img></button>
+                {isMinimized ? (<button onClick={handleMaximize}><img src={maximizeIcon} alt=""></img></button>) : 
+                    <button onClick={handleMinimize}><img src={minimizeIcon} alt=""></img></button>
+                }
                 <h1>Stopwatch</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>

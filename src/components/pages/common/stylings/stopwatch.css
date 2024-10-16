@@ -24,7 +24,7 @@
 .stopwatch{
     width: 100%;
     bottom: 0px;
-    height: 50vh;
+    height: 60vh;
     position: absolute;
     background-color: #1A1A1B;
     left: 0px;
@@ -56,6 +56,8 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    max-height: 40%;
+    overflow-y: auto;
 }
 .laps-container .lap{
     width: 90%;
@@ -63,6 +65,7 @@
     align-items: center;
     gap: 30px;
     opacity: 50%;
+    
 }
 .stopwatch .stopwatch-time{
     font-size: 4rem;
@@ -86,4 +89,27 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    margin-top: auto;
+    margin-bottom: 25px;
+}
+.minimized-stopwatch .laps-container{
+    display: none;
+}
+.minimized-stopwatch h3{
+    display: none;
+}
+.minimized-stopwatch .stopwatch-time{
+    font-size: 2rem;
+}
+.minimized-stopwatch .stopwatch-buttons button{
+    height: 40px;
+    width: 40px;
+}
+.minimized-stopwatch{
+    height: 150px;
+    gap: 0;
+    position: fixed;
+    z-index: 30;
+    top: 0px;
+    left: 0px;
 }

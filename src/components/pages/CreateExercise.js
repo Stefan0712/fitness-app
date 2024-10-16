@@ -1,6 +1,6 @@
 const CreateExercise = () => {
     return ( 
-        <div className="create-exercise-page">
+        <div className="create-exercise-page page">
             <h1>CreateExercise</h1>
         </div>
      );

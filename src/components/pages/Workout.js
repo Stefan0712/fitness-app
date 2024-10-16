@@ -1,6 +1,6 @@
 const Workout = () => {
     return ( 
-        <div className="workout-page">
+        <div className="workout-page page">
             <h1>Workout</h1>
         </div>
      );

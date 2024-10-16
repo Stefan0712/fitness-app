@@ -26,7 +26,7 @@ function AppRoutes() {
       <Route path="/create-workout" element={<CreateWorkout />} />
       <Route path="/exercise/:id" element={<Exercise />} />
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
-      <Route path="/exercise-workout" element={<CreateExercise />} />
+      <Route path="/create-exercise" element={<CreateExercise />} />
       
     </Routes>
   );
