@@ -10,6 +10,16 @@
     align-items: center;
     border-top: rgba(211, 211, 211, 0.3);
     z-index: 15;
+    animation-name: quickMenuAnimation;
+    animation-duration: 0.1s;
+}
+@keyframes quickMenuAnimation {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 60vh;
+    }
 }
 .log-form-body .top-bar img{
     width: 30px;

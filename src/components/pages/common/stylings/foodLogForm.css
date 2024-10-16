@@ -1,0 +1,74 @@
+.food-log-form{
+    width: 100%;
+    bottom: 0px;
+    height: 60vh;
+    position: absolute;
+    background-color: #1A1A1B;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border-top: rgba(211, 211, 211, 0.3);
+    z-index: 15;
+    animation-name: quickMenuAnimation;
+    animation-duration: 0.1s;
+}
+@keyframes quickMenuAnimation {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 60vh;
+    }
+}
+.food-log-form .top-bar img{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    filter: invert(100%);
+}
+.food-log-form .top-bar button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.food-log-form .top-bar{
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.food-log-form input{
+    height: 40px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: white;
+    color: gray;
+    padding-left: 15px;
+}
+.food-log-form #name{
+    width: 100%;
+}
+.food-log-form .main-info,
+.food-log-form .macros-container{
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.food-log-form .main-info input,
+.food-log-form .macros-container input{
+    width: calc(50% - 10px);
+}
+.food-log-form .log-food-btn{
+    width: 120px;
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: 25px;
+}

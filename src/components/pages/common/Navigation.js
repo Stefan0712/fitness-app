@@ -6,7 +6,8 @@ import profileIcon from '../../../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import QuickMenu from './QuickMenu';
 import { useState } from 'react';
-import LogForm from './LogForm';
+import LogForm from './logs/LogForm';
+import FoodLogForm from './logs/FoodLogForm';
 
 
 const Navigation = () => {
@@ -23,7 +24,12 @@ const Navigation = () => {
     }
     const showLog = (buttonData) =>{
         closeQuickmenu();
-        setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
+        if(buttonData.type==='food'){
+            setLogWindow(<FoodLogForm data={buttonData} closeLogWindow={hideLog}/>)
+        }else{
+            setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
+        }
+        
     }
     const hideLog = () =>{
         setLogWindow(null);

@@ -3,8 +3,6 @@ import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
-import ProgressCircle from './common/ProgressCircle';
-import LogForm from './common/LogForm';
 
 
 
