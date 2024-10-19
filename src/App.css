@@ -77,10 +77,66 @@ nav{
     font-weight: bold;
     border-radius: 5px;
     border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .page{
   background-color: #111214;
   height: 100vh;
   width: 100vw;
+  padding: 20px 15px;
+}
+
+.input{
+  height: 40px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.full-width{
+  width: 100%;
+}
+.half-width{
+  width: calc(50% - 10px);
+}
+.large-button{
+  width: 150px;
+  height: 50px;
+}
+.medium-button{
+  width: 100px;
+  height: 50px;
+}
+.small-square{
+  height: 30px;
+  width: 30px;
+}
+.medium-square{
+  height: 50px;
+  width: 50px;
+}
+.big-square{
+  width: 75px;
+  height: 75px;
+}
+.huge-square{
+  width: 100px;
+  height: 100px;
+}
+.medium-icon{
+  width: 50px;
+  height: 50px;
+}
+.small-icon{
+  width: 30px;
+  height: 30px;
+}
+.white-icon{
+  filter: invert(100%);
+}
+.orange-text{
+  color: #EB5928;
 }

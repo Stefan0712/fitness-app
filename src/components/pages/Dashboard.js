@@ -46,21 +46,21 @@ const Dashboard = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
-                    <div className='week-days-container'>
-                        <button className='navigate-week-button' onClick={prevWeek}><img src={arrowIcon} style={{transform: 'rotate(180deg)'}} alt=''/></button>
-                        {weekDates.map((date, index) => (
-                            <button
-                            className={`week-day-button ${selectedDate === date.format('YYYY-MM-DD') ? 'active-week-button': ''}`}
-                            key={index}
-                            onClick={() => handleDayClick(date)}
-                            >
-                            <h3>{date.format('ddd')}</h3>
-                            <p>{date.format('D')}</p>
-                            </button>
-                        ))}
-                        <button className='navigate-week-button' onClick={nextWeek}><img src={arrowIcon} alt='' /></button>
+            </div>
+            <div className='week-days-container'>
+                <button className='navigate-week-button' onClick={prevWeek}><img src={arrowIcon} style={{transform: 'rotate(180deg)'}} alt=''/></button>
+                {weekDates.map((date, index) => (
+                    <button
+                    className={`week-day-button ${selectedDate === date.format('YYYY-MM-DD') ? 'active-week-button': ''}`}
+                    key={index}
+                    onClick={() => handleDayClick(date)}
+                    >
+                    <h3>{date.format('ddd')}</h3>
+                    <p>{date.format('D')}</p>
+                    </button>
+                ))}
+                <button className='navigate-week-button' onClick={nextWeek}><img src={arrowIcon} alt='' /></button>
 
-                    </div>
             </div>
             
             <div className='date' style={{width: '100%'}}>{selectedDate}</div>

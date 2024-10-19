@@ -44,7 +44,7 @@
     border: 1px solid transparent;
     border-radius: 3px;
     background-color: transparent;
-    z-index: -1;
+    z-index: 1;
 }
 .navigate-week-button img{
     width: 25px;
