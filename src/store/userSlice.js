@@ -43,6 +43,34 @@ const userSlice = createSlice({
     addCreatedExercise: (state, action) => {
       state.createdExercises.push(action.payload);
     },
+    // Deleting a created exercise
+    deleteCreatedExercise: (state, action) => {
+      state.createdExercises = state.createdExercises.filter(
+        (exercise) => exercise.id !== action.payload
+      );
+    },
+    
+    // Saving a public exercise
+    savePublicExercise: (state, action) => {
+      state.savedExercises.push(action.payload);
+    },
+    
+    // Unsaving a public exercise
+    removeSavedExercice: (state, action) => {
+      state.savedExercises = state.savedExercises.filter(
+        (exercise) => exercise.id !== action.payload
+      );
+    },
+    
+    // Editing an existing created exercise
+    editCreatedExercise: (state, action) => {
+      const index = state.createdExercises.findIndex(
+        (exercise) => exercise.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.createdExercises[index] = action.payload;
+      }
+    },
     addSavedExercise: (state, action) => {
       state.savedExercises.push(action.payload);
     },
@@ -55,5 +83,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUserData, addCreatedExercise, addSavedExercise, addLog, updatePreferences } = userSlice.actions;
+export const { setUserData, addCreatedExercise, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addLog, updatePreferences } = userSlice.actions;
 export default userSlice.reducer;

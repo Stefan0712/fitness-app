@@ -2,15 +2,30 @@ import { getDateForHeader } from "../../helpers";
 import './stylings/createExercise.css';
 import { useState } from "react";
 import deleteIcon from '../../assets/close.svg';
-
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from "react-redux";
+import { addCreatedExercise } from "../../store/userSlice";
+import {useNavigate} from 'react-router-dom'
 
 
 const CreateExercise = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [fields, setFields] = useState([]);
     const [fieldName, setFieldName] = useState('');
     const [fieldUnit, setFieldUnit] = useState('');
     const [fieldTarget, setFieldTarget] = useState(0);
-    const [fieldType, setFieldType] = useState('')
+    const [fieldType, setFieldType] = useState('');
+
+    //form values
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [reference, setReference] = useState('');
+    const [targetGroup, setTargetGroup] = useState('srms');
+    const [difficulty, setDifficulty] = useState('begginer');
+    const [type, setType] = useState('cardio');
 
 
 
@@ -29,7 +44,7 @@ const CreateExercise = () => {
     } 
     const handleAddField = (e) =>{
         e.preventDefault();
-        setFields((fields)=>[...fields, {id: fields.length, name: fieldName, unit: fieldUnit, target: fieldTarget, type: fieldType}])
+        setFields([...fields, { id: uuidv4(), name: fieldName, unit: fieldUnit, target: fieldTarget, type: fieldType }]);
         setFieldName('')
         setFieldTarget(0)
         setFieldType('')
@@ -38,10 +53,17 @@ const CreateExercise = () => {
 
     const handleRemoveField = (id, e) =>{
         e.preventDefault();
-        setFields((fields)=>fields.filter((field)=>field.id != id));
+        setFields((fields)=>fields.filter((field)=>field.id !== id));
     }
 
-
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        const createdAt = new Date().toISOString();
+        const exerciseData = {name, description, reference, targetGroup, difficulty, type, fields, createdAt};
+        dispatch(addCreatedExercise(exerciseData));
+        navigate('./library');
+        
+    }
 
     return ( 
         <div className="create-exercise-page page">
@@ -52,19 +74,19 @@ const CreateExercise = () => {
                 <form>
                     <fieldset>
                         <label>Name</label>
-                        <input type="text" name="name" id="name" required={true} minLength={3} maxLength={20}></input>
+                        <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name}></input>
                     </fieldset>
                     <fieldset>
                         <label>Description</label>
-                        <input type="text" name="description" id="description"></input>
+                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description}></input>
                     </fieldset>
                     <fieldset>
                         <label>Reference (URL)</label>
-                        <input type="url" name="reference" id="reference"></input>
+                        <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference}></input>
                     </fieldset>
                     <fieldset>
                         <label>Target Group</label>
-                        <select name="targetGroup" id="targetGroup" required={true}>
+                        <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
                             <option value="arms">Arms</option>
                             <option value="legs">Legs</option>
                             <option value="chest">Chest</option>
@@ -85,7 +107,7 @@ const CreateExercise = () => {
                     </fieldset>
                     <fieldset>
                         <label>Difficulty</label>
-                        <select name="difficulty" id="difficulty">
+                        <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
                             <option value="beginner">Beginner</option>
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>
@@ -94,7 +116,7 @@ const CreateExercise = () => {
                     </fieldset>
                     <fieldset>
                         <label>Type</label>
-                        <select name="type" id="type">
+                        <select name="type" id="type" onChange={(e) => setType(e.target.value)} value={type}>
                             <option value="cardio">Cardio</option>
                             <option value="strength">Strength</option>
                             <option value="hiit">HIIT</option>
@@ -135,7 +157,7 @@ const CreateExercise = () => {
                         </div>
                     </fieldset>
 
-                    <button className="orange-button large-button submit-button">Create Exercise</button>
+                    <button className="orange-button large-button submit-button" onClick={handleSubmit}>Create Exercise</button>
                 </form>
         </div>
      );
