@@ -16,7 +16,7 @@ const CreateExercise = () => {
     const [fields, setFields] = useState([]);
     const [fieldName, setFieldName] = useState('');
     const [fieldUnit, setFieldUnit] = useState('');
-    const [fieldTarget, setFieldTarget] = useState(0);
+    const [fieldTarget, setFieldTarget] = useState('');
     const [fieldType, setFieldType] = useState('');
 
     //form values
@@ -78,7 +78,7 @@ const CreateExercise = () => {
                     </fieldset>
                     <fieldset>
                         <label>Description</label>
-                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description}></input>
+                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100}></input>
                     </fieldset>
                     <fieldset>
                         <label>Reference (URL)</label>
@@ -102,7 +102,6 @@ const CreateExercise = () => {
                             <option value="forearms">Forearms</option>
                             <option value="hamstrings">Hamstrings</option>
                             <option value="quads">Quads</option>
-
                         </select>
                     </fieldset>
                     <fieldset>

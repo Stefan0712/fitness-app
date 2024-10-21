@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 const initialState = {
   userId: null,
   name: '',
@@ -71,6 +72,28 @@ const userSlice = createSlice({
         state.createdExercises[index] = action.payload;
       }
     },
+    addCreatedWorkout: (state, action) => {
+      // Assuming the payload includes the workout's ID, no need to generate one
+      state.createdWorkouts.push(action.payload); // Add the new workout to the list
+    },
+
+    // Reducer for editing an existing workout
+    editWorkout: (state, action) => {
+      const { id, updatedWorkout } = action.payload; // Payload should include workout id and updated details
+      const index = state.createdWorkouts.findIndex(workout => workout.id === id);
+      if (index !== -1) {
+        state.createdWorkouts[index] = {
+          ...state.createdWorkouts[index],
+          ...updatedWorkout, // Merge the existing workout with the updated details
+        };
+      }
+    },
+
+    // Reducer for deleting a workout
+    deleteWorkout: (state, action) => {
+      const workoutId = action.payload; // Payload is the ID of the workout to delete
+      state.createdWorkouts = state.createdWorkouts.filter(workout => workout.id !== workoutId);
+    },
     addSavedExercise: (state, action) => {
       state.savedExercises.push(action.payload);
     },
@@ -83,5 +106,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUserData, addCreatedExercise, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addLog, updatePreferences } = userSlice.actions;
+export const { setUserData, addCreatedExercise, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
 export default userSlice.reducer;
