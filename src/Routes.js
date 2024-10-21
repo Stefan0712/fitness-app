@@ -11,6 +11,7 @@ import CreateWorkout from './components/pages/CreateWorkout';
 import Exercise from './components/pages/Exercise';
 import EditExercise from './components/pages/EditExercise';
 import CreateExercise from './components/pages/CreateExercise';
+import EditProfile from './components/pages/EditProfile';
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
       <Route path="/library" element={<Library />} />
       <Route path="/logs" element={<Logs />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/workout/:id" element={<Workout />} />
       <Route path="/workout/:id/edit" element={<EditWorkout />} />
       <Route path="/create-workout" element={<CreateWorkout />} />

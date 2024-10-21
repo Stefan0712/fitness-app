@@ -1,0 +1,28 @@
+.edit-profile-form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.edit-profile-form .inputs-container{
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.edit-profile-form .inputs-container input{
+    height: 40px;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.521);
+    padding-left: 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid transparent;
+
+}
+.edit-profile-form .goals-container fieldset,
+.edit-profile-form .health-information-container fieldset{
+    width: 45%;
+}
+.edit-profile-form .save-button{
+    height: 50px;
+}

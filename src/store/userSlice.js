@@ -3,17 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userId: null,
-  name: '',
-  username: '',
-  age: null,
-  gender: '',
-  height: null,
-  weight: null,
-  dailyGoals: {
-    calories: 0,
-    water: 0,
-    steps: 0,
-    customGoals: []
+  
+  
+  userData: {
+    dailyGoals: {
+      calories: 0,
+      water: 0,
+      steps: 0,
+      customGoals: []
+    },
+    name: '',
+    username: '',
+    age: null,
+    gender: '',
+    height: null,
+    weight: null,
+    bio:'',
   },
   logs: [],
   activity: {
@@ -43,6 +48,10 @@ const userSlice = createSlice({
     },
     addCreatedExercise: (state, action) => {
       state.createdExercises.push(action.payload);
+    },
+    updateUserData: (state, action) => {
+      // Update userData with the new values from the payload
+      state.userData = { ...state.userData, ...action.payload };
     },
     // Deleting a created exercise
     deleteCreatedExercise: (state, action) => {
@@ -106,5 +115,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUserData, addCreatedExercise, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
+export const { setUserData, addCreatedExercise, updateUserData, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
 export default userSlice.reducer;
