@@ -17,6 +17,8 @@ const Navigation = () => {
     const [showQuickmenu, setShowQuickmenu] = useState(false)
     const [logWindow, setLogWindow] = useState(null)
 
+   
+
 
     const toggleQuickmenu = () =>{
         setShowQuickmenu(true)
@@ -24,16 +26,16 @@ const Navigation = () => {
     const closeQuickmenu = () => {
         setShowQuickmenu(false)
     }
-    const showLog = (buttonData) =>{
+    const showLog = (data) =>{
         closeQuickmenu();
-        if(buttonData.type==='food'){
-            setLogWindow(<FoodLogForm data={buttonData} closeLogWindow={hideLog}/>)
-        }else if(buttonData.type==='exercise'){
-            setLogWindow(<ExerciseLog data={buttonData} closeLogWindow={hideLog}/>)
-        }else if(buttonData.type==='stopwatch'){
+        if(data.type==='food'){
+            setLogWindow(<FoodLogForm data={data} closeLogWindow={hideLog}/>)
+        }else if(data.type==='exercise'){
+            setLogWindow(<ExerciseLog data={data} closeLogWindow={hideLog}/>)
+        }else if(data.type==='stopwatch'){
             setLogWindow(<Stopwatch closeLogWindow={hideLog} />)
         }else{
-            setLogWindow(<LogForm data={buttonData} closeLogWindow={hideLog}/>)
+            setLogWindow(<LogForm goal={data} closeLogWindow={hideLog}/>)
         }
         
     }

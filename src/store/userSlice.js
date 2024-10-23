@@ -3,15 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userId: null,
-  
+  firstTime: true,
   
   userData: {
-    dailyGoals: {
-      calories: 0,
-      water: 0,
-      steps: 0,
-      customGoals: []
-    },
+    dailyGoals: [
+      {name: 'calories', targetValue: 0, unit:'kcal', icon: 'calories.svg'},
+      {name: 'water', targetValue: 0, unit:'L', icon: 'water.svg'},
+      {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg'}
+    ],
     name: '',
     username: '',
     age: null,
@@ -20,14 +19,7 @@ const initialState = {
     weight: null,
     bio:'',
   },
-  logs: [],
-  activity: {
-    date: null,
-    logs: [],
-    goals: [],
-    exercises: [],
-    workouts: []
-  },
+  activity: [],
   preferences: {
     darkMode: false,
     language: 'en',
@@ -64,7 +56,23 @@ const userSlice = createSlice({
     savePublicExercise: (state, action) => {
       state.savedExercises.push(action.payload);
     },
-    
+    updateDailyGoals: (state, action) => {
+      const { date, goals } = action.payload;
+
+      // Check if an entry already exists for today
+      const existingDayIndex = state.activity.logs.findIndex(log => log.date === date);
+
+      if (existingDayIndex !== -1) {
+        // Update the existing entry
+        state.activity.logs[existingDayIndex].goals = { ...state.activity.logs[existingDayIndex].goals, ...goals };
+      } else {
+        // Create a new entry for today
+        state.activity.logs.push({
+          date: date,
+          goals: goals,
+        });
+      }
+    },
     // Unsaving a public exercise
     removeSavedExercice: (state, action) => {
       state.savedExercises = state.savedExercises.filter(
@@ -111,9 +119,12 @@ const userSlice = createSlice({
     },
     updatePreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
+    },
+    reset(state) {
+      return initialState;
     }
   }
 });
 
-export const { setUserData, addCreatedExercise, updateUserData, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
+export const { reset, setUserData, addCreatedExercise, updateDailyGoals, updateUserData, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
 export default userSlice.reducer;

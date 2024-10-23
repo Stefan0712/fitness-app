@@ -3,7 +3,6 @@ import './stylings/library.css';
 import arrowIcon from '../../assets/arrow.svg'
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 
 const Library = () => {

@@ -12,8 +12,15 @@ import Exercise from './components/pages/Exercise';
 import EditExercise from './components/pages/EditExercise';
 import CreateExercise from './components/pages/CreateExercise';
 import EditProfile from './components/pages/EditProfile';
-
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function AppRoutes() {
+
+  const navigate = useNavigate();
+  const isFirstTime = useSelector((state)=>state.user.isFirstTime)
+  if(isFirstTime){
+    navigate('/get-started')
+  }
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />

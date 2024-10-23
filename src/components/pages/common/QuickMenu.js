@@ -1,32 +1,20 @@
 import './stylings/quickMenu.css';
-import stopwatchIcon from '../../../assets/stopwatch.svg';
-import foodIcon from '../../../assets/food.svg';
-import waterIcon from '../../../assets/water.svg';
-import stepsIcon from '../../../assets/steps.svg';
-import exerciseIcon from '../../../assets/exercise.svg';
-import weightIcon from '../../../assets/weight.svg';
-import caloriesIcon from '../../../assets/calories.svg';
-import sleepIcon from '../../../assets/sleep.svg';
-import customIcon from '../../../assets/plus.svg';
 import closeIcon from '../../../assets/close.svg';
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
 
     const [buttons, setButtons] = useState([ 
-        { src: foodIcon, name: "Food", type: "food" },
-        { src: waterIcon, name: "Water", type: "water" },
-        { src: caloriesIcon, name: "Calories", type: "calories" },
-        { src: stepsIcon, name: "Steps", type: "steps" },
-        { src: exerciseIcon, name: "Exercise", type: "exercise" },
-        { src: weightIcon, name: "Weight", type: "weight" },
-        { src: sleepIcon, name: "Sleep", type: "sleep" },
-        { src: customIcon, name: "Custom", type: "custom" }])
+        { src: 'food.svg', name: "Food", type: "food" },
+        { src: 'exercise.svg', name: "Exercise", type: "exercise" },
+        { src: 'weight.svg', name: "Weight", type: "weight" },
+        { src: 'sleep.svg', name: "Sleep", type: "sleep" },
+    ]);
 
-
-
+    const dailyGoals = useSelector((state)=> state.user.userData.dailyGoals);
 
     return ( 
         <div className="quick-menu">
@@ -38,16 +26,23 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
 
             <h2>Tools</h2>
             <button className='quick-button' onClick={()=>showLog({type:'stopwatch'})}>
-                <img src={stopwatchIcon} alt=''></img>
+                <img src={'/icons/stopwatch.svg'} alt=''></img>
                 <p>Stopwatch</p>
             </button>
             <h2>Quick Logs</h2>
             {buttons.map((btn)=>(
                 <button className='quick-button' onClick={()=>showLog(btn)}>
-                    <img src={btn.src} alt=''></img>
+                    <img src={`/icons/${btn.src}`} alt=''></img>
                     <p>{btn.name}</p>
                 </button>
-                ))}
+            ))}
+            <h2>Daily Goals</h2>
+            {dailyGoals?.map((goal)=>(
+                <button className='quick-button' onClick={()=>showLog(goal)}>
+                    <img src={`/icons/${goal.icon}`} alt=''></img>
+                    <p>{goal.name}</p>
+                </button>
+            ))}
         </div>
      );
 }

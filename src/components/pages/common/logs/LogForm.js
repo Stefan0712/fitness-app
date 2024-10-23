@@ -3,19 +3,25 @@ import closeIcon from '../../../../assets/close.svg';
 import ProgressCircle from "../ProgressCircle";
 import '../stylings/logForm.css'
 import '../stylings/logs.css'
+import { useDispatch, useSelector } from "react-redux";
+import { updateDailyGoals } from "../../../../store/userSlice";
 
 
 
 
 
-const LogForm = ({data, closeLogWindow}) => {
+
+const LogForm = ({goal, closeLogWindow}) => {
     const [inputValue, setInputValue] = useState(0);
     const [currentValue, setCurrentValue] = useState(500);
-    const [targetValue, setTargetValue] = useState(1500);
     const [totalValue, setTotalValue] = useState(0)
 
 
+    const today = new Date().toISOString().split('T')[0];
+    const dispatch = useDispatch();
 
+
+    {console.log(goal)}
     const handleInputChange = (e) =>{
         e.preventDefault();
         setInputValue(e.target.value);
@@ -29,11 +35,18 @@ const LogForm = ({data, closeLogWindow}) => {
         setTotalValue(currentValue);
     }
 
+    const handleUpdateGoal = (newGoal) => {
+        dispatch(updateDailyGoals({
+          date: today,
+          goals: newGoal, // e.g., { water: 3.0 }
+        }));
+    };
 
+      
     return ( 
         <div className="log-form-body">
             <div className="top-bar">
-                <h1>{data.name}</h1>
+                <h1>{goal.name}</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>
             {totalValue}
@@ -45,13 +58,12 @@ const LogForm = ({data, closeLogWindow}) => {
                 strokeWidth={10} 
                 color="#3498db" 
                 radiusSize={2}
-                icon={data.src}
+                icon={'/icons/'+goal.icon}
             />
-            <div className="goal">{currentValue}/{targetValue} {data.type}</div>
+            <div className="goal">{currentValue}/{goal.targetValue} {goal.unit}</div>
             </div>
             <div className="inputs">
                 <input type="number" placeholder="Qty" onChange={handleInputChange}></input>
-                <button className="submit-log" onClick={addValue}>Add</button>
             </div>
             <button className="submit-button orange-button" onClick={submitLog}>Log</button>
         </div>

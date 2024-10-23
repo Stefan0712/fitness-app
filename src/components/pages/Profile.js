@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { getDateForHeader } from "../../helpers";
 import { useSelector } from "react-redux";
-import './stylings/editProfile.css';
+import './stylings/profile.css';
 
 
 
@@ -11,56 +11,55 @@ import './stylings/editProfile.css';
 const Profile = () => {
 
     const userData = useSelector((state)=>state.user.userData);
+    {console.log(userData)}
 
     return ( 
-        <div className="profile page">
+        <div className="profile-page page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Profile</h2>
             </div>
             <div className="profile-info">
-                <div className="container">
-                    <h3>Personal Information</h3>
-                    <div className="info">
-                        <h4>Name:</h4>
-                        <p>{userData.name}</p>
-                    </div>
-                    <div className="info">
-                        <h4>Username:</h4>
-                        <p>{userData.username}</p>
-                    </div>
-                    <div className="info">
-                        <h4>Age:</h4>
-                        <p>{userData.age}</p>
-                    </div>
-                    <div className="info">
-                        <h4>Gender:</h4>
-                        <p>{userData.gender}</p>
-                    </div>
+                <h4 className="full-width">Name</h4>    
+                <h3 className="full-width">{userData.name ? userData.name : 'Not Set'}</h3>
+                <h4 className="full-width">Bio</h4>    
+                <p className="full-width mb-25">{userData.bio ? userData.bio : 'Bio not set'}</p>
+                <div className="profile-info-block">
+                    <h4>Age</h4>    
+                    <h3>{userData.age ? userData.age : 'Not Set'}</h3>
+                </div>
+                <div className="profile-info-block">
+                    <h4>Gender</h4>    
+                    <h3>{userData.gender ? userData.gender : 'Not Set'}</h3>
+                </div>
+                <div className="profile-info-block">
+                    <h4>Height</h4>    
+                    <h3>{userData.height ? userData.height : 'Not Set'}</h3>
+                    
+                </div>
+                <div className="profile-info-block">
+                    <h4>Weight</h4>    
+                    <h3>{userData.weight ? userData.weight : 'Not Set'}</h3>
                 </div>
 
-                <div className="container">
-                    <h3>Physical Stats</h3>
-                    <div className="info">
-                        <h4>Height:</h4>
-                        <p>{userData.height} cm</p>
-                    </div>
-                    <div className="info">
-                        <h4>Weight:</h4>
-                        <p>{userData.weight} kg</p>
-                    </div>
-                </div>
 
-                <div className="goals-container">
-                    <h3>Bio</h3>
-                    <div className="info">
-                        <h4>About Me:</h4>
-                        <p>{userData.bio}</p>
+                <h2 className="full-width">Daily Goals</h2>
+                {userData.dailyGoals?.map((goal)=>(
+                    <div className="profile-info-block">
+                        <h4>{goal.name}</h4>    
+                        <h3>{goal.targetValue}</h3>
                     </div>
-                </div>
-        </div>
+                ))}
+                
 
-            <Link to={'/edit-profile'} className="orange-button large-button">Edit Profile</Link>
+               
+                
+
+
+               
+            </div>
+
+            <Link to={'/edit-profile'} className="orange-button large-button edit-profile-btn">Edit Profile</Link>
         </div>
      );
 }

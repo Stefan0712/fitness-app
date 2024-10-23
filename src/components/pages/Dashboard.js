@@ -3,12 +3,15 @@ import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { reset } from '../../store/userSlice';
+import ProgressCircle from './common/ProgressCircle';
 
 
 
 const Dashboard = () => {
 
+    const dispatch = useDispatch();
 
     const today = dayjs();
     const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
@@ -47,6 +50,7 @@ const Dashboard = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
             </div>
+            <button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>
             <div className='week-days-container'>
                 <button className='navigate-week-button' onClick={prevWeek}><img src={arrowIcon} style={{transform: 'rotate(180deg)'}} alt=''/></button>
                 {weekDates.map((date, index) => (
@@ -66,60 +70,27 @@ const Dashboard = () => {
             <div className='date' style={{width: '100%'}}>{selectedDate}</div>
             <h3 className='subtitle'>Summary</h3>
             <div className='summary-container'>
+
+
+
                 <div className='summary-cell-body'>
                     <div className='left'>
                         <div className='cell-name'>Calories</div>
                         <div className='cell-value'><p>450</p>/1500</div>
                     </div>
                     <div className='right'>
-                    {/* <ProgressCircle 
+                    {<ProgressCircle 
                         currentAmount={60} 
                         targetAmount={100} 
                         size={120} 
                         strokeWidth={5} 
                         color="#3498db"
                         radiusSize={5} 
-                    /> */}
-
-                        
+                    />}
+  
                     </div>
                 </div>
-                <div className='summary-cell-body'>
-                    <div className='left'>
-                        <div className='cell-name'>Calories</div>
-                        <div className='cell-value'><p>450</p>/1500</div>
-                    </div>
-                    <div className='right'>
-                        <div className='outer-circle'>
-                            <div className='inner-circle'></div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div className='summary-cell-body'>
-                    <div className='left'>
-                        <div className='cell-name'>Calories</div>
-                        <div className='cell-value'><p>450</p>/1500</div>
-                    </div>
-                    <div className='right'>
-                        <div className='outer-circle'>
-                            <div className='inner-circle'></div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div className='summary-cell-body'>
-                    <div className='left'>
-                        <div className='cell-name'>Calories</div>
-                        <div className='cell-value'><p>450</p>/1500</div>
-                    </div>
-                    <div className='right'>
-                        <div className='outer-circle'>
-                            <div className='inner-circle'></div>
-                        </div>
-                        
-                    </div>
-                </div>
+                
             </div>
 
         </div>
