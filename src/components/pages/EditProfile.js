@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { updateUserData } from "../../store/userSlice";
 import { useState } from "react";
 import './stylings/editProfile.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -11,22 +11,23 @@ const EditProfile = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userData = useSelector((state)=>state.user.userData);
 
-    const [username, setUsername] = useState("");
-    const [name, setName] = useState("")
-    const [bio, setBio] = useState("");
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
-    const [steps, setSteps] = useState("");
-    const [height, setHeight] = useState("");
-    const [weight, setWeight] = useState("");
-    const [calories, setCalories] = useState("");
-    const [water, setWater] = useState("");
+    const [username, setUsername] = useState(userData.username || "");
+    const [name, setName] = useState(userData.name || "")
+    const [bio, setBio] = useState(userData.bio || "");
+    const [age, setAge] = useState(userData.age || "");
+    const [gender, setGender] = useState(userData.gender || "");
+    const [height, setHeight] = useState(userData.height || "");
+    const [weight, setWeight] = useState(userData.weight || "");
+    const [calories, setCalories] = useState({name: 'calories', targetValue: userData.dailyGoals[0]['targetValue'], unit:'kcal', icon: 'calories.svg'});
+    const [water, setWater] = useState({name: 'water', targetValue: userData.dailyGoals[1]['targetValue'], unit:'L', icon: 'water.svg'});
+    const [steps, setSteps] = useState({name: 'steps', targetValue: userData.dailyGoals[2]['targetValue'], unit: 'steps', icon: 'steps.svg'});
 
 
     const handleSaveProfile = (e) =>{
         e.preventDefault();
-        const profileData = {username, name, bio, age, gender, height, weight, goals: {steps, calories, water}};
+        const profileData = {username, name, bio, age, gender, height, weight, dailyGoals: [steps, calories, water]};
         dispatch(updateUserData(profileData))
         navigate('/profile')
     }
@@ -123,8 +124,8 @@ const EditProfile = () => {
                             type="number"
                             name="calories"
                             id="calories"
-                            value={calories}
-                            onChange={(e) => setCalories(e.target.value)}
+                            value={calories.targetValue}
+                            onChange={(e) => setCalories({...calories, targetValue: e.target.value})}
                         />
                     </fieldset>
                     <fieldset>
@@ -133,8 +134,8 @@ const EditProfile = () => {
                             type="number"
                             name="water"
                             id="water"
-                            value={water}
-                            onChange={(e) => setWater(e.target.value)}
+                            value={water.targetValue}
+                            onChange={(e) => setWater({...water, targetValue: e.target.value})}
                         />
                     </fieldset>
                     <fieldset>
@@ -143,8 +144,8 @@ const EditProfile = () => {
                             type="number"
                             name="steps"
                             id="steps"
-                            value={steps}
-                            onChange={(e) => setSteps(e.target.value)}
+                            value={steps.targetValue}
+                            onChange={(e) => setSteps({...steps, targetValue: e.target.value})}
                         />
                     </fieldset>
                 </div>

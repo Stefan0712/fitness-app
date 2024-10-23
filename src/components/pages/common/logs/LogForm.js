@@ -5,6 +5,7 @@ import '../stylings/logForm.css'
 import '../stylings/logs.css'
 import { useDispatch, useSelector } from "react-redux";
 import { updateDailyGoals } from "../../../../store/userSlice";
+import { getCurrentDay } from "../../../../helpers";
 
 
 
@@ -13,11 +14,13 @@ import { updateDailyGoals } from "../../../../store/userSlice";
 
 const LogForm = ({goal, closeLogWindow}) => {
     const [inputValue, setInputValue] = useState(0);
-    const [currentValue, setCurrentValue] = useState(500);
-    const [totalValue, setTotalValue] = useState(0)
+    const currentProgress = useSelector((state)=>state.user.activity[getCurrentDay()])
+    const [currentValue, setCurrentValue] = useState(currentProgress || 0);
 
 
-    const today = new Date().toISOString().split('T')[0];
+   
+
+
     const dispatch = useDispatch();
 
 
@@ -26,20 +29,12 @@ const LogForm = ({goal, closeLogWindow}) => {
         e.preventDefault();
         setInputValue(e.target.value);
     }
-    const addValue = (e) =>{
-        e.preventDefault();
-        setCurrentValue((prevValue) => prevValue + parseInt(inputValue, 10));
-        setInputValue(0)
-    }
     const submitLog = () =>{
-        setTotalValue(currentValue);
+        handleUpdateGoal({name: goal.name, currentValue: inputValue})
     }
 
-    const handleUpdateGoal = (newGoal) => {
-        dispatch(updateDailyGoals({
-          date: today,
-          goals: newGoal, // e.g., { water: 3.0 }
-        }));
+    const handleUpdateGoal = (goalData) => {
+        dispatch(updateDailyGoals(goalData));
     };
 
       
@@ -49,7 +44,6 @@ const LogForm = ({goal, closeLogWindow}) => {
                 <h1>{goal.name}</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>
-            {totalValue}
             <div className="progress-section">
             <ProgressCircle 
                 currentAmount={60} 

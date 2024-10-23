@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getCurrentDay } from '../helpers';
 
 
 const initialState = {
@@ -57,22 +58,59 @@ const userSlice = createSlice({
       state.savedExercises.push(action.payload);
     },
     updateDailyGoals: (state, action) => {
-      const { date, goals } = action.payload;
-
-      // Check if an entry already exists for today
-      const existingDayIndex = state.activity.logs.findIndex(log => log.date === date);
-
-      if (existingDayIndex !== -1) {
-        // Update the existing entry
-        state.activity.logs[existingDayIndex].goals = { ...state.activity.logs[existingDayIndex].goals, ...goals };
+      const { goal } = action.payload;
+      const date = getCurrentDay();
+      // If no entry exists for the date, create one
+      if (!state.activity[date]) {
+        state.activity[date] = {
+          date,
+          logs: [goal],
+          dailyGoals: state.userData.dailyGoals.map(item => ({
+            ...item,
+            currentValue: item.name === goal.name ? goal.value : 0
+          }))
+        };
       } else {
-        // Create a new entry for today
-        state.activity.logs.push({
-          date: date,
-          goals: goals,
+        // Update the existing entry for today
+        const existingGoals = state.activity[date].dailyGoals;
+    
+        // Find the specific goal in today's activity and update it
+        const goalIndex = existingGoals.findIndex(g => g.name === goal.name);
+        if (goalIndex !== -1) {
+          existingGoals[goalIndex].currentValue = goal.value;
+        } else {
+          existingGoals.push({ ...goal, currentValue: goal.value });
+        }
+    
+        // Also add to the logs
+        state.activity[date].logs.push(goal);
+      }
+    }
+    ,    
+    addLog: (state, action) => {
+      const { date, log } = action.payload; // `log` will contain type, value, timestamp, etc.
+    
+      const existingDayIndex = state.activity.findIndex(item => item.date === date);
+      const timestamp = new Date().toISOString(); // For log timestamp
+    
+      if (existingDayIndex !== -1) {
+        // Append the log to today's logs
+        state.activity[existingDayIndex].logs.push({
+          ...log,
+          timestamp,
+        });
+      } else {
+        // Create a new day entry with the log
+        state.activity.push({
+          date,
+          logs: [{
+            ...log,
+            timestamp,
+          }],
+          dailyGoals: [], // No daily goals if only logging other activities
         });
       }
-    },
+    },    
     // Unsaving a public exercise
     removeSavedExercice: (state, action) => {
       state.savedExercises = state.savedExercises.filter(
