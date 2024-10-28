@@ -37,7 +37,7 @@ const Logs = () => {
                             <div key={logIndex} className="log-body">
                                 <p>{log.type}</p>
                                 <p>{log.name}</p>
-                                <p>{log.timestamp.split('T')[0]} at {log.timestamp.split('T')[1].split('.')[0]}</p>
+                                <p>{log.data.value} at {log.timestamp.split('T')[1].split('.')[0]}</p>
                             </div>
                         ))}
                     </div>

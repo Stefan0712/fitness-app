@@ -21,13 +21,13 @@ const EditProfile = () => {
     const [height, setHeight] = useState(userData.height || "");
     const [weight, setWeight] = useState(userData.weight || "");
     const [calories, setCalories] = useState({name: 'calories', targetValue: userData.dailyGoals[0]['targetValue'], unit:'kcal', icon: 'calories.svg'});
-    const [water, setWater] = useState({name: 'water', targetValue: userData.dailyGoals[1]['targetValue'], unit:'L', icon: 'water.svg'});
+    const [water, setWater] = useState({name: 'water', targetValue: userData.dailyGoals[1]['targetValue'], unit:'ml', icon: 'water.svg'});
     const [steps, setSteps] = useState({name: 'steps', targetValue: userData.dailyGoals[2]['targetValue'], unit: 'steps', icon: 'steps.svg'});
 
 
     const handleSaveProfile = (e) =>{
         e.preventDefault();
-        const profileData = {username, name, bio, age, gender, height, weight, dailyGoals: [steps, calories, water]};
+        const profileData = {username, name, bio, age, gender, height, weight, dailyGoals: [calories, water, steps]};
         dispatch(updateUserData(profileData))
         navigate('/profile')
     }
@@ -129,7 +129,7 @@ const EditProfile = () => {
                         />
                     </fieldset>
                     <fieldset>
-                        <label>Water Intake (L)</label>
+                        <label>Water Intake (ml)</label>
                         <input
                             type="number"
                             name="water"

@@ -7,7 +7,7 @@ const initialState = {
   userData: {
     dailyGoals: [
       {name: 'calories', targetValue: 0, unit: 'kcal', icon: 'calories.svg' },
-      {name: 'water', targetValue: 0, unit: 'L', icon: 'water.svg' },
+      {name: 'water', targetValue: 0, unit: 'ml', icon: 'water.svg' },
       {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg' },
     ],
     name: '',

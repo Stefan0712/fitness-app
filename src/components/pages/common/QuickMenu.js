@@ -3,6 +3,7 @@ import closeIcon from '../../../assets/close.svg';
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { makeFirstUpperCase } from '../../../helpers';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
@@ -39,7 +40,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             {dailyGoals?.map((goal)=>(
                 <button className='quick-button' onClick={()=>showLog(goal.name)} key={goal.name}>
                     <img src={`/icons/${goal.icon}`} alt=''></img>
-                    <p>{goal.name}</p>
+                    <p>{makeFirstUpperCase(goal.name)}</p>
                 </button>
             ))}
         </div>
