@@ -1,0 +1,23 @@
+.view-workout-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.view-workout-page .workout-info{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #1A1A1B;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.view-workout-page .info-block{
+    width: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+}

@@ -46,7 +46,7 @@ const CreateWorkout = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const workoutData = {name, description, reference, targetGroup, difficulty, exercises, createdAt};
+        const workoutData = {id: uuidv4(), name, description, reference, targetGroup, difficulty, exercises, createdAt};
         console.log(workoutData)
         dispatch(addCreatedWorkout(workoutData));
         navigate('/library');

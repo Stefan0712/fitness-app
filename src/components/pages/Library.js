@@ -35,9 +35,9 @@ const Library = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                        <button className="orange-button medium-square">
+                        <Link to={`/workout/${workout.id}/view/`} className="orange-button medium-square">
                             <img className="small-icon white-icon" src={arrowIcon} alt="arrow icon" />
-                        </button>
+                        </Link>
                         </div>
                     </div>
                     ))
