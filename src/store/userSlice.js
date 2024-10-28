@@ -1,16 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getCurrentDay } from '../helpers';
 
-
 const initialState = {
   userId: null,
   firstTime: true,
-  
   userData: {
     dailyGoals: [
-      {name: 'calories', targetValue: 0, unit:'kcal', icon: 'calories.svg'},
-      {name: 'water', targetValue: 0, unit:'L', icon: 'water.svg'},
-      {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg'}
+      {name: 'calories', targetValue: 0, unit: 'kcal', icon: 'calories.svg' },
+      {name: 'water', targetValue: 0, unit: 'L', icon: 'water.svg' },
+      {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg' },
     ],
     name: '',
     username: '',
@@ -18,107 +16,76 @@ const initialState = {
     gender: '',
     height: null,
     weight: null,
-    bio:'',
+    bio: '',
   },
-  activity: [],
+  activity: {},
   preferences: {
     darkMode: false,
     language: 'en',
-    unitSystem: 'metric'
+    unitSystem: 'metric',
   },
   createdExercises: [],
   savedExercises: [],
   createdWorkouts: [],
-  savedWorkouts: []
+  savedWorkouts: [],
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserData: (state, action) => {
-      return { ...state, ...action.payload };
-    },
+    setUserData: (state, action) => ({ ...state, ...action.payload }),
+
     addCreatedExercise: (state, action) => {
       state.createdExercises.push(action.payload);
     },
+
     updateUserData: (state, action) => {
-      // Update userData with the new values from the payload
       state.userData = { ...state.userData, ...action.payload };
     },
-    // Deleting a created exercise
+
     deleteCreatedExercise: (state, action) => {
       state.createdExercises = state.createdExercises.filter(
         (exercise) => exercise.id !== action.payload
       );
     },
-    
-    // Saving a public exercise
+
     savePublicExercise: (state, action) => {
       state.savedExercises.push(action.payload);
     },
-    updateDailyGoals: (state, action) => {
-      const { goal } = action.payload;
-      const date = getCurrentDay();
-      // If no entry exists for the date, create one
-      if (!state.activity[date]) {
-        state.activity[date] = {
-          date,
-          logs: [goal],
-          dailyGoals: state.userData.dailyGoals.map(item => ({
-            ...item,
-            currentValue: item.name === goal.name ? goal.value : 0
-          }))
-        };
-      } else {
-        // Update the existing entry for today
-        const existingGoals = state.activity[date].dailyGoals;
-    
-        // Find the specific goal in today's activity and update it
-        const goalIndex = existingGoals.findIndex(g => g.name === goal.name);
-        if (goalIndex !== -1) {
-          existingGoals[goalIndex].currentValue = goal.value;
-        } else {
-          existingGoals.push({ ...goal, currentValue: goal.value });
-        }
-    
-        // Also add to the logs
-        state.activity[date].logs.push(goal);
-      }
-    }
-    ,    
+
     addLog: (state, action) => {
-      const { date, log } = action.payload; // `log` will contain type, value, timestamp, etc.
-    
-      const existingDayIndex = state.activity.findIndex(item => item.date === date);
-      const timestamp = new Date().toISOString(); // For log timestamp
-    
-      if (existingDayIndex !== -1) {
-        // Append the log to today's logs
-        state.activity[existingDayIndex].logs.push({
-          ...log,
+      const timestamp = new Date().toISOString();
+      const log = action.payload;
+      const date = getCurrentDay();
+      console.log(log);
+      if(state.activity[date]){
+
+        state.activity[date]['logs'].push({
           timestamp,
-        });
-      } else {
-        // Create a new day entry with the log
-        state.activity.push({
-          date,
-          logs: [{
-            ...log,
-            timestamp,
-          }],
-          dailyGoals: [], // No daily goals if only logging other activities
-        });
+          type: log.type,
+          name: log.name,
+          data: log.data,
+        })
+      }else{
+        state.activity[date] = {logs: [{
+          timestamp,
+          type: log.type,
+          name: log.name,
+          data: log.data,
+        }]};
+        
       }
-    },    
-    // Unsaving a public exercise
-    removeSavedExercice: (state, action) => {
+   
+      
+    },
+
+    removeSavedExercise: (state, action) => {
       state.savedExercises = state.savedExercises.filter(
         (exercise) => exercise.id !== action.payload
       );
     },
-    
-    // Editing an existing created exercise
+
     editCreatedExercise: (state, action) => {
       const index = state.createdExercises.findIndex(
         (exercise) => exercise.id === action.payload.id
@@ -127,42 +94,50 @@ const userSlice = createSlice({
         state.createdExercises[index] = action.payload;
       }
     },
+
     addCreatedWorkout: (state, action) => {
-      // Assuming the payload includes the workout's ID, no need to generate one
-      state.createdWorkouts.push(action.payload); // Add the new workout to the list
+      state.createdWorkouts.push(action.payload);
     },
 
-    // Reducer for editing an existing workout
     editWorkout: (state, action) => {
-      const { id, updatedWorkout } = action.payload; // Payload should include workout id and updated details
+      const { id, updatedWorkout } = action.payload;
       const index = state.createdWorkouts.findIndex(workout => workout.id === id);
       if (index !== -1) {
         state.createdWorkouts[index] = {
           ...state.createdWorkouts[index],
-          ...updatedWorkout, // Merge the existing workout with the updated details
+          ...updatedWorkout,
         };
       }
     },
 
-    // Reducer for deleting a workout
     deleteWorkout: (state, action) => {
-      const workoutId = action.payload; // Payload is the ID of the workout to delete
+      const workoutId = action.payload;
       state.createdWorkouts = state.createdWorkouts.filter(workout => workout.id !== workoutId);
     },
-    addSavedExercise: (state, action) => {
-      state.savedExercises.push(action.payload);
-    },
-    addLog: (state, action) => {
-      state.logs.push(action.payload);
-    },
+
     updatePreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
     },
-    reset(state) {
-      return initialState;
-    }
-  }
+
+    reset: () => initialState,
+  },
 });
 
-export const { reset, setUserData, addCreatedExercise, updateDailyGoals, updateUserData, deleteCreatedExercise, editCreatedExercise, removeSavedExercice, addSavedExercise, addCreatedWorkout, addLog, updatePreferences } = userSlice.actions;
+export const {
+  reset,
+  setUserData,
+  addCreatedExercise,
+  updateDailyGoals,
+  updateUserData,
+  deleteCreatedExercise,
+  editCreatedExercise,
+  removeSavedExercise,
+  addSavedExercise,
+  addCreatedWorkout,
+  editWorkout,
+  deleteWorkout,
+  addLog,
+  updatePreferences,
+} = userSlice.actions;
+
 export default userSlice.reducer;

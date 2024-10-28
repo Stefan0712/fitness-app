@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import closeIcon from '../../../../assets/close.svg';
 import ProgressCircle from "../ProgressCircle";
 import '../stylings/logForm.css'
-import '../stylings/logs.css'
 import { useDispatch, useSelector } from "react-redux";
-import { updateDailyGoals } from "../../../../store/userSlice";
+import { addLog } from "../../../../store/userSlice";
 import { getCurrentDay } from "../../../../helpers";
 
 
@@ -12,36 +11,46 @@ import { getCurrentDay } from "../../../../helpers";
 
 
 
-const LogForm = ({goal, closeLogWindow}) => {
+const LogForm = ({type, closeLogWindow}) => {
+    console.log(type)
     const [inputValue, setInputValue] = useState(0);
-    const currentProgress = useSelector((state)=>state.user.activity[getCurrentDay()])
-    const [currentValue, setCurrentValue] = useState(currentProgress || 0);
+    const logs = useSelector((state)=>state.user.activity[getCurrentDay()].logs);
+    const [goalLogs, setGoalLogs] = useState(logs.filter((item)=>item.name === type));
+    const [targetValue, setTargetValue] = useState(1500);
+    const [currentValue, setCurrentValue] = useState(0);
 
 
-   
+//    useEffect(()=>{
+//         logs.forEach((log)=>setCurrentProgress((currentProgress)=>currentProgress+=log.data.value))
+//    },[])
 
 
     const dispatch = useDispatch();
 
 
-    {console.log(goal)}
     const handleInputChange = (e) =>{
         e.preventDefault();
         setInputValue(e.target.value);
     }
     const submitLog = () =>{
-        handleUpdateGoal({name: goal.name, currentValue: inputValue})
+        const goalData = {
+            category: 'goal', 
+            name: type, 
+            data: {
+                value: parseFloat(inputValue)
+            }
+        }
+        dispatch(addLog(goalData));
+        closeLogWindow();
     }
 
-    const handleUpdateGoal = (goalData) => {
-        dispatch(updateDailyGoals(goalData));
-    };
+
 
       
     return ( 
         <div className="log-form-body">
             <div className="top-bar">
-                <h1>{goal.name}</h1>
+                <h1>{type}</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>
             <div className="progress-section">
@@ -52,9 +61,19 @@ const LogForm = ({goal, closeLogWindow}) => {
                 strokeWidth={10} 
                 color="#3498db" 
                 radiusSize={2}
-                icon={'/icons/'+goal.icon}
+                icon={'/icons/'+type.icon}
             />
-            <div className="goal">{currentValue}/{goal.targetValue} {goal.unit}</div>
+            <div className="goal">{currentValue}/{targetValue}</div>
+            </div>
+            <div className="goal-logs-container">
+                {goalLogs.map((log)=>(
+                    <div className="log-body" key={log.timestamp}>
+                        <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+                        <p>{log.data.value}</p>
+
+
+                    </div>
+                ))}
             </div>
             <div className="inputs">
                 <input type="number" placeholder="Qty" onChange={handleInputChange}></input>

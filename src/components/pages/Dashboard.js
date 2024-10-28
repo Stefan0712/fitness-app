@@ -73,7 +73,7 @@ const Dashboard = () => {
 
 
 
-                <div className='summary-cell-body'>
+                {/* <div className='summary-cell-body'>
                     <div className='left'>
                         <div className='cell-name'>Calories</div>
                         <div className='cell-value'><p>450</p>/1500</div>
@@ -89,7 +89,7 @@ const Dashboard = () => {
                     />}
   
                     </div>
-                </div>
+                </div> */}
                 
             </div>
 

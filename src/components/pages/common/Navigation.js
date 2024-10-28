@@ -26,18 +26,18 @@ const Navigation = () => {
     const closeQuickmenu = () => {
         setShowQuickmenu(false)
     }
-    const showLog = (data) =>{
+    const showLog = (type) =>{
+        console.log(type)
         closeQuickmenu();
-        if(data.type==='food'){
-            setLogWindow(<FoodLogForm data={data} closeLogWindow={hideLog}/>)
-        }else if(data.type==='exercise'){
-            setLogWindow(<ExerciseLog data={data} closeLogWindow={hideLog}/>)
-        }else if(data.type==='stopwatch'){
+        if(type==='food'){
+            setLogWindow(<FoodLogForm closeLogWindow={hideLog}/>)
+        }else if(type==='exercise'){
+            setLogWindow(<ExerciseLog closeLogWindow={hideLog}/>)
+        }else if(type==='stopwatch'){
             setLogWindow(<Stopwatch closeLogWindow={hideLog} />)
         }else{
-            setLogWindow(<LogForm goal={data} closeLogWindow={hideLog}/>)
+            setLogWindow(<LogForm type={type} closeLogWindow={hideLog}/>)
         }
-        
     }
     const hideLog = () =>{
         setLogWindow(null);

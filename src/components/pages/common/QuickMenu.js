@@ -18,27 +18,26 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
 
     return ( 
         <div className="quick-menu">
-            
             <button id='quick-menu-close-btn' onClick={closeQuickmenu}>
                 <img src={closeIcon} alt=''></img>
             </button>
             <h1>Quick Menu</h1>
 
             <h2>Tools</h2>
-            <button className='quick-button' onClick={()=>showLog({type:'stopwatch'})}>
+            <button className='quick-button' onClick={()=>showLog('stopwatch')}>
                 <img src={'/icons/stopwatch.svg'} alt=''></img>
                 <p>Stopwatch</p>
             </button>
             <h2>Quick Logs</h2>
             {buttons.map((btn)=>(
-                <button className='quick-button' onClick={()=>showLog(btn)}>
+                <button className='quick-button' onClick={()=>showLog(btn.type)} key={btn.type}>
                     <img src={`/icons/${btn.src}`} alt=''></img>
                     <p>{btn.name}</p>
                 </button>
             ))}
             <h2>Daily Goals</h2>
             {dailyGoals?.map((goal)=>(
-                <button className='quick-button' onClick={()=>showLog(goal)}>
+                <button className='quick-button' onClick={()=>showLog(goal.name)} key={goal.name}>
                     <img src={`/icons/${goal.icon}`} alt=''></img>
                     <p>{goal.name}</p>
                 </button>

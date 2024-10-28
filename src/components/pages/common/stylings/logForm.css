@@ -1,7 +1,7 @@
 .log-form-body{
     width: 100%;
     bottom: 0px;
-    height: 60vh;
+    height: 100vh !important;
     position: absolute;
     background-color: #1A1A1B;
     left: 0px;
@@ -18,7 +18,7 @@
         height: 0;
     }
     100%{
-        height: 60vh;
+        height: 100vh !important;
     }
 }
 .log-form-body .top-bar img{
@@ -52,10 +52,11 @@
 }
 .log-form-body .inputs{
     width: 100%;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: auto;
 }
 .log-form-body .inputs input{
     height: 50px;
@@ -96,4 +97,23 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+.log-form-body .goal-logs-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    height: 30%;
+    background-color: #111214;
+    padding: 20px 15px;
+    overflow-y: auto;
+}
+.log-form-body .goal-logs-container .log-body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.226);
+    padding-bottom: 10px;
 }
