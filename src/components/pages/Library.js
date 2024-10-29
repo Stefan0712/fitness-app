@@ -42,7 +42,7 @@ const Library = () => {
                     </div>
                     ))
                 ) : (
-                    <p>No exercises created yet.</p>
+                    <p>No workouts created yet.</p>
                 )}
             </div>
             <div className="subtitle full-width"><h3>Browse exercises</h3><p className="orange-text">See more</p></div>
