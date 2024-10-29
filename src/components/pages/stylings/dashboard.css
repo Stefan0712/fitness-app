@@ -44,11 +44,9 @@
     border: 1px solid transparent;
     border-radius: 3px;
     background-color: transparent;
-    z-index: 1;
 }
 .navigate-week-button img{
     width: 25px;
-    filter: invert(100%);
     background-color: transparent;
 }
 .active-week-button{

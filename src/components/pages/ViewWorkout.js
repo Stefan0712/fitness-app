@@ -5,7 +5,7 @@ import timeIcon from '../../assets/time.svg';
 import linkIcon from '../../assets/link.svg';
 import muscleIcon from '../../assets/muscle.svg';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getDateForHeader } from '../../helpers'
 
 
@@ -48,11 +48,12 @@ const ViewWorkout = () => {
             <h3 className='subtitle full-width'>Exercises</h3>
             <div className='workout-exercises'>
                 {workoutData.exercises.map((exercise)=>(
-                    <div className='exercise-exercise'>
+                    <div className='exercise-body'>
                         <p><b>{exercise.name}</b></p>
                     </div>
                 ))}
             </div>
+            <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'>Start</Link>
         </div>
      );
 }
