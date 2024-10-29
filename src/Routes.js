@@ -15,6 +15,7 @@ import EditProfile from './components/pages/EditProfile';
 import ViewWorkout from './components/pages/ViewWorkout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ViewExercise from './components/pages/ViewExercise';
 function AppRoutes() {
 
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function AppRoutes() {
       <Route path="/workout/:id/start" element={<Workout />} />
       <Route path="/workout/:id/edit" element={<EditWorkout />} />
       <Route path="/create-workout" element={<CreateWorkout />} />
-      <Route path="/exercise/:id" element={<Exercise />} />
+      <Route path="/exercise/:id/view" element={<ViewExercise />} />
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
       

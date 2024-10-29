@@ -24,8 +24,8 @@ const Library = () => {
             <div className="subtitle full-width"><h3>Browse Workouts</h3><p className="orange-text">See more</p></div>
             <div className="library-items-container">
                 {createdWorkouts.length > 0 ? (
-                    createdWorkouts.map((workout) => (
-                    <div key={workout.id} className="item-body">
+                    createdWorkouts.map((workout, index) => (
+                    <div key={index} className="item-body">
                         <div className="item-info">
                             <h4>{workout.name}</h4>
                             <div className="item-description">
@@ -48,8 +48,8 @@ const Library = () => {
             <div className="subtitle full-width"><h3>Browse exercises</h3><p className="orange-text">See more</p></div>
             <div className="library-items-container">
             {createdExercises.length > 0 ? (
-                createdExercises.map((exercise) => (
-                <div key={exercise.id} className="item-body">
+                createdExercises.map((exercise, index) => (
+                <div key={"exercise-"+index} className="item-body">
                     <div className="item-info">
                         <h4>{exercise.name}</h4>
                         <div className="item-description">
@@ -59,9 +59,9 @@ const Library = () => {
                         </div>
                     </div>
                     <div className="item-button">
-                    <button className="orange-button medium-square">
+                    <Link to={`/exercise/${exercise.id}/view/`} className="orange-button medium-square">
                         <img className="small-icon white-icon" src={arrowIcon} alt="arrow icon" />
-                    </button>
+                    </Link>
                     </div>
                 </div>
                 ))
