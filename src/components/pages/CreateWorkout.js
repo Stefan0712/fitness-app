@@ -28,6 +28,8 @@ const CreateWorkout = () => {
     const [reference, setReference] = useState('');
     const [targetGroup, setTargetGroup] = useState('srms');
     const [difficulty, setDifficulty] = useState('beginner');
+    const [calories, setCalories] = useState(0);
+    const [duration, setDuration] = useState(0);
 
     const handleAddExercise = (e) =>{
         e.preventDefault();
@@ -46,7 +48,7 @@ const CreateWorkout = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const workoutData = {id: uuidv4(), name, description, reference, targetGroup, difficulty, exercises, createdAt};
+        const workoutData = {id: uuidv4(), name, description, reference, targetGroup, difficulty, exercises, createdAt, duration, calories};
         console.log(workoutData)
         dispatch(addCreatedWorkout(workoutData));
         navigate('/library');
@@ -71,6 +73,14 @@ const CreateWorkout = () => {
                     <fieldset>
                         <label>Description</label>
                         <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100}></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>Duration (minutes)</label>
+                        <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={9999}></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>Calories Burned</label>
+                        <input type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} min={0} max={9999}></input>
                     </fieldset>
                     <fieldset>
                         <label>Reference (URL)</label>

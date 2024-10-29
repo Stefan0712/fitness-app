@@ -44,13 +44,14 @@ const CreateExercise = () => {
     } 
     const handleAddField = (e) =>{
         e.preventDefault();
-        setFields([...fields, { id: uuidv4(), name: fieldName, unit: fieldUnit, target: fieldTarget, type: fieldType }]);
+        setFields([...fields, { id: uuidv4(), name: fieldName, unit: fieldUnit, target: fieldTarget, type: fieldType, value: '' }]);
         setFieldName('')
         setFieldTarget(0)
         setFieldType('')
         setFieldUnit('')
     }
 
+    
     const handleRemoveField = (id, e) =>{
         e.preventDefault();
         setFields((fields)=>fields.filter((field)=>field.id !== id));
@@ -61,7 +62,7 @@ const CreateExercise = () => {
         const createdAt = new Date().toISOString();
         const exerciseData = {name, description, reference, targetGroup, difficulty, type, fields, createdAt};
         dispatch(addCreatedExercise(exerciseData));
-        navigate('./library');
+        navigate('/library');
         
     }
 
@@ -132,15 +133,16 @@ const CreateExercise = () => {
                         <label>Fields</label>
                         <div className="fields-container">
                             {fields.length > 0 ? fields.map((field, index)=>(
-                                    <div className="field-body" id={index}>
+                                    <div className="field-body" id={index} key={field.id}>
                                         <label>{field.name}</label>
                                         <div className="field-inputs">
-                                            <input type={field.type} name={field.name} id={field.name}></input>
+                                            <h4>{field.name}</h4>
+                                            <p>{field.target}</p>
                                             <p>{field.unit}</p>
                                             <button onClick={()=>handleRemoveField(field.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
                                         </div>
                                     </div>
-                            )): <h3>No custom fields created</h3>}
+                            )): <h3>No fields created</h3>}
                         </div>
                         <h3 className="subtitle full-width">Create a new field</h3>
                         <div className="field-creator">
