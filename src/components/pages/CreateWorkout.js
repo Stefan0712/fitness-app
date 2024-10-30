@@ -26,14 +26,13 @@ const CreateWorkout = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [reference, setReference] = useState('');
-    const [targetGroup, setTargetGroup] = useState('srms');
+    const [targetGroup, setTargetGroup] = useState('arms');
     const [difficulty, setDifficulty] = useState('beginner');
-    const [calories, setCalories] = useState(0);
     const [duration, setDuration] = useState(0);
 
     const handleAddExercise = (e) =>{
         e.preventDefault();
-        setExercises([...exercises, { id: uuidv4(), name: exerciseName, sets: exerciseSets, reps: exerciseReps, distance: exerciseDistance, time: exerciseDuration }]);
+        setExercises([...exercises, { id: uuidv4(), type: 'Not set', name: exerciseName, visibility: 'private', author: '', description: 'Not set', reference: 'Not set', targetGroup: 'Not set', difficulty: 'Not set' ,sets: exerciseSets, fields: [{name: 'Reps', unit: 'reps', target: exerciseReps, value: ''}, {name: 'Distance', unit: 'distance', target: exerciseDistance, value: ''}, {name: 'Time', unit: 'time', target: exerciseDuration, value: ''}] }]);
         setExerciseReps('');
         setExerciseSets('');
         setExerciseDistance('');
@@ -48,7 +47,7 @@ const CreateWorkout = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises, createdAt, duration, calories};
+        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises, createdAt, duration};
         console.log(workoutData)
         dispatch(addWorkout(workoutData));
         navigate('/library');
@@ -77,10 +76,6 @@ const CreateWorkout = () => {
                     <fieldset>
                         <label>Duration (minutes)</label>
                         <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={9999}></input>
-                    </fieldset>
-                    <fieldset>
-                        <label>Calories Burned</label>
-                        <input type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} min={0} max={9999}></input>
                     </fieldset>
                     <fieldset>
                         <label>Reference (URL)</label>

@@ -35,3 +35,23 @@
     align-items: center;
 
 }
+
+
+
+/* workout page */
+
+
+
+.workout-page{
+    display: flex;
+    flex-direction: column;
+}
+.workout-page .workout-exercises{
+    margin-top: auto;
+    height: 40%;
+    overflow-y: auto;
+}
+.workout-page .workout-exercises .exercise-body{
+    display: flex;
+    gap: 20px;
+}

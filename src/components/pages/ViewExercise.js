@@ -8,8 +8,8 @@ import './stylings/exercise.css';
 const ViewExercise = () => {
 
     const {id} = useParams();
-    const exerciseData = useSelector((state)=>state.user.createdExercises.find(item => item.id === id));
-    const createdWorkouts = useSelector((state)=>state.user.createdWorkouts);
+    const exerciseData = useSelector((state)=>state.user.exercises.find(item => item.id === id));
+    const workouts = useSelector((state)=>state.user.workouts);
     
     return ( 
         <div className="view-exercise page">
@@ -33,8 +33,8 @@ const ViewExercise = () => {
             </div>
             <h3 className="subtitle full-width">Add exercise to a workout</h3>
             <div className="workouts-container section">
-            {createdWorkouts.length > 0 ? (
-                    createdWorkouts.map((workout, index) => (
+            {workouts.length > 0 ? (
+                    workouts.map((workout, index) => (
                     <div key={index} className="item-body">
                         <div className="item-info">
                             <h4>{workout.name}</h4>

@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 
 const Library = () => {
 
-    const createdExercises = useSelector((state)=>state.user.createdExercises);
-    const createdWorkouts = useSelector((state)=>state.user.createdWorkouts);
+    const exercises = useSelector((state)=>state.user.exercises);
+    const workouts = useSelector((state)=>state.user.workouts);
 
 
     return ( 
@@ -23,15 +23,14 @@ const Library = () => {
             </div>
             <div className="subtitle full-width"><h3>Browse Workouts</h3><p className="orange-text">See more</p></div>
             <div className="library-items-container">
-                {createdWorkouts.length > 0 ? (
-                    createdWorkouts.map((workout, index) => (
+                {workouts?.length > 0 ? (
+                    workouts.map((workout, index) => (
                     <div key={index} className="item-body">
                         <div className="item-info">
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
                                 <p>{makeFirstUpperCase(workout.targetGroup)}</p>
-                                <p>{makeFirstUpperCase(workout.difficulty)}</p>
                             </div>
                         </div>
                         <div className="item-button">
@@ -47,14 +46,13 @@ const Library = () => {
             </div>
             <div className="subtitle full-width"><h3>Browse exercises</h3><p className="orange-text">See more</p></div>
             <div className="library-items-container">
-            {createdExercises.length > 0 ? (
-                createdExercises.map((exercise, index) => (
+            {exercises?.length > 0 ? (
+                exercises.map((exercise, index) => (
                 <div key={"exercise-"+index} className="item-body">
                     <div className="item-info">
                         <h4>{exercise.name}</h4>
                         <div className="item-description">
                             <p>{exercise.sets} Sets</p>
-                            <p>{exercise.reps} Reps</p>
                             <p>{makeFirstUpperCase(exercise.targetGroup)}</p>
                         </div>
                     </div>

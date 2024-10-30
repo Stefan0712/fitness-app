@@ -7,13 +7,13 @@ import muscleIcon from '../../assets/muscle.svg';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getDateForHeader } from '../../helpers'
+import { useState } from 'react';
 
 
 const ViewWorkout = () => {
 
     const {id} = useParams();
-    const workoutData = useSelector((state)=>state.user.createdWorkouts.find((item)=>item.id === id))
-    console.log(workoutData)
+    const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
 
 
     return ( 
