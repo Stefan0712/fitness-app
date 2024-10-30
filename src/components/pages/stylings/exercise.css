@@ -1,0 +1,48 @@
+.view-exercise{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.view-exercise .exercise-info{
+    display: flex;
+    flex-direction: column;
+}
+.view-exercise .exercise-fields{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+
+
+.view-exercise .workouts-container{
+    gap: 15px;
+}
+.view-exercise .item-body{
+    display: flex;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+    padding-bottom: 15px;
+}
+.view-exercise .item-body .item-button{
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.view-exercise .item-body .item-info{
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.view-exercise .item-body .item-info .item-description{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

@@ -5,7 +5,7 @@ import deleteIcon from '../../assets/close.svg';
 import plusIcon from '../../assets/plus-circle.svg';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addCreatedWorkout } from "../../store/userSlice";
+import { addWorkout } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
 
 
@@ -48,9 +48,9 @@ const CreateWorkout = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const workoutData = {id: uuidv4(), name, description, reference, targetGroup, difficulty, exercises, createdAt, duration, calories};
+        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises, createdAt, duration, calories};
         console.log(workoutData)
-        dispatch(addCreatedWorkout(workoutData));
+        dispatch(addWorkout(workoutData));
         navigate('/library');
         
     }

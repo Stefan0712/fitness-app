@@ -4,7 +4,7 @@ import { useState } from "react";
 import deleteIcon from '../../assets/close.svg';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
-import { addCreatedExercise } from "../../store/userSlice";
+import { addExercise } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
 
 
@@ -26,6 +26,9 @@ const CreateExercise = () => {
     const [targetGroup, setTargetGroup] = useState('srms');
     const [difficulty, setDifficulty] = useState('begginer');
     const [type, setType] = useState('cardio');
+    const [sets, setSets] = useState(1);
+    const [duration, setDuration] = useState(0);
+    const [visibility, setVisibility] = useState('private');
 
 
 
@@ -60,8 +63,8 @@ const CreateExercise = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const exerciseData = {id: uuidv4(), name, description, reference, targetGroup, difficulty, type, fields, createdAt};
-        dispatch(addCreatedExercise(exerciseData));
+        const exerciseData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, type, sets, duration, visibility, fields, createdAt};
+        dispatch(addExercise(exerciseData));
         navigate('/library');
         
     }
@@ -76,6 +79,13 @@ const CreateExercise = () => {
                     <fieldset>
                         <label>Name</label>
                         <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name}></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>Visibility</label>
+                        <select name="visibility" id="visibility" onChange={(e) => setVisibility(e.target.value)} value={visibility}>
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label>Description</label>
@@ -128,6 +138,16 @@ const CreateExercise = () => {
                             <option value="yoga">Yoga</option>
                             <option value="stretching">Stretching</option>
                         </select>
+                    </fieldset>
+                    <fieldset className="flex-row space-between">
+                        <div className="half-width">
+                            <label>Duration (min)</label>
+                            <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={999}></input>
+                        </div>
+                        <div className="half-width">
+                            <label>Sets</label>
+                            <input type="number" name="sets" id="sets" onChange={(e) => setSets(e.target.value)} value={sets} min={0} max={999}></input>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <label>Fields</label>

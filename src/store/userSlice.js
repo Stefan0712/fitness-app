@@ -24,10 +24,9 @@ const initialState = {
     language: 'en',
     unitSystem: 'metric',
   },
-  createdExercises: [],
-  savedExercises: [],
-  createdWorkouts: [],
-  savedWorkouts: [],
+  exercises: [],
+  workouts: [],
+  
 };
 
 const userSlice = createSlice({
@@ -36,22 +35,22 @@ const userSlice = createSlice({
   reducers: {
     setUserData: (state, action) => ({ ...state, ...action.payload }),
 
-    addCreatedExercise: (state, action) => {
-      state.createdExercises.push(action.payload);
+    addExercise: (state, action) => {
+      state.exercises.push(action.payload);
     },
 
     updateUserData: (state, action) => {
       state.userData = { ...state.userData, ...action.payload };
     },
 
-    deleteCreatedExercise: (state, action) => {
-      state.createdExercises = state.createdExercises.filter(
+    deleteExercise: (state, action) => {
+      state.exercises = state.exercises.filter(
         (exercise) => exercise.id !== action.payload
       );
     },
 
     savePublicExercise: (state, action) => {
-      state.savedExercises.push(action.payload);
+      state.exercises.push({...action.payload, type: 'saved'});
     },
 
     addLog: (state, action) => {
@@ -80,31 +79,26 @@ const userSlice = createSlice({
       
     },
 
-    removeSavedExercise: (state, action) => {
-      state.savedExercises = state.savedExercises.filter(
-        (exercise) => exercise.id !== action.payload
-      );
-    },
 
-    editCreatedExercise: (state, action) => {
-      const index = state.createdExercises.findIndex(
+    editExercise: (state, action) => {
+      const index = state.exercises.findIndex(
         (exercise) => exercise.id === action.payload.id
       );
       if (index !== -1) {
-        state.createdExercises[index] = action.payload;
+        state.exercises[index] = action.payload;
       }
     },
 
-    addCreatedWorkout: (state, action) => {
-      state.createdWorkouts.push(action.payload);
+    addWorkout: (state, action) => {
+      state.workouts.push(action.payload);
     },
 
     editWorkout: (state, action) => {
       const { id, updatedWorkout } = action.payload;
-      const index = state.createdWorkouts.findIndex(workout => workout.id === id);
+      const index = state.workouts.findIndex(workout => workout.id === id);
       if (index !== -1) {
-        state.createdWorkouts[index] = {
-          ...state.createdWorkouts[index],
+        state.workouts[index] = {
+          ...state.workouts[index],
           ...updatedWorkout,
         };
       }
@@ -112,7 +106,7 @@ const userSlice = createSlice({
 
     deleteWorkout: (state, action) => {
       const workoutId = action.payload;
-      state.createdWorkouts = state.createdWorkouts.filter(workout => workout.id !== workoutId);
+      state.workouts = state.workouts.filter(workout => workout.id !== workoutId);
     },
 
     updatePreferences: (state, action) => {
@@ -126,14 +120,12 @@ const userSlice = createSlice({
 export const {
   reset,
   setUserData,
-  addCreatedExercise,
+  addExercise,
   updateDailyGoals,
   updateUserData,
-  deleteCreatedExercise,
-  editCreatedExercise,
-  removeSavedExercise,
-  addSavedExercise,
-  addCreatedWorkout,
+  deleteExercise,
+  editExercise,
+  addWorkout,
   editWorkout,
   deleteWorkout,
   addLog,

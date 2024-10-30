@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDateForHeader, makeFirstUpperCase } from "../../helpers";
 import plusIcon from '../../assets/plus.svg';
+import './stylings/exercise.css';
 
 
 const ViewExercise = () => {
@@ -15,23 +16,23 @@ const ViewExercise = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader}</div>
                 <h2>{exerciseData.name}</h2>
+                <p><b className="white-50">{makeFirstUpperCase(exerciseData.targetGroup)}</b></p>
             </div>
-            <p>{makeFirstUpperCase(exerciseData.targetGroup)}</p>
-            <div className="exercise-info">
-                <p className="full-width">{exerciseData.description}</p>
-                <p>Exercise Fields</p>
+            <div className="exercise-info section">
+                <p><b>Description</b></p>
+                <p className="full-width white-50">{exerciseData.description}</p>
+                <p><b>Fields</b></p>
                 <div className="exercise-fields">
                     {exerciseData.fields.map((fields)=>(
                         <div className="field-body">
-                            <p>{fields.name} - {fields.unit}</p>
+                            <p>{fields.name}</p><p> {fields.target}</p>
                         </div>
                     ))}
                 </div>
 
             </div>
             <h3 className="subtitle full-width">Add exercise to a workout</h3>
-
-            <div className="workouts-container">
+            <div className="workouts-container section">
             {createdWorkouts.length > 0 ? (
                     createdWorkouts.map((workout, index) => (
                     <div key={index} className="item-body">

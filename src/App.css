@@ -136,8 +136,41 @@ nav{
   width: 30px;
   height: 30px;
 }
-.white-icon{
-}
-.orange-text{
+
+.accent-color{
   color: #EB5928;
+}
+.white-50{
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+.mb-25{
+  margin-bottom: 25px;
+}
+.bg-1{
+  background-color: #111214;
+}
+.bg-2{
+  background-color: #1A1A1B;
+}
+.section{
+  background-color: #1A1A1B;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 10px;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+.space-evenly{
+  justify-content: space-evenly;
+}
+.space-between{
+  justify-content: space-between;
 }
