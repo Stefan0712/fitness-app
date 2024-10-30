@@ -44,10 +44,10 @@ const Profile = () => {
 
 
                 <h2 className="full-width">Daily Goals</h2>
-                {userData.dailyGoals?.map((goal)=>(
+                {userData.goals?.map((goal)=>(
                     <div className="profile-info-block">
                         <h4>{goal.name}</h4>    
-                        <h3>{goal.targetValue}</h3>
+                        <h3>{goal.target}</h3>
                     </div>
                 ))}
                 

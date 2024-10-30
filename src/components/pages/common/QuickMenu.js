@@ -15,7 +15,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
         { src: 'sleep.svg', name: "Sleep", type: "sleep" },
     ]);
 
-    const dailyGoals = useSelector((state)=> state.user.userData.dailyGoals);
+    const dailyGoals = useSelector((state)=> state.user.userData.goals);
 
     return ( 
         <div className="quick-menu">

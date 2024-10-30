@@ -26,3 +26,25 @@
 .edit-profile-form .save-button{
     height: 50px;
 }
+.create-new-goal-container{
+    height: 100px;
+    display: flex;
+    gap: 10px;
+}
+.create-new-goal-container .goal-inputs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    width: calc(100% - 60px);
+    
+}
+.goal-inputs input{
+    color: black;
+}
+.goal-inputs input{
+    padding-left: 15px;
+}
+.create-new-goal-container button{
+    height: 100%;
+}

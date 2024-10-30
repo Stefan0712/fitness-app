@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getCurrentDay } from '../helpers';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
-  userId: null,
-  firstTime: true,
+  userId: uuidv4(),
   userData: {
-    dailyGoals: [
-      {name: 'calories', targetValue: 0, unit: 'kcal', icon: 'calories.svg' },
-      {name: 'water', targetValue: 0, unit: 'ml', icon: 'water.svg' },
-      {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg' },
+    goals: [
+      // {name: 'calories', targetValue: 0, unit: 'kcal', icon: 'calories.svg' },
+      // {name: 'water', targetValue: 0, unit: 'ml', icon: 'water.svg' },
+      // {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg' },
     ],
-    name: '',
-    username: '',
-    age: null,
-    gender: '',
-    height: null,
-    weight: null,
-    bio: '',
+    name: 'Stefan',
+    username: 'Stefanuwu',
+    age: 25,
+    gender: 'Male',
+    height: 180,
+    weight: 80,
+    bio: 'I swear I am real',
   },
   activity: {},
   preferences: {
@@ -28,6 +28,32 @@ const initialState = {
   workouts: [],
   
 };
+// const initialState = {
+//   userId: null,
+//   userData: {
+//     goals: [
+//       {name: 'calories', targetValue: 0, unit: 'kcal', icon: 'calories.svg' },
+//       {name: 'water', targetValue: 0, unit: 'ml', icon: 'water.svg' },
+//       {name: 'steps', targetValue: 0, unit: 'steps', icon: 'steps.svg' },
+//     ],
+//     name: '',
+//     username: '',
+//     age: null,
+//     gender: '',
+//     height: null,
+//     weight: null,
+//     bio: '',
+//   },
+//   activity: {},
+//   preferences: {
+//     darkMode: false,
+//     language: 'en',
+//     unitSystem: 'metric',
+//   },
+//   exercises: [],
+//   workouts: [],
+  
+// };
 
 const userSlice = createSlice({
   name: 'user',
@@ -121,7 +147,7 @@ export const {
   reset,
   setUserData,
   addExercise,
-  updateDailyGoals,
+  updateGoals,
   updateUserData,
   deleteExercise,
   editExercise,

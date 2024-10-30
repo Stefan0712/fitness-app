@@ -1,9 +1,11 @@
 import { getDateForHeader } from "../../helpers";
 import { useNavigate } from "react-router-dom";
 import { updateUserData } from "../../store/userSlice";
+import addIcon from '../../assets/plus.svg';
 import { useState } from "react";
 import './stylings/editProfile.css';
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -20,19 +22,30 @@ const EditProfile = () => {
     const [gender, setGender] = useState(userData.gender || "");
     const [height, setHeight] = useState(userData.height || "");
     const [weight, setWeight] = useState(userData.weight || "");
-    const [calories, setCalories] = useState({name: 'calories', targetValue: userData.dailyGoals[0]['targetValue'], unit:'kcal', icon: 'calories.svg'});
-    const [water, setWater] = useState({name: 'water', targetValue: userData.dailyGoals[1]['targetValue'], unit:'ml', icon: 'water.svg'});
-    const [steps, setSteps] = useState({name: 'steps', targetValue: userData.dailyGoals[2]['targetValue'], unit: 'steps', icon: 'steps.svg'});
+    const [goalName, setGoalName] = useState('');
+    const [goalUnit, setGoalUnit] = useState('');
+    const [goalTarget, setGoalTarget] = useState('');
+    const [goals, setGoals] = useState([])
+   
 
 
     const handleSaveProfile = (e) =>{
         e.preventDefault();
-        const profileData = {username, name, bio, age, gender, height, weight, dailyGoals: [calories, water, steps]};
+        const profileData = {id: uuidv4(),username, name, bio, age, gender, height, weight, goals};
         dispatch(updateUserData(profileData))
         navigate('/profile')
     }
 
-
+    const handleGoalUpdate = (e, name) =>{
+        e.preventDefault();
+    }
+    const addNewGoal = (e) =>{
+        e.preventDefault();
+        setGoals((goals)=>[...goals, {name: goalName, unit: goalUnit, target: goalTarget}]);
+        setGoalName('');
+        setGoalUnit('');
+        setGoalTarget('');
+    }
     return ( 
         <div className="edit-profile-page page">
             <div className='header'>
@@ -117,37 +130,31 @@ const EditProfile = () => {
                     </fieldset>
                 </div>
                 <h3 className="full-width subtitle">Goals</h3> 
+                <div className="create-new-goal-container">
+                    <div className="goal-inputs">
+                        <input type="text" className="goal-name full-width input" id="goalName" name="goalName" onChange={(e)=>setGoalName(e.target.value)} placeholder="Goal Name" value={goalName} minLength={1} maxLength={15}></input>
+                        <input type="text" className="goal-unit half-width input" id="goalUnit" name="goalUnit" onChange={(e)=>setGoalUnit(e.target.value)} placeholder="Goal Unit" value={goalUnit} minLength={1} maxLength={15}></input>
+                        <input type="number" className="goal-target half-width input" id="goalTarget" name="goalTarget" onChange={(e)=>setGoalTarget(e.target.value)} placeholder="Goal Target" value={goalTarget}></input>
+                    </div>
+                    <button className="medium-square orange-button" onClick={addNewGoal}><img src={addIcon} className="small-icon orange-background"></img></button>
+                </div>
                 <div className="goals-container inputs-container">
-                    <fieldset>
-                        <label>Calories</label>
-                        <input
-                            type="number"
-                            name="calories"
-                            id="calories"
-                            value={calories.targetValue}
-                            onChange={(e) => setCalories({...calories, targetValue: e.target.value})}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Water Intake (ml)</label>
-                        <input
-                            type="number"
-                            name="water"
-                            id="water"
-                            value={water.targetValue}
-                            onChange={(e) => setWater({...water, targetValue: e.target.value})}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Steps</label>
-                        <input
-                            type="number"
-                            name="steps"
-                            id="steps"
-                            value={steps.targetValue}
-                            onChange={(e) => setSteps({...steps, targetValue: e.target.value})}
-                        />
-                    </fieldset>
+                    {goals.length > 0 ? (
+                        goals.map((item)=>(
+                        <fieldset key={item.name}>
+                            <label>{item.name} ({item.unit})</label>
+                            <input
+                                type="number"
+                                name={item.name}
+                                id={item.name}
+                                value={item.target}
+                                onChange={(e) => handleGoalUpdate(e, item.name)}
+                            />
+                        </fieldset>
+                        ))
+                    ) : (<p>'No goals created'</p>)}
+                    
+                    
                 </div>
                 <button className="orange-button full-width save-button" onClick={handleSaveProfile}>Save</button>
             </form>

@@ -17,7 +17,7 @@ const LogForm = ({type, closeLogWindow}) => {
     const logs = useSelector((state)=>state.user.activity[getCurrentDay()]?.logs);
     const [goalLogs, setGoalLogs] = useState(logs?.length > 0 ? logs.filter((item)=>item.name === type) : []);
     const [currentValue, setCurrentValue] = useState(0);
-    const goalData = useSelector((state)=>state.user.userData.dailyGoals.find((element)=>element.name === type));
+    const goalData = useSelector((state)=>state.user.userData.goals.find((element)=>element.name === type));
 
     console.log(goalData)
 
