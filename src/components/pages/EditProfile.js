@@ -6,6 +6,7 @@ import { useState } from "react";
 import './stylings/editProfile.css';
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+import IconPicker from "./common/IconPicker";
 
 
 
@@ -25,7 +26,8 @@ const EditProfile = () => {
     const [goalName, setGoalName] = useState('');
     const [goalUnit, setGoalUnit] = useState('');
     const [goalTarget, setGoalTarget] = useState('');
-    const [goals, setGoals] = useState([])
+    const [goalIcon, setGoalIcon] = useState('') //TODO: add a default icon if none is selected
+    const [goals, setGoals] = useState(userData.goals.length > 0 ? userData.goals : []);
    
 
 
@@ -41,10 +43,14 @@ const EditProfile = () => {
     }
     const addNewGoal = (e) =>{
         e.preventDefault();
-        setGoals((goals)=>[...goals, {name: goalName, unit: goalUnit, target: goalTarget}]);
+        setGoals((goals)=>[...goals, {name: goalName, unit: goalUnit, target: goalTarget, icon: goalIcon}]);
         setGoalName('');
         setGoalUnit('');
         setGoalTarget('');
+        setGoalIcon('');
+    }
+    const handleIcon = (path) =>{
+        setGoalIcon(path)
     }
     return ( 
         <div className="edit-profile-page page">
@@ -131,6 +137,7 @@ const EditProfile = () => {
                 </div>
                 <h3 className="full-width subtitle">Goals</h3> 
                 <div className="create-new-goal-container">
+                    <IconPicker handleIcon={handleIcon}/>
                     <div className="goal-inputs">
                         <input type="text" className="goal-name full-width input" id="goalName" name="goalName" onChange={(e)=>setGoalName(e.target.value)} placeholder="Goal Name" value={goalName} minLength={1} maxLength={15}></input>
                         <input type="text" className="goal-unit half-width input" id="goalUnit" name="goalUnit" onChange={(e)=>setGoalUnit(e.target.value)} placeholder="Goal Unit" value={goalUnit} minLength={1} maxLength={15}></input>

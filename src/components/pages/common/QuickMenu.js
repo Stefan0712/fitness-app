@@ -39,7 +39,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             <h2>Daily Goals</h2>
             {dailyGoals?.map((goal)=>(
                 <button className='quick-button' onClick={()=>showLog(goal.name)} key={goal.name}>
-                    <img src={`/icons/${goal.icon}`} alt=''></img>
+                    <img src={goal.icon} alt=''></img>
                     <p>{makeFirstUpperCase(goal.name)}</p>
                 </button>
             ))}

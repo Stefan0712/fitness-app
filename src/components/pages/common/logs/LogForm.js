@@ -58,14 +58,14 @@ const LogForm = ({type, closeLogWindow}) => {
             <div className="progress-section">
             <ProgressCircle 
                 currentAmount={currentValue} 
-                targetAmount={goalData.targetValue} 
+                targetAmount={goalData.target} 
                 size={120} 
                 strokeWidth={10} 
                 color="#3498db" 
                 radiusSize={2}
-                icon={'/icons/'+goalData.icon}
+                icon={goalData.icon}
             />
-            <div className="goal">{currentValue}/{goalData.targetValue} {goalData.unit}</div>
+            <div className="goal">{currentValue}/{goalData.target} {goalData.unit}</div>
             </div>
             <div className="goal-logs-container">
                 {goalLogs.map((log)=>(
@@ -76,7 +76,7 @@ const LogForm = ({type, closeLogWindow}) => {
                 ))}
             </div>
             <div className="inputs">
-                <input type="number" placeholder="Qty (ml)" onChange={handleInputChange}></input>
+                <input type="number" placeholder={goalData.unit} onChange={handleInputChange}></input>
             </div>
             <button className="submit-button orange-button" onClick={submitLog}>Log</button>
         </div>
