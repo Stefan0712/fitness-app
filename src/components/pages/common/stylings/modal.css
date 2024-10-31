@@ -1,0 +1,60 @@
+.modal{
+    position: fixed;
+    height: 400px;
+    width: 90vw;
+    background-color: #111214;
+    top: calc(50% - 200px);
+    border: 1px solid rgba(211, 211, 211, 0.473);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+.modal button{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+
+.modal-header{
+    height: 60px;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.267);
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.modal-message{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding: 0 30px;
+}
+
+
+
+
+.modal .modal-buttons{
+    height: 75px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.modal .modal-buttons .green-button{
+    background-color: #28a745;
+}
+.modal .modal-buttons .red-button{
+    background-color: #F44336;
+}
+.modal .modal-buttons .ok-button{
+    background-color: #007bff;
+}

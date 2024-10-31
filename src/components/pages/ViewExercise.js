@@ -1,10 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDateForHeader, makeFirstUpperCase } from "../../helpers";
 import plusIcon from '../../assets/plus.svg';
 import './stylings/exercise.css';
 import { useDispatch } from "react-redux";
-import { addExerciseToWorkout } from "../../store/userSlice";
+import { addExerciseToWorkout, deleteExercise } from "../../store/userSlice";
+import { useState } from "react";
+import Modal from "./common/Modal";
 
 
 const ViewExercise = () => {
@@ -12,17 +14,28 @@ const ViewExercise = () => {
     const {id} = useParams();
     const exerciseData = useSelector((state)=>state.user.exercises.find(item => item.id === id));
     const workouts = useSelector((state)=>state.user.workouts);
+    const [modal, setModal] = useState(null)
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const addExerciseToAnotherWorkout = (workoutId) =>{
         dispatch(addExerciseToWorkout({workoutId, exerciseId: id}));
     }
 
-
+    const handleDelete = (id) =>{
+        setModal(<Modal title={'Are you sure?'} message={'This will permanently delete this exercise'} positiveOnClick={()=>deleteEx(id)} negativeOnClick={()=>(setModal(null))}/>)
+    }
+    const deleteEx = (id) =>{
+        dispatch(deleteExercise(id))
+        setModal(null);
+        navigate('/library');
+        
+    }
     return ( 
         <div className="view-exercise page">
+            {modal ? modal : ''}
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{exerciseData.name}</h2>
@@ -66,6 +79,8 @@ const ViewExercise = () => {
                     <p>No exercises created yet.</p>
                 )}
             </div>
+
+            <button className="danger-button" onClick={()=>handleDelete(exerciseData.id)}>Delete Exercise</button>
             
         </div>
      );
