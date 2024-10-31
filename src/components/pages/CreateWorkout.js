@@ -21,7 +21,7 @@ const CreateWorkout = () => {
     const [exerciseReps, setExerciseReps] = useState('');
     const [exerciseSets, setExerciseSets] = useState('');
     const [exerciseDistance, setExerciseDistance] = useState('');
-    const [exerciseDuration, setExerciseDuration] = useState('')
+    const [exerciseDuration, setExerciseDuration] = useState('');
 
     //form values
     const [name, setName] = useState('');
@@ -127,7 +127,7 @@ const CreateWorkout = () => {
                         </div>
                         <label>Exercises Library</label>
                         <div className="exercises-container">
-                            {createdExercises?.length > 0 ? createdExercises.map((exercise, index)=>(
+                            {createdExercises?.length > 0 ? createdExercises.map((exercise, index)=> exercises.some((ex)=>ex.id === exercise.id) ? '' : (
                                     <div className="exercise-body" id={index} key={index}>
                                         <div className="exercise-info">
                                             <h4>{exercise.name}</h4>
