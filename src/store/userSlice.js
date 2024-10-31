@@ -200,7 +200,24 @@ const userSlice = createSlice({
     addWorkout: (state, action) => {
       state.workouts.push(action.payload);
     },
-
+    addExerciseToWorkout: (state, action) => {
+      const { workoutId, exerciseId } = action.payload;
+      const workoutIndex = state.workouts.findIndex(workout => workout.id === workoutId);
+  
+      if (workoutIndex !== -1) {
+          const isExercisePresent = state.workouts[workoutIndex].exercises.some(ex => ex.id === exerciseId);
+          
+          if (!isExercisePresent) {
+              const exerciseToAdd = state.exercises.find(exercise => exercise.id === exerciseId);
+              
+              if (exerciseToAdd) {
+                  state.workouts[workoutIndex].exercises.push(exerciseToAdd);
+                  console.log('Exercise added:', state.workouts[workoutIndex].exercises)
+              }
+          }
+      }
+  },
+  
     editWorkout: (state, action) => {
       const { id, updatedWorkout } = action.payload;
       const index = state.workouts.findIndex(workout => workout.id === id);
@@ -238,6 +255,7 @@ export const {
   deleteWorkout,
   addLog,
   updatePreferences,
+  addExerciseToWorkout
 } = userSlice.actions;
 
 export default userSlice.reducer;

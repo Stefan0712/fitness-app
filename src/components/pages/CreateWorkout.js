@@ -5,7 +5,7 @@ import deleteIcon from '../../assets/close.svg';
 import plusIcon from '../../assets/plus-circle.svg';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkout } from "../../store/userSlice";
+import { addWorkout, addExercise } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
 import AddExerciseToLibrary from "./common/AddExerciseToLibrary";
 
@@ -48,7 +48,12 @@ const CreateWorkout = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises, createdAt, duration};
+        let exercisesIds = [];
+        exercises.forEach((exercise)=>{
+            dispatch(addExercise(exercise))
+            exercisesIds.push(exercise.id)
+        });
+        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises: exercisesIds, createdAt, duration};
         console.log(workoutData)
         dispatch(addWorkout(workoutData));
         navigate('/library');
