@@ -14,11 +14,10 @@ const ViewWorkout = () => {
 
     const {id} = useParams();
     const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
-    const exercises = useSelector((state) =>
-        workoutData
-          ? state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id))
+    const exercises = useSelector((state) => workoutData ? 
+            state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id))
           : []
-      );
+    );
     
 
 
@@ -27,6 +26,7 @@ const ViewWorkout = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
+                <Link to={`/workout/${workoutData.id}/edit`} className="transparent-bg"><img src={'/icons/edit.svg'} className="small-icon" alt="edit"></img></Link>
             </div>
             <div className='workout-info'>
                 <p className='full-width'>{workoutData.description}</p>

@@ -1,5 +1,5 @@
 import { getDateForHeader } from "../../helpers";
-import './stylings/createWorkout.css';
+import './stylings/workout.css';
 import { useState } from "react";
 import deleteIcon from '../../assets/close.svg';
 import plusIcon from '../../assets/plus-circle.svg';
