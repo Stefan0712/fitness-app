@@ -48,7 +48,7 @@ const ViewWorkout = () => {
             <h3 className='subtitle full-width'>Exercises</h3>
             <div className='workout-exercises'>
                 {workoutData.exercises.map((exercise, index)=>(
-                    <div className='exercise-body'>
+                    <div className='exercise-body' key={index+'ex'}>
                         <p><b>{index+1}.   {exercise.name}</b></p>
                     </div>
                 ))}

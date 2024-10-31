@@ -7,13 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { addWorkout } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
+import AddExerciseToLibrary from "./common/AddExerciseToLibrary";
 
 
 const CreateWorkout = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const createdExercises = useSelector((state) => state.user.createdExercises);
+    const createdExercises = useSelector((state) => state.user.exercises);
 
     const [exercises, setExercises] = useState([]);
     const [exerciseName, setExerciseName] = useState('');
@@ -114,6 +115,7 @@ const CreateWorkout = () => {
                                             </div>
                                             {exercise && exercise.fields && exercise.fields.length>0 ? (<div className="exercise-meta"><p>{exercise.fields[0].target} {exercise.fields[0].unit}</p><p>{exercise.fields[1].target} {exercise.fields[1].unit}</p></div>) :''}
                                         </div>
+                                        <AddExerciseToLibrary exerciseData={exercise}></AddExerciseToLibrary>
                                         <button onClick={()=>handleRemoveExercise(exercise.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
                                     </div>
                             )): <h3>No exercises added.</h3>}
