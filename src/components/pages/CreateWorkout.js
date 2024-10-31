@@ -50,7 +50,9 @@ const CreateWorkout = () => {
         const createdAt = new Date().toISOString();
         let exercisesIds = [];
         exercises.forEach((exercise)=>{
-            dispatch(addExercise(exercise))
+            if(!createdExercises.some((ex)=>ex.id === exercise.id)){
+                dispatch(addExercise(exercise));
+            }  
             exercisesIds.push(exercise.id)
         });
         const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises: exercisesIds, createdAt, duration};
