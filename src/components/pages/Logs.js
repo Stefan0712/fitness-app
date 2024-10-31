@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { getDateForHeader } from "../../helpers";
 
 const Logs = () => {
     const activity = useSelector((state) => state.user.activity);
@@ -28,16 +29,25 @@ const Logs = () => {
 
     return (
         <div className="logs page">
-            <h1>Activity</h1>
+            <div className='header'>
+                <div className='date'>{getDateForHeader()}</div>
+                <h2>Activity</h2>
+            </div>
             {logs.map((dailyActivity, index) => (
                 <div key={index} className="daily-activity-section">
-                    <h2>{dailyActivity.date}</h2>
+                    <h3>{dailyActivity.date}</h3>
                     <div className="logs-container">
                         {dailyActivity.logs.map((log, logIndex) => (
                             <div key={logIndex} className="log-body">
-                                <p>{log.type}</p>
-                                <p>{log.name}</p>
-                                <p>{log.data.value} at {log.timestamp.split('T')[1].split('.')[0]}</p>
+                                <img className="small-icon" src={log.icon}></img>
+                                <div className="log-info">
+                                    <p>{log.name}</p>
+                                    <div className="log-meta">
+                                        <p>{log.data.value}</p>
+                                        <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+                                    </div>
+                                </div>
+                                
                             </div>
                         ))}
                     </div>

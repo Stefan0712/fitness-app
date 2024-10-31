@@ -44,8 +44,8 @@ const Profile = () => {
 
 
                 <h2 className="full-width">Daily Goals</h2>
-                {userData.goals?.map((goal)=>(
-                    <div className="profile-info-block">
+                {userData.goals?.map((goal, index)=>(
+                    <div className="profile-info-block" key={'goal'+index}>
                         <img className="small-icon" src={goal.icon}></img>
                         <h4>{goal.name}</h4>    
                         <h3>{goal.target}</h3>

@@ -38,6 +38,7 @@ const LogForm = ({type, closeLogWindow}) => {
         const goalData = {
             category: 'goal', 
             name: type, 
+            icon: goalData.icon,
             data: {
                 value: parseFloat(inputValue)
             }

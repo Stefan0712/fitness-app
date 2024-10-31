@@ -180,3 +180,49 @@ nav{
 .flex-wrap{
   flex-wrap: wrap;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* Activity page */
+
+
+.logs h3{
+  height: 40px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.308);
+}
+.logs .logs-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 10px;
+}
+.logs .log-body{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logs .log-info{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.logs .log-meta{
+  display: flex;
+  gap: 20px;
+  
+}
+.logs .log-meta p{
+  color: rgba(255, 255, 255, 0.459);
+}

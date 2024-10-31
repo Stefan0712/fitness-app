@@ -5,7 +5,20 @@ import { v4 as uuidv4 } from 'uuid';
 const initialState = {
   userId: uuidv4(),
   userData: {
-    goals: [],
+    goals: [
+      {
+        name: 'Calories',
+        unit: 'kcal',
+        target: '1400',
+        icon: '/icons/calories.svg'
+      },
+      {
+        name: 'Steps',
+        unit: 'steps',
+        target: '6000',
+        icon: '/icons/steps.svg'
+      }
+    ],
     name: 'Stefan',
     username: 'Stefanuwu',
     age: 25,
@@ -14,7 +27,64 @@ const initialState = {
     weight: 80,
     bio: 'I swear I am real',
   },
-  activity: {},
+  activity: {
+    '2024-10-31': {
+        logs: [
+          {
+            timestamp: '2024-10-31T12:28:16.530Z',
+            name: 'Calories',
+            data: {
+              value: 300
+            },
+            icon: '/icons/calories.svg'
+          },
+          {
+            timestamp: '2024-10-31T12:28:22.862Z',
+            name: 'Calories',   
+            data: {
+              value: 500
+            },
+           icon: '/icons/calories.svg'
+          },
+          {
+            timestamp: '2024-10-31T12:28:27.669Z',
+            name: 'Steps',
+            data: {
+              value: 400
+            },
+            icon: '/icons/steps.svg'
+          }
+        ]
+      },
+      '2024-10-30': {
+        logs: [
+          {
+            timestamp: '2024-10-30T12:28:16.530Z',
+            name: 'Calories',
+            data: {
+              value: 300
+            },
+            icon: '/icons/calories.svg'
+          },
+          {
+            timestamp: '2024-10-30T12:28:22.862Z',
+            name: 'Steps',
+            data: {
+              value: 500
+            },
+            icon: '/icons/steps.svg'
+          },
+          {
+            timestamp: '2024-10-30T12:28:27.669Z',
+            name: 'Steps',
+            data: {
+              value: 400
+            },
+            icon: '/icons/steps.svg'
+          }
+        ]
+      }
+  },
   preferences: {
     darkMode: false,
     language: 'en',
