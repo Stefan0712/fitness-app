@@ -14,12 +14,18 @@ const ViewWorkout = () => {
 
     const {id} = useParams();
     const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
+    const exercises = useSelector((state) =>
+        workoutData
+          ? state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id))
+          : []
+      );
+    
 
 
     return ( 
         <div className="view-workout-page page">
             <div className='header'>
-                <div className='date'>{getDateForHeader}</div>
+                <div className='date'>{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
             </div>
             <div className='workout-info'>
@@ -47,7 +53,7 @@ const ViewWorkout = () => {
             </div>
             <h3 className='subtitle full-width'>Exercises</h3>
             <div className='workout-exercises'>
-                {workoutData.exercises.map((exercise, index)=>(
+                {exercises.map((exercise, index)=>(
                     <div className='exercise-body' key={index+'ex'}>
                         <p><b>{index+1}.   {exercise.name}</b></p>
                     </div>
