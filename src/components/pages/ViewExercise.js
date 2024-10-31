@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDateForHeader, makeFirstUpperCase } from "../../helpers";
 import plusIcon from '../../assets/plus.svg';
@@ -26,9 +26,10 @@ const ViewExercise = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{exerciseData.name}</h2>
-                <p><b className="white-50">{makeFirstUpperCase(exerciseData.targetGroup)}</b></p>
+                <Link to={`/exercise/${exerciseData.id}/edit`} className="transparent-bg"><img src={'/icons/edit.svg'} className="small-icon" alt="edit"></img></Link>
             </div>
             <div className="exercise-info section">
+                <p><b className="white-50">{makeFirstUpperCase(exerciseData.targetGroup)}</b></p>
                 <p><b>Description</b></p>
                 <p className="full-width white-50">{exerciseData.description}</p>
                 <p><b>Fields</b></p>

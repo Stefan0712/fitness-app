@@ -1,9 +1,16 @@
+/*////////////////////*/
+/* view exercise page */
+/*////////////////////*/
 .view-exercise{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
+.view-exercise .header a{
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
 .view-exercise .exercise-info{
     display: flex;
     flex-direction: column;
@@ -13,13 +20,6 @@
     gap: 20px;
     flex-wrap: wrap;
 }
-
-
-
-
-
-
-
 
 .view-exercise .workouts-container{
     gap: 15px;
@@ -46,3 +46,78 @@
     gap: 10px;
     align-items: center;
 }
+
+/*///////////////////////////*/
+/* Create/Edit exercise page */
+/*///////////////////////////*/
+
+
+fieldset{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.create-exercise-page form{
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+.create-exercise-page form input,
+.create-exercise-page form select,
+.create-exercise-page form option{
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.534);
+    padding-left: 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+.create-exercise-page .field-creator{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+.create-exercise-page .fields-container{
+    height: auto;
+    border-top: 1px solid rgba(211, 211, 211, 0.5);
+    border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+    margin-bottom: 25px;
+    padding: 15px 0;
+}
+.create-exercise-page .field-inputs{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.create-exercise-page .field-container{
+    display: flex;
+    gap: 10px;
+    height: 75px;
+    align-items: center;
+}
+.create-exercise-page .field-body{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+.create-exercise-page .field-inputs input{
+    width: 100px;
+}
+
+
+
+/*////////////////////*/
+/* Edit exercise page */
+/*////////////////////*/

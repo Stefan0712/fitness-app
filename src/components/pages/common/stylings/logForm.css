@@ -25,7 +25,7 @@
     width: 30px;
     height: 30px;
     background-color: transparent;
-    filter: invert(100%);
+    ;
 }
 .log-form-body .top-bar button{
     background-color: transparent;

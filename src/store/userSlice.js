@@ -266,12 +266,10 @@ const userSlice = createSlice({
         );
       }
     },
-    editExercise: (state, action) => {
-      const index = state.exercises.findIndex(
-        (exercise) => exercise.id === action.payload.id
-      );
+    updateExercise: (state, action) => {
+      const index = state.exercises.findIndex(ex => ex.id === action.payload.id);
       if (index !== -1) {
-        state.exercises[index] = action.payload;
+          state.exercises[index] = action.payload;
       }
     },
 
@@ -326,7 +324,7 @@ export const {
   updateGoals,
   updateUserData,
   deleteExercise,
-  editExercise,
+  updateExercise,
   addWorkout,
   editWorkout,
   deleteWorkout,

@@ -1,5 +1,5 @@
 import { getDateForHeader } from "../../helpers";
-import './stylings/createExercise.css';
+import './stylings/exercise.css';
 import { useState } from "react";
 import deleteIcon from '../../assets/close.svg';
 import { v4 as uuidv4 } from 'uuid';
