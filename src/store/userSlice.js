@@ -256,8 +256,16 @@ const userSlice = createSlice({
    
       
     },
-
-
+    removeLog: (state, action) => {
+      const { timestamp } = action.payload;
+      const date = getCurrentDay();
+      
+      if (state.activity[date]) {
+        state.activity[date].logs = state.activity[date].logs.filter(
+          (item) => item.timestamp !== timestamp
+        );
+      }
+    },
     editExercise: (state, action) => {
       const index = state.exercises.findIndex(
         (exercise) => exercise.id === action.payload.id
@@ -307,7 +315,6 @@ const userSlice = createSlice({
     updatePreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
     },
-
     reset: () => initialState,
   },
 });
@@ -325,7 +332,8 @@ export const {
   deleteWorkout,
   addLog,
   updatePreferences,
-  addExerciseToWorkout
+  addExerciseToWorkout,
+  removeLog
 } = userSlice.actions;
 
 export default userSlice.reducer;

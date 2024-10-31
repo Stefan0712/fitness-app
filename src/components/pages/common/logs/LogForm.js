@@ -3,7 +3,7 @@ import closeIcon from '../../../../assets/close.svg';
 import ProgressCircle from "../ProgressCircle";
 import '../stylings/logForm.css'
 import { useDispatch, useSelector } from "react-redux";
-import { addLog } from "../../../../store/userSlice";
+import { addLog, removeLog } from "../../../../store/userSlice";
 import { getCurrentDay, makeFirstUpperCase } from "../../../../helpers";
 
 
@@ -19,7 +19,6 @@ const LogForm = ({type, closeLogWindow}) => {
     const [currentValue, setCurrentValue] = useState(0);
     const goalData = useSelector((state)=>state.user.userData.goals.find((element)=>element.name === type));
 
-    console.log(goalData)
 
 
     useEffect(()=>{
@@ -35,7 +34,7 @@ const LogForm = ({type, closeLogWindow}) => {
         setInputValue(e.target.value);
     }
     const submitLog = () =>{
-        const goalData = {
+        const data = {
             category: 'goal', 
             name: type, 
             icon: goalData.icon,
@@ -43,11 +42,14 @@ const LogForm = ({type, closeLogWindow}) => {
                 value: parseFloat(inputValue)
             }
         }
-        dispatch(addLog(goalData));
+        dispatch(addLog(data));
         closeLogWindow();
     }
 
-
+    const deleteLog = (log) => {
+        dispatch(removeLog(log));
+        closeLogWindow();
+    }
 
       
     return ( 
@@ -73,6 +75,7 @@ const LogForm = ({type, closeLogWindow}) => {
                     <div className="log-body" key={log.timestamp}>
                         <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
                         <p>{log.data.value}</p>
+                        <button onClick={()=>deleteLog({name: log.name, timestamp: log.timestamp})} className="transparent-bg"><img className="small-icon" src="/icons/close.svg"></img></button>
                     </div>
                 ))}
             </div>
