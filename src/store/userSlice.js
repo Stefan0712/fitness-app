@@ -67,7 +67,7 @@ const userSlice = createSlice({
       const date = getCurrentDay();
 
       if (!state.activity[date]) {
-        state.activity[date] = { logs: [] };
+        state.activity[date] = { logs: [], goals: state.userData.goals };
       }
       
       state.activity[date].logs.push({
