@@ -71,17 +71,19 @@
 }
 .summary-cell-body{
     width: 45%;
-    height: 90px;
+    height: 75px;
     display: flex;
     background-color: #1A1A1B;
     border-radius: 5px;
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
+    border: 1px solid rgba(211, 211, 211, 0.151)
 }
 .summary-cell-body .left{
     width: 60%;
     height: 100%;
+    gap: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,14 +115,9 @@
 }
 .cell-value{
     display: flex;
-    gap: 5px;
-    height: 50%;
 }
 .cell-name{
     display: flex;
-    height:  50%;
-    width: 100%;
-    padding: 10px;
     font-weight: bold;
     font-size: 1.1rem;
 }

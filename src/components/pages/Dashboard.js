@@ -1,4 +1,4 @@
-import { getDateForHeader } from '../../helpers';
+import { getDateForHeader, getCurrentDay } from '../../helpers';
 import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
@@ -11,13 +11,21 @@ import ProgressCircle from './common/ProgressCircle';
 
 const Dashboard = () => {
 
+    const [selectedDate, setSelectedDate] = useState(getCurrentDay);
+
+
+
     const dispatch = useDispatch();
+    console.log(selectedDate)
+    const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
+    const userGoals = useSelector((state)=>state.user.userData.goals);
 
     const today = dayjs();
     const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
     const [currentMonday, setCurrentMonday] = useState(startOfWeek);
-    const [selectedDate, setSelectedDate] = useState(dayjs().format('dddd, D MMM'))
     
+    console.log(userActivity)
+    const activity = userActivity.filter((log)=>log.type==="workout" || log.type==="exercise");
 
     // Function to get the full week array starting from currentMonday
     const getWeekDates = (monday) => {
@@ -70,28 +78,31 @@ const Dashboard = () => {
             <div className='date' style={{width: '100%'}}>{selectedDate}</div>
             <h3 className='subtitle'>Summary</h3>
             <div className='summary-container'>
-
-
-
-                {/* <div className='summary-cell-body'>
-                    <div className='left'>
-                        <div className='cell-name'>Calories</div>
-                        <div className='cell-value'><p>450</p>/1500</div>
-                    </div>
-                    <div className='right'>
-                    {<ProgressCircle 
-                        currentAmount={60} 
-                        targetAmount={100} 
-                        size={120} 
-                        strokeWidth={5} 
-                        color="#3498db"
-                        radiusSize={5} 
-                    />}
-  
-                    </div>
-                </div> */}
-                
+                {userGoals.map((goal)=>(
+                    <div className='summary-cell-body' key={goal.name}>
+                        <div className='left'>
+                            <div className='cell-name'>{goal.name}</div>
+                            <div className='cell-value'><p>450</p>/{goal.target}</div>
+                        </div>
+                        <div className='right'>
+                        {<ProgressCircle 
+                            currentAmount={60} 
+                            targetAmount={100} 
+                            size={120} 
+                            strokeWidth={5} 
+                            color="#3498db"
+                            radiusSize={5} 
+                        />}
+                        </div>
+                </div> 
+                ))}  
             </div>
+            <h3 className='subtitle'>Activity</h3>
+            {activity?.length > 0 ? (activity.map((log)=>(
+                <div className='activity-item'>
+                    {log.name} - {log.timestamp}
+                </div>
+            ))) : (<h3>No activity</h3>)}
 
         </div>
      );
