@@ -24,8 +24,7 @@ const Dashboard = () => {
     const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
     const [currentMonday, setCurrentMonday] = useState(startOfWeek);
     
-    console.log(userActivity)
-    const activity = userActivity.filter((log)=>log.type==="workout" || log.type==="exercise");
+    const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise");
 
     // Function to get the full week array starting from currentMonday
     const getWeekDates = (monday) => {
@@ -44,6 +43,7 @@ const Dashboard = () => {
         setCurrentMonday(currentMonday.subtract(7, 'day'));
     };
     const handleDayClick = (date) => {
+        console.log(date.format('YYYY-MM-DD'))
         setSelectedDate(date.format('YYYY-MM-DD'))
     };
 
