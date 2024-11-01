@@ -20,35 +20,37 @@ const Profile = () => {
                 <h2>Profile</h2>
             </div>
             <div className="profile-info">
-                <h4 className="full-width">Name</h4>    
-                <h3 className="full-width">{userData.name ? userData.name : 'Not Set'}</h3>
-                <h4 className="full-width">Bio</h4>    
-                <p className="full-width mb-25">{userData.bio ? userData.bio : 'Bio not set'}</p>
-                <div className="profile-info-block">
-                    <h4>Age</h4>    
-                    <h3>{userData.age ? userData.age : 'Not Set'}</h3>
-                </div>
-                <div className="profile-info-block">
-                    <h4>Gender</h4>    
-                    <h3>{userData.gender ? userData.gender : 'Not Set'}</h3>
-                </div>
-                <div className="profile-info-block">
-                    <h4>Height</h4>    
-                    <h3>{userData.height ? userData.height : 'Not Set'}</h3>
-                    
-                </div>
-                <div className="profile-info-block">
-                    <h4>Weight</h4>    
-                    <h3>{userData.weight ? userData.weight : 'Not Set'}</h3>
+                <h1 className="full-width">{userData.name ? userData.name : 'Not Set'}</h1>
+                <p className="full-width mb-25 bio">{userData.bio ? userData.bio : 'Bio not set'}</p>
+                <div className="user-info">
+                    <div className="profile-info-block">
+                        <h4>Age</h4>    
+                        <h3>{userData.age ? userData.age : 'Not Set'}</h3>
+                    </div>
+                    <div className="profile-info-block">
+                        <h4>Gender</h4>    
+                        <h3>{userData.gender ? userData.gender : 'Not Set'}</h3>
+                    </div>
+                    <div className="profile-info-block">
+                        <h4>Height</h4>    
+                        <h3>{userData.height ? userData.height : 'Not Set'}</h3>
+                        
+                    </div>
+                    <div className="profile-info-block">
+                        <h4>Weight</h4>    
+                        <h3>{userData.weight ? userData.weight : 'Not Set'}</h3>
+                    </div>
                 </div>
 
 
-                <h2 className="full-width">Daily Goals</h2>
+                <h2 className="full-width">Goals</h2>
                 {userData.goals?.map((goal, index)=>(
-                    <div className="profile-info-block" key={'goal'+index}>
+                    <div className="goal-body" key={'goal'+index}>
+                        <div className="goal-info">
+                            <h4>{goal.name}</h4>    
+                            <h3>{goal.target}</h3>
+                        </div>
                         <img className="small-icon" src={goal.icon}></img>
-                        <h4>{goal.name}</h4>    
-                        <h3>{goal.target}</h3>
                     </div>
                 ))}
                 

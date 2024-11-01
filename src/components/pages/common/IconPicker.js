@@ -26,7 +26,7 @@ const IconPicker = ({handleIcon}) => {
             </div>
             <div className='bottom'>
                 {iconList.map((icon)=>(
-                    <div className='icon-button' onClick={()=>selectIcon(icon)}>
+                    <div key={icon} className='icon-button' onClick={()=>selectIcon(icon)}>
                         <img className='icon' src={icon}></img>
                     </div>
                 ))}

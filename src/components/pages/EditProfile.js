@@ -34,12 +34,18 @@ const EditProfile = () => {
     const handleSaveProfile = (e) =>{
         e.preventDefault();
         const profileData = {id: uuidv4(),username, name, bio, age, gender, height, weight, goals};
-        dispatch(updateUserData(profileData))
-        navigate('/profile')
+        dispatch(updateUserData(profileData));
+        navigate('/profile');
     }
 
     const handleGoalUpdate = (e, name) =>{
-        e.preventDefault();
+        const updatedTarget = e.target.value;
+        setGoals((prevGoals) =>
+            prevGoals.map((goal) =>
+                goal.name === name ? { ...goal, target: updatedTarget } : goal
+            )
+        );
+        
     }
     const addNewGoal = (e) =>{
         e.preventDefault();
@@ -135,7 +141,7 @@ const EditProfile = () => {
                         />
                     </fieldset>
                 </div>
-                <h3 className="full-width subtitle">Goals</h3> 
+                <h3 className="full-width subtitle">Create a new goal</h3> 
                 <div className="create-new-goal-container">
                     <IconPicker handleIcon={handleIcon}/>
                     <div className="goal-inputs">
@@ -145,10 +151,13 @@ const EditProfile = () => {
                     </div>
                     <button className="medium-square orange-button" onClick={addNewGoal}><img src={addIcon} className="small-icon orange-background"></img></button>
                 </div>
+                <h3 className="full-width subtitle">Goals</h3> 
                 <div className="goals-container inputs-container">
                     {goals.length > 0 ? (
                         goals.map((item)=>(
+                           
                         <fieldset key={item.name}>
+                             {console.log(item)}
                             <label>{item.name} ({item.unit})</label>
                             <input
                                 type="number"
