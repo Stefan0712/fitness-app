@@ -237,3 +237,34 @@ nav{
 .logs .log-meta p{
   color: rgba(255, 255, 255, 0.459);
 }
+
+
+/* message modal */
+
+.message-modal{
+  height: 100px;
+  width: 90%;
+  position: absolute;
+  bottom: 80px;
+  border-radius: 5px;
+  border: 1px solid rgba(109, 109, 109, 0.418);
+}
+.message-modal h3{
+  height: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.363);
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+.message-modal .message-modal-text{
+  padding: 10px;
+}
+.message-modal.success{
+  background-color: #28a745;
+}
+.message-modal.fail{
+  background-color: #F44336;
+}
+.message-modal.warning{
+  background-color: #FFC107;
+}

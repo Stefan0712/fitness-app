@@ -34,7 +34,8 @@ const initialState = {
     unitSystem: 'metric',
   },
   exercises: [],
-  workouts: []
+  workouts: [],
+  message: null
 };
 
 const userSlice = createSlice({
