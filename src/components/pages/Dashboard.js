@@ -12,13 +12,13 @@ import MessageModal from './common/MessageModal';
 
 const Dashboard = () => {
 
-    const [selectedDate, setSelectedDate] = useState(getCurrentDay);
+    const [selectedDate, setSelectedDate] = useState(getCurrentDay());
 
 
 
     const dispatch = useDispatch();
-    console.log(selectedDate)
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
+    const allActivity = useSelector((state)=>state.user.activity);
     const userGoals = useSelector((state)=>state.user.userData.goals);
 
     const today = dayjs();
@@ -50,7 +50,17 @@ const Dashboard = () => {
 
    
 
-
+    const getGoalCurrentValue = (arr,goalName) => {
+        console.log(arr, goalName)
+        if(arr && arr.length > 0){
+            return arr.reduce((sum, item) => {
+                return item.name === goalName ? sum + item.value : sum;
+            }, 0);
+        }else{
+            return 0;
+        }
+        
+    };
 
     return ( 
         <div className="dashboard">
@@ -83,7 +93,7 @@ const Dashboard = () => {
                     <div className='summary-cell-body' key={goal.name}>
                         <div className='left'>
                             <div className='cell-name'>{goal.name}</div>
-                            <div className='cell-value'><p>450</p>/{goal.target}</div>
+                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity, goal.name)}</p>/{goal.target}</div>
                         </div>
                         <div className='right'>
                         {<ProgressCircle 
