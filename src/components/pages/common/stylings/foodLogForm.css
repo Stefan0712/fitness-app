@@ -1,7 +1,7 @@
 .food-log-form{
     width: 100%;
     bottom: 0px;
-    height: 60vh;
+    height: 100vh;
     position: absolute;
     background-color: #1A1A1B;
     left: 0px;
@@ -19,7 +19,7 @@
         height: 0;
     }
     100%{
-        height: 60vh;
+        height: 100vh;
     }
 }
 .food-log-form .top-bar img{
@@ -63,12 +63,37 @@
     justify-content: center;
 }
 .food-log-form .main-info input,
-.food-log-form .macros-container input{
+.food-log-form .macros-container input,
+.food-log-form .food-type-select{
     width: calc(50% - 10px);
+    color: black;
 }
 .food-log-form .log-food-btn{
     width: 120px;
     height: 50px;
     margin-top: auto;
     margin-bottom: 25px;
+}
+.food-log-form h3{
+    width: 80%;
+}
+.food-log-form .notes{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 15px;
+    align-items: center;
+}
+.food-log-form .notes textarea{
+    height: 100px;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    padding: 5px 10px;
+}
+.food-log-form .notes input{
+    width: 100%;
+}
+.food-log-form option{
+    color: black;
 }
