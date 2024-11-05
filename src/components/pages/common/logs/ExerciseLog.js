@@ -1,80 +1,97 @@
 import { useState } from "react";
 import closeIcon from '../../../../assets/close.svg';
 import '../stylings/exerciseLog.css'
-import addIcon from '../../../../assets/plus-circle.svg';
+import { v4 as uuidv4 } from 'uuid';
+import { addLog } from "../../../../store/userSlice";
+import { useDispatch } from "react-redux";
 
 
 
 
 
+const ExerciseLog = ({closeLogWindow}) => {
+    const [name, setName] = useState('');
+    const [time, setTime] = useState('');
+    const [targetGroup, setTargetGroup] = useState('');
+    const [duration, setDuration] = useState('');
+    const [fields, setFields] = useState([]);
 
-const ExerciseLog = ({data, closeLogWindow}) => {
-    const [inputButtons, setInputButtons] = useState(['Duration','Distance','Reps','Sets','Weight','Calories','Speed','Heart Rate','Incline','Resistance','Laps','Elevation'])
-    const [selectedInputs, setSelectedInputs] = useState([]);
-    const [expandSelect, setExpandSelect] = useState(false)
+    //field states
+    const [fieldName, setFieldName] = useState('');
+    const [fieldUnit, setFieldUnit] = useState('');
+    const [fieldValue, setFieldValue] = useState('')
 
-    const addField = (type)=>{
-        const filtered = inputButtons.filter((item)=>item!==type);
-        setInputButtons(filtered)
-        setSelectedInputs((selectedInputs)=>[...selectedInputs, type]);
+    const dispatch = useDispatch();
+
+
+    const addField = () =>{
+        const field = {name: fieldName, unit: fieldUnit, value: fieldValue};
+        console.log(field)
+        setFields((fields)=>[...fields, field]);
+        setFieldName('');
+        setFieldUnit('');
+        setFieldValue('');
     }
-    const removeField = (type)=>{
-        const filtered = selectedInputs.filter((item)=>item!==type);
-        setSelectedInputs(filtered)
-        setInputButtons((inputButtons)=>[...inputButtons, type])
-    }
-    const toggleSelected = () =>{
-        setExpandSelect((expandSelect)=>!expandSelect);
+
+    const logExercise = () =>{
+        const data = {
+            id: uuidv4(),
+            category: 'exercise',
+            name: "Exercise",
+            icon: '/icons/exercise.svg',
+            data:{
+                name,
+                time, targetGroup,
+                duration,
+                fields
+            }
+        }
+        dispatch(addLog(data))
+        closeLogWindow();
     }
     return ( 
         <div className="exercise-log">
             <div className="top-bar">
-                <h1>{data.name}</h1>
+                <h1>Log Exercise</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>
-            <div className="main-info">
-                <input type="text" name="name" id="name" required={true} placeholder="Name"></input>
-                <input type="text" name="note" id="note" placeholder="Notes"></input>
-                <select name="name" id="name" required={true} placeholder="Name">
-                    <option value="cardio">Cardio</option>
-                    <option value="strength">Strength Training</option>
-                    <option value="stamina">Stamina</option>
-                    <option value="flexibility">Flexibility</option>
-                    <option value="endurance">Endurance</option>
-                    <option value="hiit">HIIT</option>
-                    <option value="weightlifting">Weightlifting</option>
-                    <option value="recovery">Recovery</option>
-                    <option value="yoga">Yoga</option>
-                </select>
-                
-               
+            <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Exercise Name" required></input>
+            <input type="time" name="time" id="time" onChange={(e)=>setTime(e.target.value)} value={time}></input>
+            <input type="duration" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)" required></input>
+            <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
+                <option value="arms">Arms</option>
+                <option value="legs">Legs</option>
+                <option value="chest">Chest</option>
+                <option value="back">Back</option>
+                <option value="shoulders">Shoulders</option>
+                <option value="abs">Abs</option>
+                <option value="glutes">Glutes</option>
+                <option value="full-body">Full Body</option>
+                <option value="core">Core</option>
+                <option value="calves">Calves</option>
+                <option value="biceps">Biceps</option>
+                <option value="triceps">Triceps</option>
+                <option value="forearms">Forearms</option>
+                <option value="hamstrings">Hamstrings</option>
+                <option value="quads">Quads</option>
+            </select>
+            <div className="field-creator">
+                <input type="text" name="fieldName" id="fieldName" value={fieldName} onChange={(e)=>setFieldName(e.target.value)} placeholder="Field Name"></input>
+                <input type="number" name="fieldValue" id="fieldValue" value={fieldValue} onChange={(e)=>setFieldValue(e.target.value)} placeholder="Value"></input>
+                <input type="text" name="fieldUnit" id="fieldUnit" value={fieldUnit} onChange={(e)=>setFieldUnit(e.target.value)} placeholder="Unit"></input>
+                <img className="small-icon" src="/icons/plus-circle.svg" alt="add field" onClick={addField}></img>
             </div>
-            <h3>Values</h3>
-            <div className="values-container">
-                {selectedInputs.length > 0 ? selectedInputs.map((item)=>(
-                    <div className="selected-input">
-                        <p>{item.charAt(0).toUpperCase() + item.slice(1)}</p>
-                        <div className="input-container" key={item+'selected'}>
-                            <input className="input-value" type="number" name={item} id={item} placeholder={'Value'}></input>
-                            <input className="input-unit" type="string" name='itemUnit' id='itemUnit' placeholder="Unit"></input>
-                            <button className="transparent-bg" onClick={()=>removeField(item)}><img className="icon-30" src={closeIcon} alt=""/></button>
-                        </div>
+            <div className="fields">
+                {fields.length > 0 ? fields.map((field)=>(
+                    <div className="field-body">
+                        <p>{field.name}</p>
+                        <p>{field.value}</p>
+                        <p>{field.unit}</p>
                     </div>
-                )) : ''}
-                
-            </div>
-            <button className="submit-button orange-button">Log</button>
-            <div className={`values-container select-inputs ${expandSelect ? 'expand-select-inputs' : ''}`}>
-                <h3 onClick={toggleSelected}>Inputs</h3>
-                {inputButtons.map((type)=>(
-                    <div className="value-type" key={type}>
-                        <p>{type.charAt(0).toUpperCase() + type.slice(1)}</p>
-                        <button className="transparent-bg" onClick={()=>addField(type)}><img className="icon-30" src={addIcon} alt=""/></button>
-                    </div>
-                ))}
-                
+                )) : (<p>No fields created</p>)}
             </div>
             
+            <button className="orange-button large-button" onClick={logExercise}>Log Exercise</button>
         </div>
      );
 }
