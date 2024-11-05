@@ -18,7 +18,7 @@ const ViewWorkout = () => {
             state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id))
           : []
     );
-    
+    console.log(exercises)    
 
 
     return ( 

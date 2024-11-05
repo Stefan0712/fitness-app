@@ -2,14 +2,26 @@ import { useState } from "react";
 import closeIcon from '../../../../assets/close.svg';
 import '../stylings/logs.css';
 import '../stylings/foodLogForm.css';
+import { useSelector, useDispatch } from "react-redux";
+import { getCurrentDay } from "../../../../helpers";
 
 
 
-const FoodLogForm = ({data, closeLogWindow}) => {
+const FoodLogForm = ({closeLogWindow}) => {
+    const currentDate = getCurrentDay();
+    const dispatch = useDispatch();
+    const foodLogs = useSelector((state)=>state.user.activity[currentDate].logs.find((item)=>item.type==='food'));
+
+
+
+
+    const handleLog = ()=>{
+        console.log('')
+    }
     return ( 
         <div className="food-log-form">
             <div className="top-bar">
-                <h1>{data.name}</h1>
+                <h1>Food Log</h1>
                 <button onClick={closeLogWindow}><img src={closeIcon} alt=""></img></button>
             </div>
             <div className="main-info">

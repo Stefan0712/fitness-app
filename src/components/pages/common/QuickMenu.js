@@ -11,7 +11,6 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
     const [buttons, setButtons] = useState([ 
         { src: 'food.svg', name: "Food", type: "food" },
         { src: 'exercise.svg', name: "Exercise", type: "exercise" },
-        { src: 'weight.svg', name: "Weight", type: "weight" },
     ]);
 
     const dailyGoals = useSelector((state)=> state.user.userData.goals);
@@ -29,12 +28,16 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                 <p>Stopwatch</p>
             </button>
             <h2>Quick Logs</h2>
-            {buttons.map((btn)=>(
-                <button className='quick-button' onClick={()=>showLog(btn.type)} key={btn.type}>
-                    <img src={`/icons/${btn.src}`} alt=''></img>
-                    <p>{btn.name}</p>
-                </button>
-            ))}
+            <button className='quick-button' onClick={()=>showLog("food")} key={"food"}>
+                <img src='/icons/food.svg' alt=''></img>
+                <p>Food</p>
+            </button>
+            <button className='quick-button' onClick={()=>showLog('exercise')} key={'exercise'}>
+                <img src='/icons/exercise.svg' alt=''></img>
+                <p>Exercise</p>
+            </button>
+            
+           
             <h2>Goals</h2>
             {dailyGoals?.map((goal)=>(
                 <button className='quick-button' onClick={()=>showLog(goal.name)} key={goal.name}>
