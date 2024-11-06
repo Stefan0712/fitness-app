@@ -76,6 +76,25 @@ const ViewLog = ({log, closeViewLog}) => {
                     </div>
                 </div>
             ) : ''}
+            {log.type === 'activity' ? (
+                <div className="goal-log-info">
+                    <div className="info-block full-width">
+                        <p>Duration</p>
+                        <p>{log.data.value+' min' || 'Not Set'} </p>
+                    </div>
+                    <div className="info-block full-width">
+                        <p>Target</p>
+                        <p>{log.data.targetGroup || 'Not Set'} </p>
+                    </div>
+                    {log.data.fields.map((field)=>(
+                        <div className="info-block full-width">
+                            <p>{field.name}</p>
+                            <p>{field.value+' '+field.unit || 'Not Set'} </p>
+                        </div>
+                    ))}
+                    
+                </div>
+            ) : ''}
 
 
 

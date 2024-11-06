@@ -202,7 +202,6 @@ const initialState = {
               ]
             },
             icon: '/icons/exercise.svg',
-            type: 'exercise'
           }
         ],
         goals: [
