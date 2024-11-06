@@ -18,6 +18,7 @@ const Dashboard = () => {
 
     const dispatch = useDispatch();
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
+    console.log(userActivity)
     const allActivity = useSelector((state)=>state.user.activity);
     const userGoals = useSelector((state)=>state.user.userData.goals);
 
@@ -54,7 +55,7 @@ const Dashboard = () => {
         console.log(arr, goalName)
         if(arr && arr.length > 0){
             return arr.reduce((sum, item) => {
-                return item.name === goalName ? sum + item.value : sum;
+                return item.name === goalName ? sum + item.data.value : sum;
             }, 0);
         }else{
             return 0;
@@ -93,7 +94,7 @@ const Dashboard = () => {
                     <div className='summary-cell-body' key={goal.name}>
                         <div className='left'>
                             <div className='cell-name'>{goal.name}</div>
-                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity, goal.name)}</p>/{goal.target}</div>
+                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity.logs, goal.name)}</p>/{goal.target}</div>
                         </div>
                         <div className='right'>
                         {<ProgressCircle 

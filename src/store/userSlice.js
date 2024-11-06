@@ -208,6 +208,7 @@ const userSlice = createSlice({
       const timestamp = new Date().toISOString();
       const log = action.payload;
       const date = getCurrentDay();
+       
 
       if (!state.activity[date]) {
         state.activity[date] = { logs: [], goals: state.userData.goals };
@@ -217,7 +218,8 @@ const userSlice = createSlice({
         timestamp,
         name: log.name,
         data: log.data,
-        icon: log.icon
+        icon: log.icon,
+        type: log.category
       });
     },
 

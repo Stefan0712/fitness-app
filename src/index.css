@@ -1,7 +1,11 @@
 .dashboard{
     padding: 25px;
 }
-
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
 .icon-30{
     background-color: transparent;
     width: 30px;

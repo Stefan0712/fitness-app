@@ -12,7 +12,9 @@ import { addLog } from "../../../../store/userSlice";
 const FoodLogForm = ({closeLogWindow}) => {
     const currentDate = getCurrentDay();
     const dispatch = useDispatch();
-    const foodLogs = useSelector((state)=>state.user.activity[currentDate].logs.find((item)=>item.type==='food'));
+    const logs = useSelector((state)=>state.user.activity[currentDate]);
+    const foodLogs = logs?.logs.find((item)=>item.type==='food');
+    console.log(foodLogs)
 
     const [name, setName] = useState('');
     const [qty, setQty] = useState('');
@@ -23,7 +25,7 @@ const FoodLogForm = ({closeLogWindow}) => {
     const [sugar, setSugar] = useState('');
     const [calories, setCalories] = useState('');
     const [sodium, setSodium] = useState('');
-    const [time, setTime] = useState('')
+    const [time, setTime] = useState('');
     const [type, setType] = useState('unset');
     const [note, setNote] = useState('');
 
@@ -82,8 +84,10 @@ const FoodLogForm = ({closeLogWindow}) => {
                 <input type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
             </div>
             <div className="notes">
-                
                 <textarea id="note-content" name="note-content"  onChange={(e)=>setNote(e.target.value)}  value={note} placeholder="Notes"></textarea>
+            </div>
+            <div className="logs-history">
+                {foodLogs.length > 0 ? foodLogs.map((log)=>(<p>{log.name} - {log.value}</p>)) : 'No food logs'}
             </div>
             <button className="log-food-btn orange-button" onClick={handleLog}>Log</button>
         </div>
