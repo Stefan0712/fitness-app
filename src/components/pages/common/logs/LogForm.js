@@ -35,7 +35,7 @@ const LogForm = ({type, closeLogWindow}) => {
     }
     const submitLog = () =>{
         const data = {
-            category: 'goal', 
+            type: 'goal', 
             name: type, 
             icon: goalData.icon,
             data: {

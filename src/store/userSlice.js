@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCurrentDay } from '../helpers';
+import { convertTimestampToDate, getCurrentDay } from '../helpers';
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
@@ -27,12 +27,205 @@ const initialState = {
     weight: 80,
     bio: 'I swear I am real',
   },
-  activity: {
+  activity: {'2024-11-05': {
+        logs: [
+          {
+            timestamp: '2024-11-05T16:18:05.204Z',
+            type: 'goal',
+            name: 'Calories',
+            data: {
+              value: 412
+            },
+            icon: '/icons/calories.svg'
+          },
+          {
+            timestamp: '2024-11-05T17:30:33.750Z',
+            type: 'food',
+            name: 'Food Log',
+            data: {
+              name: 'Fried Rice',
+              qty: '500',
+              unit: 'g',
+              protein: '12',
+              carbs: '',
+              fats: '65',
+              sugar: '23',
+              calories: '566',
+              sodium: '',
+              time: '23:34',
+              type: 'dinner',
+              note: 'Random values lol'
+            },
+            icon: 'food.svg'
+          },
+          {
+            timestamp: '2024-11-05T17:31:41.399Z',
+            name: 'Food Log',
+            type: 'food',
+            data: {
+              name: 'Test',
+              qty: '123',
+              unit: 'g',
+              protein: '',
+              carbs: '',
+              fats: '',
+              sugar: '',
+              calories: '',
+              sodium: '',
+              time: '',
+              type: 'unset',
+              note: ''
+            },
+            icon: '/icons/food.svg'
+          },
+          {
+            timestamp: '2024-11-05T18:35:17.896Z',
+            name: 'Exercise',
+            type: 'activity',
+            data: {
+              name: 'Push Ups',
+              time: '23:37',
+              targetGroup: 'chest',
+              duration: '15',
+              fields: [
+                {
+                  name: 'Reps',
+                  unit: 'reps',
+                  value: '12'
+                },
+                {
+                  name: 'Sets',
+                  unit: 'sets',
+                  value: '3'
+                }
+              ]
+            },
+            icon: '/icons/exercise.svg'
+          }
+        ],
+        goals: [
+          {
+            name: 'Calories',
+            unit: 'kcal',
+            target: '1400',
+            icon: '/icons/calories.svg'
+          },
+          {
+            name: 'Steps',
+            unit: 'steps',
+            target: '6000',
+            icon: '/icons/steps.svg'
+          }
+        ]
+      },
+      '2024-11-06': {
+        logs: [
+          {
+            timestamp: '2024-11-06T00:57:13.500Z',
+            name: 'Food Log',
+            type: 'food',
+            data: {
+              name: 'Test food',
+              qty: '123',
+              unit: 'g',
+              protein: '',
+              carbs: '',
+              fats: '',
+              sugar: '',
+              calories: '',
+              sodium: '',
+              time: '06:57',
+              type: 'dinner',
+              note: ''
+            },
+            icon: '/icons/food.svg'
+          },
+          {
+            timestamp: '2024-11-06T01:00:23.859Z',
+            name: 'Food Log',
+            type: 'food',
+            data: {
+              name: 'Hopefully correct food',
+              qty: '500',
+              unit: 'g',
+              protein: '',
+              carbs: '',
+              fats: '',
+              sugar: '',
+              calories: '',
+              sodium: '',
+              time: '04:01',
+              type: 'snack',
+              note: ''
+            },
+            icon: '/icons/food.svg',
+            type: 'food'
+          },
+          {
+            timestamp: '2024-11-06T17:56:56.434Z',
+            name: 'Calories',
+            data: {
+              value: 500
+            },
+            icon: '/icons/calories.svg',
+            type: 'goal'
+          },
+          {
+            timestamp: '2024-11-06T18:01:33.174Z',
+            name: 'Steps',
+            data: {
+              value: 1200
+            },
+            icon: '/icons/steps.svg',
+            type: 'goal'
+          },
+          {
+            timestamp: '2024-11-06T18:06:55.047Z',
+            name: 'Exercise',
+            type: 'activity',
+            data: {
+              name: 'Push-ups',
+              time: '10:00',
+              targetGroup: 'chest',
+              duration: '10',
+              fields: [
+                {
+                  name: 'Sets',
+                  unit: 'sets',
+                  value: '3'
+                },
+                {
+                  name: 'Reps',
+                  unit: 'reps',
+                  value: '12'
+                }
+              ]
+            },
+            icon: '/icons/exercise.svg',
+            type: 'exercise'
+          }
+        ],
+        goals: [
+          {
+            name: 'Calories',
+            unit: 'kcal',
+            target: '1400',
+            icon: '/icons/calories.svg'
+          },
+          {
+            name: 'Steps',
+            unit: 'steps',
+            target: '6000',
+            icon: '/icons/steps.svg'
+          }
+        ]
+      },
     '2024-10-31': {
         logs: [
           {
             timestamp: '2024-10-31T12:28:16.530Z',
             name: 'Calories',
+            type: 'goal',
             data: {
               value: 300
             },
@@ -40,7 +233,8 @@ const initialState = {
           },
           {
             timestamp: '2024-10-31T12:28:22.862Z',
-            name: 'Calories',   
+            name: 'Calories', 
+            type: 'goal',  
             data: {
               value: 500
             },
@@ -49,6 +243,7 @@ const initialState = {
           {
             timestamp: '2024-10-31T12:28:27.669Z',
             name: 'Steps',
+            type: 'goal',
             data: {
               value: 400
             },
@@ -61,6 +256,7 @@ const initialState = {
           {
             timestamp: '2024-10-30T12:28:16.530Z',
             name: 'Calories',
+            type: 'goal',
             data: {
               value: 300
             },
@@ -69,6 +265,7 @@ const initialState = {
           {
             timestamp: '2024-10-30T12:28:22.862Z',
             name: 'Steps',
+            type: 'goal',
             data: {
               value: 500
             },
@@ -77,6 +274,7 @@ const initialState = {
           {
             timestamp: '2024-10-30T12:28:27.669Z',
             name: 'Steps',
+            type: 'goal',
             data: {
               value: 400
             },
@@ -224,9 +422,8 @@ const userSlice = createSlice({
     },
 
     removeLog: (state, action) => {
-      const { timestamp } = action.payload;
-      const date = getCurrentDay();
-
+      const timestamp = action.payload;
+      const date = convertTimestampToDate(timestamp);
       if (state.activity[date]) {
         state.activity[date].logs = state.activity[date].logs.filter(
           (item) => item.timestamp !== timestamp

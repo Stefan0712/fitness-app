@@ -36,7 +36,7 @@ const ExerciseLog = ({closeLogWindow}) => {
     const logExercise = () =>{
         const data = {
             id: uuidv4(),
-            category: 'exercise',
+            type: 'activity',
             name: "Exercise",
             icon: '/icons/exercise.svg',
             data:{

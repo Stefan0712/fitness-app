@@ -33,3 +33,6 @@ export const formatDate = (date) => {
   export const getCurrentDay = () =>{
     return new Date().toISOString().split('T')[0];
   }
+  export const convertTimestampToDate = (timestamp) => {
+    return new Date(timestamp).toISOString().split('T')[0];
+};

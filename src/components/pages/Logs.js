@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getDateForHeader } from "../../helpers";
+import ViewLog from "./common/logs/ViewLog";
 
 const Logs = () => {
     const activity = useSelector((state) => state.user.activity);
     const [logs, setLogs] = useState([]);
+    const [showLog, setShowLog] = useState(null);
 
     const getLogs = () => {
         // Get all date keys and sort them in descending order
@@ -26,19 +28,22 @@ const Logs = () => {
     useEffect(() => {
         getLogs();
     }, [activity]);
-
+    const closeViewLog = () =>{
+        setShowLog(null)
+    }
     return (
         <div className="logs page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Activity</h2>
             </div>
+            {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
             {logs.map((dailyActivity, index) => (
-                <div key={index} className="daily-activity-section">
+                <div key={index} className="daily-activity-section" >
                     <h3>{dailyActivity.date}</h3>
                     <div className="logs-container">
                         {dailyActivity.logs.map((log, logIndex) => (
-                            <div key={logIndex} className="log-body">
+                            <div key={logIndex} className="log-body" onClick={()=>setShowLog(log)}>
                                 <img className="small-icon" src={log.icon}></img>
                                 <div className="log-info">
                                     <p>{log.name}</p>

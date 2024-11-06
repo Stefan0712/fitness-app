@@ -33,7 +33,7 @@ const FoodLogForm = ({closeLogWindow}) => {
     const handleLog = ()=>{
         const data = {
             id: uuidv4(),
-            category: 'food', 
+            type: 'food', 
             name: 'Food Log', 
             icon: '/icons/food.svg',
             data: {
