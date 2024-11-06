@@ -18,7 +18,6 @@ const Dashboard = () => {
 
     const dispatch = useDispatch();
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
-    console.log(userActivity)
     const allActivity = useSelector((state)=>state.user.activity);
     const userGoals = useSelector((state)=>state.user.userData.goals);
 
@@ -45,14 +44,12 @@ const Dashboard = () => {
         setCurrentMonday(currentMonday.subtract(7, 'day'));
     };
     const handleDayClick = (date) => {
-        console.log(date.format('YYYY-MM-DD'))
         setSelectedDate(date.format('YYYY-MM-DD'))
     };
 
    
 
     const getGoalCurrentValue = (arr,goalName) => {
-        console.log(arr, goalName)
         if(arr && arr.length > 0){
             return arr.reduce((sum, item) => {
                 return item.name === goalName ? sum + item.data.value : sum;
@@ -90,11 +87,11 @@ const Dashboard = () => {
             <div className='date' style={{width: '100%'}}>{selectedDate}</div>
             <h3 className='subtitle'>Summary</h3>
             <div className='summary-container'>
-                {userGoals.map((goal)=>(
+                {userGoals.length > 0 ? userGoals.map((goal)=>(
                     <div className='summary-cell-body' key={goal.name}>
                         <div className='left'>
                             <div className='cell-name'>{goal.name}</div>
-                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity.logs, goal.name)}</p>/{goal.target}</div>
+                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity?.logs, goal.name)}</p>/{goal.target}</div>
                         </div>
                         <div className='right'>
                         {<ProgressCircle 
@@ -107,14 +104,25 @@ const Dashboard = () => {
                         />}
                         </div>
                 </div> 
-                ))}  
+                )): 'No goals found'}  
             </div>
             <h3 className='subtitle'>Activity</h3>
-            {activity?.length > 0 ? (activity.map((log)=>(
-                <div className='activity-item'>
-                    {log.name} - {log.timestamp}
-                </div>
-            ))) : (<h3>No activity</h3>)}
+            <div className='activity-container section'>
+                    <div className='activity-item'>
+                        <div className='small-icon'></div>
+                        <p className='name'>Name</p> 
+                        <p className='duration'>Duration</p>
+                        <p className='time'>Time</p>
+                    </div>
+                {activity?.length > 0 ? (activity.map((log)=>(
+                    <div className='activity-item'>
+                        <img src={log.icon} className='small-icon'></img>
+                        <p className='name'>{log.data.name}</p> 
+                        <p className='duration'>{log.data.duration} min</p>
+                        <p className='time'>{log.data.time}</p>
+                    </div>
+                ))) : (<h3>No activity</h3>)}
+            </div>
 
         </div>
      );
