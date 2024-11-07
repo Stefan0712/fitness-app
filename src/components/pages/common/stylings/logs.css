@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: rgba(211, 211, 211, 0.3);
+    border-top: rgba(211, 211, 211, 0.1);
     z-index: 15;
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;

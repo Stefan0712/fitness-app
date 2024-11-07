@@ -46,9 +46,24 @@
 
 
 .workout-page .header{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr 2fr;
+    display: flex;
+    flex-direction: column;
+}
+.workout-page .workout-top{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.workout-page .timer{
+    background-color: #1A1A1B;
+    padding: 0 20px;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .finish-workout-button{
     grid-row: 1 / 3;
@@ -122,11 +137,19 @@
 .workout-page .workout-exercises .exercise-body{
     display: flex;
     gap: 20px;
-    padding: 5px 10px;
     border-radius: 5px;
+    height: 40px;
+    padding: 0 15px;
+    align-items: center;
 }
 .workout-page .selected-exercise{
     background-color: #111214a6;
+    height: 40px;
+    
+}
+.workout-exercises .exercise-body .sets{
+    margin-left: auto;
+    margin-right: 15px;
 }
 
 

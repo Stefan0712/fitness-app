@@ -252,11 +252,12 @@ nav{
   bottom: 0px;
   left: 0px;
   background-color: #1A1A1B;
-  border-top: 1px solid rgba(211, 211, 211, 0.295);
+  border-top: 1px solid rgba(211, 211, 211, 0.1);
   padding: 0 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  border-radius: 5px;
 }
 
 .view-log-header{
@@ -265,6 +266,7 @@ nav{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 .view-log .delete-log-button{
   margin-top: auto;
@@ -278,7 +280,7 @@ nav{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 25px;
   gap: 10px;
   margin-bottom: 25px;
 }

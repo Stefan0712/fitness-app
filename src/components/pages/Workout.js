@@ -133,9 +133,13 @@ const Workout = () => {
             <div className="header">
                 <div className="date">{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
+                
+            </div>
+            <div className="workout-top">
+                <div className="timer">{formatTime(seconds)}</div>
                 <button onClick={()=>finishWorkout()} className="finish-workout-button medium-button orange-button">Finish</button>
             </div>
-            <div className="timer">{formatTime(seconds)}</div>
+            
 
             <div className="current-exercise section">
                 <div className="current-exercise-top">
@@ -190,6 +194,7 @@ const Workout = () => {
                     >
                         <b>{index + 1}</b>
                         <p>{exercise.name}</p>
+                        <div className="sets">x{exercise.sets}</div>
                     </div>
                 ))}
             </div>
