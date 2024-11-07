@@ -100,6 +100,7 @@ nav{
   overflow-y: auto;
   width: 100vw;
   padding: 20px 15px;
+  position: relative;
 }
 .danger{
   background-color: #FF0000;
