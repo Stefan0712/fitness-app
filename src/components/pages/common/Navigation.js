@@ -27,7 +27,6 @@ const Navigation = () => {
         setShowQuickmenu(false)
     }
     const showLog = (type) =>{
-        console.log(type)
         closeQuickmenu();
         if(type==='food'){
             setLogWindow(<FoodLogForm closeLogWindow={hideLog}/>)

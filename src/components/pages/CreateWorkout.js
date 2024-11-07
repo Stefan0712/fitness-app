@@ -56,7 +56,6 @@ const CreateWorkout = () => {
             exercisesIds.push(exercise.id)
         });
         const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, exercises: exercisesIds, createdAt, duration};
-        console.log(workoutData)
         dispatch(addWorkout(workoutData));
         navigate('/library');
         

@@ -8,8 +8,8 @@
     bottom: 0px;
     left: 0px;
     display: flex;
-    align-items: center;
     gap: 15px;
+    align-items: start;
     flex-wrap: wrap;
     z-index: 15;
     border-radius: 5px;
@@ -48,6 +48,11 @@
 .quick-menu h1,
 .quick-menu h2{
     width: 100%;
+    display: flex;
+    align-items: center;
+}
+.quick-menu h2{
+    height: 40px;
 }
 #quick-menu-close-btn{
     position: absolute;

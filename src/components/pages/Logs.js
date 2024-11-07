@@ -22,7 +22,6 @@ const Logs = () => {
         }));
 
         setLogs(lastSevenEntries);
-        console.log(lastSevenEntries);
     };
 
     useEffect(() => {

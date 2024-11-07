@@ -26,7 +26,6 @@ const ExerciseLog = ({closeLogWindow}) => {
 
     const addField = () =>{
         const field = {name: fieldName, unit: fieldUnit, value: fieldValue};
-        console.log(field)
         setFields((fields)=>[...fields, field]);
         setFieldName('');
         setFieldUnit('');

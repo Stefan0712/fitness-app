@@ -1,10 +1,9 @@
-import { getDateForHeader, getCurrentDay } from '../../helpers';
+import { getDateForHeader, getCurrentDay, makeDateNice } from '../../helpers';
 import './stylings/dashboard.css';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { reset } from '../../store/userSlice';
 import ProgressCircle from './common/ProgressCircle';
 import MessageModal from './common/MessageModal';
 
@@ -25,7 +24,7 @@ const Dashboard = () => {
     const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
     const [currentMonday, setCurrentMonday] = useState(startOfWeek);
     
-    const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise");
+    const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
 
     // Function to get the full week array starting from currentMonday
     const getWeekDates = (monday) => {
@@ -67,7 +66,6 @@ const Dashboard = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
             </div>
-            <button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>
             <div className='week-days-container'>
                 <button className='navigate-week-button' onClick={prevWeek}><img src={arrowIcon} style={{transform: 'rotate(180deg)'}} alt=''/></button>
                 {weekDates.map((date, index) => (
@@ -84,8 +82,8 @@ const Dashboard = () => {
 
             </div>
             
-            <div className='date' style={{width: '100%'}}>{selectedDate}</div>
-            <h3 className='subtitle'>Summary</h3>
+            <h3 className='full-width'>Summary</h3>
+            <div className='date' style={{width: '100%'}}>{makeDateNice(selectedDate)}</div>
             <div className='summary-container'>
                 {userGoals.length > 0 ? userGoals.map((goal)=>(
                     <div className='summary-cell-body' key={goal.name}>
@@ -95,8 +93,8 @@ const Dashboard = () => {
                         </div>
                         <div className='right'>
                         {<ProgressCircle 
-                            currentAmount={60} 
-                            targetAmount={100} 
+                            currentAmount={getGoalCurrentValue(userActivity?.logs, goal.name)} 
+                            targetAmount={goal.target} 
                             size={120} 
                             strokeWidth={5} 
                             color="#3498db"
@@ -108,18 +106,18 @@ const Dashboard = () => {
             </div>
             <h3 className='subtitle'>Activity</h3>
             <div className='activity-container section'>
-                    <div className='activity-item'>
+                    <div className='activity-item border-bottom'>
                         <div className='small-icon'></div>
                         <p className='name'>Name</p> 
                         <p className='duration'>Duration</p>
                         <p className='time'>Time</p>
                     </div>
                 {activity?.length > 0 ? (activity.map((log)=>(
-                    <div className='activity-item'>
+                    <div className='activity-item' key={log.timestamp}>
                         <img src={log.icon} className='small-icon'></img>
-                        <p className='name'>{log.data.name}</p> 
+                        <p className='name'>{log.data.name || log.data.workoutData.name}</p> 
                         <p className='duration'>{log.data.duration} min</p>
-                        <p className='time'>{log.data.time}</p>
+                        <p className='time'>{log.data.time || log.data.workoutData.time}</p>
                     </div>
                 ))) : (<h3>No activity</h3>)}
             </div>

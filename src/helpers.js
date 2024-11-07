@@ -42,3 +42,15 @@ export const formatDate = (date) => {
     const seconds = String(totalSeconds % 60).padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
   };
+
+
+  export const makeDateNice = (dateString) =>{
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+    const date = new Date(dateString); // Parse the date string
+    const year = date.getFullYear();
+    const month = months[date.getMonth()]; // Get month in short format (e.g. "Dec")
+    const day = date.getDate();
+    
+    return `${year} ${month} ${day}`;
+}

@@ -23,7 +23,6 @@ const ViewLog = ({log, closeViewLog}) => {
                 <h2 className="full-width">{log.name || log.data.workoutData?.name}</h2>
                 <img src="/icons/close.svg" className="small-icon" onClick={()=>closeViewLog()} />
             </div>
-            {console.log(log)}
             
             <p className="full-width">Logged on {formatDate(log.timestamp)}</p>
             

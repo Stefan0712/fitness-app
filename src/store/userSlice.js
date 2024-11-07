@@ -56,7 +56,7 @@ const initialState = {
               type: 'dinner',
               note: 'Random values lol'
             },
-            icon: 'food.svg'
+            icon: '/icons/food.svg'
           },
           {
             timestamp: '2024-11-05T17:31:41.399Z',
@@ -451,7 +451,7 @@ const userSlice = createSlice({
     },
 
     updateWorkout: (state, action) => {
-      const index = state.workouts.findIndex(workout => workout.id === action.payload.id);
+      const index = state.workouts.findIndex(workout => workout.id === action.payload);
       if (index !== -1) {
         state.workouts[index] = { ...state.workouts[index], ...action.payload };
       }

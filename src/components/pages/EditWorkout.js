@@ -86,7 +86,6 @@ const EditWorkout = () => {
             createdAt: workoutData.createdAt,
             duration
         };
-        console.log(data);
         dispatch(updateWorkout(data));
         navigate('/workout/'+workoutData.id+'/view/');
     };

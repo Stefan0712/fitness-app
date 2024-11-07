@@ -157,7 +157,6 @@ const EditProfile = () => {
                         goals.map((item)=>(
                            
                         <fieldset key={item.name}>
-                             {console.log(item)}
                             <label>{item.name} ({item.unit})</label>
                             <input
                                 type="number"

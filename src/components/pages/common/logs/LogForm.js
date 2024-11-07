@@ -12,7 +12,6 @@ import { getCurrentDay, makeFirstUpperCase } from "../../../../helpers";
 
 
 const LogForm = ({type, closeLogWindow}) => {
-    console.log(type)
     const [inputValue, setInputValue] = useState(0);
     const logs = useSelector((state)=>state.user.activity[getCurrentDay()]?.logs);
     const [goalLogs, setGoalLogs] = useState(logs?.length > 0 ? logs.filter((item)=>item.name === type) : []);

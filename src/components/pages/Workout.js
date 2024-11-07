@@ -16,7 +16,6 @@ const Workout = () => {
 
 
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
-    console.log(workoutData)
     const exercises = useSelector((state) => state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id)));
     const [currentExercise, setCurrentExercise] = useState(exercises[0]?.id); // Ensure it's set to the first exercise if available
     const [workoutExercises, setWorkoutExercises] = useState([]);
@@ -44,7 +43,6 @@ const Workout = () => {
                 }
                 return { ...exercise, fieldSets };
             });
-            console.log(tempExercises);
             setWorkoutExercises(tempExercises);
         }
     }, [exercises]); // Depend on exercises directly
@@ -77,7 +75,6 @@ const Workout = () => {
     
 
     const toggleCompletionOfSet = (exerciseId, setKey) => {
-        console.log(workoutExercises.find((ex) => ex.id === exerciseId).fieldSets[setKey].isCompleted);
     
         setWorkoutExercises((prevWorkoutExercises) => {
             const updatedWorkoutExercises = prevWorkoutExercises.map((exercise) => {

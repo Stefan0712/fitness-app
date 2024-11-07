@@ -14,7 +14,6 @@ const FoodLogForm = ({closeLogWindow}) => {
     const dispatch = useDispatch();
     const logs = useSelector((state)=>state.user.activity[currentDate]);
     const foodLogs = logs?.logs.find((item)=>item.type==='food');
-    console.log(foodLogs)
 
     const [name, setName] = useState('');
     const [qty, setQty] = useState('');
@@ -51,7 +50,6 @@ const FoodLogForm = ({closeLogWindow}) => {
                 note
             }
         }
-        console.log(data)
         dispatch(addLog(data));
         closeLogWindow();
     }
@@ -87,7 +85,7 @@ const FoodLogForm = ({closeLogWindow}) => {
                 <textarea id="note-content" name="note-content"  onChange={(e)=>setNote(e.target.value)}  value={note} placeholder="Notes"></textarea>
             </div>
             <div className="logs-history">
-                {foodLogs.length > 0 ? foodLogs.map((log)=>(<p>{log.name} - {log.value}</p>)) : 'No food logs'}
+                {foodLogs?.length > 0 ? foodLogs.map((log)=>(<p>{log.name} - {log.value}</p>)) : 'No food logs'}
             </div>
             <button className="log-food-btn orange-button" onClick={handleLog}>Log</button>
         </div>

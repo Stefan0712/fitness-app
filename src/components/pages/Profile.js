@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { getDateForHeader } from "../../helpers";
 import { useSelector } from "react-redux";
 import './stylings/profile.css';
+import { reset } from '../../store/userSlice';
+import { useDispatch } from "react-redux";
 
 
 
@@ -11,7 +13,7 @@ import './stylings/profile.css';
 const Profile = () => {
 
     const userData = useSelector((state)=>state.user.userData);
-    {console.log(userData)}
+    const dispatch = useDispatch();
 
     return ( 
         <div className="profile-page page">
@@ -63,6 +65,8 @@ const Profile = () => {
             </div>
 
             <Link to={'/edit-profile'} className="orange-button large-button edit-profile-btn">Edit Profile</Link>
+            <button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>
+
         </div>
      );
 }
