@@ -331,7 +331,7 @@ const initialState = {
       targetGroup: 'Not set', 
       difficulty: 'Not set' ,
       sets: 3, 
-      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}, {name: 'Distance', unit: 'distance', target: 0, value: ''}, {name: 'Time', unit: 'time', target: 0, value: ''}],
+      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}],
     },
     {
       id: '3aa0e1a6-59b9-4e47-af3b-1866125ae5',
@@ -344,7 +344,7 @@ const initialState = {
       targetGroup: 'Not set', 
       difficulty: 'Not set' ,
       sets: 3, 
-      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}, {name: 'Distance', unit: 'distance', target: 0, value: ''}, {name: 'Time', unit: 'time', target: 0, value: ''}],
+      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}],
     },
     {
       id: '3aa618a6-59b9-4e47-af3b-1866125ae5',

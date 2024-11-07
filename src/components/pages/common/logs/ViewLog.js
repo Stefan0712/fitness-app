@@ -91,7 +91,7 @@ const ViewLog = ({log, closeViewLog}) => {
                         <p>{log.data.targetGroup || 'Not Set'} </p>
                     </div>
                     {log.data.fields.map((field)=>(
-                        <div className="info-block full-width">
+                        <div className="info-block full-width" key={field.name}>
                             <p>{field.name}</p>
                             <p>{field.value+' '+field.unit || 'Not Set'} </p>
                         </div>

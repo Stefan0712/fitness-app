@@ -1,9 +1,10 @@
-import { getDateForHeader } from "../../helpers";
+import { getCurrentDay, getDateForHeader } from "../../helpers";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Timer from "./common/Timer";
 import './stylings/workout.css';
+import { v4 as uuidv4 } from 'uuid';
 import checkIcon from '../../assets/checkmark.svg';
 import arrowIcon from '../../assets/arrow.svg';
 
@@ -11,117 +12,152 @@ const Workout = () => {
     const { id } = useParams();
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
     const exercises = useSelector((state) => state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id)));
-    const [currentExercise, setCurrentExercise] = useState(0);
-    const [fields, setFields] = useState({});
+    const [currentExercise, setCurrentExercise] = useState(exercises[0]?.id); // Ensure it's set to the first exercise if available
+    const [workoutExercises, setWorkoutExercises] = useState([]);
 
     useEffect(() => {
-        const exercise = exercises[currentExercise];
-        if (exercise) {
-            const initialFields = {};
-            for (let i = 0; i < exercise.sets; i++) {
-                const setKey = `set${i + 1}`;
-                initialFields[setKey] = {};
-                exercise.fields.forEach(field => {
-                    initialFields[setKey][field.name] = {
-                        value: '',
-                        targetValue: field.target,
-                        unit: field.unit
-                    };
-                });
-            }
-            setFields(initialFields);
-        }
-    }, [currentExercise, exercises]);
+        if(workoutExercises.length === 0){
 
-    const handleInputChange = (setIndex, fieldName, value) => {
-        setFields((prevFields) => ({
-            ...prevFields,
-            [`set${setIndex}`]: {
-                ...prevFields[`set${setIndex}`],
-                [fieldName]: {
-                    ...prevFields[`set${setIndex}`][fieldName],
-                    value: value
+            const tempExercises = exercises.map((exercise) => {
+                let fieldSets = {};
+                for (let i = 0; i < exercise.sets; i++) {
+                    fieldSets[i] = {
+                        isCompleted: false,
+                        fields: [...exercise.fields],
+                    };
                 }
-            }
-        }));
+                return { ...exercise, fieldSets };
+            });
+            console.log(tempExercises)
+            setWorkoutExercises(tempExercises); // Set workoutExercises after loading data
+        }
+    }, [exercises.length]);
+
+    const handleInputChange = (e, currentExercise, key, index) => {
+        setWorkoutExercises((prevWorkoutExercises) => {
+            const updatedWorkoutExercises = prevWorkoutExercises.map((exercise) => {
+                if (exercise.id === currentExercise) {
+                    // Create a new copy of the fieldSets
+                    const updatedFieldSets = { ...exercise.fieldSets };
+                    updatedFieldSets[key] = {
+                        ...updatedFieldSets[key],
+                        fields: updatedFieldSets[key].fields.map((field, idx) => {
+                            if (idx === index) {
+                                // Create a new field with the updated value
+                                return { ...field, value: e.target.value };
+                            }
+                            return field;
+                        }),
+                    };
+                    return { ...exercise, fieldSets: updatedFieldSets };
+                }
+                return exercise;
+            });
+    
+            return updatedWorkoutExercises;
+        });
     };
+    
+
+    const toggleCompletionOfSet = (exerciseId, setKey) => {
+        console.log(workoutExercises.find((ex) => ex.id === exerciseId).fieldSets[setKey].isCompleted);
+    
+        setWorkoutExercises((prevWorkoutExercises) => {
+            const updatedWorkoutExercises = prevWorkoutExercises.map((exercise) => {
+                if (exercise.id === exerciseId) {
+                    // Create a new copy of fieldSets
+                    const updatedFieldSets = { ...exercise.fieldSets };
+                    // Toggle isCompleted: if it's true, set it to false, and vice versa
+                    updatedFieldSets[setKey] = {
+                        ...updatedFieldSets[setKey],
+                        isCompleted: !updatedFieldSets[setKey].isCompleted, // Toggle the value
+                    };
+                    return { ...exercise, fieldSets: updatedFieldSets };
+                }
+                return exercise;
+            });
+    
+            return updatedWorkoutExercises;
+        });
+    };
+    
 
     // Functions to move through exercises
     const prevExercise = () => {
-        if (currentExercise > 0) {
-            setCurrentExercise(currentExercise - 1);
-        }
-    };
-    const nextExercise = () => {
-        if (currentExercise < exercises.length - 1) {
-            setCurrentExercise(currentExercise + 1);
+        const selectedExerciseIndex = workoutExercises.findIndex((obj) => obj.id === currentExercise);
+        if (selectedExerciseIndex > 0) {
+            setCurrentExercise(workoutExercises[selectedExerciseIndex - 1].id);
         }
     };
 
-    // Function to complete the set
-    const completeSet = (setIndex) => {
-        setFields((prevFields) => {
-            const updatedSet = { ...prevFields[`set${setIndex}`] };
-            Object.keys(updatedSet).forEach(fieldName => {
-                updatedSet[fieldName].value = updatedSet[fieldName].targetValue; // Set value to target
-            });
-            return {
-                ...prevFields,
-                [`set${setIndex}`]: updatedSet
-            };
-        });
+    const nextExercise = () => {
+        const selectedExerciseIndex = workoutExercises.findIndex((obj) => obj.id === currentExercise);
+        if (selectedExerciseIndex < workoutExercises.length - 1) {
+            setCurrentExercise(workoutExercises[selectedExerciseIndex + 1].id);
+        }
     };
 
     return (
         <div className="workout-page page">
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
+            <div className="header">
+                <div className="date">{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
             </div>
             <Timer />
 
             <div className="current-exercise section">
                 <div className="current-exercise-top">
-                    <img className="small-icon left-arrow" src={arrowIcon} onClick={prevExercise} alt="Previous Exercise" />
-                    <h3>{exercises[currentExercise]?.name}</h3>
-                    <img className="small-icon" src={arrowIcon} onClick={nextExercise} alt="Next Exercise" />
+                    <img
+                        className="small-icon left-arrow"
+                        src={arrowIcon}
+                        onClick={prevExercise}
+                        alt="Previous Exercise"
+                    />
+                    <h3>{workoutExercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
+                    <img
+                        className="small-icon"
+                        src={arrowIcon}
+                        onClick={nextExercise}
+                        alt="Next Exercise"
+                    />
                 </div>
-                <div className="fields">
-                    {Object.keys(fields).map((setKey, index) => {
-                        const setIndex = parseInt(setKey.replace('set', ''));
-                        const isCompleted = Object.keys(fields[setKey]).every(fieldName => 
-                            fields[setKey][fieldName].value >= fields[setKey][fieldName].targetValue // Check if each field is complete
-                        );
 
-                        return (
-                            <div className="set" key={index}>
-                                <h4>{index + 1}</h4>
-                                {Object.keys(fields[setKey]).map(fieldName => (
-                                    <div className="field" key={fieldName}>
-                                        <input
-                                            type="text"
-                                            placeholder={`${fields[setKey][fieldName].targetValue} ${fields[setKey][fieldName].unit}`}
-                                            value={fields[setKey][fieldName].value}
-                                            onChange={(e) => handleInputChange(setIndex, fieldName, e.target.value)}
-                                        />
-                                    </div>
-                                ))}
-                                <img
-                                    className={`small-icon ${isCompleted ? 'orange-bg' : ''}`} // Add class based on completion status
-                                    src={checkIcon}
-                                    onClick={() => completeSet(setIndex)} // Call completeSet correctly
-                                    alt="Check"
-                                />
+                
+                {workoutExercises?.find(ex => ex.id === currentExercise)?.fieldSets && 
+                    Object.entries(workoutExercises.find(ex => ex.id === currentExercise).fieldSets).map(([key, sets]) => (
+                        <div className="fields">
+                            <div className="set" key={key}>
+                                <h4>{key}</h4>
+                                
+                                    {sets.fields.map((field, index)=>(
+                                        <div className="field" key={field.name}>
+                                            <input
+                                                type="text"
+                                                placeholder={field.name}
+                                                value={field.value || ''}
+                                                onChange={(e) => handleInputChange(e, currentExercise, key, index )}
+                                            />
+                                        </div>
+                                    ))} 
+                                    <img onClick={()=>toggleCompletionOfSet(currentExercise, key)} src={checkIcon} className={`small-icon ${sets.isCompleted ? 'orange-background' : ''}`} />
                             </div>
-                        );
-                    })}
-                </div>
+                        </div>
+                ))
+}
+
+
+
             </div>
             <div className="workout-exercises section">
                 <h3 className="subtitle full-width">Exercises</h3>
-                {exercises.map((exercise, index) => (
-                    <div className={`exercise-body ${currentExercise === index ? 'selected-exercise' : ''}`} key={index + 'exercise'} onClick={() => setCurrentExercise(index)}>
-                        <b>{index + 1}</b><p>{exercise.name}</p>
+                {workoutExercises?.map((exercise, index) => (
+                    <div
+                        className={`exercise-body ${currentExercise === exercise.id ? 'selected-exercise' : ''}`}
+                        key={index + 'exercise'}
+                        onClick={() => setCurrentExercise(exercise.id)}
+                    >
+                        <b>{index + 1}</b>
+                        <p>{exercise.name}</p>
                     </div>
                 ))}
             </div>
