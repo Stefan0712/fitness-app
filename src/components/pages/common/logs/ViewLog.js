@@ -99,6 +99,20 @@ const ViewLog = ({log, closeViewLog}) => {
                     
                 </div>
             ) : ''}
+            {log.type === 'workout' ? (
+                <div className="goal-log-info">
+                    <div className="info-block full-width">
+                        <p>Duration</p>
+                        <p>{log.data.duration || 'Not Set'} </p>
+                    </div>
+                    <div className="info-block full-width">
+                        <p>Finished At</p>
+                        <p>{log.data.finishedAt || 'Not Set'} </p>
+                    </div>
+                    
+                    
+                </div>
+            ) : ''}
 
 
 

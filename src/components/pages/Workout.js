@@ -1,23 +1,39 @@
-import { getCurrentDay, getDateForHeader } from "../../helpers";
+import { formatTime, getCurrentDay, getDateForHeader, getFullHour } from "../../helpers";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import Timer from "./common/Timer";
 import './stylings/workout.css';
 import { v4 as uuidv4 } from 'uuid';
 import checkIcon from '../../assets/checkmark.svg';
 import arrowIcon from '../../assets/arrow.svg';
+import { addLog } from "../../store/userSlice";
 
 const Workout = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
+    console.log(workoutData)
     const exercises = useSelector((state) => state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id)));
     const [currentExercise, setCurrentExercise] = useState(exercises[0]?.id); // Ensure it's set to the first exercise if available
     const [workoutExercises, setWorkoutExercises] = useState([]);
+    const [duration, setDuration] = useState("00:00:00");
+    const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
-        if(workoutExercises.length === 0){
+        const timer = setInterval(() => {
+            setSeconds((prevSeconds) => prevSeconds + 1);
+        }, 1000);
+    
+        return () => clearInterval(timer);
+    }, []);
 
+
+    useEffect(() => {
+        if (workoutExercises.length === 0) {
             const tempExercises = exercises.map((exercise) => {
                 let fieldSets = {};
                 for (let i = 0; i < exercise.sets; i++) {
@@ -28,10 +44,11 @@ const Workout = () => {
                 }
                 return { ...exercise, fieldSets };
             });
-            console.log(tempExercises)
-            setWorkoutExercises(tempExercises); // Set workoutExercises after loading data
+            console.log(tempExercises);
+            setWorkoutExercises(tempExercises);
         }
-    }, [exercises.length]);
+    }, [exercises]); // Depend on exercises directly
+    
 
     const handleInputChange = (e, currentExercise, key, index) => {
         setWorkoutExercises((prevWorkoutExercises) => {
@@ -96,14 +113,32 @@ const Workout = () => {
             setCurrentExercise(workoutExercises[selectedExerciseIndex + 1].id);
         }
     };
+    const finishWorkout = () =>{
+        const log = {
+            id: uuidv4(),
+            icon: '/icons/workout.svg',
+            type: 'workout',
+            data: {
+                duration: formatTime(seconds),
+                finishedAt: getFullHour(),
+                workoutData: {...workoutData, exercises: workoutExercises}
+            }
+        }
+        dispatch(addLog(log));
+        navigate('/logs');
 
+    }
+    const handleUpdateDuration = (time) => {
+        setDuration(time);
+    };
     return (
         <div className="workout-page page">
             <div className="header">
                 <div className="date">{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
+                <button onClick={()=>finishWorkout()} className="finish-workout-button medium-button orange-button">Finish</button>
             </div>
-            <Timer />
+            <div className="timer">{formatTime(seconds)}</div>
 
             <div className="current-exercise section">
                 <div className="current-exercise-top">
@@ -127,7 +162,7 @@ const Workout = () => {
                     Object.entries(workoutExercises.find(ex => ex.id === currentExercise).fieldSets).map(([key, sets]) => (
                         <div className="fields">
                             <div className="set" key={key}>
-                                <h4>{key}</h4>
+                                <h4>{parseInt(key)+1}</h4>
                                 
                                     {sets.fields.map((field, index)=>(
                                         <div className="field" key={field.name}>

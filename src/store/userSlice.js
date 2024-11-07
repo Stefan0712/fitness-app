@@ -416,7 +416,7 @@ const userSlice = createSlice({
         name: log.name,
         data: log.data,
         icon: log.icon,
-        type: log.category
+        type: log.type
       });
     },
 
