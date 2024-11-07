@@ -71,6 +71,10 @@ const ViewLog = ({log, closeViewLog}) => {
             {log.type === 'goal' ? (
                 <div className="goal-log-info">
                     <div className="info-block full-width">
+                        <p>Icon</p>
+                        <p>{(<img src={log.icon} className="small-icon"></img>) || 'Not Set'}</p>
+                    </div>
+                    <div className="info-block full-width">
                         <p>Value</p>
                         <p>{log.data.value || 'Not Set'}</p>
                     </div>
