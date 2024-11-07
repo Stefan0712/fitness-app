@@ -20,7 +20,7 @@ const ViewLog = ({log, closeViewLog}) => {
     return ( 
         <div className="view-log">
             <div className="view-log-header">
-                <h2 className="full-width">{log.name}</h2>
+                <h2 className="full-width">{log.name || log.data.workoutData?.name}</h2>
                 <img src="/icons/close.svg" className="small-icon" onClick={()=>closeViewLog()} />
             </div>
             {console.log(log)}
@@ -108,6 +108,10 @@ const ViewLog = ({log, closeViewLog}) => {
                     <div className="info-block full-width">
                         <p>Finished At</p>
                         <p>{log.data.finishedAt || 'Not Set'} </p>
+                    </div>
+                    <div className="info-block full-width">
+                        <p>Exercises</p>
+                        <p>{log.data.workoutData.exercises.length || 'Not Set'} </p>
                     </div>
                     
                     
