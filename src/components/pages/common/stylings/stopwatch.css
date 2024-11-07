@@ -58,6 +58,8 @@
     gap: 10px;
     max-height: 40%;
     overflow-y: auto;
+    height: 250px;
+    overflow-y: auto;
 }
 .laps-container .lap{
     width: 90%;
