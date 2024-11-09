@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import arrowIcon from '../../assets/arrow.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressCircle from './common/ProgressCircle';
-import MessageModal from './common/MessageModal';
 
 
 

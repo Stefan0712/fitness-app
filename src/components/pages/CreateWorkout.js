@@ -134,11 +134,8 @@ const CreateWorkout = () => {
                                             <h4>{exercise.name}</h4>
                                             <div className="exercise-meta">
                                                 {exercise.sets ? (<p>{exercise.sets} sets</p>) : ''}
-                                                {exercise.reps ? (<p>{exercise.reps} reps</p>) : ''}
-                                                {exercise.distance ? (<p>{exercise.distance} m</p>) : ''}
-                                                {exercise.duration ? (<p>{exercise.duration} s</p>) : ''}
                                             </div>
-                                            {exercise && exercise.fields && exercise.fields.length>0 ? (<div className="exercise-meta"><p>{exercise.fields[0].target} {exercise.fields[0].unit}</p><p>{exercise.fields[1].target} {exercise.fields[1].unit}</p></div>) :''}
+                                            {/* {exercise && exercise.fields && exercise.fields.length>0 ? (<div className="exercise-meta"><p>{exercise.fields[0]?.target} {exercise.fields[0].unit}</p><p>{exercise.fields[1].target} {exercise.fields[1].unit}</p></div>) :''} */}
                                         </div>
                                         <button onClick={(e)=>handleAddExerciseFromLibrary(exercise,e)} className="small-square transparent-bg"><img src={plusIcon} className=" small-icon" alt=""></img></button>
                                     </div>

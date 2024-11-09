@@ -1,18 +1,11 @@
 import './stylings/quickMenu.css';
 import closeIcon from '../../../assets/close.svg';
 
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { makeFirstUpperCase } from '../../../helpers';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
-
-    const [buttons, setButtons] = useState([ 
-        { src: 'food.svg', name: "Food", type: "food" },
-        { src: 'exercise.svg', name: "Exercise", type: "exercise" },
-    ]);
-
     const dailyGoals = useSelector((state)=> state.user.userData.goals);
 
     return ( 
