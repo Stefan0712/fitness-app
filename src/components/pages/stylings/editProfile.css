@@ -3,6 +3,12 @@
     flex-direction: column;
     gap: 30px;
 }
+@media (min-width: 767px) {
+    .edit-profile-page{
+        padding: 30px 25% !important; 
+    }
+
+}
 .edit-profile-form .inputs-container{
     display: flex;
     gap: 5px;

@@ -5,6 +5,13 @@
     align-items: center;
     gap: 25px;
 }
+@media (min-width: 767px) {
+    .library{
+        padding: 30px 25% !important; 
+    }
+
+}
+
 .library-buttons{
     display: flex;
     align-items: center;

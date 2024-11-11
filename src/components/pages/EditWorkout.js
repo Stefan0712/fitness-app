@@ -151,8 +151,8 @@ const EditWorkout = () => {
                                     </div>
                                     {exercise.fields && exercise.fields.length > 0 && (
                                         <div className="exercise-meta">
-                                            <p>{exercise.fields[0].target} {exercise.fields[0].unit}</p>
-                                            <p>{exercise.fields[1].target} {exercise.fields[1].unit}</p>
+                                            <p>{exercise.fields[0]?.target} {exercise.fields[0]?.unit}</p>
+                                            <p>{exercise.fields[1]?.target} {exercise.fields[1]?.unit}</p>
                                         </div>
                                     )}
                                 </div>

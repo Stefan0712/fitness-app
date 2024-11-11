@@ -3,6 +3,12 @@
     flex-direction: column;
     align-items: center;
 }
+@media (min-width: 767px) {
+    .profile-page{
+        padding: 30px 25% !important; 
+    }
+
+}
 .profile-info{
     width: 100%;
     display: flex;

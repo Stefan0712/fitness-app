@@ -21,6 +21,22 @@
     text-align: center;
     font-size: 2rem;
 }
+@media (min-width: 767px) {
+    .stopwatch{
+        width: 100% !important; 
+    }
+    .minimized-stopwatch{
+        width: 50% !important;
+        margin-left: 25%;
+    }
+    .stopwatch.hide-stopwatch{
+        width: 150px !important;
+        margin-left: 25%;
+        left: calc(25% - 75px) !important;
+    }
+    
+
+}
 .stopwatch{
     width: 100%;
     bottom: 75px;

@@ -8,7 +8,21 @@
     z-index: 1;
 }
 
+@media (min-width: 767px) {
+    .dashboard{
+        padding: 20px 25% !important;
+        
+    }
+    .summary-cell-body{
+        max-width: 200px;
+    }
+    .summary-container{
+        justify-content: start !important;
+        gap: 10px;
+    }
+    
 
+}
 
 
 .week-day-button{
@@ -78,7 +92,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    border: 1px solid rgba(211, 211, 211, 0.151)
+    border: 1px solid rgba(211, 211, 211, 0.151);
 }
 .summary-cell-body .left{
     width: 60%;

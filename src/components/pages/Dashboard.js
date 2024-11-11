@@ -59,7 +59,7 @@ const Dashboard = () => {
     };
 
     return ( 
-        <div className="dashboard">
+        <div className="dashboard page">
             
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>

@@ -5,6 +5,7 @@ body{
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-color: #111214;
 }
 .icon-30{
     background-color: transparent;
@@ -18,8 +19,16 @@ body{
 .mb-25{
     margin-bottom: 25px;
 }
+@media (min-width: 767px) {
+    nav{
+        width: 50% !important;
+        margin-left: 25%;
+    }
 
-
+}
+#root{
+    background-color: #111214;
+}
 
 
 

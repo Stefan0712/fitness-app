@@ -59,7 +59,7 @@ const Workout = () => {
                         fields: updatedFieldSets[key].fields.map((field, idx) => {
                             if (idx === index) {
                                 // Create a new field with the updated value
-                                return { ...field, value: e.target.value };
+                                return { ...field, value: e?.target.value };
                             }
                             return field;
                         }),
@@ -160,12 +160,12 @@ const Workout = () => {
 
                 
                 {workoutExercises?.find(ex => ex.id === currentExercise)?.fieldSets && 
-                    Object.entries(workoutExercises.find(ex => ex.id === currentExercise).fieldSets).map(([key, sets]) => (
+                    Object.entries(workoutExercises.find(ex => ex.id === currentExercise).fieldSets)?.map(([key, sets]) => (
                         <div className="fields">
                             <div className="set" key={key}>
                                 <h4>{parseInt(key)+1}</h4>
                                 
-                                    {sets.fields.map((field, index)=>(
+                                    {sets?.fields?.map((field, index)=>(
                                         <div className="field" key={field.name}>
                                             <input
                                                 type="text"

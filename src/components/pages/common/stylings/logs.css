@@ -13,6 +13,7 @@
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;
 }
+
 @keyframes quickMenuAnimation {
     0%{
         height: 0;

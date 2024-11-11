@@ -213,7 +213,15 @@ nav{
 
 /* Activity page */
 
-
+@media (min-width: 767px) {
+  .logs{
+      padding: 30px 25% !important; 
+  }
+  .view-log{
+    width: 50% !important;
+    margin-left: 25%;
+  }
+}
 .logs h3{
   height: 40px;
   margin-top: 15px;
@@ -248,7 +256,7 @@ nav{
 .view-log{
   width: 100vw;
   z-index: 15;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   background-color: #1A1A1B;

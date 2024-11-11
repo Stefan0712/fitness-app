@@ -7,6 +7,17 @@
     gap: 20px;
     align-items: center;
 }
+@media (min-width: 767px) {
+    .view-exercise{
+        padding: 30px 25% !important; 
+    }
+    .view-exercise .workouts-container{
+        width: 100%;
+    }
+    .create-exercise-page{
+        padding: 30px 25% !important; 
+    }
+}
 .view-exercise .header a{
     position: absolute;
     right: 20px;
