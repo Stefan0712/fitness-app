@@ -1,6 +1,6 @@
 import './stylings/quickMenu.css';
 import closeIcon from '../../../assets/close.svg';
-
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { makeFirstUpperCase } from '../../../helpers';
 
@@ -14,7 +14,10 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                 <img src={closeIcon} alt=''></img>
             </button>
             <h1>Quick Menu</h1>
-
+            <div className='new-items-buttons'>
+                <Link to={'/create-workout'} className="orange-button large-button">Create Workout</Link>
+                <Link to={'/create-exercise'} className="orange-button large-button">Create Exercise</Link>
+            </div>
             <h2>Tools</h2>
             <button className='quick-button' onClick={()=>showLog('stopwatch')}>
                 <img src={'/icons/stopwatch.svg'} alt=''></img>

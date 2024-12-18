@@ -3,6 +3,7 @@ import './stylings/library.css';
 import arrowIcon from '../../assets/arrow.svg'
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { IconLibrary } from "../../IconLibrary";
 
 
 const Library = () => {
@@ -17,10 +18,7 @@ const Library = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Library</h2>
             </div>
-            <div className="library-buttons">
-                <Link to={'/create-workout'} className="orange-button large-button">Create Workout</Link>
-                <Link to={'/create-exercise'} className="orange-button large-button">Create Exercise</Link>
-            </div>
+         
             <div className="subtitle full-width"><h3>Browse Workouts</h3><p className="orange-text">See more</p></div>
             <div className="library-items-container">
                 {workouts?.length > 0 ? (
@@ -34,8 +32,8 @@ const Library = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                        <Link to={`/workout/${workout.id}/view/`} className="orange-button medium-square">
-                            <img className="small-icon white-icon" src={arrowIcon} alt="arrow icon" />
+                        <Link to={`/workout/${workout.id}/view/`} className="">
+                            <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
                         </Link>
                         </div>
                     </div>
@@ -57,8 +55,8 @@ const Library = () => {
                         </div>
                     </div>
                     <div className="item-button">
-                    <Link to={`/exercise/${exercise.id}/view/`} className="orange-button medium-square">
-                        <img className="small-icon white-icon" src={arrowIcon} alt="arrow icon" />
+                    <Link to={`/exercise/${exercise.id}/view/`}>
+                        <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
                     </Link>
                     </div>
                 </div>

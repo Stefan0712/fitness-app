@@ -33,11 +33,10 @@
 }
 .library .item-body{
     width: 100%;
-    height: 75px;
+    height: 50px;
     display: flex;
-    background-color: #1A1A1B;
-    padding: 10px;
     align-items: center;
+    justify-content: space-between;
     border-radius: 3px;
 }
 .library .item-body .item-info{
@@ -60,4 +59,3 @@
 .library .item-description p{
     color: rgba(255, 255, 255, 0.6);
 }
-

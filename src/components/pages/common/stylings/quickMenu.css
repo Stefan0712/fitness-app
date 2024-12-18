@@ -1,6 +1,6 @@
 .quick-menu{
     width: 100%;
-    height: 80vh;
+    height: fit-content;
     padding: 25px 10px;
     background-color: #1A1A1B;
     border: 1px solid rgba(211, 211, 211, 0.2);
@@ -28,7 +28,7 @@
         height: 0;
     }
     100%{
-        height: 80vh;
+        height: fit-content;
     }
 }
 .quick-menu .quick-button img{
@@ -71,4 +71,13 @@
 #quick-menu-close-btn img{
     width: 30px;
     height: 30px;
+}
+.new-items-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.new-items-buttons a{
+    width: calc(50% - 5px);
 }
