@@ -1,6 +1,5 @@
 .quick-menu{
     width: 100%;
-    height: fit-content;
     padding: 25px 10px;
     background-color: #1A1A1B;
     border: 1px solid rgba(211, 211, 211, 0.2);
@@ -13,8 +12,6 @@
     flex-wrap: wrap;
     z-index: 15;
     border-radius: 5px;
-    animation-name: quickMenuAnimation;
-    animation-duration: 0.1s;
 }
 @media (min-width: 767px) {
     .quick-menu{
@@ -23,14 +20,7 @@
     }
 
 }
-@keyframes quickMenuAnimation {
-    0%{
-        height: 0;
-    }
-    100%{
-        height: fit-content;
-    }
-}
+
 .quick-menu .quick-button img{
     width: 30px;
     height: 30px;
