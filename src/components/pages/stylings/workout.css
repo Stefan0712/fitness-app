@@ -16,6 +16,16 @@
     }
     
 }
+.view-workout-page .header button{
+    width: 50px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
 .view-workout-page .header a{
     position: absolute;
     right: 20px;

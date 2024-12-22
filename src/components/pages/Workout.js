@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import checkIcon from '../../assets/checkmark.svg';
 import arrowIcon from '../../assets/arrow.svg';
 import { addLog } from "../../store/userSlice";
+import ContextualMenu from "./common/ContextualMenu";
 
 const Workout = () => {
     const { id } = useParams();

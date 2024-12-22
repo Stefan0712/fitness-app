@@ -9,6 +9,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { getDateForHeader } from '../../helpers'
 import { useState } from 'react';
 import Modal from "./common/Modal";
+import ContextualMenu from './common/ContextualMenu';
 
 
 
@@ -20,7 +21,7 @@ const ViewWorkout = () => {
 
 
     const [modal, setModal] = useState(null)
-
+    const [showMenu, setShowMenu] = useState(false);
 
 
    
@@ -47,7 +48,7 @@ const ViewWorkout = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
-                <Link to={`/workout/${workoutData.id}/edit`} className="transparent-bg"><img src={'/icons/edit.svg'} className="small-icon" alt="edit"></img></Link>
+                <button onClick={()=>setShowMenu(true)}>...</button>
             </div>
             <div className='workout-info'>
                 <p className='full-width'>{workoutData.description}</p>
@@ -81,7 +82,7 @@ const ViewWorkout = () => {
                 ))}
             </div>
             <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'>Start</Link>
-            <button className="danger-button" onClick={handleDelete}>Delete Workout</button>
+            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/workout/${workoutData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
         </div>
      );
 }
