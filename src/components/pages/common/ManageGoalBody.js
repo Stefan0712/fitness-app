@@ -20,7 +20,6 @@ const ManageGoalBody = ({goal}) => {
                 <p>{makeFirstUpperCase(goal.name)}</p>
                 <div className="goal-buttons">
                     <img onClick={()=>setShowEdit((showEdit)=>!showEdit)} className='small-icon' src={IconLibrary.EditIcon}></img>
-                    
                 </div>
             </div>
             <div className="edit-inputs">

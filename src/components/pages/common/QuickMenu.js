@@ -77,7 +77,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             {quickMenuScreen === 'manage-goals' ? (
 
                 <div className='quick-menu-screen'>
-                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}>Back</button>
+                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.BackIcon} className='small-icon white-icon'></img></button>
                     <h1>Manage Goals</h1>
                     <Link to={'/create-workout'} className="orange-button large-button">Create Goal</Link>
                     {dailyGoals?.map((goal)=>(
