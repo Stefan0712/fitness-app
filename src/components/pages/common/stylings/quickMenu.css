@@ -27,6 +27,12 @@
     background-color: transparent;
     margin-left: 15px;
 }
+.quick-menu-screen{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 .quick-menu .quick-button{
     width: calc(50% - 10px);
     height: 80px;
@@ -70,4 +76,20 @@
 }
 .new-items-buttons a{
     width: calc(50% - 5px);
+}
+
+
+/* manage goals screen */
+.quick-menu-screen .goal-body{
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: start;
+}
+.quick-menu-screen .goal-body p{
+    width: 25%;
 }
