@@ -43,3 +43,12 @@
     align-items: center;
     padding-left: 20px;
 }
+.chart-button{
+    background-color: transparent;
+    border: 1px solid white;
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
