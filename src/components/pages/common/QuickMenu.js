@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { makeFirstUpperCase } from '../../../helpers';
 import { useState } from 'react';
+import { IconLibrary } from '../../../IconLibrary';
+import ManageGoalBody from './ManageGoalBody';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
     const dailyGoals = useSelector((state)=> state.user.userData.goals);
 
-    const [quickMenuScreen, setQuickMenuScreen] = useState('menu')
+    const [quickMenuScreen, setQuickMenuScreen] = useState('menu');
 
     return ( 
         <div className="quick-menu">
@@ -54,7 +56,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             {quickMenuScreen === 'log-goals' ? (
 
                 <div className='quick-menu-screen'>
-                    <button onClick={()=>setQuickMenuScreen('menu')}>Back</button>
+                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.BackIcon} className='small-icon white-icon'></img></button>
                     <h1>Log Goals</h1>
                     <button className='quick-button' onClick={()=>showLog("food")} key={"food"}>
                         <img src='/icons/food.svg' alt=''></img>
@@ -75,14 +77,11 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
             {quickMenuScreen === 'manage-goals' ? (
 
                 <div className='quick-menu-screen'>
-                    <button onClick={()=>setQuickMenuScreen('menu')}>Back</button>
+                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}>Back</button>
                     <h1>Manage Goals</h1>
                     <Link to={'/create-workout'} className="orange-button large-button">Create Goal</Link>
                     {dailyGoals?.map((goal)=>(
-                        <button className='goal-body' onClick={()=>showLog(goal.name)} key={goal.name}>
-                            <img className='medium-icon' src={goal.icon} alt=''></img>
-                            <p>{makeFirstUpperCase(goal.name)}</p>
-                        </button>
+                        <ManageGoalBody goal={goal} showLog={showLog}/>
                     ))}   
                     
                 </div>

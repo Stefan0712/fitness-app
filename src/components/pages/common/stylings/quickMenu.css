@@ -31,7 +31,13 @@
     }
 
 }
-
+.quick-menu-back-button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
 .quick-menu .quick-button img{
     width: 30px;
     height: 30px;
@@ -43,6 +49,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    padding-top: 50px;
 }
 .quick-menu .quick-button{
     width: calc(50% - 10px);
@@ -93,14 +100,35 @@
 /* manage goals screen */
 .quick-menu-screen .goal-body{
     width: 100%;
-    height: 50px;
+    height: 75px;
+    padding: 0 10px;
+    border-radius: 5px;
     background-color: transparent;
     border: 1px solid transparent;
     display: flex;
     align-items: center;
     gap: 10px;
     justify-content: start;
+    background-color: #111214;
 }
 .quick-menu-screen .goal-body p{
-    width: 25%;
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    margin-right: auto;
 }
+.quick-menu-screen .goal-body input{
+    height: 30px;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    width: 100px;
+    color: black;
+    padding-left: 10px;
+}
+
+
+/* manage goal body */
+
+
