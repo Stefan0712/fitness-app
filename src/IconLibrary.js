@@ -5,6 +5,7 @@ import DeleteIcon from './assets/delete.svg';
 import SaveIcon from './assets/save.svg';
 import YesIcon from './assets/yes.svg';
 import NoIcon from './assets/no.svg';
+import AddIcon from './assets/add.svg';
 
 
 
@@ -15,5 +16,6 @@ export const IconLibrary = {
     DeleteIcon,
     SaveIcon,
     YesIcon,
-    NoIcon
+    NoIcon,
+    AddIcon
 }

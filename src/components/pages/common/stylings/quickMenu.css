@@ -171,6 +171,14 @@
 .delete-container .delete-button.hide{
     width: 0px;
 }
-
+.goal-body.create-goal-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.goal-body.create-goal-button p{
+    margin: 0;
+}
 
 
