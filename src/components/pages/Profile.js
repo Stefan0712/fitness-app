@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { getDateForHeader } from "../../helpers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import './stylings/profile.css';
 import { reset } from '../../store/userSlice';
-import { useDispatch } from "react-redux";
+import profileIcon from '../../assets/profile.svg';
+import { IconLibrary } from "../../IconLibrary";
+import ContextualMenu from './common/ContextualMenu';
+import { useState } from "react";
+
 
 
 
@@ -14,16 +18,22 @@ const Profile = () => {
 
     const userData = useSelector((state)=>state.user.userData);
     const dispatch = useDispatch();
+    const [showMenu, setShowMenu] = useState(false);
+    
 
     return ( 
         <div className="profile-page page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Profile</h2>
+                <button onClick={()=>setShowMenu(true)} className="settings-button">
+                    <img src={IconLibrary.SettingsIcon} ></img>
+                </button>
             </div>
+            <img className="profile-image" src={profileIcon}></img>
+            <h2 className="profile-name">{userData.name ? userData.name : 'Not Set'}</h2>
             <div className="profile-info">
-                <h1 className="full-width">{userData.name ? userData.name : 'Not Set'}</h1>
-                <p className="full-width mb-25 bio">{userData.bio ? userData.bio : 'Bio not set'}</p>
+                
                 <div className="user-info">
                     <div className="profile-info-block">
                         <h4>Age</h4>    
@@ -43,18 +53,9 @@ const Profile = () => {
                         <h3>{userData.weight ? userData.weight : 'Not Set'}</h3>
                     </div>
                 </div>
+                <p className="profile-bio">{userData.bio ? userData.bio : 'Bio not set'}</p>
 
-
-                <h2 className="full-width">Goals</h2>
-                {userData.goals?.map((goal, index)=>(
-                    <div className="goal-body" key={'goal'+index}>
-                        <div className="goal-info">
-                            <h4>{goal.name}</h4>    
-                            <h3>{goal.target}</h3>
-                        </div>
-                        <img className="small-icon" src={goal.icon}></img>
-                    </div>
-                ))}
+                
                 
 
                
@@ -64,9 +65,9 @@ const Profile = () => {
                
             </div>
 
-            <Link to={'/edit-profile'} className="orange-button large-button edit-profile-btn">Edit Profile</Link>
-            <button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>
-
+            <Link to={'/edit-profile'} className="edit-profile-btn">Edit Profile</Link>
+            
+            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>]} />) : ''}
         </div>
      );
 }

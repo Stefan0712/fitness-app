@@ -6,6 +6,7 @@ import SaveIcon from './assets/save.svg';
 import YesIcon from './assets/yes.svg';
 import NoIcon from './assets/no.svg';
 import AddIcon from './assets/add.svg';
+import SettingsIcon from './assets/settings.svg';
 
 
 
@@ -17,5 +18,6 @@ export const IconLibrary = {
     SaveIcon,
     YesIcon,
     NoIcon,
-    AddIcon
+    AddIcon,
+    SettingsIcon
 }
