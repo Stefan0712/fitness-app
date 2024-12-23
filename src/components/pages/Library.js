@@ -23,7 +23,7 @@ const Library = () => {
             <div className="library-items-container">
                 {workouts?.length > 0 ? (
                     workouts.map((workout, index) => (
-                    <div key={index} className="item-body">
+                    <Link to={`/workout/${workout.id}/view/`} key={index} className="item-body">
                         <div className="item-info">
                             <h4>{workout.name}</h4>
                             <div className="item-description">
@@ -32,11 +32,9 @@ const Library = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                        <Link to={`/workout/${workout.id}/view/`} className="">
                             <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
-                        </Link>
                         </div>
-                    </div>
+                    </Link>
                     ))
                 ) : (
                     <p>No workouts created yet.</p>
@@ -46,7 +44,7 @@ const Library = () => {
             <div className="library-items-container">
             {exercises?.length > 0 ? (
                 exercises.map((exercise, index) => (
-                <div key={"exercise-"+index} className="item-body">
+                <Link to={`/exercise/${exercise.id}/view/`} key={"exercise-"+index} className="item-body">
                     <div className="item-info">
                         <h4>{exercise.name}</h4>
                         <div className="item-description">
@@ -55,11 +53,9 @@ const Library = () => {
                         </div>
                     </div>
                     <div className="item-button">
-                    <Link to={`/exercise/${exercise.id}/view/`}>
                         <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
-                    </Link>
                     </div>
-                </div>
+                </Link>
                 ))
             ) : (
                 <p>No exercises created yet.</p>

@@ -38,6 +38,8 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 3px;
+    text-decoration: none;
+    
 }
 .library .item-body .item-info{
     height: 100%;

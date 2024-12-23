@@ -54,3 +54,11 @@ export const formatDate = (date) => {
     
     return `${year} ${month} ${day}`;
 }
+
+
+export const convertGroupFromLowerToUpperCase = (input)=>{
+  return input
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' '); 
+}
