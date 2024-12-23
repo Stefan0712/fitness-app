@@ -1,12 +1,16 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getDateForHeader, makeFirstUpperCase } from "../../helpers";
+import { convertGroupFromLowerToUpperCase, getDateForHeader, makeFirstUpperCase } from "../../helpers";
 import plusIcon from '../../assets/plus.svg';
+import muscleIcon from '../../assets/muscle.svg';
+import timeIcon from '../../assets/time.svg';
 import './stylings/exercise.css';
 import { useDispatch } from "react-redux";
 import { addExerciseToWorkout, deleteExercise } from "../../store/userSlice";
 import { useState } from "react";
+import ContextualMenu from './common/ContextualMenu';
 import Modal from "./common/Modal";
+
 
 
 const ViewExercise = () => {
@@ -15,10 +19,10 @@ const ViewExercise = () => {
     const exerciseData = useSelector((state)=>state.user.exercises.find(item => item.id === id));
     const workouts = useSelector((state)=>state.user.workouts);
     const [modal, setModal] = useState(null)
-    
+    console.log(exerciseData)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [showMenu, setShowMenu] = useState(false);
 
     const addExerciseToAnotherWorkout = (workoutId) =>{
         dispatch(addExerciseToWorkout({workoutId, exerciseId: id}));
@@ -39,24 +43,46 @@ const ViewExercise = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{exerciseData.name}</h2>
-                <Link to={`/exercise/${exerciseData.id}/edit`} className="transparent-bg"><img src={'/icons/edit.svg'} className="small-icon" alt="edit"></img></Link>
+                <button onClick={()=>setShowMenu(true)}>...</button>
             </div>
-            <div className="exercise-info section">
-                <p><b className="white-50">{makeFirstUpperCase(exerciseData.targetGroup)}</b></p>
-                <p><b>Description</b></p>
-                <p className="full-width white-50">{exerciseData.description}</p>
-                <p><b>Fields</b></p>
-                <div className="exercise-fields">
+            <div className="exercise-info">
+                <div className='workout-description'>
+                    <p className='full-width subtle-subtitle'><b>Description</b></p>
+                    <p className='full-width'>{exerciseData.description}</p>
+                </div>
+
+                <div className='info-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={muscleIcon} alt=''></img>
+                        <p className='info-block-name'>Group</p>
+                    </div>
+                    <p className='info-block-value'>{exerciseData.targetGroup ? convertGroupFromLowerToUpperCase(exerciseData.targetGroup) : 'Not Set'}</p>
+                </div>
+                <div className='info-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={timeIcon} alt=''></img>
+                        <p className='info-block-name'>Duration</p>
+                    </div>
+                    <p className='info-block-value'>{exerciseData.duration ? `${exerciseData.duration} minutes` : 'Not Set'}</p>
+                </div>
+                <div className="full-width exercise-fields">
+                    <div className="field-body fields-header">
+                        <p id="field-name">Field Name</p>
+                        <p id="field-target">Target</p>
+                        <p id="field-unit">Unit</p>
+                    </div>
                     {exerciseData.fields.map((fields, index)=>(
                         <div className="field-body" key={'field'+index}>
-                            <p>{fields.name}</p><p> {fields.target}</p>
+                            <p id="field-name">{fields.name}</p>
+                            <p id="field-target">{fields.target}</p>
+                            <p id="field-unit">{fields.unit}</p>
                         </div>
                     ))}
                 </div>
 
             </div>
-            <h3 className="subtitle full-width">Add exercise to a workout</h3>
-            <div className="workouts-container section">
+            <div className="workouts-container section full-width">
+            <h3 className="subtitle">Save to</h3>
             {workouts.length > 0 ? (
                     workouts.map((workout, index) => workout.exercises.some((ex)=>ex.id === exerciseData.id) ? '' : (
                     <div key={index} className="item-body">
@@ -69,8 +95,8 @@ const ViewExercise = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                            <button className="orange-button small-square" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
-                                <img className="small-icon white-icon" src={plusIcon} alt="plus icon" />
+                            <button className="add-item" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
+                                <img className="white-icon" src={plusIcon} alt="plus icon" />
                             </button>
                         </div>
                     </div>
@@ -80,8 +106,7 @@ const ViewExercise = () => {
                 )}
             </div>
 
-            <button className="danger-button" onClick={()=>handleDelete(exerciseData.id)}>Delete Exercise</button>
-            
+            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
         </div>
      );
 }

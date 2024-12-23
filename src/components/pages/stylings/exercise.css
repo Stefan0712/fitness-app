@@ -18,35 +18,109 @@
         padding: 30px 25% !important; 
     }
 }
+.view-exercise .exercise-info{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 5px;
+}
+.subtle-subtitle{
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.342);
+}
+.view-exercise .info-block{
+    width: calc(50% - 5px);
+    display: flex;
+    flex-direction: column;
+    background-color: #1A1A1B;
+    padding: 10px;
+    border-radius: 5px;
+    gap: 10px;
+}
+.view-exercise .workout-description{
+    background-color: #1A1A1B;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+.view-exercise .info-block .info-block-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.view-exercise .info-block .info-block-value{
+   display: flex;
+   align-items: center;
+   padding-left: 10px;
+}
 .view-exercise .header a{
     position: absolute;
     right: 20px;
     top: 40px;
 }
-.view-exercise .exercise-info{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.view-exercise .field-body #field-name{
+    width: 50%;
+}
+.view-exercise .field-body #field-target{
+    width: 29%;
+}
+.view-exercise .field-body #field-unit{
+    width: 30%;
 }
 .view-exercise .exercise-fields{
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #1A1A1B;
+    border-radius: 5px;
+    padding: 10px;
 }
-
+.view-exercise .exercise-fields .fields-header{
+    border-bottom:1px solid rgba(211, 211, 211, 0.212);
+    padding-bottom: 5px;
+}
+.view-exercise .exercise-fields .field-body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .view-exercise .workouts-container{
     gap: 15px;
 }
 .view-exercise .item-body{
     display: flex;
-    border-bottom: 1px solid rgba(211, 211, 211, 0.5);
-    padding-bottom: 15px;
 }
 .view-exercise .item-body .item-button{
     width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.view-exercise .add-item{
+    background-color: transparent;
+    border: 1px solid transparent;
+    height: 40px;
+    width: 40px;
+}
+.view-exercise .add-item img{
+    height: 100%;
+    width: 100%;
+}
+.view-exercise .header button{
+    width: 50px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    position: absolute;
+    top: 30px;
+    right: 20px;
 }
 .view-exercise .item-body .item-info{
     width: calc(100% - 50px);

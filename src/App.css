@@ -150,8 +150,8 @@ nav{
   height: 50px;
 }
 .small-icon{
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 .accent-color{
@@ -159,6 +159,12 @@ nav{
 }
 .white-50{
   color: rgba(255, 255, 255, 0.5) !important;
+}
+.mb-5{
+  margin-bottom: 5px;
+}
+.mb-10{
+  margin-bottom: 10px;
 }
 .mb-25{
   margin-bottom: 25px;

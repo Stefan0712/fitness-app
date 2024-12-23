@@ -85,7 +85,7 @@ const ViewWorkout = () => {
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={caloriesIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={linkIcon} alt=''></img>
                         <p className='info-block-name'>Reference (url)</p>
                     </div>
                     <p className='info-block-value'>{workoutData.reference ? workoutData.reference : 'Not Set'}</p>
