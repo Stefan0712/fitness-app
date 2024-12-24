@@ -79,6 +79,7 @@ const Logs = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
+            <h2>Log History</h2>
             {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
             {logs.map((dailyActivity, index) => (
                 <div key={index} className="daily-activity-section" >

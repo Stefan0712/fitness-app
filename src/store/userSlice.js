@@ -20,7 +20,7 @@ const initialState = {
       }
     ],
     name: 'Stefan',
-    username: 'Stefanuwu',
+    username: 'Stefan06',
     age: 25,
     gender: 'Male',
     height: 180,
@@ -291,14 +291,15 @@ const initialState = {
     {
       id: '21407df4-6e45-4276-babf-aaaddc1415fc',
       type: 'cardio',
-      author: '',
+      author: 'Stefan',
       name: 'Biceps Curls',
-      description: 'Not Set',
-      reference: 'None',
-      targetGroup: 'arms',
-      difficulty: 'begginer',
-      sets: '3',
-      duration: '5',
+      description: 'Not set',
+      tags: [],
+      reference: '',
+      targetGroup: 'Arms',
+      difficulty: 'Beginner',
+      sets: 3,
+      duration: 5,
       visibility: 'private',
       fields: [
         {
@@ -307,7 +308,7 @@ const initialState = {
           unit: 'reps',
           target: '12',
           type: '',
-          value: ''
+          value: null
         },
         {
           id: 'ae892a8d-cd3c-410a-b338-be20871cf9b3',
@@ -315,7 +316,7 @@ const initialState = {
           unit: 'kg',
           target: '10',
           type: '',
-          value: ''
+          value: null
         }
       ],
       createdAt: '2024-10-30T18:30:43.057Z'
@@ -325,6 +326,7 @@ const initialState = {
       type: 'Not set', 
       name: 'TRX Face Pulls', 
       visibility: 'private', 
+      tags: [],
       author: '', 
       description: 'Not set', 
       reference: 'Not set', 
@@ -337,7 +339,8 @@ const initialState = {
       id: '3aa0e1a6-59b9-4e47-af3b-1866125ae5',
       type: 'Not set', 
       name: 'TRX Ys', 
-      visibility: 'private', 
+      visibility: 'private',  
+      tags: [],
       author: '', 
       description: 'Not set', 
       reference: 'Not set', 
@@ -350,7 +353,8 @@ const initialState = {
       id: '3aa618a6-59b9-4e47-af3b-1866125ae5',
       type: 'Not set', 
       name: 'Test Exercise', 
-      visibility: 'private', 
+      visibility: 'private',  
+      tags: [],
       author: '', 
       description: 'Not set', 
       reference: 'Not set', 
@@ -363,7 +367,12 @@ const initialState = {
   workouts: [{
     id: '12e66889-7281-4935-bb8c-3e90e6d859c2',
     type: 'created',
+    tags: [],
+    equipment: [],
+    pinned: false,
+    imageUrl: '',
     author: '',
+    notes: [],
     name: 'TRX Back Workout',
     description: 'A quick back workout you can do at home with just a TRX',
     reference: 'Not Required',
