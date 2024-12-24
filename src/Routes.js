@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 import ViewExercise from './components/pages/ViewExercise';
 import Browse from './components/pages/Browse';
 import ViewBrowseExercise from './components/pages/ViewBrowseExercise';
-
+import ViewBrowseWorkout from './components/pages/ViewBrowseWorkout';
 
 
 function AppRoutes() {
@@ -46,7 +46,7 @@ function AppRoutes() {
       <Route path="/create-exercise" element={<CreateExercise />} />
       <Route path='/browse' element={<Browse />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
-      {/* <Route path='/browse/workout/:id/view' element={<View />} /> */}
+      <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       
     </Routes>
   );

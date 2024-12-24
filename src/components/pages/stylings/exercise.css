@@ -143,7 +143,13 @@
     height: 50px;
     margin-top: auto;
     margin-bottom: 25px;
-  }
+}
+.view-exercise .browse-button{
+    gap: 10px;
+}
+
+
+
 /*///////////////////////////*/
 /* Create/Edit exercise page */
 /*///////////////////////////*/

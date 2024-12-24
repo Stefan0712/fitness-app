@@ -11,6 +11,7 @@ import { useState } from "react";
 import ContextualMenu from './common/ContextualMenu';
 import Modal from "./common/Modal";
 import { exercises } from "../../database";
+import { IconLibrary } from "../../IconLibrary";
 
 
 
@@ -35,7 +36,6 @@ const ViewBrowseExercise = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{exerciseData.name}</h2>
-                <button onClick={()=>setShowMenu(true)}>...</button>
             </div>
             <div className="exercise-info">
                 <div className='workout-description'>
@@ -97,7 +97,7 @@ const ViewBrowseExercise = () => {
                     <p>No exercises created yet.</p>
                 )}
             </div>
-
+            <button className="browse-button"><img className="small-icon" src={IconLibrary.DownloadIcon}></img>Save to library</button>
         </div>
      );
 }

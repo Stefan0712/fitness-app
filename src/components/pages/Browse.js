@@ -25,7 +25,7 @@ const Browse = () => {
                 <div className="library-items-container">
                 {workouts?.length > 0 ? (
                     workouts.map((workout, index) => (
-                    <Link to={`/workout/${workout.id}/view/`} key={index} className="item-body">
+                    <Link to={`/browse/workout/${workout.id}/view/`} key={index} className="item-body">
                         <div className="item-info">
                             <h4>{workout.name}</h4>
                             <div className="item-description">
