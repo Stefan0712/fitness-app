@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getDateForHeader } from "../../helpers";
 import ViewLog from "./common/logs/ViewLog";
 import { BarChart, Bar, XAxis, LabelList, ResponsiveContainer } from 'recharts';
+import ThisWeekActivity from "./common/ThisWeekActivity";
 
 const Logs = () => {
     const activity = useSelector((state) => state.user.activity);
@@ -56,6 +57,18 @@ const Logs = () => {
     const closeViewLog = () =>{
         setShowLog(null)
     }
+
+     console.log(logs)
+
+
+
+    const getGraphData = (goalName) =>{
+        let sum = 0;
+        let sums = [];
+
+    }
+
+
     return (
         <div className="logs page">
             <div className='header'>
@@ -63,9 +76,8 @@ const Logs = () => {
                 <h2>Activity</h2>
             </div>
             <div className="chart-container">
-            <h2>Weekly Activity Chart</h2>
                 <select className="data-type-graph-button" onChange={(e)=>setGraphType(e.target.value)}>
-                    <option value={'activity'}>Activity</option>
+                    <option value={'activity'}>Activity (min)</option>
                     {goals.map((goal, index)=>(<option key={index} value={goal.name}>{goal.name} ({goal.unit})</option>))}
                 </select>
                 <ResponsiveContainer width="100%" height={300}>
@@ -81,11 +93,11 @@ const Logs = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <h2>Log History</h2>
+            <h3>History</h3>
             {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
-            {logs.map((dailyActivity, index) => (
+            {/* {logs.map((dailyActivity, index) => (
                 <div key={index} className="daily-activity-section" >
-                    <h3>{dailyActivity.date}</h3>
+                    <h3 className="subtle-subtitle">{dailyActivity.date}</h3>
                     <div className="logs-container">
                         {dailyActivity.logs.map((log, logIndex) => (
                             <div key={logIndex} className="log-body" onClick={()=>setShowLog(log)}>
@@ -102,7 +114,10 @@ const Logs = () => {
                         ))}
                     </div>
                 </div>
-            ))}
+            ))} */}
+
+
+            <ThisWeekActivity logs={logs}/>
         </div>
     );
 };

@@ -60,7 +60,7 @@ const Navigation = () => {
             </div>
             <Link to='/logs'  className='nav-button'>
                 <img src={logsIcon} alt=''></img>
-                <p>Logs</p>
+                <p>Activity</p>
             </Link>
             <Link to='/profile'  className='nav-button'>
                 <img src={profileIcon} alt=''></img>

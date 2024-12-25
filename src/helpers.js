@@ -62,3 +62,47 @@ export const convertGroupFromLowerToUpperCase = (input)=>{
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' '); 
 }
+
+
+
+export const getFullWeek = (selectedDate) =>{
+  const currentDate = new Date(selectedDate);
+    
+    // Get the day of the week 
+    const currentDay = currentDate.getDay();
+    
+    // Calculate the difference to get the start of the week (Monday)
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDay + 1); // Move to Monday (or adjust if Sunday)
+    startOfWeek.setHours(0, 0, 0, 0); // Set to midnight for consistency
+
+    const weekDays = [
+        { short: 'Mon', long: 'Monday' },
+        { short: 'Tue', long: 'Tuesday' },
+        { short: 'Wed', long: 'Wednesday' },
+        { short: 'Thu', long: 'Thursday' },
+        { short: 'Fri', long: 'Friday' },
+        { short: 'Sat', long: 'Saturday' },
+        { short: 'Sun', long: 'Sunday' }
+    ];
+
+    const week = [];
+    for (let i = 0; i < 7; i++) {
+        const day = new Date(startOfWeek);
+        day.setDate(startOfWeek.getDate() + i); // Add i days to get each day of the week
+        
+        const formattedDate = day.toISOString().split('T')[0]; // yyyy-mm-dd
+        const dayOfMonth = day.getDate(); // day of the month
+
+        week.push({
+            dayNo: i + 1, 
+            short: weekDays[i].short,
+            long: weekDays[i].long,
+            date: formattedDate,
+            day: dayOfMonth,
+            logs:[]
+        });
+    }
+
+    return week;
+}
