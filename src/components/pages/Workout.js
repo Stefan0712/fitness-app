@@ -81,6 +81,10 @@ const Workout = () => {
             </div>
             <div className="workout-top">
                 <div className="timer">{formatTime(seconds)}</div>
+                <div className="workout-progress">
+                    <p>3/10</p>
+                    <p>30%</p>
+                </div>
                 <button onClick={()=>finishWorkout()} className="finish-workout-button medium-button orange-button">Finish</button>
             </div>
             
