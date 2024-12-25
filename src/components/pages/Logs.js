@@ -96,7 +96,7 @@ const Logs = () => {
 
 
     const changeGraphType = (type) =>{
-        calculateGoalProgress(weekData, type);
+        setGraphData(calculateGoalProgress(weekData, type))
         setGraphType(type);
     }
     return (
