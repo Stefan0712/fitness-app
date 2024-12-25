@@ -12,6 +12,7 @@ export const exercises = [
       "sets": 3,
       "duration": 5,
       "visibility": "private",
+      "isCompleted" : false,
       "fields": [
         {
           "id": "7c8e9f10-11a2-123b-456c-789d0123456e",
@@ -19,7 +20,8 @@ export const exercises = [
           "unit": "reps",
           "target": "15",
           "type": "",
-          "value": null
+          "value": null,
+"isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:00:00.000Z"
@@ -37,6 +39,7 @@ export const exercises = [
       "sets": 2,
       "duration": 3,
       "visibility": "private",
+      "isCompleted" : false,
       "fields": [
         {
           "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
@@ -44,7 +47,8 @@ export const exercises = [
           "unit": "seconds",
           "target": "30",
           "type": "",
-          "value": null
+          "value": null,
+"isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:05:00.000Z"
@@ -62,6 +66,7 @@ export const exercises = [
       "sets": 3,
       "duration": 4,
       "visibility": "private",
+      "isCompleted" : false,
       "fields": [
         {
           "id": "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
@@ -69,7 +74,8 @@ export const exercises = [
           "unit": "seconds",
           "target": "60",
           "type": "",
-          "value": null
+          "value": null,
+"isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:10:00.000Z"
@@ -87,6 +93,7 @@ export const exercises = [
       "sets": 4,
       "duration": 6,
       "visibility": "private",
+      "isCompleted" : false,
       "fields": [
         {
           "id": "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
@@ -94,7 +101,8 @@ export const exercises = [
           "unit": "reps",
           "target": "12",
           "type": "",
-          "value": null
+          "value": null,
+"isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:15:00.000Z"
@@ -112,6 +120,7 @@ export const exercises = [
       "sets": 3,
       "duration": 5,
       "visibility": "private",
+      "isCompleted" : false,
       "fields": [
         {
           "id": "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
@@ -119,7 +128,8 @@ export const exercises = [
           "unit": "reps",
           "target": "15",
           "type": "",
-          "value": null
+          "value": null,
+"isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:20:00.000Z"
@@ -135,6 +145,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Chest",
         "difficulty": "Beginner",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 5,
         "visibility": "private",
@@ -145,7 +156,8 @@ export const exercises = [
             "unit": "reps",
             "target": "15",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:40:00.000Z"
@@ -160,6 +172,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Back",
         "difficulty": "Advanced",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 5,
         "visibility": "private",
@@ -170,7 +183,8 @@ export const exercises = [
             "unit": "reps",
             "target": "8",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:41:00.000Z"
@@ -185,6 +199,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Full-Body",
         "difficulty": "Beginner",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 3,
         "visibility": "private",
@@ -195,7 +210,8 @@ export const exercises = [
             "unit": "minutes",
             "target": "1",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:42:00.000Z"
@@ -210,6 +226,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Core",
         "difficulty": "Intermediate",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 3,
         "visibility": "private",
@@ -220,7 +237,8 @@ export const exercises = [
             "unit": "seconds",
             "target": "30",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:43:00.000Z"
@@ -234,6 +252,7 @@ export const exercises = [
         "tags": ["cardio", "intensity"],
         "reference": "",
         "targetGroup": "Full-Body",
+        "isCompleted" : false,
         "difficulty": "Advanced",
         "sets": 3,
         "duration": 5,
@@ -245,7 +264,8 @@ export const exercises = [
             "unit": "reps",
             "target": "12",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:44:00.000Z"
@@ -261,6 +281,7 @@ export const exercises = [
         "targetGroup": "Legs",
         "difficulty": "Intermediate",
         "sets": 3,
+        "isCompleted" : false,
         "duration": 5,
         "visibility": "private",
         "fields": [
@@ -270,7 +291,8 @@ export const exercises = [
             "unit": "reps",
             "target": "10",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:45:00.000Z"
@@ -284,6 +306,7 @@ export const exercises = [
         "tags": ["legs", "bodyweight"],
         "reference": "",
         "targetGroup": "Legs",
+        "isCompleted" : false,
         "difficulty": "Beginner",
         "sets": 3,
         "duration": 5,
@@ -295,7 +318,8 @@ export const exercises = [
             "unit": "reps",
             "target": "15",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:46:00.000Z"
@@ -310,6 +334,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Full-Body",
         "difficulty": "Intermediate",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 5,
         "visibility": "private",
@@ -320,7 +345,8 @@ export const exercises = [
             "unit": "seconds",
             "target": "40",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:47:00.000Z"
@@ -335,6 +361,7 @@ export const exercises = [
         "reference": "",
         "targetGroup": "Back",
         "difficulty": "Intermediate",
+        "isCompleted" : false,
         "sets": 3,
         "duration": 5,
         "visibility": "private",
@@ -345,7 +372,8 @@ export const exercises = [
             "unit": "reps",
             "target": "12",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:48:00.000Z"
@@ -358,6 +386,7 @@ export const exercises = [
         "description": "A core rotation exercise.",
         "tags": ["core", "rotation"],
         "reference": "",
+        "isCompleted" : false,
         "targetGroup": "Core",
         "difficulty": "Intermediate",
         "sets": 3,
@@ -370,7 +399,8 @@ export const exercises = [
             "unit": "reps",
             "target": "20",
             "type": "number",
-            "value": null
+            "value": null,
+"isCompleted" : false
         }
         ],
         "createdAt": "2024-12-23T10:49:00.000Z"

@@ -71,6 +71,7 @@
    padding-left: 10px;
 }
 .view-workout-page .workout-exercises{
+    height: calc(50% - 40px);
     border-radius: 5px;
     padding: 10px;
     width: 100%;
@@ -112,6 +113,15 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.current-exercise-top button{
+    width: calc(50% - 10px);
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid rgba(211, 211, 211, 0.26);
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
 .workout-page .timer{
     background-color: #1A1A1B;
     padding: 0 20px;
@@ -135,13 +145,21 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    height: 325px;
+}
+.workout-page .current-exercise-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .workout-page .current-exercise-top{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px 15px;
+    gap: 20px;
+    margin-top: auto;
 }
 .workout-page .current-exercise .fields{
     display: flex;
@@ -186,9 +204,22 @@
 }
 
 .workout-page .workout-exercises{
-    margin-top: auto;
-    height: 40%;
+    margin-bottom: auto;
+    height: calc(100% - 350px);
     overflow-y: auto;
+}
+.workout-page .workout-exercises .workout-exercises-container{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    min-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.workout-page .workout-exercises .exercises-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .workout-page .workout-exercises .exercise-body{
     display: flex;
@@ -209,13 +240,69 @@
 }
 
 
+.current-exercise-fields{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.current-exercise-fields .field{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
 
+.current-exercise-fields .field .field-input{
+    display: flex;
+    align-items: center;
+    background-color: #111214;
+    padding: 1px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.current-exercise-fields .field .field-input p{
+    border-right: 1px solid rgba(211, 211, 211, 0.411);
+    border-left: 1px solid rgba(211, 211, 211, 0.411);
+    padding: 0 10px;
+    height: 100%;
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
+.current-exercise-fields .field .field-input button{
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: #111214;
+}
+.current-exercise-buttons{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    margin-top: auto;
+    justify-content: space-between;
+}
+.current-exercise-buttons button{
+    width: 30%;
+    height: 100%;
+    background-color: #111214;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
 
-
-
-
-
+.workout-page .workout-content{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 
 /* Create/Edit Workout Page */

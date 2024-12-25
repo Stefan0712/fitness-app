@@ -9,6 +9,7 @@ import checkIcon from '../../assets/checkmark.svg';
 import arrowIcon from '../../assets/arrow.svg';
 import { addLog } from "../../store/userSlice";
 import ContextualMenu from "./common/ContextualMenu";
+import { IconLibrary } from "../../IconLibrary";
 
 const Workout = () => {
     const { id } = useParams();
@@ -19,9 +20,9 @@ const Workout = () => {
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
     const exercises = useSelector((state) => state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id)));
     const [currentExercise, setCurrentExercise] = useState(exercises[0]?.id); // Ensure it's set to the first exercise if available
-    const [workoutExercises, setWorkoutExercises] = useState([]);
     const [duration, setDuration] = useState("00:00:00");
     const [seconds, setSeconds] = useState(0);
+    const [currentSet, setCurrentSet] = useState(1);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -32,83 +33,25 @@ const Workout = () => {
     }, []);
 
 
-    useEffect(() => {
-        if (workoutExercises.length === 0) {
-            const tempExercises = exercises.map((exercise) => {
-                let fieldSets = {};
-                for (let i = 0; i < exercise.sets; i++) {
-                    fieldSets[i] = {
-                        isCompleted: false,
-                        fields: [...exercise.fields],
-                    };
-                }
-                return { ...exercise, fieldSets };
-            });
-            setWorkoutExercises(tempExercises);
-        }
-    }, [exercises]); // Depend on exercises directly
+   
     
 
-    const handleInputChange = (e, currentExercise, key, index) => {
-        setWorkoutExercises((prevWorkoutExercises) => {
-            const updatedWorkoutExercises = prevWorkoutExercises.map((exercise) => {
-                if (exercise.id === currentExercise) {
-                    // Create a new copy of the fieldSets
-                    const updatedFieldSets = { ...exercise.fieldSets };
-                    updatedFieldSets[key] = {
-                        ...updatedFieldSets[key],
-                        fields: updatedFieldSets[key].fields.map((field, idx) => {
-                            if (idx === index) {
-                                // Create a new field with the updated value
-                                return { ...field, value: e?.target.value };
-                            }
-                            return field;
-                        }),
-                    };
-                    return { ...exercise, fieldSets: updatedFieldSets };
-                }
-                return exercise;
-            });
-    
-            return updatedWorkoutExercises;
-        });
-    };
-    
 
-    const toggleCompletionOfSet = (exerciseId, setKey) => {
     
-        setWorkoutExercises((prevWorkoutExercises) => {
-            const updatedWorkoutExercises = prevWorkoutExercises.map((exercise) => {
-                if (exercise.id === exerciseId) {
-                    // Create a new copy of fieldSets
-                    const updatedFieldSets = { ...exercise.fieldSets };
-                    // Toggle isCompleted: if it's true, set it to false, and vice versa
-                    updatedFieldSets[setKey] = {
-                        ...updatedFieldSets[setKey],
-                        isCompleted: !updatedFieldSets[setKey].isCompleted, // Toggle the value
-                    };
-                    return { ...exercise, fieldSets: updatedFieldSets };
-                }
-                return exercise;
-            });
-    
-            return updatedWorkoutExercises;
-        });
-    };
     
 
     // Functions to move through exercises
     const prevExercise = () => {
-        const selectedExerciseIndex = workoutExercises.findIndex((obj) => obj.id === currentExercise);
+        const selectedExerciseIndex = exercises.findIndex((obj) => obj.id === currentExercise);
         if (selectedExerciseIndex > 0) {
-            setCurrentExercise(workoutExercises[selectedExerciseIndex - 1].id);
+            setCurrentExercise(exercises[selectedExerciseIndex - 1].id);
         }
     };
 
     const nextExercise = () => {
-        const selectedExerciseIndex = workoutExercises.findIndex((obj) => obj.id === currentExercise);
-        if (selectedExerciseIndex < workoutExercises.length - 1) {
-            setCurrentExercise(workoutExercises[selectedExerciseIndex + 1].id);
+        const selectedExerciseIndex = exercises.findIndex((obj) => obj.id === currentExercise);
+        if (selectedExerciseIndex < exercises.length - 1) {
+            setCurrentExercise(exercises[selectedExerciseIndex + 1].id);
         }
     };
     const finishWorkout = () =>{
@@ -119,7 +62,7 @@ const Workout = () => {
             data: {
                 duration: formatTime(seconds),
                 finishedAt: getFullHour(),
-                workoutData: {...workoutData, exercises: workoutExercises}
+                workoutData: {...workoutData, exercises: exercises}
             }
         }
         dispatch(addLog(log));
@@ -142,63 +85,66 @@ const Workout = () => {
             </div>
             
 
-            <div className="current-exercise section">
-                <div className="current-exercise-top">
-                    <img
-                        className="small-icon left-arrow"
-                        src={arrowIcon}
-                        onClick={prevExercise}
-                        alt="Previous Exercise"
-                    />
-                    <h3>{workoutExercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
-                    <img
-                        className="small-icon"
-                        src={arrowIcon}
-                        onClick={nextExercise}
-                        alt="Next Exercise"
-                    />
-                </div>
+            <div className="workout-content">
 
-                
-                {workoutExercises?.find(ex => ex.id === currentExercise)?.fieldSets && 
-                    Object.entries(workoutExercises.find(ex => ex.id === currentExercise).fieldSets)?.map(([key, sets]) => (
-                        <div className="fields">
-                            <div className="set" key={key}>
-                                <h4>{parseInt(key)+1}</h4>
-                                
-                                    {sets?.fields?.map((field, index)=>(
-                                        <div className="field" key={field.name}>
-                                            <input
-                                                type="text"
-                                                placeholder={field.name}
-                                                value={field.value || ''}
-                                                onChange={(e) => handleInputChange(e, currentExercise, key, index )}
-                                            />
-                                        </div>
-                                    ))} 
-                                    <img onClick={()=>toggleCompletionOfSet(currentExercise, key)} src={checkIcon} className={`small-icon ${sets.isCompleted ? 'orange-background' : ''}`} />
+                <div className="workout-exercises section">
+                    <div className="exercises-header subtitle full-width"><h3>Exercises</h3><p>{exercises.findIndex(ex=>ex.id===currentExercise) +1}/{exercises.length}</p></div>
+                    <div className="workout-exercises-container">
+                        {exercises?.map((exercise, index) => (
+                            <div
+                                className={`exercise-body ${currentExercise === exercise.id ? 'selected-exercise' : ''}`}
+                                key={index + 'exercise'}
+                                onClick={() => setCurrentExercise(exercise.id)}
+                            >
+                                <b>{index + 1}</b>
+                                <p>{exercise.name}</p>
+                                <div className="sets">{exercise.sets} sets</div>
+                                <input type="checkbox"></input>
                             </div>
-                        </div>
-                ))
-}
-
-
-
-            </div>
-            <div className="workout-exercises section">
-                <h3 className="subtitle full-width">Exercises</h3>
-                {workoutExercises?.map((exercise, index) => (
-                    <div
-                        className={`exercise-body ${currentExercise === exercise.id ? 'selected-exercise' : ''}`}
-                        key={index + 'exercise'}
-                        onClick={() => setCurrentExercise(exercise.id)}
-                    >
-                        <b>{index + 1}</b>
-                        <p>{exercise.name}</p>
-                        <div className="sets">x{exercise.sets}</div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                    <div className="current-exercise-top">
+                        <img
+                            className="small-icon left-arrow"
+                            src={arrowIcon}
+                            onClick={prevExercise}
+                            alt="Previous Exercise"
+                        />
+                        <button>Skip</button>
+                        <button>Complete</button>
+                        <img
+                            className="small-icon"
+                            src={arrowIcon}
+                            onClick={nextExercise}
+                            alt="Next Exercise"
+                        />
+                    </div>
+                </div>
+                <div className="current-exercise section">
+                    <div className="current-exercise-header">
+                        <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
+                        <p>Set {currentSet}/{exercises?.find((ex) => ex.id === currentExercise)?.sets}</p>
+                    </div>
+                    <div className="current-exercise-fields">
+                        {exercises?.find((ex) => ex.id === currentExercise)?.fields?.map((field)=>(
+                            <div className="field">
+                                <p className="field-name">{field.name}</p>
+                                <div className="field-input">
+                                    <button><img src={IconLibrary.MinusIcon} className="small-icon"></img></button>
+                                    <p>0/{field.target}</p>
+                                    <button><img src={IconLibrary.AddIcon} className="small-icon"></img></button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="current-exercise-buttons">
+                        <button>Skip</button>
+                        <button>Add Set</button>
+                        <button>Complete</button>
+                    </div>
+                    
+                </div>
+            </div> 
         </div>
     );
 };
