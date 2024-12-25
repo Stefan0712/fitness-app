@@ -59,4 +59,21 @@
 
 
 
-/* this week activity */
+/*  logs history */
+.logs-history-period{
+    display: flex;
+    align-items: center;    
+}
+.logs-history-period button{
+    width: 100px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-top-left-radius: 1px solid rgba(211, 211, 211, 0.356);
+    border-top-right-radius: 1px solid rgba(211, 211, 211, 0.356);
+    border-radius: 5px;
+}
+.logs-history-period .selected-button{
+    background-color: rgba(211, 211, 211, 0.356);
+    border-bottom: 1px solid white;
+}

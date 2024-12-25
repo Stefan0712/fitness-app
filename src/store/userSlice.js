@@ -118,16 +118,17 @@ const initialState = {
           }
         ]
       },
-      '2024-11-06': {
+      '2024-12-25': {
         logs: [
           {
-            timestamp: '2024-11-06T00:57:13.500Z',
+            timestamp: '2024-12-25T00:57:13.500Z',
             name: 'Food Log',
             type: 'food',
             data: {
               name: 'Test food',
               qty: '123',
               unit: 'g',
+              calories: '250',
               protein: '',
               carbs: '',
               fats: '',
@@ -219,10 +220,10 @@ const initialState = {
           }
         ]
       },
-    '2024-10-31': {
+    '2024-12-24': {
         logs: [
           {
-            timestamp: '2024-10-31T12:28:16.530Z',
+            timestamp: '2024-12-24T12:28:16.530Z',
             name: 'Calories',
             type: 'goal',
             data: {
@@ -250,10 +251,10 @@ const initialState = {
           }
         ]
       },
-      '2024-10-30': {
+      '2024-12-24': {
         logs: [
           {
-            timestamp: '2024-10-30T12:28:16.530Z',
+            timestamp: '2024-12-24T12:28:16.530Z',
             name: 'Calories',
             type: 'goal',
             data: {
@@ -262,7 +263,7 @@ const initialState = {
             icon: '/icons/calories.svg'
           },
           {
-            timestamp: '2024-10-30T12:28:22.862Z',
+            timestamp: '2024-12-24T12:28:22.862Z',
             name: 'Steps',
             type: 'goal',
             data: {

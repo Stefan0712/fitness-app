@@ -65,44 +65,53 @@ export const convertGroupFromLowerToUpperCase = (input)=>{
 
 
 
-export const getFullWeek = (selectedDate) =>{
+export const getWeekRange = (selectedDate, type = 'current-week') => {
   const currentDate = new Date(selectedDate);
-    
-    // Get the day of the week 
-    const currentDay = currentDate.getDay();
-    
-    // Calculate the difference to get the start of the week (Monday)
-    const startOfWeek = new Date(currentDate);
-    startOfWeek.setDate(currentDate.getDate() - currentDay + 1); // Move to Monday (or adjust if Sunday)
-    startOfWeek.setHours(0, 0, 0, 0); // Set to midnight for consistency
+  currentDate.setHours(0, 0, 0, 0); // Ensure consistent start time
 
-    const weekDays = [
-        { short: 'Mon', long: 'Monday' },
-        { short: 'Tue', long: 'Tuesday' },
-        { short: 'Wed', long: 'Wednesday' },
-        { short: 'Thu', long: 'Thursday' },
-        { short: 'Fri', long: 'Friday' },
-        { short: 'Sat', long: 'Saturday' },
-        { short: 'Sun', long: 'Sunday' }
-    ];
+  let startOfRange;
 
-    const week = [];
-    for (let i = 0; i < 7; i++) {
-        const day = new Date(startOfWeek);
-        day.setDate(startOfWeek.getDate() + i); // Add i days to get each day of the week
-        
-        const formattedDate = day.toISOString().split('T')[0]; // yyyy-mm-dd
-        const dayOfMonth = day.getDate(); // day of the month
+  if (type === 'current-week') {
+      // Calculate the start of the week (Monday)
+      const currentDay = currentDate.getDay();
+      startOfRange = new Date(currentDate);
+      startOfRange.setDate(currentDate.getDate() - currentDay + 1); // Move to Monday
+  } else if (type === 'last-seven-days') {
+      // Calculate the start of the last 7 days range
+      startOfRange = new Date(currentDate);
+      startOfRange.setDate(currentDate.getDate() - 6); // Move 6 days back to include today
+  } else {
+      throw new Error("Invalid type. Use 'current-week' or 'last-seven-days'.");
+  }
 
-        week.push({
-            dayNo: i + 1, 
-            short: weekDays[i].short,
-            long: weekDays[i].long,
-            date: formattedDate,
-            day: dayOfMonth,
-            logs:[]
-        });
-    }
+  const weekDays = [
+      { short: 'Mon', long: 'Monday' },
+      { short: 'Tue', long: 'Tuesday' },
+      { short: 'Wed', long: 'Wednesday' },
+      { short: 'Thu', long: 'Thursday' },
+      { short: 'Fri', long: 'Friday' },
+      { short: 'Sat', long: 'Saturday' },
+      { short: 'Sun', long: 'Sunday' }
+  ];
 
-    return week;
-}
+  const range = [];
+  for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfRange);
+      day.setDate(startOfRange.getDate() + i); // Add i days to get each day in the range
+
+      const formattedDate = day.toISOString().split('T')[0]; // yyyy-mm-dd
+      const dayOfMonth = day.getDate(); // Day of the month
+      const dayOfWeek = day.getDay(); // Day of the week (0-6)
+
+      range.push({
+          dayNo: i + 1,
+          short: weekDays[dayOfWeek]?.short || '',
+          long: weekDays[dayOfWeek]?.long || '',
+          date: formattedDate,
+          day: dayOfMonth,
+          logs: []
+      });
+  }
+
+  return range.reverse();
+};

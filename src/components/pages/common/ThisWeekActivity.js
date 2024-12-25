@@ -1,13 +1,13 @@
 import './stylings/logs.css';
 import { useEffect, useState } from 'react';
-import { getCurrentDay, getFullWeek } from '../../../helpers';
+import { getCurrentDay, getWeekRange } from '../../../helpers';
 import { useSelector } from 'react-redux';
 
 const ThisWeekActivity = () => {
 
     const activity = useSelector((state)=>state.user.activity)
     const [weekData, setWeekData] = useState(null);
-    const [weekRange, setWeekRange] = useState(getFullWeek(getCurrentDay()));
+    const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay()));
 
 
 
@@ -26,8 +26,9 @@ const ThisWeekActivity = () => {
     };
     
         
-      
-    useEffect(()=>{
+ 
+
+   useEffect(()=>{
         let logsByDay = weekRange.map((item)=>{
             {console.log("item :",item)}
             if(activity[item.date] && activity[item.date].logs && activity[item.date].logs.length>0){
@@ -39,8 +40,6 @@ const ThisWeekActivity = () => {
        });
         setWeekData(logsByDay);
     },[activity])
-
-   
 
 
 
