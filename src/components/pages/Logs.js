@@ -13,34 +13,36 @@ const Logs = () => {
     const activity = useSelector((state)=>state.user.activity)
     const [weekData, setWeekData] = useState(null);
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
-    //track which graph to show
-    const [isMinutes, setIsMinutes] = useState(true);
-    const [graphType, setGraphType] = useState('activity');
+    const [graphData, setGraphData] = useState(null)
+    const [graphType, setGraphType] = useState('Steps');
 
-
-    const toggleChart = () => {
-        setIsMinutes(!isMinutes);
-      };
 
     
-    const minutesData = [
-        { name: 'Mon', minutes: 71 },
-        { name: 'Tue', minutes: 44 },
-        { name: 'Wed', minutes: 12 },
-        { name: 'Thu', minutes: 112 },
-        { name: 'Fri', minutes: 88 },
-        { name: 'Sat', minutes: 68 },
-        { name: 'Sun', minutes: 48 }
-    ];
-    const caloriesData = [
-        { name: 'Mon', calories: 240 },
-        { name: 'Tue', calories: 281 },
-        { name: 'Wed', calories: 529 },
-        { name: 'Thu', calories: 650 },
-        { name: 'Fri', calories: 230 },
-        { name: 'Sat', calories: 753 },
-        { name: 'Sun', calories: 674 }
-    ];
+    const calculateGoalProgress = (weekData, type = graphType) => {
+        const goalProgressByDay = weekData.map((day) => {
+            let goalValue = 0;
+    
+            day.logs.forEach((log) => {
+                if (log.type === 'goal' && log.name === type) {
+                    goalValue += log.data?.value || 0;  
+                }
+            });
+    
+            return {
+                name: day.short,  
+                value: goalValue  
+            };
+        });
+    
+        return goalProgressByDay;
+    };
+    
+    
+       
+  
+    
+    
+      
 
     const closeViewLog = () =>{
         setShowLog(null)
@@ -49,11 +51,7 @@ const Logs = () => {
 
 
 
-    const getGraphData = (goalName) =>{
-        let sum = 0;
-        let sums = [];
-
-    }
+ 
 
     const formatDate = (date) => {
         const dateObj = new Date(date);
@@ -67,24 +65,39 @@ const Logs = () => {
         const options = { weekday: 'short', day: 'numeric', month: 'short' };
         return dateObj.toLocaleDateString('en-US', options);  // "Wed, 25 Nov"
     };
-    const getLogs = (range = weekRange) =>{
-        let logsByDay = range.map((item)=>{
-            if(activity[item.date] && activity[item.date].logs && activity[item.date].logs.length>0){
-                item.logs = [...activity[item.date].logs]
-            }else{
+
+
+    const getLogs = (range = weekRange) => {
+        let logsByDay = range.map((item) => {
+            if (activity[item.date] && activity[item.date].logs && activity[item.date].logs.length > 0) {
+                item.logs = [...activity[item.date].logs];
+            } else {
                 item.logs = [];
             }
             return item;
-       });
-        setWeekData(logsByDay);
-    }
+        });
+    
+        setWeekData(logsByDay, graphType);
+        const progress = calculateGoalProgress(logsByDay);
+        console.log(progress);
+        setGraphData(progress);
+    };
+    
     useEffect(()=>{
         getLogs();
     },[activity, setIntervalPart])
 
     const switchInterval = (type) =>{
         setIntervalPart(type);
-        getLogs(getWeekRange(getCurrentDay(),type));
+        getLogs(getWeekRange(getCurrentDay(), type));
+        calculateGoalProgress(weekData, graphType);
+    }
+
+
+
+    const changeGraphType = (type) =>{
+        calculateGoalProgress(weekData, type);
+        setGraphType(type);
     }
     return (
         <div className="logs page">
@@ -93,19 +106,19 @@ const Logs = () => {
                 <h2>Activity</h2>
             </div>
             <div className="chart-container">
-                <select className="data-type-graph-button" onChange={(e)=>setGraphType(e.target.value)}>
-                    <option value={'activity'}>Activity (min)</option>
-                    {goals.map((goal, index)=>(<option key={index} value={goal.name}>{goal.name} ({goal.unit})</option>))}
+                <select className="data-type-graph-button" onChange={(e)=>changeGraphType(e.target.value)}>
+                    <option value={'Activity'}>Activity (min)</option>
+                    {goals.map((goal, index)=>(<option key={index+'dropdown'} value={goal.name}>{goal.name} ({goal.unit})</option>))}
                 </select>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart
-                        data={isMinutes ? minutesData : caloriesData}
+                        data={graphData}
                         margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                         borderRadius
                     >
                         <XAxis dataKey="name" />
-                        <Bar dataKey={graphType ? 'minutes' : 'calories'} fill="white" radius={[5, 5, 0, 0]} >
-                            <LabelList dataKey={isMinutes ? 'minutes' : 'calories'} position="top" />
+                        <Bar dataKey={'value'} fill="white" radius={[5, 5, 0, 0]} >
+                            <LabelList dataKey={'value'} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
@@ -118,12 +131,12 @@ const Logs = () => {
             </div>
             {weekData?.map((item, index) => (
                 
-                <div className='day'>
+                <div className='day' key={index+'day'}>
                     <h3>{formatDate(item.date)}</h3>
                     <div className='logs-container'>
                         {item?.logs && item.logs && item.logs.length > 0 ? (
                             item.logs.map((log, index)=>(
-                                <div key={index} className="log-body">
+                                <div key={index+"log"} className="log-body">
                                     <img className="small-icon" src={log.icon}></img>
                                     <div className="log-info">
                                         <p>{log.name}</p>
