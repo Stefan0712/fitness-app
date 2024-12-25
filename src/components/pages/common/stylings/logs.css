@@ -52,3 +52,13 @@
     font-size: 1.1rem;
     font-weight: 600;
 }
+.data-type-graph-button{
+    background-color: #1A1A1B;
+    width: 150px;
+    height: 40px;
+    /* border: 1px solid rgba(211, 211, 211, 0.178); */
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 1.1rem;
+}

@@ -6,12 +6,13 @@ import { BarChart, Bar, XAxis, LabelList, ResponsiveContainer } from 'recharts';
 
 const Logs = () => {
     const activity = useSelector((state) => state.user.activity);
+    const goals = useSelector((state)=>state.user.userData.goals);
     const [logs, setLogs] = useState([]);
     const [showLog, setShowLog] = useState(null);
 
     //track which graph to show
     const [isMinutes, setIsMinutes] = useState(true);
-
+    const [graphType, setGraphType] = useState('activity');
     const toggleChart = () => {
         setIsMinutes(!isMinutes);
       };
@@ -63,9 +64,10 @@ const Logs = () => {
             </div>
             <div className="chart-container">
             <h2>Weekly Activity Chart</h2>
-                <button className="chart-button" onClick={toggleChart}>
-                    Show {isMinutes ? 'Calories' : 'Minutes'}
-                </button>
+                <select className="data-type-graph-button" onChange={(e)=>setGraphType(e.target.value)}>
+                    <option value={'activity'}>Activity</option>
+                    {goals.map((goal, index)=>(<option key={index} value={goal.name}>{goal.name} ({goal.unit})</option>))}
+                </select>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart
                         data={isMinutes ? minutesData : caloriesData}
@@ -73,7 +75,7 @@ const Logs = () => {
                         borderRadius
                     >
                         <XAxis dataKey="name" />
-                        <Bar dataKey={isMinutes ? 'minutes' : 'calories'} fill="white" radius={[5, 5, 0, 0]} >
+                        <Bar dataKey={graphType ? 'minutes' : 'calories'} fill="white" radius={[5, 5, 0, 0]} >
                             <LabelList dataKey={isMinutes ? 'minutes' : 'calories'} position="top" />
                         </Bar>
                     </BarChart>
