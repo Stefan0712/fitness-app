@@ -79,7 +79,7 @@ export const getWeekRange = (selectedDate, type = 'current-week') => {
   } else if (type === 'last-seven-days') {
       // Calculate the start of the last 7 days range
       startOfRange = new Date(currentDate);
-      startOfRange.setDate(currentDate.getDate() - 6); // Move 6 days back to include today
+      startOfRange.setDate(currentDate.getDate() - 5); // Move 6 days back to include today
   } else {
       throw new Error("Invalid type. Use 'current-week' or 'last-seven-days'.");
   }
