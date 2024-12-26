@@ -23,6 +23,8 @@ const Workout = () => {
     const [duration, setDuration] = useState("00:00:00");
     const [seconds, setSeconds] = useState(0);
     const [currentSet, setCurrentSet] = useState(1);
+    console.log(workoutData);
+    console.log(exercises);
 
     useEffect(() => {
         const timer = setInterval(() => {

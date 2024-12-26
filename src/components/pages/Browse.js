@@ -3,12 +3,16 @@ import { useState } from "react";
 import { exercises, workouts } from "../../database";
 import { IconLibrary } from "../../IconLibrary";
 import { Link } from "react-router-dom";
-
+import { saveExerciseToLibrary } from "../../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Browse = () => {
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
+    const exercisesLibrary = useSelector((state)=>state.user.exercises);
+    const workoutsLibrary = useSelector((state)=>state.user.workouts);
 
+    const dispatch = useDispatch();
 
     return ( 
         <div className="library page">
@@ -56,7 +60,9 @@ const Browse = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" />
+                            {!exercisesLibrary.some(userExercise => userExercise.dbId === exercise.id) ? (
+                                <button onClick={()=>dispatch(saveExerciseToLibrary(exercise))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
+                            ) : (<p>Saved</p>)}
                         </div>
                     </Link>
                     ))

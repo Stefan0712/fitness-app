@@ -475,13 +475,22 @@ const userSlice = createSlice({
     updatePreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
     },
-
+    saveExerciseToLibrary: (state, action) =>{
+      const localCopy = {
+        ...action.payload, 
+        dbId: action.payload.id,
+        id: uuidv4(),
+        typed: 'saved'
+      };
+      state.exercises = [...state.exercises, localCopy];
+    },
     reset: () => initialState,
   },
 });
 
 export const {
   reset,
+  saveExerciseToLibrary,
   setUserData,
   addExercise,
   updateUserData,
