@@ -484,6 +484,15 @@ const userSlice = createSlice({
       };
       state.exercises = [...state.exercises, localCopy];
     },
+    saveWorkoutToLibrary: (state, action) =>{
+      const localCopy = {
+        ...action.payload, 
+        dbId: action.payload.id,
+        id: uuidv4(),
+        typed: 'saved'
+      };
+      state.workouts = [...state.workouts, localCopy];
+    },
     reset: () => initialState,
   },
 });
@@ -491,6 +500,7 @@ const userSlice = createSlice({
 export const {
   reset,
   saveExerciseToLibrary,
+  saveWorkoutToLibrary,
   setUserData,
   addExercise,
   updateUserData,

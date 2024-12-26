@@ -3,7 +3,7 @@ import { useState } from "react";
 import { exercises, workouts } from "../../database";
 import { IconLibrary } from "../../IconLibrary";
 import { Link } from "react-router-dom";
-import { saveExerciseToLibrary } from "../../store/userSlice";
+import { saveExerciseToLibrary, saveWorkoutToLibrary } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Browse = () => {
@@ -38,7 +38,9 @@ const Browse = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
+                        {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workout.id) ? (
+                                <button onClick={()=>dispatch(saveWorkoutToLibrary(workout))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
+                            ) : (<p>Saved</p>)}
                         </div>
                     </Link>
                     ))
