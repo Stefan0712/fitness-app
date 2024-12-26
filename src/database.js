@@ -21,13 +21,13 @@ export const exercises = [
           "target": "15",
           "type": "",
           "value": null,
-"isCompleted" : false
+      "isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:00:00.000Z"
     },
     {
-      "id": "ab3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+      "id": "34614e2f-fe12-49e6-8af8-e35ddee709f1",
       "type": "cardio",
       "author": "Stefan",
       "name": "Jumping Jacks",
@@ -48,13 +48,13 @@ export const exercises = [
           "target": "30",
           "type": "",
           "value": null,
-"isCompleted" : false
+        "isCompleted" : false
         }
       ],
       "createdAt": "2024-12-23T10:05:00.000Z"
     },
     {
-      "id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+      "id": "71214954-04ea-4b8b-bc6e-fae81170c83b",
       "type": "strength",
       "author": "Stefan",
       "name": "Plank",
@@ -81,7 +81,7 @@ export const exercises = [
       "createdAt": "2024-12-23T10:10:00.000Z"
     },
     {
-      "id": "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+      "id": "48f7cdf8-1d71-42fd-acc0-a8ec8b2be170",
       "type": "cardio",
       "author": "Stefan",
       "name": "Burpees",
@@ -108,7 +108,7 @@ export const exercises = [
       "createdAt": "2024-12-23T10:15:00.000Z"
     },
     {
-      "id": "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+      "id": "624a1b1d-47f2-42f6-b9d9-c82b18f59bda",
       "type": "strength",
       "author": "Stefan",
       "name": "Squats",
@@ -136,7 +136,7 @@ export const exercises = [
     },
     
     {
-        "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+        "id": "96ae9f5a-2a99-4e2f-bff3-aef6b57a2af5",
         "type": "strength",
         "author": "Stefan",
         "name": "Push-Ups",
@@ -151,7 +151,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7",
+            "id": "0f20a8c0-bf0a-43b0-a286-c9a781ba7629",
             "name": "Reps",
             "unit": "reps",
             "target": "15",
@@ -163,7 +163,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:40:00.000Z"
     },
     {
-        "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+        "id": "6b378483-4e4a-460f-b512-a6c29574cf7b",
         "type": "strength",
         "author": "Stefan",
         "name": "Pull-Ups",
@@ -178,7 +178,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8",
+            "id": "69e8ed08-6fed-4cbd-bd37-b4948220bc81",
             "name": "Reps",
             "unit": "reps",
             "target": "8",
@@ -190,7 +190,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:41:00.000Z"
     },
     {
-        "id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+        "id": "cedd7b5e-462b-452f-9eb9-64de1907f668",
         "type": "cardio",
         "author": "Stefan",
         "name": "Jumping Jacks",
@@ -205,7 +205,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9",
+            "id": "e7025d04-11b6-4ed6-8a5c-ddd5cf85a4ad",
             "name": "Duration",
             "unit": "minutes",
             "target": "1",
@@ -217,7 +217,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:42:00.000Z"
     },
     {
-        "id": "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+        "id": "79ea3414-b8c8-494d-99e2-b86dc27095ed",
         "type": "strength",
         "author": "Stefan",
         "name": "Plank",
@@ -232,7 +232,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0",
+            "id": "97dd4492-4301-4f50-b338-cde12312c8ca",
             "name": "Duration",
             "unit": "seconds",
             "target": "30",
@@ -244,7 +244,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:43:00.000Z"
     },
     {
-        "id": "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+        "id": "b981e4f0-5f63-41eb-be83-4d2b5a7aab78",
         "type": "cardio",
         "author": "Stefan",
         "name": "Burpees",
@@ -259,7 +259,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1",
+            "id": "1ea1eeaa-846f-457e-a310-200a5a681171",
             "name": "Reps",
             "unit": "reps",
             "target": "12",
@@ -271,7 +271,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:44:00.000Z"
     },
     {
-        "id": "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
+        "id": "c4631d01-de03-4902-8bdc-c7464ffd8076",
         "type": "strength",
         "author": "Stefan",
         "name": "Lunges",
@@ -286,7 +286,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2",
+            "id": "5d28e024-c7d2-4bae-976d-2c95b3869f20",
             "name": "Reps",
             "unit": "reps",
             "target": "10",
@@ -298,7 +298,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:45:00.000Z"
     },
     {
-        "id": "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
+        "id": "a16d3df8-e2bf-4ff0-a39a-2b8dfbfcd4cf",
         "type": "strength",
         "author": "Stefan",
         "name": "Squats",
@@ -313,7 +313,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3",
+            "id": "61f416f5-e8b0-4385-9aaa-443b29192d11",
             "name": "Reps",
             "unit": "reps",
             "target": "15",
@@ -325,7 +325,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:46:00.000Z"
     },
     {
-        "id": "8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w",
+        "id": "a10b8c6b-1f0c-40db-a88e-a9e34610641e",
         "type": "cardio",
         "author": "Stefan",
         "name": "Mountain Climbers",
@@ -340,7 +340,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4",
+            "id": "b875d55d-dfa6-45cf-8e0c-f3529e4e02a6",
             "name": "Duration",
             "unit": "seconds",
             "target": "40",
@@ -352,7 +352,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:47:00.000Z"
     },
     {
-        "id": "9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x",
+        "id": "0d988bdb-c3fb-41be-b673-5c723f2e4594",
         "type": "strength",
         "author": "Stefan",
         "name": "Deadlifts",
@@ -367,7 +367,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5",
+            "id": "72ff05d4-f279-4776-b731-3ee95bf08dea",
             "name": "Reps",
             "unit": "reps",
             "target": "12",
@@ -379,7 +379,7 @@ export const exercises = [
         "createdAt": "2024-12-23T10:48:00.000Z"
     },
     {
-        "id": "0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y",
+        "id": "e2b4544f-1b4a-48f5-bdc3-063526eb96d8",
         "type": "strength",
         "author": "Stefan",
         "name": "Russian Twists",
@@ -394,7 +394,7 @@ export const exercises = [
         "visibility": "private",
         "fields": [
         {
-            "id": "1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6",
+            "id": "ba84169a-ab22-47f5-8956-5c64c72d274e",
             "name": "Reps",
             "unit": "reps",
             "target": "20",

@@ -10,7 +10,7 @@ import arrowIcon from '../../assets/arrow.svg';
 import { addLog } from "../../store/userSlice";
 import ContextualMenu from "./common/ContextualMenu";
 import { IconLibrary } from "../../IconLibrary";
-
+ 
 const Workout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();

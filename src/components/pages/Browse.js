@@ -29,20 +29,20 @@ const Browse = () => {
                 <div className="library-items-container">
                 {workouts?.length > 0 ? (
                     workouts.map((workout, index) => (
-                    <Link to={`/browse/workout/${workout.id}/view/`} key={index} className="item-body">
-                        <div className="item-info">
+                    <div key={index} className="item-body">
+                        <Link to={`/browse/workout/${workout.id}/view/`} className="item-info">
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
                                 <p>{makeFirstUpperCase(workout.targetGroup)}</p>
                             </div>
-                        </div>
+                        </Link>
                         <div className="item-button">
                         {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workout.id) ? (
                                 <button onClick={()=>dispatch(saveWorkoutToLibrary(workout))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>
-                    </Link>
+                    </div>
                     ))
                 ) : (
                     <p>No workouts created yet.</p>
@@ -53,20 +53,20 @@ const Browse = () => {
                 <div className="library-items-container">
                 {exercises?.length > 0 ? (
                     exercises.map((exercise, index) => (
-                    <Link to={`/browse/exercise/${exercise.id}/view/`} key={"exercise-"+index} className="item-body">
-                        <div className="item-info">
+                    <div key={"exercise-"+index} className="item-body">
+                        <Link to={`/browse/exercise/${exercise.id}/view/`} className="item-info">
                             <h4>{exercise.name}</h4>
                             <div className="item-description">
                                 <p>{exercise.sets} Sets</p>
                                 <p>{makeFirstUpperCase(exercise.targetGroup)}</p>
                             </div>
-                        </div>
+                        </Link>
                         <div className="item-button">
                             {!exercisesLibrary.some(userExercise => userExercise.dbId === exercise.id) ? (
                                 <button onClick={()=>dispatch(saveExerciseToLibrary(exercise))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>
-                    </Link>
+                    </div>
                     ))
                 ) : (
                     <p>No exercises created yet.</p>
