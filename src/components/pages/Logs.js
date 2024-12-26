@@ -37,7 +37,9 @@ const Logs = () => {
         return goalProgressByDay;
     };
     
-    
+    //TODO: Add some kind of identifier to goals (eg: lowered case goal name) and use that to filter them
+    //TODO: Make it so that it also counts food logs into calories or other macros, or make some kind of quick add button
+    //TODO: to food log that counts towards the goal, or maybe move exercises to somewhere else
        
   
     
