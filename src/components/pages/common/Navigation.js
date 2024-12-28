@@ -1,15 +1,13 @@
-import homeIcon from '../../../assets/home.svg';
-import libraryIcon from '../../../assets/list.svg';
-import plusIcon from '../../../assets/plus.svg';
-import logsIcon from '../../../assets/clipboard.svg';
-import profileIcon from '../../../assets/profile.svg';
 import { Link } from 'react-router-dom';
-import QuickMenu from './QuickMenu';
 import { useState } from 'react';
+import { IconLibrary } from '../../../IconLibrary';
+
+import QuickMenu from './QuickMenu';
 import LogForm from './logs/LogForm';
 import FoodLogForm from './logs/FoodLogForm';
 import ExerciseLog from './logs/ExerciseLog';
 import Stopwatch from './Stopwatch';
+
 
 
 const Navigation = () => {
@@ -46,24 +44,24 @@ const Navigation = () => {
             {logWindow}
             {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} showLog={showLog} />) : ''}
             <Link to='/dashboard' className='nav-button'>
-                <img src={homeIcon} alt=''></img>
+                <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
             </Link>
             <Link to='/library'  className='nav-button'>
-                <img src={libraryIcon} alt=''></img>
+                <img src={IconLibrary.List} alt=''></img>
                 <p>Library</p>
             </Link>
             <div className='nav-button center-nav-button' onClick={toggleQuickmenu}>
                 <button className='background'>
-                    <img src={plusIcon} alt=''></img>
+                    <img src={IconLibrary.Plus} alt=''></img>
                 </button>
             </div>
             <Link to='/logs'  className='nav-button'>
-                <img src={logsIcon} alt=''></img>
+                <img src={IconLibrary.Clipboard} alt=''></img>
                 <p>Activity</p>
             </Link>
             <Link to='/profile'  className='nav-button'>
-                <img src={profileIcon} alt=''></img>
+                <img src={IconLibrary.Profile} alt=''></img>
                 <p>Profile</p>
             </Link>
             

@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { formatTime } from "../../../helpers";
 import './stylings/stopwatch.css';
-import closeIcon from '../../../assets/close.svg';
-import minimizeIcon from '../../../assets/minimise.svg';
-import maximizeIcon from '../../../assets/maximise.svg';
-import playIcon from '../../../assets/start.svg';
-import resetIcon from '../../../assets/restart.svg';
-import lapIcon from '../../../assets/lap.svg';
-import pauseIcon from '../../../assets/pause.svg';
+import { IconLibrary } from "../../../IconLibrary";
 
 const Stopwatch = ({ closeLogWindow }) => {
     const [laps, setLaps] = useState([]);
@@ -47,13 +41,13 @@ const Stopwatch = ({ closeLogWindow }) => {
                 <>
                     <div className="top-bar">
                         {isMinimized ? (
-                            <button onClick={handleMaximize}><img src={maximizeIcon} alt="" /></button>
+                            <button onClick={handleMaximize}><img src={IconLibrary.Maximize} alt="" /></button>
                         ) : (
-                            <button onClick={handleMinimize}><img src={minimizeIcon} alt="" /></button>
+                            <button onClick={handleMinimize}><img src={IconLibrary.Minimize} alt="" /></button>
                         )}
                         <h1>Stopwatch</h1>
-                        <button onClick={() => setIsHidden(true)} className="small-icon"><img src="/icons/minus.svg" alt="" /></button>
-                        <button onClick={closeLogWindow}><img src={closeIcon} alt="" /></button>
+                        <button onClick={() => setIsHidden(true)} className="small-icon"><img src={IconLibrary.Minus} alt="" /></button>
+                        <button onClick={closeLogWindow}><img src={IconLibrary.Close} alt="" /></button>
                     </div>
                     <div className="stopwatch-time">
                         {formatTime(seconds)}
@@ -68,12 +62,12 @@ const Stopwatch = ({ closeLogWindow }) => {
                         )) : null}
                     </div>
                     <div className="stopwatch-buttons">
-                        <button onClick={handleReset}><img src={resetIcon} alt="" /></button>
-                        <button onClick={handleAddLap}><img src={lapIcon} alt="" /></button>
+                        <button onClick={handleReset}><img src={IconLibrary.Reset} alt="" /></button>
+                        <button onClick={handleAddLap}><img src={IconLibrary.Lap} alt="" /></button>
                         {isStarted ? (
-                            <button onClick={handlePause}><img src={pauseIcon} alt="" /></button>
+                            <button onClick={handlePause}><img src={IconLibrary.Pause} alt="" /></button>
                         ) : (
-                            <button onClick={handleStart}><img src={playIcon} alt="" /></button>
+                            <button onClick={handleStart}><img src={IconLibrary.Play} alt="" /></button>
                         )}
                     </div>
                 </>
