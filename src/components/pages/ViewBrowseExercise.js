@@ -1,15 +1,10 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { convertGroupFromLowerToUpperCase, getDateForHeader, makeFirstUpperCase } from "../../helpers";
-import plusIcon from '../../assets/plus.svg';
-import muscleIcon from '../../assets/muscle.svg';
-import timeIcon from '../../assets/time.svg';
 import './stylings/exercise.css';
 import { useDispatch } from "react-redux";
 import { addExerciseToWorkout, deleteExercise } from "../../store/userSlice";
 import { useState } from "react";
-import ContextualMenu from './common/ContextualMenu';
-import Modal from "./common/Modal";
 import { exercises } from "../../database";
 import { IconLibrary } from "../../IconLibrary";
 
@@ -45,14 +40,14 @@ const ViewBrowseExercise = () => {
 
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={muscleIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Muscle} alt=''></img>
                         <p className='info-block-name'>Group</p>
                     </div>
                     <p className='info-block-value'>{exerciseData.targetGroup ? convertGroupFromLowerToUpperCase(exerciseData.targetGroup) : 'Not Set'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={timeIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Time} alt=''></img>
                         <p className='info-block-name'>Duration</p>
                     </div>
                     <p className='info-block-value'>{exerciseData.duration ? `${exerciseData.duration} minutes` : 'Not Set'}</p>
@@ -88,7 +83,7 @@ const ViewBrowseExercise = () => {
                         </div>
                         <div className="item-button">
                             <button className="add-item" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
-                                <img className="white-icon" src={plusIcon} alt="plus icon" />
+                                <img className="white-icon" src={IconLibrary.Add} alt="plus icon" />
                             </button>
                         </div>
                     </div>
@@ -97,7 +92,7 @@ const ViewBrowseExercise = () => {
                     <p>No exercises created yet.</p>
                 )}
             </div>
-            <button className="browse-button"><img className="small-icon" src={IconLibrary.DownloadIcon}></img>Save to library</button>
+            <button className="browse-button"><img className="small-icon" src={IconLibrary.Download}></img>Save to library</button>
         </div>
      );
 }

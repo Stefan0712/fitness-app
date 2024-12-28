@@ -1,15 +1,11 @@
 import './stylings/workout.css';
-import caloriesIcon from '../../assets/calories.svg';
-import dumbbellIcon from '../../assets/dumbbell.svg';
-import timeIcon from '../../assets/time.svg';
-import linkIcon from '../../assets/link.svg';
-import muscleIcon from '../../assets/muscle.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { convertGroupFromLowerToUpperCase, getDateForHeader } from '../../helpers'
 import { useState } from 'react';
 import Modal from "./common/Modal";
 import ContextualMenu from './common/ContextualMenu';
+import { IconLibrary } from '../../IconLibrary';
 
 
 
@@ -57,35 +53,35 @@ const ViewWorkout = () => {
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={caloriesIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Calories} alt=''></img>
                         <p className='info-block-name'>Calories</p>
                     </div>
                     <p className='info-block-value'>{workoutData.calories ? workoutData.calories : 'Not Set'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={muscleIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Muscle} alt=''></img>
                         <p className='info-block-name'>Group</p>
                     </div>
                     <p className='info-block-value'>{workoutData.targetGroup ? convertGroupFromLowerToUpperCase(workoutData.targetGroup) : 'Not Set'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={timeIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Time} alt=''></img>
                         <p className='info-block-name'>Duration</p>
                     </div>
                     <p className='info-block-value'>{workoutData.duration ? `${workoutData.duration} minutes` : 'Not Set'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={dumbbellIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
                         <p className='info-block-name'>Exercises</p>
                     </div>
                     <p className='info-block-value'>{workoutData.exercises ? workoutData.exercises.length + ' exercises' : 'No Exercises'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
-                        <img className='small-icon white-icon' src={linkIcon} alt=''></img>
+                        <img className='small-icon white-icon' src={IconLibrary.Link} alt=''></img>
                         <p className='info-block-name'>Reference (url)</p>
                     </div>
                     <p className='info-block-value'>{workoutData.reference ? workoutData.reference : 'Not Set'}</p>

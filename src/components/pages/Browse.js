@@ -39,7 +39,7 @@ const Browse = () => {
                         </Link>
                         <div className="item-button">
                         {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workout.id) ? (
-                                <button onClick={()=>dispatch(saveWorkoutToLibrary(workout))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
+                                <button onClick={()=>dispatch(saveWorkoutToLibrary(workout))}><img className="small-icon" src={IconLibrary.Download} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>
                     </div>
@@ -63,7 +63,7 @@ const Browse = () => {
                         </Link>
                         <div className="item-button">
                             {!exercisesLibrary.some(userExercise => userExercise.dbId === exercise.id) ? (
-                                <button onClick={()=>dispatch(saveExerciseToLibrary(exercise))}><img className="small-icon" src={IconLibrary.DownloadIcon} alt="icon" /></button>         
+                                <button onClick={()=>dispatch(saveExerciseToLibrary(exercise))}><img className="small-icon" src={IconLibrary.Download} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>
                     </div>
