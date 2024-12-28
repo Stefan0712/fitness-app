@@ -3,7 +3,6 @@ import { getDateForHeader } from "../../helpers";
 import { useSelector, useDispatch } from "react-redux";
 import './stylings/profile.css';
 import { reset } from '../../store/userSlice';
-import profileIcon from '../../assets/profile.svg';
 import { IconLibrary } from "../../IconLibrary";
 import ContextualMenu from './common/ContextualMenu';
 import { useState } from "react";
@@ -27,10 +26,10 @@ const Profile = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Profile</h2>
                 <button onClick={()=>setShowMenu(true)} className="settings-button">
-                    <img src={IconLibrary.SettingsIcon} ></img>
+                    <img src={IconLibrary.Settings} ></img>
                 </button>
             </div>
-            <img className="profile-image" src={profileIcon}></img>
+            <img className="profile-image" src={IconLibrary.Profile}></img>
             <h2 className="profile-name">{userData.name ? userData.name : 'Not Set'}</h2>
             <div className="profile-info">
                 
