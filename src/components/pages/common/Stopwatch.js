@@ -62,7 +62,7 @@ const Stopwatch = ({ closeLogWindow }) => {
                         )) : null}
                     </div>
                     <div className="stopwatch-buttons">
-                        <button onClick={handleReset}><img src={IconLibrary.Reset} alt="" /></button>
+                        <button onClick={handleReset}><img src={IconLibrary.Restart} alt="" /></button>
                         <button onClick={handleAddLap}><img src={IconLibrary.Lap} alt="" /></button>
                         {isStarted ? (
                             <button onClick={handlePause}><img src={IconLibrary.Pause} alt="" /></button>
