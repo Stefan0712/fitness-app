@@ -9,6 +9,7 @@ import AddIcon from './assets/add.svg';
 import SettingsIcon from './assets/settings.svg';
 import DownloadIcon from './assets/download.svg'
 import MinusIcon from './assets/substract.svg';
+import ArrowIcon from './assets/arrow.svg';
 
 
 
@@ -23,5 +24,6 @@ export const IconLibrary = {
     AddIcon,
     SettingsIcon,
     DownloadIcon,
-    MinusIcon
+    MinusIcon,
+    ArrowIcon
 }

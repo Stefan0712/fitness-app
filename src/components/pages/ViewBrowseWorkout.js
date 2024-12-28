@@ -4,18 +4,27 @@ import dumbbellIcon from '../../assets/dumbbell.svg';
 import timeIcon from '../../assets/time.svg';
 import linkIcon from '../../assets/link.svg';
 import muscleIcon from '../../assets/muscle.svg';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { convertGroupFromLowerToUpperCase, getDateForHeader } from '../../helpers'
 import { workouts, exercises } from '../../database';
 import { IconLibrary } from '../../IconLibrary';
+import { saveWorkoutToLibrary } from '../../store/userSlice';
+import { useState, useEffect } from 'react';
 
 const ViewBrowseWorkout = () => {
 
     const {id} = useParams();
+    const dispatch = useDispatch();
 
     const workoutData = workouts.find((item)=>item.id === id);
-    const workoutExercises =  workoutData ? exercises.filter((ex) => workoutData.exercises.includes(ex.id)) : []
+    console.log(workoutData)
+    const workoutExercises =  workoutData ? exercises.filter((ex) => workoutData.exercises.includes(ex.id)) : [];
+    const exercisesLibrary = useSelector((state)=>state.user.exercises);
+    const workoutsLibrary = useSelector((state)=>state.user.workouts);
+    const [exercisesInLibrary, setExercisesInLibrary] = useState([]);
+
+
 
 
 
@@ -75,10 +84,14 @@ const ViewBrowseWorkout = () => {
                         <div className='exercise-name'><p className='exercise-index'>{index+1}</p><b>   {exercise.name}</b></div>
                         {exercise.fields[0] ? (<p>{exercise.fields[0]?.target} {exercise.fields[0]?.unit}</p>) : ''}
                         {exercise.fields[1] ? (<p>{exercise.fields[1]?.target} {exercise.fields[1]?.unit}</p>) : ''}
+                        
                     </div>
                 ))}
             </div>
-            <button className="browse-button"><img className="small-icon" src={IconLibrary.DownloadIcon}></img>Save to library</button>
+            {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workoutData.id) ? (
+                <button onClick={()=>dispatch(saveWorkoutToLibrary(workoutData))} className="browse-button"><img className="small-icon" src={IconLibrary.DownloadIcon}></img>Save to library</button>         
+            ) : (<button className="browse-button">Saved</button>)}
+            
         </div>
      );
 }

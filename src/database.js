@@ -442,11 +442,11 @@ export const exercises = [
         "targetGroup": "full-body",
         "difficulty": "intermediate",
         "exercises": [
-          "91a7c8d4-4b7b-4a8d-9a91-1a2b3c4d5e6f", 
-          "ab3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q", 
+          "34614e2f-fe12-49e6-8af8-e35ddee709f1", 
+          "71214954-04ea-4b8b-bc6e-fae81170c83b", 
           "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r", 
-          "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s", 
-          "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t"
+          "48f7cdf8-1d71-42fd-acc0-a8ec8b2be170", 
+          "624a1b1d-47f2-42f6-b9d9-c82b18f59bda"
         ],
         "createdAt": "2024-12-23T10:30:00.000Z",
         "duration": "25"
@@ -466,12 +466,12 @@ export const exercises = [
         "targetGroup": "Full-Body",
         "difficulty": "Intermediate",
         "exercises": [
-          "3aa0e1a6-59b9-4e47-af3b-1863255a5ae5", 
-          "3aa0e1a6-59b9-4e47-af3b-1866125ae5",
-          "3aa618a6-59b9-4e47-af3b-1866125ae5",
-          "0d3e2e0d-5e23-4f1d-b4f5-9f9c4e8e84d1",
-          "0b0c4a4a-0b8c-4f0e-b2f3-61b8b1e5e3b1",
-          "6e2c6c6b-7d9b-43b9-9d9c-2a5c39f2e7e7"
+          "6b378483-4e4a-460f-b512-a6c29574cf7b", 
+          "cedd7b5e-462b-452f-9eb9-64de1907f668",
+          "79ea3414-b8c8-494d-99e2-b86dc27095ed",
+          "b981e4f0-5f63-41eb-be83-4d2b5a7aab78",
+          "c4631d01-de03-4902-8bdc-c7464ffd8076",
+          "a16d3df8-e2bf-4ff0-a39a-2b8dfbfcd4cf"
         ],
         "createdAt": "2024-10-30T18:29:29.131Z",
         "duration": "30"
@@ -491,10 +491,10 @@ export const exercises = [
         "targetGroup": "Lower Body & Core",
         "difficulty": "Intermediate",
         "exercises": [
-          "3aa0e1a6-59b9-4e47-af3b-1863255a5ae5", 
-          "0d3e2e0d-5e23-4f1d-b4f5-9f9c4e8e84d1", 
-          "8f7e5a8a-2d7f-4d8b-90d1-0b9b4e5f8b3f",
-          "2f8b5a6a-5e6e-4f0d-8f1e-7c3e2b4e7a7a"
+          "48f7cdf8-1d71-42fd-acc0-a8ec8b2be170", 
+          "b981e4f0-5f63-41eb-be83-4d2b5a7aab78", 
+          "cedd7b5e-462b-452f-9eb9-64de1907f668",
+          "e2b4544f-1b4a-48f5-bdc3-063526eb96d8"
         ],
         "createdAt": "2024-10-30T18:29:29.131Z",
         "duration": "20"

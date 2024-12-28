@@ -491,6 +491,7 @@ const userSlice = createSlice({
         id: uuidv4(),
         typed: 'saved'
       };
+      
       state.workouts = [...state.workouts, localCopy];
     },
     reset: () => initialState,

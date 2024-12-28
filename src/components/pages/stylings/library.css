@@ -50,7 +50,7 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    padding: 0 5px;
+    padding: 0 10px 0 5px;
     overflow-x: hidden;
 }
 
@@ -97,6 +97,7 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
+    gap: 5px;
 }
 
 /* browse page */

@@ -38,7 +38,7 @@ const Library = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
+                            <img className="small-icon" src={IconLibrary.ArrowIcon} alt="icon" />
                         </div>
                     </Link>
                     ))
@@ -60,7 +60,7 @@ const Library = () => {
                             </div>
                         </div>
                         <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.PlayIcon} alt="icon" />
+                            <img className="small-icon" src={IconLibrary.ArrowIcon} alt="icon" />
                         </div>
                     </Link>
                     ))
