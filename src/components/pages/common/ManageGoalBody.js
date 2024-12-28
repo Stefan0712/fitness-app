@@ -19,21 +19,21 @@ const ManageGoalBody = ({goal}) => {
                 <img className='small-icon' src={goal.icon} alt=''></img>
                 <p>{makeFirstUpperCase(goal.name)}</p>
                 <div className="goal-buttons">
-                    <img onClick={()=>setShowEdit((showEdit)=>!showEdit)} className='small-icon' src={IconLibrary.EditIcon}></img>
+                    <img onClick={()=>setShowEdit((showEdit)=>!showEdit)} className='small-icon' src={IconLibrary.Edit}></img>
                 </div>
             </div>
             <div className="edit-inputs">
                 <input type='number' value={goal.target}></input>
                 <input type='text' value={goal.unit}></input>
-                <img className='small-icon' src={IconLibrary.SaveIcon}></img>
+                <img className='small-icon' src={IconLibrary.Save}></img>
                 <div className="delete-container">
                     
                         <div className={`confirm-buttons ${confirmButtons ? 'show-confirm' : ''}`}>
-                            <img className='small-icon' src={IconLibrary.YesIcon}></img>
-                            <img className='small-icon' src={IconLibrary.NoIcon} onClick={()=>setConfirmButtons(false)}></img>
+                            <img className='small-icon' src={IconLibrary.Yes}></img>
+                            <img className='small-icon' src={IconLibrary.No} onClick={()=>setConfirmButtons(false)}></img>
                         </div>
                     
-                        <img className={`delete-button small-icon ${confirmButtons ? 'hide' : ''}`} src={IconLibrary.DeleteIcon} onClick={()=>setConfirmButtons(true)}></img>
+                        <img className={`delete-button small-icon ${confirmButtons ? 'hide' : ''}`} src={IconLibrary.Delete} onClick={()=>setConfirmButtons(true)}></img>
                     
                 </div>
                 
