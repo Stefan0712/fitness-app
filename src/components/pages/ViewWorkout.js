@@ -135,7 +135,7 @@ const ViewWorkout = () => {
                     </div>
                 ))}
             </div>
-            <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'>Start</Link>
+            <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'><img src={IconLibrary.Play}/></Link>
             {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/workout/${workoutData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
         </div>
      );
