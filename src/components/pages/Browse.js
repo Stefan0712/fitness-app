@@ -34,7 +34,7 @@ const Browse = () => {
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
-                                <p>{workout.targetGroup.map(group=>group)}</p>
+                                <p>{workout.targetGroup.map(group=>group.name+' ')}</p>
                             </div>
                         </Link>
                         <div className="item-button">
