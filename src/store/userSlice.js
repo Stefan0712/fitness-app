@@ -318,8 +318,7 @@ const initialState = {
         "color": "blue"
       },
       "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Flexibility" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Flexibility" }
+        { "id": "54sd-64fff-gf32", "source": "system", "name": "Full Body" },
       ],
       "author": "Stefan",
       "name": "Morning Stretches Routine",
@@ -336,11 +335,11 @@ const initialState = {
       "notes": "Perform each stretch slowly and focus on breathing deeply during each movement.",
       "imageUrl": "",
       "exercises": [
-        { "id": "j53e6689-7281-4935-bb8c-3e90e6d859cb", "order": 1 },
-        { "id": "k53e6689-7281-4935-bb8c-3e90e6d859cc", "order": 2 },
-        { "id": "l53e6689-7281-4935-bb8c-3e90e6d859cd", "order": 3 },
-        { "id": "m53e6689-7281-4935-bb8c-3e90e6d859ce", "order": 4 },
-        { "id": "n53e6689-7281-4935-bb8c-3e90e6d859cf", "order": 5 }
+        "f53e6689-7281-4935-bb8c-3e90e6d859c7",
+        "g53e6689-7281-4935-bb8c-3e90e6d859c8", 
+        "h53e6689-7281-4935-bb8c-3e90e6d859c9", 
+        "i53e6689-7281-4935-bb8c-3e90e6d859ca",
+        "j53e6689-7281-4935-bb8c-3e90e6d859cb", 
       ]
     },
     {
@@ -376,11 +375,9 @@ const initialState = {
       "notes": "Perform each exercise with high intensity and minimal rest in between to keep your heart rate elevated.",
       "imageUrl": "",
       "exercises": [
-        { "id": "j53e6689-7281-4935-bb8c-3e90e6d859cb", "order": 1 },
-        { "id": "k53e6689-7281-4935-bb8c-3e90e6d859cc", "order": 2 },
-        { "id": "l53e6689-7281-4935-bb8c-3e90e6d859cd", "order": 3 },
-        { "id": "m53e6689-7281-4935-bb8c-3e90e6d859ce", "order": 4 },
-        { "id": "n53e6689-7281-4935-bb8c-3e90e6d859cf", "order": 5 }
+        "j53e6689-7281-4935-bb8c-3e90e6d859cb",
+        "e53e6689-7281-4935-bb8c-3e90e6d859c6",
+        "g53e6689-7281-4935-bb8c-3e90e6d859c8",
       ]
     }
 
