@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWorkout, addExercise } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
 import AddExerciseToLibrary from "./common/AddExerciseToLibrary";
+import {IconLibrary} from '../../IconLibrary.js';
 
 
 const CreateWorkout = () => {
@@ -15,6 +16,10 @@ const CreateWorkout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const createdExercises = useSelector((state) => state.user.exercises);
+    
+    const categories = useSelector((state)=>state.user.categories);
+    const tags = useSelector((state)=>state.user.tags);
+    const targetGroups = useSelector((state)=>state.user.targetGroups);
 
     const [exercises, setExercises] = useState([]);
     const [exerciseName, setExerciseName] = useState('');
@@ -30,6 +35,7 @@ const CreateWorkout = () => {
     const [targetGroup, setTargetGroup] = useState('arms');
     const [difficulty, setDifficulty] = useState('beginner');
     const [duration, setDuration] = useState(0);
+    const [workoutTags, setWorkoutTags] = useState([])
 
     const handleAddExercise = (e) =>{
         e.preventDefault();
@@ -91,11 +97,24 @@ const CreateWorkout = () => {
                     <fieldset>
                         <label>Target Group</label>
                         <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
-                            <option value="full-body">Full Body</option>
-                            <option value="upper-body">Upper Body</option>
-                            <option value="core">Core</option>
-                            <option value="lower-body">Lower Body</option>    
+                            {categories?.length > 0 ? categories.map(((category, index)=>(
+                                <option key={'category '+index} value={category.name}>{category.name}</option>
+                            ))) : ''}
+                              
                         </select>
+                    </fieldset>
+                    <fieldset className="tag-selector">
+                        <label>Tags</label>
+                        <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setWorkoutTags((workoutTags)=>[...workoutTags, ...tags.filter(item=>item.id===e.target.value)])} value={workoutTags}>
+                            {tags?.length > 0 ? tags.map(((tag, index)=>(
+                                <option key={'tag '+index} value={tag.id}>{tag.name}</option>
+                            ))) : ''}
+                              
+                        </select>
+                        {console.log(workoutTags)}
+                        <div className="selected-tags">
+                            {workoutTags?.length > 0 ? workoutTags.map((tag)=><div className="tag-body"><div className="tag-color" style={{backgroundColor: tag.color}}></div><p>{tag.name}</p><img className="small-icon" src={IconLibrary.Delete} onClick={()=>setWorkoutTags((workoutTags)=>[...workoutTags.filter(item=>item.id!==tag.id)]) }/></div>) : ''}
+                        </div>
                     </fieldset>
                     <fieldset>
                         <label>Difficulty</label>
