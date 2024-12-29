@@ -1,10 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { convertGroupFromLowerToUpperCase, getDateForHeader, makeFirstUpperCase } from "../../helpers";
+import { useSelector, useDispatch } from "react-redux";
+import {getDateForHeader, makeFirstUpperCase } from "../../helpers";
 import './stylings/exercise.css';
-import { useDispatch } from "react-redux";
-import { addExerciseToWorkout, deleteExercise } from "../../store/userSlice";
-import { useState } from "react";
+import { addExerciseToWorkout } from "../../store/userSlice";
 import { exercises } from "../../database";
 import { IconLibrary } from "../../IconLibrary";
 
@@ -17,8 +15,6 @@ const ViewBrowseExercise = () => {
     const exerciseData = exercises.find(item => item.id === id);
     const workouts = useSelector((state)=>state.user.workouts);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [showMenu, setShowMenu] = useState(false);
 
     const addExerciseToAnotherWorkout = (workoutId) =>{
         dispatch(addExerciseToWorkout({workoutId, exerciseId: id}));
@@ -37,13 +33,43 @@ const ViewBrowseExercise = () => {
                     <p className='full-width subtle-subtitle'><b>Description</b></p>
                     <p className='full-width'>{exerciseData.description}</p>
                 </div>
-
+                <div className='info-block tags-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={IconLibrary.Tag} alt=''></img>
+                        <p className='info-block-name'>Tags</p>
+                    </div>
+                    <p className='info-block-value tags'>{exerciseData.tags?.length > 0 ? exerciseData.tags.map(tag=>(
+                        <div className="tag-body" key={tag.id}>
+                            <div className="tag-color" style={{backgroundColor: tag.color}}></div>
+                            <div className="tag-name">{tag.name}</div>
+                        </div>
+                        )) : 'None'}</p>
+                </div>
+                <div className='info-block tags-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
+                        <p className='info-block-name'>Equipment</p>
+                    </div>
+                    <p className='info-block-value tags'>{exerciseData.equipment?.length > 0 ? exerciseData.equipment.map(eq=>(
+                        <div className="tag-body" key={eq.id}>
+                            <div className="tag-color" style={{backgroundColor: eq.color}}></div>
+                            <div className="tag-name">{eq.name}</div>
+                        </div>
+                        )) : 'None'}</p>
+                </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
                         <img className='small-icon white-icon' src={IconLibrary.Muscle} alt=''></img>
                         <p className='info-block-name'>Group</p>
                     </div>
-                    <p className='info-block-value'>{exerciseData.targetGroup ? convertGroupFromLowerToUpperCase(exerciseData.targetGroup) : 'Not Set'}</p>
+                    <div className='info-block-value'>{exerciseData.targetGroup?.length > 0 ? exerciseData.targetGroup.map(group => group + ' ') : 'None'}</div>
+                </div>
+                <div className='info-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={IconLibrary.Folder} alt=''></img>
+                        <p className='info-block-name'>Category</p>
+                    </div>
+                    <p className='info-block-value'>{exerciseData.category ? exerciseData.category.name : 'None'}</p>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
@@ -51,6 +77,13 @@ const ViewBrowseExercise = () => {
                         <p className='info-block-name'>Duration</p>
                     </div>
                     <p className='info-block-value'>{exerciseData.duration ? `${exerciseData.duration} minutes` : 'Not Set'}</p>
+                </div>
+                <div className='info-block'>
+                    <div className='info-block-header'>
+                        <img className='small-icon white-icon' src={IconLibrary.Time} alt=''></img>
+                        <p className='info-block-name'>Difficulty</p>
+                    </div>
+                    <p className='info-block-value'>{exerciseData.difficulty ? exerciseData.difficulty : 'Not Set'}</p>
                 </div>
                 <div className="full-width exercise-fields">
                     <div className="field-body fields-header">
@@ -66,7 +99,18 @@ const ViewBrowseExercise = () => {
                         </div>
                     ))}
                 </div>
-
+                <div className="info-block tags-block">
+                    <div className='info-block-header'>
+                        <p className='info-block-name'>Notes</p>
+                    </div>
+                    <p className='info-block-value'>{exerciseData.notes ? exerciseData.notes : 'None'}</p>
+                </div>
+                <div className="full-width exercise-fields">
+                <div className='info-block-header'>
+                        <p className='info-block-name'>Steps</p>
+                    </div>
+                    {exerciseData.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index + 1}. {step}</p>)) : 'None'}
+                </div>
             </div>
             <div className="workouts-container section full-width">
             <h3 className="subtitle">Save to</h3>
@@ -77,8 +121,7 @@ const ViewBrowseExercise = () => {
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
-                                <p>{makeFirstUpperCase(workout.targetGroup)}</p>
-                                <p>{makeFirstUpperCase(workout.difficulty)}</p>
+                                <p>{makeFirstUpperCase(workout.category.name)}</p>
                             </div>
                         </div>
                         <div className="item-button">
@@ -92,7 +135,7 @@ const ViewBrowseExercise = () => {
                     <p>No exercises created yet.</p>
                 )}
             </div>
-            <button className="browse-button"><img className="small-icon" src={IconLibrary.Download}></img>Save to library</button>
+
         </div>
      );
 }
