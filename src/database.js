@@ -1058,12 +1058,15 @@ export const workouts = [
     "imageUrl": "",
     "difficulty": "Intermediate",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 },
-      { "id": "3aa618a6-59b9-4e47-af3b-18661f25ae5", "order": 3 },
-      { "id": "4b5c6d7e-8f9g-0h1i-2j3k-4l5m6n7o8p9q", "order": 4 },
-      { "id": "5a6b7c8d-9e0f-1g2h-3i4j-5k6l7m8n9o0p", "order": 5 },
-      { "id": "6a7b8c9d-0e1f-2g3h-4i5j-6k7l8m9n0o1p", "order": 6 }
+      "trx-y-fly-001",
+      "trx-face-pull-003",
+      "1a2b3c4d-5678-9101-1121-314151617181",
+      "skullcrusher-001",
+      "lateral-raise-003",
+      "2b3c4d5e-6789-1011-1213-141516171819",
+      "trx-inverted-row-002",
+      "3c4d5e6f-7890-1011-1213-141516171819"
+
     ]
   },
   {
@@ -1103,12 +1106,13 @@ export const workouts = [
     "imageUrl": "",
     "difficulty": "Beginner",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 },
-      { "id": "3aa618a6-59b9-4e47-af3b-18661f25ae5", "order": 3 },
-      { "id": "7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p", "order": 4 },
-      { "id": "8a9b0c1d-2e3f-4g5h-6i7j-8k9l0m1n2o3p", "order": 5 },
-      { "id": "9a0b1c2d-3e4f-5g6h-7i8j-9k0l1m2n3o4p", "order": 6 }
+      "abcd1234-5678-9101-1121-314151617181",
+      "lateral-raise-003",
+      "4d5e6f7g-8901-1011-1213-141516171819",
+      "skullcrusher-001",
+      "9i0j1k2l-4567-1011-1213-141516171819",
+      "6f7g8h9i-1234-1011-1213-141516171819",
+      "7g8h9i0j-2345-1011-1213-141516171819"
     ]
   },
   {
@@ -1149,11 +1153,10 @@ export const workouts = [
     "imageUrl": "",
     "difficulty": "Beginner",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 },
-      { "id": "3aa618a6-59b9-4e47-af3b-18661f25ae5", "order": 3 },
-      { "id": "7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p", "order": 4 },
-      { "id": "8a9b0c1d-2e3f-4g5h-6i7j-8k9l0m1n2o3p", "order": 5 }
+      "3c4d5e6f-7890-1011-1213-141516171819",
+      "2b3c4d5e-6789-1011-1213-141516171819",
+      "5e6f7g8h-9012-1011-1213-141516171819",
+      "7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p",
     ]
   },
   {
@@ -1200,9 +1203,9 @@ export const workouts = [
     "notes": "Ensure proper form to avoid injury.",
     "imageUrl": "",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 },
-      { "id": "3aa618a6-59b9-4e47-af3b-18661f25ae5", "order": 3 }
+      "3246-59b9-4kkfe47-affgh3b-hjggkdfgk",
+      "3aa1a6-59b9-4e47-afasd3b-1866125ae5",
+      "3aa618a6-59b9-4e47-af3b-18661f25ae5",
     ]
   },
   {
@@ -1249,8 +1252,8 @@ export const workouts = [
     "notes": "Rest between sets for 30 seconds.",
     "imageUrl": "",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 }
+      "3246-59b9-4kkfe47-affgh3b-hjggkdfgk",
+     "3aa1a6-59b9-4e47-afasd3b-1866125ae5",
     ]
   },
   {
@@ -1297,8 +1300,8 @@ export const workouts = [
     "notes": "Perform each exercise for 1 minute, rest for 30 seconds between exercises.",
     "imageUrl": "",
     "exercises": [
-      { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 },
-      { "id": "3aa1a6-59b9-4e47-afasd3b-1866125ae5", "order": 2 }
+      "3246-59b9-4kkfe47-affgh3b-hjggkdfgk",
+      "3aa1a6-59b9-4e47-afasd3b-1866125ae5",
     ]
   }
   
