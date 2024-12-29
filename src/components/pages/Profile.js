@@ -19,6 +19,10 @@ const Profile = () => {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     
+    const handleStoreReset = () =>{
+        dispatch(reset());
+        setShowMenu(false);
+    }
 
     return ( 
         <div className="profile-page page">
@@ -66,7 +70,7 @@ const Profile = () => {
 
             <Link to={'/edit-profile'} className="edit-profile-btn">Edit Profile</Link>
             
-            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<button className='orange-button large-button' onClick={()=>dispatch(reset())}>Reset Store</button>]} />) : ''}
+            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>]} />) : ''}
         </div>
      );
 }
