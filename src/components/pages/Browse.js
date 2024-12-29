@@ -34,11 +34,11 @@ const Browse = () => {
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
-                                <p>{makeFirstUpperCase(workout.targetGroup)}</p>
+                                <p>{workout.targetGroup.map(group=>group)}</p>
                             </div>
                         </Link>
                         <div className="item-button">
-                        {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workout.id) ? (
+                        {!workoutsLibrary.some(userWorkout => userWorkout.sourceId === workout.id) ? (
                                 <button onClick={()=>dispatch(saveWorkoutToLibrary(workout))}><img className="small-icon" src={IconLibrary.Download} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>
@@ -58,11 +58,11 @@ const Browse = () => {
                             <h4>{exercise.name}</h4>
                             <div className="item-description">
                                 <p>{exercise.sets} Sets</p>
-                                <p>{makeFirstUpperCase(exercise.targetGroup)}</p>
+                                <p>{exercise.targetGroup.map(group=>group+' ')}</p>
                             </div>
                         </Link>
                         <div className="item-button">
-                            {!exercisesLibrary.some(userExercise => userExercise.dbId === exercise.id) ? (
+                            {!exercisesLibrary.some(userExercise => userExercise.sourceId === exercise.id) ? (
                                 <button onClick={()=>dispatch(saveExerciseToLibrary(exercise))}><img className="small-icon" src={IconLibrary.Download} alt="icon" /></button>         
                             ) : (<p>Saved</p>)}
                         </div>

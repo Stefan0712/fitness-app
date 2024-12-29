@@ -83,7 +83,7 @@ const ViewBrowseWorkout = () => {
                     </div>
                 ))}
             </div>
-            {!workoutsLibrary.some(userWorkout => userWorkout.dbId === workoutData.id) ? (
+            {!workoutsLibrary.some(userWorkout => userWorkout.sourceId === workoutData.id) ? (
                 <button onClick={()=>dispatch(saveWorkoutToLibrary(workoutData))} className="browse-button"><img className="small-icon" src={IconLibrary.Download}></img>Save to library</button>         
             ) : (<button className="browse-button">Saved</button>)}
             

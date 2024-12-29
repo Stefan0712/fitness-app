@@ -474,7 +474,7 @@ const userSlice = createSlice({
     saveExerciseToLibrary: (state, action) =>{
       const localCopy = {
         ...action.payload, 
-        dbId: action.payload.id,
+        sourceId: action.payload.id,
         id: uuidv4(),
         typed: 'saved'
       };
@@ -483,7 +483,7 @@ const userSlice = createSlice({
     saveWorkoutToLibrary: (state, action) =>{
       const localCopy = {
         ...action.payload, 
-        dbId: action.payload.id,
+        sourceId: action.payload.id,
         id: uuidv4(),
         typed: 'saved'
       };

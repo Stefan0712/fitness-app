@@ -7,16 +7,16 @@ export const exercises = [
     "source": "local-database",
     "isFavorite": false,
     "isCompleted": false,
-    "category": { "id": "bodyweight", "name": "Bodyweight", "color": "blue" },
+    "category": { "id": "bodyweight-2363", "name": "Bodyweight", "color": "blue" },
     "author": "Stefan",
     "name": "Push-Ups",
     "description": "A fundamental bodyweight exercise to strengthen the chest, shoulders, and triceps.",
     "tags": [
-      { "id": "chest", "source": "system", "name": "Chest", "color": "red" },
-      { "id": "arms", "source": "system", "name": "Arms", "color": "blue" }
+      { "id": "3b4v5zbr5", "source": "system", "name": "Chest", "color": "red" },
+      { "id": "aj45y4h45yms", "source": "system", "name": "Arms", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Chest, Arms",
+    "targetGroup": ["Chest", "Arms"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 3,
@@ -31,7 +31,7 @@ export const exercises = [
     "imageUrl": "",
     "fields": [
       {
-        "id": "field1",
+        "id": "field11lkj2h3",
         "name": "Reps",
         "description": "Number of repetitions per set",
         "unit": "reps",
@@ -53,19 +53,19 @@ export const exercises = [
     "source": "local-database",
     "isFavorite": false,
     "isCompleted": false,
-    "category": { "id": "strength", "name": "Strength", "color": "green" },
+    "category": { "id": "strasdasgasdength", "name": "Strength", "color": "green" },
     "author": "Stefan",
     "name": "TRX Rows",
     "description": "A suspension training exercise to build back and bicep strength.",
     "tags": [
-      { "id": "back", "source": "system", "name": "Back", "color": "green" },
-      { "id": "arms", "source": "system", "name": "Arms", "color": "blue" }
+      { "id": "bacytdfgk", "source": "system", "name": "Back", "color": "green" },
+      { "id": "armfxghfkls", "source": "system", "name": "Arms", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Back, Arms",
+    "targetGroup": ["Back", "Arms"],
     "difficulty": "Intermediate",
     "equipment": [
-      { "id": "trx-band", "source": "user", "name": "TRX Band", "qty": 1 }
+      { "id": "trx-badfgnermnd", "source": "user", "name": "TRX Band", "qty": 1 }
     ],
     "sets": 3,
     "duration": 5,
@@ -79,7 +79,7 @@ export const exercises = [
     "imageUrl": "",
     "fields": [
       {
-        "id": "field2",
+        "id": "fiejksadhkljsald2",
         "name": "Reps",
         "description": "Number of repetitions per set",
         "unit": "reps",
@@ -101,18 +101,18 @@ export const exercises = [
     "source": "local-database",
     "isFavorite": false,
     "isCompleted": false,
-    "category": { "id": "strength", "name": "Strength", "color": "red" },
+    "category": { "id": "strasdasdsadasku435hnength", "name": "Strength", "color": "red" },
     "author": "Stefan",
     "name": "Dumbbell Shoulder Press",
     "description": "A strength exercise targeting the shoulders.",
     "tags": [
-      { "id": "shoulders", "source": "system", "name": "Shoulders", "color": "yellow" }
+      { "id": "should52345ners", "source": "system", "name": "Shoulders", "color": "yellow" }
     ],
     "reference": "",
-    "targetGroup": "Shoulders",
+    "targetGroup": ["Shoulders"],
     "difficulty": "Beginner",
     "equipment": [
-      { "id": "dumbbell", "source": "user", "name": "Dumbbell", "qty": 2 }
+      { "id": "dumb5k65895kfbell", "source": "user", "name": "Dumbbell", "qty": 2 }
     ],
     "sets": 3,
     "duration": 5,
@@ -126,7 +126,7 @@ export const exercises = [
     "imageUrl": "",
     "fields": [
       {
-        "id": "field3",
+        "id": "fie4b32v42cv3c65vld3",
         "name": "Reps",
         "description": "Number of repetitions per set",
         "unit": "reps",
@@ -148,18 +148,18 @@ export const exercises = [
     "source": "local-database",
     "isFavorite": false,
     "isCompleted": false,
-    "category": { "id": "bodyweight", "name": "Bodyweight", "color": "orange" },
+    "category": { "id": "bod543fgdyweight", "name": "Bodyweight", "color": "orange" },
     "author": "Stefan",
     "name": "Tricep Dips",
     "description": "A bodyweight exercise to strengthen the triceps.",
     "tags": [
-      { "id": "arms", "source": "system", "name": "Arms", "color": "blue" }
+      { "id": "a43v543rms", "source": "system", "name": "Arms", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Arms",
+    "targetGroup": ["Arms"],
     "difficulty": "Beginner",
     "equipment": [
-      { "id": "chair", "source": "user", "name": "Chair", "qty": 1 }
+      { "id": "cha34km543ir", "source": "user", "name": "Chair", "qty": 1 }
     ],
     "sets": 3,
     "duration": 5,
@@ -173,7 +173,7 @@ export const exercises = [
     "imageUrl": "",
     "fields": [
       {
-        "id": "field4",
+        "id": "fiekf434ld4",
         "name": "Reps",
         "description": "Number of repetitions per set",
         "unit": "reps",
@@ -200,11 +200,11 @@ export const exercises = [
     "name": "Plank",
     "description": "A core stability exercise to strengthen the abs, back, and shoulders.",
     "tags": [
-      { "id": "core", "source": "system", "name": "Core", "color": "purple" },
-      { "id": "stability", "source": "system", "name": "Stability", "color": "blue" }
+      { "id": "co12v3re", "source": "system", "name": "Core", "color": "purple" },
+      { "id": "stabi3b1212lity", "source": "system", "name": "Stability", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Core, Shoulders",
+    "targetGroup": ["Core", "Shoulders"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 3,
@@ -219,7 +219,7 @@ export const exercises = [
     "imageUrl": "",
     "fields": [
       {
-        "id": "field1",
+        "id": "213b1v2casd",
         "name": "Hold Time",
         "description": "Duration to hold the plank per set",
         "unit": "seconds",
@@ -250,7 +250,7 @@ export const exercises = [
       { "id": "obliques", "source": "system", "name": "Obliques", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Core, Obliques",
+    "targetGroup": ["Core", "Obliques"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 3,
@@ -296,7 +296,7 @@ export const exercises = [
       { "id": "cardio", "source": "system", "name": "Cardio", "color": "red" }
     ],
     "reference": "",
-    "targetGroup": "Core, Legs",
+    "targetGroup": ["Core", "Legs"],
     "difficulty": "Intermediate",
     "equipment": [],
     "sets": 3,
@@ -342,7 +342,7 @@ export const exercises = [
       { "id": "obliques", "source": "system", "name": "Obliques", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Core, Obliques",
+    "targetGroup": ["Core", "Obliques"],
     "difficulty": "Intermediate",
     "equipment": [],
     "sets": 3,
@@ -389,7 +389,7 @@ export const exercises = [
       { "id": "posture", "source": "system", "name": "Posture", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Hip Flexors",
+    "targetGroup": ["Hip Flexors"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 2,
@@ -435,7 +435,7 @@ export const exercises = [
       { "id": "strength", "source": "system", "name": "Strength", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Glutes, Lower Back",
+    "targetGroup": ["Glutes", "Lower Back"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 3,
@@ -481,7 +481,7 @@ export const exercises = [
       { "id": "strength", "source": "system", "name": "Strength", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Quads, Glutes",
+    "targetGroup": ["Quads", "Glutes"],
     "difficulty": "Intermediate",
     "equipment": [],
     "sets": 3,
@@ -527,7 +527,7 @@ export const exercises = [
       { "id": "strength", "source": "system", "name": "Strength", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Quads, Glutes",
+    "targetGroup": ["Quads", "Glutes"],
     "difficulty": "Intermediate",
     "equipment": [],
     "sets": 3,
@@ -573,7 +573,7 @@ export const exercises = [
       { "id": "strength", "source": "system", "name": "Strength", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Quads, Glutes",
+    "targetGroup": ["Quads", "Glutes"],
     "difficulty": "Beginner",
     "equipment": ["Step or Platform"],
     "sets": 3,
@@ -618,7 +618,7 @@ export const exercises = [
       { "id": "core", "source": "system", "name": "Core", "color": "purple" }
     ],
     "reference": "",
-    "targetGroup": "Core",
+    "targetGroup": ["Core"],
     "difficulty": "Beginner",
     "equipment": [],
     "sets": 3,
@@ -664,7 +664,7 @@ export const exercises = [
       { "id": "biceps", "source": "system", "name": "Biceps", "color": "red" }
     ],
     "reference": "",
-    "targetGroup": "Arms",
+    "targetGroup": ["Arms"],
     "difficulty": "Beginner",
     "equipment": [
       {
@@ -720,7 +720,7 @@ export const exercises = [
       { "id": "trx", "source": "user", "name": "TRX", "color": "yellow" }
     ],
     "reference": "",
-    "targetGroup": "Back",
+    "targetGroup": ["Back"],
     "difficulty": "Intermediate",
     "equipment": [
       {
@@ -777,7 +777,7 @@ export const exercises = [
       { "id": "shoulders", "source": "system", "name": "Shoulders", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Back & Shoulders",
+    "targetGroup": ["Back","Shoulders"],
     "difficulty": "Intermediate",
     "equipment": ["TRX"],
     "sets": 3,
@@ -808,7 +808,7 @@ export const exercises = [
       { "id": "back", "source": "system", "name": "Back", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Back",
+    "targetGroup": ["Back"],
     "difficulty": "Beginner",
     "equipment": ["TRX"],
     "sets": 3,
@@ -838,7 +838,7 @@ export const exercises = [
       { "id": "shoulders", "source": "system", "name": "Shoulders", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Shoulders",
+    "targetGroup": ["Shoulders"],
     "difficulty": "Intermediate",
     "equipment": ["TRX"],
     "sets": 3,
@@ -868,7 +868,7 @@ export const exercises = [
       { "id": "back", "source": "system", "name": "Back", "color": "blue" }
     ],
     "reference": "",
-    "targetGroup": "Back",
+    "targetGroup": ["Back"],
     "difficulty": "Beginner",
     "equipment": ["TRX"],
     "sets": 3,
@@ -900,7 +900,7 @@ export const exercises = [
       { "id": "shoulders", "source": "system", "name": "Shoulders", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Back & Shoulders",
+    "targetGroup": ["Back", "Shoulders"],
     "difficulty": "Intermediate",
     "equipment": ["TRX"],
     "sets": 3,
@@ -931,7 +931,7 @@ export const exercises = [
       { "id": "arms", "source": "system", "name": "Arms", "color": "red" }
     ],
     "reference": "",
-    "targetGroup": "Arms",
+    "targetGroup": ["Arms"],
     "difficulty": "Intermediate",
     "equipment": ["Dumbbell"],
     "sets": 3,
@@ -961,7 +961,7 @@ export const exercises = [
       { "id": "arms", "source": "system", "name": "Arms", "color": "red" }
     ],
     "reference": "",
-    "targetGroup": "Arms",
+    "targetGroup": ["Arms"],
     "difficulty": "Beginner",
     "equipment": ["Dumbbell"],
     "sets": 3,
@@ -990,7 +990,7 @@ export const exercises = [
       { "id": "shoulders", "source": "system", "name": "Shoulders", "color": "green" }
     ],
     "reference": "",
-    "targetGroup": "Shoulders",
+    "targetGroup": ["Shoulders"],
     "difficulty": "Beginner",
     "equipment": ["Dumbbell"],
     "sets": 3,
