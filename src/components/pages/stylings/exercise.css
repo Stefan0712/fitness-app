@@ -122,6 +122,26 @@
     top: 30px;
     right: 20px;
 }
+.tag-color{
+    height: 100%;
+    width: 5px;
+}
+.tags-block{
+    width: 100% !important;
+}
+.tag-body{
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 10px;
+    background-color: #111214;
+    padding-right: 10px;
+}
+.info-block-value.tags{
+    gap: 10px;
+}
 .view-exercise .item-body .item-info{
     width: calc(100% - 50px);
     display: flex;

@@ -51,6 +51,7 @@ import Time from './assets/time.svg';
 import Water from './assets/water.svg';
 import Weight from './assets/weight.svg';
 import Workout from './assets/workout.svg';
+import Tag from './assets/tag.svg'
 
 
 
@@ -102,5 +103,6 @@ export const IconLibrary = {
     Time,
     Water,
     Weight,
-    Workout
+    Workout,
+    Tag
 }

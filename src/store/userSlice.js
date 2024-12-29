@@ -49,6 +49,7 @@ const initialState = {
         "name": "Stretching",
         "color": "orange"
       },
+      "targetGroup": ['Arms'],
       "author": "Stefan",
       "name": "Arm Circles",
       "description": "A dynamic stretch to warm up the shoulders and arms, improving flexibility and blood flow.",
@@ -63,14 +64,14 @@ const initialState = {
       "visibility": "private",
       "notes": "Start with small circles and gradually increase the size.",
       "imageUrl": "",
-      "sets" : 3,
+      "sets" : 1,
       "fields": [
         {
           "id": "field4",
           "name": "Duration",
           "description": "Duration of arm circles in seconds",
-          "unit": "seconds",
-          "target": "3",
+          "unit": "rotations",
+          "target": "10",
           "type": "number",
           "source": "system",
           "value": null,
@@ -88,6 +89,7 @@ const initialState = {
       "source": "user-library",
       "isFavorite": false,
       "isCompleted": false,
+      "targetGroup": ['Legs'],
       "category": {
         "id": "12jkmb-ased21-alc21",
         "source": "user",
@@ -141,6 +143,7 @@ const initialState = {
       },
       "author": "Stefan",
       "name": "Torso Twists",
+      "targetGroup": ['Core'],
       "description": "A dynamic stretch to loosen the spine and engage the core muscles.",
       "tags": [
         { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
@@ -186,6 +189,7 @@ const initialState = {
       },
       "author": "Stefan",
       "name": "Standing Side Reach",
+      "targetGroup": [],
       "description": "A stretch that targets the obliques and helps improve posture.",
       "tags": [
         { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
@@ -231,6 +235,7 @@ const initialState = {
       },
       "author": "Stefan",
       "name": "Rope Jumping",
+      "targetGroup": ['Lower Body'],
       "description": "A classic cardio exercise that improves cardiovascular endurance, coordination, and agility.",
       "tags": [
         { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
@@ -280,6 +285,7 @@ const initialState = {
       ],
       "author": "Stefan",
       "name": "Dynamic Hip Flexor Stretch",
+      "targetGroup": ['Hip Flexor'],
       "description": "A dynamic stretch focusing on opening the hips and improving flexibility in the hip flexors.",
       "tags": [
         { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Hip Flexors", "color": "blue" },
