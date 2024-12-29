@@ -34,7 +34,6 @@ const Library = () => {
                             <h4>{workout.name}</h4>
                             <div className="item-description">
                                 <p>{workout.exercises.length} exercises</p>
-                                <p>{makeFirstUpperCase(workout.targetGroup)}</p>
                             </div>
                         </div>
                         <div className="item-button">
@@ -56,7 +55,6 @@ const Library = () => {
                             <h4>{exercise.name}</h4>
                             <div className="item-description">
                                 <p>{exercise.sets} Sets</p>
-                                <p>{makeFirstUpperCase(exercise.targetGroup)}</p>
                             </div>
                         </div>
                         <div className="item-button">

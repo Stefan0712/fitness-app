@@ -36,6 +36,231 @@ const initialState = {
   },
   exercises: [
     {
+      "id": "f53e6689-7281-4935-bb8c-3e90e6d859c7",
+      "createdAt": "2024-12-29T18:33:29.131Z",
+      "sourceId": null,
+      "updatedAt": null,
+      "source": "user-library",
+      "isFavorite": false,
+      "isCompleted": false,
+      "category": {
+        "id": "12jkmb-ased21-alc21",
+        "source": "user",
+        "name": "Stretching",
+        "color": "orange"
+      },
+      "author": "Stefan",
+      "name": "Arm Circles",
+      "description": "A dynamic stretch to warm up the shoulders and arms, improving flexibility and blood flow.",
+      "tags": [
+        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Arms", "color": "blue" },
+        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
+      ],
+      "reference": null,
+      "difficulty": "Beginner",
+      "equipment": [],
+      "duration": 3,
+      "visibility": "private",
+      "notes": "Start with small circles and gradually increase the size.",
+      "imageUrl": "",
+      "sets" : 3,
+      "fields": [
+        {
+          "id": "field4",
+          "name": "Duration",
+          "description": "Duration of arm circles in seconds",
+          "unit": "seconds",
+          "target": "3",
+          "type": "number",
+          "source": "system",
+          "value": null,
+          "isCompleted": false,
+          "validation": { "min": 0, "max": 9999 },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "g53e6689-7281-4935-bb8c-3e90e6d859c8",
+      "createdAt": "2024-12-29T18:34:29.131Z",
+      "sourceId": null,
+      "updatedAt": null,
+      "source": "user-library",
+      "isFavorite": false,
+      "isCompleted": false,
+      "category": {
+        "id": "12jkmb-ased21-alc21",
+        "source": "user",
+        "name": "Stretching",
+        "color": "purple"
+      },
+      "author": "Stefan",
+      "name": "Leg Swings",
+      "description": "A dynamic stretch for the legs to improve hip flexibility and range of motion.",
+      "tags": [
+        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Legs", "color": "blue" },
+        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
+      ],
+      "reference": null,
+      "difficulty": "Beginner",
+      "equipment": [],
+      "duration": 5,
+      "visibility": "private",
+      "notes": "Swing the leg forward and backward while keeping your core engaged.",
+      "imageUrl": "",
+      "sets" : 3,
+      "fields": [
+        {
+          "id": "field4",
+          "name": "Duration",
+          "description": "Duration of leg swings in seconds",
+          "unit": "seconds",
+          "target": "5",
+          "type": "number",
+          "source": "system",
+          "value": null,
+          "isCompleted": false,
+          "validation": { "min": 0, "max": 9999 },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "h53e6689-7281-4935-bb8c-3e90e6d859c9",
+      "createdAt": "2024-12-29T18:35:29.131Z",
+      "sourceId": null,
+      "updatedAt": null,
+      "source": "user-library",
+      "isFavorite": false,
+      "isCompleted": false,
+      "category": {
+        "id": "12jkmb-ased21-alc21",
+        "source": "user",
+        "name": "Stretching",
+        "color": "green"
+      },
+      "author": "Stefan",
+      "name": "Torso Twists",
+      "description": "A dynamic stretch to loosen the spine and engage the core muscles.",
+      "tags": [
+        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
+        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
+      ],
+      "reference": null,
+      "difficulty": "Beginner",
+      "equipment": [],
+      "duration": 4,
+      "visibility": "private",
+      "notes": "Keep your hips facing forward and rotate only your torso.",
+      "imageUrl": "",
+      "sets" : 3,
+      "fields": [
+        {
+          "id": "field4",
+          "name": "Duration",
+          "description": "Duration of torso twists in seconds",
+          "unit": "seconds",
+          "target": "4",
+          "type": "number",
+          "source": "system",
+          "value": null,
+          "isCompleted": false,
+          "validation": { "min": 0, "max": 9999 },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "i53e6689-7281-4935-bb8c-3e90e6d859ca",
+      "createdAt": "2024-12-29T18:36:29.131Z",
+      "sourceId": null,
+      "updatedAt": null,
+      "source": "user-library",
+      "isFavorite": false,
+      "isCompleted": false,
+      "category": {
+        "id": "12jkmb-ased21-alc21",
+        "source": "user",
+        "name": "Stretching",
+        "color": "pink"
+      },
+      "author": "Stefan",
+      "name": "Standing Side Reach",
+      "description": "A stretch that targets the obliques and helps improve posture.",
+      "tags": [
+        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
+        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
+      ],
+      "reference": null,
+      "difficulty": "Beginner",
+      "equipment": [],
+      "duration": 4,
+      "visibility": "private",
+      "notes": "Make sure to reach over your head and not just to the side.",
+      "imageUrl": "",
+      "sets" : 3,
+      "fields": [
+        {
+          "id": "field4",
+          "name": "Duration",
+          "description": "Duration of standing side reach in seconds",
+          "unit": "seconds",
+          "target": "4",
+          "type": "number",
+          "source": "system",
+          "value": null,
+          "isCompleted": false,
+          "validation": { "min": 0, "max": 9999 },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "j53e6689-7281-4935-bb8c-3e90e6d859cb",
+      "createdAt": "2024-12-29T18:37:29.131Z",
+      "sourceId": null,
+      "updatedAt": null,
+      "source": "user-library",
+      "isFavorite": false,
+      "isCompleted": false,
+      "category": {
+        "id": "12jkmb-ased21-alc21",
+        "source": "user",
+        "name": "Cardio",
+        "color": "red"
+      },
+      "author": "Stefan",
+      "name": "Rope Jumping",
+      "description": "A classic cardio exercise that improves cardiovascular endurance, coordination, and agility.",
+      "tags": [
+        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
+        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Jumping", "color": "blue" }
+      ],
+      "reference": null,
+      "difficulty": "Intermediate",
+      "equipment": ["Jump Rope"],
+      "duration": 10,
+      "visibility": "private",
+      "notes": "Focus on your rhythm and breathing.",
+      "imageUrl": "",
+      "sets" : 3,
+      "fields": [
+        {
+          "id": "field4",
+          "name": "Duration",
+          "description": "Duration of rope jumping in seconds",
+          "unit": "seconds",
+          "target": "10",
+          "type": "number",
+          "source": "system",
+          "value": null,
+          "isCompleted": false,
+          "validation": { "min": 0, "max": 9999 },
+          "order": 1
+        }
+      ]
+    },
+    {
       "id": "e53e6689-7281-4935-bb8c-3e90e6d859c6",
       "createdAt": "2024-12-29T18:32:29.131Z",
       "sourceId": null,
@@ -67,302 +292,12 @@ const initialState = {
       "visibility": "private",
       "notes": "Keep your posture straight and avoid arching your back.",
       "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "f53e6689-7281-4935-bb8c-3e90e6d859c7",
-      "createdAt": "2024-12-29T18:33:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Stretching",
-        "color": "orange"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Arms" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Arms" }
-      ],
-      "author": "Stefan",
-      "name": "Arm Circles",
-      "description": "A dynamic stretch to warm up the shoulders and arms, improving flexibility and blood flow.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Arms", "color": "blue" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
-      ],
-      "reference": null,
-      "difficulty": "Beginner",
-      "equipment": [],
-      "duration": 3,
-      "visibility": "private",
-      "notes": "Start with small circles and gradually increase the size.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "g53e6689-7281-4935-bb8c-3e90e6d859c8",
-      "createdAt": "2024-12-29T18:34:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Stretching",
-        "color": "purple"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Legs" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Legs" }
-      ],
-      "author": "Stefan",
-      "name": "Leg Swings",
-      "description": "A dynamic stretch for the legs to improve hip flexibility and range of motion.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Legs", "color": "blue" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
-      ],
-      "reference": null,
-      "difficulty": "Beginner",
-      "equipment": [],
-      "duration": 5,
-      "visibility": "private",
-      "notes": "Swing the leg forward and backward while keeping your core engaged.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "h53e6689-7281-4935-bb8c-3e90e6d859c9",
-      "createdAt": "2024-12-29T18:35:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Stretching",
-        "color": "green"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Core" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Core" }
-      ],
-      "author": "Stefan",
-      "name": "Torso Twists",
-      "description": "A dynamic stretch to loosen the spine and engage the core muscles.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
-      ],
-      "reference": null,
-      "difficulty": "Beginner",
-      "equipment": [],
-      "duration": 4,
-      "visibility": "private",
-      "notes": "Keep your hips facing forward and rotate only your torso.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "i53e6689-7281-4935-bb8c-3e90e6d859ca",
-      "createdAt": "2024-12-29T18:36:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Stretching",
-        "color": "pink"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Core" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Core" }
-      ],
-      "author": "Stefan",
-      "name": "Standing Side Reach",
-      "description": "A stretch that targets the obliques and helps improve posture.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Core", "color": "blue" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Stretch", "color": "green" }
-      ],
-      "reference": null,
-      "difficulty": "Beginner",
-      "equipment": [],
-      "duration": 4,
-      "visibility": "private",
-      "notes": "Make sure to reach over your head and not just to the side.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "j53e6689-7281-4935-bb8c-3e90e6d859cb",
-      "createdAt": "2024-12-29T18:37:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Cardio",
-        "color": "red"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Cardiovascular" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Cardiovascular" }
-      ],
-      "author": "Stefan",
-      "name": "Rope Jumping",
-      "description": "A classic cardio exercise that improves cardiovascular endurance, coordination, and agility.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Jumping", "color": "orange" }
-      ],
-      "reference": null,
-      "difficulty": "Intermediate",
-      "equipment": ["Jump Rope"],
-      "duration": 10,
-      "visibility": "private",
-      "notes": "Focus on maintaining a steady rhythm and try to keep your feet light as you jump.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "k53e6689-7281-4935-bb8c-3e90e6d859cc",
-      "createdAt": "2024-12-29T18:38:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Cardio",
-        "color": "red"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Cardiovascular" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Cardiovascular" }
-      ],
-      "author": "Stefan",
-      "name": "High Knees",
-      "description": "A cardio exercise that targets the lower body while increasing heart rate and improving endurance.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Legs", "color": "blue" }
-      ],
-      "reference": null,
-      "difficulty": "Beginner",
-      "equipment": [],
-      "duration": 10,
-      "visibility": "private",
-      "notes": "Make sure to drive your knees up as high as possible and keep a quick pace.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "l53e6689-7281-4935-bb8c-3e90e6d859cd",
-      "createdAt": "2024-12-29T18:39:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Cardio",
-        "color": "red"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Cardiovascular" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Cardiovascular" }
-      ],
-      "author": "Stefan",
-      "name": "Mountain Climbers",
-      "description": "A full-body cardio exercise that engages the core, shoulders, and legs while improving cardiovascular endurance.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Core", "color": "green" }
-      ],
-      "reference": null,
-      "difficulty": "Intermediate",
-      "equipment": [],
-      "duration": 10,
-      "visibility": "private",
-      "notes": "Maintain a steady pace and keep your core tight throughout the exercise.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
-    },
-    {
-      "id": "m53e6689-7281-4935-bb8c-3e90e6d859ce",
-      "createdAt": "2024-12-29T18:40:29.131Z",
-      "sourceId": null,
-      "updatedAt": null,
-      "source": "user-library",
-      "isFavorite": false,
-      "isCompleted": false,
-      "category": {
-        "id": "12jkmb-ased21-alc21",
-        "source": "user",
-        "name": "Cardio",
-        "color": "red"
-      },
-      "targetGroup": [
-        { "id": "54sd-64fff-gf32", "source": "system", "name": "Cardiovascular" },
-        { "id": "547ujj-12kkk-251gh", "source": "user", "name": "Cardiovascular" }
-      ],
-      "author": "Stefan",
-      "name": "Burpees",
-      "description": "A high-intensity cardio exercise that works the whole body and boosts cardiovascular endurance.",
-      "tags": [
-        { "id": "as7j-ksdf6-01saik1", "source": "user", "name": "Cardio", "color": "red" },
-        { "id": "as3vgb0-a8f-4md907", "source": "user", "name": "Full Body", "color": "purple" }
-      ],
-      "reference": null,
-      "difficulty": "Advanced",
-      "equipment": [],
-      "duration": 10,
-      "visibility": "private",
-      "notes": "Focus on smooth transitions between the squat, jump, and push-up phases.",
-      "imageUrl": "",
-      "exercises": [
-        { "id": "3246-59b9-4kkfe47-affgh3b-hjggkdfgk", "order": 1 }
-      ]
+      "sets": 3
     }
-     
+    
   ],
   workouts: [
-    {
+      {
       "id": "a53e6689-7281-4935-bb8c-3e90e6d859cf",
       "createdAt": "2024-12-29T18:42:29.131Z",
       "sourceId": null,
@@ -441,9 +376,10 @@ const initialState = {
         { "id": "m53e6689-7281-4935-bb8c-3e90e6d859ce", "order": 4 },
         { "id": "n53e6689-7281-4935-bb8c-3e90e6d859cf", "order": 5 }
       ]
-    }  
-],
-  
+    }
+
+
+  ],
   message: null
 };
 
