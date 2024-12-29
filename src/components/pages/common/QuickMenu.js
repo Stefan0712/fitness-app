@@ -5,10 +5,15 @@ import { makeFirstUpperCase } from '../../../helpers';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import ManageGoalBody from './ManageGoalBody';
+import TagBody from './TagBody';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
     const dailyGoals = useSelector((state)=> state.user.userData.goals);
+    const categories = useSelector((state)=>state.user.categories);
+    const tags = useSelector((state)=>state.user.tags);
+    const targetGroups = useSelector((state)=>state.user.targetGroups);
+
 
     const [quickMenuScreen, setQuickMenuScreen] = useState('menu');
     //TODO: Add an icon picker and update icon sources for all custom goals
@@ -29,6 +34,18 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     <button className='quick-button' onClick={()=>showLog('stopwatch')}>
                         <img src={IconLibrary.Stopwatch} alt=''></img>
                         <p>Stopwatch</p>
+                    </button>
+                    <button className='quick-button' onClick={()=>setQuickMenuScreen('tags')}>
+                        <img src={IconLibrary.Stopwatch} alt=''></img>
+                        <p>Tags</p>
+                    </button>
+                    <button className='quick-button' onClick={()=>setQuickMenuScreen('categories')}>
+                        <img src={IconLibrary.Stopwatch} alt=''></img>
+                        <p>Categories</p>
+                    </button>
+                    <button className='quick-button' onClick={()=>setQuickMenuScreen('targetGroups')}>
+                        <img src={IconLibrary.Stopwatch} alt=''></img>
+                        <p>Target Groups</p>
                     </button>
                     <h2>Quick Logs</h2>
                     <button className='quick-button' onClick={()=>showLog("food")} key={"food"}>
@@ -84,6 +101,23 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     ))}  
                     <div className='goal-body create-goal-button'>
                         <p>New Goal</p>
+                    </div> 
+                    
+                </div>
+            ) : ''}
+            {quickMenuScreen === 'targetGroups' ? (
+
+                <div className='quick-menu-screen custom-elements'>
+                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.Back} className='small-icon white-icon'></img></button>
+                    <h1>Manage Target Groups</h1>
+                    
+                    <div className='items-container'>
+                        {targetGroups?.map((group)=>(
+                            <TagBody data={group} />
+                        ))}  
+                    </div>
+                    <div className='goal-body create-goal-button'>
+                        <p>New Target Group</p>
                     </div> 
                     
                 </div>

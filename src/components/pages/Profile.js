@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import './stylings/profile.css';
 import { reset } from '../../store/userSlice';
 import { IconLibrary } from "../../IconLibrary";
-import ContextualMenu from './common/ContextualMenu';
 import { useState } from "react";
 
 
@@ -68,9 +67,13 @@ const Profile = () => {
                
             </div>
 
-            <Link to={'/edit-profile'} className="edit-profile-btn">Edit Profile</Link>
-            
-            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>]} />) : ''}
+            <div className="settings-side-menu">
+                <h2>Settings</h2>
+                <div className="buttons-container">
+                
+                </div>
+                <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
+            </div>
         </div>
      );
 }

@@ -1,6 +1,6 @@
 .quick-menu{
     width: 100%;
-    height: 600px;
+    height: 750px;
     padding: 25px 10px;
     background-color: #1A1A1B;
     border: 1px solid rgba(211, 211, 211, 0.2);
@@ -182,3 +182,63 @@
 }
 
 
+/* manage custom elements */
+.custom-elements{
+    gap: 10px;
+    flex-direction: column;
+    height: 100%;
+}
+.custom-elements .items-container{
+    height: 100%;
+    max-height: 80%;
+    overflow-y: scroll;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.custom-elements .tag-body{
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.custom-elements .tag-body .tag-color{
+    height: 100%;
+    width: 5px;
+}
+.custom-elements .tag-button{
+    background-color: transparent;
+    border: 1px solid transparent;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.custom-elements .tag-button img{
+    width: 30px;
+    height: 30px;
+}
+.custom-elements .tag-buttons{
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+}
+.custom-elements .tag-buttons .confirm-buttons{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.custom-elements .tag-body input{
+    height: 30px;
+    border: 1px solid transparent;
+    background-color: white;
+    padding-left: 10px;
+    border-radius: 5px;
+    color: black;
+}
