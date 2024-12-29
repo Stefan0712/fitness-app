@@ -27,362 +27,84 @@ const initialState = {
     weight: 80,
     bio: 'I swear I am real',
   },
-  activity: {'2024-11-05': {
-        logs: [
-          {
-            timestamp: '2024-11-05T16:18:05.204Z',
-            type: 'goal',
-            name: 'Calories',
-            data: {
-              value: 412
-            },
-            icon: '/icons/calories.svg'
-          },
-          {
-            timestamp: '2024-11-05T17:30:33.750Z',
-            type: 'food',
-            name: 'Food Log',
-            data: {
-              name: 'Fried Rice',
-              qty: '500',
-              unit: 'g',
-              protein: '12',
-              carbs: '',
-              fats: '65',
-              sugar: '23',
-              calories: '566',
-              sodium: '',
-              time: '23:34',
-              type: 'dinner',
-              note: 'Random values lol'
-            },
-            icon: '/icons/food.svg'
-          },
-          {
-            timestamp: '2024-11-05T17:31:41.399Z',
-            name: 'Food Log',
-            type: 'food',
-            data: {
-              name: 'Test',
-              qty: '123',
-              unit: 'g',
-              protein: '',
-              carbs: '',
-              fats: '',
-              sugar: '',
-              calories: '',
-              sodium: '',
-              time: '',
-              type: 'unset',
-              note: ''
-            },
-            icon: '/icons/food.svg'
-          },
-          {
-            timestamp: '2024-11-05T18:35:17.896Z',
-            name: 'Exercise',
-            type: 'activity',
-            data: {
-              name: 'Push Ups',
-              time: '23:37',
-              targetGroup: 'chest',
-              duration: '15',
-              fields: [
-                {
-                  name: 'Reps',
-                  unit: 'reps',
-                  value: '12'
-                },
-                {
-                  name: 'Sets',
-                  unit: 'sets',
-                  value: '3'
-                }
-              ]
-            },
-            icon: '/icons/exercise.svg'
-          }
-        ],
-        goals: [
-          {
-            name: 'Calories',
-            unit: 'kcal',
-            target: '1400',
-            icon: '/icons/calories.svg'
-          },
-          {
-            name: 'Steps',
-            unit: 'steps',
-            target: '6000',
-            icon: '/icons/steps.svg'
-          }
-        ]
-      },
-      '2024-12-25': {
-        logs: [
-          {
-            timestamp: '2024-12-25T00:57:13.500Z',
-            name: 'Food Log',
-            type: 'food',
-            data: {
-              name: 'Test food',
-              qty: '123',
-              unit: 'g',
-              calories: '250',
-              protein: '',
-              carbs: '',
-              fats: '',
-              sugar: '',
-              calories: '',
-              sodium: '',
-              time: '06:57',
-              type: 'dinner',
-              note: ''
-            },
-            icon: '/icons/food.svg'
-          },
-          {
-            timestamp: '2024-11-06T01:00:23.859Z',
-            name: 'Food Log',
-            type: 'food',
-            data: {
-              name: 'Hopefully correct food',
-              qty: '500',
-              unit: 'g',
-              protein: '',
-              carbs: '',
-              fats: '',
-              sugar: '',
-              calories: '',
-              sodium: '',
-              time: '04:01',
-              type: 'snack',
-              note: ''
-            },
-            icon: '/icons/food.svg',
-            type: 'food'
-          },
-          {
-            timestamp: '2024-11-06T17:56:56.434Z',
-            name: 'Calories',
-            data: {
-              value: 500
-            },
-            icon: '/icons/calories.svg',
-            type: 'goal'
-          },
-          {
-            timestamp: '2024-11-06T18:01:33.174Z',
-            name: 'Steps',
-            data: {
-              value: 1200
-            },
-            icon: '/icons/steps.svg',
-            type: 'goal'
-          },
-          {
-            timestamp: '2024-11-06T18:06:55.047Z',
-            name: 'Exercise',
-            type: 'activity',
-            data: {
-              name: 'Push-ups',
-              time: '10:00',
-              targetGroup: 'chest',
-              duration: '10',
-              fields: [
-                {
-                  name: 'Sets',
-                  unit: 'sets',
-                  value: '3'
-                },
-                {
-                  name: 'Reps',
-                  unit: 'reps',
-                  value: '12'
-                }
-              ]
-            },
-            icon: '/icons/exercise.svg',
-          }
-        ],
-        goals: [
-          {
-            name: 'Calories',
-            unit: 'kcal',
-            target: '1400',
-            icon: '/icons/calories.svg'
-          },
-          {
-            name: 'Steps',
-            unit: 'steps',
-            target: '6000',
-            icon: '/icons/steps.svg'
-          }
-        ]
-      },
-    '2024-12-24': {
-        logs: [
-          {
-            timestamp: '2024-12-24T12:28:16.530Z',
-            name: 'Calories',
-            type: 'goal',
-            data: {
-              value: 300
-            },
-            icon: '/icons/calories.svg'
-          },
-          {
-            timestamp: '2024-10-31T12:28:22.862Z',
-            name: 'Calories', 
-            type: 'goal',  
-            data: {
-              value: 500
-            },
-           icon: '/icons/calories.svg'
-          },
-          {
-            timestamp: '2024-10-31T12:28:27.669Z',
-            name: 'Steps',
-            type: 'goal',
-            data: {
-              value: 400
-            },
-            icon: '/icons/steps.svg'
-          }
-        ]
-      },
-      '2024-12-24': {
-        logs: [
-          {
-            timestamp: '2024-12-24T12:28:16.530Z',
-            name: 'Calories',
-            type: 'goal',
-            data: {
-              value: 300
-            },
-            icon: '/icons/calories.svg'
-          },
-          {
-            timestamp: '2024-12-24T12:28:22.862Z',
-            name: 'Steps',
-            type: 'goal',
-            data: {
-              value: 500
-            },
-            icon: '/icons/steps.svg'
-          },
-          {
-            timestamp: '2024-10-30T12:28:27.669Z',
-            name: 'Steps',
-            type: 'goal',
-            data: {
-              value: 400
-            },
-            icon: '/icons/steps.svg'
-          }
-        ]
-      }
+  activity: {
   },
   preferences: {
-    darkMode: false,
+    darkMode: true,
     language: 'en',
     unitSystem: 'metric',
   },
   exercises: [
     {
       id: '21407df4-6e45-4276-babf-aaaddc1415fc',
-      type: 'cardio',
+      createdAt: '2024-10-30T18:30:43.057Z',
+      sourceID: '',
+      updatedAt: null,
+      source: 'user-library',
+      isFavorite: false,
+      isCompleted: false,
+      category: {id: '12jkmb-ased21-alc21', name: 'Strength', color: 'red'},
       author: 'Stefan',
       name: 'Biceps Curls',
       description: 'Not set',
-      tags: [],
+      tags: [{id: '12jkmb-12yhl-34ks7', source: 'user', name: 'Arms', color: 'blue'}, {id: 'as3vgb0-a8f-4md907', source: 'system', name: 'Biceps', color: 'red'}, {id: 'as7j-ksdf6-01saik1', source: 'system', name: 'Upper Body', color: 'green'}],
       reference: '',
       targetGroup: 'Arms',
       difficulty: 'Beginner',
+      equipment: [{id: '12jkmb-325jj-643hdf', source: 'user', name: "Dubbell", qty: 2, attributes: [{ "type": "weight", "value": 10, "unit": "kg" }, { "type": "length", "value": 1.2, "unit": "m" }]}],
       sets: 3,
       duration: 5,
       visibility: 'private',
+      notes: '',
+      instructions: ['Hold a dumbbell with your hand fully extended','While keeping the elboy near your body, raise the dumbbell without moving the whole arm','Hold it for two seconds and then slowly lower it back to the starting point'],
+      imageUrl: '',
       fields: [
         {
           id: '5e360142-15af-436b-a697-71ff05290f75',
           name: 'Reps',
+          description: 'Number of repetitions per set',
           unit: 'reps',
           target: '12',
-          type: '',
-          value: null
-        },
-        {
-          id: 'ae892a8d-cd3c-410a-b338-be20871cf9b3',
-          name: 'Weight',
-          unit: 'kg',
-          target: '10',
-          type: '',
-          value: null
-        }
+          type: 'number',
+          source: 'system',
+          value: null,
+          isCompleted: false,
+          validation: { "min": 0, "max": 9999 },
+          order: 1
+        }   
       ],
-      createdAt: '2024-10-30T18:30:43.057Z'
-    },
-    {
-      id: '3aa0e1a6-59b9-4e47-af3b-1863255a5ae5',
-      type: 'Not set', 
-      name: 'TRX Face Pulls', 
-      visibility: 'private', 
-      tags: [],
-      author: '', 
-      description: 'Not set', 
-      reference: 'Not set', 
-      targetGroup: 'Not set', 
-      difficulty: 'Not set' ,
-      sets: 3, 
-      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}],
-    },
-    {
-      id: '3aa0e1a6-59b9-4e47-af3b-1866125ae5',
-      type: 'Not set', 
-      name: 'TRX Ys', 
-      visibility: 'private',  
-      tags: [],
-      author: '', 
-      description: 'Not set', 
-      reference: 'Not set', 
-      targetGroup: 'Not set', 
-      difficulty: 'Not set' ,
-      sets: 3, 
-      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}],
-    },
-    {
-      id: '3aa618a6-59b9-4e47-af3b-1866125ae5',
-      type: 'Not set', 
-      name: 'Test Exercise', 
-      visibility: 'private',  
-      tags: [],
-      author: '', 
-      description: 'Not set', 
-      reference: 'Not set', 
-      targetGroup: 'Not set', 
-      difficulty: 'Not set' ,
-      sets: 3, 
-      fields: [{name: 'Reps', unit: 'reps', target: 12, value: ''}, {name: 'Distance', unit: 'km', target: 6, value: ''}, {name: 'Time', unit: 'minutes', target: 30, value: ''}],
+      
     },
   ],
-  workouts: [{
-    id: '12e66889-7281-4935-bb8c-3e90e6d859c2',
-    type: 'created',
-    tags: [],
-    equipment: [],
-    pinned: false,
-    imageUrl: '',
-    author: '',
-    notes: [],
-    name: 'TRX Back Workout',
-    description: 'A quick back workout you can do at home with just a TRX',
-    reference: 'Not Required',
-    targetGroup: 'upper-body',
-    difficulty: 'intermediate',
-    exercises: ['3aa0e1a6-59b9-4e47-af3b-1863255a5ae5', '3aa0e1a6-59b9-4e47-af3b-1866125ae5','3aa618a6-59b9-4e47-af3b-1866125ae5' ],
-    createdAt: '2024-10-30T18:29:29.131Z',
-    duration: '15'
-  }],
+  workouts: [
+    {
+      id: '12e66889-7281-4935-bb8c-3e90e6d859c2',
+      createdAt: '2024-10-30T18:29:29.131Z',
+      sourceId: null,
+      updatedAt: null,
+      source: 'user-library',
+      isFavorite: false,
+      isCompleted: false,
+      category: {id: '12jkmb-ased21-alc21', source: 'user', name: 'Strength', color: 'red'},
+      targetGroup: [{ id: "54sd-64fff-gf32", source: 'system', name: "Arms" },{ id: "547ujj-12kkk-251gh", source: 'user', name: "Arms" }],
+      author: 'Stefan',
+      name: 'Upper Body Workout',
+      description: 'Not set',
+      tags: [{id: '12jkmb-12yhl-34ks7', source: 'user', name: 'Arms', color: 'blue'}, {id: 'as3vgb0-a8f-4md907', source: 'user', name: 'Biceps', color: 'red'}, {id: 'as7j-ksdf6-01saik1', source: 'user', name: 'Upper Body', color: 'green'}],
+      reference: null,
+      difficulty: 'Beginner',
+      equipment: [{id: '12jkmb-325jj-643hdf', source: 'user', name: "Dumbbell", qty: 2, attributes: [{ "type": "weight", "value": 10, "unit": "kg" }, { "type": "length", "value": 1.2, "unit": "m" }]}],
+      duration: 5,
+      visibility: 'private',
+      notes: '',
+      imageUrl: '',
+      difficulty: 'Beginner',
+      exercises: [
+        { id: '3246-59b9-4kkfe47-affgh3b-hjggkdfgk', order: 1},
+        { id: '3aa1a6-59b9-4e47-afasd3b-1866125ae5', order: 2 },
+        { id: '3aa618a6-59b9-4e47-af3b-18661f25ae5', order: 3 }],
+  }
+],
   
   message: null
 };

@@ -1,6 +1,7 @@
 export const exercises = [
     {
       "id": "91a7c8d4-4b7b-4a8d-9a91-1a2b3c4d5e6f",
+      "source": 'local-database',
       "type": "strength",
       "author": "Stefan",
       "name": "Push-Ups",
@@ -28,6 +29,7 @@ export const exercises = [
     },
     {
       "id": "34614e2f-fe12-49e6-8af8-e35ddee709f1",
+      "source": 'local-database',
       "type": "cardio",
       "author": "Stefan",
       "name": "Jumping Jacks",
@@ -55,6 +57,7 @@ export const exercises = [
     },
     {
       "id": "71214954-04ea-4b8b-bc6e-fae81170c83b",
+      "source": 'local-database',
       "type": "strength",
       "author": "Stefan",
       "name": "Plank",
@@ -82,6 +85,7 @@ export const exercises = [
     },
     {
       "id": "48f7cdf8-1d71-42fd-acc0-a8ec8b2be170",
+      "source": 'local-database',
       "type": "cardio",
       "author": "Stefan",
       "name": "Burpees",
@@ -109,6 +113,7 @@ export const exercises = [
     },
     {
       "id": "624a1b1d-47f2-42f6-b9d9-c82b18f59bda",
+      "source": 'local-database',
       "type": "strength",
       "author": "Stefan",
       "name": "Squats",
@@ -137,6 +142,7 @@ export const exercises = [
     
     {
         "id": "96ae9f5a-2a99-4e2f-bff3-aef6b57a2af5",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Push-Ups",
@@ -164,6 +170,7 @@ export const exercises = [
     },
     {
         "id": "6b378483-4e4a-460f-b512-a6c29574cf7b",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Pull-Ups",
@@ -191,6 +198,7 @@ export const exercises = [
     },
     {
         "id": "cedd7b5e-462b-452f-9eb9-64de1907f668",
+        "source": 'local-database',
         "type": "cardio",
         "author": "Stefan",
         "name": "Jumping Jacks",
@@ -218,6 +226,7 @@ export const exercises = [
     },
     {
         "id": "79ea3414-b8c8-494d-99e2-b86dc27095ed",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Plank",
@@ -245,6 +254,7 @@ export const exercises = [
     },
     {
         "id": "b981e4f0-5f63-41eb-be83-4d2b5a7aab78",
+        "source": 'local-database',
         "type": "cardio",
         "author": "Stefan",
         "name": "Burpees",
@@ -272,6 +282,7 @@ export const exercises = [
     },
     {
         "id": "c4631d01-de03-4902-8bdc-c7464ffd8076",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Lunges",
@@ -299,6 +310,7 @@ export const exercises = [
     },
     {
         "id": "a16d3df8-e2bf-4ff0-a39a-2b8dfbfcd4cf",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Squats",
@@ -326,6 +338,7 @@ export const exercises = [
     },
     {
         "id": "a10b8c6b-1f0c-40db-a88e-a9e34610641e",
+        "source": 'local-database',
         "type": "cardio",
         "author": "Stefan",
         "name": "Mountain Climbers",
@@ -353,6 +366,7 @@ export const exercises = [
     },
     {
         "id": "0d988bdb-c3fb-41be-b673-5c723f2e4594",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Deadlifts",
@@ -380,6 +394,7 @@ export const exercises = [
     },
     {
         "id": "e2b4544f-1b4a-48f5-bdc3-063526eb96d8",
+        "source": 'local-database',
         "type": "strength",
         "author": "Stefan",
         "name": "Russian Twists",
@@ -429,6 +444,7 @@ export const exercises = [
   export const workouts = [
     {
         "id": "b12a8c34-5d6f-4e7g-8h9i-0j1k2l3m4n5o",
+        "source": 'local-database',
         "type": "created",
         "tags": ["full-body", "strength", "cardio"],
         "equipment": ["Bodyweight", "Mat"],
@@ -453,6 +469,7 @@ export const exercises = [
     },
     {
         "id": "d1f4d7d9-4f82-4a3e-8f87-bf1d370c7b29",
+        "source": 'local-database',
         "type": "created",
         "tags": [],
         "equipment": [],
@@ -478,6 +495,7 @@ export const exercises = [
       },
       {
         "id": "8f6e1c9b-2b28-4a5b-8b44-6ed9f4c5f4a5",
+        "source": 'local-database',
         "type": "created",
         "tags": [],
         "equipment": [],
