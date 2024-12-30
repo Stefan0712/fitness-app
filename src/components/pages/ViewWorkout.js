@@ -85,12 +85,17 @@ const ViewWorkout = () => {
                         <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
                         <p className='info-block-name'>Equipment</p>
                     </div>
-                    <div className='info-block-value tags'>{workoutData.equipment?.length > 0 ? workoutData.equipment.map(eq=>(
+                    <div className='info-block-value tags'>{workoutData.equipment && workoutData.equipment?.length > 0 ? workoutData.equipment.map(eq=>(
                         <div className="tag-body" key={eq.id}>
                             <div className="tag-color" style={{backgroundColor: eq.color}}></div>
                             <div className="tag-name">{eq.name}</div>
                         </div>
-                        )) : 'None'}</div>
+                        )) : (
+                            <div className="tag-body" key={'default equipment'}>
+                                <div className="tag-color" style={{backgroundColor: 'white'}}></div>
+                                <div className="tag-name">None</div>
+                            </div>
+                        )}</div>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
