@@ -36,19 +36,21 @@ const ViewWorkout = () => {
         setModal(null);
         navigate('/library');
     }   
-    const fetchExercises = () =>{
-        const filteredExercises = [];
-
-        workoutData.exercises.map((ex)=>{
-            if(ex.source === 'library'){
-                filteredExercises.push(libraryExercises.find(el => el.id === ex.id))
+    //function to search and populate each exercise based on the course
+    const fetchExercises = () => {
+        const fetchedExercises = workoutData.exercises.map((ex) => {
+            if (ex.source === 'library') {
+                return libraryExercises.find((el) => el.id === ex.id);
             }
-            if(ex.source === 'database'){
-                filteredExercises.push(databaseExercises.find(el => el.id === ex.id))
+            if (ex.source === 'database') {
+                return databaseExercises.find((el) => el.id === ex.id);
             }
-        })
-        setExercises(filteredExercises)
+            return null; // Handle cases where source is invalid
+        }).filter(Boolean); // Remove null values if any source is invalid
+    
+        setExercises(fetchedExercises);
     };
+    
 
     useEffect(()=>{
         fetchExercises();
