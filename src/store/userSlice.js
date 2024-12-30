@@ -123,7 +123,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:33:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -169,7 +169,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:34:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "targetGroup": ['Legs'],
@@ -215,7 +215,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:35:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -261,7 +261,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:36:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -307,7 +307,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:37:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -353,7 +353,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:32:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -391,7 +391,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:42:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -430,7 +430,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:43:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user-library",
+      "source": "user",
       "isFavorite": false,
       "isCompleted": false,
       "category": {

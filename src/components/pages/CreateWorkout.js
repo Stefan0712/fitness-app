@@ -45,22 +45,22 @@ const CreateWorkout = () => {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        const createdAt = new Date().toISOString();
-        let exercisesIds = [];
-        exercises.forEach((exercise)=>{
-            if(!createdExercises.some((ex)=>ex.id === exercise.id)){
-                dispatch(addExercise(exercise));
-            }  
-            exercisesIds.push(exercise.id)
+        const createdAt = new Date().toISOString(); //get timestamp
+        let exercisesIds = []; //empty array to store the ids and sources of exercises
+
+        //extract only the id and source from each exercise
+        exercises.forEach((item)=>{
+            exercisesIds.push({source: item.source, id: item.exercise.id})
         });
-        const workoutData = {id: uuidv4(), type: 'created', author: '', name, description, reference, equipment: equipments, tags: workoutTags, targetGroups, difficulty, exercises: exercisesIds, createdAt, duration};
+        const workoutData = {id: uuidv4(), source: 'user', author: 'Stefan', name, description, reference, equipment: equipments, tags: workoutTags, targetGroups, difficulty,notes, exercises: exercisesIds, createdAt, duration};
+        console.log(workoutData);
         dispatch(addWorkout(workoutData));
         navigate('/library');
         
     }
     const handleAddExercise = (source,exercise,e)=>{
-        console.log(source, exercise)
-        // setExercises((exercises)=>[...exercises, exercise]);
+        console.log({source, exercise})
+        setExercises((exercises)=>[...exercises, {source, exercise}]);
     }
 
     const addTag = (newItem) =>{
@@ -135,13 +135,13 @@ const CreateWorkout = () => {
                     <fieldset>
                         <label>Exercises</label>
                         <div className="exercises-container">
-                            {exercises?.length > 0 ? exercises.map((exercise, index)=>(
+                            {exercises?.length > 0 ? exercises.map((item, index)=>(
                                     <div className="exercise-body" id={index} key={index+'exercise'}>
                                         <div className="exercise-info">
-                                            <h4>{exercise.name}</h4>
-                                                {exercise.sets ? (<p>{exercise.sets} sets</p>) : ''}
+                                            <h4>{item.exercise.name}</h4>
+                                                {item.exercise.sets ? (<p>{item.exercise.sets} sets</p>) : ''}
                                         </div>
-                                        <button type="button" onClick={()=>handleRemoveExercise(exercise.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
+                                        <button type="button" onClick={()=>handleRemoveExercise(item.exercise.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
                                     </div>
                             )): <h3>No exercises added.</h3>}
                         </div>
@@ -160,7 +160,7 @@ const CreateWorkout = () => {
                                         <h4>{exercise.name}</h4>
                                         <div className="exercise-tags">
                                             
-                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
+                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p key={tag.name}>{tag.name}</p>) : ''}
                                         </div>
                                     </div>
                                     <p className="exercise-sets">{exercise.sets} sets</p>
@@ -190,7 +190,6 @@ const CreateWorkout = () => {
                                     <div className="exercise-info">
                                         <h4>{exercise.name}</h4>
                                         <div className="exercise-tags">
-                                            
                                             {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
                                         </div>
                                     </div>
