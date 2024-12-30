@@ -1,11 +1,12 @@
 import './stylings/workout.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { convertGroupFromLowerToUpperCase, getDateForHeader } from '../../helpers'
-import { useState } from 'react';
+import { getDateForHeader } from '../../helpers'
+import { useState, useEffect } from 'react';
 import Modal from "./common/Modal";
 import ContextualMenu from './common/ContextualMenu';
 import { IconLibrary } from '../../IconLibrary';
+import { exercises as databaseExercises, exercises } from '../../database';
 
 
 
@@ -19,17 +20,14 @@ const ViewWorkout = () => {
     const [modal, setModal] = useState(null)
     const [showMenu, setShowMenu] = useState(false);
 
-
-   
-   
-
-
+    const [exercises, setExercises] = useState([]);
     const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
-    console.log(workoutData)
-    const exercises = useSelector((state) => workoutData ? 
-            state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id))
-          : []
-    );
+    
+    const libraryExercises = useSelector((state)=>state.user.exercises);
+    
+    
+    
+    
     const handleDelete = () =>{
         setModal(<Modal title={'Are you sure?'} message={'This will permanently delete this workout'} positiveOnClick={deleteWorkout} negativeOnClick={()=>(setModal(null))}/>)
     }
@@ -38,7 +36,23 @@ const ViewWorkout = () => {
         setModal(null);
         navigate('/library');
     }   
+    const fetchExercises = () =>{
+        const filteredExercises = [];
 
+        workoutData.exercises.map((ex)=>{
+            if(ex.source === 'library'){
+                filteredExercises.push(libraryExercises.find(el => el.id === ex.id))
+            }
+            if(ex.source === 'database'){
+                filteredExercises.push(databaseExercises.find(el => el.id === ex.id))
+            }
+        })
+        setExercises(filteredExercises)
+    };
+
+    useEffect(()=>{
+        fetchExercises();
+    },[])
     return ( 
         <div className="view-workout-page page">
             {modal ? modal : ''}
@@ -57,24 +71,24 @@ const ViewWorkout = () => {
                         <img className='small-icon white-icon' src={IconLibrary.Tag} alt=''></img>
                         <p className='info-block-name'>Tags</p>
                     </div>
-                    <p className='info-block-value tags'>{workoutData.tags?.length > 0 ? workoutData.tags.map(tag=>(
+                    <div className='info-block-value tags'>{workoutData.tags?.length > 0 ? workoutData.tags.map(tag=>(
                         <div className="tag-body" key={tag.id}>
                             <div className="tag-color" style={{backgroundColor: tag.color}}></div>
                             <div className="tag-name">{tag.name}</div>
                         </div>
-                        )) : 'None'}</p>
+                        )) : 'None'}</div>
                 </div>
                 <div className='info-block tags-block'>
                     <div className='info-block-header'>
                         <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
                         <p className='info-block-name'>Equipment</p>
                     </div>
-                    <p className='info-block-value tags'>{workoutData.equipment?.length > 0 ? workoutData.equipment.map(eq=>(
+                    <div className='info-block-value tags'>{workoutData.equipment?.length > 0 ? workoutData.equipment.map(eq=>(
                         <div className="tag-body" key={eq.id}>
                             <div className="tag-color" style={{backgroundColor: eq.color}}></div>
                             <div className="tag-name">{eq.name}</div>
                         </div>
-                        )) : 'None'}</p>
+                        )) : 'None'}</div>
                 </div>
                 <div className='info-block'>
                     <div className='info-block-header'>
@@ -128,12 +142,11 @@ const ViewWorkout = () => {
             </div>
             <h3 className='subtitle full-width'>Exercises</h3>
             <div className='workout-exercises'>
-                {exercises.map((exercise, index)=>(
+              {exercises?.length > 0 ? exercises.map((exercise, index)=>(
                     <div className='exercise-body' key={index+'ex'}>
                         <div className='exercise-name'><p className='exercise-index'>{index+1}</p><b>   {exercise.name} x {exercise.sets}</b></div>
-                        
                     </div>
-                ))}
+              )) : (<p>Loading Exercises</p>)}
             </div>
             <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'><img src={IconLibrary.Play}/></Link>
             {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/workout/${workoutData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
