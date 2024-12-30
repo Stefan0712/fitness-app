@@ -51,12 +51,14 @@ import Time from './assets/time.svg';
 import Water from './assets/water.svg';
 import Weight from './assets/weight.svg';
 import Workout from './assets/workout.svg';
-import Tag from './assets/tag.svg'
+import Tag from './assets/tag.svg';
+import InfoCircle from './assets/infoCircle.svg';
 
 
 
 export const IconLibrary = {
     Play,
+    InfoCircle,
     Back,
     Edit,
     Delete,

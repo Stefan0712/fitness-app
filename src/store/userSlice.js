@@ -6,6 +6,7 @@ import { defaultTargetGroups } from '../constants/defaultTargetGroups';
 import {defaultTags} from '../constants/defaultTags';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
+import { defaultFields } from '../constants/defaultFields';
 
 const initialState = {
   userId: uuidv4(),
@@ -40,13 +41,11 @@ const initialState = {
     unitSystem: 'metric',
   },
   tags: defaultTags,
-  fields: [
-    
-  ],
-  categories: defaultCategories,
-  targetGroups: defaultTargetGroups,
-  exercises: mockExercises,
-  workouts: mockWorkouts,
+  fields: [],
+  categories: [...defaultCategories],
+  targetGroups: [...defaultTargetGroups],
+  exercises: [...mockExercises],
+  workouts: [...mockWorkouts],
   message: null
 };
 
@@ -159,6 +158,16 @@ const userSlice = createSlice({
       
       state.workouts = [...state.workouts, localCopy];
     },
+    addCustomField: (state, action) =>{
+      const customField = {
+        ...action.payload,
+        id: uuidv4(),
+        value: null, 
+        isCompleted: false, 
+        source: 'user'
+      };
+      state.fields = [...state.fields, customField]
+    },
     reset: () => initialState,
   },
 });
@@ -179,7 +188,8 @@ export const {
   deleteWorkout,
   addLog,
   removeLog,
-  updatePreferences
+  updatePreferences,
+  addCustomField
 } = userSlice.actions;
 
 export default userSlice.reducer;

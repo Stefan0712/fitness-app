@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 
-
+//TODO: Create the side menu for settings
 
 
 const Profile = () => {

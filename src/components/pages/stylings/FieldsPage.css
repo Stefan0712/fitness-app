@@ -1,0 +1,170 @@
+/* CustomFields.js */
+
+.custom-field{
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #1A1A1B;
+    padding: 0 10px;
+    border-radius: 5px;
+    transition: all 0.1s;
+}
+.custom-field input{
+    height: 35px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid transparent;
+    color: black;
+    padding-left: 10px;
+}
+
+.custom-field-properties{
+    position: relative;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 100px;
+    justify-content: center;
+}
+.custom-field-properties fieldset{
+    display: flex;
+    width: 100%;
+}
+
+.custom-field-header{
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.1s;
+}
+.custom-field-header img{
+    height: 40px;
+    width: 40px;
+}
+.custom-field.expanded-custom-field{
+    height: 300px;
+    transition: all 0.1s;
+}
+.custom-field.custom-field.expanded-custom-field .custom-field-header{
+    height: 100px;
+    gap: 50px;
+    transition: all 0.1s;
+}
+.custom-field-buttons{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* FieldsPage.js */
+
+.fields-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    height: 40px;
+    transition: all 0.1s;
+    width: 100%;
+    margin-top: 30px;
+}
+.fields-container.expand-container{
+    transition: all 0.1s;
+    height: 100%;
+    flex-wrap: wrap;
+    overflow-y: auto !important;
+}
+.fields-container .fields-container-header{
+    height: 40px;
+    min-height: 40px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.2rem;
+    background-color: #1A1A1B;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding-right: 15px;
+}
+.fields-page .filters{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.fields-page .filters fieldset{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    height: 50px;
+    
+}
+.fields-page .filters fieldset input{
+    height: 20px;
+    width: 20px;
+}
+.new-field-button{
+    position: absolute;
+    right: 20px;
+    top: 30px;
+}
+.new-field-modal .header{
+    margin-bottom: auto;
+}
+.new-field-modal{
+    position: absolute;
+    width: 90vw;
+    left: 5vw;
+    height: 450px;
+    bottom: 100px;
+    background-color: #1A1A1B;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(211, 211, 211, 0.192);
+}
+.new-field-modal fieldset input{
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: black;
+    padding-left: 10px;
+    
+}
+.new-field-modal .modal-buttons{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.new-field-modal .modal-buttons button{
+    height: 40px;
+    width: 150px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid white;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
