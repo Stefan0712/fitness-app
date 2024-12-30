@@ -11,6 +11,7 @@ import AddExerciseToLibrary from "./common/AddExerciseToLibrary";
 import {IconLibrary} from '../../IconLibrary.js';
 import CustomItemCreator from "./common/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../database.js";
+import Tag from "./common/Tag.js";
 
 
 const CreateWorkout = () => {
@@ -19,19 +20,10 @@ const CreateWorkout = () => {
     const navigate = useNavigate();
     const createdExercises = useSelector((state) => state.user.exercises);
     
-    const savedCategories = useSelector((state)=>state.user.categories);
-    const savedTags = useSelector((state)=>state.user.tags);
-    const savedTargetGroups = useSelector((state)=>state.user.targetGroups);
-
     const [exercisesSource, setExercisesSource] = useState('library')
 
     const [exercises, setExercises] = useState([]);
-    const [exerciseName, setExerciseName] = useState('');
-    const [exerciseReps, setExerciseReps] = useState('');
-    const [exerciseSets, setExerciseSets] = useState('');
-    const [exerciseDistance, setExerciseDistance] = useState('');
-    const [exerciseDuration, setExerciseDuration] = useState('');
-    const [selectedColor, setSelectedColor] = useState(null)
+
 
     //form values
     const [name, setName] = useState('');
@@ -46,15 +38,6 @@ const CreateWorkout = () => {
 
     const [notes, setNotes] = useState('');
 
-    const handleAddExercise = (e) =>{
-        e.preventDefault();
-        setExercises([...exercises, { id: uuidv4(), type: 'Not set', name: exerciseName, visibility: 'private', author: '', description: 'Not set', reference: 'Not set', targetGroup: 'Not set', difficulty: 'Not set' ,sets: exerciseSets, fields: [{name: 'Reps', unit: 'reps', target: exerciseReps, value: ''}, {name: 'Distance', unit: 'distance', target: exerciseDistance, value: ''}, {name: 'Time', unit: 'time', target: exerciseDuration, value: ''}] }]);
-        setExerciseReps('');
-        setExerciseSets('');
-        setExerciseDistance('');
-        setExerciseDuration('');
-        setExerciseName('');
-    }
 
     const handleRemoveExercise = (id) =>{
         setExercises((exercises)=>exercises.filter((exercise)=>exercise.id !== id));
@@ -75,9 +58,9 @@ const CreateWorkout = () => {
         navigate('/library');
         
     }
-    const handleAddExerciseFromLibrary = (exercise,e)=>{
-        e.preventDefault();
-        setExercises((exercises)=>[...exercises, exercise]);
+    const handleAddExercise = (source,exercise,e)=>{
+        console.log(source, exercise)
+        // setExercises((exercises)=>[...exercises, exercise]);
     }
 
     const addTag = (newItem) =>{
@@ -156,15 +139,8 @@ const CreateWorkout = () => {
                                     <div className="exercise-body" id={index} key={index+'exercise'}>
                                         <div className="exercise-info">
                                             <h4>{exercise.name}</h4>
-                                            <div className="exercise-meta">
                                                 {exercise.sets ? (<p>{exercise.sets} sets</p>) : ''}
-                                                {exercise.reps ? (<p>{exercise.reps} reps</p>) : ''}
-                                                {exercise.distance ? (<p>{exercise.distance} m</p>) : ''}
-                                                {exercise.duration ? (<p>{exercise.duration} s</p>) : ''}
-                                            </div>
-                                            {exercise && exercise.fields && exercise.fields.length>0 ? (<div className="exercise-meta"><p>{exercise.fields[0].target} {exercise.fields[0].unit}</p><p>{exercise.fields[1].target} {exercise.fields[1].unit}</p></div>) :''}
                                         </div>
-                                        <AddExerciseToLibrary exerciseData={exercise}></AddExerciseToLibrary>
                                         <button type="button" onClick={()=>handleRemoveExercise(exercise.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
                                     </div>
                             )): <h3>No exercises added.</h3>}
@@ -182,13 +158,15 @@ const CreateWorkout = () => {
                                     <div className="exercise-body" id={index} key={index}>
                                     <div className="exercise-info">
                                         <h4>{exercise.name}</h4>
-                                        <div className="exercise-meta">
-                                        {exercise.sets && <p>{exercise.sets} sets</p>}
+                                        <div className="exercise-tags">
+                                            
+                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
                                         </div>
                                     </div>
+                                    <p className="exercise-sets">{exercise.sets} sets</p>
                                     <button
                                         type="button"
-                                        onClick={(e) => handleAddExerciseFromLibrary(exercise, e)}
+                                        onClick={(e) => handleAddExercise('library', exercise, e)}
                                         className="small-square transparent-bg"
                                     >
                                         <img
@@ -211,13 +189,15 @@ const CreateWorkout = () => {
                                     <div className="exercise-body" id={index} key={index}>
                                     <div className="exercise-info">
                                         <h4>{exercise.name}</h4>
-                                        <div className="exercise-meta">
-                                        {exercise.sets && <p>{exercise.sets} sets</p>}
+                                        <div className="exercise-tags">
+                                            
+                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
                                         </div>
                                     </div>
+                                    <p className="exercise-sets">{exercise.sets} sets</p>
                                     <button
                                         type="button"
-                                        onClick={(e) => handleAddExerciseFromLibrary(exercise, e)}
+                                        onClick={(e) => handleAddExercise('database', exercise, e)}
                                         className="small-square transparent-bg"
                                     >
                                         <img
