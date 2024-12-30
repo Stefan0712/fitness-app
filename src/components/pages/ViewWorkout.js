@@ -9,7 +9,7 @@ import { IconLibrary } from '../../IconLibrary';
 import { exercises as databaseExercises, exercises } from '../../database';
 
 
-
+//TODO: fix tags not properly showing when there are too many.
 const ViewWorkout = () => {
 
     const {id} = useParams();

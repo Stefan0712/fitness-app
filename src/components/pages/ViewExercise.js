@@ -100,13 +100,14 @@ const ViewExercise = () => {
                     </div>
                     <p className='info-block-value'>{exerciseData.difficulty ? exerciseData.difficulty : 'Not Set'}</p>
                 </div>
-                <div className="full-width exercise-fields">
+                {exerciseData?.fields && exerciseData.fields.length > 0 ? (
+                    <div className="full-width exercise-fields">
                     <div className="field-body fields-header">
                         <p id="field-name">Field Name</p>
                         <p id="field-target">Target</p>
                         <p id="field-unit">Unit</p>
                     </div>
-                    {exerciseData.fields.map((fields, index)=>(
+                    {exerciseData?.fields?.map((fields, index)=>(
                         <div className="field-body" key={'field'+index}>
                             <p id="field-name">{fields.name}</p>
                             <p id="field-target">{fields.target}</p>
@@ -114,6 +115,8 @@ const ViewExercise = () => {
                         </div>
                     ))}
                 </div>
+                ) : null}
+                
                 <div className="info-block tags-block">
                     <div className='info-block-header'>
                         <p className='info-block-name'>Notes</p>

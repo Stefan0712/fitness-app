@@ -562,7 +562,9 @@ const userSlice = createSlice({
         ...action.payload, 
         sourceId: action.payload.id,
         id: uuidv4(),
-        typed: 'saved'
+        source: 'database',
+        savedAt: new Date().toISOString(),
+        
       };
       state.exercises = [...state.exercises, localCopy];
     },
