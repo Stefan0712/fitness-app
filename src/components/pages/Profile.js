@@ -70,7 +70,7 @@ const Profile = () => {
             <div className="settings-side-menu">
                 <h2>Settings</h2>
                 <div className="buttons-container">
-                
+                    <Link to={'/fields'}>Fields </Link>
                 </div>
                 <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
             </div>

@@ -5,13 +5,11 @@ import deleteIcon from '../../assets/close.svg';
 import plusIcon from '../../assets/plus-circle.svg';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkout, addExercise } from "../../store/userSlice";
+import { addWorkout } from "../../store/userSlice";
 import {useNavigate} from 'react-router-dom'
-import AddExerciseToLibrary from "./common/AddExerciseToLibrary";
 import {IconLibrary} from '../../IconLibrary.js';
 import CustomItemCreator from "./common/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../database.js";
-import Tag from "./common/Tag.js";
 
 
 const CreateWorkout = () => {

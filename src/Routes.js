@@ -19,6 +19,7 @@ import ViewExercise from './components/pages/ViewExercise';
 import Browse from './components/pages/Browse';
 import ViewBrowseExercise from './components/pages/ViewBrowseExercise';
 import ViewBrowseWorkout from './components/pages/ViewBrowseWorkout';
+import FieldsPage from './components/pages/FieldsPage';
 
 
 function AppRoutes() {
@@ -47,6 +48,7 @@ function AppRoutes() {
       <Route path='/browse' element={<Browse />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
+      <Route path='/fields' element={<FieldsPage />} />
       
     </Routes>
   );

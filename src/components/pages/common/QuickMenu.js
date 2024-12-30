@@ -17,6 +17,8 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
 
     const [quickMenuScreen, setQuickMenuScreen] = useState('menu');
     //TODO: Add an icon picker and update icon sources for all custom goals
+
+
     return ( 
         <div className="quick-menu">
             <button id='quick-menu-close-btn' onClick={closeQuickmenu}>
@@ -27,8 +29,8 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                 <div className='quick-menu-screen'>
                     <h1>Quick Menu</h1>
                     <div className='new-items-buttons'>
-                        <Link to={'/create-workout'} className="orange-button large-button">Create Workout</Link>
-                        <Link to={'/create-exercise'} className="orange-button large-button">Create Exercise</Link>
+                        <Link onClick={closeQuickmenu} to={'/create-workout'} className="orange-button large-button">Create Workout</Link>
+                        <Link onClick={closeQuickmenu} to={'/create-exercise'} className="orange-button large-button">Create Exercise</Link>
                     </div>
                     <h2>Tools</h2>
                     <button className='quick-button' onClick={()=>showLog('stopwatch')}>
