@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import IconPicker from "./common/IconPicker";
 
-
+//TODO: Remove goals
 
 const EditProfile = () => {
 

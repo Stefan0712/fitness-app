@@ -18,7 +18,7 @@ const ViewBrowseWorkout = () => {
     const workoutsLibrary = useSelector((state)=>state.user.workouts);
 
 
-
+//TODO: Merge this page with the original View Workout component 
 
 
     return ( 

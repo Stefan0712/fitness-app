@@ -7,7 +7,7 @@ import { exercises } from "../../database";
 import { IconLibrary } from "../../IconLibrary";
 
 
-
+//TODO: Merge this page with the original View Exercise component 
 
 const ViewBrowseExercise = () => {
 

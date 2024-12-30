@@ -14,6 +14,7 @@ const Library = () => {
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
 
+    //TODO: Move Browse more button and maybe use only an icon
 
     return ( 
         <div className="library page">

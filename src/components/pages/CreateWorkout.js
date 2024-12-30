@@ -11,6 +11,8 @@ import {IconLibrary} from '../../IconLibrary.js';
 import CustomItemCreator from "./common/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../database.js";
 
+//TODO: Show all default and custom fields, add a simple quick field, validation, simplify the ui
+
 
 const CreateWorkout = () => {
 

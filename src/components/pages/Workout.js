@@ -11,6 +11,15 @@ import { addLog } from "../../store/userSlice";
 import ContextualMenu from "./common/ContextualMenu";
 import { IconLibrary } from "../../IconLibrary";
  
+
+
+//TODO: Make it work. Try a new design that is more clean. Maybe hide the exercise list and let the user press a button to see it or make it colapsed by default.
+
+
+
+
+
+
 const Workout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();

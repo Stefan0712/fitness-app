@@ -17,6 +17,8 @@ const EditWorkout = () => {
     const createdExercises = useSelector((state) => state.user.exercises);
     const workoutData = useSelector((state)=>state.user.workouts.find((workout)=>workout.id===id));
     
+    //TODO: Update to use the new structure, remove the quick exercise add
+    //TODO: Match the ui with the Create Exercise page
 
     const [exercises, setExercises] = useState(workoutData.exercises ? createdExercises.filter(exercise => workoutData.exercises.includes(exercise.id)) : []);
     const [exerciseName, setExerciseName] = useState('');
