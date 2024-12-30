@@ -23,7 +23,7 @@ const ViewExercise = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const addExerciseToAnotherWorkout = (workoutId) =>{
-        dispatch(addExerciseToWorkout({workoutId, exerciseId: id}));
+        dispatch(addExerciseToWorkout({workoutId, exerciseId: id, source: exerciseData.source}));
     }
 
     const handleDelete = (id) =>{

@@ -123,7 +123,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:33:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -169,7 +169,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:34:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "targetGroup": ['Legs'],
@@ -215,7 +215,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:35:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -261,7 +261,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:36:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -307,7 +307,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:37:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -353,7 +353,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:32:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -391,7 +391,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:42:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -430,7 +430,7 @@ const initialState = {
       "createdAt": "2024-12-29T18:43:29.131Z",
       "sourceId": null,
       "updatedAt": null,
-      "source": "user",
+      "source": "library",
       "isFavorite": false,
       "isCompleted": false,
       "category": {
@@ -534,11 +534,11 @@ const userSlice = createSlice({
     },
 
     addExerciseToWorkout: (state, action) => {
-      const { workoutId, exerciseId } = action.payload;
+      const { workoutId, exerciseId, source } = action.payload;
       const workout = state.workouts.find(workout => workout.id === workoutId);
 
       if (workout && !workout.exercises.includes(exerciseId)) {
-        workout.exercises.push(exerciseId);
+        workout.exercises.push({source, id:exerciseId});
       }
     },
 
