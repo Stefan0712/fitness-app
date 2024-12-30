@@ -218,8 +218,8 @@
     display: flex;
     flex-direction: column;
     height: 200px;
-    min-height: 200px;
     overflow-y: auto;
+    min-height: 200px;
     overflow-x: hidden;
 }
 .workout-page .workout-exercises .exercises-header{
@@ -321,7 +321,7 @@
     width: 100%;
     margin-top: 25px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 15px;
     align-items: center;
 }
@@ -334,7 +334,7 @@
     color: rgba(0, 0, 0, 0.534);
     padding-left: 15px;
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .create-workout-page .exercise-creator-inputs{
     width: 100%;
@@ -354,7 +354,8 @@
     padding: 20px 15px;
 }
 .create-workout-page .exercises-container{
-    height: auto;
+    max-height: 300px;
+    overflow-y: auto;
     margin-bottom: 25px;
     padding: 15px 0;
 }
@@ -388,7 +389,8 @@
 .create-workout-page .selected-tags{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    padding: 10px 0;
+    gap: 10px;
 }
 .create-workout-page .tag-body{
     width: 100%;
@@ -402,4 +404,28 @@
 .create-workout-page .tag-color{
     height: 100%;
     width: 5px;
+}
+.create-workout-page img{
+    margin-left: auto;
+}
+.create-workout-page .source-buttons{
+    width: 150px;
+    height: 30px;
+    background-color: #1A1A1B;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    border-radius: 5px;
+    margin: 15px 0 10px 0;
+}
+.create-workout-page .source-buttons button{
+    width: 75px;
+    height: 100%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+.create-workout-page .source-buttons button.selected-button{
+    background-color: white;
+    color: black;
 }

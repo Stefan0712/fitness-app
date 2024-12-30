@@ -10,7 +10,10 @@ html{
   height: 100vh;
   overflow: hidden;
 }
-
+.clear-button{
+  background-color: transparent;
+  border: 1px solid transparent;
+}
 /* navigation */
 nav{
   width: 100vw;
@@ -348,4 +351,70 @@ nav{
 }
 .message-modal.warning{
   background-color: #FFC107;
+}
+
+
+
+
+
+
+/* color picker */
+
+.color-picker{
+  position: absolute;
+  overflow: hidden;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  background-color: #1A1A1B;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  transition: all 0.1s;
+}
+.color-picker .color-button{
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.color-picker-header{
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.color-picker .colors-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.extended-color-picker{
+  width: 90% !important;
+  height: 200px !important;
+  transition: all 0.1s;
+}
+
+/* custom item creator */
+
+.custom-item-creator{
+  width: 100%;
+  height: 50px;
+  padding-left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.custom-item-creator input{
+  width: calc(100% - 120px);
+}
+.custom-item-creator button{
+  width: 50px;
+  height: 50px;
+}
+.custom-item-creator img{
+  width: 40px;
+  height: 40px;
 }
