@@ -11,6 +11,12 @@ import {IconLibrary} from '../../IconLibrary.js';
 import CustomItemCreator from "./common/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../database.js";
 
+//default values
+import { defaultTags } from "../../constants/defaultTags.js";
+import { defaultTargetGroups } from "../../constants/defaultTargetGroups.js";
+import {defaultEquipment} from "../../constants/defaultEquipment.js";
+import DefaultItems from "./common/DefaultItems.js";
+
 //TODO: Show all default and custom fields, add a simple quick field, validation, simplify the ui
 
 
@@ -23,6 +29,7 @@ const CreateWorkout = () => {
     const [exercisesSource, setExercisesSource] = useState('library')
 
     const [exercises, setExercises] = useState([]);
+
 
 
     //form values
@@ -111,6 +118,7 @@ const CreateWorkout = () => {
                     </fieldset>
                     <fieldset className="tag-selector">
                         <label>Target Group</label>
+                        <DefaultItems items={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
                         <CustomItemCreator addItem={addTargetGroups} />
                         <div className="selected-tags">
                             {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
