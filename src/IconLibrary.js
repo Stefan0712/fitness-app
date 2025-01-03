@@ -53,6 +53,7 @@ import Weight from './assets/weight.svg';
 import Workout from './assets/workout.svg';
 import Tag from './assets/tag.svg';
 import InfoCircle from './assets/infoCircle.svg';
+import Search from './assets/search.svg';
 
 
 
@@ -96,6 +97,7 @@ export const IconLibrary = {
     PlusCircle,
     Profile,
     Restart,
+    Search,
     Sleep,
     Start,
     Steps,

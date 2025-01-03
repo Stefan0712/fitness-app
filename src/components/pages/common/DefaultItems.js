@@ -24,10 +24,11 @@ const DefaultItems = ({allItems, title, addItem, savedItems}) => {
     return ( 
         <div className={`default-items ${isExpanded ? 'expanded' : null}`}>
             <p className="default-items-title" onClick={()=>setIsExpanded((isExpanded)=>!isExpanded)}>{title}</p>
+            <div className="default-item-search-container">
+                <input className="default-item-search-input" type="text" minLength={0} maxLength={20} onChange={handleSeach} value={searchQuery}></input>
+                <img className="small-icon search-icon" src={IconLibrary.Search} />
+            </div>
             <div className="default-items-container">
-                <div className="default-item-search-container">
-                    <input type="text" minLength={0} maxLength={20} onChange={handleSeach} value={searchQuery}></input>
-                </div>
                 {items?.length > 0 ? items.map((item)=>
                     checkIfAdded(item) ? null : (
                         <div className="default-item" key={item.id}>
@@ -36,7 +37,7 @@ const DefaultItems = ({allItems, title, addItem, savedItems}) => {
                             <button type="button" className="clear-button" onClick={()=>addItem(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                         </div>
                     )
-                ):<p>'Items not found!'</p>}
+                ):<p>Items not found</p>}
             </div>
         </div> 
     );

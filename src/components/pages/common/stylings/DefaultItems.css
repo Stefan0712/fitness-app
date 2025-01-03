@@ -14,7 +14,7 @@
     border-radius: 5px;
 }
 .default-items.expanded{
-    height: 200px;
+    height: 250px;
     transition: height 0.1s;
 }
 .default-items.expanded .default-items-title{
@@ -43,4 +43,22 @@
 .default-items .default-item .default-item-name{
     margin-right: auto;
     
+}
+.default-item-search-container{
+    width: 95%;
+    justify-self: center;
+    margin: 10px 0;
+    height: 40px;
+    position: relative;
+}
+.default-item-search-container .search-icon{
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 12px);
+}
+.default-item-search-container .default-item-search-input{
+    padding-left: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid transparent;
 }
