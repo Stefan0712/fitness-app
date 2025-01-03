@@ -3,7 +3,7 @@ import './stylings/DefaultItems.css';
 import { useState } from "react";
 
 const DefaultItems = ({allItems, title, addItem, savedItems}) => {
-
+    //make it so that it adds colors to items that support that
     const [isExpanded, setIsExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [items, setItems] = useState(allItems || []);
