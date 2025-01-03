@@ -118,7 +118,7 @@ const CreateWorkout = () => {
                     </fieldset>
                     <fieldset className="tag-selector">
                         <label>Target Group</label>
-                        <DefaultItems items={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
+                        <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
                         <CustomItemCreator addItem={addTargetGroups} />
                         <div className="selected-tags">
                             {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
