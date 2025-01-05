@@ -5,7 +5,14 @@ import deleteIcon from '../../assets/close.svg';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
 import { addExercise } from "../../store/userSlice";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import { defaultTags } from "../../constants/defaultTags";
+import { defaultTargetGroups } from "../../constants/defaultTargetGroups";
+import { defaultFields } from "../../constants/defaultFields";
+import { defaultEquipment } from "../../constants/defaultEquipment";
+import CustomItemCreator from "./common/CustomItemCreator";
+import DefaultItems from "./common/DefaultItems"
+import { IconLibrary } from "../../IconLibrary";
 
 
 const CreateExercise = () => {
@@ -13,61 +20,48 @@ const CreateExercise = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [fields, setFields] = useState([]);
-    const [fieldName, setFieldName] = useState('');
-    const [fieldUnit, setFieldUnit] = useState('');
-    const [fieldTarget, setFieldTarget] = useState('');
-    const [fieldType, setFieldType] = useState('');
+ 
 
     //form values
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [reference, setReference] = useState('');
-    const [targetGroup, setTargetGroup] = useState('srms');
+    const [targetGroups, setTargetGroups] = useState([]);
     const [difficulty, setDifficulty] = useState('begginer');
-    const [type, setType] = useState('cardio');
+    const [exerciseTags, setExerciseTags] = useState([]);
+    const [equipments, setEquipments] = useState([]);
     const [sets, setSets] = useState(1);
     const [duration, setDuration] = useState(0);
     const [visibility, setVisibility] = useState('private');
+    const [fields, setFields] = useState([])
 
 
 
 
-    const handleFieldNameChange = (e) =>{
-        setFieldName(e.target.value);
-    } 
-    const handleFieldTargetChange = (e) =>{
-        setFieldTarget(e.target.value);
-    } 
-    const handleFieldTypeChange = (e) =>{
-        setFieldType(e.target.value);
-    } 
-    const handleFieldUnitChange = (e) =>{
-        setFieldUnit(e.target.value);
-    } 
-    const handleAddField = (e) =>{
-        e.preventDefault();
-        setFields([...fields, { id: uuidv4(), name: fieldName, unit: fieldUnit, target: fieldTarget, type: fieldType, value: '' }]);
-        setFieldName('')
-        setFieldTarget(0)
-        setFieldType('')
-        setFieldUnit('')
-    }
-
-    
-    const handleRemoveField = (id, e) =>{
-        e.preventDefault();
-        setFields((fields)=>fields.filter((field)=>field.id !== id));
-    }
 
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const exerciseData = {id: uuidv4(), type: 'created', author: '', name, description, reference, targetGroup, difficulty, type, sets, duration, visibility, fields, createdAt};
-        dispatch(addExercise(exerciseData));
-        navigate('/library');
+        const exerciseData = {id: uuidv4(), type: 'created', createdAt, author: '', name, description, reference, targetGroups, difficulty, sets, duration, visibility, fields, tags: exerciseTags, equipments};
+        console.log(exerciseData)
+        // dispatch(addExercise(exerciseData));
+        // navigate('/library');
         
     }
+    const addFields = (field)=>{
+        setFields((fields)=>[...fields, field]);
+    }
+
+    const addTag = (newItem) =>{
+        setExerciseTags((exerciseTags)=>[...exerciseTags, newItem]);
+    }
+    const addEquipment = (newItem) =>{
+        setEquipments((equipments)=>[...equipments, newItem]);
+    }
+    const addTargetGroups = (newItem) =>{
+        setTargetGroups((targetGorups)=>[...targetGorups, newItem]);
+    }
+
 
     return ( 
         <div className="create-exercise-page page">
@@ -96,47 +90,12 @@ const CreateExercise = () => {
                         <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference}></input>
                     </fieldset>
                     <fieldset>
-                        <label>Target Group</label>
-                        <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
-                            <option value="arms">Arms</option>
-                            <option value="legs">Legs</option>
-                            <option value="chest">Chest</option>
-                            <option value="back">Back</option>
-                            <option value="shoulders">Shoulders</option>
-                            <option value="abs">Abs</option>
-                            <option value="glutes">Glutes</option>
-                            <option value="full-body">Full Body</option>
-                            <option value="core">Core</option>
-                            <option value="calves">Calves</option>
-                            <option value="biceps">Biceps</option>
-                            <option value="triceps">Triceps</option>
-                            <option value="forearms">Forearms</option>
-                            <option value="hamstrings">Hamstrings</option>
-                            <option value="quads">Quads</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
                         <label>Difficulty</label>
                         <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
                             <option value="beginner">Beginner</option>
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>
                             <option value="expert">Expert</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label>Type</label>
-                        <select name="type" id="type" onChange={(e) => setType(e.target.value)} value={type}>
-                            <option value="cardio">Cardio</option>
-                            <option value="strength">Strength</option>
-                            <option value="hiit">HIIT</option>
-                            <option value="mobility">Mobility</option>
-                            <option value="endurance">Endurance</option>
-                            <option value="plyometrics">Plyometrics</option>
-                            <option value="powerlifting">Powerlifting</option>
-                            <option value="calisthenics">Calisthenics</option>
-                            <option value="yoga">Yoga</option>
-                            <option value="stretching">Stretching</option>
                         </select>
                     </fieldset>
                     <fieldset className="flex-row space-between">
@@ -149,33 +108,48 @@ const CreateExercise = () => {
                             <input type="number" name="sets" id="sets" onChange={(e) => setSets(e.target.value)} value={sets} min={0} max={999}></input>
                         </div>
                     </fieldset>
+                    <fieldset className="tag-selector">
+                        <label>Target Group</label>
+                        <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
+                        <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
+                        <div className="selected-tags">
+                            {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset className="tag-selector">
+                        <label>Tags</label>
+                        <CustomItemCreator addItem={addTag} type={'tag'}/>
+                        <DefaultItems allItems={defaultTags} title={'Saved Tags'} savedItems={exerciseTags} addItem={addTag}/>
+                        <div className="selected-tags">
+                            {exerciseTags?.length > 0 ? exerciseTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setExerciseTags((exerciseTags)=>[...exerciseTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset className="tag-selector">
+                        <label>Equipment</label>
+                        <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
+                        <DefaultItems allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
+                        <div className="selected-tags">
+                            {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                        </div>
+                    </fieldset>
                     <fieldset>
                         <label>Fields</label>
                         <div className="fields-container">
-                            {fields.length > 0 ? fields.map((field, index)=>(
+                            {fields?.length > 0 ? fields.map((field, index)=>(
                                     <div className="field-body" id={index} key={field.id}>
                                         <label>{field.name}</label>
                                         <div className="field-inputs">
                                             <h4>{field.name}</h4>
                                             <p>{field.target}</p>
                                             <p>{field.unit}</p>
-                                            <button onClick={()=>handleRemoveField(field.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
+                                            <button onClick={()=>console.log(field.id)} className="small-square transparent-bg"><img src={deleteIcon} className="white-icon small-icon" alt=""></img></button>
                                         </div>
                                     </div>
                             )): <h3>No fields created</h3>}
                         </div>
-                        <h3 className="subtitle full-width">Create a new field</h3>
-                        <div className="field-creator">
-                            <input value={fieldName} type="text" name="fieldName" id="fieldName" placeholder="Field Name" onChange={handleFieldNameChange}></input>
-                            <select value={fieldType} name="valueType" id="valueType" onChange={handleFieldTypeChange}>
-                                <option value="number">Number</option>
-                                <option value="text">Text</option>
-                                <option value="time">Time</option>
-                            </select>
-                            <input value={fieldUnit} type="text" name="fieldUnit" id="fieldUnit" placeholder="Field Unit" onChange={handleFieldUnitChange}></input>
-                            <input value={fieldTarget} type="number" name="fieldTarget" id="fieldTarget" placeholder="Target" onChange={handleFieldTargetChange}></input>
-                            <button className="orange-button small-button" onClick={handleAddField}>Add Field</button>
-                        </div>
+                        
                     </fieldset>
 
                     <button className="orange-button large-button submit-button" onClick={handleSubmit}>Create Exercise</button>
