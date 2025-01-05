@@ -47,7 +47,7 @@ const CreateWorkout = () => {
 
 
     const handleRemoveExercise = (id) =>{
-        setExercises((exercises)=>exercises.filter((exercise)=>exercise.id !== id));
+        setExercises((exercises)=>exercises.filter((item)=>item.exercise.id !== id));
     }
 
     const handleSubmit = (e)=>{
