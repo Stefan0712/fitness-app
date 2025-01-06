@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
+import styles from './Navigation.module.css';
+
 import {IconLibrary} from '../../../IconLibrary';
 
 import QuickMenu from '../QuickMenu/QuickMenu';
@@ -44,24 +46,22 @@ const Navigation = () => {
         <nav>
             {logWindow}
             {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} showLog={showLog} />) : ''}
-            <Link to='/dashboard' className='nav-button'>
+            <Link to='/dashboard' className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
             </Link>
-            <Link to='/library'  className='nav-button'>
+            <Link to='/library'  className={styles['nav-button']}>
                 <img src={IconLibrary.List} alt=''></img>
                 <p>Library</p>
             </Link>
-            <div className='nav-button center-nav-button' onClick={toggleQuickmenu}>
-                <button className='background'>
-                    <img src={IconLibrary.Plus} alt=''></img>
-                </button>
+            <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={toggleQuickmenu}>
+                <button><img src={IconLibrary.Plus} alt=''></img></button>
             </div>
-            <Link to='/logs'  className='nav-button'>
+            <Link to='/logs'  className={styles['nav-button']}>
                 <img src={IconLibrary.Clipboard} alt=''></img>
                 <p>Activity</p>
             </Link>
-            <Link to='/profile'  className='nav-button'>
+            <Link to='/profile'  className={styles['nav-button']}>
                 <img src={IconLibrary.Profile} alt=''></img>
                 <p>Profile</p>
             </Link>
