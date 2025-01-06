@@ -1,0 +1,89 @@
+.create-exercise-field{
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    transition: all 0.1s;
+    position: relative;
+}
+.create-exercise-field.show{
+    height: 250px;
+    transition: all 0.1s;
+}
+.same-line{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+
+}
+
+
+.submit-button{
+    width: 45%;
+    height: 50px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.full{
+    background-color: white;
+    color: black;
+    margin-right: auto;
+}
+.header{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left{
+    transform: rotateZ(180deg);
+    transition: all 0.1s;
+}
+.down{
+    transform: rotateZ(90deg);
+    transition: all 0.1s;
+}
+.error{
+    width: 100%;
+    height: 40px;
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #FF4D4D;
+    animation: errorAnimation 3s;
+    animation-fill-mode: forwards;
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+}
+@keyframes errorAnimation {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    5% {
+        height: 40px;
+        opacity: 1;
+    }
+    95% {
+        height: 40px;
+        opacity: 1;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+    }
+}
+.error-msg{
+    color: white;
+}

@@ -37,6 +37,7 @@ const ViewExercise = () => {
     }
     return ( 
         <div className="view-exercise page">
+            {console.log(exerciseData)}
             {modal ? modal : ''}
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
@@ -130,29 +131,29 @@ const ViewExercise = () => {
                     {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
                 </div>
             </div>
-            <div className="workouts-container section full-width">
+            {/* <div className="workouts-container section full-width">
             <h3 className="subtitle">Save to</h3>
-            {workouts.length > 0 ? (
-                    workouts.map((workout, index) => workout.exercises.some((ex)=>ex.id === exerciseData.id) ? '' : (
-                    <div key={index} className="item-body">
-                        <div className="item-info">
-                            <h4>{workout.name}</h4>
-                            <div className="item-description">
-                                <p>{workout.exercises.length} exercises</p>
-                                <p>{makeFirstUpperCase(workout.category.name)}</p>
+                {workouts?.length > 0 ? (
+                        workouts.map((workout, index) => workout.exercises.some((ex)=>ex.id === exerciseData.id) ? '' : (
+                        <div key={index} className="item-body">
+                            <div className="item-info">
+                                <h4>{workout?.name}</h4>
+                                <div className="item-description">
+                                    <p>{workout?.exercises?.length} exercises</p>
+                                    <p>{makeFirstUpperCase(workout?.category?.name)}</p>
+                                </div>
+                            </div>
+                            <div className="item-button">
+                                <button className="add-item" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
+                                    <img className="white-icon" src={IconLibrary.Add} alt="plus icon" />
+                                </button>
                             </div>
                         </div>
-                        <div className="item-button">
-                            <button className="add-item" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
-                                <img className="white-icon" src={IconLibrary.Add} alt="plus icon" />
-                            </button>
-                        </div>
-                    </div>
-                    ))
-                ) : (
-                    <p>No exercises created yet.</p>
-                )}
-            </div>
+                        ))
+                    ) : (
+                        <p>No exercises created yet.</p>
+                    )}
+            </div> */}
 
             {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
         </div>

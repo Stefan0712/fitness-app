@@ -1,69 +1,78 @@
 import { useState } from "react";
 import { IconLibrary } from "../../../IconLibrary";
 import { v4 as uuidv4 } from 'uuid';
-import { makeFirstUpperCase } from "../../../helpers";
+import styles from './CreateExerciseField.module.css';
 
 
 
 
-const CreateExerciseField = () => {
+const CreateExerciseField = ({addField}) => {
 
     const [name, setName] = useState('');
     const [unit, setUnit] = useState('');
-    const [unitType, setUnitType] = useState('number');
     const [description, setDescription] = useState('');
     const [target, setTarget] = useState(0);
 
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(null)
+    const [isShown, setIsShown] = useState(false);
 
     const handleAddField = () =>{
         if(!name && name.length < 3){
             addError('name')
-        }else if(unit && unit.length > 3){
+        }else if(!unit && unit.length < 1){
             addError('unit')
         }else{
             const fieldData = {
                 id: uuidv4(),
                 name,
                 unit,
-                unitType,
                 targetValue: target,
                 description,
                 source: 'user',
                 isCompleted: false,
                 value: null,
             }
-            console.log(fieldData)
+            addField(fieldData)
         }
     }
-
-    const addError = (type) =>{
+    const addError = (type) => {
+        console.log(type);
+    
+        if (type === 'name') {
+            setError('Invalid Name');
+            setTimeout(() => setError(null), 3000); 
+        } else if (type === 'unit') {
+            setError('Invalid Unit'); 
+            setTimeout(() => setError(null), 3000); 
+        }
+    };
+    
+ 
+    const toggleForm = () =>{
+        setIsShown(isShown=>!isShown);
+        clearInputs();
         
-        setError({type, msg: `${makeFirstUpperCase(type)} is invalid`});
-        setTimeout(removeError, 2000);
     }
-
-    const removeError = () =>{
-        setError(null);
+    const clearInputs = () =>{
+        setName('');
+        setUnit('');
+        setDescription('');
     }
     return ( 
-        <div className="create-exercise-field">
-            <fieldset>
+        <div className={`${styles["create-exercise-field"]} ${isShown ? styles.show : null} `}>
+            {error ? <div className={styles.error}><p className={styles['error-msg']}>{error || null}</p></div> : null}
+            <div className={styles.header} onClick={toggleForm}>
+                <h3>Add New Field</h3>
+                <img src={IconLibrary.Arrow} className={`small-icon ${isShown ? styles.down : styles.left}`} />
+            </div>
+            <fieldset className={styles['same-line']}>
                 <input type="text" name="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Name"></input>
-                {error && error.type === 'name' ? <p className="error-msg">{error || null}</p> : null}
+                <input type="text" name="unit" onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder="Unit"></input>  
+                <input type="number" name="target" onChange={(e)=>setTarget(e.target.value)} value={target} placeholder="Target Value"></input>
             </fieldset>
             <input type="text" name="description" onChange={(e)=>setDescription(e.target.value)} value={description} placeholder="Description"></input>
-            <fieldset>
-                <input type="text" name="unit" onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder="Unit"></input>
-                {error && error.type === 'unit' ? <p className="error-msg">{error || null}</p> : null}
-            </fieldset>
-            <select name="unitType" onChange={(e)=>setUnitType(e.target.value)} value={unitType}>
-                <option value={'text'}>Text</option>
-                <option value={'number'}>Number</option>
-                <option value={'boolean'}>Yes/No</option>
-            </select>
-            <input type="number" name="target" onChange={(e)=>setTarget(e.target.value)} value={target} placeholder="Target Value"></input>
-            <button type="button" className="clear-button"><img className="small-icon" src={IconLibrary.PlusCircle} alt="" /></button>
+            <button type="button" onClick={handleAddField} className={`clear-button ${styles['submit-button']} ${styles.full}`}>Add</button>
+            <button type="button" onClick={clearInputs} className={`clear-button ${styles['submit-button']}`}>Clear</button>
         </div>
      );
 }

@@ -20,7 +20,7 @@ const CreateExercise = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
- 
+    const [currentScreen, setCurrentScreen] = useState('fields')
 
     //form values
     const [name, setName] = useState('');
@@ -45,8 +45,8 @@ const CreateExercise = () => {
         const createdAt = new Date().toISOString();
         const exerciseData = {id: uuidv4(), type: 'created', createdAt, author: '', name, description, reference, targetGroups, difficulty, sets, duration, fields, tags: exerciseTags, equipments};
         console.log(exerciseData)
-        // dispatch(addExercise(exerciseData));
-        // navigate('/library');
+        dispatch(addExercise(exerciseData));
+        navigate('/library');
         
     }
     const addField = (field)=>{
@@ -102,51 +102,54 @@ const CreateExercise = () => {
                             <input type="number" name="sets" id="sets" onChange={(e) => setSets(e.target.value)} value={sets} min={0} max={999}></input>
                         </div>
                     </fieldset>
-                    <fieldset className="tag-selector">
-                        <label>Target Group</label>
-                        <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
-                        <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
-                        <div className="selected-tags">
-                            {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
-                    
-                    <fieldset className="tag-selector">
-                        <label>Tags</label>
-                        <CustomItemCreator addItem={addTag} type={'tag'}/>
-                        <DefaultItems allItems={defaultTags} title={'Saved Tags'} savedItems={exerciseTags} addItem={addTag}/>
-                        <div className="selected-tags">
-                            {exerciseTags?.length > 0 ? exerciseTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setExerciseTags((exerciseTags)=>[...exerciseTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
-                    
-                    <fieldset className="tag-selector">
-                        <label>Equipment</label>
-                        <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
-                        <DefaultItems allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
-                        <div className="selected-tags">
-                            {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <label>Fields</label>
-                        <CreateExerciseField addField={addField} />
-                        <div className="fields-container">
-                            {fields?.length > 0 ? fields.map((field, index)=>(
-                                    <div className="field-body" id={index} key={field.id}>
-                                        <label>{field.name}</label>
-                                        <div className="field-inputs">
+                    <div className="exercise-screens-buttons-container">
+                        <button type="button" className={`clear-button ${currentScreen === 'fields' ? 'show-screen' : null}`} onClick={()=>setCurrentScreen('fields')}>Fields</button>
+                        <button type="button" className={`clear-button ${currentScreen === 'tags' ? 'show-screen' : null}`} onClick={()=>setCurrentScreen('tags')}>Tags</button>
+                        <button type="button" className={`clear-button ${currentScreen === 'groups' ? 'show-screen' : null}`} onClick={()=>setCurrentScreen('groups')}>Groups</button>
+                        <button type="button" className={`clear-button ${currentScreen === 'equipments' ? 'show-screen' : null}`} onClick={()=>setCurrentScreen('equipments')}>Equipment</button>
+                    </div>
+                    <div className="exercise-screens-container">
+                        <div className={`screen ${currentScreen === 'fields' ? 'expand' : null}`}>
+                            <label>Fields</label>
+                            <CreateExerciseField key='fields-create-field' addField={addField} />
+                            <DefaultItems key='default-items-fields' allItems={defaultFields} title={'Default Fields'} savedItems={fields} addItem={addField} />
+                            <div className="fields-container">
+                                {fields?.length > 0 ? fields.map((field, index)=>(
+                                        <div className="field-body" id={index} key={field.id}>
                                             <h4>{field.name}</h4>
-                                            <p>{field.target}</p>
+                                            <p>{field.targetValue || null}</p>
                                             <p>{field.unit}</p>
                                             <button onClick={()=>console.log(field.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
                                         </div>
-                                    </div>
-                            )): <h3>No fields created</h3>}
+                                )): <h3>No fields created</h3>}
+                            </div>
+                        </div>
+                        <div className={`screen ${currentScreen === 'groups' ? 'expand' : null}`}>
+                            <label>Target Group</label>
+                            <CustomItemCreator key='custom-items-fields' addItem={addTargetGroups} type={'target-group'}/>
+                            <DefaultItems key='default-items-groups' allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
+                            <div className="selected-tags">
+                                {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                            </div>
+                        </div>
+                        <div className={`screen ${currentScreen === 'tags' ? 'expand' : null}`}>
+                            <label>Tags</label>
+                            <CustomItemCreator key='custom-items-tags' addItem={addTag} type={'tag'}/>
+                            <DefaultItems key='default-items-tags' allItems={defaultTags} title={'Saved Tags'} savedItems={exerciseTags} addItem={addTag}/>
+                            <div className="selected-tags">
+                                {exerciseTags?.length > 0 ? exerciseTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setExerciseTags((exerciseTags)=>[...exerciseTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                            </div>
+                        </div>
+                        <div className={`screen ${currentScreen === 'equipments' ? 'expand' : null}`}>
+                            <label>Equipment</label>
+                            <CustomItemCreator key='custom-items-equipment' addItem={addEquipment} type={'equipment'}/>
+                            <DefaultItems key='default-items-equipment' allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
+                            <div className="selected-tags">
+                                {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                            </div>
                         </div>
                         
-                    </fieldset>
-
+                    </div>
                     <button className="orange-button large-button submit-button" onClick={handleSubmit}>Create Exercise</button>
                 </form>
         </div>
