@@ -5,9 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store'; // Make sure this path points to your Redux store
 import { PersistGate } from 'redux-persist/integration/react';
-import Navigation from './components/pages/common/Navigation';
+import Navigation from './components/common/Navigation/Navigation.js';
 import AppRoutes from './Routes';
-import App from './App.js';
 
 
 

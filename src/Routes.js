@@ -1,25 +1,24 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import StartingPage from './components/pages/StartingPage';
-import Dashboard from './components/pages/Dashboard';
-import Library from './components/pages/Library';
-import Logs from './components/pages/Logs';
-import Profile from './components/pages/Profile';
-import Workout from './components/pages/Workout';
-import EditWorkout from './components/pages/EditWorkout';
-import CreateWorkout from './components/pages/CreateWorkout';
-import Exercise from './components/pages/Exercise';
-import EditExercise from './components/pages/EditExercise';
-import CreateExercise from './components/pages/CreateExercise';
-import EditProfile from './components/pages/EditProfile';
-import ViewWorkout from './components/pages/ViewWorkout';
-import { useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ViewExercise from './components/pages/ViewExercise';
-import Browse from './components/pages/Browse';
-import ViewBrowseExercise from './components/pages/ViewBrowseExercise';
-import ViewBrowseWorkout from './components/pages/ViewBrowseWorkout';
-import FieldsPage from './components/pages/FieldsPage';
+
+import StartingPage from './components/pages/StartingPage/StartingPage';
+import Dashboard from './components/pages/Dashboard/Dashboard';
+import Library from './components/pages/Library/Library';
+import Logs from './components/pages/Activity/Activity';
+import Profile from './components/pages/Profile/Profile';
+import Workout from './components/pages/Workout/Workout';
+import EditWorkout from './components/pages/Workout/EditWorkout';
+import CreateWorkout from './components/pages/Workout/CreateWorkout';
+import EditExercise from './components/pages/Exercise/EditExercise';
+import CreateExercise from './components/pages/Exercise/CreateExercise';
+import EditProfile from './components/pages/Profile/EditProfile';
+import ViewWorkout from './components/pages/Workout/ViewWorkout';
+import ViewExercise from './components/pages/Exercise/ViewExercise';
+import Browse from './components/pages/Library/Browse';
+import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';
+import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
+import FieldsPage from './components/pages/Settings/FieldsPage';
 
 
 function AppRoutes() {

@@ -7,7 +7,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+        "targetValue": null
     },
     {
         "id": "field2",
@@ -17,7 +18,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+        "targetValue": null
     },
     {
         "id": "field3",
@@ -27,7 +29,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field4",
@@ -37,7 +40,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field5",
@@ -47,7 +51,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field6",
@@ -57,7 +62,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field7",
@@ -67,7 +73,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field8",
@@ -77,7 +84,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field9",
@@ -87,7 +95,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field10",
@@ -97,7 +106,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field11",
@@ -107,7 +117,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field12",
@@ -117,7 +128,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field13",
@@ -127,7 +139,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field14",
@@ -137,7 +150,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     },
     {
         "id": "field15",
@@ -147,7 +161,8 @@ export const defaultFields = [
         "type": "number",
         "source": "system",
         "value": null,
-        "isCompleted": false
+        "isCompleted": false,
+"targetValue": null
     }
 
       
