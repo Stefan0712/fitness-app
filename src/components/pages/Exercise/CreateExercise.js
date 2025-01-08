@@ -43,7 +43,7 @@ const CreateExercise = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const exerciseData = {id: uuidv4(), type: 'created', createdAt, author: '', name, description, reference, targetGroups, difficulty, sets, duration, fields, tags: exerciseTags, equipments};
+        const exerciseData = {id: uuidv4(), type: 'created', createdAt, author: '', name, description, reference, targetGroups, difficulty, sets, duration, fields, tags: exerciseTags, equipments, completedSets: 0};
         console.log(exerciseData)
         dispatch(addExercise(exerciseData));
         navigate('/library');

@@ -6,6 +6,7 @@ import './workout.css';
 import { v4 as uuidv4 } from 'uuid';
 import { addLog } from "../../../store/userSlice";
 import { IconLibrary } from "../../../IconLibrary";
+import {exercises as databaseExercises} from '../../../database';
  
 
 
@@ -23,29 +24,52 @@ const Workout = () => {
 
 
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
-    const exercises = useSelector((state) => state.user.exercises.filter((ex) => workoutData.exercises.includes(ex.id)));
-    const [currentExercise, setCurrentExercise] = useState(exercises[0]?.id); // Ensure it's set to the first exercise if available
+    const libraryExercises = useSelector((state) => state.user.exercises);
+    const [exercises, setExercises] = useState([]);
+    const [currentExercise, setCurrentExercise] = useState(null); 
     const [duration, setDuration] = useState("00:00:00");
     const [seconds, setSeconds] = useState(0);
     const [currentSet, setCurrentSet] = useState(1);
-    console.log(workoutData);
-    console.log(exercises);
 
     useEffect(() => {
+        console.log(workoutData, exercises);
+        setExercises(getExercises());
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
     
         return () => clearInterval(timer);
     }, []);
+    useEffect(()=>{
+        if(!currentExercise && exercises && exercises.length > 0){
+            setCurrentExercise(exercises[0].id);
+        }
+    },[exercises])
 
+    const getExercises = () => {
+        //make deep copies of all exercises
+        return workoutData.exercises.map(({ source, id }) => {
+          let exercise = null;
+        
+          //check the source and make a deep copy of the object
+          if (source === 'database') {
+            exercise = JSON.parse(JSON.stringify(databaseExercises.find((item) => item.id === id)));
 
-   
-    
+          } else if (source === 'library') {
+            exercise = JSON.parse(JSON.stringify(libraryExercises.find((item) => item.id === id)));
 
+          }
+          //add a completedSet property to the exercise object to keep track of how many sets were completed
+          if (exercise) {
+            if(!exercise.completedSets){exercise.completedSets = 0} 
+          } else {
+            console.error(`Exercise with id "${id}" not found in "${source}"`);
+          }
+      
+          return exercise || null; // Return null if not found
+        }).filter(Boolean); // Remove null values
+      };
 
-    
-    
 
     // Functions to move through exercises
     const prevExercise = () => {
@@ -61,6 +85,7 @@ const Workout = () => {
             setCurrentExercise(exercises[selectedExerciseIndex + 1].id);
         }
     };
+    //finish the workout by saving it as a log and redirrecting the user to he activity page
     const finishWorkout = () =>{
         const log = {
             id: uuidv4(),
@@ -89,6 +114,7 @@ const Workout = () => {
             <div className="workout-top">
                 <div className="timer">{formatTime(seconds)}</div>
                 <div className="workout-progress">
+                    {/* TODO: Implement something to show current progress */}
                     <p>3/10</p>
                     <p>30%</p>
                 </div>
@@ -138,7 +164,7 @@ const Workout = () => {
                     </div>
                     <div className="current-exercise-fields">
                         {exercises?.find((ex) => ex.id === currentExercise)?.fields?.map((field)=>(
-                            <div className="field">
+                            <div className="field" key={field.id}>
                                 <p className="field-name">{field.name}</p>
                                 <div className="field-input">
                                     <button><img src={IconLibrary.MinusIcon} className="small-icon" alt=""></img></button>

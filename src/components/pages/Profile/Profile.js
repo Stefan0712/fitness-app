@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { getDateForHeader } from "../../../helpers";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import './profile.css';
 import { reset } from '../../../store/userSlice';
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
+import Settings from "../Settings/Settings";
 
 
 
@@ -15,23 +16,20 @@ import { useState } from "react";
 const Profile = () => {
 
     const userData = useSelector((state)=>state.user.userData);
-    const dispatch = useDispatch();
-    const [showMenu, setShowMenu] = useState(false);
-    
-    const handleStoreReset = () =>{
-        dispatch(reset());
-        setShowMenu(false);
-    }
+    const [showSettings, setShowSettings] = useState(false);
+     
+   
 
     return ( 
         <div className="profile-page page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Profile</h2>
-                <button onClick={()=>setShowMenu(true)} className="settings-button">
+                <button onClick={()=>setShowSettings(true)} className="settings-button">
                     <img src={IconLibrary.Settings} ></img>
                 </button>
             </div>
+            {showSettings ? <Settings closeSettings={()=>setShowSettings(false)} /> : null}
             <img className="profile-image" src={IconLibrary.Profile}></img>
             <h2 className="profile-name">{userData.name ? userData.name : 'Not Set'}</h2>
             <div className="profile-info">
@@ -67,13 +65,7 @@ const Profile = () => {
                
             </div>
 
-            <div className="settings-side-menu">
-                <h2>Settings</h2>
-                <div className="buttons-container">
-                    <Link to={'/fields'}>Fields </Link>
-                </div>
-                <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
-            </div>
+            
         </div>
      );
 }

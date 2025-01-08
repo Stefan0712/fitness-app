@@ -7,6 +7,7 @@ import {defaultTags} from '../constants/defaultTags';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
 import { defaultFields } from '../constants/defaultFields';
+import { exercises, workouts } from '../database';
 
 const initialState = {
   userId: uuidv4(),
@@ -46,6 +47,8 @@ const initialState = {
   targetGroups: [...defaultTargetGroups],
   exercises: [...mockExercises],
   workouts: [...mockWorkouts],
+  defaultWorkouts: workouts,
+  defaultExercises: exercises,
   message: null
 };
 
@@ -56,7 +59,7 @@ const userSlice = createSlice({
     setUserData: (state, action) => ({ ...state, ...action.payload }),
 
     addExercise: (state, action) => {
-      state.exercises.push(action.payload);
+      state.exercises.push({...action.payload, source: 'library'});
     },
 
     updateUserData: (state, action) => {
@@ -123,7 +126,7 @@ const userSlice = createSlice({
     },
 
     updateWorkout: (state, action) => {
-      const index = state.workouts.findIndex(workout => workout.id === action.payload);
+      const index = state.workouts.findIndex(workout => workout.id === action.payload.id);
       if (index !== -1) {
         state.workouts[index] = { ...state.workouts[index], ...action.payload };
       }
