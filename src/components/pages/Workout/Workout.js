@@ -65,13 +65,13 @@ const Workout = () => {
               );
             }
       
-            // Add a completedSet property to the exercise object to keep track of how many sets were completed
+            // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
             if (exercise) {
               if (!exercise.completedSets) {
                 exercise.completedSets = 0;
               }
       
-              // Transform sets property from number to an array
+              // Transform sets property from number to an array to make it easier to track progress of that exercise
               if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
                 const setsArray = [];
                 for (let i = 0; i < exercise.sets; i++) {
@@ -104,6 +104,7 @@ const Workout = () => {
     };
 
     const nextExercise = () => {
+        //checks if the current exercise index is not bigger than the last index of the exercises array
         const selectedExerciseIndex = exercises.findIndex((obj) => obj.id === currentExercise);
         if (selectedExerciseIndex < exercises.length - 1) {
             setCurrentExercise(exercises[selectedExerciseIndex + 1].id);
@@ -111,6 +112,7 @@ const Workout = () => {
     };
     //finish the workout by saving it as a log and redirrecting the user to he activity page
     const finishWorkout = () =>{
+        //create the log object that will be saved to the redux store
         const log = {
             id: uuidv4(),
             icon: '/icons/workout.svg',
@@ -139,11 +141,37 @@ const Workout = () => {
 
     }
 
-    const handleCompleteField = (exerciseId, fieldId) =>{
-        const item = exercises.find((ex)=>ex.id===exerciseId);
-        const field = item.fields.find((a)=>a.id===fieldId);
-        console.log(`Completed field ${field.name} from exercise ${item.name}`);
-    }
+    const handleCompleteField = (exerciseId, setNo, fieldId) => {
+        // Create a deep copy of exercises
+        const updatedExercises = exercises.map((ex) => {
+            // Find the exercise by id
+            if (ex.id === exerciseId) {
+                // Find the set by index (setNo)
+                const updatedSets = [...ex.sets]; // Create a shallow copy of the sets
+                const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
+    
+                // Find the field by id and toggle the isCompleted value
+                const updatedFields = updatedSet.fields.map((field) => {
+                    if (field.id === fieldId) {
+                        return { ...field, isCompleted: !field.isCompleted }; // Toggle isCompleted
+                    }
+                    return field;
+                });
+    
+                // Update the set's fields
+                updatedSet.fields = updatedFields;
+                updatedSets[setNo] = updatedSet; // Update the specific set
+    
+                // Return the updated exercise with modified sets
+                return { ...ex, sets: updatedSets };
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        // Update the state with the modified exercises
+        setExercises(updatedExercises);
+    };
+    
 
 
     const handleSkipSet = (exerciseId) =>{
@@ -181,7 +209,10 @@ const Workout = () => {
             setCurrentSet(prevSet => prevSet + 1); 
         }
     };
-    
+    const handleChangeCurrentExercise = (id) =>{
+        setCurrentSet(0);
+        setCurrentExercise(id)
+    }
 
     return (
         <div className="workout-page page">
@@ -210,7 +241,7 @@ const Workout = () => {
                             <div
                                 className={`exercise-body ${currentExercise === exercise.id ? 'selected-exercise' : ''}`}
                                 key={index + 'exercise'}
-                                onClick={() => setCurrentExercise(exercise.id)}
+                                onClick={() => handleChangeCurrentExercise(exercise.id)}
                             >
                                 <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
@@ -250,7 +281,7 @@ const Workout = () => {
                                     <p>{field.value || 0}/{field.targetValue || 0}</p>
                                     <button><img src={IconLibrary.Plus} className="small-icon" alt=""></img></button>
                                 </div>
-                                <input type="checkbox" checked={field.isCompleted} className="field-checkbox" onChange={()=>handleCompleteField(field.id)}></input>
+                                <input type="checkbox" checked={field.isCompleted} className="field-checkbox" onChange={()=>handleCompleteField(currentExercise, currentSet, field.id)}></input>
                             </div>
                         ))}
                     </div>
