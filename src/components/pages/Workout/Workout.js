@@ -230,7 +230,22 @@ const Workout = () => {
     }
 
     const handleAddSet = (exerciseId) =>{
-
+        console.log(`Added a new set`)
+        console.log(exercises.find((ex)=>ex.id===exerciseId))
+        const updatedExercises = exercises.map((ex) => {
+            if (ex.id === exerciseId) {
+                //creates a new set object and appends it to the current exercise sets array
+                return { ...ex, sets: [...ex.sets, {
+                    order: ex.sets.length,
+                    fields: ex.fields ? JSON.parse(JSON.stringify(ex.fields)) : [], // Deep copy of fields array
+                    isCompleted: false,
+                    isSkipped: false,
+                  }],  };
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        setExercises(updatedExercises);
     }
 
     const handleCompleteSet = (exerciseId, setNo) =>{
