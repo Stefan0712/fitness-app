@@ -2,11 +2,12 @@ import { formatTime, getDateForHeader, getFullHour } from "../../../helpers";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import './workout.css';
 import { v4 as uuidv4 } from 'uuid';
 import { addLog } from "../../../store/userSlice";
 import { IconLibrary } from "../../../IconLibrary";
 import {exercises as databaseExercises} from '../../../database';
+
+import styles from './Workout.module.css';
  
 
 
@@ -21,6 +22,8 @@ const Workout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [extendExercises, setExtendExercises] = useState(false);
 
 
     const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
@@ -341,46 +344,41 @@ const Workout = () => {
         setCurrentExercise(id)
     }
 
-   
     return (
-        <div className="workout-page page">
+        <div className={`${styles["workout-page"]} page`}>
             <div className="header">
                 <div className="date">{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
                 
             </div>
-            <div className="workout-top">
+            <div className={styles["workout-top"]}>
                 <div className="timer">{formatTime(seconds)}</div>
-                <div className="workout-progress">
-                    {/* TODO: Implement something to show current progress */}
-                    <p>3/10</p>
-                    <p>30%</p>
-                </div>
-                <button onClick={()=>finishWorkout()} className="finish-workout-button medium-button orange-button">Finish</button>
+               
+                <button onClick={()=>finishWorkout()} className="medium-button orange-button">Finish</button>
             </div>
             
 
-            <div className="workout-content">
+            <div className={styles["workout-content"]}>
 
-                <div className="workout-exercises section">
-                    <div className="exercises-header subtitle full-width"><h3>Exercises</h3><p>{exercises.findIndex(ex=>ex.id===currentExercise) +1}/{exercises.length}</p></div>
-                    <div className="workout-exercises-container">
+                <div className={`${styles["workout-exercises"]} section`}>
+                    <div className={` ${styles['exercises-header']} subtitle full-width`}><h3>Exercises</h3><p>{exercises.findIndex(ex=>ex.id===currentExercise) +1}/{exercises.length}</p></div>
+                    <div className={styles["workout-exercises-container"]}>
                         {exercises?.map((exercise, index) => (
                             <div
-                                className={`exercise-body ${currentExercise === exercise.id ? 'selected-exercise' : ''}`}
+                                className={`${styles["exercise-body"]} ${currentExercise === exercise.id ? styles['selected-exercise'] : ''}`}
                                 key={index + 'exercise'}
                                 onClick={() => handleChangeCurrentExercise(exercise.id)}
                             >
                                 <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
-                                <div className="sets">{exercise.sets.length} sets</div>
+                                <div className={styles["sets"]}>{exercise.sets.length} sets</div>
                                 <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(currentExercise)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
                             </div>
                         ))}
                     </div>
-                    <div className="current-exercise-top">
+                    <div className={styles["current-exercise-top"]}>
                         <img
-                            className="small-icon left-arrow"
+                            className={`${['left-arrow']} small-icon`}
                             src={IconLibrary.Arrow}
                             onClick={prevExercise}
                             alt="Previous Exercise"
@@ -395,35 +393,35 @@ const Workout = () => {
                         />
                     </div>
                 </div>
-                <div className="current-exercise section">
-                    <div className="current-exercise-header">
+                <div className={`${styles["current-exercise"]} section`}>
+                    <div className={styles["current-exercise-header"]}>
                         <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
                         <p>Set {currentSet + 1}/{exercises?.find((ex) => ex.id === currentExercise)?.sets.length}</p>
                     </div>
-                    <div className="current-exercise-fields">
+                    <div className={styles["current-exercise-fields"]}>
                         {exercises?.find((ex) => ex.id === currentExercise)?.sets[currentSet].fields?.map((field)=>(
-                            <div className="field" key={field.id}>
-                                <p className="field-name">{field.name}</p>
-                                <div className="field-input">
+                            <div className={styles["field"]} key={field.id}>
+                                <p className={styles["field-name"]}>{field.name}</p>
+                                <div className={styles["field-input"]}>
                                     <button onClick={()=>handleChangeFieldValue(currentExercise, currentSet, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
                                     <p>{field.value || 0}/{field.targetValue || 0}</p>
                                     <button onClick={()=>handleChangeFieldValue(currentExercise, currentSet, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
                                 </div>
-                                <input type="checkbox" checked={field.isCompleted} className="field-checkbox" onChange={()=>handleCompleteField(currentExercise, currentSet, field.id)}></input>
+                                <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, currentSet, field.id)}></input>
                             </div>
                         ))}
                     </div>
-                    <div className="current-exercise-buttons">
+                    <div className={styles["current-exercise-buttons"]}>
                         <button type="button" onClick={()=>handleSkipSet(currentExercise, currentSet)}>Skip Set</button>
                         <button type="button" onClick={()=>handleAddSet(currentExercise, currentSet)}>Add Set</button>
                         <button type="button" onClick={()=>handleCompleteSet(currentExercise, currentSet)}>Finish Set</button>
                     </div>
-                    <div className="sets-controls">
-                        <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className="navigation-button" alt="previous set"></img>
+                    <div className={styles["sets-controls"]}>
+                        <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className={styles["navigation-button" ]} alt="previous set"></img>
                         <div className="sets-icons">
-                            {exercises?.find((ex) => ex.id === currentExercise)?.sets?.map((field, index)=>(<img className={`field-icon ${currentSet === index ? 'selected-set-icon' : null}`} key={index+'field-icon'} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
+                            {exercises?.find((ex) => ex.id === currentExercise)?.sets?.map((field, index)=>(<img className={`${styles["field-icon"]} ${currentSet === index ? styles['selected-set-icon'] : null}`} key={index+'field-icon'} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
                         </div>
-                        <img onClick={handleNextSet} src={IconLibrary.Arrow} className="navigation-button" alt="next set"></img>
+                        <img onClick={handleNextSet} src={IconLibrary.Arrow} className={styles["navigation-button"]} alt="next set"></img>
                     </div>
                     {/* //TODO Change the Finish Set button to change text based on the set status */}
                 </div>
