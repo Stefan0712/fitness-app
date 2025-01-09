@@ -32,7 +32,6 @@ const Workout = () => {
     const [currentSet, setCurrentSet] = useState(0);
 
     useEffect(() => {
-        console.log(workoutData, exercises);
         setExercises(getExercises());
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
@@ -45,7 +44,6 @@ const Workout = () => {
             setCurrentExercise(exercises[0].id);
             
         }
-        console.log(exercises)
     },[exercises])
 
     const getExercises = () => {
@@ -134,7 +132,6 @@ const Workout = () => {
 
 
     const handleChangeFieldValue = (exerciseId, setNo, fieldId, changeAmount) => {
-        console.log(changeAmount)
         // Create a deep copy of exercises
         const updatedExercises = exercises.map((ex) => {
             // Find the exercise by id
@@ -151,6 +148,14 @@ const Workout = () => {
     
                         // Update the value by adding the changeAmount, ensuring it doesn't go below 0
                         const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
+    
+                        // Check if the new value passes the targetValue (either above or below)
+                        if (newValue >= field.targetValue && !field.isCompleted) {
+                            handleCompleteField(exerciseId, setNo, fieldId);
+                        } else if (newValue < field.targetValue && field.isCompleted) {
+                            handleCompleteField(exerciseId, setNo, fieldId); // Auto-decomplete when going under target
+                        }
+    
                         return { ...field, value: newValue }; // Update the value of the field
                     }
                     return field;
@@ -160,17 +165,15 @@ const Workout = () => {
                 updatedSet.fields = updatedFields;
                 updatedSets[setNo] = updatedSet; // Update the specific set
     
-                console.log({ ...ex, sets: updatedSets })
                 return { ...ex, sets: updatedSets };
             }
             return ex; 
         });
-        
         setExercises(updatedExercises);
     };
     
-
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
+        console.log("Completed")
         // Create a deep copy of exercises
         const updatedExercises = exercises.map((ex) => {
             // Find the exercise by id
@@ -190,7 +193,7 @@ const Workout = () => {
                 // Update the set's fields
                 updatedSet.fields = updatedFields;
                 updatedSets[setNo] = updatedSet; // Update the specific set
-                
+    
                 return { ...ex, sets: updatedSets };
             }
             return ex; // If not the correct exercise, return as is
@@ -198,6 +201,7 @@ const Workout = () => {
     
         setExercises(updatedExercises);
     };
+    
     
 
 
@@ -209,8 +213,28 @@ const Workout = () => {
 
     }
 
-    const handleCompleteSet = (exerciseId) =>{
+    const handleCompleteSet = (exerciseId, setNo) =>{
+        console.log(`Finished set ${setNo}`)
+        console.log(exercises.find((ex)=>ex.id===exerciseId))
+        const updatedExercises = exercises.map((ex) => {
+            if (ex.id === exerciseId) {
+                // Find the set by index (setNo)
+                const sets = [...ex.sets]; // Create a shallow copy of the sets
+                const updatedSets = sets.map((set, index)=>{
+                    if(index === setNo){
+                        return { ...set, isCompleted: !set.isCompleted } //toggle is completed for that specific set
+                    }else{
+                        return set
+                    }
+                })
+                
 
+                return { ...ex, sets: updatedSets };
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        setExercises(updatedExercises);
     }
 
     const handleSkipExercise = (exerciseId) =>{
@@ -315,7 +339,7 @@ const Workout = () => {
                     <div className="current-exercise-buttons">
                         <button>Skip Set</button>
                         <button>Add Set</button>
-                        <button>Finish Set</button>
+                        <button type="button" onClick={()=>handleCompleteSet(currentExercise, currentSet)}>Finish Set</button>
                     </div>
                     <div className="sets-controls">
                         <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className="navigation-button" alt="previous set"></img>
