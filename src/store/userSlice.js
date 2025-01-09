@@ -130,8 +130,7 @@ const userSlice = createSlice({
       if (index !== -1) {
         state.workouts[index] = { ...state.workouts[index], ...action.payload };
       }
-    }
-    ,
+    },
 
     deleteWorkout: (state, action) => {
       state.workouts = state.workouts.filter(workout => workout.id !== action.payload);
