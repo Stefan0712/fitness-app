@@ -44,6 +44,7 @@ const Workout = () => {
             setCurrentExercise(exercises[0].id);
             
         }
+        console.log(exercises)
     },[exercises])
 
     const getExercises = () => {
@@ -172,8 +173,39 @@ const Workout = () => {
         setExercises(updatedExercises);
     };
     
+    const completeAllFields = (exerciseId, setNo) => {
+        setExercises((prevExercises) => {
+            return prevExercises.map((ex) => {
+                if (ex.id === exerciseId) {
+                    // Copy the sets
+                    const updatedSets = [...ex.sets];
+                    const updatedSet = { ...updatedSets[setNo] };
+    
+                    // Toggle all fields in the set
+                    const updatedFields = updatedSet.fields.map((field) => ({
+                        ...field,
+                        isCompleted: true, // Mark all fields as completed
+                    }));
+    
+                    // Update the set's fields and completion status
+                    updatedSet.fields = updatedFields;
+                    updatedSet.isCompleted = true; // All fields are completed, so the set is completed
+    
+                    // Update the sets array
+                    updatedSets[setNo] = updatedSet;
+    
+                    // Check if all sets are completed to update the exercise's completion status
+                    const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
+    
+                    return { ...ex, sets: updatedSets, isCompleted: allSetsCompleted };
+                }
+                return ex;
+            });
+        });
+    };
+    
+
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
-        console.log("Completed")
         // Create a deep copy of exercises
         const updatedExercises = exercises.map((ex) => {
             // Find the exercise by id
@@ -189,11 +221,14 @@ const Workout = () => {
                     }
                     return field;
                 });
-    
+                
                 // Update the set's fields
+                const allFieldsCompleted = updatedFields.every((f) => f.isCompleted);
+
                 updatedSet.fields = updatedFields;
+                updatedSet.isCompleted = allFieldsCompleted;
                 updatedSets[setNo] = updatedSet; // Update the specific set
-    
+                
                 return { ...ex, sets: updatedSets };
             }
             return ex; // If not the correct exercise, return as is
@@ -206,8 +241,6 @@ const Workout = () => {
 
 
     const handleSkipSet = (exerciseId, setNo) =>{
-        console.log(`Skipped set ${setNo}`)
-        console.log(exercises.find((ex)=>ex.id===exerciseId))
         const updatedExercises = exercises.map((ex) => {
             if (ex.id === exerciseId) {
                 // Find the set by index (setNo)
@@ -230,8 +263,6 @@ const Workout = () => {
     }
 
     const handleAddSet = (exerciseId) =>{
-        console.log(`Added a new set`)
-        console.log(exercises.find((ex)=>ex.id===exerciseId))
         const updatedExercises = exercises.map((ex) => {
             if (ex.id === exerciseId) {
                 //creates a new set object and appends it to the current exercise sets array
@@ -247,38 +278,40 @@ const Workout = () => {
     
         setExercises(updatedExercises);
     }
-
-    const handleCompleteSet = (exerciseId, setNo) =>{
-        console.log(`Finished set ${setNo}`)
-        console.log(exercises.find((ex)=>ex.id===exerciseId))
-        const updatedExercises = exercises.map((ex) => {
-            if (ex.id === exerciseId) {
-                // Find the set by index (setNo)
-                const sets = [...ex.sets]; // Create a shallow copy of the sets
-                const updatedSets = sets.map((set, index)=>{
-                    if(index === setNo){
-                        return { ...set, isCompleted: !set.isCompleted, isSkipped: false } //toggle is completed for that specific set and reset the isSkipped value
-                    }else{
-                        return set
-                    }
-                })
-                
-
-                return { ...ex, sets: updatedSets };
-            }
-            return ex; // If not the correct exercise, return as is
-        });
     
+    const handleCompleteSet = (exerciseId, setNo) => {
+        completeAllFields(exerciseId, setNo)
+    
+        const updatedExercises = exercises.map((exercise) => {
+            if (exercise.id === exerciseId) {
+                // Find the set by index (setNo)
+                const sets = [...exercise.sets]; // Create a shallow copy of the sets
+                const updatedSets = sets.map((set, index) => {
+                    if (index === setNo) {
+                        return { ...set, isCompleted: !set.isCompleted, isSkipped: false }; // Toggle isCompleted for that specific set and reset the isSkipped value
+                    } else {
+                        return set;
+                    }
+                });
+
+                // Check if all sets are completed and update the exercise's isCompleted
+                const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
+              
+                return { ...exercise, sets: updatedSets, isCompleted: allSetsCompleted}; // Set exercise isCompleted to true if all sets are completed
+            }
+            return exercise; // If not the correct exercise, return as is
+        });
+        
         setExercises(updatedExercises);
-    }
+        
+    };
+    
 
     const handleSkipExercise = (exerciseId) =>{
 
     }
     
     const handleCompleteExercise = (exerciseId) =>{
-        console.log(`Completed exercise`)
-        console.log(exercises.find((ex)=>ex.id===exerciseId))
         const updatedExercises = exercises.map((ex) => {
             if (ex.id === exerciseId) {
                 
@@ -293,7 +326,6 @@ const Workout = () => {
 
     const handlePrevSet = () => {
         if (currentSet > 0) {
-            console.log('prev set');
             setCurrentSet(prevSet => prevSet - 1);
         }
     };
@@ -301,7 +333,6 @@ const Workout = () => {
     const handleNextSet = () => {
         const setsLength = exercises?.find((ex) => ex.id === currentExercise)?.sets.length;
         if (currentSet < setsLength - 1) {
-            console.log('next set');
             setCurrentSet(prevSet => prevSet + 1); 
         }
     };
@@ -310,6 +341,7 @@ const Workout = () => {
         setCurrentExercise(id)
     }
 
+   
     return (
         <div className="workout-page page">
             <div className="header">
@@ -342,7 +374,7 @@ const Workout = () => {
                                 <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
                                 <div className="sets">{exercise.sets.length} sets</div>
-                                <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(currentExercise)}></input>
+                                <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(currentExercise)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
                             </div>
                         ))}
                     </div>
