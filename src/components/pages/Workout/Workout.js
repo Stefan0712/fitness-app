@@ -29,7 +29,7 @@ const Workout = () => {
     const [currentExercise, setCurrentExercise] = useState(null); 
     const [duration, setDuration] = useState("00:00:00");
     const [seconds, setSeconds] = useState(0);
-    const [currentSet, setCurrentSet] = useState(1);
+    const [currentSet, setCurrentSet] = useState(0);
 
     useEffect(() => {
         console.log(workoutData, exercises);
@@ -72,13 +72,12 @@ const Workout = () => {
               }
       
               // Transform sets property from number to an array
-              if (typeof exercise.sets === "number") {
+              if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
                 const setsArray = [];
                 for (let i = 0; i < exercise.sets; i++) {
                   setsArray.push({
                     order: i + 1,
-                    value: 0,
-                    targetValue: exercise.targetValue || 10, // Default target value
+                    fields: exercise.fields ? JSON.parse(JSON.stringify(exercise.fields)) : [], // Deep copy of fields array
                     isCompleted: false,
                     isSkipped: false,
                   });
@@ -168,6 +167,22 @@ const Workout = () => {
     }
 
 
+    const handlePrevSet = () => {
+        if (currentSet > 0) {
+            console.log('prev set');
+            setCurrentSet(prevSet => prevSet - 1);
+        }
+    };
+    
+    const handleNextSet = () => {
+        const setsLength = exercises?.find((ex) => ex.id === currentExercise)?.sets.length;
+        if (currentSet < setsLength - 1) {
+            console.log('next set');
+            setCurrentSet(prevSet => prevSet + 1); 
+        }
+    };
+    
+
     return (
         <div className="workout-page page">
             <div className="header">
@@ -199,7 +214,7 @@ const Workout = () => {
                             >
                                 <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
-                                <div className="sets">{exercise.sets} sets</div>
+                                <div className="sets">{exercise.sets.length} sets</div>
                                 <input type="checkbox"></input>
                             </div>
                         ))}
@@ -224,10 +239,10 @@ const Workout = () => {
                 <div className="current-exercise section">
                     <div className="current-exercise-header">
                         <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
-                        <p>Set {currentSet}/{exercises?.find((ex) => ex.id === currentExercise)?.sets}</p>
+                        <p>Set {currentSet + 1}/{exercises?.find((ex) => ex.id === currentExercise)?.sets.length}</p>
                     </div>
                     <div className="current-exercise-fields">
-                        {exercises?.find((ex) => ex.id === currentExercise)?.fields?.map((field)=>(
+                        {exercises?.find((ex) => ex.id === currentExercise)?.sets[currentSet].fields?.map((field)=>(
                             <div className="field" key={field.id}>
                                 <p className="field-name">{field.name}</p>
                                 <div className="field-input">
@@ -244,7 +259,13 @@ const Workout = () => {
                         <button>Add Set</button>
                         <button>Finish Set</button>
                     </div>
-                    
+                    <div className="sets-controls">
+                        <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className="navigation-button" alt="previous set"></img>
+                        <div className="sets-icons">
+                            {exercises?.find((ex) => ex.id === currentExercise)?.sets?.map((field, index)=>(<img className={`field-icon ${currentSet === index ? 'selected-set-icon' : null}`} key={index+'field-icon'} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
+                        </div>
+                        <img onClick={handleNextSet}handleNextSet src={IconLibrary.Arrow} className="navigation-button" alt="next set"></img>
+                    </div>
                 </div>
             </div> 
         </div>

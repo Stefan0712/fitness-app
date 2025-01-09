@@ -54,6 +54,8 @@ import Workout from './assets/workout.svg';
 import Tag from './assets/tag.svg';
 import InfoCircle from './assets/infoCircle.svg';
 import Search from './assets/search.svg';
+import Skip from './assets/skip.svg';
+import Circle from './assets/circle.svg';
 
 
 
@@ -108,5 +110,7 @@ export const IconLibrary = {
     Water,
     Weight,
     Workout,
-    Tag
+    Tag,
+    Skip,
+    Circle
 }
