@@ -133,13 +133,42 @@ const Workout = () => {
 
 
 
-    const handleIncreaseField = (exerciseId, fieldId) =>{
-
-    }
-
-    const handleDecreaseField = (exerciseId, fieldId) =>{
-
-    }
+    const handleChangeFieldValue = (exerciseId, setNo, fieldId, changeAmount) => {
+        console.log(changeAmount)
+        // Create a deep copy of exercises
+        const updatedExercises = exercises.map((ex) => {
+            // Find the exercise by id
+            if (ex.id === exerciseId) {
+                // Find the set by index (setNo)
+                const updatedSets = [...ex.sets]; // Create a shallow copy of the sets
+                const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
+    
+                // Find the field by id and update the value
+                const updatedFields = updatedSet.fields.map((field) => {
+                    if (field.id === fieldId) {
+                        // If value is null, treat it as 0
+                        const currentValue = field.value === null ? 0 : field.value;
+    
+                        // Update the value by adding the changeAmount, ensuring it doesn't go below 0
+                        const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
+                        return { ...field, value: newValue }; // Update the value of the field
+                    }
+                    return field;
+                });
+    
+                // Update the set's fields
+                updatedSet.fields = updatedFields;
+                updatedSets[setNo] = updatedSet; // Update the specific set
+    
+                console.log({ ...ex, sets: updatedSets })
+                return { ...ex, sets: updatedSets };
+            }
+            return ex; 
+        });
+        
+        setExercises(updatedExercises);
+    };
+    
 
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
         // Create a deep copy of exercises
@@ -153,7 +182,7 @@ const Workout = () => {
                 // Find the field by id and toggle the isCompleted value
                 const updatedFields = updatedSet.fields.map((field) => {
                     if (field.id === fieldId) {
-                        return { ...field, isCompleted: !field.isCompleted }; // Toggle isCompleted
+                        return { ...field, isCompleted: !field.isCompleted }; 
                     }
                     return field;
                 });
@@ -161,14 +190,12 @@ const Workout = () => {
                 // Update the set's fields
                 updatedSet.fields = updatedFields;
                 updatedSets[setNo] = updatedSet; // Update the specific set
-    
-                // Return the updated exercise with modified sets
+                
                 return { ...ex, sets: updatedSets };
             }
             return ex; // If not the correct exercise, return as is
         });
     
-        // Update the state with the modified exercises
         setExercises(updatedExercises);
     };
     
@@ -277,9 +304,9 @@ const Workout = () => {
                             <div className="field" key={field.id}>
                                 <p className="field-name">{field.name}</p>
                                 <div className="field-input">
-                                    <button><img src={IconLibrary.Minus} className="small-icon" alt=""></img></button>
+                                    <button onClick={()=>handleChangeFieldValue(currentExercise, currentSet, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
                                     <p>{field.value || 0}/{field.targetValue || 0}</p>
-                                    <button><img src={IconLibrary.Plus} className="small-icon" alt=""></img></button>
+                                    <button onClick={()=>handleChangeFieldValue(currentExercise, currentSet, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
                                 </div>
                                 <input type="checkbox" checked={field.isCompleted} className="field-checkbox" onChange={()=>handleCompleteField(currentExercise, currentSet, field.id)}></input>
                             </div>
