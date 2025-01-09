@@ -205,8 +205,28 @@ const Workout = () => {
     
 
 
-    const handleSkipSet = (exerciseId) =>{
+    const handleSkipSet = (exerciseId, setNo) =>{
+        console.log(`Skipped set ${setNo}`)
+        console.log(exercises.find((ex)=>ex.id===exerciseId))
+        const updatedExercises = exercises.map((ex) => {
+            if (ex.id === exerciseId) {
+                // Find the set by index (setNo)
+                const sets = [...ex.sets]; // Create a shallow copy of the sets
+                const updatedSets = sets.map((set, index)=>{
+                    if(index === setNo){
+                        return { ...set, isSkipped: !set.isSkipped, isCompleted: false } //toggle isSkipped for that specific set and make sure isCompleted is false
+                    }else{
+                        return set
+                    }
+                })
+                
 
+                return { ...ex, sets: updatedSets };
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        setExercises(updatedExercises);
     }
 
     const handleAddSet = (exerciseId) =>{
@@ -222,7 +242,7 @@ const Workout = () => {
                 const sets = [...ex.sets]; // Create a shallow copy of the sets
                 const updatedSets = sets.map((set, index)=>{
                     if(index === setNo){
-                        return { ...set, isCompleted: !set.isCompleted } //toggle is completed for that specific set
+                        return { ...set, isCompleted: !set.isCompleted, isSkipped: false } //toggle is completed for that specific set and reset the isSkipped value
                     }else{
                         return set
                     }
@@ -337,8 +357,8 @@ const Workout = () => {
                         ))}
                     </div>
                     <div className="current-exercise-buttons">
-                        <button>Skip Set</button>
-                        <button>Add Set</button>
+                        <button type="button" onClick={()=>handleSkipSet(currentExercise, currentSet)}>Skip Set</button>
+                        <button type="button" onClick={()=>handleAddSet(currentExercise, currentSet)}>Add Set</button>
                         <button type="button" onClick={()=>handleCompleteSet(currentExercise, currentSet)}>Finish Set</button>
                     </div>
                     <div className="sets-controls">
