@@ -277,7 +277,17 @@ const Workout = () => {
     }
     
     const handleCompleteExercise = (exerciseId) =>{
-
+        console.log(`Completed exercise`)
+        console.log(exercises.find((ex)=>ex.id===exerciseId))
+        const updatedExercises = exercises.map((ex) => {
+            if (ex.id === exerciseId) {
+                
+                return { ...ex, isCompleted: !ex.isCompleted}; //toggle is completed for this exercise
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        setExercises(updatedExercises);
     }
 
 
@@ -332,7 +342,7 @@ const Workout = () => {
                                 <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
                                 <div className="sets">{exercise.sets.length} sets</div>
-                                <input type="checkbox"></input>
+                                <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(currentExercise)}></input>
                             </div>
                         ))}
                     </div>
@@ -381,8 +391,9 @@ const Workout = () => {
                         <div className="sets-icons">
                             {exercises?.find((ex) => ex.id === currentExercise)?.sets?.map((field, index)=>(<img className={`field-icon ${currentSet === index ? 'selected-set-icon' : null}`} key={index+'field-icon'} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
                         </div>
-                        <img onClick={handleNextSet}handleNextSet src={IconLibrary.Arrow} className="navigation-button" alt="next set"></img>
+                        <img onClick={handleNextSet} src={IconLibrary.Arrow} className="navigation-button" alt="next set"></img>
                     </div>
+                    {/* //TODO Change the Finish Set button to change text based on the set status */}
                 </div>
             </div> 
         </div>
