@@ -360,9 +360,13 @@ const Workout = () => {
 
             <div className={styles["workout-content"]}>
 
-                <div className={`${styles["workout-exercises"]} section`}>
-                    <div className={` ${styles['exercises-header']} subtitle full-width`}><h3>Exercises</h3><p>{exercises.findIndex(ex=>ex.id===currentExercise) +1}/{exercises.length}</p></div>
-                    <div className={styles["workout-exercises-container"]}>
+                <div className={`${styles["workout-exercises"]} section` }>
+                <div className={` ${styles['exercises-header']} subtitle full-width`} onClick={()=>setExtendExercises(extendExercises=>!extendExercises)}>
+                    <h3>Exercises</h3>
+                    <p>{exercises.findIndex(ex=>ex.id===currentExercise) +1}/{exercises.length}</p>
+                    <img src={IconLibrary.Arrow} style={{transform: extendExercises ? 'rotateZ(90deg)' : 'rotateZ(180deg)', transition: 'transform 0.1s'}} className={'small-icon'} alt=""></img>
+                </div>
+                    <div className={`${styles["workout-exercises-container"]} ${extendExercises ? styles['extend-exercises'] : ''}`}>
                         {exercises?.map((exercise, index) => (
                             <div
                                 className={`${styles["exercise-body"]} ${currentExercise === exercise.id ? styles['selected-exercise'] : ''}`}
@@ -376,7 +380,7 @@ const Workout = () => {
                             </div>
                         ))}
                     </div>
-                    <div className={styles["current-exercise-top"]}>
+                    <div className={`${styles["current-exercise-controls"]}`}>
                         <img
                             className={`${['left-arrow']} small-icon`}
                             src={IconLibrary.Arrow}
@@ -392,6 +396,7 @@ const Workout = () => {
                             alt="Next Exercise"
                         />
                     </div>
+                    
                 </div>
                 <div className={`${styles["current-exercise"]} section`}>
                     <div className={styles["current-exercise-header"]}>
@@ -418,7 +423,7 @@ const Workout = () => {
                     </div>
                     <div className={styles["sets-controls"]}>
                         <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className={styles["navigation-button" ]} alt="previous set"></img>
-                        <div className="sets-icons">
+                        <div className={styles["sets-icons"]}>
                             {exercises?.find((ex) => ex.id === currentExercise)?.sets?.map((field, index)=>(<img className={`${styles["field-icon"]} ${currentSet === index ? styles['selected-set-icon'] : null}`} key={index+'field-icon'} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
                         </div>
                         <img onClick={handleNextSet} src={IconLibrary.Arrow} className={styles["navigation-button"]} alt="next set"></img>
