@@ -296,7 +296,7 @@ const initialState = {
     language: 'en',
     unitSystem: 'metric',
   },
-  tags: defaultTags,
+  tags: [...defaultTags],
   fields: [],
   categories: [...defaultCategories],
   targetGroups: [...defaultTargetGroups],
@@ -425,6 +425,15 @@ const userSlice = createSlice({
       };
       state.fields = [...state.fields, customField]
     },
+    addTag: (state, action) => {
+      console.log(action.payload);
+      if (!state.tags.find(tag => tag.id === action.payload.id)) {
+         state.tags.push(action.payload); // Prevent duplicates
+      }
+   },
+   removeTag: (state, action) => {
+      state.tags = state.tags.filter(tag => tag.id !== action.payload);
+   },   
     reset: () => initialState,
   },
 });
@@ -446,7 +455,9 @@ export const {
   addLog,
   removeLog,
   updatePreferences,
-  addCustomField
+  addCustomField,
+  addTag,
+  removeTag
 } = userSlice.actions;
 
 export default userSlice.reducer;

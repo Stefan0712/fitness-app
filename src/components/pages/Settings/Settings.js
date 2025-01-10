@@ -26,7 +26,11 @@ const Settings = ({closeSettings}) => {
             <div className={styles.container}>
                
             <Link to={'/edit-profile'}>Edit Profile </Link>
+            <h3 className={styles.category}>Custom Items</h3>
             <Link to={'/fields'}>Fields </Link>
+            <Link to={'/equipment'}>Equipment </Link>
+            <Link to={'/tags'}>Tags </Link>
+            <Link to={'/groups'}>Groups</Link>
             </div>
             <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
         </div>

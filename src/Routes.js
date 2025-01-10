@@ -20,6 +20,9 @@ import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
 import FieldsPage from './components/pages/Settings/FieldsPage';
 import ExploreWorkouts from './components/pages/Library/ExploreWorkouts';
 import ExploreExercises from './components/pages/Library/ExploreExercises';
+import Groups from './components/pages/Settings/Groups';
+import Tags from './components/pages/Settings/Tags';
+import Equipment from './components/pages/Settings/Equipment';
 
 
 function AppRoutes() {
@@ -49,7 +52,10 @@ function AppRoutes() {
       <Route path='/explore-exercises' element={<ExploreExercises />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
-      <Route path='/fields' element={<FieldsPage />} />
+      <Route path='/tags' element={<Tags />} />
+      <Route path='/equipment' element={<Equipment />} />
+      <Route path='/target-groups' element={<Groups />} />
+
       
     </Routes>
   );

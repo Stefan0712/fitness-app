@@ -11,7 +11,7 @@ import TagBody from '../TagBody/TagBody';
 const QuickMenu = ({closeQuickmenu, showLog}) => {
     const dailyGoals = useSelector((state)=> state.user.userData.goals);
     const categories = useSelector((state)=>state.user.categories);
-    const tags = useSelector((state)=>state.user.tags);
+    
     const targetGroups = useSelector((state)=>state.user.targetGroups);
 
 
@@ -124,23 +124,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     
                 </div>
             ) : ''}
-            {quickMenuScreen === 'tags' ? (
-
-                <div className='quick-menu-screen custom-elements'>
-                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.Back} className='small-icon white-icon'></img></button>
-                    <h1>Manage Tags</h1>
-                    
-                    <div className='items-container'>
-                        {tags?.map((tag)=>(
-                            <TagBody data={tag} />
-                        ))}  
-                    </div>
-                    <div className='goal-body create-goal-button'>
-                        <p>New Tag</p>
-                    </div> 
-                    
-                </div>
-            ) : ''}
+           
             {quickMenuScreen === 'categories' ? (
 
                 <div className='quick-menu-screen custom-elements'>
