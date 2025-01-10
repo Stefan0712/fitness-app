@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
-import { mockExercises } from "../../../constants/mockExercises";
-import { mockWorkouts } from "../../../constants/mockWorkouts";
 
 
 const Library = () => {

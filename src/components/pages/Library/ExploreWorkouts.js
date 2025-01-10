@@ -1,9 +1,9 @@
 import { getDateForHeader } from "../../../helpers";
 import { useState } from "react";
-import { exercises, workouts } from "../../../database";
+import { workouts } from "../../../database";
 import { IconLibrary } from "../../../IconLibrary";
 import { Link } from "react-router-dom";
-import { saveExerciseToLibrary, saveWorkoutToLibrary } from "../../../store/userSlice";
+import { saveWorkoutToLibrary } from "../../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const ExploreWorkouts = () => {
@@ -16,7 +16,10 @@ const ExploreWorkouts = () => {
         <div className="library page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                <h2>Browse</h2>
+                <div className="header-title">
+                    <Link className="back-to-library" to={'/library'}><img src={IconLibrary.BackArrow} className="small-icon"></img></Link>
+                    <h2>Explore Workouts</h2>
+                </div>
             </div>
 
                 <div className="library-items-container">
