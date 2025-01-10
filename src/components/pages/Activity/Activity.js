@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import { getDateForHeader, getWeekRange, getCurrentDay } from "../../../helpers";
 import ViewLog from "../../common/LogPages/ViewLog";
 import { BarChart, Bar, XAxis, LabelList, ResponsiveContainer } from 'recharts';
+import styles from './Activity.module.css';
+
+
+
 
 const Activity = () => {
     const goals = useSelector((state)=>state.user.userData.goals);
@@ -101,14 +105,13 @@ const Activity = () => {
         setGraphType(type);
     }
     return (
-        <div className="logs page">
+        <div className={`${styles["logs"]} page`}>
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Activity</h2>
             </div>
-            <div className="chart-container">
-                <select className="data-type-graph-button" onChange={(e)=>changeGraphType(e.target.value)}>
-                    <option value={'Activity'}>Activity (min)</option>
+            <div className={styles["chart-container"]}>
+                <select className={styles["data-type-graph-dropdown"]} onChange={(e)=>changeGraphType(e.target.value)} value={graphType}>
                     {goals.map((goal, index)=>(<option key={index+'dropdown'} value={goal.name}>{goal.name} ({goal.unit})</option>))}
                 </select>
                 <ResponsiveContainer width="100%" height={300}>
@@ -124,35 +127,37 @@ const Activity = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <h3>History</h3>
+            <h3>Logs</h3>
             {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
-            <div className="logs-history-period">
-                <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? 'selected-button' : ''}`}>Current Week</button>
-                <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? 'selected-button' : ''}`}>Last 7 Days</button>
+            <div className={styles["logs-history-buttons"]}>
+                <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''}`}>Current Week</button>
+                <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''}`}>Last 7 Days</button>
             </div>
-            {weekData?.map((item, index) => (
-                
-                <div className='day' key={index+'day'}>
-                    <h3>{formatDate(item.date)}</h3>
-                    <div className='logs-container'>
-                        {item?.logs && item.logs && item.logs.length > 0 ? (
-                            item.logs.map((log, index)=>(
-                                <div key={index+"log"} className="log-body">
-                                    <img className="small-icon" src={log.icon}></img>
-                                    <div className="log-info">
-                                        <p>{log.name}</p>
-                                        <div className="log-meta">
-                                            <p>{log.data.value}</p>
-                                            <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+            <div className={styles["history-container"]}>
+                {weekData?.map((item, index) => (
+                    
+                    <div className={styles['day']} key={index+'day'}>
+                        <p className={styles.logDay}>{formatDate(item.date)}</p>
+                        <div className={styles['logs-container']}>
+                            {item?.logs && item.logs && item.logs.length > 0 ? (
+                                item.logs.map((log, index)=>(
+                                    <div key={index+"log"} className={styles["log-body"]}>
+                                        <img className="small-icon" src={log.icon}></img>
+                                        <div className={styles["log-info"]}>
+                                            <p>{log.name}</p>
+                                            <div className={styles["log-meta"]}>
+                                                <p>{log.data.value}</p>
+                                                <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+                                            </div>
                                         </div>
+                                        
                                     </div>
-                                    
-                                </div>
-                            ))
-                        ): <h3>No Logs</h3>}
+                                ))
+                            ): <h3>No Logs</h3>}
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
 
 
         </div>
