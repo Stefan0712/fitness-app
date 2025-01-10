@@ -133,7 +133,44 @@ const Workout = () => {
         setDuration(time);
     };
 
+    const handleCompleteField = (exerciseId, setNo, fieldId) => {
+        console.log("Field was completed")
+        // Create a deep copy of exercises
+        const updatedExercises = exercises.map((ex) => {
+            // Find the exercise by id
+            if (ex.id === exerciseId) {
+                // Find the set by index (setNo)
+                const updatedSets = [...ex.sets]; // Create a shallow copy of the sets
+                const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
+    
+                // Find the field by id and toggle the isCompleted value
+                const updatedFields = updatedSet.fields.map((field) => {
+                    if (field.id === fieldId) {
+                        return { 
+                            ...field, 
+                            isCompleted: !field.isCompleted, 
+                            value: !field.isCompleted && (!field.value || field.value === 0) 
+                            ? parseInt(field.targetValue, 10)
+                            : field.value  
+                        }
+                    }
+                    return field;
+                });
+                
+                // Update the set's fields
+                const allFieldsCompleted = updatedFields.every((f) => f.isCompleted);
 
+                updatedSet.fields = updatedFields;
+                updatedSet.isCompleted = allFieldsCompleted;
+                updatedSets[setNo] = updatedSet; // Update the specific set
+                
+                return { ...ex, sets: updatedSets };
+            }
+            return ex; // If not the correct exercise, return as is
+        });
+    
+        setExercises(updatedExercises);
+    };
 
     const handleChangeFieldValue = (exerciseId, setNo, fieldId, changeAmount) => {
         // Create a deep copy of exercises
@@ -154,13 +191,14 @@ const Workout = () => {
                         const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
     
                         // Check if the new value passes the targetValue (either above or below)
-                        if (newValue >= field.targetValue && !field.isCompleted) {
-                            handleCompleteField(exerciseId, setNo, fieldId);
-                        } else if (newValue < field.targetValue && field.isCompleted) {
-                            handleCompleteField(exerciseId, setNo, fieldId); // Auto-decomplete when going under target
-                        }
-    
-                        return { ...field, value: newValue }; // Update the value of the field
+                        const shouldComplete = newValue >= field.targetValue;
+                        const shouldDecomplete = newValue < field.targetValue;
+
+                        return {
+                            ...field,
+                            value: newValue,
+                            isCompleted: shouldComplete ? true : shouldDecomplete ? false : field.isCompleted,
+                        }; // Update the value of the field
                     }
                     return field;
                 });
@@ -208,43 +246,7 @@ const Workout = () => {
     };
     
 
-    const handleCompleteField = (exerciseId, setNo, fieldId) => {
-        // Create a deep copy of exercises
-        const updatedExercises = exercises.map((ex) => {
-            // Find the exercise by id
-            if (ex.id === exerciseId) {
-                // Find the set by index (setNo)
-                const updatedSets = [...ex.sets]; // Create a shallow copy of the sets
-                const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
     
-                // Find the field by id and toggle the isCompleted value
-                const updatedFields = updatedSet.fields.map((field) => {
-                    if (field.id === fieldId) {
-                        return { 
-                            ...field, 
-                            isCompleted: !field.isCompleted, 
-                            value: !field.isCompleted && (!field.value || field.value === 0) 
-                            ? parseInt(field.targetValue, 10)
-                            : field.value  
-                        }
-                    }
-                    return field;
-                });
-                
-                // Update the set's fields
-                const allFieldsCompleted = updatedFields.every((f) => f.isCompleted);
-
-                updatedSet.fields = updatedFields;
-                updatedSet.isCompleted = allFieldsCompleted;
-                updatedSets[setNo] = updatedSet; // Update the specific set
-                
-                return { ...ex, sets: updatedSets };
-            }
-            return ex; // If not the correct exercise, return as is
-        });
-    
-        setExercises(updatedExercises);
-    };
     
     
 
