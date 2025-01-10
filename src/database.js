@@ -94,6 +94,54 @@ export const exercises = [
     ]
   },
   {
+    "id": "2b3c4d5e-6789-1011-1213-141516171819",
+    "createdAt": "2024-12-29T12:00:00.000Z",
+    "sourceID": "",
+    "updatedAt": null,
+    "source": "database",
+    "isFavorite": false,
+    "isCompleted": false,
+    "category": { "id": "strasdasgasdength", "name": "Strength", "color": "green" },
+    "author": "Stefan",
+    "name": "Test Database Exercise",
+    "description": "A suspension training exercise to build back and bicep strength.",
+    "tags": [
+      { "id": "bacytdfgk", "source": "system", "name": "Back", "color": "green" },
+      { "id": "armfxghfkls", "source": "system", "name": "Arms", "color": "blue" }
+    ],
+    "reference": "",
+    "targetGroup": [{id: 'back-group-id', name:"Back"}, {id: 'arms-group-id', name:"Arms"}],
+    "difficulty": "Intermediate",
+    "equipment": [
+      { "id": "trx-badfgnermnd", "source": "user", "name": "TRX Band", "qty": 1 }
+    ],
+    "sets": 3,
+    "duration": 5,
+    "visibility": "private",
+    "notes": "Adjust the angle to modify difficulty.",
+    "instructions": [
+      "Grab the TRX handles and lean back with arms fully extended.",
+      "Pull your body up by bending your elbows, keeping your back straight.",
+      "Lower yourself back to the starting position with control."
+    ],
+    "imageUrl": "",
+    "fields": [
+      {
+        "id": "fiejksadhkljsald2",
+        "name": "Reps",
+        "description": "Number of repetitions per set",
+        "unit": "reps",
+        "target": "10",
+        "type": "number",
+        "source": "system",
+        "value": null,
+        "isCompleted": false,
+        "validation": { "min": 0, "max": 9999 },
+        "order": 1
+      }
+    ]
+  },
+  {
     "id": "3c4d5e6f-7890-1011-1213-141516171819",
     "createdAt": "2024-12-29T12:00:00.000Z",
     "sourceID": "",

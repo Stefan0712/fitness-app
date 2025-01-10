@@ -4,12 +4,23 @@ import { IconLibrary } from "../../../IconLibrary";
 import { Link } from "react-router-dom";
 import { saveExerciseToLibrary } from "../../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Filter from "./Filter";
+import { useState } from "react";
 
 const ExploreExercises = () => {
 
     const exercisesLibrary = useSelector((state)=>state.user.exercises);
 
     const dispatch = useDispatch();
+
+    const [filteredExercises, setFilteredExercises] = useState(exercisesLibrary && exercisesLibrary.length > 0 ? exercisesLibrary : []);
+
+
+
+
+    const filterItems = (filteredItems) =>{
+        setFilteredExercises(filteredItems)
+    }
 
     return ( 
         <div className="library page">
@@ -20,7 +31,7 @@ const ExploreExercises = () => {
                     <h2>Explore Exercises</h2>
                 </div>
             </div>
-            
+                {/* <Filter allItems={exercisesLibrary} filterItems={filterItems} /> */}
                 <div className="library-items-container">
                     {exercises?.length > 0 ? (
                         exercises.map((exercise, index) => (
