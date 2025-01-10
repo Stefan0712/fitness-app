@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
+import { mockExercises } from "../../../constants/mockExercises";
+import { mockWorkouts } from "../../../constants/mockWorkouts";
 
 
 const Library = () => {
 
     const exercises = useSelector((state)=>state.user.exercises);
     const workouts = useSelector((state)=>state.user.workouts);
+
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
 
@@ -20,6 +23,16 @@ const Library = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Library</h2>
+            </div>
+            <div className="explore-buttons">
+                <Link to={'/explore-exercises'} className="explore-button">
+                    <img src={IconLibrary.Exercise} className="small-icon"></img>
+                    <p>Explore exercises</p>
+                </Link>
+                <Link to={'/explore-workouts'} className="explore-button">
+                    <img src={IconLibrary.Dumbbell} className="small-icon"></img>
+                    <p>Explore workouts</p>
+                </Link>
             </div>
             <div className="library-navigation">
                 <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? 'selected-button' : ''}>Exercises</button>
@@ -68,7 +81,6 @@ const Library = () => {
                 </div>
     
             ):''}
-            <Link to={'/browse'} className="browse-button">Browse more</Link>
         </div>
      );
 }

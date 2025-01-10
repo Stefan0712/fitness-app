@@ -15,10 +15,11 @@ import CreateExercise from './components/pages/Exercise/CreateExercise';
 import EditProfile from './components/pages/Profile/EditProfile';
 import ViewWorkout from './components/pages/Workout/ViewWorkout';
 import ViewExercise from './components/pages/Exercise/ViewExercise';
-import Browse from './components/pages/Library/Browse';
 import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';
 import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
 import FieldsPage from './components/pages/Settings/FieldsPage';
+import ExploreWorkouts from './components/pages/Library/ExploreWorkouts';
+import ExploreExercises from './components/pages/Library/ExploreExercises';
 
 
 function AppRoutes() {
@@ -44,7 +45,8 @@ function AppRoutes() {
       <Route path="/exercise/:id/view" element={<ViewExercise />} />
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
-      <Route path='/browse' element={<Browse />} />
+      <Route path='/explore-workouts' element={<ExploreWorkouts />} />
+      <Route path='/explore-exercises' element={<ExploreExercises />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/fields' element={<FieldsPage />} />

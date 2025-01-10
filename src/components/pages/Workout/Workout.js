@@ -226,6 +226,9 @@ const Workout = () => {
                     const updatedFields = updatedSet.fields.map((field) => ({
                         ...field,
                         isCompleted: true, // Mark all fields as completed
+                        value: !field.isCompleted && (!field.value || field.value === 0) 
+                            ? parseInt(field.targetValue, 10)
+                            : field.value 
                     }));
     
                     // Update the set's fields and completion status
