@@ -220,7 +220,13 @@ const Workout = () => {
                 // Find the field by id and toggle the isCompleted value
                 const updatedFields = updatedSet.fields.map((field) => {
                     if (field.id === fieldId) {
-                        return { ...field, isCompleted: !field.isCompleted }; 
+                        return { 
+                            ...field, 
+                            isCompleted: !field.isCompleted, 
+                            value: !field.isCompleted && (!field.value || field.value === 0) 
+                            ? parseInt(field.targetValue, 10)
+                            : field.value  
+                        }
                     }
                     return field;
                 });
