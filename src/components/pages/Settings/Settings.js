@@ -30,7 +30,6 @@ const Settings = ({closeSettings}) => {
             <Link to={'/fields'}>Fields </Link>
             <Link to={'/equipment'}>Equipment </Link>
             <Link to={'/tags'}>Tags </Link>
-            <Link to={'/groups'}>Groups</Link>
             </div>
             <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
         </div>
