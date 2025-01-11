@@ -18,7 +18,8 @@ const TagBody = ({data, deleteTag}) => {
             <div className={styles['tag-body']}>
                 <div className={styles['tag-color']} style={{backgroundColor: data.color}}></div>
                 <div className={styles['tag-name']}>{showEdit ? <input type="text" name="name" id="name" value={itemName} onChange={(e)=>setItemName(e.target.value)}></input> : itemName}</div>
-                <div className={styles["tag-buttons"]}>
+                {data.source !== 'system' ? (
+                    <div className={styles["tag-buttons"]}>
                     {!showEdit ? <button className={styles["tag-button"]} onClick={()=>setShowEdit(true)}><img src={IconLibrary.Edit} alt=""/></button> : <button className={styles["tag-button"]} onClick={()=>setShowEdit(false)}><img src={IconLibrary.Close} alt=""/></button>}
                     {confirmButtons ? (
                         <div className={styles["confirm-buttons"]}>
@@ -29,6 +30,7 @@ const TagBody = ({data, deleteTag}) => {
                         <button className={styles["tag-button"]} onClick={()=>setConfirmButtons(true)}><img src={IconLibrary.Delete} alt=""/></button>
                     )}
                 </div>
+                ): null}
             </div>
             
         </div>
