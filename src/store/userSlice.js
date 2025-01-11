@@ -7,6 +7,7 @@ import {defaultTags} from '../constants/defaultTags';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
 import { defaultFields } from '../constants/defaultFields';
+import { defaultEquipment } from '../constants/defaultEquipment';
 import { exercises, workouts } from '../database';
 
 const initialState = {
@@ -304,6 +305,7 @@ const initialState = {
   workouts: [...mockWorkouts],
   defaultWorkouts: workouts,
   defaultExercises: exercises,
+  equipment: [...defaultEquipment],
   message: null
 };
 
@@ -434,6 +436,15 @@ const userSlice = createSlice({
    removeTag: (state, action) => {
       state.tags = state.tags.filter(tag => tag.id !== action.payload);
    },   
+    addEquipment: (state, action) => {
+      console.log(action.payload);
+      if (!state.equipment.find(item => item.id === action.payload.id)) {
+         state.equipment.push(action.payload); // Prevent duplicates
+      }
+   },
+   removeEquipment: (state, action) => {
+      state.equipment = state.equipment.filter(item => item.id !== action.payload);
+   },
     reset: () => initialState,
   },
 });
@@ -457,7 +468,9 @@ export const {
   updatePreferences,
   addCustomField,
   addTag,
-  removeTag
+  removeTag,
+  addEquipment,
+  removeEquipment
 } = userSlice.actions;
 
 export default userSlice.reducer;
