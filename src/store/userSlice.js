@@ -305,7 +305,6 @@ const initialState = {
   workouts: [...mockWorkouts],
   defaultWorkouts: workouts,
   defaultExercises: exercises,
-  equipment: [...defaultEquipment],
   message: null
 };
 
