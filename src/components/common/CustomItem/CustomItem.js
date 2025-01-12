@@ -60,7 +60,7 @@ const CustomItem = ({data, deleteItem, updateItem}) => {
                 </div>
                 {data.source === 'user' ? (
                     <div className={styles["custom-item-buttons"]}>
-                        {showEdit ? (<button className={styles["custom-item-button"]} onClick={handleEdit}><img src={IconLibrary.Edit} alt=""/></button>) : null }
+                        {showEdit && !confirmEdit ? (<button className={styles["custom-item-button"]} onClick={handleEdit}><img src={IconLibrary.Edit} alt=""/></button>) : null }
                          
                         {confirmEdit ? (
                             <div className={styles["confirm-buttons"]}>
@@ -69,13 +69,13 @@ const CustomItem = ({data, deleteItem, updateItem}) => {
                             </div>
                         ) : null}
                     
-                        {confirmDelete ? (
+                        {confirmDelete && !showDelete && !showEdit && !confirmEdit ? (
                             <div className={styles["confirm-buttons"]}>
                                 <button className={styles["custom-item-button"]} onClick={()=>deleteItem(data.id)}><img src={IconLibrary.Yes} alt=""/></button>
                                 <button className={styles["custom-item-button"]} onClick={handleCancelDelete}><img src={IconLibrary.No} alt=""/></button>
                             </div>
                         ) : null}
-                        {showDelete ? (<button className={styles["custom-item-button"]} onClick={handleDelete}><img src={IconLibrary.Delete} alt=""/></button>) : null}
+                        {showDelete && !confirmDelete ? (<button className={styles["custom-item-button"]} onClick={handleDelete}><img src={IconLibrary.Delete} alt=""/></button>) : null}
                     </div>
                 ): null}
             </div>
