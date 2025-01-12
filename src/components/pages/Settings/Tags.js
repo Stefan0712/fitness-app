@@ -5,7 +5,7 @@ import { IconLibrary } from '../../../IconLibrary';
 import { getDateForHeader } from '../../../helpers';
 import { useEffect, useState } from 'react';
 import CustomItemCreator from '../../common/CustomItemCreator/CustomItemCreator';
-import { addTag, removeTag } from '../../../store/userSlice';
+import { addTag, removeTag, updateTag } from '../../../store/userSlice';
 
 const Tags = () => {
 
@@ -40,6 +40,9 @@ const Tags = () => {
         dispatch(removeTag(id));
 
     }
+    const editTag = (data) =>{
+        dispatch(updateTag(data));
+    }
     return ( 
         <div className={`${styles['tags-page']} ${styles['custom-items-page']} page`}>
              <div className='header'>
@@ -64,7 +67,7 @@ const Tags = () => {
                 </div>
                 {console.log(userTags)}
                 {userTags?.map((tag)=>(
-                    <CustomItem key={tag.id} data={tag} deleteTag={deleteTag} />
+                    <CustomItem key={tag.id} data={tag} deleteItem={deleteTag} updateItem={editTag} />
                 ))}  
             </div>    
             

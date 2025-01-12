@@ -481,6 +481,7 @@ export const {
   addCustomField,
   addTag,
   removeTag,
+  updateTag,
   addEquipment,
   removeEquipment,
   updateEquipment
