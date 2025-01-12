@@ -1,11 +1,11 @@
-import TagBody from '../../common/TagBody/TagBody';
+import CustomItem from '../../common/CustomItem/CustomItem';
 import styles from './Settings.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { getDateForHeader } from '../../../helpers';
 import { useEffect, useState } from 'react';
 import CustomItemCreator from '../../common/CustomItemCreator/CustomItemCreator';
-import { addEquipment, removeEquipment } from '../../../store/userSlice';
+import { addEquipment, removeEquipment, updateEquipment } from '../../../store/userSlice';
 
 const Equipment = () => {
 
@@ -42,6 +42,9 @@ const Equipment = () => {
         dispatch(removeEquipment(id));
 
     }
+    const updateItem = (data) =>{
+        dispatch(updateEquipment(data))
+    }
     return ( 
         <div className={`${styles['tags-page']} ${styles['custom-items-page']} page`}>
              <div className='header'>
@@ -56,7 +59,7 @@ const Equipment = () => {
                     <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showDefaultItems ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
                 </div>
                 {defaultItems?.map((item)=>(
-                    <TagBody key={item.id} data={item} />
+                    <CustomItem key={item.id} data={item} />
                 ))}  
             </div>    
             <div className={`${styles["default-tags"]} ${styles['items-container']} ${showUserItems ? styles['show-default'] : ''}` }>
@@ -65,7 +68,7 @@ const Equipment = () => {
                     <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showUserItems ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
                 </div>
                 {userItems?.map((item)=>(
-                    <TagBody key={item.id} data={item} deleteTag={deleteItem} />
+                    <CustomItem key={item.id} data={item} deleteItem={deleteItem} updateItem={updateItem} />
                 ))}  
             </div>    
             

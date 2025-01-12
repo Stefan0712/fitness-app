@@ -434,7 +434,14 @@ const userSlice = createSlice({
    },
    removeTag: (state, action) => {
       state.tags = state.tags.filter(tag => tag.id !== action.payload);
-   },   
+   },  
+   updateTag: (state, action) =>{
+      const index = state.tags.findIndex(tag => tag.id === action.payload.id);
+      if (index !== -1) {
+        state.tags[index] = action.payload;
+      }
+      
+   },
     addEquipment: (state, action) => {
       console.log(action.payload);
       if (!state.equipment.find(item => item.id === action.payload.id)) {
@@ -443,6 +450,12 @@ const userSlice = createSlice({
    },
    removeEquipment: (state, action) => {
       state.equipment = state.equipment.filter(item => item.id !== action.payload);
+   },
+   updateEquipment : (state, action) =>{
+      const index = state.equipment.findIndex(eq => eq.id === action.payload.id);
+      if (index !== -1) {
+        state.equipment[index] = action.payload;
+      }
    },
     reset: () => initialState,
   },
@@ -469,7 +482,8 @@ export const {
   addTag,
   removeTag,
   addEquipment,
-  removeEquipment
+  removeEquipment,
+  updateEquipment
 } = userSlice.actions;
 
 export default userSlice.reducer;

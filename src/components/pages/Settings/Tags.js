@@ -1,4 +1,4 @@
-import TagBody from '../../common/TagBody/TagBody';
+import CustomItem from '../../common/CustomItem/CustomItem';
 import styles from './Settings.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
@@ -54,7 +54,7 @@ const Tags = () => {
                     <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showDefaultTags ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
                 </div>
                 {defaultTags?.map((tag)=>(
-                    <TagBody key={tag.id} data={tag} />
+                    <CustomItem key={tag.id} data={tag} />
                 ))}  
             </div>    
             <div className={`${styles["default-tags"]} ${styles['items-container']} ${showUserTags ? styles['show-default'] : ''}` }>
@@ -64,7 +64,7 @@ const Tags = () => {
                 </div>
                 {console.log(userTags)}
                 {userTags?.map((tag)=>(
-                    <TagBody key={tag.id} data={tag} deleteTag={deleteTag} />
+                    <CustomItem key={tag.id} data={tag} deleteTag={deleteTag} />
                 ))}  
             </div>    
             

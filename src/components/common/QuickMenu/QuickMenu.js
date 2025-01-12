@@ -5,7 +5,7 @@ import { makeFirstUpperCase } from '../../../helpers';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import ManageGoalBody from '../ManageGoalBody/ManageGoalBody';
-import TagBody from '../TagBody/TagBody';
+import CustomItem from '../CustomItem/CustomItem';
 
 
 const QuickMenu = ({closeQuickmenu, showLog}) => {
@@ -115,7 +115,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     
                     <div className='items-container'>
                         {targetGroups?.map((group)=>(
-                            <TagBody data={group} />
+                            <CustomItem data={group} />
                         ))}  
                     </div>
                     <div className='goal-body create-goal-button'>
@@ -133,7 +133,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     
                     <div className='items-container'>
                         {categories?.map((category)=>(
-                            <TagBody data={category} />
+                            <CustomItem data={category} />
                         ))}  
                     </div>
                     <div className='goal-body create-goal-button'>
