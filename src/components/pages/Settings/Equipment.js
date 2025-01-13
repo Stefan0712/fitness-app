@@ -19,7 +19,6 @@ const Equipment = () => {
     const [screenToShow, setScreenToShow] = useState('custom')
 
     useEffect(()=>{
-        console.log(allItems)
         let defaultItems = [];
         let userItems = [];
         allItems.forEach((i)=>{
@@ -37,7 +36,6 @@ const Equipment = () => {
         dispatch(addEquipment(item));
     }
     const deleteItem = (id)=>{
-        console.log(id)
         dispatch(removeEquipment(id));
 
     }
