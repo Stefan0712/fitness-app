@@ -35,7 +35,7 @@ const ExerciseLog = ({closeLogWindow}) => {
     const logExercise = () =>{
         const data = {
             id: uuidv4(),
-            type: 'activity',
+            type: 'exercise',
             name: "Exercise",
             icon: IconLibrary.Exercise,
             data:{
