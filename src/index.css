@@ -390,3 +390,11 @@ body{
       width: 100%;
   }
 }
+
+
+
+.one-line-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

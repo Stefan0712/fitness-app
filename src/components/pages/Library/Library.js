@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
+import Modal from "../../common/modals/Modal";
+import ContextualMenu from "../../common/ContextualMenu/ContextualMenu";
 
 
 const Library = () => {
@@ -14,14 +16,27 @@ const Library = () => {
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
 
+    const [showModal, setShowModal] = useState(false);
+
     //TODO: Move Browse more button and maybe use only an icon
 
     return ( 
         <div className="library page">
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                <h2>Library</h2>
+                <div className="one-line-header">
+                    <h2>Library</h2>
+                    <button onClick={()=>setShowModal(showModal=>!showModal)} className="clear-button">
+                        <img src={showModal ? IconLibrary.No : IconLibrary.Add} className="small-icon" alt="create new item"></img>
+                    </button>
+                </div>
             </div>
+            {showModal ? (
+                <ContextualMenu closeMenu={()=>setShowModal(false)} buttons={[
+                    <Link to={'/create-workout'}>New Workout</Link>,
+                    <Link to={'/create-exercise'}>New Exercise</Link>]} 
+                />
+            ):null}
             <div className="explore-buttons">
                 <Link to={'/explore-exercises'} className="explore-button">
                     <img src={IconLibrary.Exercise} className="small-icon"></img>

@@ -7,6 +7,8 @@
     display: flex;
     flex-direction: column;
     animation: slideUpMenu 0.1s;
+    border-top: 1px solid rgba(255, 255, 255, 0.26);
+    border-radius: 5px;
 }
 .contextual-menu .buttons button,
 .contextual-menu .buttons a,

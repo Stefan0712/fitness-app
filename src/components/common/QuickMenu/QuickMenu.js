@@ -28,10 +28,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
 
                 <div className='quick-menu-screen'>
                     <h1>Quick Menu</h1>
-                    <div className='new-items-buttons'>
-                        <Link onClick={closeQuickmenu} to={'/create-workout'} className="orange-button large-button">Create Workout</Link>
-                        <Link onClick={closeQuickmenu} to={'/create-exercise'} className="orange-button large-button">Create Exercise</Link>
-                    </div>
+                  
                     <h2>Tools</h2>
                     <button className='quick-button' onClick={()=>showLog('stopwatch')}>
                         <img src={IconLibrary.Stopwatch} alt=''></img>
