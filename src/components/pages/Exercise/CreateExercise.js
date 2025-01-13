@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addExercise } from "../../../store/userSlice";
 import {useNavigate} from 'react-router-dom';
 import { defaultTags } from "../../../constants/defaultTags";
-import { defaultTargetGroups } from "../../../constants/defaultTargetGroups";
+import { muscles as defaultTargetGroups } from "../../../constants/defaultMuscles";
 import { defaultFields } from "../../../constants/defaultFields";
 import { defaultEquipment } from "../../../constants/defaultEquipment";
 import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator";

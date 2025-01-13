@@ -2,12 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { convertTimestampToDate, getCurrentDay } from '../helpers';
 import { v4 as uuidv4 } from 'uuid';
 import { defaultCategories } from '../constants/defaultCategories';
-import { defaultTargetGroups } from '../constants/defaultTargetGroups';
 import {defaultTags} from '../constants/defaultTags';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
-import { defaultFields } from '../constants/defaultFields';
-import { defaultEquipment } from '../constants/defaultEquipment';
 import { exercises, workouts } from '../database';
 
 const initialState = {
@@ -300,7 +297,6 @@ const initialState = {
   tags: [...defaultTags],
   fields: [],
   categories: [...defaultCategories],
-  targetGroups: [...defaultTargetGroups],
   exercises: [...mockExercises],
   workouts: [...mockWorkouts],
   defaultWorkouts: workouts,

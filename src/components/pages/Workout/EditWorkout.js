@@ -5,16 +5,14 @@ import { useParams } from "react-router-dom";
 import { getDateForHeader } from "../../../helpers.js";
 import './workout.css';
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkout } from "../../../store/userSlice.js";
 import {IconLibrary} from '../../../IconLibrary.js';
 import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../../database.js";
 
 //default values
 import { defaultTags } from "../../../constants/defaultTags.js";
-import { defaultTargetGroups } from "../../../constants/defaultTargetGroups.js";
+import { muscles as defaultTargetGroups } from "../../../constants/defaultMuscles.js";
 import {defaultEquipment} from "../../../constants/defaultEquipment.js";
 import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
 

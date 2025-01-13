@@ -1,7 +1,7 @@
 .exercise-log{
     width: 100%;
-    bottom: 0px;
-    height: 100vh;
+    bottom: 75px;
+    height: calc(100vh - 75px);
     position: absolute;
     background-color: #1A1A1B;
     left: 0px;
@@ -13,6 +13,7 @@
     animation-duration: 0.1s;
     z-index: 10;
     gap: 10px;
+    align-items: center;
 }
 @keyframes exerciseLogAnimation {
     0%{
@@ -60,7 +61,7 @@
     grid-template-columns: 4fr 2fr 2fr 1fr;
     grid-template-rows: 1fr;
     margin-top: 20px;
-    width: 90%;
+    width: 100%;
     align-items: center;
 }
 .exercise-log .fields{
@@ -81,5 +82,13 @@
 .exercise-log .large-button{
     margin-top: auto;
     margin-bottom: 20px;
+}
+.exercise-log .screen-toggle-buttons{
+    margin-top: 20px;
+    background-color: #111214;
+}
+.exercise-log .screens-container,
+.exercise-log .screen-toggle-buttons{
+    width: 90%;
 }
 

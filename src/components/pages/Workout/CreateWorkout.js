@@ -11,7 +11,7 @@ import { exercises as databaseExercises } from "../../../database.js";
 
 //default values
 import { defaultTags } from "../../../constants/defaultTags.js";
-import { defaultTargetGroups } from "../../../constants/defaultTargetGroups.js";
+import { muscles as defaultTargetGroups } from "../../../constants/defaultMuscles.js";
 import {defaultEquipment} from "../../../constants/defaultEquipment.js";
 import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
 

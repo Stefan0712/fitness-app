@@ -330,7 +330,6 @@ body{
 .screen-toggle-buttons{
   height: 40px;
   width: 100%;
-  align-self: start;
   display: flex;
   align-items: center;
   background-color: #1A1A1B;
