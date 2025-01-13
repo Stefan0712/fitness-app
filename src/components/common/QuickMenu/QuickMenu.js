@@ -34,18 +34,7 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                         <img src={IconLibrary.Stopwatch} alt=''></img>
                         <p>Stopwatch</p>
                     </button>
-                    <button className='quick-button' onClick={()=>setQuickMenuScreen('tags')}>
-                        <img src={IconLibrary.Stopwatch} alt=''></img>
-                        <p>Tags</p>
-                    </button>
-                    <button className='quick-button' onClick={()=>setQuickMenuScreen('categories')}>
-                        <img src={IconLibrary.Stopwatch} alt=''></img>
-                        <p>Categories</p>
-                    </button>
-                    <button className='quick-button' onClick={()=>setQuickMenuScreen('targetGroups')}>
-                        <img src={IconLibrary.Stopwatch} alt=''></img>
-                        <p>Target Groups</p>
-                    </button>
+
                     <h2>Quick Logs</h2>
                     <button className='quick-button' onClick={()=>showLog("food")} key={"food"}>
                         <img src={IconLibrary.Food} alt=''></img>
@@ -104,42 +93,8 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
                     
                 </div>
             ) : ''}
-            {quickMenuScreen === 'targetGroups' ? (
-
-                <div className='quick-menu-screen custom-elements'>
-                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.Back} className='small-icon white-icon'></img></button>
-                    <h1>Manage Target Groups</h1>
-                    
-                    <div className='items-container'>
-                        {targetGroups?.map((group)=>(
-                            <CustomItem data={group} />
-                        ))}  
-                    </div>
-                    <div className='goal-body create-goal-button'>
-                        <p>New Target Group</p>
-                    </div> 
-                    
-                </div>
-            ) : ''}
            
-            {quickMenuScreen === 'categories' ? (
-
-                <div className='quick-menu-screen custom-elements'>
-                    <button className='quick-menu-back-button' onClick={()=>setQuickMenuScreen('menu')}><img src={IconLibrary.Back} className='small-icon white-icon'></img></button>
-                    <h1>Manage Categories</h1>
-                    
-                    <div className='items-container'>
-                        {categories?.map((category)=>(
-                            <CustomItem data={category} />
-                        ))}  
-                    </div>
-                    <div className='goal-body create-goal-button'>
-                        <p>New Category</p>
-                    </div> 
-                    
-                </div>
-            ) : ''}
-            
+        
             
            
             
