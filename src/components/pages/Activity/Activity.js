@@ -5,7 +5,7 @@ import ViewLog from "../../common/LogPages/ViewLog";
 import { BarChart, Bar, XAxis, LabelList, ResponsiveContainer } from 'recharts';
 import styles from './Activity.module.css';
 import ExerciseLogView from "../../common/LogPages/ExerciseLogView";
-
+import FoodLogInfo from '../../common/FoodLog/FoodLogInfo';
 
 
 
@@ -143,7 +143,7 @@ const Activity = () => {
                         <div className={styles['logs-container']}>
                             {item?.logs && item.logs && item.logs.length > 0 ? (
                                 item.logs.map((log, index)=>(
-                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log.data))}>
+                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log))}>
                                         <img className="small-icon" src={log.icon}></img>
                                         <div className={styles["log-info"]}>
                                             <p>{log.name}</p>
@@ -161,7 +161,8 @@ const Activity = () => {
                 ))}
             </div>
 
-                {showInfo && showInfo.name ? <ExerciseLogView data={showInfo} close={()=>setShowInfo(false)} /> : null }
+                {showInfo && showInfo.type === 'exercise' ? <ExerciseLogView data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
+                {showInfo && showInfo.type === 'food' ? <FoodLogInfo data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
 
         </div>
     );
