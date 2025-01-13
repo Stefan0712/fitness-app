@@ -12,8 +12,10 @@
     animation-name: exerciseLogAnimation;
     animation-duration: 0.1s;
     z-index: 10;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
+    padding: 15px;
+    overflow-y: auto;
 }
 @keyframes exerciseLogAnimation {
     0%{
@@ -27,7 +29,6 @@
     width: 30px;
     height: 30px;
     background-color: transparent;
-    ;
 }
 .exercise-log .top-bar button{
     background-color: transparent;
@@ -39,17 +40,17 @@
 .exercise-log .top-bar{
     width: 100%;
     height: 50px;
-    padding-top: 20px;
+    min-height: 50px;
     display: flex;
     align-items: center;
-    padding-left: 20px;
     margin-bottom: 20px;
 }
 .exercise-log input,
 .exercise-log select,
 .exercise-log option{
-    width: 90%;
+    width: 100%;
     height: 40px;
+    min-height: 40px;
     border: none;
     background-color: white;
     border-radius: 5px;
@@ -67,7 +68,7 @@
 .exercise-log .fields{
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
 
 }
 .exercise-log .field-body{
@@ -78,10 +79,21 @@
     padding: 0px 10px;
     gap: 10px;
     height: 40px;
+}.exercise-log .exercise-main-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 150px;
+    min-height: 150px;
+}
+.exercise-main-info .same-line-space input{
+    width: calc(50% - 5px);
 }
 .exercise-log .large-button{
     margin-top: auto;
     margin-bottom: 20px;
+    min-height: 50px;
 }
 .exercise-log .screen-toggle-buttons{
     margin-top: 20px;
@@ -89,6 +101,58 @@
 }
 .exercise-log .screens-container,
 .exercise-log .screen-toggle-buttons{
-    width: 90%;
+    width: 100%;
 }
-
+.saved-values-container{
+    width: 100%;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.exercise-log h3{
+    width: 100%;
+}
+.saved-field{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #111214;
+    padding: 5px 10px;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    border-radius: 5px;
+}
+.saved-field-name{
+    margin-right: auto;
+}
+.saved-field-unit{
+    min-width: 50px;
+    padding: 0 10px;
+    text-align: end;
+    margin-right: 15px;
+}
+.collapsed-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.saved-fields-container{
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.1s;
+}
+.saved-fields-container.expand-saved-fields{
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    transition: all 0.1s;
+}

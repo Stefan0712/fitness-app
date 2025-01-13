@@ -397,3 +397,17 @@ body{
   justify-content: space-between;
   align-items: center;
 }
+/* used to rotate arrow that is default pointed to the right */
+.left{
+  transform: rotateZ(180deg);
+  transition: all 0.1s;
+}
+.down{
+  transform: rotateZ(90deg);
+  transition: all 0.1s;
+}
+.same-line-space{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
