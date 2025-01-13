@@ -6,6 +6,8 @@ import {defaultTags} from '../constants/defaultTags';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
 import { exercises, workouts } from '../database';
+import CaloriesIcon from '../assets/calories.svg';
+import StepsIcon from '../assets/steps.svg';
 
 const initialState = {
   userId: uuidv4(),
@@ -15,13 +17,13 @@ const initialState = {
         name: 'Calories',
         unit: 'kcal',
         target: '1400',
-        icon: '/icons/calories.svg'
+        icon: CaloriesIcon
       },
       {
         name: 'Steps',
         unit: 'steps',
         target: '6000',
-        icon: '/icons/steps.svg'
+        icon: StepsIcon
       }
     ],
     name: 'Stefan',
