@@ -36,9 +36,8 @@ const CustomField = ({field}) => {
     }
     return ( 
         <div className={`custom-field ${isExpanded ? 'expanded-custom-field' : ''}`} key={field.id}>
-            <div className="custom-field-header">
+            <div className="custom-field-header" onClick={toggleIsExpanded}>
                 {showEdit ? <fieldset><labe>Name</labe><input type="text" value={name} onChange={(e)=>setName(e.target.value)}></input></fieldset> : <p>{field.name}</p>}
-                <img onClick={toggleIsExpanded} src={IconLibrary.InfoCircle} className="small-icon" alt="info"></img>
             </div>
             <div className="custom-field-properties">
                 <fieldset>

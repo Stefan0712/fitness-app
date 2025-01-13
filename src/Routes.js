@@ -53,6 +53,7 @@ function AppRoutes() {
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />
       <Route path='/equipment' element={<Equipment />} />
+      <Route path='/fields' element={<FieldsPage />} />
 
       
     </Routes>

@@ -422,6 +422,7 @@ const userSlice = createSlice({
         id: uuidv4(),
         value: null, 
         isCompleted: false, 
+        type: action.payload.type || 'number',
         source: 'user'
       };
       state.fields = [...state.fields, customField]

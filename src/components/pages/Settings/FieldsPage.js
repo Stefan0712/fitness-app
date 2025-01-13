@@ -7,48 +7,45 @@ import { getDateForHeader } from "../../../helpers";
 import { defaultFields } from "../../../constants/defaultFields";
 import { IconLibrary } from "../../../IconLibrary";
 import CustomField from "../../common/CustomField/CustomField";
-import NewFieldModal from "../../common/modals/NewFieldModal";
+import NewField from "./NewField";
 
 const FieldsPage = () => {
     //TODO: Handle edit and delete, add comments, add transitions, maybe make it prettier
     const customFields = useSelector((state)=>state.user.fields);
 
-    const [modal, setModal] = useState(null);
-    const [showDefaultFields, setShowDefaultFields] = useState(false);
+    const [showCreateField, setShowCreateField] = useState(null);
+    const [screenToShow, setScreenToShow] = useState('custom')
 
-    const handleCheckboxChange = (event) => {
-        setShowDefaultFields(event.target.checked); 
-    };
-
-    const closeModal = () =>{
-        setModal(null);
-    }
-    const showModal = () =>{
-        setModal(<NewFieldModal closeModal={closeModal} />)
-    }
+  
     return ( 
         <div className="fields-page page">
-            {modal ? modal : null}
+            
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                <h2>Custom Fields</h2>
-                {!modal ? <button onClick={showModal} className="clear-button new-field-button"><img className="small-icon" src={IconLibrary.Plus} /></button> : null}
+                <div className="one-line">
+                    <h2>Custom Fields</h2>
+                    <button className="clear-button" onClick={()=>setShowCreateField(true)}><img src={IconLibrary.Add} className="small-icon" alt="create field"></img></button>
+                </div>
             </div>
-            <div className="filters">
-                <fieldset>
-                    <label>Show Default Fields</label>
-                    <input type="checkbox" onChange={handleCheckboxChange} checked={showDefaultFields} />
-                </fieldset>
+            <div className="fields-screen-buttons">
+                <button onClick={()=>setScreenToShow('custom')} className={screenToShow === 'custom' ? 'selected-button' : ''}>Custom Fields ({customFields.length})</button>
+                <button onClick={()=>setScreenToShow('default')} className={screenToShow === 'default' ? 'selected-button' : ''}>Default Fields ({defaultFields.length})</button>
             </div>
-            
-            <div className={`fields-container ${showDefaultFields ? 'expand-container' : ''}`}>
-                <div className="fields-container-header"><p>Default Fields</p><p>{defaultFields.length}</p></div>
-                {defaultFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
+            <div className="screens-container">
+                {screenToShow === 'custom' ? (
+                    <div className={`fields-container left-container`}>
+                        {customFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
+                    </div>
+                ):null}
+                {screenToShow === 'default' ? (
+                    <div className={`fields-container right-container`}>
+                        {defaultFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
+                    </div>
+                ): null}
             </div>
-            <div className={`fields-container expand-container`}>
-                <div className="fields-container-header"><p>Custom Fields</p><p>{customFields.length}</p></div>
-                {customFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
-            </div>
+            {showCreateField ? (
+                <NewField closeModal={()=>setShowCreateField(false)} />
+            ) : null}
         </div>
      );
 }
