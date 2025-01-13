@@ -11,6 +11,7 @@
     animation-fill-mode: forwards;
     position: absolute;
     top: 0px;
+    left: 0px;
     z-index: 10;
 }
 @keyframes errorAnimation {

@@ -15,7 +15,6 @@ const NewField = ({closeModal}) => {
     const [target, setTarget] = useState(0);
 
     const [error, setError] = useState(null)
-    const [isShown, setIsShown] = useState(false);
 
     const handleConfirm = () =>{
         if(!name && name.length < 3){
@@ -34,7 +33,6 @@ const NewField = ({closeModal}) => {
         }
     }
     const addError = (type) => {
-        console.log(type);
     
         if (type === 'name') {
             setError('Invalid Name');
