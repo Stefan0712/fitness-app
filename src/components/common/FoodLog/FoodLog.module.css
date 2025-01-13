@@ -1,0 +1,153 @@
+.food-log-form{
+    width: 100%;
+    height: calc(100vh - 75px);
+    position: absolute;
+    background-color: #1A1A1B;
+    left: 0px;
+    bottom: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border-top: rgba(211, 211, 211, 0.3);
+    z-index: 15;
+    animation-name: quickMenuAnimation;
+    animation-duration: 0.1s;
+    padding: 20px 15px;
+}
+@keyframes quickMenuAnimation {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: calc(100vh - 75px);
+    }
+}
+
+.top-bar img{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+}
+.top-bar button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.top-bar{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+input{
+    height: 40px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: white;
+    color: gray;
+    padding-left: 15px;
+}
+.name{
+    width: 100% !important;
+}
+.main-info{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.macros-container{
+    height: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    overflow: hidden;
+    transition: all 0.1s;
+}
+.macros-container.expand-macros{
+    height: 160px;
+    transition: all 0.1s;
+}
+.main-info input,
+.macros-container input,
+.food-type-select{
+    width: calc(50% - 10px);
+    color: black;
+}
+.log-food-btn{
+    width: 120px;
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: 25px;
+}
+h3{
+    width: 100%;
+}
+.notes{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    align-items: center;
+}
+.notes textarea{
+    height: 100px;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    padding: 5px 10px;
+}
+.notes input{
+    width: 100%;
+}
+option{
+    color: black;
+}
+.includeInput{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.includeInput label{
+    width: auto;
+    font-size: 1.2rem;
+}
+.includeInput input{
+    height: 25px;
+    width: 25px;
+}
+.collapsed-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.left{
+    transform: rotateZ(180deg);
+    transition: all 0.1s;
+}
+.down{
+    transform: rotateZ(90deg);
+    transition: all 0.1s;
+}
+.logs-history{
+    width: 100%;
+    height: 0px;
+    background-color: #111214;
+    overflow: hidden;
+    transition: all 0.1s;
+}
+.logs-history.expand-history{
+    height: 250px;
+    min-height: 250px;
+    overflow-y: auto;
+    transition: all 0.1s;
+}

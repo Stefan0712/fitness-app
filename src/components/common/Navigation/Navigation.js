@@ -10,6 +10,7 @@ import LogForm from '../LogPages/LogForm';
 import FoodLogForm from '../LogPages/FoodLogForm';
 import ExerciseLog from '../LogPages/ExerciseLog';
 import Stopwatch from '../Stopwatch/Stopwatch';
+import FoodLog from '../FoodLog/FoodLog';
 
 
 
@@ -30,7 +31,7 @@ const Navigation = () => {
     const showLog = (type) =>{
         closeQuickmenu();
         if(type==='food'){
-            setLogWindow(<FoodLogForm closeLogWindow={hideLog}/>)
+            setLogWindow(<FoodLog closeLogWindow={hideLog}/>)
         }else if(type==='exercise'){
             setLogWindow(<ExerciseLog closeLogWindow={hideLog}/>)
         }else if(type==='stopwatch'){

@@ -56,6 +56,9 @@ import InfoCircle from './assets/infoCircle.svg';
 import Search from './assets/search.svg';
 import Skip from './assets/skip.svg';
 import Circle from './assets/circle.svg';
+import Meal from './assets/meal.svg';
+import Quantity from './assets/quantity.svg';
+import Note from './assets/note.svg';
 
 
 
@@ -112,5 +115,8 @@ export const IconLibrary = {
     Workout,
     Tag,
     Skip,
-    Circle
+    Circle,
+    Meal,
+    Quantity,
+    Note
 }
