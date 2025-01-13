@@ -88,7 +88,7 @@
     min-height: 150px;
 }
 .exercise-main-info .same-line-space input{
-    width: calc(50% - 5px);
+    width: calc(33% - 5px);
 }
 .exercise-log .large-button{
     margin-top: auto;

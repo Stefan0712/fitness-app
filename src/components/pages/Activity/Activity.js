@@ -141,7 +141,7 @@ const Activity = () => {
                         <div className={styles['logs-container']}>
                             {item?.logs && item.logs && item.logs.length > 0 ? (
                                 item.logs.map((log, index)=>(
-                                    <div key={index+"log"} className={styles["log-body"]}>
+                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>console.log(log))}>
                                         <img className="small-icon" src={log.icon}></img>
                                         <div className={styles["log-info"]}>
                                             <p>{log.name}</p>

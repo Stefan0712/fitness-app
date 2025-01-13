@@ -7,7 +7,6 @@ import {IconLibrary} from '../../../IconLibrary';
 
 import QuickMenu from '../QuickMenu/QuickMenu';
 import LogForm from '../LogPages/LogForm';
-import FoodLogForm from '../LogPages/FoodLogForm';
 import ExerciseLog from '../LogPages/ExerciseLog';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog';
