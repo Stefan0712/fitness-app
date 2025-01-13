@@ -129,9 +129,9 @@ const Activity = () => {
             </div>
             <h3>Logs</h3>
             {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
-            <div className={styles["logs-history-buttons"]}>
-                <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''}`}>Current Week</button>
-                <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''}`}>Last 7 Days</button>
+            <div className='screen-toggle-buttons'>
+                <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? 'selected-button': ''}`}>Current Week</button>
+                <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? 'selected-button' : ''}`}>Last 7 Days</button>
             </div>
             <div className={styles["history-container"]}>
                 {weekData?.map((item, index) => (

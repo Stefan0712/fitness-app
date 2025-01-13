@@ -32,7 +32,7 @@ const Library = () => {
                     <p>Explore workouts</p>
                 </Link>
             </div>
-            <div className="library-navigation">
+            <div className="screen-toggle-buttons">
                 <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? 'selected-button' : ''}>Exercises</button>
                 <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? 'selected-button' : ''}>Workouts</button>
             </div>
