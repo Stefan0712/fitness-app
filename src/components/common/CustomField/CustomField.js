@@ -36,7 +36,7 @@ const CustomField = ({field}) => {
     }
     return ( 
         <div className={`custom-field ${isExpanded ? 'expanded-custom-field' : ''} ${showEdit ? 'expanded-custom-field-edit' : ''}`} key={field.id}>
-            <div className="custom-field-header" onClick={toggleIsExpanded}>
+            <div className="custom-field-header" onClick={!showEdit ? toggleIsExpanded : null}>
                 {showEdit ? <fieldset><labe>Name</labe><input type="text" value={name} onChange={(e)=>setName(e.target.value)}></input></fieldset> : <p>{field.name}</p>}
             </div>
             <div className="custom-field-properties">
