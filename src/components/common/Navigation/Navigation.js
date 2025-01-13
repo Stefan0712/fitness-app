@@ -60,7 +60,13 @@ const Navigation = () => {
     const closeExerciseLogs = () =>{
         setShowExerciseLog(false)
     }
-
+    const closeAll = () =>{
+        closeExerciseLogs();
+        closeStopwatch();
+        closeFoodLogs();
+        closeGoals();
+        closeQuickmenu();
+    }
     return ( 
         <nav>
             {showGoals ? <Goals closeMenu={closeGoals}/> : null}
@@ -72,22 +78,22 @@ const Navigation = () => {
 
 
             {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch}  />) : ''}
-            <Link to='/dashboard' className={styles['nav-button']}>
+            <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
             </Link>
-            <Link to='/library'  className={styles['nav-button']}>
+            <Link to='/library' onClick={closeAll}  className={styles['nav-button']}>
                 <img src={IconLibrary.List} alt=''></img>
                 <p>Library</p>
             </Link>
             <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={toggleQuickmenu}>
                 <button><img src={IconLibrary.Plus} alt=''></img></button>
             </div>
-            <Link to='/logs'  className={styles['nav-button']}>
+            <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Clipboard} alt=''></img>
                 <p>Activity</p>
             </Link>
-            <Link to='/profile'  className={styles['nav-button']}>
+            <Link to='/profile' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Profile} alt=''></img>
                 <p>Profile</p>
             </Link>

@@ -20,8 +20,8 @@ const Goals = () => {
                 <img src={IconLibrary.Edit} className='small-icon' alt='edit goals'/>
             </div>
             <div className={styles.content}>
-                {goals?.map((goal)=>(
-                    <div className={styles.goal} onClick={()=>setLogForm(goal.name)}>
+                {goals?.map((goal, index)=>(
+                    <div className={styles.goal} key={index} onClick={()=>setLogForm(goal.id)}>
                         <img src={goal.icon} className={styles['goal-icon']}></img>
                         {console.log(goal.icon)}
                         <p className={styles.name}>{goal.name}</p>
@@ -29,7 +29,7 @@ const Goals = () => {
                     </div>
                 ))}
             </div>
-            {logForm ? <GoalsLog type={logForm} closeLogWindow={()=>setLogForm(false)}/> : null}
+            {logForm ? <GoalsLog id={logForm} closeLogWindow={()=>setLogForm(false)}/> : null}
         </div>
      );
 }

@@ -36,10 +36,11 @@ const initialState = {
     weight: 80,
     bio: 'I swear I am real',
   },
-  activity: {'2025-01-010': {
+  activity: {'2025-01-13': {
     logs: [
       {
-        timestamp: '2025-01-010T16:18:05.204Z',
+        timestamp: '2025-01-013T16:18:05.204Z',
+        id: 'bc8d7239-4396-4cc9-b052-6105e3728a15',
         type: 'goal',
         name: 'Calories',
         data: {
@@ -48,7 +49,7 @@ const initialState = {
         icon: '/icons/calories.svg'
       },
       {
-        timestamp: '2025-01-010T17:30:33.750Z',
+        timestamp: '2025-01-013T17:30:33.750Z',
         type: 'food',
         name: 'Food Log',
         data: {
@@ -68,7 +69,7 @@ const initialState = {
         icon: '/icons/food.svg'
       },
       {
-        timestamp: '2025-01-010T17:31:41.399Z',
+        timestamp: '2025-01-013T17:31:41.399Z',
         name: 'Food Log',
         type: 'food',
         data: {
@@ -88,7 +89,7 @@ const initialState = {
         icon: '/icons/food.svg'
       },
       {
-        timestamp: '2025-01-010T18:35:17.896Z',
+        timestamp: '2025-01-010T13:35:17.896Z',
         name: 'Exercise',
         type: 'activity',
         data: {
@@ -115,12 +116,14 @@ const initialState = {
     goals: [
       {
         name: 'Calories',
+        id: 'bc8d7239-4396-4cc9-b052-6105e3728a15',
         unit: 'kcal',
         target: '1400',
         icon: '/icons/calories.svg'
       },
       {
         name: 'Steps',
+        id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
         unit: 'steps',
         target: '6000',
         icon: '/icons/steps.svg'
