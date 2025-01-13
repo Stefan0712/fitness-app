@@ -427,7 +427,7 @@ const userSlice = createSlice({
       };
       state.fields = [...state.fields, customField]
     },
-    removeCustomField: (state, action) => {
+    deleteCustomField: (state, action) => {
        state.fields = state.fields.filter(field => field.id !== action.payload);
     },  
     updateCustomField: (state, action) =>{
@@ -490,12 +490,14 @@ export const {
   removeLog,
   updatePreferences,
   addCustomField,
+  updateCustomField,
+  deleteCustomField,
   addTag,
   removeTag,
   updateTag,
   addEquipment,
   removeEquipment,
-  updateEquipment
+  updateEquipment,
 } = userSlice.actions;
 
 export default userSlice.reducer;
