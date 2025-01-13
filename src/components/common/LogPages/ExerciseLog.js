@@ -22,7 +22,7 @@ const ExerciseLog = ({closeLogWindow}) => {
     
     const [name, setName] = useState('');
     const [time, setTime] = useState('');
-    const [targetGroup, setTargetGroup] = useState('');
+    const [targetGroup, setTargetGroup] = useState('Arms');
     const [duration, setDuration] = useState('');
     const [sets, setSets] = useState(1);
     const [savedValues, setSavedValues] = useState([]);

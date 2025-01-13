@@ -4,13 +4,13 @@ import { getDateForHeader, getWeekRange, getCurrentDay } from "../../../helpers"
 import ViewLog from "../../common/LogPages/ViewLog";
 import { BarChart, Bar, XAxis, LabelList, ResponsiveContainer } from 'recharts';
 import styles from './Activity.module.css';
+import ExerciseLogView from "../../common/LogPages/ExerciseLogView";
 
 
 
 
 const Activity = () => {
     const goals = useSelector((state)=>state.user.userData.goals);
-    const [logs, setLogs] = useState([]);
     const [showLog, setShowLog] = useState(null);
     const [intervalPart, setIntervalPart] = useState('last-seven-days')
     const activity = useSelector((state)=>state.user.activity)
@@ -18,6 +18,8 @@ const Activity = () => {
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
     const [graphData, setGraphData] = useState(null)
     const [graphType, setGraphType] = useState('Steps');
+
+    const [showInfo, setShowInfo] = useState(null);
 
 
     
@@ -141,7 +143,7 @@ const Activity = () => {
                         <div className={styles['logs-container']}>
                             {item?.logs && item.logs && item.logs.length > 0 ? (
                                 item.logs.map((log, index)=>(
-                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>console.log(log))}>
+                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log.data))}>
                                         <img className="small-icon" src={log.icon}></img>
                                         <div className={styles["log-info"]}>
                                             <p>{log.name}</p>
@@ -159,6 +161,7 @@ const Activity = () => {
                 ))}
             </div>
 
+                {showInfo && showInfo.name ? <ExerciseLogView data={showInfo} close={()=>setShowInfo(false)} /> : null }
 
         </div>
     );

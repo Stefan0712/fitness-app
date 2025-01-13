@@ -1,5 +1,4 @@
-import styles from './FoodLogInfo.module.css'
-import { makeFirstUpperCase } from '../../../helpers';
+import styles from './ExerciseLogView.module.css'
 import { IconLibrary } from '../../../IconLibrary';
 import {muscles} from '../../../constants/defaultMuscles';
 
@@ -7,10 +6,8 @@ import {muscles} from '../../../constants/defaultMuscles';
 
 const ExerciseLogView = ({data, close}) => {
 
-    const findMuscleName = (value) =>{
-        return muscles.find(item =>item.value === value).name;
-    }
-
+    const findMuscleName = (value) => muscles.find(item => item.value === value)?.name || null;
+    
     return ( 
         <div className={styles['log-info']}>
             <div className={styles.name}>
@@ -25,7 +22,7 @@ const ExerciseLogView = ({data, close}) => {
                         <p>{data.time}</p>
                     </div>
                     <div className={styles['meta-item']}>
-                        <img src={IconLibrary.Meal}></img>
+                        <img src={IconLibrary.Muscle}></img>
                         <p>{findMuscleName(data.targetGroup)}</p>
                     </div>
                     <div className={styles['meta-item']}>
@@ -38,10 +35,10 @@ const ExerciseLogView = ({data, close}) => {
                     </div>
                 </div>
                 <div className={styles.fields}>
-                    {filteredEntries.map((item, index)=>(
+                    {data.savedValues.map((item, index)=>(
                         <div className={styles.field} key={index}>
-                            <p>{makeFirstUpperCase(item.key)}</p>
-                            <p>{item.value}</p>
+                            <p>{item.name}</p>
+                            <p>{item.sets} x {item.value} {item.unit}</p>
                         </div>
                     ))}
                 </div>
