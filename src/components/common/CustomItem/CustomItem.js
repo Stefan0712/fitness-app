@@ -1,6 +1,5 @@
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
-import '../QuickMenu/quickMenu.css';
 import styles from './CustomItem.module.css';
 
 

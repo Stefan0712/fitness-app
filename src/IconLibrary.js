@@ -59,6 +59,7 @@ import Circle from './assets/circle.svg';
 import Meal from './assets/meal.svg';
 import Quantity from './assets/quantity.svg';
 import Note from './assets/note.svg';
+import Goals from './assets/goals.svg';
 
 
 
@@ -118,5 +119,6 @@ export const IconLibrary = {
     Circle,
     Meal,
     Quantity,
-    Note
+    Note,
+    Goals
 }
