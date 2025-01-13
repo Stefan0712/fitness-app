@@ -61,14 +61,14 @@ const Tags = () => {
             <div className='screens-container'>
                 {screenToShow === 'custom' ? (
                     <div className={`screen left`}>
-                        {defaultTags?.map((tag)=>(
+                        {userTags?.map((tag)=>(
                             <CustomItem key={tag.id} data={tag} />
                         ))}  
                     </div>  
                 ):null}  
                 {screenToShow === "default" ? (
                     <div className={`screen right`}>
-                        {userTags?.map((tag)=>(
+                        {defaultTags?.map((tag)=>(
                             <CustomItem key={tag.id} data={tag} deleteItem={deleteTag} updateItem={editTag} />
                         ))}  
                     </div>  
