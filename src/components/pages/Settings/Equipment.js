@@ -16,8 +16,7 @@ const Equipment = () => {
     const [defaultItems, setDefaultItems] = useState([]);
     const [userItems, setUserItems] = useState([]);
 
-    const [showDefaultItems, setShowDefaultItems] = useState(false);
-    const [showUserItems, setShowUserItems] = useState(false);
+    const [screenToShow, setScreenToShow] = useState('custom')
 
     useEffect(()=>{
         console.log(allItems)
@@ -53,24 +52,27 @@ const Equipment = () => {
             </div>
             <CustomItemCreator key='custom-items-fields' addItem={createItem} type={'equipment'} />
 
-            <div className={`${styles["default-tags"]} ${styles['items-container']} ${showDefaultItems ? styles['show-default'] : ''}` }>
-                <div className={styles['container-header']} onClick={()=>setShowDefaultItems(showDefaultItems=>!showDefaultItems)}>
-                    <p>Default Equipment ({defaultItems.length})</p>
-                    <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showDefaultItems ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
-                </div>
-                {defaultItems?.map((item)=>(
-                    <CustomItem key={item.id} data={item} />
-                ))}  
-            </div>    
-            <div className={`${styles["default-tags"]} ${styles['items-container']} ${showUserItems ? styles['show-default'] : ''}` }>
-                <div className={styles['container-header']} onClick={()=>setShowUserItems(showUserItems=>!showUserItems)}>
-                    <p>Default Equipment ({userItems.length})</p>
-                    <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showUserItems ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
-                </div>
-                {userItems?.map((item)=>(
-                    <CustomItem key={item.id} data={item} deleteItem={deleteItem} updateItem={updateItem} />
-                ))}  
-            </div>    
+            <div className="screen-toggle-buttons">
+                <button onClick={()=>setScreenToShow('custom')} className={screenToShow === 'custom' ? 'selected-button' : ''}>Custom Tags ({userItems.length})</button>
+                <button onClick={()=>setScreenToShow('default')} className={screenToShow === 'default' ? 'selected-button' : ''}>Default Tags ({defaultItems.length})</button>
+            </div>
+            <div className='screens-container'>
+                {screenToShow === 'custom' ? (
+                    <div className={`screen left`}>
+                        {userItems?.map((tag)=>(
+                            <CustomItem key={tag.id} data={tag} />
+                        ))}  
+                    </div>  
+                ):null}  
+                {screenToShow === "default" ? (
+                    <div className={`screen right`}>
+                        {defaultItems?.map((tag)=>(
+                            <CustomItem key={tag.id} data={tag} deleteItem={deleteItem} updateItem={updateItem} />
+                        ))}  
+                    </div>  
+                ) : null}
+              
+            </div> 
             
             
                  
