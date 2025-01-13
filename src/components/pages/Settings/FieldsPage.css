@@ -34,7 +34,12 @@
     display: flex;
     width: 100%;
 }
-
+.custom-field.expanded-custom-field-edit{
+    height: 300px !important;
+}
+.custom-field.expanded-custom-field-edit .custom-field-header{
+    height: 75px !important;
+}
 .custom-field-header{
     width: 100%;
     height: 50px;

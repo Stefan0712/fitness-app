@@ -427,6 +427,16 @@ const userSlice = createSlice({
       };
       state.fields = [...state.fields, customField]
     },
+    removeCustomField: (state, action) => {
+       state.fields = state.fields.filter(field => field.id !== action.payload);
+    },  
+    updateCustomField: (state, action) =>{
+       const index = state.fields.findIndex(field => field.id === action.payload.id);
+       if (index !== -1) {
+         state.fields[index] = action.payload;
+       }
+       
+    },
     addTag: (state, action) => {
       console.log(action.payload);
       if (!state.tags.find(tag => tag.id === action.payload.id)) {
