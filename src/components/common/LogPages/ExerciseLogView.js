@@ -1,6 +1,7 @@
 import styles from './ExerciseLogView.module.css'
 import { IconLibrary } from '../../../IconLibrary';
 import {muscles} from '../../../constants/defaultMuscles';
+import { convertToNumber } from '../../../helpers';
 
 
 
@@ -29,16 +30,12 @@ const ExerciseLogView = ({data, close}) => {
                         <img src={IconLibrary.Time}></img>
                         <p> {data.duration}</p>
                     </div>
-                    <div className={`${styles['meta-item']} ${styles['meta-notes']}`}>
-                        <img src={IconLibrary.Note}></img>
-                        <p>{data.note}</p>
-                    </div>
                 </div>
                 <div className={styles.fields}>
                     {data.savedValues.map((item, index)=>(
                         <div className={styles.field} key={index}>
                             <p>{item.name}</p>
-                            <p>{item.sets} x {item.value} {item.unit}</p>
+                            <p>{convertToNumber(item.sets)} x {item.value} {item.unit}</p>
                         </div>
                     ))}
                 </div>

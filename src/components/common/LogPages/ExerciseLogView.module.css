@@ -42,22 +42,22 @@
     gap: 10px;
     align-items: center;
 }
-.macros{
+.fields{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px; 
 }
-.macro{
+.field{
     display: flex;
-    width: fit-content;
+    height: 50px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     padding: 5px 10px;
     border: 1px solid rgba(211, 211, 211, 0.116);
     border-radius: 3px;
-    height: 60px;
-    justify-content: center;
     gap: 5px;
-    flex-direction: column;
     background-color: #111214;
 }
 @keyframes slideUp {

@@ -115,3 +115,7 @@ export const getWeekRange = (selectedDate, type = 'current-week') => {
 
   return range.reverse();
 };
+export const convertToNumber = (value) => {
+  // Use parseInt if the value is not already a number
+  return typeof value === "number" ? value : parseInt(value, 10) || 0;
+};
