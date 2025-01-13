@@ -438,9 +438,13 @@ const userSlice = createSlice({
        
     },
     addTag: (state, action) => {
-      console.log(action.payload);
+      const data = action.payload
+      const newItem = {
+        id: data.id || uuidv4(),
+        source: 'user'
+      };
       if (!state.tags.find(tag => tag.id === action.payload.id)) {
-         state.tags.push(action.payload); // Prevent duplicates
+         state.tags.push(newItem); // Prevent duplicates
       }
    },
    removeTag: (state, action) => {
@@ -454,9 +458,13 @@ const userSlice = createSlice({
       
    },
     addEquipment: (state, action) => {
-      console.log(action.payload);
-      if (!state.equipment.find(item => item.id === action.payload.id)) {
-         state.equipment.push(action.payload); // Prevent duplicates
+      const data = action.payload
+      const newItem = {
+        id: data.id || uuidv4(),
+        source: 'user'
+      };
+      if (!state.equipment.some(item => item.id === action.payload.id)) {// Prevent duplicates
+         state.equipment.push(newItem); 
       }
    },
    removeEquipment: (state, action) => {
