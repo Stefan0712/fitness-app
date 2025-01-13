@@ -6,17 +6,21 @@ import styles from './Navigation.module.css';
 import {IconLibrary} from '../../../IconLibrary';
 
 import QuickMenu from '../QuickMenu/QuickMenu';
-import LogForm from '../LogPages/LogForm';
 import ExerciseLog from '../LogPages/ExerciseLog';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog';
+import Goals from '../Goals/Goals';
 
 
 
 const Navigation = () => {
 
     const [showQuickmenu, setShowQuickmenu] = useState(false)
-    const [logWindow, setLogWindow] = useState(null)
+
+    const [showFoodLog, setShowFoodLog] = useState(false);
+    const [showExerciseLog, setShowExerciseLog] = useState(false);
+    const [showStopwatch, setShowStopwatch] = useState(false);
+    const [showGoals, setShowGoals] = useState(false);
 
    
 
@@ -27,25 +31,47 @@ const Navigation = () => {
     const closeQuickmenu = () => {
         setShowQuickmenu(false)
     }
-    const showLog = (type) =>{
-        closeQuickmenu();
-        if(type==='food'){
-            setLogWindow(<FoodLog closeLogWindow={hideLog}/>)
-        }else if(type==='exercise'){
-            setLogWindow(<ExerciseLog closeLogWindow={hideLog}/>)
-        }else if(type==='stopwatch'){
-            setLogWindow(<Stopwatch closeLogWindow={hideLog} />)
-        }else{
-            setLogWindow(<LogForm type={type} closeLogWindow={hideLog}/>)
-        }
+
+    const openGoals = () =>{
+        setShowGoals(true);
+        setShowQuickmenu(false);
     }
-    const hideLog = () =>{
-        setLogWindow(null);
+    const openFoodLogs = () =>{
+        setShowFoodLog(true);
+        setShowQuickmenu(false);
     }
+    const openExerciseLogs = () =>{
+        setShowExerciseLog(true);
+        setShowQuickmenu(false);
+    }
+    const openStopwatch = () =>{
+        setShowStopwatch(true);
+        setShowQuickmenu(false);
+    }
+    const closeGoals = () =>{
+        setShowGoals(false)
+    }
+    const closeFoodLogs = () =>{
+        setShowFoodLog(false)
+    }
+    const closeStopwatch = () =>{
+        setShowStopwatch(false)
+    }
+    const closeExerciseLogs = () =>{
+        setShowExerciseLog(false)
+    }
+
     return ( 
         <nav>
-            {logWindow}
-            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} showLog={showLog} />) : ''}
+            {showGoals ? <Goals closeMenu={closeGoals}/> : null}
+            {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
+            {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
+            {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
+
+
+
+
+            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch}  />) : ''}
             <Link to='/dashboard' className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>

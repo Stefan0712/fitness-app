@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
 
-const QuickMenu = ({closeQuickmenu, showLog}) => {
+const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs}) => {
 
     const [selectedScreen, setSelectedScreen] = useState('menu')
 
@@ -20,19 +20,19 @@ const QuickMenu = ({closeQuickmenu, showLog}) => {
 
                 <div className={styles['quick-menu-screen']}>
                     
-                    <button className={styles['quick-button']} onClick={()=>showLog('stopwatch')}>
+                    <button className={styles['quick-button']} onClick={openStopwatch}>
                         <img src={IconLibrary.Stopwatch} alt=''></img>
                         <p>Stopwatch</p>
                     </button>
-                    <button className={styles['quick-button']} onClick={()=>showLog("food")} key={"food"}>
+                    <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
                         <img src={IconLibrary.Food} alt=''></img>
                         <p>Food</p>
                     </button>
-                    <button className={styles['quick-button']} onClick={()=>showLog('exercise')} key={'exercise'}>
+                    <button className={styles['quick-button']} onClick={openExerciseLogs} key={'exercise'}>
                         <img src={IconLibrary.Exercise} alt=''></img>
                         <p>Exercise</p>
                     </button>
-                    <button className={styles['quick-button']} onClick={()=>setSelectedScreen('manage-goals')} key={'exercise'}>
+                    <button className={styles['quick-button']} onClick={openGoals} key={'exercise'}>
                         <img src={IconLibrary.Goals} alt=''></img>
                         <p>Goals</p>
                     </button>
