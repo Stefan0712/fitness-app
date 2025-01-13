@@ -1,5 +1,5 @@
 import styles from './Goals.module.css';
-import LogForm from '../LogPages/LogForm';
+import GoalsLog from '../LogPages/GoalsLog';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ const Goals = () => {
                     </div>
                 ))}
             </div>
-            {logForm ? <LogForm type={logForm} closeLogWindow={()=>setLogForm(false)}/> : null}
+            {logForm ? <GoalsLog type={logForm} closeLogWindow={()=>setLogForm(false)}/> : null}
         </div>
      );
 }
