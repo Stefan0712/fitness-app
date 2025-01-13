@@ -27,18 +27,18 @@ const FieldsPage = () => {
                     <button className="clear-button" onClick={()=>setShowCreateField(true)}><img src={IconLibrary.Add} className="small-icon" alt="create field"></img></button>
                 </div>
             </div>
-            <div className="fields-screen-buttons">
+            <div className="screen-toggle-buttons">
                 <button onClick={()=>setScreenToShow('custom')} className={screenToShow === 'custom' ? 'selected-button' : ''}>Custom Fields ({customFields.length})</button>
                 <button onClick={()=>setScreenToShow('default')} className={screenToShow === 'default' ? 'selected-button' : ''}>Default Fields ({defaultFields.length})</button>
             </div>
             <div className="screens-container">
                 {screenToShow === 'custom' ? (
-                    <div className={`fields-container left-container`}>
+                    <div className={`screen left`}>
                         {customFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
                     </div>
                 ):null}
                 {screenToShow === 'default' ? (
-                    <div className={`fields-container right-container`}>
+                    <div className={`screen right`}>
                         {defaultFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
                     </div>
                 ): null}

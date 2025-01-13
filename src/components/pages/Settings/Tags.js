@@ -16,8 +16,12 @@ const Tags = () => {
     const [defaultTags, setDefaultTags] = useState([]);
     const [userTags, setUserTags] = useState([]);
 
-    const [showDefaultTags, setShowDefaultTags] = useState(false);
-    const [showUserTags, setShowUserTags] = useState(false);
+
+    const [screenToShow, setScreenToShow] = useState('custom')
+
+
+
+
     useEffect(()=>{
         console.log(tags)
         let defaultTags = [];
@@ -50,26 +54,27 @@ const Tags = () => {
                 <h2>Manage Tags</h2>
             </div>
             <CustomItemCreator key='custom-items-fields' addItem={createTag} type={'tag'} />
-
-            <div className={`${styles["default-tags"]} ${styles['items-container']} ${showDefaultTags ? styles['show-default'] : ''}` }>
-                <div className={styles['container-header']} onClick={()=>setShowDefaultTags(showDefaultTags=>!showDefaultTags)}>
-                    <p>Default Tags ({defaultTags.length})</p>
-                    <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showDefaultTags ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
-                </div>
-                {defaultTags?.map((tag)=>(
-                    <CustomItem key={tag.id} data={tag} />
-                ))}  
-            </div>    
-            <div className={`${styles["default-tags"]} ${styles['items-container']} ${showUserTags ? styles['show-default'] : ''}` }>
-                <div className={styles['container-header']} onClick={()=>setShowUserTags(showUserTags=>!showUserTags)}>
-                    <p>Default Tags ({userTags.length})</p>
-                    <img className='small-icon' src={IconLibrary.Arrow} style={{transform: showUserTags ? 'rotateZ(90deg)' : 'rotateZ(180deg)'}}/>
-                </div>
-                {console.log(userTags)}
-                {userTags?.map((tag)=>(
-                    <CustomItem key={tag.id} data={tag} deleteItem={deleteTag} updateItem={editTag} />
-                ))}  
-            </div>    
+            <div className="screen-toggle-buttons">
+                <button onClick={()=>setScreenToShow('custom')} className={screenToShow === 'custom' ? 'selected-button' : ''}>Custom Tags ({userTags.length})</button>
+                <button onClick={()=>setScreenToShow('default')} className={screenToShow === 'default' ? 'selected-button' : ''}>Default Tags ({defaultTags.length})</button>
+            </div>
+            <div className='screens-container'>
+                {screenToShow === 'custom' ? (
+                    <div className={`screen left`}>
+                        {defaultTags?.map((tag)=>(
+                            <CustomItem key={tag.id} data={tag} />
+                        ))}  
+                    </div>  
+                ):null}  
+                {screenToShow === "default" ? (
+                    <div className={`screen right`}>
+                        {userTags?.map((tag)=>(
+                            <CustomItem key={tag.id} data={tag} deleteItem={deleteTag} updateItem={editTag} />
+                        ))}  
+                    </div>  
+                ) : null}
+              
+            </div>
             
             
                  
