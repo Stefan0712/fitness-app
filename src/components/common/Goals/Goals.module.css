@@ -9,6 +9,7 @@
     z-index: 10;
     background-color: #1A1A1B;
     padding: 15px;
+    
 }
 .header{
     height: 50px;
@@ -19,7 +20,8 @@
 }
 .content{
     width: 100%;
-    height: calc(100% - 75px);
+    height: calc(100% - 150px);
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -43,7 +45,143 @@
     font-size: 1.1rem;
     font-weight: 600;
 }
-.target{
+.goals .goal .target{
     width: calc(50% - 50px);
     text-align: end;
+}
+.buttons-container{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+}
+.buttons-container > button{
+    display: flex;
+    flex-grow: 1;
+    height: 75px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background-color: transparent;
+    border: 1px solid rgba(211, 211, 211, 0.171);
+}
+.buttons-container > button img{
+    width: 30px;
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+/* New Goal component */
+
+.new-goal{
+    /*making sure it is 700px all the time */
+    width: 100%;
+    height: 700px;
+    min-height: 700px;
+    max-height: 500px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 0 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #1A1A1B;
+    animation: slideUp 0.1s;
+}
+.new-goal-inputs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.new-goal .name{
+    width: 100%;
+}
+.new-goal .unit{
+    width: calc(50% - 5px);
+}
+.new-goal .target{
+    width: calc(50% - 5px);
+}
+.items-container-header{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.items-container-header .selected-color{
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+
+.new-goal .items-container{
+    height: 120px;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 5px;
+    white-space: nowrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #111214;
+}
+.colorButton{
+    height: 30px;
+    width: 30px;
+    border: 1px solid transparent;
+    flex: 0 0 auto;
+}
+.iconButton{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    flex: 0 0 auto;
+}
+.iconButton img{
+    width: 70%;
+    height: 70%;
+}
+.icon-picker-img{
+    width: 30px;
+    height: 30px;
+}
+
+.submit{
+    width: 50%;
+    height: 50px;
+    background-color: transparent;
+    border:1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    background-color: #111214;
+    margin: 25px 25%;
+}
+@keyframes slideUp {
+    from{
+        bottom: -100%;
+        opacity: 0;
+    }
+    to{
+        bottom: 0;
+        opacity: 1;
+    }
 }

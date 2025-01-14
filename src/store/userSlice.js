@@ -18,14 +18,14 @@ const initialState = {
         name: 'Calories',
         unit: 'kcal',
         target: '1400',
-        icon: CaloriesIcon
+        icon: {name: 'Calories', icon: CaloriesIcon}
       },
       {
         id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
         name: 'Steps',
         unit: 'steps',
         target: '6000',
-        icon: StepsIcon
+        icon: {name: 'Steps', icon: StepsIcon}
       }
     ],
     name: 'Stefan',
@@ -479,6 +479,26 @@ const userSlice = createSlice({
         state.equipment[index] = action.payload;
       }
    },
+   addGoal: (state, action) => {
+     const data = action.payload
+     const newItem = {
+       id: data.id || uuidv4(),
+       source: 'user',
+       ...data
+     };
+     if (!state.userData.goals.some(item => item.id === action.payload.id)) {// Prevent duplicates
+        state.userData.goals.push(newItem); 
+     }
+  },
+  removeGoal: (state, action) => {
+     state.userData.goals = state.userData.goals.filter(item => item.id !== action.payload);
+  },
+  uupdateGoal : (state, action) =>{
+     const index = state.userData.goals.findIndex(eq => eq.id === action.payload.id);
+     if (index !== -1) {
+       state.userData.goals[index] = action.payload;
+     }
+  },
     reset: () => initialState,
   },
 });
@@ -509,6 +529,9 @@ export const {
   addEquipment,
   removeEquipment,
   updateEquipment,
+  addGoal,
+  updateGoal,
+  removeGoal
 } = userSlice.actions;
 
 export default userSlice.reducer;
