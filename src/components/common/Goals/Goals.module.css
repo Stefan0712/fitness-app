@@ -39,6 +39,8 @@
     background-color: #111214;
     padding: 5px 10px;
     border-radius: 5px;
+    position: relative;
+    overflow: hidden;
 }
 .name{
     width: 50%;
@@ -74,7 +76,13 @@
     height: 30px;
 }
 
-
+.goal-color{
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 
 
 

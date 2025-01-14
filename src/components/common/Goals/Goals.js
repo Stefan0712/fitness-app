@@ -25,6 +25,7 @@ const Goals = ({closeMenu}) => {
             <div className={styles.content}>
                 {goals?.map((goal, index)=>(
                     <div className={styles.goal} key={index} onClick={()=>setLogForm(goal.id)}>
+                        <div className={styles["goal-color"]} style={{backgroundColor: goal.color}} />
                         <img src={goal.icon.icon} className={styles['goal-icon']}></img>
                         <p className={styles.name}>{goal.name}</p>
                         <p className={styles.target}>{goal.target} {makeFirstUpperCase(goal.unit)}</p>
