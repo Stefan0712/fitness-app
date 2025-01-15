@@ -11,6 +11,12 @@
     padding: 15px;
     
 }
+.goals-screen{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .header{
     height: 50px;
     display: flex;
@@ -191,5 +197,29 @@
     to{
         bottom: 0;
         opacity: 1;
+    }
+}
+
+
+
+
+/* manage goals */
+
+.edit-goal-buttons{
+    display: flex;
+    width: 100px;
+    align-items: center;
+    gap: 15px;
+    margin-left: 20px;
+    animation: slideLeftButtons 0.1s;
+}
+@keyframes slideLeftButtons {
+    from{
+        opacity: 0;
+        width: 0;
+    }
+    to{
+        opacity: 1;
+        width: 100px;
     }
 }

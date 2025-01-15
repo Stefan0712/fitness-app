@@ -18,6 +18,7 @@ const LogForm = ({id, closeLogWindow}) => {
     const [currentValue, setCurrentValue] = useState(0);
 
     const allLogs = useSelector((state)=>state.user.activity[getCurrentDay()]?.logs);
+    console.log('All logs: ', allLogs)
     const goalLogs = allLogs?.length > 0 ? allLogs.filter((item)=>item.id === id) : [];
     const goalData = useSelector((state)=>state.user.userData.goals.find((element)=>element.id === id));
 
@@ -33,11 +34,6 @@ const LogForm = ({id, closeLogWindow}) => {
 
     const dispatch = useDispatch();
 
-
-    const handleInputChange = (e) =>{
-        e.preventDefault();
-        setInputValue(e.target.value);
-    }
     const submitLog = () =>{
         const data = {
             type: 'goal', 
@@ -49,7 +45,7 @@ const LogForm = ({id, closeLogWindow}) => {
             }
         }
         dispatch(addLog(data));
-        closeLogWindow();
+        setInputValue(0);
     }
 
     const deleteLog = (log) => {
@@ -72,7 +68,7 @@ const LogForm = ({id, closeLogWindow}) => {
                 strokeWidth={10} 
                 color="#3498db" 
                 radiusSize={2}
-                icon={goalData.icon}
+                icon={goalData.icon.icon}
             />
             <div className="goal">{currentValue}/{goalData.target} {goalData.unit}</div>
             </div>
@@ -84,12 +80,13 @@ const LogForm = ({id, closeLogWindow}) => {
                         <p>{log.data.value}</p>
                         <button onClick={()=>deleteLog({name: log.name, timestamp: log.timestamp})} className="transparent-bg"><img className="small-icon" src={IconLibrary.Close}></img></button>
                     </div>
-                )): <p>Loading goals...</p>}
+                )): goalLogs.length === 0 ? <p className="no-items-msg">No goals found.</p> : !goalLogs ? <p className="no-items-msg">Loading goals...</p> : null}
             </div>
             <div className="inputs">
-                <input type="number" placeholder={goalData.unit} onChange={handleInputChange}></input>
+                <input type="number" placeholder={goalData.unit} onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+                <button type="button" className="submit-button" onClick={submitLog}>Log</button>
             </div>
-            <button className="submit-button orange-button" onClick={submitLog}>Log</button>
+            
         </div>
      );
 }
