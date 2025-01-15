@@ -22,7 +22,11 @@ const Navigation = () => {
     const [showStopwatch, setShowStopwatch] = useState(false);
     const [showGoals, setShowGoals] = useState(false);
 
-   
+    
+
+
+
+
 
 
     const toggleQuickmenu = () =>{

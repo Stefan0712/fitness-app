@@ -1,15 +1,34 @@
 import styles from './QuickMenu.module.css';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
 
 const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs}) => {
 
     const [selectedScreen, setSelectedScreen] = useState('menu')
+    const quickMenuRef = useRef(null);
+
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // If the click was outside the quick menu, close it
+            if (quickMenuRef.current && !quickMenuRef.current.contains(event.target)) {
+                closeQuickmenu();
+            }
+        };
+
+        // Add event listener
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Cleanup event listener on component unmount
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
     return ( 
-        <div className={styles["quick-menu"]}>
+        <div className={styles["quick-menu"]} ref={quickMenuRef}>
             <div className={styles.header}>
                 <h2>Quick Menu</h2>
                 <button className='clear-button' onClick={closeQuickmenu}>
