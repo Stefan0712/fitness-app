@@ -24,12 +24,14 @@ const LogForm = ({id, closeLogWindow}) => {
 
 
 
-    useEffect(()=>{
-       if(goalLogs && goalLogs.length > 0){
-           goalLogs.map((log)=>setCurrentValue((currentValue)=> currentValue += log.data.value));
-           console.log(goalLogs)
-       }
-    },[])
+    useEffect(() => {
+        if (goalLogs && goalLogs.length > 0) {
+            const totalValue = goalLogs.reduce((sum, log) => sum + log.data.value, 0);
+            setCurrentValue(totalValue);
+        } else {
+            setCurrentValue(0);
+        }
+    }, [goalLogs]);
 
 
     const dispatch = useDispatch();
