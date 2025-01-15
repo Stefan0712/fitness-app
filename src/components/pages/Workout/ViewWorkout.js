@@ -17,8 +17,7 @@ const ViewWorkout = () => {
     const navigate = useNavigate();
 
 
-    const [modal, setModal] = useState(null)
-    const [showMenu, setShowMenu] = useState(false);
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
     const [exercises, setExercises] = useState([]);
     const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
@@ -28,12 +27,9 @@ const ViewWorkout = () => {
     
     
     
-    const handleDelete = () =>{
-        setModal(<Modal title={'Are you sure?'} message={'This will permanently delete this workout'} positiveOnClick={deleteWorkout} negativeOnClick={()=>(setModal(null))}/>)
-    }
+
     const deleteWorkout = () =>{
         dispatch(deleteWorkout(id))
-        setModal(null);
         navigate('/library');
     }   
     //function to search and populate each exercise based on the course
@@ -57,11 +53,10 @@ const ViewWorkout = () => {
     },[])
     return ( 
         <div className="view-workout-page page">
-            {modal ? modal : ''}
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{workoutData.name}</h2>
-                <button onClick={()=>setShowMenu(true)}>...</button>
+                
             </div>
             <div className='workout-info'>
                 <div className='workout-description'>
@@ -157,8 +152,25 @@ const ViewWorkout = () => {
                     </div>
               )) : (<p>Loading Exercises</p>)}
             </div>
-            <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button'><img src={IconLibrary.Play}/></Link>
-            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/workout/${workoutData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
+            <div className='view-workout-buttons'>
+                <div className='view-workout-menu-buttons'>
+                    {showConfirmDelete ? (
+                        <div className='buttons-container'>
+                            <button className='view-workout-menu-button' onClick={deleteWorkout}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
+                            <div className='divider' />
+                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
+                        </div>
+                    ):(
+                        <div className='buttons-container'>
+                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(true)}>Delete</button>
+                            <div className='divider' />
+                            <Link  className='view-workout-menu-button' to={`/workout/${workoutData.id}/edit`}>Edit</Link>
+                        </div>
+                    )}
+                    
+                </div>
+                <Link to={`/workout/${workoutData.id}/start`} className='orange-button large-button start-workout-button'>Start Workout</Link>
+            </div>
         </div>
      );
 }
