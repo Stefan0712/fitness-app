@@ -3,7 +3,7 @@ import { formatTime } from "../../../helpers";
 import './stopwatch.css';
 import { IconLibrary } from "../../../IconLibrary";
 
-const Stopwatch = ({ closeLogWindow }) => {
+const Stopwatch = ({ closeMenu }) => {
     const [laps, setLaps] = useState([]);
     const [isStarted, setIsStarted] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
@@ -47,7 +47,7 @@ const Stopwatch = ({ closeLogWindow }) => {
                         )}
                         <h1>Stopwatch</h1>
                         <button onClick={() => setIsHidden(true)} className="small-icon"><img src={IconLibrary.Minus} alt="" /></button>
-                        <button onClick={closeLogWindow}><img src={IconLibrary.Close} alt="" /></button>
+                        <button onClick={closeMenu}><img src={IconLibrary.Close} alt="" /></button>
                     </div>
                     <div className="stopwatch-time">
                         {formatTime(seconds)}

@@ -9,7 +9,7 @@ import styles from './FoodLog.module.css';
 import LogItem from "./LogItem";
 
 
-const FoodLog = ({closeLogWindow}) => {
+const FoodLog = ({closeMenu}) => {
     const currentDate = getCurrentDay();
     const dispatch = useDispatch();
     const activity = useSelector((state)=>state.user.activity[currentDate]);
@@ -57,13 +57,13 @@ const FoodLog = ({closeLogWindow}) => {
             }
         }
         dispatch(addLog(data));
-        closeLogWindow();
+        closeMenu();
     }
     return ( 
         <div className={styles["food-log-form"]}>
             <div className={styles["top-bar"]}>
                 <h1>Food Log</h1>
-                <button onClick={closeLogWindow}><img src={IconLibrary.Close} alt=""></img></button>
+                <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
             </div>
             <div className={styles["main-info"]}>
                 <input className={styles.name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} required={true} placeholder="Name" />

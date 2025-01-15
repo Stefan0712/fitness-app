@@ -77,7 +77,8 @@ const Navigation = () => {
 
 
 
-            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch}  />) : ''}
+            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
+            openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch}  />) : ''}
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>

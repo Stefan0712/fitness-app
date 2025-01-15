@@ -11,7 +11,7 @@ import Field from "./Field";
 
 
 
-const ExerciseLog = ({closeLogWindow}) => {
+const ExerciseLog = ({closeMenu}) => {
 
 
     const [showSavedFields, setShowSavedFields] = useState(false);
@@ -47,7 +47,7 @@ const ExerciseLog = ({closeLogWindow}) => {
             }
         }
         dispatch(addLog(data))
-        closeLogWindow();
+        closeMenu();
     }
     const saveField = (newData) =>{
         setSavedValues((savedValues)=>[...savedValues, newData]);
@@ -56,7 +56,7 @@ const ExerciseLog = ({closeLogWindow}) => {
         <div className="exercise-log">
             <div className="top-bar">
                 <h1>Log Exercise</h1>
-                <button onClick={closeLogWindow}><img src={IconLibrary.Close} alt=""></img></button>
+                <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
             </div>
             <div className="exercise-main-info">
                 <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Exercise Name" required></input>
