@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import StartingPage from './components/pages/StartingPage/StartingPage';
 import Dashboard from './components/pages/Dashboard/Dashboard';
@@ -31,6 +32,8 @@ function AppRoutes() {
   if(isFirstTime){
     navigate('/get-started')
   }
+
+  
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />

@@ -495,6 +495,12 @@ const userSlice = createSlice({
        state.userData.goals[index] = action.payload;
      }
   },
+  enableStopwatch: (state) =>{
+    state.userData.isStopwatchOn = true;
+  },
+  disableStopwatch: (state) =>{
+    state.userData.isStopwatchOn = false;
+  },
     reset: () => initialState,
   },
 });
@@ -527,7 +533,7 @@ export const {
   updateEquipment,
   addGoal,
   updateGoal,
-  removeGoal
+  removeGoal,
 } = userSlice.actions;
 
 export default userSlice.reducer;

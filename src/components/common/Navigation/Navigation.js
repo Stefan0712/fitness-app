@@ -62,7 +62,6 @@ const Navigation = () => {
     }
     const closeAll = () =>{
         closeExerciseLogs();
-        closeStopwatch();
         closeFoodLogs();
         closeGoals();
         closeQuickmenu();

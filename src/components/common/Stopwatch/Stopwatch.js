@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { formatTime } from "../../../helpers";
-import './stopwatch.css';
+import styles from './Stopwatch.module.css';
 import { IconLibrary } from "../../../IconLibrary";
 
 const Stopwatch = ({ closeMenu }) => {
@@ -32,14 +32,14 @@ const Stopwatch = ({ closeMenu }) => {
     const handleMaximize = () => setIsMinimized(false);
 
     return (
-        <div className={`stopwatch ${isMinimized ? 'minimized-stopwatch' : ''} ${isHidden ? 'hide-stopwatch' : ''}`}>
+        <div className={`${styles.stopwatch} ${isMinimized ? styles['minimized-stopwatch'] : ''} ${isHidden ? styles['hide-stopwatch'] : ''}`}>
             {isHidden ? (
-                <div className="hidden-stopwatch-timer" onClick={()=>setIsHidden(false)}>
+                <div className={styles["hidden-stopwatch-timer"]} onClick={()=>setIsHidden(false)}>
                     {formatTime(seconds)}
                 </div>
             ) : (
                 <>
-                    <div className="top-bar">
+                    <div className={styles["top-bar"]}>
                         {isMinimized ? (
                             <button onClick={handleMaximize}><img src={IconLibrary.Maximize} alt="" /></button>
                         ) : (
@@ -49,19 +49,19 @@ const Stopwatch = ({ closeMenu }) => {
                         <button onClick={() => setIsHidden(true)} className="small-icon"><img src={IconLibrary.Minus} alt="" /></button>
                         <button onClick={closeMenu}><img src={IconLibrary.Close} alt="" /></button>
                     </div>
-                    <div className="stopwatch-time">
+                    <div className={styles["stopwatch-time"]}>
                         {formatTime(seconds)}
                     </div>
                     <h3>Laps</h3>
-                    <div className="laps-container">
+                    <div className={styles["laps-container"]}>
                         {laps.length > 0 ? laps.map((lap, index) => (
-                            <div className="lap" key={index}>
-                                <p>Lap {index + 1}.</p>
+                            <div className={styles.lap} key={index}>
+                                <p>Lap {index + 1}</p>
                                 <p>{lap}</p>
                             </div>
                         )) : null}
                     </div>
-                    <div className="stopwatch-buttons">
+                    <div className={styles.buttons}>
                         <button onClick={handleReset}><img src={IconLibrary.Restart} alt="" /></button>
                         <button onClick={handleAddLap}><img src={IconLibrary.Lap} alt="" /></button>
                         {isStarted ? (
