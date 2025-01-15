@@ -38,7 +38,7 @@ nav{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: orange;
+    background-color: #EB5928;
   }
   .center-nav-button button img{
     width: 30px;
