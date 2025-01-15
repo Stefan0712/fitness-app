@@ -3,6 +3,7 @@ import { convertTimestampToDate, getCurrentDay } from '../helpers';
 import { v4 as uuidv4 } from 'uuid';
 import { defaultCategories } from '../constants/defaultCategories';
 import {defaultTags} from '../constants/defaultTags';
+import {defaultFields} from '../constants/defaultFields';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
 import { exercises, workouts } from '../database';
@@ -302,7 +303,7 @@ const initialState = {
     unitSystem: 'metric',
   },
   tags: [...defaultTags],
-  fields: [],
+  fields: [...defaultFields],
   categories: [...defaultCategories],
   exercises: [...mockExercises],
   workouts: [...mockWorkouts],

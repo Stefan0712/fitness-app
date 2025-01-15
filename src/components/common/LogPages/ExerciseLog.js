@@ -24,7 +24,7 @@ const ExerciseLog = ({closeLogWindow}) => {
     const [time, setTime] = useState('');
     const [targetGroup, setTargetGroup] = useState('Arms');
     const [duration, setDuration] = useState('');
-    const [sets, setSets] = useState(1);
+    const [sets, setSets] = useState('');
     const [savedValues, setSavedValues] = useState([]);
 
 
@@ -42,7 +42,7 @@ const ExerciseLog = ({closeLogWindow}) => {
                 name,
                 time, targetGroup,
                 duration,
-                sets,
+                sets: sets || 1,
                 savedValues
             }
         }
@@ -63,7 +63,7 @@ const ExerciseLog = ({closeLogWindow}) => {
                 <div className="same-line-space">
                     <input type="time" name="time" id="time" onChange={(e)=>setTime(e.target.value)} value={time}></input>
                     <input type="duration" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)" required></input>
-                    <input type="number" name="sets" id="sets" onChange={(e)=>setSets(e.target.value)} value={sets} placeholder="Sets" required></input>
+                    <input type="number" name="sets" id="sets" onChange={(e)=>setSets(e.target.value)} value={sets} placeholder={"Sets"}  required></input>
                 </div>
                 <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
                     {muscles?.map((item)=>(
