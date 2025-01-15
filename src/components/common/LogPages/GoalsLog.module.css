@@ -1,4 +1,4 @@
-.log-form-body{
+.log-form{
     width: 100%;
     bottom: 0px;
     height: calc(100vh - 75px);
@@ -8,13 +8,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     border-top: rgba(211, 211, 211, 0.3);
     z-index: 15;
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;
 }
 @media (min-width: 767px) {
-    .log-form-body{
+    .log-form{
         width: 100% !important; 
         height: 90vh !important;
         margin-bottom: 5vh;
@@ -26,23 +27,22 @@
         height: 0;
     }
     100%{
-        height: 100vh !important;
+        height: calc(100vh - 75px) !important;
     }
-}
-.log-form-body .top-bar img{
+} 
+.top-bar img{
     width: 30px;
     height: 30px;
     background-color: transparent;
-    ;
 }
-.log-form-body .top-bar button{
+.top-bar button{
     background-color: transparent;
     border: none;
     position: absolute;
     top: 20px;
     right: 20px;
 }
-.log-form-body .top-bar{
+.top-bar{
     width: 100%;
     height: 50px;
     padding-top: 20px;
@@ -50,7 +50,7 @@
     align-items: center;
     padding-left: 20px;
 }
-.log-form-body .goal{
+.goal{
     width: 100%;
     display: flex;
     align-items: center;
@@ -58,40 +58,50 @@
     font-size: 1.3rem;
     font-weight: bold;
 }
-.log-form-body .inputs{
+.inputs{
     width: 100%;
-    height: 75px;
+    height: 250px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: auto;
+    padding: 0 20px;
+    gap: 10px;
+    margin-top: 15px;
 }
-.log-form-body .inputs input{
+fieldset{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+.half-input{
+    width: calc(50% - 5px);
+}
+.inputs input,
+.inputs textarea{
     height: 50px;
+    width: 100%;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     color: gray;
-    padding-left: 20px;
+    padding-left: 10px;
     box-sizing: border-box;
     border: none;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 5px;
 }
-.log-form-body .inputs button{
+.submit-button{
     height: 50px;
-    border: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: #111214;
-    width: 30%;
+    border: 1px solid rgba(211, 211, 211, 0.1);
+    background-color: #EB5928;
+    width: 150px;
     color: white;
     font-weight: bold;
     font-size: 1.1rem;
-    
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 
@@ -103,7 +113,7 @@
     justify-content: center;
     flex-direction: column;
 }
-.log-form-body .goal-logs-container{
+.goals-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,8 +123,9 @@
     background-color: #111214;
     padding: 20px 15px;
     overflow-y: auto;
+    border-radius: 5px;
 }
-.log-form-body .goal-logs-container .log-body{
+.goals-container .log-body{
     width: 100%;
     display: flex;
     align-items: center;

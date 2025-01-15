@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import ProgressCircle from "../ProgressCircle/ProgressCircle";
-import './logForm.css'
+import styles from './GoalsLog.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { addLog, removeLog } from "../../../store/userSlice";
-import { getCurrentDay, makeFirstUpperCase } from "../../../helpers";
+import { getCurrentDay } from "../../../helpers";
 import { IconLibrary } from "../../../IconLibrary";
 
 
@@ -16,9 +16,19 @@ const LogForm = ({id, closeLogWindow}) => {
 
     const [inputValue, setInputValue] = useState(0);
     const [currentValue, setCurrentValue] = useState(0);
+    const [name, setName] = useState();
+    const [description, setDescription] = useState('');
+
+    const getCurrentTime = () => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0'); // 2 digits
+        const minutes = String(now.getMinutes()).padStart(2, '0'); //2 digits
+        return `${hours}:${minutes}`;
+    };
+    const [time, setTime] = useState(getCurrentTime())
+
 
     const allLogs = useSelector((state)=>state.user.activity[getCurrentDay()]?.logs);
-    console.log('All logs: ', allLogs)
     const goalLogs = allLogs?.length > 0 ? allLogs.filter((item)=>item.id === id) : [];
     const goalData = useSelector((state)=>state.user.userData.goals.find((element)=>element.id === id));
 
@@ -43,7 +53,10 @@ const LogForm = ({id, closeLogWindow}) => {
             name: goalData.name, 
             icon: goalData.icon,
             data: {
-                value: parseFloat(inputValue)
+                value: parseFloat(inputValue),
+                time,
+                description,
+                name
             }
         }
         dispatch(addLog(data));
@@ -56,8 +69,8 @@ const LogForm = ({id, closeLogWindow}) => {
 
       
     return ( 
-        <div className="log-form-body">
-            <div className="top-bar">
+        <div className={styles['log-form']}>
+            <div className={styles["top-bar"]}>
                 <h1>{goalData?.name}</h1>
                 <button onClick={closeLogWindow}><img src={IconLibrary.Close} alt=""></img></button>
             </div>
@@ -71,22 +84,36 @@ const LogForm = ({id, closeLogWindow}) => {
                 radiusSize={2}
                 icon={goalData.icon.icon}
             />
-            <div className="goal">{currentValue}/{goalData.target} {goalData.unit}</div>
+            <div className={styles.goal}>{currentValue}/{goalData.target} {goalData.unit}</div>
             </div>
-            <div className="goal-logs-container">
-                {console.log(goalLogs)}
+            <div className={styles["goals-container"]}>
                 {goalLogs && goalLogs.length > 0 ? goalLogs.map((log)=>(
-                    <div className="log-body" key={log.timestamp}>
+                    <div className={styles["log-body"]} key={log.timestamp}>
                         <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
                         <p>{log.data.value}</p>
                         <button onClick={()=>deleteLog(log)} className="transparent-bg"><img className="small-icon" src={IconLibrary.Close}></img></button>
                     </div>
-                )): goalLogs.length === 0 ? <p className="no-items-msg">No goals found.</p> : !goalLogs ? <p className="no-items-msg">Loading goals...</p> : null}
+                )): goalLogs.length === 0 ? <p className={styles["no-items-msg"]}>No goals found.</p> : !goalLogs ? <p className={styles["no-items-msg"]}>Loading goals...</p> : null}
             </div>
-            <div className="inputs">
-                <input type="number" placeholder={goalData.unit} onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
-                <button type="button" className="submit-button" onClick={submitLog}>Log</button>
+            <div className={styles.inputs}>
+                <fieldset>
+                    <label>Name</label>
+                    <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} />
+                </fieldset>
+                <fieldset className={styles['half-input']}>
+                    <label>Time</label>
+                    <input type="time" name="time" id="time" onChange={((e)=>setTime(e.target.value))} value={time} />
+                </fieldset>
+                <fieldset className={styles['half-input']}>
+                    <label>Value</label>
+                    <input type="number" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+                </fieldset>
+                <fieldset>
+                    <label>Description</label>
+                    <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description}></textarea>
+                </fieldset>
             </div>
+            <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
             
         </div>
      );
