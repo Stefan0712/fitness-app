@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import './exercise.css';
 import { useState } from "react";
 
-import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
-import { addExerciseToWorkout, deleteExercise } from "../../../store/userSlice";
-import ContextualMenu from '../../common/ContextualMenu/ContextualMenu';
+import { getDateForHeader } from "../../../helpers";
+import { deleteExercise } from "../../../store/userSlice";
 import Modal from "../../common/modals/Modal";
 import { IconLibrary } from "../../../IconLibrary";
 
@@ -20,29 +19,20 @@ const ViewExercise = () => {
     const [modal, setModal] = useState(null)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showMenu, setShowMenu] = useState(false);
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
-    const addExerciseToAnotherWorkout = (workoutId) =>{
-        dispatch(addExerciseToWorkout({workoutId, exerciseId: id, source: exerciseData.source}));
-    }
 
-    const handleDelete = (id) =>{
-        setModal(<Modal title={'Are you sure?'} message={'This will permanently delete this exercise'} positiveOnClick={()=>deleteEx(id)} negativeOnClick={()=>(setModal(null))}/>)
-    }
+
     const deleteEx = (id) =>{
         dispatch(deleteExercise(id))
-        setModal(null);
         navigate('/library');
         
     }
     return ( 
         <div className="view-exercise page">
-            {console.log(exerciseData)}
-            {modal ? modal : ''}
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>{exerciseData.name}</h2>
-                <button onClick={()=>setShowMenu(true)}>...</button>
             </div>
             <div className="exercise-info">
                 <div className='workout-description'>
@@ -131,31 +121,26 @@ const ViewExercise = () => {
                     {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
                 </div>
             </div>
-            {/* <div className="workouts-container section full-width">
-            <h3 className="subtitle">Save to</h3>
-                {workouts?.length > 0 ? (
-                        workouts.map((workout, index) => workout.exercises.some((ex)=>ex.id === exerciseData.id) ? '' : (
-                        <div key={index} className="item-body">
-                            <div className="item-info">
-                                <h4>{workout?.name}</h4>
-                                <div className="item-description">
-                                    <p>{workout?.exercises?.length} exercises</p>
-                                    <p>{makeFirstUpperCase(workout?.category?.name)}</p>
-                                </div>
-                            </div>
-                            <div className="item-button">
-                                <button className="add-item" onClick={()=>addExerciseToAnotherWorkout(workout.id)}>
-                                    <img className="white-icon" src={IconLibrary.Add} alt="plus icon" />
-                                </button>
-                            </div>
+            <div className='view-workout-buttons'>
+                <div className='view-workout-menu-buttons'>
+                    {showConfirmDelete ? (
+                        <div className='buttons-container'>
+                            <button className='view-workout-menu-button' onClick={deleteEx}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
+                            <div className='divider' />
+                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
                         </div>
-                        ))
-                    ) : (
-                        <p>No exercises created yet.</p>
+                    ):(
+                        <div className='buttons-container'>
+                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(true)}>Delete</button>
+                            <div className='divider' />
+                            <Link className='view-workout-menu-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
+                        </div>
                     )}
-            </div> */}
+                    
+                </div>
+                <Link to={`/exercise/${exerciseData.id}/start`} className='orange-button large-button start-workout-button'>Start Exercise</Link>
+            </div>
 
-            {showMenu ? (<ContextualMenu closeMenu={()=>setShowMenu(false)} buttons={[<Link to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>, <button onClick={handleDelete}>Delete</button>]} />) : ''}
         </div>
      );
 }

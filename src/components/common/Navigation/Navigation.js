@@ -30,7 +30,13 @@ const Navigation = () => {
 
 
     const toggleQuickmenu = () =>{
-        setShowQuickmenu(true)
+        if(showQuickmenu){
+            setShowQuickmenu(false)
+        }else{
+            setShowQuickmenu(true);
+        }
+        
+        
     }
     const closeQuickmenu = () => {
         setShowQuickmenu(false)

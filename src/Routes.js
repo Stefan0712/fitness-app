@@ -23,6 +23,7 @@ import ExploreWorkouts from './components/pages/Library/ExploreWorkouts';
 import ExploreExercises from './components/pages/Library/ExploreExercises';
 import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
+import Exercise from './components/pages/Exercise/Exercise';
 
 
 function AppRoutes() {
@@ -49,6 +50,7 @@ function AppRoutes() {
       <Route path="/create-workout" element={<CreateWorkout />} />
       <Route path="/exercise/:id/view" element={<ViewExercise />} />
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
+      <Route path="/exercise/:id/start" element={<Exercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
       <Route path='/explore-workouts' element={<ExploreWorkouts />} />
       <Route path='/explore-exercises' element={<ExploreExercises />} />
