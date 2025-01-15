@@ -350,7 +350,7 @@ const userSlice = createSlice({
     },
 
     removeLog: (state, action) => {
-      const timestamp = action.payload;
+      const timestamp = action.payload.timestamp;
       const date = convertTimestampToDate(timestamp);
       if (state.activity[date]) {
         state.activity[date].logs = state.activity[date].logs.filter(

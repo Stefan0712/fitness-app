@@ -52,7 +52,6 @@ const LogForm = ({id, closeLogWindow}) => {
 
     const deleteLog = (log) => {
         dispatch(removeLog(log));
-        closeLogWindow();
     }
 
       
@@ -80,7 +79,7 @@ const LogForm = ({id, closeLogWindow}) => {
                     <div className="log-body" key={log.timestamp}>
                         <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
                         <p>{log.data.value}</p>
-                        <button onClick={()=>deleteLog({name: log.name, timestamp: log.timestamp})} className="transparent-bg"><img className="small-icon" src={IconLibrary.Close}></img></button>
+                        <button onClick={()=>deleteLog(log)} className="transparent-bg"><img className="small-icon" src={IconLibrary.Close}></img></button>
                     </div>
                 )): goalLogs.length === 0 ? <p className="no-items-msg">No goals found.</p> : !goalLogs ? <p className="no-items-msg">Loading goals...</p> : null}
             </div>
