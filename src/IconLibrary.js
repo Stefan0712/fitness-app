@@ -14,7 +14,7 @@ import Arrow from './assets/arrow.svg';
 
 
 
-
+import Dots from './assets/dots.svg';
 import BackArrow from './assets/back-arrow.svg';
 import Calories from './assets/calories.svg';
 import Checkmark from './assets/checkmark.svg';
@@ -121,5 +121,6 @@ export const IconLibrary = {
     Quantity,
     Note,
     Goals,
-    Menu
+    Menu,
+    Dots
 }

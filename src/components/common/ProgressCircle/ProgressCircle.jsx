@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProgressCircle.css';
 
-const ProgressCircle = ({ currentAmount, targetAmount, size, strokeWidth, color, radiusSize, icon }) => {
+const ProgressCircle = ({ currentAmount, targetAmount, size, strokeWidth, color, radiusSize, icon, text }) => {
   const radius = (size - strokeWidth) / radiusSize; 
   const circumference = 2 * Math.PI * radius; 
   const progress = (currentAmount / targetAmount) * 100; 
@@ -33,7 +33,7 @@ const ProgressCircle = ({ currentAmount, targetAmount, size, strokeWidth, color,
       </svg>
       {icon ? (
       <div className='progress-circle-icon'>
-        <img src={icon} alt=''></img>
+        <p>{text}</p> 
       </div>)
       : ''}
     </div>

@@ -254,6 +254,7 @@ const Exercise = () => {
             setCurrentSet(prevSet => prevSet + 1); 
         }
     };
+    //TODO: Make instructions collapsed by default
     if(exerciseData){
         return ( 
             <div className={`page ${styles['exercise-page']}`}>

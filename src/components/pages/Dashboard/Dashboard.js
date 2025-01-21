@@ -1,5 +1,5 @@
 import { getDateForHeader, getCurrentDay, makeDateNice } from '../../../helpers';
-import './dashboard.css';
+import styles from './Dashboard.module.css'; 
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,40 +12,23 @@ const Dashboard = () => {
 
     const [selectedDate, setSelectedDate] = useState(getCurrentDay());
 
-
+    const [shownSections, setShownSections] = useState(['goals','activity','nutrition']);
 
     const dispatch = useDispatch();
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
     const allActivity = useSelector((state)=>state.user.activity);
     const userGoals = useSelector((state)=>state.user.userData.goals);
 
-    const today = dayjs();
-    const startOfWeek = today.startOf('week').add(1, 'day'); // Monday as the start of the week
-    const [currentMonday, setCurrentMonday] = useState(startOfWeek);
+
+    const [isGoalsExpanded, setIsGoalsExpanded] = useState(false);
+    const [isActivityExpanded, setIsActivityExpanded] = useState(false);
+    const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
+
+    const [menu, setMenu] = useState(null);
+
     
     const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
 
-    // Function to get the full week array starting from currentMonday
-    const getWeekDates = (monday) => {
-        return Array.from({ length: 7 }, (_, i) => monday.add(i, 'day'));
-    };
-
-    const weekDates = getWeekDates(currentMonday);
-
-    // Function to move to the next week
-    const nextWeek = () => {
-        setCurrentMonday(currentMonday.add(7, 'day'));
-    };
-
-    // Function to move to the previous week
-    const prevWeek = () => {
-        setCurrentMonday(currentMonday.subtract(7, 'day'));
-    };
-    const handleDayClick = (date) => {
-        setSelectedDate(date.format('YYYY-MM-DD'))
-    };
-
-   
 
     const getGoalCurrentValue = (arr,goalName) => {
         if(arr && arr.length > 0){
@@ -57,69 +40,178 @@ const Dashboard = () => {
         }
         
     };
-
+    const hideSection = (sectionName) =>{
+        setShownSections(shownSections=>shownSections.filter(s=>s !== menu.sectionName));
+        setMenu(null);
+    }
     return ( 
-        <div className="dashboard page">
+        <div className={`${styles.dashboard} page`}>
             
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
+            <div className={styles.header}>
+                <div className={styles.date}>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
             </div>
-            <div className='week-days-container'>
-                <button className='navigate-week-button' onClick={prevWeek}><img src={IconLibrary.Arrow} style={{transform: 'rotate(180deg)'}} alt=''/></button>
-                {weekDates.map((date, index) => (
-                    <button
-                    className={`week-day-button ${selectedDate === date.format('YYYY-MM-DD') ? 'active-week-button': ''}`}
-                    key={index}
-                    onClick={() => handleDayClick(date)}
-                    >
-                    <h3>{date.format('ddd')}</h3>
-                    <p>{date.format('D')}</p>
-                    </button>
-                ))}
-                <button className='navigate-week-button' onClick={nextWeek}><img src={IconLibrary.Arrow} alt='' /></button>
-
-            </div>
             
-            <h3 className='full-width'>Summary</h3>
-            <div className='date' style={{width: '100%'}}>{makeDateNice(selectedDate)}</div>
-            <div className='summary-container'>
-                {userGoals.length > 0 ? userGoals.map((goal)=>(
-                    <div className='summary-cell-body' key={goal.name}>
-                        <div className='left'>
-                            <div className='cell-name'>{goal.name}</div>
-                            <div className='cell-value'><p>{getGoalCurrentValue(userActivity?.logs, goal.name)}</p>/{goal.target}</div>
+            {menu ? (
+                <div className={styles.menu}>
+                    <h3>{menu?.title}</h3>
+                    <button type='button' onClick={()=>hideSection(menu.sectionName)}>Hide Section</button>
+                    <button type='button' onClick={()=>setMenu(null)}>Cancel</button>
+                </div>  
+            ) : null}
+            <div className={styles['dashboard-content']}>
+            <div className={styles.section} style={{display: shownSections.includes('goals') ? 'flex' : 'none'}}>
+                <div className={styles['summary-card']}>
+                    <div className={styles['summary-card-header']}>
+                        <h2>Goals</h2>
+                        <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Goals', sectionName: 'goals'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
+                    </div>
+                    <div className={styles["card-content"]}>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Total Goals</p>
+                            <p className={styles['block-value']}>{userGoals?.length}</p>
                         </div>
-                        <div className='right'>
-                        {<ProgressCircle 
-                            currentAmount={getGoalCurrentValue(userActivity?.logs, goal.name)} 
-                            targetAmount={goal.target} 
-                            size={120} 
-                            strokeWidth={5} 
-                            color="#3498db"
-                            radiusSize={5} 
-                        />}
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Completed</p>
+                            <p className={styles['block-value']}>1</p>
                         </div>
-                </div> 
-                )): 'No goals found'}  
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Completion</p>
+                            <p className={styles['block-value']}>2%</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles['goals-container']}>
+                    {userGoals.length > 0 ? userGoals.map((goal)=>(
+                        <div className={styles['goal-body']} key={goal.name}>
+                                <div className={styles['goal-info']}>
+                                    <img className={styles['goal-icon']} alt='' src={goal.icon.icon} />
+                                    <div className={styles['cell-value']}><p>{getGoalCurrentValue(userActivity?.logs, goal.name)}</p>/{goal.target}</div>
+                                </div>
+                                <div className={styles['goal-streak']}>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>M</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>T</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>W</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>T</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}
+                                        style={{'--completion': 40 * 3.6, // Convert percentage to degrees
+                                    }}>
+                                        <p>F</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>S</p>
+                                    </div>
+                                    <div className={styles['goal-streak-day']}>
+                                        <p>S</p>
+                                    </div>
+                                </div>
+                            
+                    </div> 
+                    )): 'No goals found'}  
+                </div>
             </div>
-            <h3 className='subtitle'>Activity</h3>
-            <div className='activity-container section'>
-                    <div className='activity-item border-bottom'>
-                        <div className='small-icon'></div>
-                        <p className='name'>Name</p> 
-                        <p className='duration'>Duration</p>
-                        <p className='time'>Time</p>
+            <div className={styles.section} style={{display: shownSections.includes('activity') ? 'flex' : 'none'}}>
+                <div className={styles['summary-card']}>
+                <div className={styles['summary-card-header']}>
+                        <h2>Activity</h2>
+                        <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Activity', sectionName: 'activity'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
+                    </div>
+                    <div className={styles["card-content"]}>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Active Time</p>
+                            <p className={styles['block-value']}>20 min</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Exercises</p>
+                            <p className={styles['block-value']}>3</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['block-title']}>Workouts</p>
+                            <p className={styles['block-value']}>0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`${styles["section-container"]} ${isActivityExpanded ? styles['expand-history'] : ''} `}>
+                    <div className={styles['section-header']} onClick={()=>setIsActivityExpanded(isActivityExpanded=>!isActivityExpanded)}>
+                        <h3>History</h3>
+                        <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
+                    </div>
+                    <div className={styles['section-table-header']}>
+                        <p>Name</p> 
+                        <p>Duration</p>
+                        <p >Time</p>
                     </div>
                 {activity?.length > 0 ? (activity.map((log)=>(
-                    <div className='activity-item' key={log.timestamp}>
+                    <div className={styles['activity-item']} key={log.timestamp}>
                         <img src={log.icon} className='small-icon'></img>
-                        <p className='name'>{log.data.name || log.data.workoutData.name}</p> 
-                        <p className='duration'>{log.data.duration} min</p>
-                        <p className='time'>{log.data.time || log.data.workoutData.time}</p>
+                        <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
+                        <p className={styles['activity-duration']}>{log.data.duration} min</p>
+                        <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
                     </div>
-                ))) : (<h3>No activity</h3>)}
+                    ))) : (<h3>No activity</h3>)}
+                </div>
             </div>
+            <div className={`${styles.section} ${styles.nutrition}`} style={{display: shownSections.includes('nutrition') ? 'flex' : 'none'}}> 
+                <div className={`${styles['summary-card']} ${styles['nutrition-section']}`}>
+                <div className={styles['summary-card-header']}>
+                        <h2>Nutrition</h2>
+                        <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Nutrition', sectionName: 'nutrition'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
+                    </div>
+                    <div className={styles["card-content"]}>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Calories</p>
+                            <p className={styles['macro-value']}>350 kcal</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Protein</p>
+                            <p className={styles['macro-value']}>30g</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Carbs</p>
+                            <p className={styles['macro-value']}>5g</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Sodium</p>
+                            <p className={styles['macro-value']}>300mg</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Sugar</p>
+                            <p className={styles['macro-value']}>2g</p>
+                        </div>
+                        <div className={styles['card-content-block']}>
+                            <p className={styles['macro-name']}>Fats</p>
+                            <p className={styles['macro-value']}>10g</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div className={`${styles["section-container"]} ${isNutritionExpanded ? styles['expand-history'] : ''} `}>
+                    <div className={styles['section-header']} onClick={()=>setIsNutritionExpanded(isNutritionExpanded=>!isNutritionExpanded)}>
+                        <h3>History</h3>
+                        <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
+                    </div>
+               
+                    {activity?.length > 0 ? (activity.map((log)=>(
+                        <div className={`${styles['activity-item']}`} key={log.timestamp}>
+                            <img src={log.icon} className='small-icon'></img>
+                            <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
+                            <p className={styles['activity-duration']}>{log.data.duration} min</p>
+                            <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
+                        </div>
+                    ))) : (<h3>No activity</h3>)}
+                </div>
+            </div>
+            </div>
+            
 
         </div>
      );
