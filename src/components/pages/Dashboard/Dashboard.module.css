@@ -190,6 +190,9 @@
     border-radius: 10px;
     
 }
+.goals-section{
+    gap: 10px;
+}
 .section-header{
     width: 100%;
     display: flex;
