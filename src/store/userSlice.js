@@ -7,8 +7,6 @@ import {defaultFields} from '../constants/defaultFields';
 import { mockExercises } from '../constants/mockExercises';
 import { mockWorkouts } from '../constants/mockWorkouts';
 import { exercises, workouts } from '../database';
-import CaloriesIcon from '../assets/calories.svg';
-import StepsIcon from '../assets/steps.svg';
 import { IconLibrary } from '../IconLibrary';
 
 const initialState = {
@@ -20,14 +18,14 @@ const initialState = {
         name: 'Calories',
         unit: 'kcal',
         target: 1400,
-        icon: {name: 'Calories', icon: CaloriesIcon}
+        icon: {name: 'Calories', icon: IconLibrary.Calories}
       },
       {
         id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
         name: 'Steps',
         unit: 'steps',
         target: 6000,
-        icon: {name: 'Steps', icon: StepsIcon}
+        icon: {name: 'Steps', icon: IconLibrary.Steps}
       },
       {
         id: '3d629850-384e-4adf-95f8-6c82032ds9c3fe1f',
