@@ -175,7 +175,7 @@ const Dashboard = () => {
                         <div className={styles['activity-item']} key={log.timestamp}>
                             <img src={log.icon} className='small-icon'></img>
                             <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                            <p className={styles['activity-duration']}>{log.data.duration} min</p>
+                            <p className={styles['activity-duration']}>{log.data.duration} min</p> at
                             <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
                         </div>
                         ))) : (<h3>No activity</h3>)}
