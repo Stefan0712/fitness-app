@@ -221,7 +221,7 @@ const Dashboard = () => {
                             <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
                         </div>
                 
-                        {activity?.length > 0 ? (activity.map((log)=>(
+                        {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='food').map((log)=>(
                             <div className={`${styles['activity-item']}`} key={log.timestamp}>
                                 <img src={log.icon} className='small-icon'></img>
                                 <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
