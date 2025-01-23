@@ -152,15 +152,15 @@ const Dashboard = () => {
                         <div className={styles["card-content"]}>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Active Time</p>
-                                <p className={styles['block-value']}>20 min</p>
+                                <p className={styles['block-value']}>{activity.reduce((sum, obj)=> sum + parseInt(obj.data.duration,10), 0)} min</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Exercises</p>
-                                <p className={styles['block-value']}>3</p>
+                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'exercise').length}</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Workouts</p>
-                                <p className={styles['block-value']}>0</p>
+                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'workout').length}</p>
                             </div>
                         </div>
                     </div>
