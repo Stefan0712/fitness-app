@@ -1,6 +1,6 @@
 import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressCircle from '../../common/ProgressCircle/ProgressCircle';
@@ -24,12 +24,15 @@ const Dashboard = () => {
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
     const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
 
+
+
+    const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
+
     const [menu, setMenu] = useState(null);
 
     
     const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
-
-
+    const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : [0];
 
 
     const getGoalCurrentValue = (arr,goalName) => {
@@ -47,8 +50,34 @@ const Dashboard = () => {
         setMenu(null);
     }
 
-    
+    useEffect(()=>{
+        const totals = getFoodCardData();
+        if (JSON.stringify(totals) !== JSON.stringify(foodCardData)) {
+            setFoodCardData(totals);
+        }
+    },[foodHistory]);
 
+    const getFoodCardData = () => {
+        const totals = {
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            sodium: 0,
+            sugar: 0,
+            fats: 0,
+        };
+    
+        foodHistory?.forEach(obj => {
+            totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
+            totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
+            totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
+            totals.sodium += obj.data.sodium ? parseInt(obj.data.sodium, 10) : 0;
+            totals.sugar += obj.data.sugar ? parseInt(obj.data.sugar, 10) : 0;
+            totals.fats += obj.data.fats ? parseInt(obj.data.fats, 10) : 0;
+        });
+    
+        return totals;
+    };
 
 
 
@@ -190,27 +219,27 @@ const Dashboard = () => {
                         <div className={styles["card-content"]}>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Calories</p>
-                                <p className={styles['macro-value']}>350 kcal</p>
+                                <p className={styles['macro-value']}>{foodCardData.calories}kcal</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Protein</p>
-                                <p className={styles['macro-value']}>30g</p>
+                                <p className={styles['macro-value']}>{foodCardData.protein}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Carbs</p>
-                                <p className={styles['macro-value']}>5g</p>
+                                <p className={styles['macro-value']}>{foodCardData.carbs}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Sodium</p>
-                                <p className={styles['macro-value']}>300mg</p>
+                                <p className={styles['macro-value']}>{foodCardData.sodium}mg</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Sugar</p>
-                                <p className={styles['macro-value']}>2g</p>
+                                <p className={styles['macro-value']}>{foodCardData.sugar}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Fats</p>
-                                <p className={styles['macro-value']}>10g</p>
+                                <p className={styles['macro-value']}>{foodCardData.fats}g</p>
                             </div>
                             
                         </div>
