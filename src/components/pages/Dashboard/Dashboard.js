@@ -87,7 +87,7 @@ const Dashboard = () => {
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Completion</p>
-                                <p className={styles['block-value']}>{(userGoals?.filter(goal=> goal.target <= getGoalCurrentValue(userActivity?.logs, goal.name)) / userGoals?.lengh) * 100}%</p>
+                                <p className={styles['block-value']}>{userGoals?.filter(goal=> goal.target <= getGoalCurrentValue(userActivity?.logs, goal.name)).length / userGoals?.length * 100}%</p>
                             </div>
                         </div>
                         
