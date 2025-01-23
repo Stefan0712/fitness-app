@@ -1,10 +1,10 @@
-import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase } from '../../../helpers';
+import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase, formatDate, convertFullDate } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
-import ProgressCircle from '../../common/ProgressCircle/ProgressCircle';
+import { format, startOfWeek, addDays, getDay } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
+import Goal from './Goal';
 
 
 
@@ -24,7 +24,7 @@ const Dashboard = () => {
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
     const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
 
-
+    const [currentWeek, setCurrentWeek] = useState([])
 
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
 
@@ -32,51 +32,57 @@ const Dashboard = () => {
 
     
     const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
-    const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : [0];
+    const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
+    console.log(foodHistory)
 
 
-    const getGoalCurrentValue = (arr,goalName) => {
-        if(arr && arr.length > 0){
-            return arr.reduce((sum, item) => {
-                return item.name === goalName ? sum + item.data.value : sum;
-            }, 0);
-        }else{
-            return 0;
-        }
-        
+
+    const getCurrentWeek = () => {
+        const today = new Date();
+        return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
     };
+    useEffect(()=>{setCurrentWeek(getCurrentWeek())},[])
+
+
+
+    
     const hideSection = (sectionName) =>{
         setShownSections(shownSections=>shownSections.filter(s=>s !== sectionName));
         setMenu(null);
     }
 
     useEffect(()=>{
-        const totals = getFoodCardData();
-        if (JSON.stringify(totals) !== JSON.stringify(foodCardData)) {
-            setFoodCardData(totals);
+        if(foodHistory){
+            const totals = getFoodCardData();
+            if (JSON.stringify(totals) !== JSON.stringify(foodCardData)) {
+                setFoodCardData(totals);
+            }
         }
     },[foodHistory]);
 
     const getFoodCardData = () => {
-        const totals = {
-            calories: 0,
-            protein: 0,
-            carbs: 0,
-            sodium: 0,
-            sugar: 0,
-            fats: 0,
-        };
+ 
+        if(foodHistory && foodHistory.length > 0 && foodHistory.some(item=>item.type==="food")){
+            const totals = {
+                calories: 0,
+                protein: 0,
+                carbs: 0,
+                sodium: 0,
+                sugar: 0,
+                fats: 0,
+            };
+            foodHistory.forEach(obj => {
+                totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
+                totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
+                totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
+                totals.sodium += obj.data.sodium ? parseInt(obj.data.sodium, 10) : 0;
+                totals.sugar += obj.data.sugar ? parseInt(obj.data.sugar, 10) : 0;
+                totals.fats += obj.data.fats ? parseInt(obj.data.fats, 10) : 0;
+            });
+            return totals;
+        }
     
-        foodHistory?.forEach(obj => {
-            totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
-            totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
-            totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
-            totals.sodium += obj.data.sodium ? parseInt(obj.data.sodium, 10) : 0;
-            totals.sugar += obj.data.sugar ? parseInt(obj.data.sugar, 10) : 0;
-            totals.fats += obj.data.fats ? parseInt(obj.data.fats, 10) : 0;
-        });
-    
-        return totals;
+        
     };
 
 
@@ -99,79 +105,9 @@ const Dashboard = () => {
 
 
             <div className={styles['dashboard-content']}>
-                <div className={`${styles.section} ${styles['goals-section']}`} style={{display: shownSections.includes('goals') ? 'flex' : 'none'}}>
-                    <div className={styles['summary-card']}>
-                        <div className={styles['summary-card-header']}>
-                            <h2>Goals</h2>
-                            <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Goals', sectionName: 'goals'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
-                        </div>
-                        <div className={styles["card-content"]}>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Total Goals</p>
-                                <p className={styles['block-value']}>{userGoals?.length}</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Completed</p>
-                                <p className={styles['block-value']}>{userGoals?.filter(goal=> goal.target <= getGoalCurrentValue(userActivity?.logs, goal.name)).length}</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Completion</p>
-                                <p className={styles['block-value']}>{userGoals?.filter(goal=> goal.target <= getGoalCurrentValue(userActivity?.logs, goal.name)).length / userGoals?.length * 100}%</p>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div className={styles['goals-container']}>
-                        {userGoals.length > 0 ? userGoals.map((goal)=>(
-                            <div className={styles['goal-body']} key={goal.name}>
-                                    <div className={styles['goal-info']}>
-                                        <img className={styles['goal-icon']} alt='' src={goal.icon.icon} />
-                                        <div className={styles['cell-value']}><p>{getGoalCurrentValue(userActivity?.logs, goal.name)}</p>/{goal.target}</div>
-                                    </div>
-                                    <div className={styles['goal-streak']}>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>M</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>T</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>W</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>T</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}
-                                            style={{'--completion': 40 * 3.6, // Convert percentage to degrees
-                                        }}>
-                                            <p>F</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>S</p>
-                                        </div>
-                                        <div className={styles['goal-streak-day']}>
-                                            <p>S</p>
-                                        </div>
-                                    </div>
-                                
-                        </div> 
-                        )): 'No goals found'}  
-                    </div>
-                    <div className={`${styles["section-container"]} ${isGoalsExpanded ? styles['expand-history'] : ''} `}>
-                            <div className={styles['section-header']} onClick={()=>setIsGoalsExpanded(isGoalsExpanded=>!isGoalsExpanded)}>
-                                <h3>History</h3>
-                                <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isGoalsExpanded ? '90' : '180'}deg)`}}></img>
-                                </div>
-                                {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='goal').map((log)=>(
-                                    <div className={styles['activity-item']} key={log.timestamp}>
-                                        <img src={log.icon} className='small-icon'></img>
-                                        <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                                        <p className={styles['activity-duration']}>{log.data.value} min</p>
-                                        <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
-                                    </div>
-                                ))) : (<h3>No activity</h3>)}
-                            </div>
-                    </div>
+                
+                {userGoals.length > 0 ? userGoals.map((goal, index)=>(<Goal key={'goal-'+index} data={goal} />)): 'No goals found'}  
+          
                 <div className={styles.section} style={{display: shownSections.includes('activity') ? 'flex' : 'none'}}>
                     <div className={styles['summary-card']}>
                     <div className={styles['summary-card-header']}>
@@ -181,15 +117,15 @@ const Dashboard = () => {
                         <div className={styles["card-content"]}>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Active Time</p>
-                                <p className={styles['block-value']}>{activity.reduce((sum, obj)=> sum + parseInt(obj.data.duration,10), 0)} min</p>
+                                <p className={styles['block-value']}>{activity?.reduce((sum, obj)=> sum + parseInt(obj.data.duration,10), 0) || 0} min</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Exercises</p>
-                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'exercise').length}</p>
+                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'exercise').length || 0}</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['block-title']}>Workouts</p>
-                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'workout').length}</p>
+                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'workout').length || 0}</p>
                             </div>
                         </div>
                     </div>
@@ -219,27 +155,27 @@ const Dashboard = () => {
                         <div className={styles["card-content"]}>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Calories</p>
-                                <p className={styles['macro-value']}>{foodCardData.calories}kcal</p>
+                                <p className={styles['macro-value']}>{foodCardData?.calories || 0}kcal</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Protein</p>
-                                <p className={styles['macro-value']}>{foodCardData.protein}g</p>
+                                <p className={styles['macro-value']}>{foodCardData?.protein || 0}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Carbs</p>
-                                <p className={styles['macro-value']}>{foodCardData.carbs}g</p>
+                                <p className={styles['macro-value']}>{foodCardData?.carbs || 0}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Sodium</p>
-                                <p className={styles['macro-value']}>{foodCardData.sodium}mg</p>
+                                <p className={styles['macro-value']}>{foodCardData?.sodium || 0}mg</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Sugar</p>
-                                <p className={styles['macro-value']}>{foodCardData.sugar}g</p>
+                                <p className={styles['macro-value']}>{foodCardData?.sugar || 0}g</p>
                             </div>
                             <div className={styles['card-content-block']}>
                                 <p className={styles['macro-name']}>Fats</p>
-                                <p className={styles['macro-value']}>{foodCardData.fats}g</p>
+                                <p className={styles['macro-value']}>{foodCardData?.fats || 0}g</p>
                             </div>
                             
                         </div>

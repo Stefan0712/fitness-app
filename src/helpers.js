@@ -119,3 +119,10 @@ export const convertToNumber = (value) => {
   // Use parseInt if the value is not already a number
   return typeof value === "number" ? value : parseInt(value, 10) || 0;
 };
+export const convertFullDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed, so add 1
+  const day = String(date.getDate()).padStart(2, '0'); // Pad day with leading zero if necessary
+
+  return `${year}-${month}-${day}`;
+};
