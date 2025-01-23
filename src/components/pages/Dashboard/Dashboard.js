@@ -170,11 +170,7 @@ const Dashboard = () => {
                             <h3>History</h3>
                             <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
                         </div>
-                        <div className={styles['section-table-header']}>
-                            <p>Name</p> 
-                            <p>Duration</p>
-                            <p >Time</p>
-                        </div>
+                       
                     {activity?.length > 0 ? (activity.map((log)=>(
                         <div className={styles['activity-item']} key={log.timestamp}>
                             <img src={log.icon} className='small-icon'></img>

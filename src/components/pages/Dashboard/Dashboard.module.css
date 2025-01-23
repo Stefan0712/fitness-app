@@ -159,24 +159,24 @@
     height: 200px;
     overflow-y: auto;
 }
-.activity-container .activity-item{
+.section-container .activity-item{
     display: flex;
     gap: 15px;
     align-items: center;
     width: 100%;
 }
-.activity-container .activity-item .small-icon{
+.section-container .activity-item .small-icon{
     width: 20px;
     height: 20px;
 }
-.activity-container .activity-item .name{
-    width: 40%;
+.section-container .activity-name{
+    width: calc(100% - 160px);
     overflow: hidden;
 }
-.activity-container .activity-item .time{
+.section-container .activity-time{
     width: 50px;
 }
-.activity-container .activity-item .duration{
+.section-container .activity-duration{
     width: 75px;
 }
 
@@ -200,11 +200,11 @@
     justify-content: space-between;
     height: 50px;
     min-height: 50px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     padding-bottom: 2px;
     box-sizing: content-box;
     
 }
+
 .goals-container{
     width: 100%;
     display: flex;
@@ -235,15 +235,7 @@
     overflow-y: auto;
     transition: height 0.1s;
 }
-.section-table-header{
-    margin: -10px -10px 0 -10px;
-    width: calc(100% = 20px);
-    display: grid;
-    grid-template-columns: 4fr 2fr 2fr;
-    height: 30px;
-    padding: 0 10px;
-    align-items: center;
-}
+
 /* goals */
 .goal-body{
     width: 100%;
