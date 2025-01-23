@@ -1,4 +1,4 @@
-import { getDateForHeader, getCurrentDay, makeDateNice } from '../../../helpers';
+import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
 import { useState } from 'react';
 import dayjs from 'dayjs';
@@ -224,9 +224,9 @@ const Dashboard = () => {
                         {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='food').map((log)=>(
                             <div className={`${styles['activity-item']}`} key={log.timestamp}>
                                 <img src={log.icon} className='small-icon'></img>
-                                <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                                <p className={styles['activity-duration']}>{log.data.duration} min</p>
-                                <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
+                                <p className={styles['activity-name']}>{log.data.name}</p> 
+                                <p className={styles['activity-duration']}>{makeFirstUpperCase(log.data.type)}</p> at
+                                <p className={styles['activity-time']}>{log.data.time}</p>
                             </div>
                         ))) : (<h3>No activity</h3>)}
                     </div>
