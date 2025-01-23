@@ -9,6 +9,7 @@ import { mockWorkouts } from '../constants/mockWorkouts';
 import { exercises, workouts } from '../database';
 import CaloriesIcon from '../assets/calories.svg';
 import StepsIcon from '../assets/steps.svg';
+import { IconLibrary } from '../IconLibrary';
 
 const initialState = {
   userId: uuidv4(),
@@ -18,15 +19,29 @@ const initialState = {
         id: 'bc8d7239-4396-4cc9-b052-6105e3728a15',
         name: 'Calories',
         unit: 'kcal',
-        target: '1400',
+        target: 1400,
         icon: {name: 'Calories', icon: CaloriesIcon}
       },
       {
         id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
         name: 'Steps',
         unit: 'steps',
-        target: '6000',
+        target: 6000,
         icon: {name: 'Steps', icon: StepsIcon}
+      },
+      {
+        id: '3d629850-384e-4adf-95f8-6c82032ds9c3fe1f',
+        name: 'Sleep',
+        unit: 'hours',
+        target: 8,
+        icon: {name: 'Sleep', icon: IconLibrary.Sleep}
+      },
+      {
+        id: '3d68j32850-384e-4adf-95f8-6c8209c3fe1f',
+        name: 'Water',
+        unit: 'ml',
+        target: 250,
+        icon: {name: 'Water', icon: IconLibrary.Water}
       }
     ],
     name: 'Stefan',
@@ -309,7 +324,8 @@ const initialState = {
   workouts: [...mockWorkouts],
   defaultWorkouts: workouts,
   defaultExercises: exercises,
-  message: null
+  message: null,
+  dashboardSections: ['goals','activity','nutrition','planned']
 };
 
 const userSlice = createSlice({
