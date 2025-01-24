@@ -1,10 +1,11 @@
 import styles from './Goal.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { convertFullDate, formatTime, getCurrentDay, getDateFromTimestamp, getHourFromTimestamp } from '../../../helpers';
-import { startOfWeek, addDays, format } from 'date-fns';
+import {getCurrentDay, getDateFromTimestamp, getHourFromTimestamp } from '../../../helpers';
+import { startOfWeek, addDays} from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import useCurrentWeekLogs from './useCurrentWeekLogs';
+import { updateDashboardLayout } from '../../../store/userSlice';
 
 
 
@@ -13,15 +14,20 @@ const Goal = ({data}) => {
 
     const logs = useSelector((state)=>state.user?.activity[getCurrentDay()]?.logs?.filter(item=>item.id === data.id));
     const currentWeeksLogs = useCurrentWeekLogs();
+    const dispatch = useDispatch();
+    const dashboardSections = useSelector((state)=>state.user.dashboardSections);
     const [currentWeek, setCurrentWeek] = useState([]);
 
     const [isHistoryExpanded, setIsHistoryExpanded] = useState(false)
-    
+    const [showMenu, setShowMenu] = useState(false)
 
     const getCurrentWeek = () => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
     };
+
+
+
     useEffect(()=>{
         const weeksData = currentWeeksLogs?.map(item=>({logs: item.logs,date: item.date, dayName: item.shortDayName, completion: getCompletionRates(item.logs)}));
         console.log(weeksData)
@@ -37,13 +43,22 @@ const Goal = ({data}) => {
             return 0;
         }
     }
-
+    const hideGoal = () =>{
+        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != data.id)))
+    }
     return ( 
         <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`}>
+            {showMenu ? (
+                <div className={styles.menu}>
+                    <button type='button' className='clear-button' onClick={hideGoal}>Hide</button>
+                    <button type='button' className='clear-button' onClick={()=>setShowMenu(false)}>Cancel</button>
+                </div>
+            ):null}
             <div className={styles.header}>
                 <img className={styles.icon} src={data.icon.icon}></img>
                 <h3>{data.name}</h3>
                 <p>{logs?.reduce((sum, obj)=>sum + parseInt(obj.data.value,10),0) || 0}/{data.target}</p>
+                <button className='clear-button' onClick={()=>setShowMenu(true)}><img src={IconLibrary.Dots} className='small-icon' alt='' /></button>
             </div>
             <div className={styles.days}>
                 {currentWeek?.map((item, index)=>{

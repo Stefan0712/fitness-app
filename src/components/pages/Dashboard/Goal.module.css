@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     transition: all 0.1s;
+    position: relative;
 }
 .goal.expand-goal{
     height: 380px;
@@ -117,4 +118,37 @@
 }
 .selected{
     border: 2px solid rgba(211, 211, 211, 0.1);
+}
+.menu{
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    width: 150px;
+    height: 80px;
+    background-color: #111214;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid rgba(211, 211, 211, 0.1);
+    animation-name: showGoalMenu;
+    animation-duration: 0.1s;
+}
+.menu button{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    
+}
+@keyframes showGoalMenu {
+    from{
+        height: 0px;
+        opacity: 0;
+    }
+    to{
+        height: 80px;
+        opacity: 1;
+    }
 }

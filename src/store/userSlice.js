@@ -323,7 +323,12 @@ const initialState = {
   defaultWorkouts: workouts,
   defaultExercises: exercises,
   message: null,
-  dashboardSections: ['goals','activity','nutrition','planned']
+  dashboardSections: [
+    {type: 'goal', identifier: 'bc8d7239-4396-4cc9-b052-6105e3728a15'},
+    {type: 'goal', identifier: '3d629850-384e-4adf-95f8-6c8209c3fe1f'},
+    {type: 'section', identifier: 'activity'},
+    {type: 'section', identifier: 'nutrition'}
+  ]
 };
 
 const userSlice = createSlice({
@@ -515,6 +520,9 @@ const userSlice = createSlice({
   disableStopwatch: (state) =>{
     state.userData.isStopwatchOn = false;
   },
+  updateDashboardLayout: (state, action) =>{
+    state.dashboardSections = action.payload;
+  },
     reset: () => initialState,
   },
 });
@@ -548,6 +556,7 @@ export const {
   addGoal,
   updateGoal,
   removeGoal,
+  updateDashboardLayout
 } = userSlice.actions;
 
 export default userSlice.reducer;

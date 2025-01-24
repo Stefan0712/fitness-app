@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { format, startOfWeek, addDays, getDay } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import Goal from './Goal';
+import { updateDashboardLayout } from '../../../store/userSlice';
 
 
 
@@ -12,13 +13,13 @@ const Dashboard = () => {
 
     const [selectedDate, setSelectedDate] = useState(getCurrentDay());
 
-    const [shownSections, setShownSections] = useState(['goals','activity','nutrition']);
+
 
     const dispatch = useDispatch();
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
-    const allActivity = useSelector((state)=>state.user.activity);
     const userGoals = useSelector((state)=>state.user.userData.goals);
 
+    const dashboardComponents = useSelector((state)=>state.user.dashboardSections);
 
     const [isGoalsExpanded, setIsGoalsExpanded] = useState(false);
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
@@ -47,7 +48,7 @@ const Dashboard = () => {
 
     
     const hideSection = (sectionName) =>{
-        setShownSections(shownSections=>shownSections.filter(s=>s !== sectionName));
+        dispatch(updateDashboardLayout(dashboardComponents.filter(s=>s !== sectionName)));
         setMenu(null);
     }
 
@@ -86,7 +87,7 @@ const Dashboard = () => {
     };
 
 
-
+   
     return ( 
         <div className={`${styles.dashboard} page`}>
             
@@ -106,9 +107,10 @@ const Dashboard = () => {
 
             <div className={styles['dashboard-content']}>
                 
-                {userGoals.length > 0 ? userGoals.map((goal, index)=>(<Goal key={'goal-'+index} data={goal} />)): 'No goals found'}  
+                {userGoals.length > 0 ? userGoals.filter(item=>dashboardComponents.some(component=>component.identifier===item.id)).map((goal, index)=>(<Goal key={'goal-'+index} data={goal} />)): 'No goals found'}  
           
-                <div className={styles.section} style={{display: shownSections.includes('activity') ? 'flex' : 'none'}}>
+                {dashboardComponents.some(item=>item.identifier === "activity") ? (
+                    <div className={styles.section}>
                     <div className={styles['summary-card']}>
                     <div className={styles['summary-card-header']}>
                             <h2>Activity</h2>
@@ -146,7 +148,9 @@ const Dashboard = () => {
                         ))) : (<h3>No activity</h3>)}
                     </div>
                 </div>
-                <div className={`${styles.section} ${styles.nutrition}`} style={{display: shownSections.includes('nutrition') ? 'flex' : 'none'}}> 
+                ):null}
+                {dashboardComponents.some(item=>item.identifier === "nutrition") ? (
+                    <div className={`${styles.section} ${styles.nutrition}`}> 
                     <div className={`${styles['summary-card']} ${styles['nutrition-section']}`}>
                     <div className={styles['summary-card-header']}>
                             <h2>Nutrition</h2>
@@ -196,6 +200,7 @@ const Dashboard = () => {
                         ))) : (<h3>No activity</h3>)}
                     </div>
                 </div>
+                ):null}
             </div>
             
 
