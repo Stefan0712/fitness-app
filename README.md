@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Fitness App (Work in Progress and open to name suggestions)  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the **Fitness App**! 🚀  
+This is a **React-based web application** designed to help users manage their fitness goals, track workouts, and monitor progress—all in one place. The app is currently a **work in progress**, but the goal is to create a simple, effective, and **free-to-use** alternative to the complicated and expensive fitness apps on the market.  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🎯 Purpose  
+This app is designed to:  
+- Showcase my **web development skills** in React and Redux.  
+- Provide a **personal fitness tracking tool** for myself and anyone else who wants to use it.  
+- Serve as a **free, open-source** alternative to paid fitness apps.  
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Features (Planned and Current)  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ✅ Current Features   
+- **Goal Tracking**: Track your fitness goals with an intuitive and clean interface.  
+- **Activity Logs**: View your daily progress and logged exercises and workouts.
+- **Nutrition Logs**: Log and manage your food and water intake.
+- **Fast to use**: Forget about having to fill 10s of fields for just one log. Beside the name, everything else is optional (in most cases).
+- **Works offline**: (STILL WORKING ON IT) Everything is saved locally so you won't need a constant internet connection to use it.
+- **Free**: All the important features are free to use*
+- **Perfectly Balanced**: It is neither too simple or too complicated. You can create custom equipment, fields, or tags, or just use the default ones.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### 🔜 Upcoming Features  
+- **Online Database of Exercises/Workouts**: An online database of handpicked workouts and exercises for all types of goals
+- **Share Workouts**: An option to let you share your workouts with a simple link or through the app
+- **Community**: A community page where you can share or ask for advice.
+- **Upcoming Workouts**: Plan and organize your fitness schedule.  
+- **A database of products**: A database of products so it will be easier and more accurate to log food.
+- **More social features**: This might inlcude and not limited to: The option to follow someone, have a community created workouts/exercises page, comment and rate other workouts, private messages, etc.
+  - **Note**: Social features may require backend services and might involve a **subscription**, **one-time payment**, or **ads** to cover costs.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
+## ℹ️ About the app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This fitness app is a React-based web application designed with modern web development tools and practices. It demonstrates the use of various libraries and frameworks to build a robust, scalable, and user-friendly application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Technologies Used
+***React***: The core library for building the app's user interface.
+***React Router***: Enables seamless navigation between pages and sections.
+***Redux***: Manages the application's state efficiently, ensuring a predictable data flow.
+***Redux Persist***: Preserves the state across browser sessions for a better user experience.
+***Recharts***: Used for creating visually appealing and interactive charts to display user progress.
+***UUID***: Generates unique identifiers for app components like goals, exercises, and logs.
+***date-fns***: Provides utility functions for handling and formatting dates in a lightweight and efficient manner.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This app is a work in progress and is built to showcase modern web development practices while serving as a functional fitness tracker. The project is open-source and welcomes contributions to enhance its features and functionality.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🚀 How to Run the App  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+For now, the app is still not ready. As soon as it gets to a state where it can be used, I will update this section
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🤝 Contributing
 
-## Learn More
+Contributions are welcome! If you have suggestions, ideas, or bug fixes, feel free to:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Fork this repository.
+Create a new branch.
+Submit a pull request. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📜 License
 
-### Code Splitting
+This project is licensed under the MIT License, which means you’re free to use, modify, and distribute it as long as you provide attribution.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📬 Feedback
 
-### Analyzing the Bundle Size
+If you have feedback or feature requests, please open an issue or reach out directly. Let’s make this app the best it can be!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
