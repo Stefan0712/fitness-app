@@ -2,8 +2,9 @@ import styles from './Goal.module.css';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { convertFullDate, formatTime, getCurrentDay, getDateFromTimestamp, getHourFromTimestamp } from '../../../helpers';
-import { startOfWeek, addDays, format, differenceInCalendarISOWeekYears } from 'date-fns';
+import { startOfWeek, addDays, format } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
+import useCurrentWeekLogs from './useCurrentWeekLogs';
 
 
 
@@ -11,6 +12,7 @@ import { IconLibrary } from '../../../IconLibrary';
 const Goal = ({data}) => {
 
     const logs = useSelector((state)=>state.user?.activity[getCurrentDay()]?.logs?.filter(item=>item.id === data.id));
+    const currentWeeksLogs = useCurrentWeekLogs();
     const [currentWeek, setCurrentWeek] = useState([]);
 
     const [isHistoryExpanded, setIsHistoryExpanded] = useState(false)
@@ -20,8 +22,21 @@ const Goal = ({data}) => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
     };
-    useEffect(()=>{setCurrentWeek(getCurrentWeek())},[]);
+    useEffect(()=>{
+        const weeksData = currentWeeksLogs?.map(item=>({logs: item.logs,date: item.date, dayName: item.shortDayName, completion: getCompletionRates(item.logs)}));
+        console.log(weeksData)
+        setCurrentWeek(weeksData);
+    },[]);
 
+    const getCompletionRates = (logs) =>{
+        
+
+        if(logs && logs.length > 0){
+            return logs.filter(item=>item.id===data.id).reduce((sum, obj)=> sum + parseInt(obj.data.value || 0, 10), 0)/data.target*100;
+        }else{
+            return 0;
+        }
+    }
 
     return ( 
         <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`}>
@@ -31,12 +46,12 @@ const Goal = ({data}) => {
                 <p>{logs?.reduce((sum, obj)=>sum + parseInt(obj.data.value,10),0) || 0}/{data.target}</p>
             </div>
             <div className={styles.days}>
-                {currentWeek?.map((date, index)=>{
-                    return (<div className={`${styles.day} ${getCurrentDay() === convertFullDate(date) ? styles.selected : ''}`} key={index}>
-                            <div className={styles['day-circle']} key={index} style={{'--completion': 70 * 3.6}}>
+                {currentWeek?.map((item, index)=>{
+                    return (<div className={`${styles.day} ${getCurrentDay() === item.date ? styles.selected : ''}`} key={index}>
+                            <div className={styles['day-circle']} key={index} style={{'--completion': item.completion * 3.6}}>
                                 <img className={styles.checkmark} src={IconLibrary.Checkmark} alt=''></img>
                             </div>
-                            <p>{format(date, 'E')[0]+format(date, 'E')[1]+format(date, 'E')[2]}</p>
+                            <p>{item.dayName}</p>
                         </div>)
                 })}
             </div>
