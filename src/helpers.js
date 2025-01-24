@@ -126,3 +126,16 @@ export const convertFullDate = (date) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const getHourFromTimestamp = (timestamp)=>{
+  const date = new Date(timestamp); // Convert the timestamp to a Date object
+  const hours = date.getHours().toString().padStart(2, '0'); // Get hours and pad with leading zero if needed
+  const minutes = date.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with leading zero if needed
+  return `${hours}:${minutes}`; // Combine hours and minutes
+}
+export const getDateFromTimestamp = (timestamp) => {
+  const date = new Date(timestamp); // Convert the timestamp to a Date object
+  const day = date.getDate(); // Get the day of the month
+  const month = date.toLocaleString('en-US', { month: 'short' }); // Get the short month name
+  return `${day} ${month}`; // Combine day and month
+}

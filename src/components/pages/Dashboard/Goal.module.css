@@ -3,8 +3,8 @@
     height: 30px;
 }
 .goal{
-    height: 130px;
-    min-height: 130px;
+    height: 180px;
+    min-height: 180px;
     background-color: #1A1A1B;
     border-radius: 10px;
     padding: 10px;
@@ -12,6 +12,48 @@
     gap: 10px;
     display: flex;
     flex-direction: column;
+    transition: all 0.1s;
+}
+.goal.expand-goal{
+    height: 380px;
+    min-height: 380px;
+    transition: all 0.1s;
+}
+.history{
+    height: 30px;
+    min-height: 30px;
+    overflow: hidden;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.1s;
+}
+.history-header{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.history-header img{
+    transition: all 0.1s;
+}
+.history.expand-history{
+    height: 230px;
+    min-height: 230px;
+    transition: all 0.1s;
+}
+.history-container{
+    width: 100%;
+    height: 200px;
+    background-color: #111214;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
 }
 .header{
     display: flex;
