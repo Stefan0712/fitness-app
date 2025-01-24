@@ -47,7 +47,10 @@ const Goal = ({data}) => {
                 </div>
                 <div className={styles['history-container']}>
                     {logs && logs?.length > 0 ? logs.map((item,index)=>(
-                         <p className={styles.log} key={index}>{item.data.value} {data.unit} at {getHourFromTimestamp(item.timestamp)} on {getDateFromTimestamp(item.timestamp)}</p>
+                         <div className={styles.log} key={index}>
+                            <p>{item.data.value} {data.unit} at {getHourFromTimestamp(item.timestamp)} on {getDateFromTimestamp(item.timestamp)}</p>
+                            <p>{(item.data.value/data.target)*100}%</p>
+                         </div>
                     )) : <p>No logs found</p>}
                 </div>
             </div>

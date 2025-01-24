@@ -55,6 +55,13 @@
     overflow-x: hidden;
     padding: 10px;
 }
+.log{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .header{
     display: flex;
     align-items: center;
