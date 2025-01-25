@@ -6,6 +6,7 @@ import { format, startOfWeek, addDays, getDay } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import Goal from './Goal';
 import { updateDashboardLayout } from '../../../store/userSlice';
+import { Link } from 'react-router-dom';
 
 
 
@@ -48,7 +49,8 @@ const Dashboard = () => {
 
     
     const hideSection = (sectionName) =>{
-        dispatch(updateDashboardLayout(dashboardComponents.filter(s=>s !== sectionName)));
+        console.log('Just hid '+sectionName)
+        dispatch(updateDashboardLayout(dashboardComponents.filter(s=>s.identifier !== sectionName)));
         setMenu(null);
     }
 
@@ -94,6 +96,7 @@ const Dashboard = () => {
             <div className={styles.header}>
                 <div className={styles.date}>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
+                <Link to={'/edit-dashboard'} type='button' className='clear-button'><img className='small-icon' src={IconLibrary.Edit} alt=''/></Link>
             </div>
             
             {menu ? (

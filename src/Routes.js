@@ -24,6 +24,7 @@ import ExploreExercises from './components/pages/Library/ExploreExercises';
 import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
+import DashboardLayout from './components/pages/Dashboard/DashboardLayout';
 
 
 function AppRoutes() {
@@ -59,6 +60,7 @@ function AppRoutes() {
       <Route path='/tags' element={<Tags />} />
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/fields' element={<FieldsPage />} />
+      <Route path='/edit-dashboard' element={<DashboardLayout />} />
 
       
     </Routes>
