@@ -144,7 +144,7 @@ const Activity = () => {
                             {item?.logs && item.logs && item.logs.length > 0 ? (
                                 item.logs.map((log, index)=>(
                                     <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log))}>
-                                        <img className="small-icon" src={log.icon}></img>
+                                        <img className="small-icon" src={log.icon.icon}></img>
                                         <div className={styles["log-info"]}>
                                             <p>{log.name}</p>
                                             <div className={styles["log-meta"]}>

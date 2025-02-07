@@ -37,7 +37,8 @@
 
 }
 h3{
-    padding-left: 25px;
+    margin-left: 50px;
+    box-sizing: border-box;
 }
 .stopwatch{
     width: 100%;

@@ -33,12 +33,12 @@ const FieldsPage = () => {
             </div>
             <div className="screens-container">
                 {screenToShow === 'custom' ? (
-                    <div className={`screen left`}>
+                    <div className={`screen`}>
                         {customFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
                     </div>
                 ):null}
                 {screenToShow === 'default' ? (
-                    <div className={`screen right`}>
+                    <div className={`screen`}>
                         {defaultFields?.map((field)=><CustomField key={'CustomField'+field.name} field={field} />)}
                     </div>
                 ): null}

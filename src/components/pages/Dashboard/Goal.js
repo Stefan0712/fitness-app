@@ -38,7 +38,7 @@ const Goal = ({data}) => {
         
 
         if(logs && logs.length > 0){
-            return logs.filter(item=>item.id===data.id).reduce((sum, obj)=> sum + parseInt(obj.data.value || 0, 10), 0)/data.target*100;
+            return Math.round(logs.filter(item=>item.id===data.id).reduce((sum, obj)=> sum + parseInt(obj.data.value || 0, 10), 0)/data.target*100);
         }else{
             return 0;
         }
@@ -79,7 +79,7 @@ const Goal = ({data}) => {
                     {logs && logs?.length > 0 ? logs.map((item,index)=>(
                          <div className={styles.log} key={index}>
                             <p>{item.data.value} {data.unit} at {getHourFromTimestamp(item.timestamp)} on {getDateFromTimestamp(item.timestamp)}</p>
-                            <p>{(item.data.value/data.target)*100}%</p>
+                            <p>{Math.round((item.data.value/data.target)*100)}%</p>
                          </div>
                     )) : <p>No logs found</p>}
                 </div>

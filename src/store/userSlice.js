@@ -316,7 +316,7 @@ const initialState = {
     unitSystem: 'metric',
   },
   tags: [...defaultTags],
-  fields: [...defaultFields],
+  fields: [],
   categories: [...defaultCategories],
   exercises: [...mockExercises],
   workouts: [...mockWorkouts],
