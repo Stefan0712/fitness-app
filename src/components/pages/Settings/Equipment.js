@@ -21,7 +21,7 @@ const Equipment = () => {
     useEffect(()=>{
         let defaultItems = [];
         let userItems = [];
-        allItems.forEach((i)=>{
+        allItems?.forEach((i)=>{
             if(i.source === "system"){
                 defaultItems.push(i)
             }else if(i.source === 'user'){

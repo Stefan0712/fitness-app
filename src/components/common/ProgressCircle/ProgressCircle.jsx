@@ -33,6 +33,7 @@ const ProgressCircle = ({ currentAmount, targetAmount, size, strokeWidth, color,
       </svg>
       {icon ? (
       <div className='progress-circle-icon'>
+        <img src={icon} alt='' />
         <p>{text}</p> 
       </div>)
       : ''}

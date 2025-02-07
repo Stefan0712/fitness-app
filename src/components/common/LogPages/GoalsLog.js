@@ -69,6 +69,10 @@ const LogForm = ({id, closeLogWindow}) => {
         }
         dispatch(addLog(data));
         setInputValue(0);
+        setCurrentValue(0);
+        setName('');
+        setDescription('');
+        setTime(getCurrentTime());
     }
 
     

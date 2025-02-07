@@ -28,6 +28,10 @@ const Goals = ({closeMenu}) => {
     const handleOpenLogForm = (id) =>{
         setLogGoal(id);
     }
+    const handleCloseGoalsLog = () =>{
+        setLogGoal(null);
+        closeMenu();
+    }
     return ( 
         <div className={styles.goals}>
             <div className={styles.header}>
@@ -51,7 +55,7 @@ const Goals = ({closeMenu}) => {
             </div>
                 {showNewGoal ? <NewGoal closeNewGoal={()=>setShowNewGoal(false)} /> : null}
                 {editGoal ? <EditGoal closeNewGoal={()=>setEditGoal(null)} goalId={editGoal}/> : null}
-                {logGoal ? <GoalsLog closeLogWindow={()=>setLogGoal(null)} id={logGoal} /> : null}
+                {logGoal ? <GoalsLog closeLogWindow={()=>handleCloseGoalsLog()} id={logGoal} /> : null}
         </div>
      );
 }
