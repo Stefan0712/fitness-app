@@ -23,6 +23,7 @@ const ViewWorkout = () => {
     const workoutData = useSelector((state)=>state.user.workouts.find((item)=>item.id === id));
     
     const libraryExercises = useSelector((state)=>state.user.exercises);
+
     
     
     
@@ -35,15 +36,18 @@ const ViewWorkout = () => {
     //function to search and populate each exercise based on the course
     const fetchExercises = () => {
         const fetchedExercises = workoutData.exercises.map((ex) => {
-            if (ex.source === 'library') {
-                return libraryExercises.find((el) => el.id === ex.id);
+            
+            const tempEx = typeof ex === 'string' ? databaseExercises.find(item => item.id === ex) : ex;
+            
+            if (tempEx.source === 'library') {
+                return libraryExercises.find((el) => el.id === tempEx.id);
             }
-            if (ex.source === 'database') {
-                return databaseExercises.find((el) => el.id === ex.id);
+            if (tempEx.source === 'database') {
+                return databaseExercises.find((el) => el.id === tempEx.id);
             }
             return null; // Handle cases where source is invalid
         }).filter(Boolean); // Remove null values if any source is invalid
-    
+        console.log(fetchedExercises)
         setExercises(fetchedExercises);
     };
     
