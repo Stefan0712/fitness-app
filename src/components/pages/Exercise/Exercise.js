@@ -32,7 +32,6 @@ const Exercise = () => {
         return () => clearInterval(timer);
     }, []);
 
-console.log(exerciseData)
 
 
 
@@ -194,37 +193,36 @@ console.log(exerciseData)
     
 
 
-    const handleSkipSet = (exerciseId, setNo) =>{
+    const handleSkipSet = (setNo) =>{
         
-                // Find the set by index (setNo)
-                const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
-                const updatedSets = sets.map((set, index)=>{
-                    if(index === setNo){
-                        return { ...set, isSkipped: !set.isSkipped, isCompleted: false } //toggle isSkipped for that specific set and make sure isCompleted is false
-                    }else{
-                        return set
-                    }
-                })
-                
-
-                setExerciseData({ ...exerciseData, sets: updatedSets });
+        // Find the set by index (setNo)
+        const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
+        const updatedSets = sets.map((set, index)=>{
+            if(index === setNo){
+                return { ...set, isSkipped: !set.isSkipped, isCompleted: false } //toggle isSkipped for that specific set and make sure isCompleted is false
+            }else{
+                return set
+            }
+        })
+        
+        setExerciseData({ ...exerciseData, sets: updatedSets });
             
     
     }
 
-    const handleAddSet = (exerciseId) =>{
+    const handleAddSet = () =>{
 
-                //creates a new set object and appends it to the current exercise sets array
-                setExerciseData({ ...exerciseData, sets: [...exerciseData.sets, {
-                    order: exerciseData.sets.length,
-                    fields: exerciseData.fields ? JSON.parse(JSON.stringify(exerciseData.fields)) : [], // Deep copy of fields array
-                    isCompleted: false,
-                    isSkipped: false,
-                  }]  });
+        //creates a new set object and appends it to the current exercise sets array
+        setExerciseData({ ...exerciseData, sets: [...exerciseData.sets, {
+            order: exerciseData.sets.length,
+            fields: exerciseData.fields ? JSON.parse(JSON.stringify(exerciseData.fields)) : [], // Deep copy of fields array
+            isCompleted: false,
+            isSkipped: false,
+            }]  });
            
     }
     
-    const handleCompleteSet = (exerciseId, setNo) => {
+    const handleCompleteSet = (setNo) => {
         
                 const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
                 const updatedSets = sets.map((set, index) => {
