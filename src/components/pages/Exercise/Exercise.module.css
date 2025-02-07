@@ -4,6 +4,9 @@
     flex-direction: column;
     gap: 20px;
 }
+.exercise-page h3{
+    margin-left: 0;
+}
 .exercise-page .header{
     display: flex;
     flex-direction: column;

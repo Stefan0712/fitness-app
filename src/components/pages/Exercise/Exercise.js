@@ -32,7 +32,7 @@ const Exercise = () => {
         return () => clearInterval(timer);
     }, []);
 
-
+console.log(exerciseData)
 
 
 
@@ -266,10 +266,14 @@ const Exercise = () => {
                     <div className={styles.timer}>{formatTime(seconds)}</div>
                     <button onClick={()=>finishExercise()} className="medium-button orange-button">Finish</button>
                 </div>
-                <h3>Instructions</h3>
-                <div className={styles.instructions}>
-                        {exerciseData.instructions?.map((item,index)=>(<p>{index+1}.  {item}</p>))}
-                </div>
+                {exerciseData?.instructions && exerciseData?.instructions?.length > 0 ? (
+                    <>
+                        <h3>Instructions</h3>
+                        <div className={styles.instructions}>
+                                {exerciseData.instructions?.map((item,index)=>(<p>{index+1}.  {item}</p>))}
+                        </div>
+                    </>
+                ) : null}
                 <h3>Exercise Fields</h3>
                 <div className={styles.exercise}>
                         <div className={styles["exercise-header"]}>
