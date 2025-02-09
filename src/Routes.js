@@ -61,7 +61,7 @@ function AppRoutes() {
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/fields' element={<FieldsPage />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
-
+      <Route path="*" element={<Dashboard />} />
       
     </Routes>
   );
