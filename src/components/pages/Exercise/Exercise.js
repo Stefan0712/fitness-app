@@ -11,20 +11,19 @@ import { v4 as uuidv4 } from 'uuid';
 
 const Exercise = () => {
 
-    const {id} = useParams();
+    const {id} = useParams(); //get the id of the exercise from url
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const originalExercise = useSelector((state)=>state.user.exercises.find((ex)=>ex.id===id));
+    const originalExercise = useSelector((state)=>state.user.exercises.find((ex)=>ex.id===id)); //get the original exercise saved into the library
 
 
-    const [duration, setDuration] = useState("00:00:00");
-    const [seconds, setSeconds] = useState(0);
-    const [currentSet, setCurrentSet] = useState(0);
-    const [exerciseData, setExerciseData] = useState(null);
+    const [seconds, setSeconds] = useState(0); //the exercise timer
+    const [currentSet, setCurrentSet] = useState(0); //tracks the current selected set
+    const [exerciseData, setExerciseData] = useState(null); //here will be stored the formated original exercise
 
-    //timer
+    //timer logic
     useEffect(() => {
-        setExerciseData(formatExercise());
+        setExerciseData(formatExercise()); //makes sure to format the exercise on first render
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
@@ -34,10 +33,10 @@ const Exercise = () => {
 
 
 
-
+    //takes the original exercise and format it as needed
     const formatExercise = () => {
             
-        let exercise = JSON.parse(JSON.stringify(originalExercise));
+        let exercise = JSON.parse(JSON.stringify(originalExercise)); //creates a deep copy to make sure everything is copied correctly
     
         
         // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
@@ -48,7 +47,8 @@ const Exercise = () => {
     
             // Transform sets property from number to an array to make it easier to track progress of that exercise
             if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
-            const setsArray = [];
+            const setsArray = []; //init an empty array
+            //append to that empty array new objects representing sets, populated with the existing fields and new fields to make it easier to track and edit
             for (let i = 0; i < exercise.sets; i++) {
                 setsArray.push({
                 order: i + 1,
@@ -63,7 +63,7 @@ const Exercise = () => {
             console.error(`Failed to format exercise`);
         }
     
-        return exercise;
+        return exercise; //return the modified exercise
     };
 
 
