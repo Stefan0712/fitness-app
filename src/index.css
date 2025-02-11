@@ -7,6 +7,12 @@ body{
     overflow: hidden;
     background-color: #111214;
 }
+@media (min-width: 800px) {
+  #root{
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+  }
+}
 .icon-30{
     background-color: transparent;
     width: 30px;
