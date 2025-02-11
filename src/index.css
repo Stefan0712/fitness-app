@@ -95,6 +95,12 @@ body{
     width: 100vw;
     padding: 20px 15px;
     position: relative;
+    overflow-x: hidden;
+  }
+  @media (min-width: 800px) {
+    .page{
+      width: calc(100vw - 150px)
+    }
   }
   .danger{
     background-color: #FF0000;
