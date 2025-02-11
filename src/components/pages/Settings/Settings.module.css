@@ -15,6 +15,11 @@
     gap: 15px;
     border-left: 1px solid rgba(128, 128, 128, 0.267);
 }
+@media (min-width: 800px) {
+    .settings-page{
+        width: 300px !important;
+    }
+}
 @keyframes showSettings {
     from{
         width: 0;

@@ -1,24 +1,23 @@
-import { Link } from "react-router-dom";
 import { getDateForHeader } from "../../../helpers";
 import { useSelector } from "react-redux";
 import './profile.css';
-import { reset } from '../../../store/userSlice';
 import { IconLibrary } from "../../../IconLibrary";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Settings from "../Settings/Settings";
 
 
 
 
-//TODO: Create the side menu for settings
 
 
 const Profile = () => {
 
     const userData = useSelector((state)=>state.user.userData);
     const [showSettings, setShowSettings] = useState(false);
-     
-   
+
+
+
+ 
 
     return ( 
         <div className="profile-page page">

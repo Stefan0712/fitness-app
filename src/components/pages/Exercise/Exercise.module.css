@@ -4,6 +4,15 @@
     flex-direction: column;
     gap: 20px;
 }
+@media (min-width: 800px) {
+    .exercise-page{
+        grid-column: 2 / 4;
+        padding: 20px 50px;
+        width: 100%;
+        height: 100%;
+        padding: 50px 25%;
+    }
+}
 .exercise-page h3{
     margin-left: 0;
 }
