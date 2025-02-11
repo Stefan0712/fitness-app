@@ -2,7 +2,7 @@ import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase, form
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { format, startOfWeek, addDays, getDay } from 'date-fns';
+import { startOfWeek, addDays } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import Goal from './Goal';
 import { updateDashboardLayout } from '../../../store/userSlice';
