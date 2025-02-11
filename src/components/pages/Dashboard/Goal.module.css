@@ -15,6 +15,16 @@
     transition: all 0.1s;
     position: relative;
 }
+@media (min-width: 800px) {
+    .goal{
+        width: calc(100% / 3.1);
+        height: 380px;
+    }
+    .history{
+        height: 230px !important;
+        min-height: 230px;
+    }
+}
 .goal.expand-goal{
     height: 380px;
     min-height: 380px;
