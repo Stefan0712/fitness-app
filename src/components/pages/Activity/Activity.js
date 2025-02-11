@@ -108,7 +108,7 @@ const Activity = () => {
     }
     return (
         <div className={`${styles["logs"]} page`}>
-            <div className='header'>
+            <div className={`header ${styles['page-header']}`}>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Activity</h2>
             </div>
@@ -129,38 +129,40 @@ const Activity = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <h3>Logs</h3>
-            {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
-            <div className='screen-toggle-buttons'>
-                <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? 'selected-button': ''}`}>Current Week</button>
-                <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? 'selected-button' : ''}`}>Last 7 Days</button>
-            </div>
-            <div className={styles["history-container"]}>
-                {weekData?.map((item, index) => (
-                    
-                    <div className={styles['day']} key={index+'day'}>
-                        <p className={styles.logDay}>{formatDate(item.date)}</p>
-                        <div className={styles['logs-container']}>
-                            {item?.logs && item.logs && item.logs.length > 0 ? (
-                                item.logs.map((log, index)=>(
-                                    <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log))}>
-                                        <img className="small-icon" src={log.icon.icon}></img>
-                                        <div className={styles["log-info"]}>
-                                            <p>{log.name}</p>
-                                            <div className={styles["log-meta"]}>
-                                                <p>{log.data.value}</p>
-                                                <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+            <div className={styles["activity-logs-container"]}>
+                <h3>Logs</h3>
+                {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
+                <div className='screen-toggle-buttons'>
+                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? 'selected-button': ''}`}>Current Week</button>
+                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? 'selected-button' : ''}`}>Last 7 Days</button>
+                </div>
+                <div className={styles["history-container"]}>
+                    {weekData?.map((item, index) => (
+                        
+                        <div className={styles['day']} key={index+'day'}>
+                            <p className={styles.logDay}>{formatDate(item.date)}</p>
+                            <div className={styles['logs-container']}>
+                                {item?.logs && item.logs && item.logs.length > 0 ? (
+                                    item.logs.map((log, index)=>(
+                                        <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log))}>
+                                            <img className="small-icon" src={log.icon.icon}></img>
+                                            <div className={styles["log-info"]}>
+                                                <p>{log.name}</p>
+                                                <div className={styles["log-meta"]}>
+                                                    <p>{log.data.value}</p>
+                                                    <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
+                                                </div>
                                             </div>
+                                            
                                         </div>
-                                        
-                                    </div>
-                                ))
-                            ): <h3>No Logs</h3>}
+                                    ))
+                                ): <h3>No Logs</h3>}
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
+            </div>
                 {showInfo && showInfo.type === 'exercise' ? <ExerciseLogView data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
                 {showInfo && showInfo.type === 'food' ? <FoodLogInfo data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
 
