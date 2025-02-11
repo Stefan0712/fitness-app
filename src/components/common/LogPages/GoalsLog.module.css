@@ -14,11 +14,11 @@
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;
 }
-@media (min-width: 767px) {
+@media (min-width: 800px) {
     .log-form{
         width: 100% !important; 
-        height: 90vh !important;
-        margin-bottom: 5vh;
+        height: 100vh !important;
+        bottom: 0;
     }
 
 }

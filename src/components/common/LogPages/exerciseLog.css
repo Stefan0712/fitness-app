@@ -17,6 +17,16 @@
     padding: 15px;
     overflow-y: auto;
 }
+@media (min-width: 800px) {
+    .exercise-log{
+        width: 500px;
+        left: 150px;
+        height: 100vh;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+}
 @keyframes exerciseLogAnimation {
     0%{
         height: 0;

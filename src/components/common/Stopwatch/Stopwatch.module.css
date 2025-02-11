@@ -20,18 +20,23 @@
     text-align: center;
     font-size: 2rem;
 }
-@media (min-width: 767px) {
+@media (min-width: 800px) {
     .stopwatch{
-        width: 100% !important; 
+        width: 400px !important;
+        height: 450px !important;
+        left: calc(100vw - 450px) !important;
+        bottom: 20px !important;
     }
     .minimized-stopwatch{
-        width: 50% !important;
-        margin-left: 25%;
+        height: 200px !important;
+        left: calc(100vw - 450px) !important;
+        top: calc(100vh - 225px) !important;
     }
     .stopwatch.hide-stopwatch{
-        width: 150px !important;
-        margin-left: 25%;
-        left: calc(25% - 75px) !important;
+        width: 100px !important;
+        height: 50px !important;
+        left: calc(50vw - 50px) !important;
+        top: 10px !important;
     }
     
 

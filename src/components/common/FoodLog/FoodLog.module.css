@@ -15,6 +15,16 @@
     animation-duration: 0.1s;
     padding: 20px 15px;
 }
+@media (min-width: 800px) {
+    .food-log-form{
+        width: 500px;
+        left: 150px;
+        height: 100vh;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+}
 @keyframes quickMenuAnimation {
     0%{
         height: 0;

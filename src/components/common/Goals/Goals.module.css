@@ -11,6 +11,15 @@
     padding: 15px;
     
 }
+@media (min-width: 800px) {
+    .goals{
+        width: 500px;
+        left: 150px;
+        height: 100vh;
+        bottom: 0;
+    }
+    
+}
 .goals-screen{
     width: 100%;
     height: 100%;
