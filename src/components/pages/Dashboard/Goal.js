@@ -21,6 +21,8 @@ const Goal = ({data}) => {
     const [isHistoryExpanded, setIsHistoryExpanded] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
 
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
+
     const getCurrentWeek = () => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
@@ -33,6 +35,11 @@ const Goal = ({data}) => {
         console.log(weeksData)
         setCurrentWeek(weeksData);
     },[]);
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth < 800);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const getCompletionRates = (logs) =>{
         
@@ -73,7 +80,7 @@ const Goal = ({data}) => {
             <div className={`${styles.history} ${isHistoryExpanded ? styles['expand-history'] : ''}`}>
                 <div className={styles['history-header']} onClick={()=>setIsHistoryExpanded(isHistoryExpanded=>!isHistoryExpanded)}>
                     <h4>History</h4>
-                    <button className='clear-button'><img className='small-icon' src={IconLibrary.Arrow} alt='' style={{transform: `rotateZ(${isHistoryExpanded ? '90' : '180'}deg)`}}/></button>
+                    <button className='clear-button'><img className={`small-icon ${isSmallScreen ? '' : 'hide'}`} src={IconLibrary.Arrow} alt='' style={{transform: `rotateZ(${isHistoryExpanded ? '90' : '180'}deg)`}}/></button>
                 </div>
                 <div className={styles['history-container']}>
                     {logs && logs?.length > 0 ? logs.map((item,index)=>(

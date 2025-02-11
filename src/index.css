@@ -51,7 +51,9 @@ body{
   
   
   /* common classes */
-  
+  .hide{
+    display: none;
+  }
   
   .header{
     width: 100%;

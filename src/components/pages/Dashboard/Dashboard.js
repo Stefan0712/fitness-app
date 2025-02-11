@@ -32,7 +32,9 @@ const Dashboard = () => {
 
     const [menu, setMenu] = useState(null);
 
-    
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
+
+
     const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
     const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
     console.log(foodHistory)
@@ -44,7 +46,11 @@ const Dashboard = () => {
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
     };
     useEffect(()=>{setCurrentWeek(getCurrentWeek())},[])
-
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth < 800);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
 
     
@@ -138,7 +144,7 @@ const Dashboard = () => {
                     <div className={`${styles["section-container"]} ${isActivityExpanded ? styles['expand-history'] : ''} `}>
                         <div className={styles['section-header']} onClick={()=>setIsActivityExpanded(isActivityExpanded=>!isActivityExpanded)}>
                             <h3>History</h3>
-                            <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
+                            <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
                         </div>
                        
                     {activity?.length > 0 ? (activity.map((log)=>(
@@ -190,7 +196,7 @@ const Dashboard = () => {
                     <div className={`${styles["section-container"]} ${isNutritionExpanded ? styles['expand-history'] : ''} `}>
                         <div className={styles['section-header']} onClick={()=>setIsNutritionExpanded(isNutritionExpanded=>!isNutritionExpanded)}>
                             <h3>History</h3>
-                            <img src={IconLibrary.Arrow} className='small-icon' alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
+                            <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
                         </div>
                 
                         {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='food').map((log)=>(
