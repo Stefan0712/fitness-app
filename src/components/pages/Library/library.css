@@ -5,9 +5,11 @@
     align-items: center;
     gap: 25px;
 }
-@media (min-width: 767px) {
+@media (min-width: 800px) {
     .library{
-        padding: 30px 25% !important; 
+        grid-column: 2 / 4;
+        padding: 20px 50px;
+        width: 100%;
     }
 
 }
