@@ -7,16 +7,13 @@
     gap: 20px;
     align-items: center;
 }
-@media (min-width: 767px) {
+@media (min-width: 800px) {
     .view-exercise{
-        padding: 30px 25% !important; 
-    }
-    .view-exercise .workouts-container{
+        grid-column: 2 / 4;
+        padding: 20px 50px;
         width: 100%;
     }
-    .create-exercise-page{
-        padding: 30px 25% !important; 
-    }
+
 }
 .view-exercise .exercise-info{
     display: flex;
