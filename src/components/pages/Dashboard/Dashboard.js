@@ -1,4 +1,4 @@
-import { getDateForHeader, getCurrentDay, makeDateNice, makeFirstUpperCase, formatDate, convertFullDate } from '../../../helpers';
+import { getDateForHeader } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,44 +7,32 @@ import { IconLibrary } from '../../../IconLibrary';
 import Goal from './Goal';
 import { updateDashboardLayout } from '../../../store/userSlice';
 import { Link } from 'react-router-dom';
+import ActivityComponent from './ActivityComponent';
+import NutritionComponent from './NutritionComponent';
 
 
 
 const Dashboard = () => {
 
-    const [selectedDate, setSelectedDate] = useState(getCurrentDay());
-
-
-
     const dispatch = useDispatch();
-    const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
-    const userGoals = useSelector((state)=>state.user.userData.goals);
 
+    const userGoals = useSelector((state)=>state.user.userData.goals);
     const dashboardComponents = useSelector((state)=>state.user.dashboardSections);
 
-    const [isGoalsExpanded, setIsGoalsExpanded] = useState(false);
-    const [isActivityExpanded, setIsActivityExpanded] = useState(false);
-    const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
 
     const [currentWeek, setCurrentWeek] = useState([])
-
-    const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
-
     const [menu, setMenu] = useState(null);
 
+
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
-
-
-    const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
-    const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
-    console.log(foodHistory)
-
 
 
     const getCurrentWeek = () => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
     };
+
+
     useEffect(()=>{setCurrentWeek(getCurrentWeek())},[])
     useEffect(() => {
         const handleResize = () => setIsSmallScreen(window.innerWidth < 800);
@@ -52,47 +40,15 @@ const Dashboard = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-
-    
     const hideSection = (sectionName) =>{
         console.log('Just hid '+sectionName)
         dispatch(updateDashboardLayout(dashboardComponents.filter(s=>s.identifier !== sectionName)));
         setMenu(null);
     }
 
-    useEffect(()=>{
-        if(foodHistory){
-            const totals = getFoodCardData();
-            if (JSON.stringify(totals) !== JSON.stringify(foodCardData)) {
-                setFoodCardData(totals);
-            }
-        }
-    },[foodHistory]);
-
-    const getFoodCardData = () => {
- 
-        if(foodHistory && foodHistory.length > 0 && foodHistory.some(item=>item.type==="food")){
-            const totals = {
-                calories: 0,
-                protein: 0,
-                carbs: 0,
-                sodium: 0,
-                sugar: 0,
-                fats: 0,
-            };
-            foodHistory.forEach(obj => {
-                totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
-                totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
-                totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
-                totals.sodium += obj.data.sodium ? parseInt(obj.data.sodium, 10) : 0;
-                totals.sugar += obj.data.sugar ? parseInt(obj.data.sugar, 10) : 0;
-                totals.fats += obj.data.fats ? parseInt(obj.data.fats, 10) : 0;
-            });
-            return totals;
-        }
     
-        
-    };
+
+    
 
 
    
@@ -114,103 +70,31 @@ const Dashboard = () => {
             ) : null}
 
 
-            <div className={styles['dashboard-content']}>
-                
-                {userGoals.length > 0 ? userGoals.filter(item=>dashboardComponents.some(component=>component.identifier===item.id)).map((goal, index)=>(<Goal key={'goal-'+index} data={goal} />)): 'No goals found'}  
-          
-                {dashboardComponents.some(item=>item.identifier === "activity") ? (
-                    <div className={styles.section}>
-                    <div className={styles['summary-card']}>
-                    <div className={styles['summary-card-header']}>
-                            <h2>Activity</h2>
-                            <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Activity', sectionName: 'activity'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
-                        </div>
-                        <div className={styles["card-content"]}>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Active Time</p>
-                                <p className={styles['block-value']}>{activity?.reduce((sum, obj)=> sum + parseInt(obj.data.duration,10), 0) || 0} min</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Exercises</p>
-                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'exercise').length || 0}</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['block-title']}>Workouts</p>
-                                <p className={styles['block-value']}>{activity?.filter(item=>item.type === 'workout').length || 0}</p>
-                            </div>
-                        </div>
-                    </div>
+        <div className={styles['dashboard-content']}>
+        {dashboardComponents && dashboardComponents.length > 0 ? (
+            dashboardComponents.map((item, index) => {
+            // For better performance, create a goal map outside the rendering loop if it's needed multiple times
+            const goal = userGoals.find(goal => goal.id === item.identifier);
 
-                    <div className={`${styles["section-container"]} ${isActivityExpanded ? styles['expand-history'] : ''} `}>
-                        <div className={styles['section-header']} onClick={()=>setIsActivityExpanded(isActivityExpanded=>!isActivityExpanded)}>
-                            <h3>History</h3>
-                            <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
-                        </div>
-                       
-                    {activity?.length > 0 ? (activity.map((log)=>(
-                        <div className={styles['activity-item']} key={log.timestamp}>
-                            <img src={log.icon} className='small-icon'></img>
-                            <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                            <p className={styles['activity-duration']}>{log.data.duration} min</p> at
-                            <p className={styles['activity-time']}>{log.data.time || log.data.workoutData.time}</p>
-                        </div>
-                        ))) : (<h3>No activity</h3>)}
-                    </div>
-                </div>
-                ):null}
-                {dashboardComponents.some(item=>item.identifier === "nutrition") ? (
-                    <div className={`${styles.section} ${styles.nutrition}`}> 
-                    <div className={`${styles['summary-card']} ${styles['nutrition-section']}`}>
-                    <div className={styles['summary-card-header']}>
-                            <h2>Nutrition</h2>
-                            <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Nutrition', sectionName: 'nutrition'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
-                        </div>
-                        <div className={styles["card-content"]}>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Calories</p>
-                                <p className={styles['macro-value']}>{foodCardData?.calories || 0}kcal</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Protein</p>
-                                <p className={styles['macro-value']}>{foodCardData?.protein || 0}g</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Carbs</p>
-                                <p className={styles['macro-value']}>{foodCardData?.carbs || 0}g</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Sodium</p>
-                                <p className={styles['macro-value']}>{foodCardData?.sodium || 0}mg</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Sugar</p>
-                                <p className={styles['macro-value']}>{foodCardData?.sugar || 0}g</p>
-                            </div>
-                            <div className={styles['card-content-block']}>
-                                <p className={styles['macro-name']}>Fats</p>
-                                <p className={styles['macro-value']}>{foodCardData?.fats || 0}g</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div className={`${styles["section-container"]} ${isNutritionExpanded ? styles['expand-history'] : ''} `}>
-                        <div className={styles['section-header']} onClick={()=>setIsNutritionExpanded(isNutritionExpanded=>!isNutritionExpanded)}>
-                            <h3>History</h3>
-                            <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
-                        </div>
-                
-                        {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='food').map((log)=>(
-                            <div className={`${styles['activity-item']}`} key={log.timestamp}>
-                                <img src={log.icon} className='small-icon'></img>
-                                <p className={styles['activity-name']}>{log.data.name}</p> 
-                                <p className={styles['activity-duration']}>{makeFirstUpperCase(log.data.type)}</p> at
-                                <p className={styles['activity-time']}>{log.data.time}</p>
-                            </div>
-                        ))) : (<h3>No activity</h3>)}
-                    </div>
-                </div>
-                ):null}
-            </div>
+            if (item.type === 'goal' && goal) {
+                return <Goal key={'goal-' + index} data={goal} />;
+            }
+
+            if (item.type === 'section') {
+                if (item.identifier === 'activity') {
+                return <ActivityComponent key={'activity-' + index} isSmallScreen={isSmallScreen} setMenu={setMenu} />;
+                }
+
+                if (item.identifier === 'nutrition') {
+                return <NutritionComponent key={'nutrition-' + index} isSmallScreen={isSmallScreen} setMenu={setMenu} />;
+                }
+            }
+
+            return null; // If none of the conditions match, render nothing.
+            })
+        ) : null}
+        </div>
+
             
 
         </div>
