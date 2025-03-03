@@ -8,34 +8,87 @@ import { IconLibrary } from "../../../IconLibrary";
 import styles from './FoodLog.module.css';
 import LogItem from "./LogItem";
 
+interface FoodLogProps {
+    closeMenu: ()=> void;
+}
+interface Icon {
+    icon: string;
+    name: string;
+}
+interface GoalArrayObject {
+    id: string;
+    name: string;
+    target?: number;
+    unit: string;
+    icon: Icon
+}
+interface Data {
+    name: string;
+    description?: string;
+    time: string;
+    value: number;
+}
+interface LogArrayObject {
+    icon: Icon;
+    data: Data;
+    id: string;
+    name: string;
+    timestamp: string;
+    type: string;
+}
+interface ActivityArray {
+    logs: LogArrayObject[];
+    goals: GoalArrayObject[];
+}
+interface InputsData {
+    name: string,
+    qty: number;
+    unit: string;
+    protein: number;
+    carbs: number;
+    fats: number;
+    sugar: number;
+    calories: number;
+    sodium: number;
+    isIncluded: boolean,
+    time: string;
+    type: string;
+    note: string;
+}
+interface LogData{
+    id: string;
+    type: string;
+    name: string;
+    icon: string;
+    data: InputsData
+}
+const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
 
-const FoodLog = ({closeMenu}) => {
-    const currentDate = getCurrentDay();
+    const currentDate: string = getCurrentDay();
     const dispatch = useDispatch();
-    const activity = useSelector((state)=>state.user.activity[currentDate]);
-    console.log(activity)
+    const activity = useSelector((state: { user: { activity: { [date: string]: ActivityArray } } }) => state.user.activity[currentDate]);
     const foodLogs = activity?.logs.filter((item)=>item.type==='food');
 
-    const [showAdvanced, setShowAdvanced] = useState(false);
-    const [showHistory, setShowHistory] = useState(false);
+    const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
+    const [showHistory, setShowHistory] = useState<boolean>(false);
 
-    const [name, setName] = useState('');
-    const [qty, setQty] = useState('');
-    const [unit, setUnit] = useState('');
-    const [protein, setProtein] = useState('');
-    const [carbs, setCarbs] = useState('');
-    const [fats, setFats] = useState('');
-    const [sugar, setSugar] = useState('');
-    const [calories, setCalories] = useState('');
-    const [sodium, setSodium] = useState('');
-    const [time, setTime] = useState('');
-    const [type, setType] = useState('unset');
-    const [note, setNote] = useState('');
-    const [includeInGoals, setIncludeInGoals] = useState(true);
+    const [name, setName] = useState<string>('');
+    const [qty, setQty] = useState<number>(0);
+    const [unit, setUnit] = useState<string>('');
+    const [protein, setProtein] = useState<number>(0);
+    const [carbs, setCarbs] = useState<number>(0);
+    const [fats, setFats] = useState<number>(0);
+    const [sugar, setSugar] = useState<number>(0);
+    const [calories, setCalories] = useState<number>(0);
+    const [sodium, setSodium] = useState<number>(0);
+    const [time, setTime] = useState<string>('');
+    const [type, setType] = useState<string>('unset');
+    const [note, setNote] = useState<string>('');
+    const [includeInGoals, setIncludeInGoals] = useState<boolean>(true);
 
 
     const handleLog = ()=>{
-        const data = {
+        const data: LogData = {
             id: uuidv4(),
             type: 'food', 
             name: 'Food Log', 

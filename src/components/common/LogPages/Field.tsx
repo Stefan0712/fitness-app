@@ -4,18 +4,45 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const Field = ({fieldData, saveField, type}) => {
+interface FieldDataObject {
+    
+}
+interface FieldParams {
+    fieldData?: FieldDataObject;
+    saveField: (data: FieldDataObject) => void;
+    type: string;
+}
 
-    const [name, setName] = useState(fieldData?.name || '');
-    const [unit, setUnit] = useState(fieldData?.unit || '');
-    const [target, setTarget] = useState(fieldData?.targetValue || 0)
-    const [value, setValue] = useState(0);
-    const [viewType, setViewType] = useState(type || "view");
+interface DataObj {
+    id: string;
+    name: string;
+    description: string;
+    unit: string;
+    value: number;
+    targetValue: number;
+}
+
+interface FieldDataObject {
+    id?: string;
+    name?: string;
+    description?: string;
+    unit?: string;
+    value?: number;
+    targetValue?: number;
+}
+
+const Field: React.FC<FieldParams> = ({fieldData, saveField, type}) => {
+
+    const [name, setName] = useState<string>(fieldData?.name || '');
+    const [unit, setUnit] = useState<string>(fieldData?.unit || '');
+    const [target, setTarget] = useState<number>(fieldData?.targetValue || 0)
+    const [value, setValue] = useState<number>(0);
+    const [viewType, setViewType] = useState<string>(type || "view");
 
 
 
     const handleSave = () =>{
-        const data = {
+        const data: FieldDataObject = {
             ...fieldData,
             id: uuidv4(),
             description: fieldData?.description || 'No description set',

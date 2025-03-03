@@ -8,19 +8,23 @@ import { IconLibrary } from "../../../IconLibrary";
 import GoalLogBody from "./GoalLogBody";
 
 
+interface LogFormProps {
+    id: string;
+    closeLogWindow: () => void;
+}
 
 
 
+const LogForm: React.FC<LogFormProps> = ({id, closeLogWindow}) => {
 
-const LogForm = ({id, closeLogWindow}) => {
+
+    const [inputValue, setInputValue] = useState<number>(0);
+    const [currentValue, setCurrentValue] = useState<number>(0);
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
 
 
-    const [inputValue, setInputValue] = useState(0);
-    const [currentValue, setCurrentValue] = useState(0);
-    const [name, setName] = useState();
-    const [description, setDescription] = useState('');
-
-    const getCurrentTime = (input = new Date()) => {
+    const getCurrentTime = (input: Date | string = new Date()): string => {
         // Ensure input is a Date object
         const date = typeof input === "string" ? new Date(input) : input;
     
@@ -32,15 +36,40 @@ const LogForm = ({id, closeLogWindow}) => {
         return `${hours}:${minutes}`;
     };
     
-    const [time, setTime] = useState(getCurrentTime())
+    const [time, setTime] = useState<string>(getCurrentTime())
 
+    interface Icon {
+        name: string;
+        icon: string;
+    }
+    interface Data{
+        value: number;
+        time: string;
+        description?: string;
+        name: string;
+    }
+    interface GoalObject {
+        timestamp?: string;
+        type: string;
+        id: string;
+        name: string;
+        icon: Icon;
+        data: Data;
+    }
+    interface GoalData {
+        id: string;
+        name: string;
+        unit: string;
+        target?: number;
+        icon: Icon;
+    }
+    const allLogs = useSelector<GoalObject[]>((state)=>state.user.activity[getCurrentDay()]?.logs);
 
-    const allLogs = useSelector((state)=>state.user.activity[getCurrentDay()]?.logs);
-    const goalLogs = allLogs?.length > 0 ? allLogs.filter((item)=>item.id === id) : [];
-    console.log(goalLogs)
-    const goalData = useSelector((state)=>state.user.userData.goals.find((element)=>element.id === id));
+    const goalLogs: GoalObject[] = allLogs?.filter((item) => item.id === id) ?? [];
 
-
+    const goalData = useSelector<GoalData | undefined>((state)=>state.user.userData.goals.find((element)=>element.id === id));
+    
+    console.log(goalData)
 
     useEffect(() => {
         if (goalLogs && goalLogs.length > 0) {
@@ -55,13 +84,17 @@ const LogForm = ({id, closeLogWindow}) => {
     const dispatch = useDispatch();
 
     const submitLog = () =>{
-        const data = {
+        if (!goalData) {
+            console.error("Goal data is undefined");
+            return; // Or return early from the function
+        }
+        const data: GoalObject = {
             type: 'goal', 
             id: goalData.id,
             name: goalData.name, 
             icon: goalData.icon,
             data: {
-                value: parseFloat(inputValue),
+                value: inputValue,
                 time,
                 description,
                 name

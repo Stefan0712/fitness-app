@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { getDateForHeader } from '../../../helpers'
 import { useState, useEffect } from 'react';
-import Modal from "../../common/modals/Modal";
-import ContextualMenu from '../../common/ContextualMenu/ContextualMenu';
 import { IconLibrary } from '../../../IconLibrary';
-import { exercises as databaseExercises, exercises } from '../../../database';
+import { exercises as databaseExercises } from '../../../database';
 
 
 //TODO: fix tags not properly showing when there are too many.

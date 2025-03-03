@@ -5,42 +5,76 @@ import { addLog } from "../../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import {muscles} from '../../../constants/defaultMuscles';
-import Field from "./Field";
+import Field from "./Field.tsx";
 
 
 
 
+interface ExerciseLogProps {
+    closeMenu: ()=> void;
+}
+interface FieldObject {
+    id: string;
+    name: string;
+    description?: string;
+    source: string;
+    targetValue: string;
+    unit: string;
+    value?: number;
+    isCompleted: boolean;
+    type: string;
+}
+interface SavedValue {
+    id: string;
+    name: string;
+    description?: string;
+    value: string;
+    unit: string;
+    targetValue?: string;
+}
+interface ExerciseInputs {
+    name: string;
+    time: string;
+    targetGroup: string;
+    sets: number;
+    savedValues: SavedValue[];
+}
+interface LogData {
+    id: string;
+    type: string;
+    name: string;
+    icon: string;
+    data: ExerciseInputs[];
+}
+const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
 
-const ExerciseLog = ({closeMenu}) => {
 
+    const [showSavedFields, setShowSavedFields] = useState<boolean>(false);
 
-    const [showSavedFields, setShowSavedFields] = useState(false);
-
-    const allFields = useSelector((state)=>state.user.fields);
-
+    const allFields = useSelector<FieldObject[]>((state)=>state.user.fields);
 
     
-    const [name, setName] = useState('');
-    const [time, setTime] = useState('');
-    const [targetGroup, setTargetGroup] = useState('Arms');
-    const [duration, setDuration] = useState('');
-    const [sets, setSets] = useState('');
-    const [savedValues, setSavedValues] = useState([]);
-
+    const [name, setName] = useState<string>('');
+    const [time, setTime] = useState<string>('');
+    const [targetGroup, setTargetGroup] = useState<string>('Arms');
+    const [duration, setDuration] = useState<string>('');
+    const [sets, setSets] = useState<string>('');
+    const [savedValues, setSavedValues] = useState<SavedValue[]>([]);
 
     const dispatch = useDispatch();
 
 
 
     const logExercise = () =>{
-        const data = {
+        const data: LogData = {
             id: uuidv4(),
             type: 'exercise',
             name: "Exercise",
             icon: IconLibrary.Exercise,
             data:{
                 name,
-                time, targetGroup,
+                time, 
+                targetGroup,
                 duration,
                 sets: sets || 1,
                 savedValues
@@ -49,7 +83,7 @@ const ExerciseLog = ({closeMenu}) => {
         dispatch(addLog(data))
         closeMenu();
     }
-    const saveField = (newData) =>{
+    const saveField = (newData: FieldObject) =>{
         setSavedValues((savedValues)=>[...savedValues, newData]);
     }
     return ( 

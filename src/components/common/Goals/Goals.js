@@ -1,19 +1,17 @@
 import styles from './Goals.module.css';
-import GoalsLog from '../LogPages/GoalsLog';
+import GoalsLog from '../LogPages/GoalsLog.tsx';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { useSelector } from 'react-redux';
 import NewGoal from './NewGoal';
 import GoalBody from './GoalBody';
 import EditGoal from './EditGoal.js';
-import LogForm from '../LogPages/GoalsLog';
 
 
 
 const Goals = ({closeMenu}) => {
 
 
-    const [logForm, setLogForm] = useState(null);
     const goals = useSelector((state)=>state.user.userData.goals);
     {console.log(goals ? goals : 'Loading goals')}
     const [showNewGoal, setShowNewGoal] = useState(false);

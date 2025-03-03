@@ -6,9 +6,9 @@ import styles from './Navigation.module.css';
 import {IconLibrary} from '../../../IconLibrary';
 
 import QuickMenu from '../QuickMenu/QuickMenu';
-import ExerciseLog from '../LogPages/ExerciseLog';
+import ExerciseLog from '../LogPages/ExerciseLog.tsx';
 import Stopwatch from '../Stopwatch/Stopwatch';
-import FoodLog from '../FoodLog/FoodLog';
+import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
 
 
