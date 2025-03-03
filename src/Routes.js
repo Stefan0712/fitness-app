@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import StartingPage from './components/pages/StartingPage/StartingPage';
 import Dashboard from './components/pages/Dashboard/Dashboard';
@@ -19,8 +18,6 @@ import ViewExercise from './components/pages/Exercise/ViewExercise';
 import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';
 import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
 import FieldsPage from './components/pages/Settings/FieldsPage';
-import ExploreWorkouts from './components/pages/Library/ExploreWorkouts';
-import ExploreExercises from './components/pages/Library/ExploreExercises';
 import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
@@ -53,8 +50,6 @@ function AppRoutes() {
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
       <Route path="/exercise/:id/start" element={<Exercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
-      <Route path='/explore-workouts' element={<ExploreWorkouts />} />
-      <Route path='/explore-exercises' element={<ExploreExercises />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />

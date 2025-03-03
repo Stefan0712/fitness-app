@@ -1,100 +1,74 @@
 import { getDateForHeader } from "../../../helpers";
-import './library.css';
+import styles from './Library.module.css';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
-import { useState } from "react";
-import Modal from "../../common/modals/Modal";
-import ContextualMenu from "../../common/ContextualMenu/ContextualMenu";
+import { useState, useEffect } from "react";
+import { exercises, workouts } from "../../../database";
+import Exercise from './Exercise';
+import Workout from "./Workout";
 
 
 const Library = () => {
 
-    const exercises = useSelector((state)=>state.user.exercises);
-    const workouts = useSelector((state)=>state.user.workouts);
+    const localExercises = useSelector((state)=>state.user.exercises);
+    const localWorkouts = useSelector((state)=>state.user.workouts);
 
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
+    const [isLocal, setIsLocal] = useState(true);
 
-    const [showModal, setShowModal] = useState(false);
+    const [filteredItems, setFilteredItems] = useState([]);
 
-    //TODO: Move Browse more button and maybe use only an icon
+
+    const switchScreen = (screen) =>{
+        setLibraryScreen(screen);
+        setIsLocal(true);
+    }
+
+    useEffect(()=>{
+        if(libraryScreen === 'exercises'){
+            if(isLocal){
+                setFilteredItems(localExercises);
+            }else {
+                setFilteredItems(exercises);
+            }
+        }else if(libraryScreen === 'workouts'){
+            if(isLocal){
+                setFilteredItems(localWorkouts);
+            }else {
+                setFilteredItems(workouts);
+            }
+        }
+        console.log(`Changed to ${isLocal ? 'my' : 'public'} screen ${libraryScreen}`)
+    },[libraryScreen, isLocal])
+
 
     return ( 
-        <div className="library page">
+        <div className={`page ${styles.library}`}>
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                <div className="one-line-header">
                     <h2>Library</h2>
-                    <button onClick={()=>setShowModal(showModal=>!showModal)} className="clear-button">
-                        <img src={showModal ? IconLibrary.No : IconLibrary.Add} className="small-icon" alt="create new item"></img>
-                    </button>
-                </div>
             </div>
-            {showModal ? (
-                <ContextualMenu closeMenu={()=>setShowModal(false)} buttons={[
-                    <Link to={'/create-workout'}>New Workout</Link>,
-                    <Link to={'/create-exercise'}>New Exercise</Link>]} 
-                />
-            ):null}
-            <div className="explore-buttons">
-                <Link to={'/explore-exercises'} className="explore-button">
-                    <img src={IconLibrary.Exercise} className="small-icon"></img>
-                    <p>Explore exercises</p>
-                </Link>
-                <Link to={'/explore-workouts'} className="explore-button">
-                    <img src={IconLibrary.Dumbbell} className="small-icon"></img>
-                    <p>Explore workouts</p>
-                </Link>
+            <div className={styles["toggle-buttons"]}>
+                <button onClick={()=>switchScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
+                <button onClick={()=>switchScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
-            <div className="screen-toggle-buttons">
-                <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? 'selected-button' : ''}>Exercises</button>
-                <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? 'selected-button' : ''}>Workouts</button>
+                <div className={styles["library-items-container"]}>
+                    <div className={styles.buttons}>
+                        <button className={`${styles['category-button']} ${isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(true)}>My Library</button>
+                        <button className={`${styles['category-button']} ${!isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(false)}>Public Library</button>
+                        {libraryScreen === "workouts" ? <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link> :  <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>}
+                    </div>
+                    {filteredItems && filteredItems.length > 0 ? (
+                        filteredItems.map((data, index) => (
+                            libraryScreen === "workouts" ? <Workout key={'workout-'+index} index={index} workout={data} /> : <Exercise key={'exercise-'+index} index={index} data={data} />
+                        ))
+                    ) : (
+                        libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>
+                    )}
+                </div>        
             </div>
-            {libraryScreen === "workouts" ? (
-                <div className="library-items-container">
-                {workouts?.length > 0 ? (
-                    workouts.map((workout, index) => (
-                    <Link to={`/workout/${workout.id}/view/`} key={index} className="item-body">
-                        <div className="item-info">
-                            <h4>{workout.name}</h4>
-                            <div className="item-description">
-                                <p>{workout.exercises.length} exercises</p>
-                            </div>
-                        </div>
-                        <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.Arrow} alt="icon" />
-                        </div>
-                    </Link>
-                    ))
-                ) : (
-                    <p>No workouts created yet.</p>
-                )}
-            </div>
-            ) : ""}
-            {libraryScreen === "exercises" ? (
-                <div className="library-items-container">
-                {exercises?.length > 0 ? (
-                    exercises.map((exercise, index) => (
-                    <Link to={`/exercise/${exercise.id}/view/`} key={"exercise-"+index} className="item-body">
-                        <div className="item-info">
-                            <h4>{exercise.name}</h4>
-                            <div className="item-description">
-                                <p>{exercise.sets} Sets</p>
-                            </div>
-                        </div>
-                        <div className="item-button">
-                            <img className="small-icon" src={IconLibrary.Arrow} alt="icon" />
-                        </div>
-                    </Link>
-                    ))
-                ) : (
-                    <p>No exercises created yet.</p>
-                )}
-                </div>
-    
-            ):''}
-        </div>
      );
 }
  
