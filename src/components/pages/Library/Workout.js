@@ -15,7 +15,6 @@ const Workout = ({workout}) => {
                     {workout.tags && workout.tags.length > 0 ? 
                         workout.tags.map((tag, index) => (
                         <div className={styles['workout-tag-body']} key={'workout-tag-' + index}>
-                            <div className={styles['workout-tag-color']} style={{ backgroundColor: tag.color }}></div>
                             <p className={styles['workout-tag-name']}>{tag.name}</p>
                         </div>
                         ))
