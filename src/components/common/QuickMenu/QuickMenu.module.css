@@ -1,24 +1,71 @@
 .quick-menu{
     width: 100%;
-    height: 200px;
-    background-color: #1A1A1B;
-    border: 1px solid rgba(211, 211, 211, 0.2);
+    height: 360px;
     position: fixed;
     bottom: 75px;
     left: 0px;
     display: flex;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
     z-index: 15;
     border-radius: 5px;
-    animation: quickMenuOpenUp 0.1s;
+    animation: quickMenuOpenUp 0.2s;
+    gap: 10px;
+    overflow: hidden;
 }
+
+.header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.quick-button{
+    width: 90%;
+    height: 60px;
+    padding: 0 15px;
+    border-radius: 10px;
+    background-color: #111214;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background-color: #1A1A1B;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+
+}
+.close-button{
+    justify-content: center;
+}
+.quick-button p{
+    font-size: 20px;
+    font-weight: 500;
+}
+.quick-button img{
+    width: 30px;
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
 @keyframes quickMenuOpenUp {
     from{
         height: 0;
+        opacity: 0;
+        bottom: -110%;
     }
     to{
-        height: 200px;
+        height: 360px;
+        opacity: 1;
+        bottom: 75px;
     }
 }
 
@@ -29,29 +76,3 @@
     }
 
 }
-.header{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-}
-.quick-menu-screen{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-.quick-button{
-    width: 100px;
-    height: 100px;
-    border: 1px solid rgba(211, 211, 211, 0.068);
-    border-radius: 5px;
-    background-color: #111214;
-}
-.quick-button img{
-    width: 40px;
-    height: 40px;
-}
-
