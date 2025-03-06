@@ -45,7 +45,8 @@ const Log = ({id}) => {
                 value: inputValue,
                 time,
                 description,
-                name
+                name,
+                unit: goalData.unit
             }
         }
         dispatch(addLog(data));
