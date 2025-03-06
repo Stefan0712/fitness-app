@@ -63,6 +63,10 @@
     align-items: center;
     gap: 10px;
 }
+.view-workout-page .info-block .info-block-header img{
+    width: 15px;
+    height: 15px;
+}
 .view-workout-page .info-block .info-block-value{
    display: flex;
    align-items: center;
@@ -73,6 +77,9 @@
     border-radius: 5px;
     padding: 10px;
     width: 100%;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .view-workout-page .workout-exercises .exercise-name{
     display: flex;
@@ -83,13 +90,28 @@
     display: flex;
     align-items: center;
     gap: 10px;
-
+    background-color: #1A1A1B;
+    border-radius: 5px;
 }
 .view-workout-page .workout-exercises .exercise-body .exercise-name{
     margin-right: auto;
+    width: calc(100% - 135px);
+    overflow: hidden;
 }
 .view-workout-page .workout-exercises .exercise-body .exercise-index{
-    width: 30px;
+    width: 40px;
+    border-right: 2px solid rgba(221, 221, 221, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.view-workout-page .workout-exercises .exercise-body .exercise-sets{
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 .view-workout-buttons{
     width: 100%;

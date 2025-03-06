@@ -15,8 +15,8 @@ const NewGoal = ({closeNewGoal}) => {
     const [unit, setUnit] = useState('');
     const [target, setTarget] = useState(0);
     const [color, setColor] = useState('white');
-    const [icon, setIcon] = useState(defaultIcons[0])
-
+    const [icon, setIcon] = useState(defaultIcons[0]);
+    
     const handleAddGoal = () =>{
         if(name && unit && target){
             const goalData = {
@@ -40,12 +40,9 @@ const NewGoal = ({closeNewGoal}) => {
         
     }
 
+    
     return ( 
         <div className={styles['new-goal']}>
-            <div className={styles.header}>
-                <h2>New Goal</h2>
-                <img src={IconLibrary.No} className='small-icon' alt='edit goals' onClick={closeNewGoal}/>
-            </div>
             <div className={styles['new-goal-inputs']}>
                 <fieldset className={styles.name}>
                     <label>Name</label>
@@ -65,9 +62,11 @@ const NewGoal = ({closeNewGoal}) => {
                 </div>
                     
                 <div className={styles['items-container']}>
-                    {colors.map((c, index)=>(
-                        <button key={"color-"+index} className={styles.colorButton} onClick={()=>setColor(c)} style={{backgroundColor: c, border: `2px solid ${color === c ? 'white' : 'transparent'}`}}></button>
-                    ))}
+                    <div className={styles.items}>
+                        {colors.map((c, index)=>(
+                            <button key={"color-"+index} className={styles.colorButton} onClick={()=>setColor(c)} style={{backgroundColor: c, border: `2px solid ${color === c ? 'white' : 'transparent'}`}}></button>
+                        ))}
+                    </div>
                 </div>
                     
                 <div className={styles['items-container-header']}>
@@ -75,15 +74,20 @@ const NewGoal = ({closeNewGoal}) => {
                     <img src={icon.icon} alt='' className={styles['icon-picker-img']} />
                 </div>
                 <div className={styles['items-container']}>
-                    {defaultIcons.map((i, index)=>(
-                        <button key={"icon-"+index} className={styles.iconButton} onClick={()=>setIcon(i)} style={{border: `2px solid ${icon === i ? 'white' : 'transparent'}`}}>
-                            <img src={i.icon} alt='' />
-                        </button>
-                    ))}
+                    <div className={styles.items}>
+                        {defaultIcons.map((i, index)=>(
+                            <button key={"icon-"+index} className={styles.iconButton} onClick={()=>setIcon(i)} style={{border: `2px solid ${icon === i ? 'white' : 'transparent'}`}}>
+                                <img src={i.icon} alt='' />
+                            </button>
+                        ))}
+                    </div>
                 </div>
                 
             </div>
-            <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
+            <div className={styles['new-goal-buttons']}>
+                <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
+                <button type="button" className={styles.cancel} onClick={closeNewGoal}>Cancel</button>
+            </div>
         </div>
      );
 }

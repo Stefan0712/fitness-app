@@ -1,0 +1,97 @@
+import styles from './Edit.module.css';
+import { useState } from 'react';
+import {colors} from '../../../../constants/defaultColors';
+import { defaultIcons } from '../../../../constants/defaultIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateGoal } from '../../../../store/userSlice';
+
+interface Icon {
+    id: string;
+    name: string;
+}
+interface GoalData{
+    icon: Icon;
+    id: string;
+    name: string;
+    target: number;
+    unit: string;
+    color: string;
+}
+interface EditParams {
+    closeEdit: ()=> void;
+    goalId: string;
+}
+const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
+
+
+    const dispatch = useDispatch();
+    const goalData = useSelector<GoalData>((state)=>state.user.userData.goals.find((item)=>item.id===goalId));
+    //TODO: Add validation
+
+    const [name, setName] = useState<string>(goalData.name || '');
+    const [unit, setUnit] = useState<string>(goalData.unit || '');
+    const [target, setTarget] = useState<number>(goalData.target || 0);
+    const [color, setColor] = useState<string>(goalData.color || 'white');
+    const [icon, setIcon] = useState<Icon>(goalData.icon || defaultIcons[0])
+
+    const handleUpdateGoal = () =>{
+        if(name && unit && target){
+            const newData: GoalData = {
+                id: goalId,
+                name,
+                unit,
+                target,
+                color,
+                icon
+            }
+            console.log(newData)
+            dispatch(updateGoal(newData));
+            closeEdit();
+        }else{
+            console.log('Something went wrong',{
+                name: name || 'Missing name',
+                unit: unit || 'Missing unit',
+                target,
+                color,
+                icon
+            })
+        }
+        
+    }
+
+    return ( 
+        <div className={styles['edit-goal']}>
+            <fieldset className={styles.name}>
+                <label>Name</label>
+                <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name}></input>
+            </fieldset>
+            <fieldset className={styles.unit}>
+                <label>Unit</label>
+                <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit}></input>
+            </fieldset>
+            <fieldset className={styles.target}>
+                <label>Target</label>
+                <input type='number' name='target' id='target' onChange={(e)=>setTarget(e.target.value)} value={target}></input>
+            </fieldset>
+            <label className={styles.fullLabel}>Color</label>
+            <div className={styles['items-container']}>
+                <div className={styles['items']}>
+                    {colors.map((c, index)=>(
+                        <button key={"color-"+index} className={styles.colorButton} onClick={()=>setColor(c)} style={{backgroundColor: c, border: `2px solid ${color === c ? 'white' : 'transparent'}`}}></button>
+                    ))}
+                </div>
+            </div>   
+            <label className={styles.fullLabel}>Icon</label>
+            <div className={styles['items-container']}>
+                <div className={styles['items']}>
+                    {defaultIcons.map((i, index)=>(
+                        <button key={"icon-"+index} className={styles.iconButton} onClick={()=>setIcon(i)} style={{border: `2px solid ${icon === i ? 'white' : 'transparent'}`}}><img src={i.icon} alt='' /></button>
+                    ))}
+                </div>
+            </div>  
+            <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Update Goal</button>
+        </div>
+     );
+}
+ 
+export default Edit;

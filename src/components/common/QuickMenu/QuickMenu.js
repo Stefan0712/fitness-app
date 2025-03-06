@@ -1,11 +1,10 @@
 import styles from './QuickMenu.module.css';
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
 
 const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs}) => {
 
-    const [selectedScreen, setSelectedScreen] = useState('menu')
     const quickMenuRef = useRef(null);
 
 
@@ -41,7 +40,7 @@ const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, 
                 <img src={IconLibrary.Exercise} alt=''></img>
                 <p>Log Exercise</p>
             </button>
-            <button className={styles['quick-button']} onClick={openGoals} key={'exercise'}>
+            <button className={styles['quick-button']} onClick={openGoals} key={'goals'}>
                 <img src={IconLibrary.Goals} alt=''></img>
                 <p>Goals</p>
             </button> 

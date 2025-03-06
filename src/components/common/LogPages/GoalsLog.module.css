@@ -1,18 +1,18 @@
 .log-form{
     width: 100%;
     bottom: 0px;
-    height: calc(100vh - 75px);
+    height: 650px;
     position: absolute;
     background-color: #1A1A1B;
     left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    border-top: rgba(211, 211, 211, 0.3);
     z-index: 15;
     animation-name: quickMenuAnimation;
     animation-duration: 0.1s;
+    padding: 0 15px;
+    gap: 20px;
 }
 @media (min-width: 800px) {
     .log-form{
@@ -50,113 +50,31 @@
     align-items: center;
     padding-left: 20px;
 }
-.goal{
+.toggle-buttons-container{
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-.inputs{
-    width: 100%;
-    height: 250px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-    gap: 10px;
-    margin-top: 15px;
-}
-fieldset{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-}
-.half-input{
-    width: calc(50% - 5px);
-}
-.inputs input,
-.inputs textarea{
     height: 50px;
-    width: 100%;
-    background-color: white;
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: gray;
-    padding-left: 10px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 5px;
-}
-.submit-button{
-    height: 50px;
-    border: 1px solid rgba(211, 211, 211, 0.1);
-    background-color: #EB5928;
-    width: 150px;
-    color: white;
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-
-.progress-section{
-    width: 100%;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.goals-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 90%;
-    height: 30%;
     background-color: #111214;
-    padding: 20px 15px;
-    overflow-y: auto;
     border-radius: 5px;
-}
-.goals-container .log-body{
-    width: 100%;
-    display: flex;
-    align-items: center;
+    padding: 5px;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(211, 211, 211, 0.226);
-    padding-bottom: 10px;
 }
-.value{
-    margin-left: auto;
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #eb5928;
+.toggle-button{
+    width: calc(100% / 3);
+    height: 40px;
+    background-color: transparent;
     border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
 }
-.delete-log-button{
-    animation: showDeleteButton 0.1s;
-    width: 50px;
-    height: 50px;
+.selected-button{
+    background-color: white;
+    color: black;
 }
-@keyframes showDeleteButton {
-    from{
-        width: 0;
-        opacity: 0;
-    }
-    to{
-        width: 50px;
-        opacity: 1;
-    }
+.content{
+    width: 100%;
+    height: 350px;
 }
+

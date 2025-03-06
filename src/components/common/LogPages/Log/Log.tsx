@@ -1,0 +1,81 @@
+import { useDispatch, useSelector } from "react-redux";
+import { addLog } from "../../../../store/userSlice";
+import { useState } from "react";
+import styles from './Log.module.css';
+
+interface GoalObject {
+    timestamp?: string;
+    type: string;
+    id: string;
+    name: string;
+    icon: Icon;
+    data: Data;
+}
+
+const Log = ({id}) => {
+
+    const dispatch = useDispatch();
+
+
+    const [inputValue, setInputValue] = useState<number>(0);
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const goalData = useSelector<GoalData>((state)=>state.user.userData.goals.find((item)=>item.id===id));
+    const getCurrentTime = (input: Date | string = new Date()): string => {
+        // Ensure input is a Date object
+        const date = typeof input === "string" ? new Date(input) : input;
+    
+        // Extract hours and minutes
+        const hours = String(date.getHours()).padStart(2, '0'); // Ensure 2-digit hours
+        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2-digit minutes
+    
+        // Return the time in HH:MM format
+        return `${hours}:${minutes}`;
+    };
+    
+    const [time, setTime] = useState<string>(getCurrentTime())
+  const submitLog = () =>{
+
+        const data: GoalObject = {
+            type: 'goal', 
+            id: goalData.id,
+            name: goalData.name, 
+            icon: goalData.icon,
+            data: {
+                value: inputValue,
+                time,
+                description,
+                name
+            }
+        }
+        dispatch(addLog(data));
+        setInputValue(0);
+        setName('');
+        setDescription('');
+        setTime(getCurrentTime());
+    }
+
+    return ( 
+        <div className={styles.log}>
+            <fieldset>
+                <label>Name</label>
+                <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} />
+            </fieldset>
+            <fieldset className={styles['half-input']}>
+                <label>Time</label>
+                <input type="time" name="time" id="time" onChange={((e)=>setTime(e.target.value))} value={time} />
+            </fieldset>
+            <fieldset className={styles['half-input']}>
+                <label>Value</label>
+                <input type="number" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+            </fieldset>
+            <fieldset>
+                <label>Description</label>
+                <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description}></textarea>
+            </fieldset>
+            <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
+        </div>
+     );
+}
+ 
+export default Log;

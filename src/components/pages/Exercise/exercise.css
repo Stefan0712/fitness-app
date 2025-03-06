@@ -50,6 +50,10 @@
     align-items: center;
     gap: 10px;
 }
+.view-exercise .info-block .info-block-header img{
+    width: 15px;
+    height: 15px;
+}
 .view-exercise .info-block .info-block-value{
    display: flex;
    align-items: center;

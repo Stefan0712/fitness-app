@@ -6,7 +6,6 @@ import { useState } from "react";
 
 import { getDateForHeader } from "../../../helpers";
 import { deleteExercise } from "../../../store/userSlice";
-import Modal from "../../common/modals/Modal";
 import { IconLibrary } from "../../../IconLibrary";
 
 

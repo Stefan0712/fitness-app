@@ -46,6 +46,14 @@ interface LogData {
     icon: string;
     data: ExerciseInputs[];
 }
+interface FieldDataObject {
+    id?: string;
+    name?: string;
+    description?: string;
+    unit?: string;
+    value?: number;
+    targetValue?: number;
+}
 const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
 
 
@@ -61,6 +69,7 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     const [sets, setSets] = useState<string>('');
     const [savedValues, setSavedValues] = useState<SavedValue[]>([]);
 
+    const [currentScreen, setCurrentScreen] = useState<string>('values');
     const dispatch = useDispatch();
 
 
@@ -85,6 +94,10 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     }
     const saveField = (newData: FieldObject) =>{
         setSavedValues((savedValues)=>[...savedValues, newData]);
+        setCurrentScreen('values')
+    }
+    const addField = (data) =>{
+        setSavedValues((savedValues)=>[...savedValues, data]);
     }
     return ( 
         <div className="exercise-log">
@@ -106,23 +119,42 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
                 
                 </select>
             </div>
-            <h3>Saved Values</h3>
-            <div className="saved-values-container">
-                {savedValues?.map((item)=>(
-                        <div className='saved-field'>
-                        <p className="saved-field-name"><b>{item.name}</b></p>
-                        <p className="saved-field-target">{item.targetValue || 0}</p>
-                        <p className="saved-field-unit">{item.unit}</p>
-                        <img className="small-icon" src={IconLibrary.No} onClick={()=>setSavedValues(savedValues=>savedValues.filter(value=>value.id!==item.id))} />
-                    </div>
-                ))}
+            <div className={'toggle-buttons-container'}>
+                <button className={`toggle-button ${currentScreen === 'values' ? 'selected-button' : ''}`} onClick={()=>setCurrentScreen('values')}>Values</button>
+                <button className={`toggle-button ${currentScreen === 'fields' ? 'selected-button' : ''}`} onClick={()=>setCurrentScreen('fields')}>Custom Fields</button>
             </div>
-       
             <Field saveField={saveField}  type={'edit'}/>
-            <div className={"collapsed-header"} onClick={()=>setShowSavedFields(showSavedFields=>!showSavedFields)}><h3>Saved Fields</h3><img src={IconLibrary.Arrow} className={`small-icon ${showSavedFields ? 'down' : "left"}`} /></div>
-            <div className={`saved-fields-container ${showSavedFields ? 'expand-saved-fields' : ""}`}>
-                {allFields?.map((item)=>(<Field saveField={saveField} fieldData={item} type={'view'}/>))}
+            <div className="content">
+                    {currentScreen === 'values' ? (
+                        <div className="saved-values-container">
+                            {savedValues?.map((item)=>(
+                                <div className='saved-field'>
+                                    <p className="saved-field-name"><b>{item.name}</b></p>
+                                    <p className="saved-field-target">{item.targetValue || 0}</p>
+                                    <p className="saved-field-unit">{item.unit}</p>
+                                    <img className="small-icon" src={IconLibrary.No} onClick={()=>setSavedValues(savedValues=>savedValues.filter(value=>value.id!==item.id))} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : currentScreen === 'fields' ? (
+                        <div className={`saved-fields-container`}>
+                            {allFields
+                                ?.filter(field => !savedValues.some(item => item.id === field.id)) // Corrected condition
+                                .map((item, index) => (
+                                    <div className="saved-field" key={'custom-field-' + index}>
+                                        <h4 className="saved-field-name">{item.name}</h4>
+                                        <p className="saved-field-unit">{item.targetValue} {item.unit}</p>
+                                        <img className="small-icon" src={IconLibrary.Add} onClick={() => addField(item)} />
+                                    </div>
+                            ))}
+
+                        </div>
+                    ) : null}
             </div>
+            
+       
+            
+            
             <button className="orange-button large-button" onClick={logExercise}>Log Exercise</button>
         </div>
      );

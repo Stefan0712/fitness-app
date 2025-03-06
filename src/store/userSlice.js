@@ -370,7 +370,7 @@ const userSlice = createSlice({
     },
 
     removeLog: (state, action) => {
-      const timestamp = action.payload.timestamp;
+      const timestamp = action.payload;
       const date = convertTimestampToDate(timestamp);
       if (state.activity[date]) {
         state.activity[date].logs = state.activity[date].logs.filter(
@@ -508,10 +508,11 @@ const userSlice = createSlice({
   removeGoal: (state, action) => {
      state.userData.goals = state.userData.goals.filter(item => item.id !== action.payload);
   },
-  uupdateGoal : (state, action) =>{
+  updateGoal : (state, action) =>{
      const index = state.userData.goals.findIndex(eq => eq.id === action.payload.id);
      if (index !== -1) {
        state.userData.goals[index] = action.payload;
+       console.log('Goal was updated with: ',action.payload)
      }
   },
   enableStopwatch: (state) =>{

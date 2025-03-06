@@ -1,25 +1,12 @@
-import styles from './GoalsLog.module.css';
-import { formatDate } from '../../../helpers';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { IconLibrary } from '../../../IconLibrary';
-import { removeLog } from "../../../store/userSlice";
+import styles from './History/History.module.css';
 
-
-const GoalLogBody = ({log, getCurrentTime, unit}) => {
-
-    const dispatch = useDispatch();
-    const [showDelete, setShowDelete] = useState(false);
-
-    const deleteLog = (log) => {
-        dispatch(removeLog(log));
-    }
-
+const GoalLogBody = ({log, getCurrentTime, unit, selectLog, percentage, selectedLog}) => {
     return ( 
-        <div className={styles["log-body"]} key={log.timestamp}>
-            <p onClick={()=>setShowDelete(showDelete=>!showDelete)}>{log.data.name || 'Food log'} on {formatDate(log.timestamp)} at {getCurrentTime(log.timestamp)}</p>
+        <div className={`${styles["log-body"]} ${selectedLog?.id === log.id ? styles['selected-log'] : ''}`} key={log.timestamp} onClick={()=>selectLog({id: log.id, timestamp: log.timestamp})}>
+            <div className={styles.hour}>{getCurrentTime(log.timestamp)}</div>
+            <p className={styles.name}>{log.data.name || 'Food log'}</p>
+            <p className={styles.percentage}>{percentage}%</p>
             <div className={styles.value}><p>{log.data.value}</p> <p>{unit}</p></div>
-            {showDelete ? <button onClick={()=>deleteLog(log)} className={`clear-button ${styles['delete-log-button']}`}><img className="small-icon" src={IconLibrary.Close}></img></button> : null}
         </div>
      );
 }

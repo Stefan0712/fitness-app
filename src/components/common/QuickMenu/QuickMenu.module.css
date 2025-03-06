@@ -27,12 +27,12 @@
     height: 60px;
     padding: 0 15px;
     border-radius: 10px;
-    background-color: #111214;
     display: flex;
     gap: 20px;
     align-items: center;
-    background-color: #1A1A1B;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: #EB5928;
+    border: none;
+    /* #1A1A1B*/
 
 }
 .close-button{

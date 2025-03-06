@@ -32,7 +32,6 @@ const Goal = ({data}) => {
 
     useEffect(()=>{
         const weeksData = currentWeeksLogs?.map(item=>({logs: item.logs,date: item.date, dayName: item.shortDayName, completion: getCompletionRates(item.logs)}));
-        console.log(weeksData)
         setCurrentWeek(weeksData);
     },[]);
     useEffect(() => {

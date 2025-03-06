@@ -1,0 +1,102 @@
+.history{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    height: 450px;
+    background-color: #111214;
+    padding: 20px 15px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+.history .container{
+    width: 100%;
+}
+.header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.deleteButtonContainer{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.deleteButtonContainer button{
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+.deleteButtonContainer button img{
+    width: 30px;
+    height: 30px;
+}
+.progress{
+    width: calc(100% - 50px);
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.progress p{
+    width: 100%;
+}
+.progress-background{
+    width: 100%;
+    height: 16px;
+    background-color: #1A1A1B;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 3px
+}
+.progress-bar{
+    height: 12px;
+    background-color: #eb5928;
+    border-radius: 5px;
+}
+
+
+
+.history .log-body{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.226);
+    padding-bottom: 10px;
+    gap: 10px;
+}
+.log-body .value{
+    width: 75px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+    justify-content: end;
+}
+.log-body .percentage{
+    width: 50px;
+    height: 100%;
+    justify-content: end;
+    display: flex;
+    align-items: center;
+}
+.log-body .hour{
+    width: 50px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+}
+.log-body .name{
+    width: calc(100% - 205px);
+}
+.log-body.selected-log{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}

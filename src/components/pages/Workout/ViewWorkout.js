@@ -150,7 +150,9 @@ const ViewWorkout = () => {
             <div className='workout-exercises'>
               {exercises?.length > 0 ? exercises.map((exercise, index)=>(
                     <div className='exercise-body' key={index+'ex'}>
-                        <div className='exercise-name'><p className='exercise-index'>{index+1}</p><b>   {exercise.name} x {exercise.sets}</b></div>
+                        <p className='exercise-index'>{index+1}</p>
+                        <b className='exercise-name'>{exercise.name}</b>
+                        <p className='exercise-sets'>{exercise.sets} sets</p>
                     </div>
               )) : (<p>Loading Exercises</p>)}
             </div>
