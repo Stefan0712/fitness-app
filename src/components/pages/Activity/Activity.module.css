@@ -1,6 +1,9 @@
 
   
-
+.logs{
+    width: 100vw;
+    height: calc(100vh - 75px);
+}
 
   .toggle-buttons-container{
     width: 100%;
@@ -24,4 +27,11 @@
 .selected-button{
     background-color: white;
     color: black;
+}
+.content{
+    width: 100%;
+    max-width:  100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 110px);
 }

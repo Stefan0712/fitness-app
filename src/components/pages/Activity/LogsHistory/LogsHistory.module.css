@@ -1,113 +1,102 @@
-.activity-logs-container{
-    height: calc(100% - 450px);
-  }
-  .logs{
-    overflow-y: hidden;
-  }
-  .logs h3{
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-  }
-  .logs .logs-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-left: 10px;
-  }
-  .logs .log-body{
-    width: 90%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .logs .log-info{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .logs .log-meta{
-    display: flex;
-    gap: 20px;
-    
-  }
-  .logs .log-meta p{
-    color: rgba(255, 255, 255, 0.459);
-  }
-
-  .history-container{
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
-    padding-bottom: 100px;
-  }
-  
-
-.logDay{
-    font-weight: 500;
-    margin-bottom: 10px;
-    color: rgba(255, 255, 255, 0.425);
-    margin-top: 10px;
+.logs-history{
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 20px;
+}
+.time-interval-buttons-container{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.time-interval-buttons-container button{
+  height: 40px;
+  padding: 0 10px;
+  background-color: transparent;
+  border: 1px solid var(--general-border);
+  border-radius: 25px;
+  color: var(--text-color);
+}
+.time-interval-buttons-container .selected-button{
+  background-color: var(--toggle-button-active);
+  border: 1px solid var(--general-border);
+  color: black;
+}
+.logs-container{
+  width: 100%;
+  height: 100%;
+  max-width: calc(100vw - 30px);
+  background-color: var(--secondary);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.log-body{
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.log-time{
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-left: auto;
+}
+.log-value{
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 
 
 
 
+  /* Day Selector */
 
-
-
-
-
-
-  .view-log{
-    width: 100vw;
-    z-index: 15;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    background-color: #1A1A1B;
-    border-top: 1px solid rgba(211, 211, 211, 0.1);
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 5px;
-  }
-  
-  .view-log-header{
+  .day-selector{
     width: 100%;
+    max-width: calc(100vw - 30px);
     height: 50px;
+    
+  }
+  .day-selector-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  .view-log .delete-log-button{
-    margin-top: auto;
-    margin-bottom: 100px;
-   
-  }
-  .view-log .food-log-info,
-  .view-log .goal-log-info,
-  .view-log .activity-log-info{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 25px;
+    justify-content: center;
     gap: 10px;
-    margin-bottom: 25px;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
   }
-  .view-log .info-block{
-    width: 30%;
-    height: 60px;
+  .day-body{
+    height: 50px;
+    width: 40px;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    border: 1px solid transparent;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    background-color: #111214;
-    border-radius: 5px;
     align-items: center;
     justify-content: center;
   }
-  
+  .day-body.selected-day{
+    background-color: white;
+  }
+  .day-body.selected-day .day-name,
+  .day-body.selected-day .day-number{
+    color: black;
+  }

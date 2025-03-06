@@ -19,7 +19,7 @@ const Activity = () => {
 
     return (
         <div className={`${styles["logs"]} page`}>
-            <div className={`header ${styles['page-header']}`}>
+            <div className="header">
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Activity</h2>
             </div>

@@ -2,9 +2,10 @@ import styles from './LogsHistory.module.css';
 import ExerciseLogView from "../../../common/LogPages/ExerciseLogView";
 import FoodLogInfo from '../../../common/FoodLog/FoodLogInfo';
 import ViewLog from "../../../common/LogPages/ViewLog";
-import { getWeekRange, getCurrentDay } from "../../../../helpers";
+import { getWeekRange, getCurrentDay, formatActivityDate, getHourFromTimestamp } from "../../../../helpers";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import DaySelector from './DaySelector';
 
 
 
@@ -18,22 +19,15 @@ const LogsHistory = () => {
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
 
     const [weekData, setWeekData] = useState(null);
+    console.log(weekData)
     const [graphType, setGraphType] = useState('Steps');
     const [graphData, setGraphData] = useState(null);
 
-
-    const formatDate = (date) => {
-        const dateObj = new Date(date);
-
-        // Check if the conversion is valid
-        if (isNaN(dateObj.getTime())) {
-            throw new Error("Invalid date format");
-        }
+    const todayDateRaw = new Date();
+    const todayDate = getCurrentDay(todayDateRaw)
+    const [selectedDay, setSelectedDay] = useState(todayDate);
 
 
-        const options = { weekday: 'short', day: 'numeric', month: 'short' };
-        return dateObj.toLocaleDateString('en-US', options);  // "Wed, 25 Nov"
-    };
     const calculateGoalProgress = (weekData, type = graphType) => {
         const goalProgressByDay = weekData.map((day) => {
             let goalValue = 0;
@@ -64,7 +58,6 @@ const LogsHistory = () => {
     
         setWeekData(logsByDay, graphType);
         const progress = calculateGoalProgress(logsByDay);
-        console.log(progress);
         setGraphData(progress);
     };
     useEffect(()=>{
@@ -80,45 +73,44 @@ const LogsHistory = () => {
     const closeViewLog = () =>{
         setShowLog(null)
     }
-    /* instead of a list with days make it a two button container with This week and Last 7 days
-    Under it add buttons with current week or seven days  buttons with day name and number and a list of logs or none
-    Recreate screens for viewing logs. Maybe some modal at the middle of the screen with the data and a delete button.
+    /* 
+     TODO: Recreate screens for viewing logs. Maybe some modal at the middle of the screen with the data and a delete button.
     */
+    const handleDaySelect = (date) =>{
+        setSelectedDay(date);
+    }
     return ( 
         <div className={styles['logs-history']}>
-            <h3>Logs</h3>
-                {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
-                <div className='screen-toggle-buttons'>
-                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? 'selected-button': ''}`}>Current Week</button>
-                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? 'selected-button' : ''}`}>Last 7 Days</button>
+                
+                <div className={styles['time-interval-buttons-container']}>
+                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''}`}>Current Week</button>
+                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''}`}>Last 7 Days</button>
                 </div>
-                <div className={styles["history-container"]}>
-                    {weekData?.map((item, index) => (
-                        
-                        <div className={styles['day']} key={index+'day'}>
-                            <p className={styles.logDay}>{formatDate(item.date)}</p>
-                            <div className={styles['logs-container']}>
-                                {item?.logs && item.logs && item.logs.length > 0 ? (
-                                    item.logs.map((log, index)=>(
-                                        <div key={index+"log"} className={styles["log-body"]} onClick={(()=>setShowInfo(log))}>
-                                            <img className="small-icon" src={log.icon.icon}></img>
-                                            <div className={styles["log-info"]}>
-                                                <p>{log.name}</p>
-                                                <div className={styles["log-meta"]}>
-                                                    <p>{log.data.value}</p>
-                                                    <p>{log.timestamp.split('T')[1].split('.')[0]}</p>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    ))
-                                ): <h3>No Logs</h3>}
-                            </div>
-                        </div>
-                    ))}
+                {weekData ? <DaySelector weekData={weekData} selectedDay={selectedDay} selectDay={handleDaySelect} /> : null}
+                <div className={styles["logs-container"]}>
+                {weekData && weekData.length > 0 && selectedDay ? (
+                        weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
+                            weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
+                                <div className={styles['log-body']} key={'log-' + index}>
+                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : (item.data?.name || item.name)}</p>
+                                    <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
+                                    <p className={styles['log-value']}>
+                                        {item.type === 'exercise' ? `${item.data.sets} sets` : 
+                                        item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
+                                        item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` : null}
+                                    </p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No logs for that date</p>
+                        )
+                    ) : (
+                        <p>No logs for that date</p>
+                    )}
                 </div>
                 {showInfo && showInfo.type === 'exercise' ? <ExerciseLogView data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
                 {showInfo && showInfo.type === 'food' ? <FoodLogInfo data={showInfo.data} close={()=>setShowInfo(null)} /> : null }
+                {showLog ? <ViewLog log={showLog} closeViewLog={closeViewLog} /> : ''}
         </div>
      );
 }

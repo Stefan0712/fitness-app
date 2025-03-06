@@ -6,6 +6,12 @@ export const getDateForHeader = () =>{
 export const makeFirstUpperCase = (string)=>{
     return string[0].toUpperCase() + string.slice(1);
 }
+export const getDayFromDate = (date) =>{
+    if (!date) return '';  
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    return day;
+}
 export const formatDate = (date) => {
     if (!date) return '';  
   
@@ -67,54 +73,47 @@ export const convertGroupFromLowerToUpperCase = (input)=>{
 
 export const getWeekRange = (selectedDate, type = 'current-week') => {
   const currentDate = new Date(selectedDate);
-  currentDate.setHours(0, 0, 0, 0); // Ensure consistent start time
+  currentDate.setHours(0, 0, 0, 0); // Normalize time
 
   let startOfRange;
 
   if (type === 'current-week') {
-      // Calculate the start of the week (Monday)
-      const currentDay = currentDate.getDay();
-      startOfRange = new Date(currentDate);
-      startOfRange.setDate(currentDate.getDate() - currentDay + 1); // Move to Monday
+    const currentDay = currentDate.getDay();
+    startOfRange = new Date(currentDate);
+    startOfRange.setDate(currentDate.getDate() - (currentDay === 0 ? 6 : currentDay - 1)); // Monday as start
   } else if (type === 'last-seven-days') {
-      // Calculate the start of the last 7 days range
-      startOfRange = new Date(currentDate);
-      startOfRange.setDate(currentDate.getDate() - 5); // Move 6 days back to include today
+    startOfRange = new Date(currentDate);
+    startOfRange.setDate(currentDate.getDate() - 6);
   } else {
-      throw new Error("Invalid type. Use 'current-week' or 'last-seven-days'.");
+    throw new Error("Invalid type. Use 'current-week' or 'last-seven-days'.");
   }
 
-  const weekDays = [
-      { short: 'Mon', long: 'Monday' },
-      { short: 'Tue', long: 'Tuesday' },
-      { short: 'Wed', long: 'Wednesday' },
-      { short: 'Thu', long: 'Thursday' },
-      { short: 'Fri', long: 'Friday' },
-      { short: 'Sat', long: 'Saturday' },
-      { short: 'Sun', long: 'Sunday' }
-  ];
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const range = [];
   for (let i = 0; i < 7; i++) {
-      const day = new Date(startOfRange);
-      day.setDate(startOfRange.getDate() + i); // Add i days to get each day in the range
+    const day = new Date(startOfRange);
+    day.setDate(startOfRange.getDate() + i); // Correctly compute each day
 
-      const formattedDate = day.toISOString().split('T')[0]; // yyyy-mm-dd
-      const dayOfMonth = day.getDate(); // Day of the month
-      const dayOfWeek = day.getDay(); // Day of the week (0-6)
+    const formattedDate = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`; // Avoid timezone issues
+    const dayOfMonth = day.getDate(); // Get correct day of the month
+    const dayOfWeek = (day.getDay() + 6) % 7; // Align Monday as 0
 
-      range.push({
-          dayNo: i + 1,
-          short: weekDays[dayOfWeek]?.short || '',
-          long: weekDays[dayOfWeek]?.long || '',
-          date: formattedDate,
-          day: dayOfMonth,
-          logs: []
-      });
+    range.push({
+      dayNo: i + 1,
+      short: weekDays[dayOfWeek],
+      long: day.toLocaleDateString('en-US', { weekday: 'long' }),
+      date: formattedDate,
+      day: dayOfMonth, 
+      logs: []
+    });
   }
 
-  return range.reverse();
+  return range;
 };
+
+
+
 export const convertToNumber = (value) => {
   // Use parseInt if the value is not already a number
   return typeof value === "number" ? value : parseInt(value, 10) || 0;
@@ -139,3 +138,15 @@ export const getDateFromTimestamp = (timestamp) => {
   const month = date.toLocaleString('en-US', { month: 'short' }); // Get the short month name
   return `${day} ${month}`; // Combine day and month
 }
+export const formatActivityDate = (date) => {
+  const dateObj = new Date(date);
+
+  // Check if the conversion is valid
+  if (isNaN(dateObj.getTime())) {
+      throw new Error("Invalid date format");
+  }
+
+
+  const options = { weekday: 'short', day: 'numeric', month: 'short' };
+  return dateObj.toLocaleDateString('en-US', options);  // "Wed, 25 Nov"
+};

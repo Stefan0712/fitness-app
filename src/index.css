@@ -429,10 +429,11 @@ body{
 
 
 /* themes */
-
+ 
 
 :root{
   --background: #111214;
+  --secondary: #1A1A1B;
   --text-color: white;
   --accent-color: #EB5928;
   --dashboard-module-background: #1A1A1B;
