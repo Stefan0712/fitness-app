@@ -14,8 +14,6 @@ const ViewExercise = () => {
 
     const {id} = useParams();
     const exerciseData = useSelector((state)=>state.user.exercises.find(item => item.id === id));
-    const workouts = useSelector((state)=>state.user.workouts);
-    const [modal, setModal] = useState(null)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -43,12 +41,12 @@ const ViewExercise = () => {
                         <img className='small-icon white-icon' src={IconLibrary.Tag} alt=''></img>
                         <p className='info-block-name'>Tags</p>
                     </div>
-                    <p className='info-block-value tags'>{exerciseData.tags?.length > 0 ? exerciseData.tags.map(tag=>(
+                    <div className='info-block-value tags'>{exerciseData.tags?.length > 0 ? exerciseData.tags.map(tag=>(
                         <div className="tag-body" key={tag.id}>
                             <div className="tag-color" style={{backgroundColor: tag.color}}></div>
                             <div className="tag-name">{tag.name}</div>
                         </div>
-                        )) : 'None'}</p>
+                        )) : 'None'}</div>
                 </div>
                 <div className='info-block tags-block'>
                     <div className='info-block-header'>

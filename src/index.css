@@ -419,3 +419,27 @@ body{
   align-items: center;
   justify-content: space-between;
 }
+
+
+
+
+
+
+
+
+
+/* themes */
+
+
+:root{
+  --background: #111214;
+  --text-color: white;
+  --accent-color: #EB5928;
+  --dashboard-module-background: #1A1A1B;
+  --dashboard-module-container: #111214;
+  --quick-menu-button-background: #EB5928;
+  --quick-menu-button-text: white;
+  --general-border: rgba(221, 221, 221, 0.1);
+  --toggle-button-background: #1A1A1B;
+  --toggle-button-active: white;
+}

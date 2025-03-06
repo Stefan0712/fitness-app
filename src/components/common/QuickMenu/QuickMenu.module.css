@@ -29,8 +29,9 @@
     border-radius: 10px;
     display: flex;
     gap: 20px;
+    color: var(--quick-menu-button-text);
     align-items: center;
-    background-color: #EB5928;
+    background-color: var(--quick-menu-button-background);
     border: none;
     /* #1A1A1B*/
 

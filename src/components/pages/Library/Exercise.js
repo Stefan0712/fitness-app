@@ -9,7 +9,7 @@ const Exercise = ({data}) => {
                 <h4>{data.name}</h4>
                 <div className={styles["item-description"]}>
                     <p>{data.sets} Sets</p>
-                    <p>{data.category.name || null}</p>
+                    <p>{data.category?.name || null}</p>
                     <p>{data.difficulty}</p>
                 </div>
             </div>
