@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLog } from "../../../../store/userSlice";
 import { useState } from "react";
 import styles from './Log.module.css';
+import MessageModal from "../../MessageModal/MessageModal";
 
 interface GoalObject {
     timestamp?: string;
@@ -11,16 +12,26 @@ interface GoalObject {
     icon: Icon;
     data: Data;
 }
+interface MessageObject {
+    message: string;
+    type: string;
+}
 
-const Log = ({id}) => {
+interface LogProps {
+    id: string;
+}
+const Log: React.FC<LogProps> = ({id}) => {
 
     const dispatch = useDispatch();
 
+    const [message, setMessage] = useState<MessageObject | null>(null)
 
     const [inputValue, setInputValue] = useState<number>(0);
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const goalData = useSelector<GoalData>((state)=>state.user.userData.goals.find((item)=>item.id===id));
+    const goalData = useSelector((state: RootState) => 
+        state.user.userData.goals.find((item) => item.id === id)
+    );
     const getCurrentTime = (input: Date | string = new Date()): string => {
         // Ensure input is a Date object
         const date = typeof input === "string" ? new Date(input) : input;
@@ -35,7 +46,11 @@ const Log = ({id}) => {
     
     const [time, setTime] = useState<string>(getCurrentTime())
   const submitLog = () =>{
-
+    if(!name){
+        setMessage({type: 'fail', message: "Name can't be empty"});
+    }else if(!inputValue || inputValue === 0){
+        setMessage({type: 'fail', message: "Value can't be empty"});
+    }else{
         const data: GoalObject = {
             type: 'goal', 
             id: goalData.id,
@@ -54,10 +69,13 @@ const Log = ({id}) => {
         setName('');
         setDescription('');
         setTime(getCurrentTime());
+        setMessage({message: "Log submited succesffully", type: 'success'});
+    }
     }
 
     return ( 
         <div className={styles.log}>
+            {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             <fieldset>
                 <label>Name</label>
                 <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} />

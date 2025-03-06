@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../../IconLibrary';
 import { removeLog } from '../../../../store/userSlice';
+import MessageModal from '../../MessageModal/MessageModal';
 
 interface Icon {
     name: string;
@@ -35,6 +36,10 @@ interface SelectedLogObject {
     id: string;
     timestamp: string;
 }
+interface MessageObject{
+    message: string;
+    type: string;
+}
 const History = ({id}) => {
     const allLogs = useSelector<GoalObject[]>((state)=>state.user.activity[getCurrentDay()]?.logs);
     const dispatch = useDispatch();
@@ -43,6 +48,8 @@ const History = ({id}) => {
     const goalData = useSelector<GoalData | undefined>((state)=>state.user.userData.goals.find((element)=>element.id === id));
     const [currentValue, setCurrentValue] = useState();
     const [selectedLog, setSelectedLog] = useState<SelectedLogObject | unknown>(null);
+
+    const [message, setMessage] = useState<MessageObject | null>(null);
 
     useEffect(() => {
         
@@ -69,6 +76,7 @@ const History = ({id}) => {
         if(selectedLog){
             dispatch(removeLog(selectedLog.timestamp));
             setSelectedLog(null);
+            setMessage({type: 'success', message: "Log deleted"});
         }
     }
     const handleSelectLog = (id, timestamp) =>{
@@ -76,7 +84,7 @@ const History = ({id}) => {
     }
     return ( 
         <div className={styles.history}>
-            
+            {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             <div className={styles.header}>
                 <div className={styles.progress}>
                     <p>{currentValue} / {goalData.target} {goalData.unit}</p>

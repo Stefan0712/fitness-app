@@ -4,6 +4,7 @@ import {colors} from '../../../../constants/defaultColors';
 import { defaultIcons } from '../../../../constants/defaultIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGoal } from '../../../../store/userSlice';
+import MessageModal from '../../MessageModal/MessageModal';
 
 interface Icon {
     id: string;
@@ -21,6 +22,10 @@ interface EditParams {
     closeEdit: ()=> void;
     goalId: string;
 }
+interface MessageObject{
+    message: string;
+    type: string;
+}
 const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
 
 
@@ -33,8 +38,15 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
     const [target, setTarget] = useState<number>(goalData.target || 0);
     const [color, setColor] = useState<string>(goalData.color || 'white');
     const [icon, setIcon] = useState<Icon>(goalData.icon || defaultIcons[0])
-
+    const [message, setMessage] = useState<MessageObject | null>(null);
     const handleUpdateGoal = () =>{
+       if(!name){
+        setMessage({type: 'fail', message: "Name invalid"});
+       }else if(!target || target <= 0){
+        setMessage({type: 'fail', message: "Target value invalid"});
+       }else if(!unit){
+        setMessage({type: 'fail', message: "Unit invalid"});
+       }else{
         if(name && unit && target){
             const newData: GoalData = {
                 id: goalId,
@@ -46,7 +58,9 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
             }
             console.log(newData)
             dispatch(updateGoal(newData));
+            setMessage({type: 'success', message: "Goal updated successfully"});
             closeEdit();
+
         }else{
             console.log('Something went wrong',{
                 name: name || 'Missing name',
@@ -56,11 +70,13 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
                 icon
             })
         }
+       }
         
     }
 
     return ( 
         <div className={styles['edit-goal']}>
+            {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             <fieldset className={styles.name}>
                 <label>Name</label>
                 <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name}></input>
