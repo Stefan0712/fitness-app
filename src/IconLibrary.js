@@ -61,6 +61,7 @@ import Quantity from './assets/quantity.svg';
 import Note from './assets/note.svg';
 import Goals from './assets/goals.svg';
 import Menu from './assets/menu.svg';
+import Hide from './assets/hide.svg';
 
 
 export const IconLibrary = {
@@ -122,5 +123,6 @@ export const IconLibrary = {
     Note,
     Goals,
     Menu,
-    Dots
+    Dots,
+    Hide
 }

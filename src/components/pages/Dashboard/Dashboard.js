@@ -9,6 +9,7 @@ import { updateDashboardLayout } from '../../../store/userSlice';
 import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';
+import MessageModal from '../../common/MessageModal/MessageModal';
 
 
 
@@ -22,10 +23,10 @@ const Dashboard = () => {
 
     const [currentWeek, setCurrentWeek] = useState([])
     const [menu, setMenu] = useState(null);
-
+    
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
-
+    const [message, setMessage] = useState(null);
 
     const getCurrentWeek = () => {
         const today = new Date();
@@ -41,7 +42,7 @@ const Dashboard = () => {
     }, []);
 
     const hideSection = (sectionName) =>{
-        console.log('Just hid '+sectionName)
+        setMessage({message: 'Module hidden', type: 'success'});
         dispatch(updateDashboardLayout(dashboardComponents.filter(s=>s.identifier !== sectionName)));
         setMenu(null);
     }
@@ -49,12 +50,15 @@ const Dashboard = () => {
     
 
     
-
+    const handleShowMessage = (message) =>{
+        setMessage(message);
+        console.log("Message function was triggered", message)
+    }
 
    
     return ( 
         <div className={`${styles.dashboard} page`}>
-            
+            {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} bottom={85} /> : null}
             <div className={styles.header}>
                 <div className={styles.date}>{getDateForHeader()}</div>
                 <h2>Dashboard</h2>
@@ -77,16 +81,16 @@ const Dashboard = () => {
             const goal = userGoals.find(goal => goal.id === item.identifier);
 
             if (item.type === 'goal' && goal) {
-                return <Goal key={'goal-' + index} data={goal} />;
+                return <Goal key={'goal-' + index} data={goal} showMessage={handleShowMessage} />;
             }
 
             if (item.type === 'section') {
                 if (item.identifier === 'activity') {
-                return <ActivityComponent key={'activity-' + index} isSmallScreen={isSmallScreen} setMenu={setMenu} />;
+                return <ActivityComponent key={'activity-' + index} isSmallScreen={isSmallScreen} showMessage={handleShowMessage} />;
                 }
 
                 if (item.identifier === 'nutrition') {
-                return <NutritionComponent key={'nutrition-' + index} isSmallScreen={isSmallScreen} setMenu={setMenu} />;
+                return <NutritionComponent key={'nutrition-' + index} isSmallScreen={isSmallScreen} showMessage={handleShowMessage} />;
                 }
             }
 

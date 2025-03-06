@@ -2,7 +2,6 @@ import styles from './Goal.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {getCurrentDay, getDateFromTimestamp, getHourFromTimestamp } from '../../../helpers';
-import { startOfWeek, addDays} from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import useCurrentWeekLogs from './useCurrentWeekLogs';
 import { updateDashboardLayout } from '../../../store/userSlice';
@@ -10,7 +9,7 @@ import { updateDashboardLayout } from '../../../store/userSlice';
 
 
 
-const Goal = ({data}) => {
+const Goal = ({data,showMessage}) => {
 
     const logs = useSelector((state)=>state.user?.activity[getCurrentDay()]?.logs?.filter(item=>item.id === data.id));
     const currentWeeksLogs = useCurrentWeekLogs();
@@ -23,10 +22,6 @@ const Goal = ({data}) => {
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
 
-    const getCurrentWeek = () => {
-        const today = new Date();
-        return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
-    };
 
 
 
@@ -50,7 +45,8 @@ const Goal = ({data}) => {
         }
     }
     const hideGoal = () =>{
-        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != data.id)))
+        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != data.id)));
+        showMessage({message: `${data.name} was hidden`, type: 'success'});
     }
     return ( 
         <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`}>
@@ -64,7 +60,7 @@ const Goal = ({data}) => {
                 <img className={styles.icon} src={data.icon.icon}></img>
                 <h3>{data.name}</h3>
                 <p>{logs?.reduce((sum, obj)=>sum + parseInt(obj.data.value,10),0) || 0}/{data.target}</p>
-                <button className='clear-button' onClick={()=>setShowMenu(true)}><img src={IconLibrary.Dots} className='small-icon' alt='' /></button>
+                <button className='clear-button' onClick={()=>setShowMenu(true)}><img src={IconLibrary.Hide} className='small-icon' alt='' /></button>
             </div>
             <div className={styles.days}>
                 {currentWeek?.map((item, index)=>{

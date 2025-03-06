@@ -94,7 +94,7 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     }
     const saveField = (newData: FieldObject) =>{
         setSavedValues((savedValues)=>[...savedValues, newData]);
-        setCurrentScreen('values')
+        setCurrentScreen('values');
     }
     const addField = (data) =>{
         setSavedValues((savedValues)=>[...savedValues, data]);

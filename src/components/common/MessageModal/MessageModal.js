@@ -2,14 +2,14 @@ import { IconLibrary } from '../../../IconLibrary';
 import styles from './MessageModal.module.css';
 import { useEffect } from 'react';
 
-const MessageModal = ({message, type, closeModal, functionToRun, functionButtonText}) =>{
+const MessageModal = ({message, type, closeModal, functionToRun, functionButtonText, bottom}) =>{
 
     useEffect(()=>{
         setTimeout(()=>closeModal(), 3000);
     },[])
 
     return (
-        <div className={`${styles.modal} ${styles[type]}`}>
+        <div className={`${styles.modal} ${styles[type]}`} style={{bottom: bottom || '10px'}}>
             <p className={styles.message}>{message}</p>
             {functionToRun && functionButtonText ? <button className={styles['function-button']} onClick={functionToRun}>{functionButtonText}</button> : null}
             <button className={styles.close} onClick={closeModal}>

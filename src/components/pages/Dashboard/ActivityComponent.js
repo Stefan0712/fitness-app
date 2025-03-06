@@ -1,26 +1,38 @@
 import styles from './Dashboard.module.css';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { getCurrentDay } from '../../../helpers';
+import { updateDashboardLayout } from '../../../store/userSlice';
 
+const ActivityComponent = ({isSmallScreen, showMessage}) => {
+    const dispatch = useDispatch();
 
-const ActivityComponent = ({isSmallScreen, setMenu}) => {
-
+    const dashboardSections = useSelector((state)=>state.user.dashboardSections);
+    const [showMenu, setShowMenu] = useState(false);
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
     const [selectedDate, setSelectedDate] = useState(getCurrentDay());
 
 
     const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
     const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
-
+    const hideModule = () =>{
+        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'activity')));
+        showMessage({message: "Activity was hidden", type: 'success'});
+    }
 
     return ( 
-        <div className={styles.section}>
+        <div className={`${styles.section} ${styles['activity-section']}`}>
+            {showMenu ? (
+                <div className={styles.menu}>
+                    <button type='button' className='clear-button' onClick={hideModule}>Hide</button>
+                    <button type='button' className='clear-button' onClick={()=>setShowMenu(false)}>Cancel</button>
+                </div>
+            ):null}
             <div className={styles['summary-card']}>
             <div className={styles['summary-card-header']}>
                     <h2>Activity</h2>
-                    <button className={`clear-button ${styles['options-button']}`} onClick={()=>setMenu({title:'Activity', sectionName: 'activity'})}><img className='small-icon' src={IconLibrary.Dots} alt=''></img></button>
+                    <button className={`clear-button ${styles['options-button']}`} onClick={()=>setShowMenu(true)}><img className='small-icon' src={IconLibrary.Hide} alt=''></img></button>
                 </div>
                 <div className={styles["card-content"]}>
                     <div className={styles['card-content-block']}>
