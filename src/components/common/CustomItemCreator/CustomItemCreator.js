@@ -36,7 +36,7 @@ const CustomItemCreator = ({addItem, type}) => {
         setError(null)
     }
     return ( 
-        <div className="custom-item-creator">
+        <div className="custom-item-creator" style={{paddingLeft: type==='tag' ? '60px' : null}}>
             {type === 'tag' ? <ColorPicker getColor={getColor} /> : null}
             <div className="custom-item-input">
                 <input className={`${error ? 'show-error' : null}`} type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Name"></input>

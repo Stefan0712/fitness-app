@@ -106,6 +106,7 @@
     justify-content: center;
     height: 100%;
 }
+
 .view-workout-page .workout-exercises .exercise-body .exercise-sets{
     width: 75px;
     display: flex;
@@ -225,8 +226,11 @@
 .create-workout-page .exercises-container{
     max-height: 300px;
     overflow-y: auto;
-    margin-bottom: 25px;
-    padding: 15px 0;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #1A1A1B;
+    border-radius: 5px;
 }
 .create-workout-page .exercise-creator-inputs #exerciseName{
     grid-column: 1 / 3;
@@ -238,6 +242,17 @@
     width: 100%;
     height: 50px;
     gap: 5px;
+}
+.create-workout-page .added-exercise .exercise-info{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap :10px;
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+.create-workout-page .added-exercise{
+    height: 40px;
 }
 .create-workout-page .exercise-body .exercise-info{
     width: calc(100% - 75px);
@@ -268,7 +283,7 @@
 }
 .create-workout-page .tag-body{
     width: 100%;
-    height: 30px;
+    height: 40px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -283,21 +298,19 @@
     margin-left: auto;
 }
 .create-workout-page .source-buttons{
-    width: 150px;
-    height: 30px;
-    background-color: #1A1A1B;
+    width: 180px;
+    height: 40px;
     display: flex;
     align-items: center;
     padding: 3px;
-    border-radius: 5px;
-    margin: 15px 0 10px 0;
+    margin-bottom: 10px;
 }
 .create-workout-page .source-buttons button{
-    width: 75px;
+    width: 90px;
     height: 100%;
     background-color: transparent;
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 25px;
 }
 .create-workout-page .source-buttons button.selected-button{
     background-color: white;
@@ -307,4 +320,34 @@
     margin-top: auto;
     margin-bottom: 25px;
     margin-left: calc(50% - 75px);
+}
+.exercises-fieldset{
+    width: 100%;
+}
+
+.screen-selector{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background-color: #1A1A1B;
+    border-radius: 5px;
+}
+.screen-selector button{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+.screen-selector .selected-screen-button{
+    background-color: white;
+    color: black;
+}
+.selected-screen-container{
+    width: 100%;
 }

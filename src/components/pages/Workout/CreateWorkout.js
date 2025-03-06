@@ -44,6 +44,8 @@ const CreateWorkout = () => {
     const [notes, setNotes] = useState('');
 
 
+    const [currentScreen, setCurrentScreen] = useState('exercises');
+
     const handleRemoveExercise = (id) =>{
         setExercises((exercises)=>exercises.filter((item)=>item.exercise.id !== id));
     }
@@ -114,116 +116,126 @@ const CreateWorkout = () => {
                         <label>Notes</label>
                         <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes}></input>
                     </fieldset>
-                    <fieldset className="tag-selector">
-                        <label>Target Group</label>
-                        <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
-                        <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
-                        <div className="selected-tags">
-                            {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
-                    <fieldset className="tag-selector">
-                        <label>Tags</label>
-                        <CustomItemCreator addItem={addTag} type={'tag'}/>
-                        <DefaultItems allItems={defaultTags} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
-                        <div className="selected-tags">
-                            {workoutTags?.length > 0 ? workoutTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setWorkoutTags((workoutTags)=>[...workoutTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
-                    <fieldset className="tag-selector">
-                        <label>Equipment</label>
-                        <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
-                        <DefaultItems allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
-                        <div className="selected-tags">
-                            {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                        </div>
-                    </fieldset>
+                    <div className='screen-selector'>
+                        <button type="button" onClick={()=>setCurrentScreen('exercises')} className={currentScreen === 'exercises' ? 'selected-screen-button' : ''}>Exercises</button>
+                        <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? 'selected-screen-button' : ''}>Tags</button>
+                        <button type="button" onClick={()=>setCurrentScreen('equipment')} className={currentScreen === 'equipment' ? 'selected-screen-button' : ''}>Equipment</button>
+                        <button type="button" onClick={()=>setCurrentScreen('groups')} className={currentScreen === 'groups' ? 'selected-screen-button' : ''}>Groups</button>
+                    </div>
+                    <div className="selected-screen-container">
+                        {currentScreen === 'exercises' ? (
+                            <fieldset className="exercises-fieldset">
+                                <label>Exercises</label>
+                                <div className="source-buttons">
+                                    <button type="button" className={exercisesSource === "library" ? 'selected-button' : ''} onClick={()=>setExercisesSource('library')}>Library</button>
+                                    <button type="button" className={exercisesSource === "database" ? 'selected-button' : ''} onClick={()=>setExercisesSource('database')}>Database</button>
+                                </div>
+                                <div className="exercises-container">
+                                {exercisesSource === 'library' && (
+                                    createdExercises?.length > 0 ? (
+                                        createdExercises.map((exercise, index) => 
+                                        exercises.some((ex) => ex.id === exercise.id) ? null : (
+                                            <div className="exercise-body" id={index} key={index}>
+                                            <div className="exercise-info">
+                                                <h4>{exercise.name}</h4>
+                                                <div className="exercise-tags">
+                                                    
+                                                    {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p key={tag.name}>{tag.name}</p>) : ''}
+                                                </div>
+                                            </div>
+                                            <p className="exercise-sets">{exercise.sets} sets</p>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => handleAddExercise('library', exercise, e)}
+                                                className="small-square transparent-bg"
+                                            >
+                                                <img
+                                                src={IconLibrary.Add}
+                                                className="small-icon"
+                                                alt=""
+                                                />
+                                            </button>
+                                            </div>
+                                        )
+                                        )
+                                    ) : (
+                                        <h3>Your library is empty</h3>
+                                    )
+                                    )}
+                                {exercisesSource === 'database' && (
+                                    databaseExercises?.length > 0 ? (
+                                        databaseExercises.map((exercise, index) => 
+                                        exercises.some((ex) => ex.id === exercise.id) ? null : (
+                                            <div className="exercise-body" id={index} key={index}>
+                                            <div className="exercise-info">
+                                                <h4>{exercise.name}</h4>
+                                                <div className="exercise-tags">
+                                                    {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
+                                                </div>
+                                            </div>
+                                            <p className="exercise-sets">{exercise.sets} sets</p>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => handleAddExercise('database', exercise, e)}
+                                                className="small-square transparent-bg"
+                                            >
+                                                <img
+                                                src={IconLibrary.Add}
+                                                className="small-icon"
+                                                alt=""
+                                                />
+                                            </button>
+                                            </div>
+                                        )
+                                        )
+                                    ) : (
+                                        <h3>Could not load exercises</h3>
+                                    )
+                                    )}
+        
+                                </div>
+                                <div className="exercises-container">
+                                    {exercises?.length > 0 ? exercises.map((item, index)=>(
+                                            <div className="exercise-body added-exercise" id={index} key={index+'exercise'}>
+                                                <div className="exercise-info">
+                                                    <h4>{item.exercise.name}</h4>
+                                                        {item.exercise.sets ? (<p>{item.exercise.sets} sets</p>) : ''}
+                                                </div>
+                                                <button type="button" onClick={()=>handleRemoveExercise(item.exercise.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
+                                            </div>
+                                    )): <h3>No exercises added.</h3>}
+                                </div>
+                            </fieldset>
+                        ) : currentScreen === 'tags' ? (
+                            <fieldset className="tag-selector">
+                                <label>Tags</label>
+                                <CustomItemCreator addItem={addTag} type={'tag'}/>
+                                <DefaultItems allItems={defaultTags} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
+                                <div className="selected-tags">
+                                    {workoutTags?.length > 0 ? workoutTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setWorkoutTags((workoutTags)=>[...workoutTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                </div>
+                            </fieldset>
+                        ) : currentScreen === 'equipment' ? (
+                            <fieldset className="tag-selector">
+                                <label>Equipment</label>
+                                <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
+                                <DefaultItems allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
+                                <div className="selected-tags">
+                                    {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                </div>
+                            </fieldset>
+                        ) : currentScreen === 'groups' ? (
+                            <fieldset className="tag-selector">
+                                <label>Target Group</label>
+                                <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
+                                <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
+                                <div className="selected-tags">
+                                    {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                </div>
+                            </fieldset>
+                        ) : null}
+                    </div>
                     
-                    
-                    <fieldset>
-                        <label>Exercises</label>
-                        <div className="exercises-container">
-                            {exercises?.length > 0 ? exercises.map((item, index)=>(
-                                    <div className="exercise-body" id={index} key={index+'exercise'}>
-                                        <div className="exercise-info">
-                                            <h4>{item.exercise.name}</h4>
-                                                {item.exercise.sets ? (<p>{item.exercise.sets} sets</p>) : ''}
-                                        </div>
-                                        <button type="button" onClick={()=>handleRemoveExercise(item.exercise.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
-                                    </div>
-                            )): <h3>No exercises added.</h3>}
-                        </div>
-                        <label>Exercises Library</label>
-                        <div className="source-buttons">
-                            <button type="button" className={exercisesSource === "library" ? 'selected-button' : ''} onClick={()=>setExercisesSource('library')}>Library</button>
-                            <button type="button" className={exercisesSource === "database" ? 'selected-button' : ''} onClick={()=>setExercisesSource('database')}>Database</button>
-                        </div>
-                        <div className="exercises-container">
-                        {exercisesSource === 'library' && (
-                            createdExercises?.length > 0 ? (
-                                createdExercises.map((exercise, index) => 
-                                exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                    <div className="exercise-body" id={index} key={index}>
-                                    <div className="exercise-info">
-                                        <h4>{exercise.name}</h4>
-                                        <div className="exercise-tags">
-                                            
-                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p key={tag.name}>{tag.name}</p>) : ''}
-                                        </div>
-                                    </div>
-                                    <p className="exercise-sets">{exercise.sets} sets</p>
-                                    <button
-                                        type="button"
-                                        onClick={(e) => handleAddExercise('library', exercise, e)}
-                                        className="small-square transparent-bg"
-                                    >
-                                        <img
-                                        src={IconLibrary.Add}
-                                        className="small-icon"
-                                        alt=""
-                                        />
-                                    </button>
-                                    </div>
-                                )
-                                )
-                            ) : (
-                                <h3>Your library is empty</h3>
-                            )
-                            )}
-                        {exercisesSource === 'database' && (
-                            databaseExercises?.length > 0 ? (
-                                databaseExercises.map((exercise, index) => 
-                                exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                    <div className="exercise-body" id={index} key={index}>
-                                    <div className="exercise-info">
-                                        <h4>{exercise.name}</h4>
-                                        <div className="exercise-tags">
-                                            {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
-                                        </div>
-                                    </div>
-                                    <p className="exercise-sets">{exercise.sets} sets</p>
-                                    <button
-                                        type="button"
-                                        onClick={(e) => handleAddExercise('database', exercise, e)}
-                                        className="small-square transparent-bg"
-                                    >
-                                        <img
-                                        src={IconLibrary.Add}
-                                        className="small-icon"
-                                        alt=""
-                                        />
-                                    </button>
-                                    </div>
-                                )
-                                )
-                            ) : (
-                                <h3>Could not load exercises</h3>
-                            )
-                            )}
-
-                        </div>
-                    </fieldset>
-
                     <button className="orange-button large-button submit-button" onClick={handleSubmit}>Create Workout</button>
                 </form>
         </div>
