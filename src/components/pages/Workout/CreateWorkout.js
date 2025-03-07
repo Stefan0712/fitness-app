@@ -15,7 +15,6 @@ import { muscles as defaultTargetGroups } from "../../../constants/defaultMuscle
 import {defaultEquipment} from "../../../constants/defaultEquipment.js";
 import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
 
-//TODO: Show all default and custom fields, add a simple quick field, validation, simplify the ui
 
 
 const CreateWorkout = () => {
@@ -210,7 +209,7 @@ const CreateWorkout = () => {
                             <fieldset className="tag-selector">
                                 <label>Tags</label>
                                 <CustomItemCreator addItem={addTag} type={'tag'}/>
-                                <DefaultItems allItems={defaultTags} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
+                                <DefaultItems key={'tags'} allItems={[...defaultTags]} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
                                 <div className="selected-tags">
                                     {workoutTags?.length > 0 ? workoutTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setWorkoutTags((workoutTags)=>[...workoutTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
@@ -219,7 +218,7 @@ const CreateWorkout = () => {
                             <fieldset className="tag-selector">
                                 <label>Equipment</label>
                                 <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
-                                <DefaultItems allItems={defaultEquipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
+                                <DefaultItems key={'equipment'} allItems={[...defaultEquipment]} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
                                 <div className="selected-tags">
                                     {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
@@ -228,7 +227,7 @@ const CreateWorkout = () => {
                             <fieldset className="tag-selector">
                                 <label>Target Group</label>
                                 <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
-                                <DefaultItems allItems={defaultTargetGroups} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
+                                <DefaultItems key={'groups'} allItems={[...defaultTargetGroups]} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
                                 <div className="selected-tags">
                                     {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>

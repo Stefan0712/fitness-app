@@ -3,6 +3,7 @@ import './DefaultItems.css';
 import { useState } from "react";
 
 const DefaultItems = ({allItems, title, addItem, savedItems}) => {
+    console.log(allItems)
     //make it so that it adds colors to items that support that
     const [isExpanded, setIsExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -29,9 +30,9 @@ const DefaultItems = ({allItems, title, addItem, savedItems}) => {
                 <img className="small-icon search-icon" src={IconLibrary.Search} />
             </div>
             <div className="default-items-container">
-                {items?.length > 0 ? items.map((item)=>
+                {items?.length > 0 ? items.map((item,index)=>
                     checkIfAdded(item) ? null : (
-                        <div className="default-item" key={item.id}>
+                        <div className="default-item" key={item.id+index}>
                             <p className="default-item-name">{item.name}</p>
                             {item.measurements?.length > 0 ? <p className="default-item-measurement"></p> : null}
                             <button type="button" className="clear-button" onClick={()=>addItem(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
