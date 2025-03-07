@@ -96,6 +96,8 @@
     gap: 5px;
     border-radius: 5px;
     align-items: center;
+    white-space: nowrap;
+    
 }
 .workout-tag-name{
     color: white;
