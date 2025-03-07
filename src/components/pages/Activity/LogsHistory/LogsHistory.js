@@ -91,12 +91,13 @@ const LogsHistory = () => {
                         weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
                             weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
                                 <div className={styles['log-body']} key={'log-' + index}>
-                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : (item.data?.name || item.name)}</p>
+                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.data.workoutData?.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
                                     <p className={styles['log-value']}>
                                         {item.type === 'exercise' ? `${typeof item.data.sets === 'object' ? item.data.sets.length : item.data.sets} sets` : 
                                         item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
-                                        item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` : null}
+                                        item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` :
+                                        item.type === 'workout' ? `${item.data?.workoutData?.exercises?.length} exercises` : null}
                                     </p>
                                 </div>
                             ))
