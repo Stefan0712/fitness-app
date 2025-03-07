@@ -19,7 +19,6 @@ const LogsHistory = () => {
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
 
     const [weekData, setWeekData] = useState(null);
-    console.log(weekData)
     const [graphType, setGraphType] = useState('Steps');
     const [graphData, setGraphData] = useState(null);
 

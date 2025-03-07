@@ -384,10 +384,9 @@ const Workout = () => {
                                 key={index + 'exercise'}
                                 onClick={() => handleChangeCurrentExercise(exercise.id)}
                             >
-                                <b>{index + 1}</b>
                                 <p>{exercise.name}</p>
                                 <div className={styles["sets"]}>{exercise.sets.length} sets</div>
-                                <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(currentExercise)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
+                                <input type="checkbox" style={{height: '30px', width: '30px'}} onClick={()=>handleCompleteExercise(exercise.id)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
                             </div>
                         ))}
                     </div>
