@@ -1,0 +1,200 @@
+.view-workout-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100vw;
+    height: calc(100vh - 75px);
+}
+.header button{
+    width: 50px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+.header a{
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+.workout-info{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.subtle-subtitle{
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.342);
+}
+.block{
+    width: calc(50% - 5px);
+    display: flex;
+    flex-direction: column;
+    background-color: #1A1A1B;
+    padding: 5px;
+    border-radius: 5px;
+    height: 75px;
+}
+.block.full-width{
+    width: 100%;
+}
+.workout-description{
+    background-color: #1A1A1B;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.block .header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+    min-height: 30px;
+    padding: 0 5px;
+}
+.block .header img{
+    width: 15px;
+    height: 15px;
+}
+.block .value{
+   display: flex;
+   align-items: center;
+   padding-left: 10px;
+   height: 40px;
+   min-height: 40px;
+}
+.tags-container{
+    width: 100%;
+    max-width: calc(100vw - 30px);
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.tag-body{
+    height: 20px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+.tag-color{
+    height: 100%;
+    width: 3px;
+}
+.workout-exercises{
+    height: calc(50% - 40px);
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.exercise-name{
+    display: flex;
+}
+.exercise-body{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1A1A1B;
+    border-radius: 5px;
+}
+.exercise-body .exercise-name{
+    margin-right: auto;
+    width: calc(100% - 135px);
+    overflow: hidden;
+}
+.exercise-body .exercise-index{
+    width: 40px;
+    border-right: 2px solid rgba(221, 221, 221, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.exercise-body .exercise-sets{
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.buttons{
+    width: 100%;
+    background-color: #1A1A1B;
+    height: 70px;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.buttons button,
+.start-workout-button{
+    border-radius: 10px;
+}
+.start-workout-button{
+    margin-left: auto;
+    width: auto;
+    flex-grow: 1;
+}
+
+.buttons-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.menu-buttons{
+    width: 200px;
+    height: 50px;
+    display: flex;
+    background-color: #111214;
+    border-radius: 10px;
+    
+
+}
+.menu-button{
+    width: calc(50% - 0px);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.divider{
+    height: 75%;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.151);
+    border-radius: 3px;
+}
