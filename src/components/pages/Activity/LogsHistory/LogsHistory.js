@@ -95,7 +95,7 @@ const LogsHistory = () => {
                                     <p className={styles['log-name']}>{item.type === 'goal' ? item.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
                                     <p className={styles['log-value']}>
-                                        {item.type === 'exercise' ? `${item.data.sets} sets` : 
+                                        {item.type === 'exercise' ? `${typeof item.data.sets === 'object' ? item.data.sets.length : item.data.sets} sets` : 
                                         item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
                                         item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` : null}
                                     </p>
