@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.e46723e1.css",
-    "main.js": "/fitness-app/static/js/main.77a6726c.js",
+    "main.css": "/fitness-app/static/css/main.150d774f.css",
+    "main.js": "/fitness-app/static/js/main.ff431a98.js",
     "static/media/medal.svg": "/fitness-app/static/media/medal.53db8d4fc8c43ab8422c73652b4f7b00.svg",
     "static/media/settings.svg": "/fitness-app/static/media/settings.dfcebfd4cd0e3bf55fe731758a563602.svg",
     "static/media/muscle.svg": "/fitness-app/static/media/muscle.2e4dde1846aa7d14dfb5f1ecac32e4dc.svg",
@@ -16,6 +16,7 @@
     "static/media/dumbbell-2.svg": "/fitness-app/static/media/dumbbell-2.2d93c21ad02fb456cdc8b2cbf87afb90.svg",
     "static/media/fork.svg": "/fitness-app/static/media/fork.dc4f18ef34bd16ec1491cfd3c9fe60e4.svg",
     "static/media/thumb-up.svg": "/fitness-app/static/media/thumb-up.56ce263a85e67a86c5676acaa6c1531b.svg",
+    "static/media/hide.svg": "/fitness-app/static/media/hide.9be35eaa007cb44c5768991eb3b9eee6.svg",
     "static/media/alarm.svg": "/fitness-app/static/media/alarm.971ccbb3edb3ad0bde3ad38c4990f1c4.svg",
     "static/media/quantity.svg": "/fitness-app/static/media/quantity.71035e71fd9f55b9c42f8175ee72cbcc.svg",
     "static/media/goals.svg": "/fitness-app/static/media/goals.1d6270e32b9b4695443a4f4c4235afd0.svg",
@@ -79,11 +80,11 @@
     "static/media/home.svg": "/fitness-app/static/media/home.1f4a00cdec6ce4dfc33479e9ad44d08f.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.8aefe30ba0188b831ef98d9d1956a5cc.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.d4cbd790f65d0bfe5bb99503a158fcbf.svg",
-    "main.e46723e1.css.map": "/fitness-app/static/css/main.e46723e1.css.map",
-    "main.77a6726c.js.map": "/fitness-app/static/js/main.77a6726c.js.map"
+    "main.150d774f.css.map": "/fitness-app/static/css/main.150d774f.css.map",
+    "main.ff431a98.js.map": "/fitness-app/static/js/main.ff431a98.js.map"
   },
   "entrypoints": [
-    "static/css/main.e46723e1.css",
-    "static/js/main.77a6726c.js"
+    "static/css/main.150d774f.css",
+    "static/js/main.ff431a98.js"
   ]
 }
