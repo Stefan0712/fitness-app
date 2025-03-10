@@ -55,6 +55,15 @@
     flex-direction: column;
     gap: 5px;
 }
+.description-container,
+.notes-container{
+    height: auto;
+}
+.description-container .value,
+.notes-container .value{
+    height: auto !important;
+    padding: 5px 0;
+}
 .block .header{
     width: 100%;
     display: flex;

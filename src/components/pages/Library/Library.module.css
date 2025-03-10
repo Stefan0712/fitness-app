@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
 }
 @media (min-width: 800px) {
     .library{
@@ -28,18 +28,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #1A1A1B;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 5px;
 }
 .toggle-buttons button{
     width: 50%;
-    height: 50px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid transparent;
-    border-bottom: 1px solid rgba(221, 221, 221, 0.1);
     background-color: transparent;
     font-size: 15px;
     font-weight: 500;
+    border-radius: 5px;
 }
 .toggle-buttons .selected-button{
     background-color: white;
@@ -144,6 +148,11 @@
     width: 100%;
     display: flex;
     align-items: center;
+}
+.category-buttons{
+    display: flex;
+    padding: 3px;
+    border-radius: 5px;
     gap: 10px;
 }
 .category-button{
@@ -151,11 +160,11 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background-color: #1A1A1B;
-    border-radius: 5px;
+    border-radius: 25px;
     height: 30px;
     padding: 0 10px;
-    border: 1px solid rgba(221, 221, 221, 0.1);
+    background-color: transparent;
+    border: 1px solid var(--general-border);
 }
 .add-button{
     width: 30px;

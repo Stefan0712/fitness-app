@@ -45,10 +45,10 @@ const Library = () => {
 
 
     return ( 
-        <div className={`page ${styles.library}`}>
+        <div className={`${styles.library}`}>
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                    <h2>Library</h2>
+                <h2>Library</h2>
             </div>
             <div className={styles["toggle-buttons"]}>
                 <button onClick={()=>switchScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
@@ -56,8 +56,10 @@ const Library = () => {
             </div>
                 <div className={styles["library-items-container"]}>
                     <div className={styles.buttons}>
-                        <button className={`${styles['category-button']} ${isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(true)}>My Library</button>
-                        <button className={`${styles['category-button']} ${!isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(false)}>Public Library</button>
+                        <div className={styles['category-buttons']}>
+                            <button className={`${styles['category-button']} ${isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(true)}>My Library</button>
+                            <button className={`${styles['category-button']} ${!isLocal ? styles['selected-category'] : ''}`} onClick={()=>setIsLocal(false)}>Public Library</button>
+                        </div>
                         {libraryScreen === "workouts" ? <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link> :  <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>}
                     </div>
                     {filteredItems && filteredItems.length > 0 ? (

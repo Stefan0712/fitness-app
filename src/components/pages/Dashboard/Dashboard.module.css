@@ -7,6 +7,9 @@
     z-index: 1;
     
 }
+.dashboard-content::-webkit-scrollbar{
+    display: none;
+}
 @media (min-width: 800px) {
     .dashboard{
         grid-column: 2 / 4;

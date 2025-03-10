@@ -49,7 +49,7 @@ const Goal = ({data,showMessage}) => {
         showMessage({message: `${data.name} was hidden`, type: 'success'});
     }
     return ( 
-        <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`}>
+        <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`} onClick={()=>setIsHistoryExpanded(isHistoryExpanded=>!isHistoryExpanded)}>
             {showMenu ? (
                 <div className={styles.menu}>
                     <button type='button' className='clear-button' onClick={hideGoal}>Hide</button>
@@ -64,19 +64,17 @@ const Goal = ({data,showMessage}) => {
             </div>
             <div className={styles.days}>
                 {currentWeek?.map((item, index)=>{
-                    return (<div className={`${styles.day} ${getCurrentDay() === item.date ? styles.selected : ''}`} key={index}>
+                    return (
+                        <div className={`${styles.day} ${getCurrentDay() === item.date ? styles.selected : ''}`} key={index}>
                             <div className={styles['day-circle']} key={index} style={{'--completion': item.completion * 3.6}}>
                                 <img className={styles.checkmark} src={IconLibrary.Checkmark} alt=''></img>
                             </div>
                             <p>{item.dayName}</p>
-                        </div>)
+                        </div>
+                    )
                 })}
             </div>
             <div className={`${styles.history} ${isHistoryExpanded ? styles['expand-history'] : ''}`}>
-                <div className={styles['history-header']} onClick={()=>setIsHistoryExpanded(isHistoryExpanded=>!isHistoryExpanded)}>
-                    <h4>History</h4>
-                    <button className='clear-button'><img className={`small-icon ${isSmallScreen ? '' : 'hide'}`} src={IconLibrary.Arrow} alt='' style={{transform: `rotateZ(${isHistoryExpanded ? '90' : '180'}deg)`}}/></button>
-                </div>
                 <div className={styles['history-container']}>
                     {logs && logs?.length > 0 ? logs.map((item,index)=>(
                          <div className={styles.log} key={index}>

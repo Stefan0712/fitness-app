@@ -62,7 +62,7 @@ const ViewWorkout = () => {
                 
             </div>
             <div className={styles['workout-info']}>
-                <div className={`${styles['block']} ${styles['full-width']}`}>
+                <div className={`${styles['block']} ${styles['description-container']} ${styles['full-width']}`}>
                     <div className={styles['header']}>
                         <img className='small-icon' src={IconLibrary.InfoCircle} alt=''></img>
                         <p>Description</p>
@@ -144,9 +144,9 @@ const ViewWorkout = () => {
                     </div>
                     <p className={styles['value']}>{workoutData.reference ? workoutData.reference : 'Not Set'}</p>
                 </div>
-                <div className={`${styles['block']} ${styles['full-width']}`}>
+                <div className={`${styles['block']}  ${styles['notes-container']} ${styles['full-width']}`}>
                     <div className={styles['header']}>
-                        <p className={styles['name']}>Notes</p>
+                        <p className={styles['notes']}>Notes</p>
                     </div>
                     <p className={styles['value']}>{workoutData.notes ? workoutData.notes : 'None'}</p>
                 </div>
