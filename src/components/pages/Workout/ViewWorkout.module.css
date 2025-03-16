@@ -24,6 +24,12 @@
     right: 20px;
     top: 40px;
 }
+.view-workout-content{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 .workout-info{
     display: flex;
     flex-wrap: wrap;
@@ -151,21 +157,21 @@
 }
 .buttons{
     width: 100%;
-    background-color: #1A1A1B;
-    height: 70px;
+    background-color: #3b3b3b;
+    height: 60px;
     position: sticky;
     bottom: 0;
     left: 0;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     gap: 10px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
 }
 .buttons button,
 .start-workout-button{
-    border-radius: 10px;
+    border-radius: 5px;
+    height: 50px;
 }
 .start-workout-button{
     margin-left: auto;
@@ -185,7 +191,7 @@
     height: 50px;
     display: flex;
     background-color: #111214;
-    border-radius: 10px;
+    border-radius: 5px;
     
 
 }

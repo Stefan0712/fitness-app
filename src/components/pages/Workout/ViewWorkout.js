@@ -61,7 +61,8 @@ const ViewWorkout = () => {
                 <h2>{workoutData.name}</h2>
                 
             </div>
-            <div className={styles['workout-info']}>
+           <div className={styles['view-workout-content']}>
+           <div className={styles['workout-info']}>
                 <div className={`${styles['block']} ${styles['description-container']} ${styles['full-width']}`}>
                     <div className={styles['header']}>
                         <img className='small-icon' src={IconLibrary.InfoCircle} alt=''></img>
@@ -180,6 +181,7 @@ const ViewWorkout = () => {
                 </div>
                 <Link to={`/workout/${workoutData.id}/start`} className={`orange-button large-button ${styles['start-workout-button']}`}>Start Workout</Link>
             </div>
+           </div>
         </div>
      );
 }

@@ -79,7 +79,7 @@ const DashboardLayout = () => {
         <h2>Edit Dashboard</h2>
         <button type='button' className='orange-button' onClick={handleSave}>Save</button>
       </div>
-      <h2>Enabled Components</h2>
+      <h3>Active Components ({orderedComponents.length}/{goals.length + allSections.length})</h3>
       <div className={styles['enabled-components']}>
         {orderedComponents?.map((item) => (
           <div className={styles['component']} key={item.identifier}>
@@ -108,7 +108,7 @@ const DashboardLayout = () => {
           </div>
         ))}
       </div>
-      <h2>Disabled Components</h2>
+      <h3>Inactive Components</h3>
       <div className={styles['disabled-components']}>
         {goals?.filter((goal) => !orderedComponents.some((i) => i.identifier === goal.id)).map((item) => (
           <div className={styles['component']} key={item.id}>
