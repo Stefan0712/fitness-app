@@ -53,7 +53,8 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "gh-pages": "^6.3.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "workbox-cli": "^7.3.0"
   },
   "homepage": "https://stefan0712.github.io/fitness-app"
 }

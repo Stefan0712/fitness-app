@@ -162,7 +162,6 @@ const ViewWorkout = () => {
                         <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
                     </div>
               )) : (<p>Loading Exercises</p>)}
-            </div>
             <div className={styles['buttons']}>
                 <div className={styles['menu-buttons']}>
                     {showConfirmDelete ? (
@@ -180,6 +179,7 @@ const ViewWorkout = () => {
                     )}
                 </div>
                 <Link to={`/workout/${workoutData.id}/start`} className={`orange-button large-button ${styles['start-workout-button']}`}>Start Workout</Link>
+            </div>
             </div>
            </div>
         </div>
