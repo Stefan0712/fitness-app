@@ -8,11 +8,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Navigation from './components/common/Navigation/Navigation.js';
 import AppRoutes from './Routes';
 
-
-
-
-
-
+// Import service worker registration
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,3 +23,5 @@ root.render(
   </Provider>
 );
 
+// Register the service worker
+serviceWorkerRegistration.register();
