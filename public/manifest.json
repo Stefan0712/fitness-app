@@ -1,6 +1,6 @@
 {
   "short_name": "EasyFit",
-  "name": "EasyFitness",
+  "name": "Easy Fitness",
   "description": "A fitness app for tracking activity and goals",
   "start_url": "/fitness-app/",
   "display": "standalone",
