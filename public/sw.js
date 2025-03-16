@@ -5,12 +5,12 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
-        '/',  // Root directory
-        '/index.html',
-        '/manifest.json',
-        '/icon-192x192.png',
-        '/icon-512x512.png',
-        '/offline.html' // Add an offline fallback page
+        '/fitness-app',  // Root directory
+        '/fitness-app/index.html',
+        '/fitness-app/manifest.json',
+        '/fitness-app/icon-192x192.png',
+        '/fitness-app/icon-512x512.png',
+        '/fitness-app/offline.html' // Add an offline fallback page
       ]);
     })
   );
