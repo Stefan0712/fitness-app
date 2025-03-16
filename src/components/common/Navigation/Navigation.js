@@ -10,10 +10,12 @@ import ExerciseLog from '../LogPages/ExerciseLog.tsx';
 import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
-
+import NoSleep from 'nosleep.js';
 
 
 const Navigation = () => {
+
+    const noSleep = new NoSleep();
 
     const [showQuickmenu, setShowQuickmenu] = useState(false)
 
@@ -23,25 +25,19 @@ const Navigation = () => {
     const [showGoals, setShowGoals] = useState(false);
 
     
+    
 
 
 
 
 
 
-    const toggleQuickmenu = () =>{
-        if(showQuickmenu){
-            setShowQuickmenu(false)
-        }else{
-            setShowQuickmenu(true);
-        }
-        
-        
+    const openQuickmenu = () =>{
+        setShowQuickmenu(true);
     }
-    const closeQuickmenu = () => {
-        setShowQuickmenu(false)
+    const closeQuickmenu = () =>{
+        setShowQuickmenu(false);
     }
-
     const openGoals = () =>{
         setShowGoals(true);
         setShowQuickmenu(false);
@@ -76,6 +72,18 @@ const Navigation = () => {
         closeGoals();
         closeQuickmenu();
     }
+    const toggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+          // If not in fullscreen, request fullscreen
+          document.documentElement.requestFullscreen();
+        } else {
+          // If in fullscreen, exit fullscreen
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      };
+ 
     return ( 
         <nav>
             {showGoals ? <Goals closeMenu={closeGoals}/> : null}
@@ -87,7 +95,7 @@ const Navigation = () => {
 
 
             {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
-            openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch}  />) : ''}
+            openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
@@ -96,8 +104,8 @@ const Navigation = () => {
                 <img src={IconLibrary.List} alt=''></img>
                 <p>Library</p>
             </Link>
-            <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={toggleQuickmenu}>
-                <button><img src={IconLibrary.Plus} alt=''></img></button>
+            <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={openQuickmenu}>
+                <button><img src={IconLibrary.Plus} alt='' /></button>
             </div>
             <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Clipboard} alt=''></img>

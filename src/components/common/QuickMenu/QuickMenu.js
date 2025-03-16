@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
 
-const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs}) => {
+const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs, noSleep, toggleFullscreen}) => {
 
     const quickMenuRef = useRef(null);
 
@@ -28,6 +28,14 @@ const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, 
 
     return ( 
         <div className={styles["quick-menu"]} ref={quickMenuRef}>             
+            <button className={styles['quick-button']} onClick={toggleFullscreen}>
+                {/* <img src={IconLibrary.Stopwatch} alt=''></img> */}
+                <p>Toggle Fullscreen</p>
+            </button>
+            <button className={styles['quick-button']} onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
+                {/* <img src={IconLibrary.Stopwatch} alt=''></img> */}
+                <p>{`${noSleep.enabled ? 'Disable Screen Wake' : 'Enable Screen Wake'}`}</p>
+            </button>
             <button className={styles['quick-button']} onClick={openStopwatch}>
                 <img src={IconLibrary.Stopwatch} alt=''></img>
                 <p>Stopwatch</p>
