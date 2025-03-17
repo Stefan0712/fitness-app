@@ -28,13 +28,13 @@ const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
 
 
-
+    const userId = useSelector(state=>state.user.userData.id);
     //form values
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [reference, setReference] = useState('');
     const [difficulty, setDifficulty] = useState('beginner');
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState('');
 
     const [workoutTags, setWorkoutTags] = useState([])
     const [equipments, setEquipments] = useState([]);
@@ -58,7 +58,27 @@ const CreateWorkout = () => {
         exercises.forEach((item)=>{
             exercisesIds.push({source: item.source, id: item.exercise.id})
         });
-        const workoutData = {id: uuidv4(), source: 'user', author: 'Stefan', name, description, reference, equipment: equipments, tags: workoutTags, targetGroups, difficulty,notes, exercises: exercisesIds, createdAt, duration};
+        const workoutData = {
+            id: uuidv4(), 
+            author: userId, 
+            createdAt, 
+            updatedAt: '',
+            name, 
+            description,
+            isFavorite: false,
+            isCompleted: false,
+            reference, 
+            difficulty,
+            visibility: 'private',
+            imageUrl: null,
+            duration,
+            notes, 
+            equipment: equipments, 
+            tags: workoutTags, 
+            targetGroups, 
+            exercises: exercisesIds, 
+        };
+
         console.log(workoutData);
         dispatch(addWorkout(workoutData));
         navigate('/library');
@@ -70,13 +90,13 @@ const CreateWorkout = () => {
     }
 
     const addTag = (newItem) =>{
-        setWorkoutTags((workoutTags)=>[...workoutTags, newItem]);
+        setWorkoutTags((workoutTags)=>[...workoutTags, {...newItem, id: uuidv4()}]);
     }
     const addEquipment = (newItem) =>{
-        setEquipments((equipments)=>[...equipments, newItem]);
+        setEquipments((equipments)=>[...equipments, {...newItem, id: uuidv4()}]);
     }
     const addTargetGroups = (newItem) =>{
-        setTargetGroups((targetGorups)=>[...targetGorups, newItem]);
+        setTargetGroups((targetGorups)=>[...targetGorups, {...newItem, id: uuidv4()}]);
     }
    
     return ( 
@@ -84,37 +104,23 @@ const CreateWorkout = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Create Workout</h2>
+                <button className="orange-button submit-button" onClick={handleSubmit}>Create</button>
             </div>
                 <form>
-                    <fieldset className="full-width">
-                        <label>Name</label>
-                        <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name}></input>
-                    </fieldset>
-                    <fieldset>
-                        <label>Description</label>
-                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100}></input>
-                    </fieldset>
-                    <fieldset className="half-width">
-                        <label>Duration (minutes)</label>
-                        <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={9999}></input>
-                    </fieldset>
-                    <fieldset className="half-width">
-                        <label>Difficulty</label>
+                    <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={100} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
+                    <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100} placeholder="Description"></input>
+                    <div className="two-inputs">
+                        <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={9999} placeholder="Duration"></input>
                         <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
+                            <option value="" selected disabled>Difficulty</option>
                             <option value="beginner">Beginner</option>
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>
                             <option value="expert">Expert</option>
                         </select>
-                    </fieldset>
-                    <fieldset>
-                        <label>Reference (URL)</label>
-                        <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference}></input>
-                    </fieldset>
-                    <fieldset>
-                        <label>Notes</label>
-                        <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes}></input>
-                    </fieldset>
+                    </div>
+                    <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
+                    <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
                     <div className='screen-selector'>
                         <button type="button" onClick={()=>setCurrentScreen('exercises')} className={currentScreen === 'exercises' ? 'selected-screen-button' : ''}>Exercises</button>
                         <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? 'selected-screen-button' : ''}>Tags</button>
@@ -124,7 +130,6 @@ const CreateWorkout = () => {
                     <div className="selected-screen-container">
                         {currentScreen === 'exercises' ? (
                             <fieldset className="exercises-fieldset">
-                                <label>Exercises</label>
                                 <div className="source-buttons">
                                     <button type="button" className={exercisesSource === "library" ? 'selected-button' : ''} onClick={()=>setExercisesSource('library')}>Library</button>
                                     <button type="button" className={exercisesSource === "database" ? 'selected-button' : ''} onClick={()=>setExercisesSource('database')}>Database</button>
@@ -207,7 +212,6 @@ const CreateWorkout = () => {
                             </fieldset>
                         ) : currentScreen === 'tags' ? (
                             <fieldset className="tag-selector">
-                                <label>Tags</label>
                                 <CustomItemCreator addItem={addTag} type={'tag'}/>
                                 <DefaultItems key={'tags'} allItems={[...defaultTags]} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
                                 <div className="selected-tags">
@@ -216,8 +220,7 @@ const CreateWorkout = () => {
                             </fieldset>
                         ) : currentScreen === 'equipment' ? (
                             <fieldset className="tag-selector">
-                                <label>Equipment</label>
-                                <CustomItemCreator addItem={addEquipment} type={'equipment'}/>
+                                {/* <CustomItemCreator addItem={addEquipment} type={'equipment'}/> */}
                                 <DefaultItems key={'equipment'} allItems={[...defaultEquipment]} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
                                 <div className="selected-tags">
                                     {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
@@ -225,7 +228,6 @@ const CreateWorkout = () => {
                             </fieldset>
                         ) : currentScreen === 'groups' ? (
                             <fieldset className="tag-selector">
-                                <label>Target Group</label>
                                 <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
                                 <DefaultItems key={'groups'} allItems={[...defaultTargetGroups]} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
                                 <div className="selected-tags">
@@ -235,7 +237,7 @@ const CreateWorkout = () => {
                         ) : null}
                     </div>
                     
-                    <button className="orange-button large-button submit-button" onClick={handleSubmit}>Create Workout</button>
+                    
                 </form>
         </div>
      );

@@ -11,9 +11,15 @@
     margin-top: 25px;
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 5px;
     align-items: center;
     padding-bottom: 100px;
+}
+.two-inputs{
+    width: 100%;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr;
 }
 .create-workout-page form input,
 .create-workout-page form select,
@@ -146,9 +152,11 @@
     color: black;
 }
 .create-workout-page .submit-button{
-    margin-top: auto;
-    margin-bottom: 25px;
-    margin-left: calc(50% - 75px);
+    position: absolute;
+    top: 30px;
+    width: 100px;
+    height: 40px;
+    right: 15px;
 }
 .exercises-fieldset{
     width: 100%;
@@ -162,6 +170,7 @@
     padding: 5px;
     background-color: #1A1A1B;
     border-radius: 5px;
+    margin: 15px 0;
 }
 .screen-selector button{
     width: 25%;
