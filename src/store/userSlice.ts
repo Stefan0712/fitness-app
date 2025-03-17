@@ -8,7 +8,7 @@ interface Workout {
   id: string;
   name: string;
   description: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty: string;
   category: WorkoutCategory;
   targetGroup: TargetGroup[];
   duration: number; 
@@ -37,10 +37,10 @@ interface Exercise {
   difficulty: string;
   sets: number;
   duration: number;
-  durationUnit: "sec" | "min" | "hr";
+  durationUnit: string;
   rest: number;
-  restUnit: "seconds" | "minutes";
-  visibility: "private" | "public";
+  restUnit: string;
+  visibility: string;
   fields: Field[];
   notes: string;
   equipment: Equipment[];

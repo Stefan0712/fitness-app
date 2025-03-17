@@ -7,7 +7,7 @@ export const exercises = [
     "author": "system",
     "isFavorite": false,
     "isCompleted": false,
-    "author": "Stefan",
+    "author": "system",
     "name": "Lateral Raises",
     "description": "Targets the lateral deltoids to improve shoulder width and definition.",
     "reference": "",
@@ -19,8 +19,8 @@ export const exercises = [
     "restUnit": 'seconds',
     "visibility": "private",
     "fields": [{"id": "system", "name": "weight", "value": 0, "targetValue": 10,"unit": "kg"}],
-    "notes": "Avoid using momentum and focus on the controlled movement of the dumbbells.",
-    "equipment": [{"id": "system", "name": "Dumbbell", "attributes": [{"name": "Weight", "unit": "kg", "value": 10}]}],
+    "notes": ["Avoid using momentum and focus on the controlled movement of the dumbbells."],
+    "equipments": [{"id": "system", "name": "Dumbbell", "attributes": [{"name": "Weight", "unit": "kg", "value": 10}]}],
     "muscleGroups": [{"name": "Shoulders", "id": "aslkjdn1lkw-asdsa-das", "author": "system"}],
     "tags": [
       { "id": "shoulders", "author": "system", "name": "Shoulders", "color": "green" }
@@ -37,7 +37,7 @@ export const exercises = [
     "sourceId": "",  
     "createdAt": "2024-12-29T12:50:00.000Z",
     "updatedAt": null,
-    "author": "Stefan",
+    "author": "system",
     "isFavorite": false,
     "isCompleted": false,
     "name": "Push-ups",
@@ -51,8 +51,8 @@ export const exercises = [
     "restUnit": "seconds",
     "visibility": "private",
     "fields": [{"id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "targetValue": 12}],
-    "notes": "Keep your body straight and engage your core throughout the movement.",
-    "equipment": [],
+    "notes": ["Keep your body straight and engage your core throughout the movement."],
+    "equipments": [],
     "muscleGroups": [
       { "name": "Chest", "id": "chest-id" },
       { "name": "Triceps", "id": "triceps-id" },
@@ -75,7 +75,7 @@ export const exercises = [
     "sourceId": "",
     "createdAt": "2024-12-29T12:50:00.000Z",
     "updatedAt": null,
-    "author": "Stefan",
+    "author": "system",
     "isFavorite": false,
     "isCompleted": false,
     "name": "Crunches",
@@ -91,8 +91,8 @@ export const exercises = [
     "fields": [
       { "id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "targetValue": 20 }
     ],
-    "notes": "Focus on using your abs to lift your torso, not your neck or hands.",
-    "equipment": [],
+    "notes": ["Focus on using your abs to lift your torso, not your neck or hands."],
+    "equipments": [],
     "muscleGroups": [
       { "name": "Abs", "id": "abs-id" },
       { "name": "Full-body", "id": "full-body-id" }
@@ -146,7 +146,7 @@ export const workouts = [
       { "id": "as3vgb0-a8f-4md907", "author": "system", "name": "Biceps", "color": "red" },
       { "id": "as7j-ksdf6-01saik1", "author": "system", "name": "Upper Body", "color": "green" }
     ],
-    "equipment": [
+    "equipments": [
       { "id": "12jkmb-325jj-643hdf", 
         "author": "system", 
         "name": "Dumbbell", "qty": 2, "attributes": [{ "type": "weight", "value": 10, "unit": "kg" }, { "type": "length", "value": 1.2, "unit": "m" }] }
@@ -189,7 +189,7 @@ export const workouts = [
       { "id": "547ujj-12kkk-251gh", "author": "system", "name": "Glutes" },
       { "id": "647s2d-kkjkd-231lk", "author": "system", "name": "Core" }
     ],
-    "author": "Stefan",
+    "author": "system",
     "name": "Lower Body and Posture Workout",
     "description": "A workout to improve lower body strength and posture, focusing on legs, glutes, and core stability.",
     "tags": [
@@ -199,7 +199,7 @@ export const workouts = [
     ],
     "reference": null,
     "difficulty": "Beginner",
-    "equipment": [
+    "equipments": [
       { "id": "12jkmb-325jj-643hdf", "author": "system", "name": "Dumbbell", "qty": 2, "attributes": [{ "type": "weight", "value": 10, "unit": "kg" }, { "type": "length", "value": 1.2, "unit": "m" }] }
     ],
     "duration": 5,
@@ -232,7 +232,7 @@ export const workouts = [
       { "id": "54sd-64fff-gf32", "author": "system", "name": "Full Body" },
       { "id": "547ujj-12kkk-251gh", "author": "system", "name": "Full Body" }
     ],
-    "author": "Stefan",
+    "author": "system",
     "name": "Full Body Strength Training",
     "description": "A complete full body workout to build strength and endurance.",
     "tags": [
@@ -241,7 +241,7 @@ export const workouts = [
     ],
     "reference": null,
     "difficulty": "Intermediate",
-    "equipment": [
+    "equipments": [
       { "id": "12jkmb-325jj-643hdf", "author": "system", "name": "Dumbbell", "qty": 2, "attributes": [{ "type": "weight", "value": 12, "unit": "kg" }, { "type": "length", "value": 1.5, "unit": "m" }] }
     ],
     "duration": 30,
@@ -273,7 +273,7 @@ export const workouts = [
       { "id": "54sd-64fff-gf32", "author": "system", "name": "Arms" },
       { "id": "547ujj-12kkk-251gh", "author": "system", "name": "Arms" }
     ],
-    "author": "Stefan",
+    "author": "system",
     "name": "Arm Focus Workout",
     "description": "Targeting the biceps and triceps with a variety of exercises.",
     "tags": [
@@ -282,7 +282,7 @@ export const workouts = [
     ],
     "reference": null,
     "difficulty": "Beginner",
-    "equipment": [
+    "equipments": [
       { "id": "12jkmb-325jj-643hdf", "author": "system", "name": "Dumbbell", "qty": 2, "attributes": [{ "type": "weight", "value": 8, "unit": "kg" }, { "type": "length", "value": 1.2, "unit": "m" }] }
     ],
     "duration": 20,
@@ -313,7 +313,7 @@ export const workouts = [
       { "id": "54sd-64fff-gf32", "author": "system", "name": "Upper Body" },
       { "id": "547ujj-12kkk-251gh", "author": "system", "name": "Upper Body" }
     ],
-    "author": "Stefan",
+    "author": "system",
     "name": "Upper Body Strength Circuit",
     "description": "A challenging circuit workout focusing on the upper body muscles.",
     "tags": [
@@ -322,7 +322,7 @@ export const workouts = [
     ],
     "reference": null,
     "difficulty": "Intermediate",
-    "equipment": [
+    "equipments": [
       { "id": "12jkmb-325jj-643hdf", "author": "system", "name": "Dumbbell", "qty": 2, "attributes": [{ "type": "weight", "value": 10, "unit": "kg" }, { "type": "length", "value": 1.3, "unit": "m" }] }
     ],
     "duration": 30,

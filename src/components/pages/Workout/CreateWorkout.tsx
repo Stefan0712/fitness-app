@@ -1,13 +1,15 @@
 import { getDateForHeader } from "../../../helpers.js";
+import React, { useEffect } from "react";
 import './workout.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkout } from "../../../store/userSlice.ts";
+import { addExercise, addWorkout } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
 import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../../database.js";
+import {RootState} from '../../../store/index.ts';
 
 //default values
 import { defaultTags } from "../../../constants/defaultTags.js";
@@ -16,49 +18,130 @@ import {defaultEquipment} from "../../../constants/defaultEquipment.js";
 import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
 
 
+interface Exercise {
+    id: string;
+    sourceId: string;
+    createdAt: string; 
+    updatedAt: string | null;
+    author: string;
+    isFavorite: boolean;
+    isCompleted: boolean;
+    name: string;
+    description: string;
+    reference: string;
+    difficulty: string;
+    sets: number;
+    duration: number;
+    durationUnit: string;
+    rest: number;
+    restUnit: string;
+    visibility: string;
+    fields: Field[];
+    notes: string;
+    equipment: Equipment[];
+    muscleGroups: TargetGroup[];
+    tags: Tag[];
+}
+interface TargetGroup {
+    id: string;
+    name: string;
+    author: string;
+}
+interface Equipment {
+    id: string;
+    name: string;
+    attributes?: EquipmentAttributes[];
+}
+  
+interface EquipmentAttributes {
+    name: string;
+    value: number;
+    unit: string;
+}
+  
+  
+interface Tag {
+    id: string;
+    name: string;
+    color: string;
+    author: string;
+}
+interface Field {
+    name: string,
+    unit: string,
+    value: number,
+    target?: number,
+    description?: string,
+    isCompleted: boolean
+}
+interface Workout {
+    id: string;
+    name: string;
+    description: string;
+    difficulty: string;
+    targetGroup: TargetGroup[];
+    duration: number; 
+    equipment: Equipment[];
+    exercises: string[];
+    createdAt: string; 
+    updatedAt?: string; 
+    author: string;
+    imageUrl?: string; 
+    isFavorite: boolean;
+    isCompleted: boolean;
+    visibility: string;
+    tags?: Tag[];
+    reference?: string; 
+  }
 
-const CreateWorkout = () => {
+const CreateWorkout: React.FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const createdExercises = useSelector((state) => state.user.exercises);
+    const createdExercises = useSelector((state: RootState) => state.user.exercises);
     
-    const [exercisesSource, setExercisesSource] = useState('library')
+    const [exercisesSource, setExercisesSource] = useState<string>('library')
 
-    const [exercises, setExercises] = useState([]);
+    const [exercises, setExercises] = useState<Exercise[]>([]);
 
 
-    const userId = useSelector(state=>state.user.userData.id);
+    const userId = useSelector((state: RootState)=>state.user.userData.id);
     //form values
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [reference, setReference] = useState('');
-    const [difficulty, setDifficulty] = useState('beginner');
-    const [duration, setDuration] = useState('');
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [reference, setReference] = useState<string>('');
+    const [difficulty, setDifficulty] = useState<string>('beginner');
+    const [duration, setDuration] = useState<string>('');
 
-    const [workoutTags, setWorkoutTags] = useState([])
-    const [equipments, setEquipments] = useState([]);
-    const [targetGroups, setTargetGroups] = useState([])
+    const [workoutTags, setWorkoutTags] = useState<Tag[]>([])
+    const [equipments, setEquipments] = useState<Equipment[]>([]);
+    const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([])
 
-    const [notes, setNotes] = useState('');
+    const [notes, setNotes] = useState<string>('');
 
 
-    const [currentScreen, setCurrentScreen] = useState('exercises');
+    const [currentScreen, setCurrentScreen] = useState<string>('exercises');
 
     const handleRemoveExercise = (id) =>{
-        setExercises((exercises)=>exercises.filter((item)=>item.exercise.id !== id));
+        setExercises((exercises)=>exercises.filter((item)=>item.id !== id));
     }
 
+    useEffect(()=>{
+        console.log(exercises, databaseExercises, createdExercises)
+    }, [exercises])
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString(); //get timestamp
-        let exercisesIds = []; //empty array to store the ids and sources of exercises
+        let exercisesIds: string[] = []; //empty array to store the ids and sources of exercises
 
         //extract only the id and source from each exercise
         exercises.forEach((item)=>{
-            exercisesIds.push({source: item.source, id: item.exercise.id})
+            if(!createdExercises.some(item=>item.id === item.id)){
+                dispatch(addExercise(item))
+            }
+            exercisesIds.push(item.id)
         });
-        const workoutData = {
+        const workoutData: Workout = {
             id: uuidv4(), 
             author: userId, 
             createdAt, 
@@ -70,12 +153,11 @@ const CreateWorkout = () => {
             reference, 
             difficulty,
             visibility: 'private',
-            imageUrl: null,
-            duration,
-            notes, 
+            imageUrl: '',
+            duration: 0,
             equipment: equipments, 
             tags: workoutTags, 
-            targetGroups, 
+            targetGroup: targetGroups, 
             exercises: exercisesIds, 
         };
 
@@ -86,7 +168,7 @@ const CreateWorkout = () => {
     }
     const handleAddExercise = (source,exercise,e)=>{
         console.log({source, exercise})
-        setExercises((exercises)=>[...exercises, {source, exercise}]);
+        setExercises((exercises)=>[...exercises, exercise]);
     }
 
     const addTag = (newItem) =>{
@@ -139,25 +221,17 @@ const CreateWorkout = () => {
                                     createdExercises?.length > 0 ? (
                                         createdExercises.map((exercise, index) => 
                                         exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                            <div className="exercise-body" id={index} key={index}>
+                                            <div className="exercise-body" id={exercise.name} key={index}>
                                             <div className="exercise-info">
                                                 <h4>{exercise.name}</h4>
                                                 <div className="exercise-tags">
-                                                    
                                                     {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p key={tag.name}>{tag.name}</p>) : ''}
                                                 </div>
                                             </div>
                                             <p className="exercise-sets">{exercise.sets} sets</p>
-                                            <button
-                                                type="button"
-                                                onClick={(e) => handleAddExercise('library', exercise, e)}
-                                                className="small-square transparent-bg"
-                                            >
-                                                <img
-                                                src={IconLibrary.Add}
-                                                className="small-icon"
-                                                alt=""
-                                                />
+                                            <button type="button" onClick={(e) => handleAddExercise('library', exercise, e)} className="small-square transparent-bg" >
+                                                <img src={IconLibrary.Add}
+                                                className="small-icon" alt="" />
                                             </button>
                                             </div>
                                         )
@@ -170,7 +244,7 @@ const CreateWorkout = () => {
                                     databaseExercises?.length > 0 ? (
                                         databaseExercises.map((exercise, index) => 
                                         exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                            <div className="exercise-body" id={index} key={index}>
+                                            <div className="exercise-body" id={exercise.name+exercise.id} key={index}>
                                             <div className="exercise-info">
                                                 <h4>{exercise.name}</h4>
                                                 <div className="exercise-tags">
@@ -178,34 +252,24 @@ const CreateWorkout = () => {
                                                 </div>
                                             </div>
                                             <p className="exercise-sets">{exercise.sets} sets</p>
-                                            <button
-                                                type="button"
-                                                onClick={(e) => handleAddExercise('database', exercise, e)}
-                                                className="small-square transparent-bg"
-                                            >
-                                                <img
-                                                src={IconLibrary.Add}
-                                                className="small-icon"
-                                                alt=""
-                                                />
+                                            <button  type="button" onClick={(e) => handleAddExercise('database', exercise, e)} className="small-square transparent-bg" >
+                                                <img src={IconLibrary.Add} className="small-icon" alt="" />
                                             </button>
                                             </div>
                                         )
                                         )
-                                    ) : (
-                                        <h3>Could not load exercises</h3>
-                                    )
+                                    ) : (<h3>Could not load exercises</h3>)
                                     )}
         
                                 </div>
                                 <div className="exercises-container">
                                     {exercises?.length > 0 ? exercises.map((item, index)=>(
-                                            <div className="exercise-body added-exercise" id={index} key={index+'exercise'}>
+                                            <div className="exercise-body added-exercise" id={item.name+index} key={index+'exercise'}>
                                                 <div className="exercise-info">
-                                                    <h4>{item.exercise.name}</h4>
-                                                        {item.exercise.sets ? (<p>{item.exercise.sets} sets</p>) : ''}
+                                                    <h4>{item.name}</h4>
+                                                        {item.sets ? (<p>{item.sets} sets</p>) : ''}
                                                 </div>
-                                                <button type="button" onClick={()=>handleRemoveExercise(item.exercise.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
+                                                <button type="button" onClick={()=>handleRemoveExercise(item.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
                                             </div>
                                     )): <h3>No exercises added.</h3>}
                                 </div>
@@ -223,7 +287,7 @@ const CreateWorkout = () => {
                                 {/* <CustomItemCreator addItem={addEquipment} type={'equipment'}/> */}
                                 <DefaultItems key={'equipment'} allItems={[...defaultEquipment]} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
                                 <div className="selected-tags">
-                                    {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                    {equipments?.length > 0 ? equipments.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
                             </fieldset>
                         ) : currentScreen === 'groups' ? (
@@ -231,7 +295,7 @@ const CreateWorkout = () => {
                                 <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
                                 <DefaultItems key={'groups'} allItems={[...defaultTargetGroups]} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
                                 <div className="selected-tags">
-                                    {targetGroups?.length > 0 ? targetGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                    {targetGroups?.length > 0 ? targetGroups.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
                             </fieldset>
                         ) : null}
