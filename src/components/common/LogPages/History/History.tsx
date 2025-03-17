@@ -45,7 +45,7 @@ const History = ({id}) => {
     const dispatch = useDispatch();
     const goalLogs: GoalObject[] = allLogs?.filter((item) => item.id === id) ?? [];
 
-    const goalData = useSelector<GoalData | undefined>((state)=>state.user.userData.goals.find((element)=>element.id === id));
+    const goalData = useSelector<GoalData | undefined>((state)=>state.user.goals.find((element)=>element.id === id));
     const [currentValue, setCurrentValue] = useState();
     const [selectedLog, setSelectedLog] = useState<SelectedLogObject | unknown>(null);
 

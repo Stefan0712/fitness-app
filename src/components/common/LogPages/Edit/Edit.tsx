@@ -30,7 +30,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
 
 
     const dispatch = useDispatch();
-    const goalData = useSelector<GoalData>((state)=>state.user.userData.goals.find((item)=>item.id===goalId));
+    const goalData = useSelector<GoalData>((state)=>state.user.goals.find((item)=>item.id===goalId));
     //TODO: Add validation
 
     const [name, setName] = useState<string>(goalData.name || '');

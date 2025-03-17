@@ -30,7 +30,7 @@ const Log: React.FC<LogProps> = ({id}) => {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const goalData = useSelector((state: RootState) => 
-        state.user.userData.goals.find((item) => item.id === id)
+        state.user.goals.find((item) => item.id === id)
     );
     const getCurrentTime = (input: Date | string = new Date()): string => {
         // Ensure input is a Date object

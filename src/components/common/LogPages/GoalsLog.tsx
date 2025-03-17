@@ -19,7 +19,7 @@ const LogForm: React.FC<LogFormProps> = ({id, closeLogWindow}) => {
 
     
     const [currentScreen, setCurrentScreen] = useState<string>('log');
-    const goalData = useSelector<GoalData | undefined>((state)=>state.user.userData.goals.find((element)=>element.id === id));
+    const goalData = useSelector<GoalData | undefined>((state)=>state.user.goals.find((element)=>element.id === id));
 
     return ( 
         <div className={styles['log-form']}>

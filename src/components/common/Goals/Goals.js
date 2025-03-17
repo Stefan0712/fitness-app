@@ -11,7 +11,7 @@ import NewGoal from './NewGoal.js';
 const Goals = ({closeMenu}) => {
 
 
-    const goals = useSelector((state)=>state.user.userData.goals);
+    const goals = useSelector((state)=>state.user.goals);
     const [logGoal, setLogGoal] = useState(null);
     const [currentScreen, setCurrentScreen] = useState('all')
 

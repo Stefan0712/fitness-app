@@ -11,7 +11,7 @@ const DashboardLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const goals = useSelector((state) => state.user.userData.goals);
+  const goals = useSelector((state) => state.user.goals);
   const enabledComponents = useSelector((state) => state.user.dashboardSections);
   const [orderedComponents, setOrderedComponents] = useState(enabledComponents || []);
 

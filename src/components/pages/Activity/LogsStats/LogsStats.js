@@ -12,7 +12,7 @@ const LogsStats = () => {
 
     const [weekData, setWeekData] = useState(null);
     const [graphType, setGraphType] = useState('Steps');
-    const goals = useSelector((state)=>state.user.userData.goals);
+    const goals = useSelector((state)=>state.user.goals);
     const [graphData, setGraphData] = useState(null);
 
 
