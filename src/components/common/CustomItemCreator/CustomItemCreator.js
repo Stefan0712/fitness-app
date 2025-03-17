@@ -2,10 +2,12 @@ import { useState } from "react";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { v4 as uuidv4 } from "uuid";
 import { IconLibrary } from "../../../IconLibrary";
+import { useSelector } from "react-redux";
 
 const CustomItemCreator = ({addItem, type}) => {
 
     const [selectedColor, setSelectedColor] = useState('white');
+    const userId = useSelector(state=>state.user.userData.id);
     const [name, setName] = useState('');
     const [error, setError] = useState(null);
 
@@ -16,7 +18,7 @@ const CustomItemCreator = ({addItem, type}) => {
         }else{
             const item = {
                 id: uuidv4(),
-                author: 'system',
+                author: userId,
                 name,
                 color: type === 'tag' ? selectedColor : null,
             }

@@ -34,6 +34,7 @@ const DefaultItems = ({allItems, title, addItem, savedItems}) => {
                         <div className="default-item" key={'default-item'+item.name+index}>
                             <p className="default-item-name">{item.name}</p>
                             {item.measurements?.length > 0 ? <p className="default-item-measurement"></p> : null}
+                            <div>{item.attributes?.length > 0 ? item.attributes.map((item, index)=>(<p className={'attribute'} key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}</div>
                             <button type="button" className="clear-button" onClick={()=>addItem(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                         </div>
                     )
