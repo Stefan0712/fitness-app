@@ -90,7 +90,7 @@ const LogsHistory = () => {
                 {weekData && weekData.length > 0 && selectedDay ? (
                         weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
                             weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
-                                <div className={styles['log-body']} key={'log-' + index}>
+                                <div className={styles['log-body']} key={'log-' + index} onClick={()=>console.log(item)}>
                                     <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.data.workoutData?.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
                                     <p className={styles['log-value']}>

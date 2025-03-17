@@ -31,9 +31,10 @@ export const exercises = [
       "Slowly lower the dumbbells back to the starting position."
     ]
   },
+  
   {
     "id": "push-ups-001",
-    "sourceId": "",
+    "sourceId": "",  
     "createdAt": "2024-12-29T12:50:00.000Z",
     "updatedAt": null,
     "author": "Stefan",

@@ -28,7 +28,30 @@ interface Workout {
   tags?: Tag[];
   reference?: string; 
 }
-
+interface Exercise {
+  id: string;
+  sourceId: string;
+  createdAt: string; // ISO date string
+  updatedAt: string | null;
+  author: string;
+  isFavorite: boolean;
+  isCompleted: boolean;
+  name: string;
+  description: string;
+  reference: string;
+  difficulty: string;
+  sets: number;
+  duration: number;
+  durationUnit: "sec" | "min" | "hr";
+  rest: number;
+  restUnit: "seconds" | "minutes";
+  visibility: "private" | "public";
+  fields: Field[];
+  notes: string;
+  equipment: Equipment[];
+  muscleGroups: TargetGroup[];
+  tags: Tag[];
+}
 interface WorkoutCategory {
   id: string;
   name: string;
@@ -38,6 +61,7 @@ interface WorkoutCategory {
 interface TargetGroup {
   id: string;
   name: string;
+  author: string;
 }
 
 interface Equipment {
@@ -48,25 +72,17 @@ interface Equipment {
 }
 
 interface EquipmentAttributes {
-  type: 'weight' | 'length'; 
+  type: string;
   value: number;
-  unit: 'kg' | 'm';
+  unit: string;
 }
 
-interface WorkoutExercise {
-  id: string;
-  name: string;
-  description: string;
-  sets: number;
-  reps: number;
-  rest: number; 
-  imageUrl?: string; 
-}
 
 interface Tag {
   id: string;
   name: string;
   color: string;
+  author: string;
 }
 
 interface Goal {
@@ -128,19 +144,46 @@ interface FoodLog extends BaseLog{
 
   }
 }
+interface Set{
+  fields: Field[];
+  isCompleted: boolean;
+  isSkipped: boolean;
+  order: number;
+}
+interface WorkoutExercise {
+  exerciseId: string,
+  isCompleted: boolean,
+  name: string,
+  difficulty: string,
+  description: string,
+  sets: Set[],
+  fields: Field[],
+  tags: Tag[];
+
+}
 interface WorkoutLog extends BaseLog{
   data:{
+    duration: string,
+    finishedAt: string,
     workoutId: string,
     isCompleted: boolean,
     targetGroup: string[],
     name: string,
-    duration: string,
-    finishedAt: string,
     difficulty: string,
-    
+    description: string,
+    exercises: WorkoutExercise[]
   }
 }
-
+interface Activity {
+  date: string;
+  logs: WorkoutLog | ExerciseLog | FoodLog | GoalLog;
+  goals: Goal[]
+}
+interface Section {
+  type: string,
+  order: number, 
+  identifier: string,
+}
 interface InitialStateObject {
   userId: string,
   userData: {
@@ -166,6 +209,18 @@ interface InitialStateObject {
     badged: string[],
   },
   goals: Goal[],
+  activity: Activity[],
+  preferenced: {
+    theme: string,
+    language: string,
+    unitSystem: string,
+  },
+  tags: Tag[],
+  equipment: Equipment[],
+  exercises: Exercise[],
+  workouts: Workout[],
+  message: string,
+  dashboardSections: Section[]
 }
 const initialState = {
   userId: uuidv4(),
@@ -205,182 +260,9 @@ const initialState = {
       unit: 'steps',
       target: 6000,
       icon: {name: 'Steps', icon: IconLibrary.Steps}
-    },
-    {
-      id: '3d629850-384e-4adf-95f8-6c82032ds9c3fe1f',
-      name: 'Sleep',
-      unit: 'hours',
-      target: 8,
-      icon: {name: 'Sleep', icon: IconLibrary.Sleep}
-    },
-    {
-      id: '3d68j32850-384e-4adf-95f8-6c8209c3fe1f',
-      name: 'Water',
-      unit: 'ml',
-      target: 250,
-      icon: {name: 'Water', icon: IconLibrary.Water}
     }
   ],
-  activity: [
-    {
-      "date": "2025-01-13",
-      "logs": [
-        {
-          "timestamp": "2025-01-13T16:18:05.204Z",
-          "id": "bc8d7239-4396-4cc9-b052-6105e3728a15",
-          "type": "goal",
-          "name": "Calories",
-          "data": { "value": 412 },
-          "icon": "/icons/calories.svg"
-        },
-        {
-          "timestamp": "2025-01-13T17:30:33.750Z",
-          "type": "food",
-          "name": "Food Log",
-          "data": {
-            "name": "Fried Rice",
-            "qty": "500",
-            "unit": "g",
-            "protein": "12",
-            "carbs": "",
-            "fats": "65",
-            "sugar": "23",
-            "calories": "566",
-            "sodium": "",
-            "time": "23:34",
-            "type": "dinner",
-            "note": "Random values lol"
-          },
-          "icon": "/icons/food.svg"
-        },
-        {
-          "timestamp": "2025-01-13T17:31:41.399Z",
-          "name": "Food Log",
-          "type": "food",
-          "data": {
-            "name": "Test",
-            "qty": "123",
-            "unit": "g",
-            "protein": "",
-            "carbs": "",
-            "fats": "",
-            "sugar": "",
-            "calories": "",
-            "sodium": "",
-            "time": "",
-            "type": "unset",
-            "note": ""
-          },
-          "icon": "/icons/food.svg"
-        },
-        {
-          "timestamp": "2025-01-10T13:35:17.896Z",
-          "name": "Exercise",
-          "type": "activity",
-          "data": {
-            "name": "Push Ups",
-            "time": "23:37",
-            "targetGroup": "chest",
-            "duration": "15",
-            "fields": [
-              { "name": "Reps", "unit": "reps", "value": "12" },
-              { "name": "Sets", "unit": "sets", "value": "3" }
-            ]
-          },
-          "icon": "/icons/exercise.svg"
-        }
-      ],
-      "goals": [
-        {
-          "name": "Calories",
-          "id": "bc8d7239-4396-4cc9-b052-6105e3728a15",
-          "unit": "kcal",
-          "target": "1400",
-          "icon": "/icons/calories.svg"
-        },
-        {
-          "name": "Steps",
-          "id": "3d629850-384e-4adf-95f8-6c8209c3fe1f",
-          "unit": "steps",
-          "target": "6000",
-          "icon": "/icons/steps.svg"
-        }
-      ]
-    },
-    {
-      "date": "2025-01-09",
-      "logs": [
-        {
-          "timestamp": "2025-01-09T00:57:13.500Z",
-          "name": "Food Log",
-          "type": "food",
-          "data": {
-            "name": "Test food",
-            "qty": "123",
-            "unit": "g",
-            "calories": "250",
-            "protein": "",
-            "carbs": "",
-            "fats": "",
-            "sugar": "",
-            "sodium": "",
-            "time": "06:57",
-            "type": "dinner",
-            "note": ""
-          },
-          "icon": "/icons/food.svg"
-        },
-        {
-          "timestamp": "2025-01-09T01:00:23.859Z",
-          "name": "Food Log",
-          "type": "food",
-          "data": {
-            "name": "Hopefully correct food",
-            "qty": "500",
-            "unit": "g",
-            "protein": "",
-            "carbs": "",
-            "fats": "",
-            "sugar": "",
-            "calories": "",
-            "sodium": "",
-            "time": "04:01",
-            "type": "snack",
-            "note": ""
-          },
-          "icon": "/icons/food.svg"
-        },
-        {
-          "timestamp": "2025-01-09T17:56:56.434Z",
-          "name": "Calories",
-          "type": "goal",
-          "data": { "value": 500 },
-          "icon": "/icons/calories.svg"
-        },
-        {
-          "timestamp": "2025-01-09T18:01:33.174Z",
-          "name": "Steps",
-          "type": "goal",
-          "data": { "value": 1200 },
-          "icon": "/icons/steps.svg"
-        }
-      ],
-      "goals": [
-        {
-          "name": "Calories",
-          "unit": "kcal",
-          "target": "1400",
-          "icon": "/icons/calories.svg"
-        },
-        {
-          "name": "Steps",
-          "unit": "steps",
-          "target": "6000",
-          "icon": "/icons/steps.svg"
-        }
-      ]
-    }
-  ],
+  activity: [],
   
   preferences: {
     darkMode: true,
@@ -442,8 +324,7 @@ const initialState = {
       "name": "Hand Gripper",
       "attributes": []
     }
-  ]
-  ,
+  ],
   exercises: [],
   workouts: [],
   message: null,

@@ -56,6 +56,10 @@ const Workout = () => {
         console.log(workoutData)
         console.log(exercises)
     },workoutData, exercises)
+
+
+
+
     const getExercises = () => {
         // Make deep copies of all exercises
         return workoutData.exercises
@@ -125,10 +129,17 @@ const Workout = () => {
             id: uuidv4(),
             icon: '/icons/workout.svg',
             type: 'workout',
+            name: workoutData.name,
             data: {
                 duration: formatTime(seconds),
                 finishedAt: getFullHour(),
-                workoutData: {...workoutData, exercises: exercises}
+                workoutId: workoutData.id,
+                isCompleted: true,
+                targetGroup: workoutData.targetGroups,
+                name: workoutData.name,
+                difficulty: workoutData.difficulty,
+                description: workoutData.description,
+                exercises: exercises
             }
         }
         dispatch(addLog(log));
