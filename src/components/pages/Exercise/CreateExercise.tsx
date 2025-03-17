@@ -25,7 +25,7 @@ const CreateExercise: React.FC = () => {
 
     const user = useSelector(state=>state.user.userData)
 
-    const [isExtended, setIsExtended] = useState(false);
+    const [isExtended, setIsExtended] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

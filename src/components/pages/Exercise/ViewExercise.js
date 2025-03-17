@@ -117,25 +117,25 @@ const ViewExercise = () => {
                     </div>
                     {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
                 </div>
-            </div>
-            <div className='view-workout-buttons'>
-                <div className='view-workout-menu-buttons'>
-                    {showConfirmDelete ? (
-                        <div className='buttons-container'>
-                            <button className='view-workout-menu-button' onClick={deleteEx}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
-                            <div className='divider' />
-                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
-                        </div>
-                    ):(
-                        <div className='buttons-container'>
-                            <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(true)}>Delete</button>
-                            <div className='divider' />
-                            <Link className='view-workout-menu-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
-                        </div>
-                    )}
-                    
+                <div className='view-workout-buttons'>
+                    <div className='view-workout-menu-buttons'>
+                        {showConfirmDelete ? (
+                            <div className='buttons-container'>
+                                <button className='view-workout-menu-button' onClick={deleteEx}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
+                                <div className='divider' />
+                                <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
+                            </div>
+                        ):(
+                            <div className='buttons-container'>
+                                <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(true)}>Delete</button>
+                                <div className='divider' />
+                                <Link className='view-workout-menu-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
+                            </div>
+                        )}
+                        
+                    </div>
+                    <Link to={`/exercise/${exerciseData.id}/start`} className='orange-button large-button start-workout-button'>Start Exercise</Link>
                 </div>
-                <Link to={`/exercise/${exerciseData.id}/start`} className='orange-button large-button start-workout-button'>Start Exercise</Link>
             </div>
 
         </div>

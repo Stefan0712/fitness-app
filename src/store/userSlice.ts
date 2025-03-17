@@ -444,8 +444,8 @@ const initialState = {
     }
   ]
   ,
-  exercises: [...mockExercises],
-  workouts: [...mockWorkouts],
+  exercises: [],
+  workouts: [],
   message: null,
   dashboardSections: [
     {type: 'goal', order: 1, identifier: 'bc8d7239-4396-4cc9-b052-6105e3728a15'},
