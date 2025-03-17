@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import {getDateForHeader } from '../../../helpers'
 import { workouts, exercises } from '../../../database';
 import { IconLibrary } from '../../../IconLibrary';
-import { saveWorkoutToLibrary } from '../../../store/userSlice';
+import { saveWorkoutToLibrary } from '../../../store/userSlice.ts';
 
 const ViewBrowseWorkout = () => {
 

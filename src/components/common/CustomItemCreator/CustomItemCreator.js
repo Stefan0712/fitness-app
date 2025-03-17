@@ -16,7 +16,7 @@ const CustomItemCreator = ({addItem, type}) => {
         }else{
             const item = {
                 id: uuidv4(),
-                source: 'user',
+                author: 'system',
                 name,
                 color: type === 'tag' ? selectedColor : null,
             }
@@ -25,6 +25,7 @@ const CustomItemCreator = ({addItem, type}) => {
         }
         
     }
+    
     const getColor = (color) =>{
         setSelectedColor(color);
     }

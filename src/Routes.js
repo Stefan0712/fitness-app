@@ -11,7 +11,7 @@ import Workout from './components/pages/Workout/Workout';
 import EditWorkout from './components/pages/Workout/EditWorkout';
 import CreateWorkout from './components/pages/Workout/CreateWorkout';
 import EditExercise from './components/pages/Exercise/EditExercise';
-import CreateExercise from './components/pages/Exercise/CreateExercise';
+import CreateExercise from './components/pages/Exercise/CreateExercise.tsx';
 import EditProfile from './components/pages/Profile/EditProfile';
 import ViewWorkout from './components/pages/Workout/ViewWorkout';
 import ViewExercise from './components/pages/Exercise/ViewExercise';

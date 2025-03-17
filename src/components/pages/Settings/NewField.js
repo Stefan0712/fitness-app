@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconLibrary } from "../../../IconLibrary";
 import styles from './NewField.module.css';
 import { useDispatch } from "react-redux";
-import { addCustomField } from "../../../store/userSlice";
+import { addCustomField } from "../../../store/userSlice.ts";
 
 const NewField = ({closeModal}) => {
 

@@ -2,7 +2,7 @@ import { getDateForHeader, makeFirstUpperCase } from '../../../helpers';
 import styles from './Dashboard.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { updateDashboardLayout } from '../../../store/userSlice';
+import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { IconLibrary } from '../../../IconLibrary';
 import { useNavigate } from 'react-router-dom';
 

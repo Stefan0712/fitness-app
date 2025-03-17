@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {getDateForHeader, makeFirstUpperCase } from "../../../helpers";
 import './exercise.css';
-import { addExerciseToWorkout } from "../../../store/userSlice";
+import { addExerciseToWorkout } from "../../../store/userSlice.ts";
 import { exercises } from "../../../database";
 import { IconLibrary } from "../../../IconLibrary";
 

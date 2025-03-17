@@ -1,6 +1,6 @@
 import { getDateForHeader } from "../../../helpers";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "../../../store/userSlice";
+import { updateUserData } from "../../../store/userSlice.ts";
 import { useState } from "react";
 import './editProfile.css';
 import { useDispatch, useSelector } from "react-redux";

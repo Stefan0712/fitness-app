@@ -5,7 +5,7 @@ import './exercise.css';
 import { useState } from "react";
 
 import { getDateForHeader } from "../../../helpers";
-import { deleteExercise } from "../../../store/userSlice";
+import { deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
 
 

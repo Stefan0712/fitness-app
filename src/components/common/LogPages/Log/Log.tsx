@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addLog } from "../../../../store/userSlice";
+import { addLog } from "../../../../store/userSlice.ts";
 import { useState } from "react";
 import styles from './Log.module.css';
 import MessageModal from "../../MessageModal/MessageModal";

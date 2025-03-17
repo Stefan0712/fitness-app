@@ -1,6 +1,6 @@
 import { formatDate } from "../../../helpers";
 import { useDispatch } from "react-redux";
-import {removeLog} from '../../../store/userSlice'
+import {removeLog} from '../../../store/userSlice.ts'
 
 const ViewLog = ({log, closeViewLog}) => {
 

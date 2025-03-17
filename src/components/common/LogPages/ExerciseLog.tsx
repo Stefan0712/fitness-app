@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './exerciseLog.css'
 import { v4 as uuidv4 } from 'uuid';
-import { addLog } from "../../../store/userSlice";
+import { addLog } from "../../../store/userSlice.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import {muscles} from '../../../constants/defaultMuscles';

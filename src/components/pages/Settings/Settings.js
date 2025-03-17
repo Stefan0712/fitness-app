@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { reset } from '../../../store/userSlice';
+import { reset } from '../../../store/userSlice.ts';
 import { IconLibrary } from "../../../IconLibrary";
 import { useDispatch } from 'react-redux';
 import styles from './Settings.module.css';

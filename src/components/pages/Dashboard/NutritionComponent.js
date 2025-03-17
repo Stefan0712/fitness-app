@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { makeFirstUpperCase, getCurrentDay } from '../../../helpers';
-import { updateDashboardLayout } from '../../../store/userSlice';
+import { updateDashboardLayout } from '../../../store/userSlice.ts';
 
 const NutritionComponent = ({isSmallScreen, showMessage}) => {
 

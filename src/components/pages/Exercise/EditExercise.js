@@ -3,7 +3,7 @@ import './exercise.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { updateExercise } from "../../../store/userSlice";
+import { updateExercise } from "../../../store/userSlice.ts";
 import {useNavigate, useParams} from 'react-router-dom'
 import { IconLibrary } from "../../../IconLibrary";
 

@@ -5,7 +5,7 @@ import { IconLibrary } from '../../../IconLibrary';
 import { getDateForHeader } from '../../../helpers';
 import { useEffect, useState } from 'react';
 import CustomItemCreator from '../../common/CustomItemCreator/CustomItemCreator';
-import { addTag, removeTag, updateTag } from '../../../store/userSlice';
+import { addTag, removeTag, updateTag } from '../../../store/userSlice.ts';
 
 const Tags = () => {
 

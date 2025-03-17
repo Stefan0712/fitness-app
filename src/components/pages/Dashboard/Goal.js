@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import {getCurrentDay, getDateFromTimestamp, getHourFromTimestamp } from '../../../helpers';
 import { IconLibrary } from '../../../IconLibrary';
 import useCurrentWeekLogs from './useCurrentWeekLogs';
-import { updateDashboardLayout } from '../../../store/userSlice';
+import { updateDashboardLayout } from '../../../store/userSlice.ts';
 
 
 

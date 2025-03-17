@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addExercise } from "../../../store/userSlice";
+import { addExercise } from "../../../store/userSlice.ts";
 import { useState, useEffect } from "react";
 
 

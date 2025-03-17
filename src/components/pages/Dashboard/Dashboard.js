@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { startOfWeek, addDays } from 'date-fns';
 import { IconLibrary } from '../../../IconLibrary';
 import Goal from './Goal';
-import { updateDashboardLayout } from '../../../store/userSlice';
+import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';

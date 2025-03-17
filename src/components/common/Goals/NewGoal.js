@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {colors} from '../../../constants/defaultColors';
 import { defaultIcons } from '../../../constants/defaultIcons';
 import { useDispatch } from 'react-redux';
-import { addGoal } from '../../../store/userSlice';
+import { addGoal } from '../../../store/userSlice.ts';
 const NewGoal = ({closeNewGoal}) => {
 
 

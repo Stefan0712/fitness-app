@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {colors} from '../../../../constants/defaultColors';
 import { defaultIcons } from '../../../../constants/defaultIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGoal } from '../../../../store/userSlice';
+import { updateGoal } from '../../../../store/userSlice.ts';
 import MessageModal from '../../MessageModal/MessageModal';
 
 interface Icon {

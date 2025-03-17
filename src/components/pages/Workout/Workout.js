@@ -1,19 +1,14 @@
-import { formatTime, getDateForHeader, getFullHour } from "../../../helpers";
+import { formatTime, getFullHour } from "../../../helpers";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-import { addLog } from "../../../store/userSlice";
+import { addLog } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
 import {exercises as databaseExercises} from '../../../database';
 
 import styles from './Workout.module.css';
  
-
-
-//TODO: Make it work. Try a new design that is more clean. Maybe hide the exercise list and let the user press a button to see it or make it colapsed by default.
-
-
 
 
 
@@ -57,7 +52,10 @@ const Workout = () => {
     //         });
     //     });
     // }, [exercises]);
-    
+    useEffect(()=>{
+        console.log(workoutData)
+        console.log(exercises)
+    },workoutData, exercises)
     const getExercises = () => {
         // Make deep copies of all exercises
         return workoutData.exercises

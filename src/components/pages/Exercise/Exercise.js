@@ -2,7 +2,7 @@ import styles from './Exercise.module.css';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IconLibrary } from '../../../IconLibrary';
-import { addLog } from '../../../store/userSlice';
+import { addLog } from '../../../store/userSlice.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime, getDateForHeader, getFullHour } from '../../../helpers';
 import { v4 as uuidv4 } from 'uuid';

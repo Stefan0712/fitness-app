@@ -1,7 +1,7 @@
 import { IconLibrary } from "../../../IconLibrary";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCustomField, deleteCustomField } from "../../../store/userSlice";
+import { updateCustomField, deleteCustomField } from "../../../store/userSlice.ts";
 
 //TODO: Check source type in the redux store to make sure nobody is trying to edit default items
 

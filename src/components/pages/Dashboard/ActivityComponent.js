@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { getCurrentDay } from '../../../helpers';
-import { updateDashboardLayout } from '../../../store/userSlice';
+import { updateDashboardLayout } from '../../../store/userSlice.ts';
 
 const ActivityComponent = ({isSmallScreen, showMessage}) => {
     const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import './workout.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkout } from "../../../store/userSlice.js";
+import { addWorkout } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
 import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator.js";

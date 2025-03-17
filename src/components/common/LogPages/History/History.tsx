@@ -4,7 +4,7 @@ import { getCurrentDay } from "../../../../helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../../IconLibrary';
-import { removeLog } from '../../../../store/userSlice';
+import { removeLog } from '../../../../store/userSlice.ts';
 import MessageModal from '../../MessageModal/MessageModal';
 
 interface Icon {

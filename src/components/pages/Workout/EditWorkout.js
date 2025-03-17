@@ -1,4 +1,4 @@
-import { updateWorkout, addExercise } from "../../../store/userSlice";
+import { updateWorkout, addExercise } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
