@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './userSlice.ts';
-import publicDataReducer from './publicDataSlice';
+import publicDataReducer from './publicDataSlice.js';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -36,3 +36,5 @@ const persistor = persistStore(store);
 
 // Export store and persistor
 export { store, persistor };
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

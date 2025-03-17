@@ -1,5 +1,6 @@
 import { getDateForHeader } from "../../../helpers";
 import './exercise.css';
+import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
@@ -10,22 +11,75 @@ import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator"
 import DefaultItems from "../../common/DefaultItems/DefaultItems";
 import { IconLibrary } from "../../../IconLibrary";
 import CreateExerciseField from "../../common/CreateExerciseField/CreateExerciseField";
+import { RootState } from "../../../store/index.ts";
 
-interface CustomItem {
-    id: String,
-    author: String,
-    name: String,
-    color: string | null
+interface Exercise {
+    id: string;
+    sourceId?: string;
+    createdAt: string; 
+    updatedAt?: string | null;
+    author: string;
+    isFavorite: boolean;
+    isCompleted: boolean;
+    name: string;
+    description: string;
+    reference: string;
+    difficulty: string;
+    sets: number;
+    duration: number;
+    durationUnit: string;
+    rest: number;
+    restUnit: string;
+    visibility: string;
+    fields: Field[];
+    notes: string[];
+    equipment: Equipment[];
+    muscleGroups: TargetGroup[];
+    tags: Tag[];
+    instructions: string[];
 }
-
+interface TargetGroup {
+    id: string;
+    name: string;
+    author: string;
+}
+  
+interface Equipment {
+    id: string;
+    name: string;
+    attributes?: EquipmentAttributes[];
+}
+  
+interface EquipmentAttributes {
+    name: string;
+    value: number;
+    unit: string;
+}
+  
+  
+interface Tag {
+    id: string;
+    name: string;
+    color: string;
+    author: string;
+}
+interface Field {
+    name: string,
+    unit: string,
+    value: number,
+    targetValue?: number,
+    description?: string,
+    isCompleted: boolean
+}
 const CreateExercise: React.FC = () => {
 
-    const equipment = useSelector(state=>state.user.equipment);
-    const tags = useSelector(state=>state.user.tags);
+    const equipment = useSelector((state: RootState)=>state.user.equipment);
+    const tags = useSelector((state: RootState)=>state.user.tags);
 
-    const user = useSelector(state=>state.user.userData)
+    const user = useSelector((state: RootState)=>state.user.userData.id)
 
-    const [isExtended, setIsExtended] = useState(true);
+    const [isExtended, setIsExtended] = useState<boolean>(true);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,13 +89,13 @@ const CreateExercise: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [reference, setReference] = useState<string>('');
-    const [muscleGroups, setMuscleGroups] = useState<CustomItem[]>([]);
+    const [muscleGroups, setMuscleGroups] = useState<TargetGroup[]>([]);
     const [difficulty, setDifficulty] = useState<string>('');
-    const [exerciseTags, setExerciseTags] = useState<CustomItem[]>([]);
-    const [equipments, setEquipments] = useState<string[]>([]);
+    const [exerciseTags, setExerciseTags] = useState<Tag[]>([]);
+    const [equipments, setEquipments] = useState<Equipment[]>([]);
     const [sets, setSets] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
-    const [fields, setFields] = useState<string[]>([]);
+    const [fields, setFields] = useState<Field[]>([]);
     const [rest, setRest] = useState<string>('');
 
     //TODO: Handle cases where the user might input "None" as Equipment, Tag, or Target Group
@@ -53,10 +107,10 @@ const CreateExercise: React.FC = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString();
-        const exerciseData = {
+        const exerciseData: Exercise = {
             id: uuidv4(), 
             createdAt, 
-            author: user.id,
+            author: user,
             isFavorite: false,
             isCompleted: false, 
             name, 
@@ -74,8 +128,7 @@ const CreateExercise: React.FC = () => {
             fields, 
             tags: 
             exerciseTags, 
-            equipments, 
-            completedSets: 0,
+            equipment: equipments, 
             instructions: []
         };
         console.log(exerciseData)
@@ -119,7 +172,7 @@ const CreateExercise: React.FC = () => {
                                     <option value="advanced">Advanced</option>
                                     <option value="expert">Expert</option>
                                 </select>
-                                <select name="sets" id="sets" onChange={(e) => setSets(e.target.value)} value={sets}>
+                                <select name="sets" id="sets" onChange={(e) => setSets(parseInt(e.target.value))} value={sets}>
                                     <option value={0} disabled selected>Sets</option>
                                     <option value={1}>1</option>
                                     <option value={2}>2</option>
@@ -147,11 +200,11 @@ const CreateExercise: React.FC = () => {
                                 <CreateExerciseField key='fields-create-field' addField={addField} />
                                 <div className="fields-container">
                                     {fields?.length > 0 ? fields.map((field, index)=>(
-                                            <div className="field-body" id={index} key={field.id}>
+                                            <div className="field-body" id={'field-'+index} key={field.name}>
                                                 <h4>{field.name}</h4>
                                                 <p>{field.targetValue || null}</p>
                                                 <p>{field.unit}</p>
-                                                <button type="button" onClick={()=>console.log(field.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
+                                                <button type="button" onClick={()=>setFields((fields)=>[...fields.filter(item=>item==field)])} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
                                             </div>
                                     )): <h3>No fields created</h3>}
                                 </div>
@@ -171,7 +224,7 @@ const CreateExercise: React.FC = () => {
                                 <CustomItemCreator key='custom-items-fields' addItem={addmuscleGroups} type={'target-group'}/>
                                 <DefaultItems key='default-items-groups' allItems={muscles} title={'Saved Target Groups'} savedItems={muscleGroups} addItem={addmuscleGroups}/>
                                 <div className="selected-tags">
-                                    {muscleGroups?.length > 0 ? muscleGroups.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setMuscleGroups((muscleGroups)=>[...muscleGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                                    {muscleGroups?.length > 0 ? muscleGroups.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setMuscleGroups((muscleGroups)=>[...muscleGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
                             </div> 
                         : null}
@@ -180,10 +233,10 @@ const CreateExercise: React.FC = () => {
                                 <CustomItemCreator key='custom-items-equipment' addItem={addEquipment} type={'equipment'}/>
                                 <DefaultItems key='default-items-equipment' allItems={equipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
                                 <div className="selected-tags">
-                                    {equipments?.length > 0 ? equipments.map((item)=><div key={item.name+item.color} className="tag-body">
-                                        <div className="tag-color" style={{backgroundColor: item.color || 'none'}}></div>
+                                    {equipments?.length > 0 ? equipments.map((item,index)=><div key={item.name+index} className="tag-body">
+                                        <div className="tag-color"></div>
                                         <p>{item.name}</p>
-                                        <div>{item.attributes?.length > 0 ? item.attributes.map((item, index)=>(<p className={'attribute'} key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}</div>
+                                        <div>{item.attributes && item.attributes.length > 0 ? item.attributes.map((item, index)=>(<p className={'attribute'} key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}</div>
                                         <img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/>
                                     </div>) : ''}
                                 </div>

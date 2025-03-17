@@ -1,12 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { convertTimestampToDate, getCurrentDay } from '../helpers';
 import { v4 as uuidv4 } from 'uuid';
-import { defaultCategories } from '../constants/defaultCategories';
 import {defaultTags} from '../constants/defaultTags';
-import {defaultFields} from '../constants/defaultFields';
-import { mockExercises } from '../constants/mockExercises';
-import { mockWorkouts } from '../constants/mockWorkouts';
-import { exercises, workouts } from '../database';
 import { IconLibrary } from '../IconLibrary';
 
 interface Workout {
@@ -16,7 +11,7 @@ interface Workout {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   category: WorkoutCategory;
   targetGroup: TargetGroup[];
-  duration: number; // in minutes
+  duration: number; 
   equipment: Equipment[];
   exercises: Exercise[];
   createdAt: string; 
@@ -31,7 +26,7 @@ interface Workout {
 interface Exercise {
   id: string;
   sourceId: string;
-  createdAt: string; // ISO date string
+  createdAt: string; 
   updatedAt: string | null;
   author: string;
   isFavorite: boolean;
@@ -67,12 +62,11 @@ interface TargetGroup {
 interface Equipment {
   id: string;
   name: string;
-  qty: number;
   attributes?: EquipmentAttributes[];
 }
 
 interface EquipmentAttributes {
-  type: string;
+  name: string;
   value: number;
   unit: string;
 }
@@ -184,6 +178,11 @@ interface Section {
   order: number, 
   identifier: string,
 }
+interface Badges {
+  id: string,
+  name: string,
+  value: number
+}
 interface InitialStateObject {
   userId: string,
   userData: {
@@ -206,11 +205,11 @@ interface InitialStateObject {
     bio?: string,
     isPrivate: boolean,
     isPremium: true,
-    badged: string[],
+    badges: Badges[]
   },
   goals: Goal[],
   activity: Activity[],
-  preferenced: {
+  preferences: {
     theme: string,
     language: string,
     unitSystem: string,
@@ -219,10 +218,10 @@ interface InitialStateObject {
   equipment: Equipment[],
   exercises: Exercise[],
   workouts: Workout[],
-  message: string,
-  dashboardSections: Section[]
+  message: string | null,
+  dashboardSections: Section[],
 }
-const initialState = {
+const initialState: InitialStateObject = {
   userId: uuidv4(),
   userData: {
     name: 'Stefan',
@@ -252,20 +251,20 @@ const initialState = {
       name: 'Calories',
       unit: 'kcal',
       target: 1400,
-      icon: {name: 'Calories', icon: IconLibrary.Calories}
+      icon: {name: 'Calories', url: IconLibrary.Calories}
     },
     {
       id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
       name: 'Steps',
       unit: 'steps',
       target: 6000,
-      icon: {name: 'Steps', icon: IconLibrary.Steps}
+      icon: {name: 'Steps', url: IconLibrary.Steps}
     }
   ],
   activity: [],
   
   preferences: {
-    darkMode: true,
+    theme: 'dark',
     language: 'en',
     unitSystem: 'metric',
   },
