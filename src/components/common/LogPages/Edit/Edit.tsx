@@ -2,10 +2,11 @@ import styles from './Edit.module.css';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGoal } from '../../../../store/userSlice.ts';
+import { removeGoal, updateGoal } from '../../../../store/userSlice.ts';
 import MessageModal from '../../MessageModal/MessageModal.tsx';
 import ColorPicker from '../../ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../IconPicker/IconPicker.tsx';
+import DeletePrompt from './DeletePrompt.tsx';
 
 interface Icon {
     url: string;
@@ -41,6 +42,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
     const [message, setMessage] = useState<MessageObject | null>(null);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState<boolean>(false);
 
 
     const handleUpdateGoal = () =>{
@@ -83,6 +85,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
             {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
             {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
+            {showDeletePrompt ? <DeletePrompt closeModal={()=>setShowDeletePrompt(false)} id={goalId} sendMessage={()=>setMessage({type: 'success', message: "Deleted successfully"})} /> : null }
             <fieldset className={styles.name}>
                 <label>Name</label>
                 <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name}></input>
@@ -105,7 +108,8 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
                     <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                 </div>
             </fieldset>
-            <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Update Goal</button>
+            <button type="button" className={styles.submit} onClick={handleUpdateGoal} disabled={showDeletePrompt}>Update Goal</button>
+            <button type="button" className={styles.delete} onClick={()=>setShowDeletePrompt(true)}>Delete Goal</button>
         </div>
      );
 }

@@ -9,7 +9,6 @@ const NewGoal = ({closeNewGoal}) => {
 
 
     const dispatch = useDispatch();
-    //TODO: Add validation
 
     const [name, setName] = useState('');
     const [unit, setUnit] = useState('');

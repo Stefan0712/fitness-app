@@ -47,16 +47,78 @@
     justify-content: center;
     background-color: transparent;
 }
-.submit{
+.submit,
+.delete{
     width: 150px;
     height: 40px;
     background-color: var(--secondary);
     border-radius: 5px;
     border: 1px solid transparent;
 }
+.delete{
+    background-color: var(--cancel);
+}
 .color-button{
     width: 40px;
     height: 40px;
     border: none;
     border-radius: 4px;
+}
+
+
+
+/* Delete Prompt */
+
+.delete-prompt{
+    width: calc(100vw - 30px);
+    height: 250px;
+    background-color: var(--modal-bg);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 85px;
+    left: 15px;
+    border: 1px solid rgba(221, 221, 221, 0.1);
+}
+.delete-prompt .close{
+    background-color: transparent;
+    border: none;
+}
+.delete-prompt .top{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.message{
+    height: 130px;
+    padding: 0 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.delete-prompt .buttons{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.delete-prompt .buttons button{
+    width: 125px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+}
+.delete-prompt .confirm{
+    background-color: var(--confirm);
+}
+.delete-prompt .cancel{
+    background-color: var(--cancel);
 }

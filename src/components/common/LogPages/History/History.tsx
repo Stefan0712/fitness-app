@@ -6,31 +6,22 @@ import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../../IconLibrary';
 import { removeLog } from '../../../../store/userSlice.ts';
 import MessageModal from '../../MessageModal/MessageModal.tsx';
+import React from 'react';
+import { RootState } from '../../../../store/index.ts';
 
-interface Icon {
+interface Log {
+    id: string;
+    timestamp: string;
+    type: string;
     name: string;
     icon: string;
-}
-interface Data{
-    value: number;
-    time: string;
-    description?: string;
-    name: string;
-}
-interface GoalObject {
-    timestamp?: string;
-    type: string;
-    id: string;
-    name: string;
-    icon: Icon;
-    data: Data;
-}
-interface GoalData {
-    id: string;
-    name: string;
-    unit: string;
-    target?: number;
-    icon: Icon;
+    data: {
+        value: number;
+        time: string;
+        description: string;
+        name: string;
+        unit: string;
+      }
 }
 interface SelectedLogObject {
     id: string;
@@ -40,13 +31,22 @@ interface MessageObject{
     message: string;
     type: string;
 }
-const History = ({id}) => {
-    const allLogs = useSelector<GoalObject[]>((state)=>state.user.activity[getCurrentDay()]?.logs);
+interface HistoryProps {
+    id: string;
+}
+const History: React.FC<HistoryProps> = ({id}) => {
     const dispatch = useDispatch();
-    const goalLogs: GoalObject[] = allLogs?.filter((item) => item.id === id) ?? [];
 
-    const goalData = useSelector<GoalData | undefined>((state)=>state.user.goals.find((element)=>element.id === id));
-    const [currentValue, setCurrentValue] = useState();
+
+    //TODO: Move progress bar at the Goal page level, not history level and make it like an individual small block
+    //TODO: Swap Goals modal with Goal so when you open a Goal, the other one is hidden and when you close it the other one is shown again
+    
+    
+    const activity = useSelector((state: RootState)=>state.user.activity).find(item=>item.date === getCurrentDay()) ?? [];
+    const goalLogs: Log[] = activity.logs.filter((item) => item.id === id) ?? [];
+
+    const goalData = useSelector((state: RootState)=>state.user.goals.find((element)=>element.id === id));
+    const [currentValue, setCurrentValue] = useState<number>(0);
     const [selectedLog, setSelectedLog] = useState<SelectedLogObject | unknown>(null);
 
     const [message, setMessage] = useState<MessageObject | null>(null);

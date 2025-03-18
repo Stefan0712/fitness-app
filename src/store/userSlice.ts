@@ -503,6 +503,7 @@ const userSlice = createSlice({
      if(activityEntry){
       const index = state.activity.findIndex(entry=>entry===activityEntry);
       state.activity[index].goals = state.activity[index].goals.filter(item=>item.id!==action.payload);
+      state.activity[index].logs = state.activity[index].logs.filter(item=>item.id!=action.payload);
       console.log("Goal updated:",state.activity[index])
      }
      

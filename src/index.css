@@ -444,4 +444,6 @@ body{
   --toggle-button-active: white;
   --input-bg: #1A1A1B;
   --modal-bg: #222324;
+  --confirm: #4CAF50;
+  --cancel: #F44336;
 }
