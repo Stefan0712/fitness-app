@@ -17,7 +17,6 @@ import ViewWorkout from './components/pages/Workout/ViewWorkout';
 import ViewExercise from './components/pages/Exercise/ViewExercise';
 import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';
 import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
-import FieldsPage from './components/pages/Settings/FieldsPage';
 import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
@@ -54,7 +53,6 @@ function AppRoutes() {
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />
       <Route path='/equipment' element={<Equipment />} />
-      <Route path='/fields' element={<FieldsPage />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
       <Route path="*" element={<Dashboard />} />
       

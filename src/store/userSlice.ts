@@ -439,27 +439,6 @@ const userSlice = createSlice({
       
       state.workouts = [...state.workouts, localCopy];
     },
-    addCustomField: (state, action) =>{
-      const customField = {
-        ...action.payload,
-        id: uuidv4(),
-        value: null, 
-        isCompleted: false, 
-        type: action.payload.type || 'number',
-        source: 'user'
-      };
-      state.fields = [...state.fields, customField]
-    },
-    deleteCustomField: (state, action) => {
-       state.fields = state.fields.filter(field => field.id !== action.payload);
-    },  
-    updateCustomField: (state, action) =>{
-       const index = state.fields.findIndex(field => field.id === action.payload.id);
-       if (index !== -1) {
-         state.fields[index] = action.payload;
-       }
-       
-    },
     addTag: (state, action) => {
       const data = action.payload
       const newItem = {
@@ -549,9 +528,6 @@ export const {
   addLog,
   removeLog,
   updatePreferences,
-  addCustomField,
-  updateCustomField,
-  deleteCustomField,
   addTag,
   removeTag,
   updateTag,
