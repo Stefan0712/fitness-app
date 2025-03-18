@@ -492,9 +492,9 @@ const userSlice = createSlice({
      state.userData.goals = state.userData.goals.filter(item => item.id !== action.payload);
   },
   updateGoal : (state, action) =>{
-     const index = state.userData.goals.findIndex(eq => eq.id === action.payload.id);
+     const index = state.goals.findIndex(eq => eq.id === action.payload.id);
      if (index !== -1) {
-       state.userData.goals[index] = action.payload;
+       state.goals[index] = action.payload;
        console.log('Goal was updated with: ',action.payload)
      }
   },
