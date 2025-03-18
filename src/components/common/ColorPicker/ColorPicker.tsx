@@ -3,7 +3,11 @@ import React from "react";
 import styles from './ColorPicker.module.css';
 import { IconLibrary } from "../../../IconLibrary";
 
-const ColorPicker = ({getColor, closeModal}) => {
+interface ModalProps {
+    closeModal: ()=>void;
+    getColor: (color: string) => void;
+}
+const ColorPicker: React.FC<ModalProps> = ({getColor, closeModal}) => {
 
     const colors = ["#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", 
         "#DD4124", "#45B8AC", "#EFC050", "#5B5EA6", "#9B2335", "#DFCFBE", "#BC243C", "#C3447A", "#98B4D4", "#D94F70", "#6C7A89", 
@@ -31,7 +35,7 @@ const ColorPicker = ({getColor, closeModal}) => {
         }
     }, [hexCode]);
 
-    const handleHexCodeInput = (e) =>{
+    const handleHexCodeInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
         let value = e.target.value;
         // Ensure the value starts with "#"
         if (!value.startsWith("#")) {
@@ -39,7 +43,7 @@ const ColorPicker = ({getColor, closeModal}) => {
         };
         setHexCode(value);
     }
-    const changeColor = (color) =>{
+    const changeColor = (color: string) =>{
         setSelectedColor(color);
         setHexCode(color);
     }
