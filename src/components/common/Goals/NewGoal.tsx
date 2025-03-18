@@ -1,24 +1,44 @@
 import styles from './Goals.module.css';
-import { IconLibrary } from '../../../IconLibrary';
+import { IconLibrary } from '../../../IconLibrary.js';
 import { useState } from 'react';
-import {colors} from '../../../constants/defaultColors';
-import { defaultIcons } from '../../../constants/defaultIcons';
 import { useDispatch } from 'react-redux';
 import { addGoal } from '../../../store/userSlice.ts';
-const NewGoal = ({closeNewGoal}) => {
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import ColorPicker from '../ColorPicker/ColorPicker.tsx';
+import IconPicker from '../IconPicker/IconPicker.tsx';
+
+interface Goal {
+    id: string,
+    name: string,
+    unit: string,
+    target: number,
+    icon: string,
+    color: string
+}
+// TODO: ADD better validation and messages
+
+
+const NewGoal: React.FC<{ closeNewGoal: ()=>void}> = ({closeNewGoal}) => {
 
 
     const dispatch = useDispatch();
 
-    const [name, setName] = useState('');
-    const [unit, setUnit] = useState('');
-    const [target, setTarget] = useState(0);
-    const [color, setColor] = useState('white');
-    const [icon, setIcon] = useState(defaultIcons[0]);
-    
+    const [name, setName] = useState<string>('');
+    const [unit, setUnit] = useState<string>('');
+    const [target, setTarget] = useState<number>(0);
+    const [color, setColor] = useState<string>('#FFFFFF');
+    const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
+    const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+    const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
+
+
+
+
     const handleAddGoal = () =>{
         if(name && unit && target){
-            const goalData = {
+            const goalData: Goal = {
+                id: uuidv4(),
                 name,
                 unit,
                 target,
@@ -42,6 +62,8 @@ const NewGoal = ({closeNewGoal}) => {
     
     return ( 
         <div className={styles['new-goal']}>
+            {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
+            {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
             <div className={styles['new-goal-inputs']}>
                 <fieldset className={styles.name}>
                     <label>Name</label>
@@ -55,33 +77,16 @@ const NewGoal = ({closeNewGoal}) => {
                     <label>Target</label>
                     <input type='number' name='target' id='target' onChange={(e)=>setTarget(e.target.value)} value={target}></input>
                 </fieldset>
-                <div className={styles['items-container-header']}>
-                    <label>Color</label>
-                    <input type='color' className={styles['color-input']} value={color} onChange={(e)=>setColor(e.target.value)}></input>
-                </div>
-                    
-                <div className={styles['items-container']}>
-                    <div className={styles.items}>
-                        {colors.map((c, index)=>(
-                            <button key={"color-"+index} className={styles.colorButton} onClick={()=>setColor(c)} style={{backgroundColor: c, border: `2px solid ${color === c ? 'white' : 'transparent'}`}}></button>
-                        ))}
+                <fieldset className={styles.modals}>
+                    <div className={styles['color-input']}>
+                        <label>Color</label>
+                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
-                </div>
-                    
-                <div className={styles['items-container-header']}>
-                    <label>Icon</label>
-                    <img src={icon.icon} alt='' className={styles['icon-picker-img']} />
-                </div>
-                <div className={styles['items-container']}>
-                    <div className={styles.items}>
-                        {defaultIcons.map((i, index)=>(
-                            <button key={"icon-"+index} className={styles.iconButton} onClick={()=>setIcon(i)} style={{border: `2px solid ${icon === i ? 'white' : 'transparent'}`}}>
-                                <img src={i.icon} alt='' />
-                            </button>
-                        ))}
+                    <div className={styles['icon-input']}>
+                        <label>Icon</label>
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
-                </div>
-                
+                </fieldset>
             </div>
             <div className={styles['new-goal-buttons']}>
                 <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>

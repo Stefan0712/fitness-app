@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { useSelector } from 'react-redux';
 import GoalBody from './GoalBody';
-import NewGoal from './NewGoal.js';
+import NewGoal from './NewGoal.tsx';
 
 
 
