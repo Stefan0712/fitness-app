@@ -3,7 +3,7 @@
     bottom: 0px;
     height: 450px;
     position: absolute;
-    background-color: #1A1A1B;
+    background-color: var(--modal-bg);
     left: 0px;
     display: flex;
     flex-direction: column;

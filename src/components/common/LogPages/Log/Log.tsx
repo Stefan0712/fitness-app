@@ -11,10 +11,7 @@ interface GoalObject {
     type: string;
     id: string;
     name: string;
-    icon: {
-        name: string,
-        url: string
-    };
+    icon: string;
     data: {
         value: number;
         time: string;
@@ -40,6 +37,7 @@ const Log: React.FC<LogProps> = ({id}) => {
     const [inputValue, setInputValue] = useState<number>(0);
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
+    const [unit, setUnit] = useState<string>('');
     const goalData = useSelector((state: RootState) => state.user.goals.find((item) => item.id === id));
     const getCurrentTime = (input: Date | string = new Date()): string => {
         // Ensure input is a Date object
@@ -72,7 +70,7 @@ const Log: React.FC<LogProps> = ({id}) => {
                     time,
                     description,
                     name,
-                    unit: goalData.unit
+                    unit
                 }
             }
             dispatch(addLog(data));
