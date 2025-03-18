@@ -382,7 +382,7 @@ const userSlice = createSlice({
       const date = convertTimestampToDate(timestamp);
       if (state.activity.find(entry=>entry.date===date)) {
         const index = state.activity.findIndex(item=>item.date===date);
-        state.activity[index].logs = state.activity[index].logs.filter(item=>item.id!==action.payload)
+        state.activity[index].logs = state.activity[index].logs.filter(item=>item.timestamp!==action.payload)
       }
     },
 
@@ -480,18 +480,32 @@ const userSlice = createSlice({
       }
    },
    addGoal: (state, action) => {
-     const data = action.payload
      const newItem = {
-       id: data.id || uuidv4(),
-       source: 'user',
-       ...data
+       id: action.payload.id || uuidv4(),
+       ...action.payload
      };
-     if (!state.userData.goals.some(item => item.id === action.payload.id)) {// Prevent duplicates
-        state.userData.goals.push(newItem); 
+     if (!state.goals.some(item => item.id === action.payload.id)) {// Prevent duplicates
+        state.goals.push(newItem); 
      }
+     //add the new goal to the copy of goals if it exists
+     const activityEntry = state.activity.find(entry=>entry.date===getCurrentDay());
+     if(activityEntry){
+      const index = state.activity.findIndex(entry=>entry===activityEntry);
+      state.activity[index].goals.push(newItem)
+      console.log("Goal updated:",state.activity[index])
+     }
+     
   },
   removeGoal: (state, action) => {
-     state.userData.goals = state.userData.goals.filter(item => item.id !== action.payload);
+     state.goals = state.goals.filter(item => item.id !== action.payload);
+     //remove the goal from the copy of goals if it exists
+     const activityEntry = state.activity.find(entry=>entry.date===getCurrentDay());
+     if(activityEntry){
+      const index = state.activity.findIndex(entry=>entry===activityEntry);
+      state.activity[index].goals = state.activity[index].goals.filter(item=>item.id!==action.payload);
+      console.log("Goal updated:",state.activity[index])
+     }
+     
   },
   updateGoal : (state, action) =>{
      const index = state.goals.findIndex(eq => eq.id === action.payload.id);
@@ -499,12 +513,15 @@ const userSlice = createSlice({
        state.goals[index] = action.payload;
        console.log('Goal was updated with: ',action.payload)
      }
-  },
-  enableStopwatch: (state) =>{
-    state.userData.isStopwatchOn = true;
-  },
-  disableStopwatch: (state) =>{
-    state.userData.isStopwatchOn = false;
+     //update the goal from the copy of goals if it exists
+     const activityIndex = state.activity.findIndex(entry=>entry.date===getCurrentDay());
+     if(activityIndex >= 0 ){
+        const goalIndex = state.activity[activityIndex].goals.findIndex(goal=>goal.id === action.payload.id);
+      if(goalIndex >= 0){
+        state.activity[activityIndex].goals[goalIndex] = action.payload;
+      }
+      console.log("Goal updated:",state.activity[activityIndex])
+     }
   },
   updateDashboardLayout: (state, action) =>{
     state.dashboardSections = action.payload;

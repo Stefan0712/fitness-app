@@ -14,6 +14,7 @@ const LogsHistory = () => {
 
     const [showInfo, setShowInfo] = useState(null);
     const activity = useSelector((state)=>state.user.activity)
+    console.log(activity)
     const [showLog, setShowLog] = useState(null);
     const [intervalPart, setIntervalPart] = useState('last-seven-days')
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
