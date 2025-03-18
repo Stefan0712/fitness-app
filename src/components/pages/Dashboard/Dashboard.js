@@ -9,7 +9,7 @@ import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';
-import MessageModal from '../../common/MessageModal/MessageModal';
+import MessageModal from '../../common/MessageModal/MessageModal.tsx';
 
 
 

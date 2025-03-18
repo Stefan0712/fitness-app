@@ -101,7 +101,11 @@ interface BaseLog{
 }
 interface GoalLog extends BaseLog{
   data: {
-    value: number
+    value: number;
+    time: string;
+    description: string;
+    name: string;
+    unit: string;
   }
 }
 interface Field {

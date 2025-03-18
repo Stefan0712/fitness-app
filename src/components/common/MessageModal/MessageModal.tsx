@@ -1,7 +1,16 @@
 import { IconLibrary } from '../../../IconLibrary';
 import styles from './MessageModal.module.css';
 import { useEffect } from 'react';
+import React from 'react';
 
+interface MessageProps {
+    message: string;
+    type: string;
+    closeModal: ()=> void;
+    functionToRun?: ()=> void;
+    functionButtonText?: string;
+    bottom?: number;
+}
 const MessageModal = ({message, type, closeModal, functionToRun, functionButtonText, bottom}) =>{
 
     useEffect(()=>{

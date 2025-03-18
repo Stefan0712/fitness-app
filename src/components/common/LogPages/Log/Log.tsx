@@ -2,15 +2,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLog } from "../../../../store/userSlice.ts";
 import { useState } from "react";
 import styles from './Log.module.css';
-import MessageModal from "../../MessageModal/MessageModal";
+import MessageModal from "../../MessageModal/MessageModal.tsx";
+import React from "react";
+import { RootState } from "../../../../store/index.ts";
 
 interface GoalObject {
     timestamp?: string;
     type: string;
     id: string;
     name: string;
-    icon: Icon;
-    data: Data;
+    icon: {
+        name: string,
+        url: string
+    };
+    data: {
+        value: number;
+        time: string;
+        description: string;
+        name: string;
+        unit: string;
+    };
 }
 interface MessageObject {
     message: string;
@@ -29,9 +40,7 @@ const Log: React.FC<LogProps> = ({id}) => {
     const [inputValue, setInputValue] = useState<number>(0);
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const goalData = useSelector((state: RootState) => 
-        state.user.goals.find((item) => item.id === id)
-    );
+    const goalData = useSelector((state: RootState) => state.user.goals.find((item) => item.id === id));
     const getCurrentTime = (input: Date | string = new Date()): string => {
         // Ensure input is a Date object
         const date = typeof input === "string" ? new Date(input) : input;
@@ -45,32 +54,34 @@ const Log: React.FC<LogProps> = ({id}) => {
     };
     
     const [time, setTime] = useState<string>(getCurrentTime())
-  const submitLog = () =>{
-    if(!name){
-        setMessage({type: 'fail', message: "Name can't be empty"});
-    }else if(!inputValue || inputValue === 0){
-        setMessage({type: 'fail', message: "Value can't be empty"});
-    }else{
-        const data: GoalObject = {
-            type: 'goal', 
-            id: goalData.id,
-            name: goalData.name, 
-            icon: goalData.icon,
-            data: {
-                value: inputValue,
-                time,
-                description,
-                name,
-                unit: goalData.unit
+
+
+    const submitLog = () =>{
+        if(!name){
+            setMessage({type: 'fail', message: "Name can't be empty"});
+        }else if(!inputValue || inputValue === 0){
+            setMessage({type: 'fail', message: "Value can't be empty"});
+        }else if(goalData){
+            const data: GoalObject = {
+                type: 'goal', 
+                id: goalData.id,
+                name: goalData.name, 
+                icon: goalData.icon,
+                data: {
+                    value: inputValue,
+                    time,
+                    description,
+                    name,
+                    unit: goalData.unit
+                }
             }
+            dispatch(addLog(data));
+            setInputValue(0);
+            setName('');
+            setDescription('');
+            setTime(getCurrentTime());
+            setMessage({message: "Log submited succesffully", type: 'success'});
         }
-        dispatch(addLog(data));
-        setInputValue(0);
-        setName('');
-        setDescription('');
-        setTime(getCurrentTime());
-        setMessage({message: "Log submited succesffully", type: 'success'});
-    }
     }
 
     return ( 
@@ -86,7 +97,7 @@ const Log: React.FC<LogProps> = ({id}) => {
             </fieldset>
             <fieldset className={styles['half-input']}>
                 <label>Value</label>
-                <input type="number" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+                <input type="number" onChange={(e)=>setInputValue(parseInt(e.target.value))} value={inputValue}></input>
             </fieldset>
             <fieldset>
                 <label>Description</label>

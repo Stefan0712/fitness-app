@@ -63,4 +63,9 @@
     border-radius: 5px;
     border: 1px solid transparent;
 }
-
+.color-button{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+}

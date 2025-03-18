@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../../IconLibrary';
 import { removeLog } from '../../../../store/userSlice.ts';
-import MessageModal from '../../MessageModal/MessageModal';
+import MessageModal from '../../MessageModal/MessageModal.tsx';
 
 interface Icon {
     name: string;

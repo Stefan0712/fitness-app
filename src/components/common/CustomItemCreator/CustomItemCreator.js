@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ColorPicker from "../ColorPicker/ColorPicker";
+import ColorPicker from "../ColorPicker/ColorPicker.tsx";
 import { v4 as uuidv4 } from "uuid";
 import { IconLibrary } from "../../../IconLibrary";
 import { useSelector } from "react-redux";
