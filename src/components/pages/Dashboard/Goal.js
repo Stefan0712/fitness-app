@@ -49,7 +49,7 @@ const Goal = ({data,showMessage}) => {
         showMessage({message: `${data.name} was hidden`, type: 'success'});
     }
     return ( 
-        <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`} onClick={()=>setIsHistoryExpanded(isHistoryExpanded=>!isHistoryExpanded)}>
+        <div className={`${styles.goal} ${isHistoryExpanded ? styles['expand-goal'] : ''}`}>
             {showMenu ? (
                 <div className={styles.menu}>
                     <button type='button' className='clear-button' onClick={hideGoal}>Hide</button>
@@ -57,12 +57,12 @@ const Goal = ({data,showMessage}) => {
                 </div>
             ):null}
             <div className={styles.header}>
-                <img className={styles.icon} src={data.icon.icon}></img>
+                <img className={styles.icon} src={data.icon}></img>
                 <h3>{data.name}</h3>
                 <p>{logs?.reduce((sum, obj)=>sum + parseInt(obj.data.value,10),0) || 0}/{data.target}</p>
                 <button className='clear-button' onClick={()=>setShowMenu(true)}><img src={IconLibrary.Hide} className='small-icon' alt='' /></button>
             </div>
-            <div className={styles.days}>
+            <div className={styles.days} onClick={()=>setIsHistoryExpanded(isHistoryExpanded=>!isHistoryExpanded)}>
                 {currentWeek?.map((item, index)=>{
                     return (
                         <div className={`${styles.day} ${getCurrentDay() === item.date ? styles.selected : ''}`} key={index}>
