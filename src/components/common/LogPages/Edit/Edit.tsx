@@ -32,13 +32,12 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
 
     const dispatch = useDispatch();
     const goalData = useSelector<GoalData>((state)=>state.user.goals.find((item)=>item.id===goalId));
-    //TODO: Add validation
 
     const [name, setName] = useState<string>(goalData.name || '');
     const [unit, setUnit] = useState<string>(goalData.unit || '');
     const [target, setTarget] = useState<number>(goalData.target || 0);
     const [color, setColor] = useState<string>(goalData.color || 'white');
-    const [icon, setIcon] = useState<Icon>(goalData.icon || defaultIcons[0])
+    const [icon, setIcon] = useState<Icon>(goalData.icon)
     const [message, setMessage] = useState<MessageObject | null>(null);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
@@ -94,12 +93,18 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
             </fieldset>
             <fieldset className={styles.target}>
                 <label>Target</label>
-                <input type='number' name='target' id='target' onChange={(e)=>setTarget(e.target.value)} value={target}></input>
+                <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target}></input>
             </fieldset>
-            <label className={styles.fullLabel}>Color</label>
-            <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-            <label className={styles.fullLabel}>Icon</label>
-            <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon.url} className='small-icon'/></button> 
+            <fieldset className={styles.modals}>
+                <div className={styles['color-input']}>
+                    <label>Color</label>
+                    <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                </div>
+                <div className={styles['icon-input']}>
+                    <label>Icon</label>
+                    <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                </div>
+            </fieldset>
             <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Update Goal</button>
         </div>
      );

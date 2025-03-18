@@ -84,20 +84,15 @@ interface Goal {
   name: string,
   unit: string,
   target: number,
-  icon: {
-    name: string,
-    url: string
-  }
+  icon: string,
+  color: string
 }
 interface BaseLog{
   id: string,
   timestamp: string,
   type: string,
   name: string,
-  icon: {
-    name: string,
-    url: string
-  },
+  icon: string,
 }
 interface GoalLog extends BaseLog{
   data: {
@@ -255,14 +250,16 @@ const initialState: InitialStateObject = {
       name: 'Calories',
       unit: 'kcal',
       target: 1400,
-      icon: {name: 'Calories', url: IconLibrary.Calories}
+      icon: IconLibrary.Calories,
+      color:'#EB5928'
     },
     {
       id: '3d629850-384e-4adf-95f8-6c8209c3fe1f',
       name: 'Steps',
       unit: 'steps',
       target: 6000,
-      icon: {name: 'Steps', url: IconLibrary.Steps}
+      icon: IconLibrary.Steps,
+      color: 'green'
     }
   ],
   activity: [],
