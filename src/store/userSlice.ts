@@ -169,7 +169,7 @@ interface WorkoutLog extends BaseLog{
 }
 interface Activity {
   date: string;
-  logs: WorkoutLog | ExerciseLog | FoodLog | GoalLog;
+  logs: (WorkoutLog | ExerciseLog | FoodLog | GoalLog)[];
   goals: Goal[]
 }
 interface Section {
@@ -364,23 +364,25 @@ const userSlice = createSlice({
       const timestamp = new Date().toISOString();
       const date = getCurrentDay();
        
-      if (!state.activity[date]) {
-        state.activity[date] = { logs: [], goals: state.userData.goals };
+      if(!state.activity.find(entry=>entry.date === date)){
+        const newEntry: Activity = {
+          date,
+          goals: [...state.goals],
+          logs:[{timestamp, ...action.payload}]
+        }
+        state.activity.push(newEntry)
+      }else{
+        const index = state.activity.findIndex(item=>item.date===date);
+        state.activity[index].logs.push({timestamp, ...action.payload})
       }
       
-      state.activity[date].logs.push({
-        timestamp,
-        ...action.payload
-      });
     },
-
     removeLog: (state, action) => {
       const timestamp = action.payload;
       const date = convertTimestampToDate(timestamp);
-      if (state.activity[date]) {
-        state.activity[date].logs = state.activity[date].logs.filter(
-          (item) => item.timestamp !== timestamp
-        );
+      if (state.activity.find(entry=>entry.date===date)) {
+        const index = state.activity.findIndex(item=>item.date===date);
+        state.activity[index].logs = state.activity[index].logs.filter(item=>item.id!==action.payload)
       }
     },
 
