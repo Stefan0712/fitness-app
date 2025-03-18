@@ -5,7 +5,7 @@ import { useState } from "react";
 import './editProfile.css';
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
-import IconPicker from "../../common/IconPicker/IconPicker";
+import IconPicker from "../../common/IconPicker/IconPicker.tsx";
 import { IconLibrary } from "../../../IconLibrary";
 
 //TODO: Remove goals

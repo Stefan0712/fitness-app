@@ -1,10 +1,11 @@
+import { IconLibrary } from "./IconLibrary"
 export const iconList = [
-    '/icons/calories.svg',
-    '/icons/exercise.svg',
-    '/icons/food.svg',
-    '/icons/sleep.svg',
-    '/icons/steps.svg',
-    '/icons/stopwatch.svg',
-    '/icons/water.svg',
-    '/icons/weight.svg',
+    IconLibrary.Calories,
+    IconLibrary.Exercise,
+    IconLibrary.Food,
+    IconLibrary.Sleep,
+    IconLibrary.Steps,
+    IconLibrary.Stopwatch,
+    IconLibrary.Water,
+    IconLibrary.Weight
 ]

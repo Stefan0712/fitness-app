@@ -1,15 +1,14 @@
 import styles from './Edit.module.css';
 import React from 'react';
 import { useState } from 'react';
-import {colors} from '../../../../constants/defaultColors';
-import { defaultIcons } from '../../../../constants/defaultIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGoal } from '../../../../store/userSlice.ts';
 import MessageModal from '../../MessageModal/MessageModal.tsx';
 import ColorPicker from '../../ColorPicker/ColorPicker.tsx';
+import IconPicker from '../../IconPicker/IconPicker.tsx';
 
 interface Icon {
-    id: string;
+    url: string;
     name: string;
 }
 interface GoalData{
@@ -42,7 +41,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
     const [icon, setIcon] = useState<Icon>(goalData.icon || defaultIcons[0])
     const [message, setMessage] = useState<MessageObject | null>(null);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
-
+    const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
 
 
     const handleUpdateGoal = () =>{
@@ -84,6 +83,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
         <div className={styles['edit-goal']}>
             {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
+            {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
             <fieldset className={styles.name}>
                 <label>Name</label>
                 <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name}></input>
@@ -99,13 +99,7 @@ const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
             <label className={styles.fullLabel}>Color</label>
             <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
             <label className={styles.fullLabel}>Icon</label>
-            <div className={styles['items-container']}>
-                <div className={styles['items']}>
-                    {defaultIcons.map((i, index)=>(
-                        <button key={"icon-"+index} className={styles.iconButton} onClick={()=>setIcon(i)} style={{border: `2px solid ${icon === i ? 'white' : 'transparent'}`}}><img src={i.icon} alt='' /></button>
-                    ))}
-                </div>
-            </div>  
+            <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon.url} className='small-icon'/></button> 
             <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Update Goal</button>
         </div>
      );
