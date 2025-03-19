@@ -6,14 +6,15 @@ import { IconLibrary } from "../../../IconLibrary";
 interface ModalProps {
     closeModal: ()=>void;
     getColor: (color: string) => void;
+    currentColor?: string;
 }
-const ColorPicker: React.FC<ModalProps> = ({getColor, closeModal}) => {
+const ColorPicker: React.FC<ModalProps> = ({getColor, closeModal, currentColor}) => {
 
     const colors = ["#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", 
         "#DD4124", "#45B8AC", "#EFC050", "#5B5EA6", "#9B2335", "#DFCFBE", "#BC243C", "#C3447A", "#98B4D4", "#D94F70", "#6C7A89", 
         "#F7786B", "#F0EAD6", "#C39BD3", "#7FCDCD", "#D5A6BD", "#FFD662"];
 
-    const [selectedColor, setSelectedColor] = useState<string>('white');
+    const [selectedColor, setSelectedColor] = useState<string>(currentColor ?? 'white');
     const [hexCode, setHexCode] = useState<string>('#FFFFFF');
     const [isHexCorrect, setIsHexCorrect] = useState<boolean>(true);
     

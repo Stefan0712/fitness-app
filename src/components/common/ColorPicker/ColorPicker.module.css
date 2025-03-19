@@ -60,14 +60,13 @@
     border-radius: 5px;
 }
 .custom-color-inputs{
-    width: 100%;
     height: 50px;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 .custom-color-input{
-    width: 50px;
+    width: 50px; 
 }
 .selected-color{
     width: 40px;

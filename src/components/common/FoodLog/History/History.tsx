@@ -2,48 +2,55 @@ import { useSelector } from "react-redux";
 import { getCurrentDay } from "../../../../helpers";
 import LogItem from "../LogItem";
 import styles from './History.module.css';
+import {RootState} from '../../../../store/index.ts';
+import React from "react";
 
 
-
-interface Icon {
-    icon: string;
-    name: string;
+interface BaseLog{
+    id: string,
+    timestamp: string,
+    type: string,
+    name: string,
+    icon: string,
 }
-interface Data {
-    name: string;
-    description?: string;
-    time: string;
-    value: number;
+interface FoodLog extends BaseLog{
+    data: {
+        name: string,
+        qty: number,
+        unit: string,
+        protein: number,
+        carbs: number,
+        fats: number,
+        sugar: number,
+        calories: number,
+        sodium: number,
+        time: string,
+        type: string,
+        note?: string
+    }
 }
-interface GoalArrayObject {
-    id: string;
-    name: string;
-    target?: number;
-    unit: string;
-    icon: Icon
+interface Goal {
+    id: string,
+    name: string,
+    unit: string,
+    target: number,
+    icon: string,
+    color: string
 }
-
-interface LogArrayObject {
-    icon: Icon;
-    data: Data;
-    id: string;
-    name: string;
-    timestamp: string;
-    type: string;
+interface Activity {
+    date: string;
+    logs: FoodLog[];
+    goals: Goal[]
 }
-
-interface ActivityArray {
-    logs: LogArrayObject[];
-    goals: GoalArrayObject[];
-}
-
 const History = () => {
 
 
     const currentDate: string = getCurrentDay();
 
-    const activity = useSelector((state: { user: { activity: { [date: string]: ActivityArray } } }) => state.user.activity[currentDate]);
-    const foodLogs = activity?.logs.filter((item)=>item.type==='food');
+    const activity = useSelector((state: RootState) => state.user.activity);
+    const currentDayIndex = activity.findIndex(item=>item.date === currentDate);
+    const activityEntry: Activity = activity[currentDayIndex];
+    const foodLogs: FoodLog[] = activityEntry?.logs?.filter((item)=>item.type==='food');
 
         
     return ( 
