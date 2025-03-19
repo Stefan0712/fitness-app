@@ -43,7 +43,7 @@ const History: React.FC<HistoryProps> = ({id}) => {
     
     
     const activity = useSelector((state: RootState)=>state.user.activity).find(item=>item.date === getCurrentDay()) ?? [];
-    const goalLogs: Log[] = activity.logs.filter((item) => item.id === id) ?? [];
+    const goalLogs: Log[] = activity?.logs?.filter((item) => item.id === id) ?? [];
 
     const goalData = useSelector((state: RootState)=>state.user.goals.find((element)=>element.id === id));
     const [currentValue, setCurrentValue] = useState<number>(0);

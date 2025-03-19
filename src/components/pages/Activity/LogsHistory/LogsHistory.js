@@ -13,7 +13,7 @@ const LogsHistory = () => {
 
 
     const [showInfo, setShowInfo] = useState(null);
-    const activity = useSelector((state)=>state.user.activity)
+    const activity = useSelector((state)=>state.user.activity);
     console.log(activity)
     const [showLog, setShowLog] = useState(null);
     const [intervalPart, setIntervalPart] = useState('last-seven-days')
@@ -48,8 +48,10 @@ const LogsHistory = () => {
     };
     const getLogs = (range = weekRange) => {
         let logsByDay = range.map((item) => {
-            if (activity[item.date] && activity[item.date].logs && activity[item.date].logs.length > 0) {
-                item.logs = [...activity[item.date].logs];
+            const index = activity.findIndex(index=>index.date===item.date);
+            console.log(index);
+            if (index >= 0 && activity[index] && activity[index].logs && activity[index].logs.length > 0) {
+                item.logs = [...activity[index].logs];
             } else {
                 item.logs = [];
             }
