@@ -62,7 +62,6 @@
     min-height: 40px;
     display: flex;
     align-items: center;
-    gap: 10px;
     border-radius: 5px;
     overflow: hidden;
     padding-right: 10px;
@@ -74,4 +73,5 @@
 }
 .name{
     margin-right: auto;
+    margin-left: 10px;
 }

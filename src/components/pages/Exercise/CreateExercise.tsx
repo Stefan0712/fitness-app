@@ -15,6 +15,7 @@ import { RootState } from "../../../store/index.ts";
 import CreateTag from "./CreateTag.tsx";
 import styles from "./CreateExercise.module.css";
 import CreateEquipment from "./CreateEquipment.tsx";
+import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 
 interface Exercise {
     id: string;
@@ -236,10 +237,11 @@ const CreateExercise: React.FC = () => {
                         {currentScreen === 'groups' ? 
                             <div className={styles.screen}>
                                 <div className={styles['new-target-group']}>
+                                    <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
                                     <input type='text' name="groupName" onChange={(e)=>setGroupName(e.target.value)} value={groupName} placeholder="Muscle Name" />
                                     <button className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
                                 </div>  
-                                <DefaultItems key='default-items-groups' allItems={muscles} title={'Saved Target Muscles'} savedItems={muscleGroups} addItem={addmuscleGroups}/>
+                                {showGroups ? <TargetGroupPicker closeModal={()=>setShowGroups(false)} currentItems={muscleGroups} addItem={addmuscleGroups} /> : null}
                                 <div className={styles["tags-container"]}>
                                     {muscleGroups?.length > 0 ? muscleGroups.map((item, index)=><div key={item.name+index} className={styles["tag-body"]}><div className={styles["tag-color"]}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setMuscleGroups((muscleGroups)=>[...muscleGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>

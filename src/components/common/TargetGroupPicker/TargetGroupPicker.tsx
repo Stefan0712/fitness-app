@@ -5,28 +5,27 @@ import { RootState } from '../../../store';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
-interface Tag {
+interface TargetGroup {
     id: string;
     name: string;
-    color: string;
     author: string;
 }
-interface TagPickerProps {
+interface TargetGroupPickerProps {
     closeModal: () => void;
-    addTag: (tag: Tag) => void;
-    currentTags: Tag[]
+    addItem: (item: TargetGroup) => void;
+    currentItems: TargetGroup[]
 }
-const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) => {
+const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addItem, currentItems}) => {
 
     const tags = useSelector((state: RootState)=>state.user.tags);
 
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const [items, setItems] = useState<Tag[]>(tags || []);
+    const [items, setItems] = useState<TargetGroup[]>(tags || []);
 
 
 
     const checkIfAdded = (item) =>{
-        if (currentTags.find(existingItem => existingItem.id === item.id)) {
+        if (currentItems.find(existingItem => existingItem.id === item.id)) {
             return true;
         }
         return false;
@@ -35,7 +34,7 @@ const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) 
     const handleSeach = (value: string) =>{
         setSearchQuery(value.toLowerCase());
         if(value.toLowerCase().length > 0){
-            const filteredItems = currentTags.filter((item: Tag) => item.name.toLowerCase().includes(value.toLowerCase()));
+            const filteredItems = currentItems.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
             setItems(filteredItems);
         }
        
@@ -55,10 +54,9 @@ const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) 
             <div className={styles.results}>
                 {items?.length > 0 ? items.map((item,index)=>
                     checkIfAdded(item) ? null : (
-                        <div className={styles.tag} key={'tag-'+item.name+index}>
-                            <div className={styles.color} style={{backgroundColor: item.color}}></div>
+                        <div className={styles.tag} key={'equipment-'+item.name+index}>
                             <p className={styles.name}>{item.name}</p>
-                            <button type="button" className="clear-button" onClick={()=>addTag(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
+                            <button type="button" className="clear-button" onClick={()=>addItem(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                         </div>
                     )
                 ):<p>Items not found</p>}
@@ -67,4 +65,4 @@ const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) 
      );
 }
  
-export default TagPicker;
+export default TargetGroupPicker;
