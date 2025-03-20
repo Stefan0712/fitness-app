@@ -4,7 +4,7 @@
 
 
 .create-workout-page{
-    min-height: 100vh;
+    height: calc(100vh - 75px);
 }
 .create-workout-page form{
     width: 100%;

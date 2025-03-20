@@ -11,8 +11,6 @@ import { exercises as databaseExercises } from "../../../database.js";
 import {RootState} from '../../../store/index.ts';
 
 //default values
-import {defaultEquipment} from "../../../constants/defaultEquipment.js";
-import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
 import CreateTag from "../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../Exercise/CreateEquipment.tsx";
