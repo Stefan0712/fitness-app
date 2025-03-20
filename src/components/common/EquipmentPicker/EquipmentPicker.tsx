@@ -38,19 +38,20 @@ const EquipmentPicker: React.FC<EquipmentPickerProps> = ({closeModal, addItem, c
     }
 
     const handleSeach = (value: string) =>{
-        setSearchQuery(value.toLowerCase());
-        if(value.toLowerCase().length > 0){
-            const filteredItems = currentItems.filter((item: Equipment) => item.name.toLowerCase().includes(value.toLowerCase()));
-            setItems(filteredItems);
+        setSearchQuery(value);
+        if (!value.trim()) {
+            setItems(defaultItems); // Reset if search is empty
+            return;
         }
-       
+        const filteredItems = defaultItems.filter((item: Equipment) => item.name.toLowerCase().includes(value.toLowerCase()));
+        setItems(filteredItems);
     }
 
 
     return ( 
         <div className={styles['tag-picker']}>
             <div className={styles.top}>
-                <h3>My Tags</h3>
+                <h3>My Equipment</h3>
                 <button type="button" className="clear-button" onClick={closeModal}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles['search-bar']}>

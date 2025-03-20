@@ -33,12 +33,13 @@ const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) 
     }
 
     const handleSeach = (value: string) =>{
-        setSearchQuery(value.toLowerCase());
-        if(value.toLowerCase().length > 0){
-            const filteredItems = currentTags.filter((item: Tag) => item.name.toLowerCase().includes(value.toLowerCase()));
-            setItems(filteredItems);
+        setSearchQuery(value);
+        if (!value.trim()) {
+            setItems(tags); // Reset if search is empty
+            return;
         }
-       
+        const filteredItems = tags.filter((item: Tag) => item.name.toLowerCase().includes(value.toLowerCase()));
+        setItems(filteredItems);
     }
 
 
@@ -49,7 +50,7 @@ const TagPicker: React.FC<TagPickerProps> = ({closeModal, addTag, currentTags}) 
                 <button type="button" className="clear-button" onClick={closeModal}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles['search-bar']}>
-                <input className={styles['search-input']} type="text" minLength={0} maxLength={20} onChange={(e)=>handleSeach(e.target.value)} value={searchQuery} placeholder='Search...'></input>
+                <input className={styles['search-input']} type="text" minLength={0} maxLength={100} onChange={(e)=>handleSeach(e.target.value)} value={searchQuery} placeholder='Search...'></input>
                 <img className="small-icon" src={IconLibrary.Search} />
             </div>
             <div className={styles.results}>

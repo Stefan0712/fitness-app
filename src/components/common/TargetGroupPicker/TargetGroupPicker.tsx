@@ -31,12 +31,13 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
     }
 
     const handleSeach = (value: string) =>{
-        setSearchQuery(value.toLowerCase());
-        if(value.toLowerCase().length > 0){
-            const filteredItems = currentItems.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
-            setItems(filteredItems);
+        setSearchQuery(value);
+        if (!value.trim()) {
+            setItems(items); // Reset if search is empty
+            return;
         }
-       
+        const filteredItems = items.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
+        setItems(filteredItems);
     }
 
 

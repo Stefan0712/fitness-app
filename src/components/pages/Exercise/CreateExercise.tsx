@@ -177,7 +177,7 @@ const CreateExercise: React.FC = () => {
                             <img className="small-icon" src={IconLibrary.Arrow} alt="" style={{transform: `rotateZ(${isExtended ? '90deg' : '180deg'})`, transition: 'all 0.1s'}}/>
                         </div>
                         <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
-                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100} placeholder="Description"></input>
+                        <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={300} placeholder="Description"></input>
                         <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
                         <fieldset className={styles["small-inputs"]}>
                                 <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
@@ -239,7 +239,7 @@ const CreateExercise: React.FC = () => {
                                 <div className={styles['new-target-group']}>
                                     <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
                                     <input type='text' name="groupName" onChange={(e)=>setGroupName(e.target.value)} value={groupName} placeholder="Muscle Name" />
-                                    <button className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
+                                    <button type="button" className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
                                 </div>  
                                 {showGroups ? <TargetGroupPicker closeModal={()=>setShowGroups(false)} currentItems={muscleGroups} addItem={addmuscleGroups} /> : null}
                                 <div className={styles["tags-container"]}>
