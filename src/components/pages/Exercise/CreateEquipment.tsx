@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {IconLibrary} from '../../../IconLibrary';
+import EquipmentPicker from '../../common/EquipmentPicker/EquipmentPicker.tsx';
 
 interface Equipment {
     id: string;
@@ -17,15 +18,17 @@ interface EquipmentAttributes {
 }
 interface CreateEquipmentProps {
     addEquipment: (equipment: Equipment) => void;
+    allItems: Equipment[];
 }
   
-const CreateEquipment: React.FC<CreateEquipmentProps> = ({addEquipment}) => {
+const CreateEquipment: React.FC<CreateEquipmentProps> = ({addEquipment, allItems}) => {
 
     const [name, setName] = useState<string>('');
     const [unit, setUnit] = useState<string>('');
     const [value, setValue] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
+    const [showEquipments, setShowEquipments] = useState(false);
 
     const handleNameChange = ( value ) =>{
         if(name.length > 0 && name.length < 15 && error){
@@ -61,6 +64,8 @@ const CreateEquipment: React.FC<CreateEquipmentProps> = ({addEquipment}) => {
 
     return ( 
         <div className={styles['create-equipment']}>
+            {showEquipments ? <EquipmentPicker closeModal={()=>setShowEquipments(false)} currentItems={allItems} addItem={addEquipment} /> : null}
+            <button type="button" className="clear-button" onClick={()=>setShowEquipments(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
             <input className={error ? 'input-error' : ''} type='text' onChange={(e)=>handleNameChange(e.target.value)} value={name} maxLength={15} placeholder='Name'/>
             <input type='text' onChange={(e)=>handleUnitChange(e.target.value)} value={unit} placeholder='Unit'/>
             <input type='number' onChange={(e)=>handleValueChange(e.target.value)} value={value} placeholder='Value'/>

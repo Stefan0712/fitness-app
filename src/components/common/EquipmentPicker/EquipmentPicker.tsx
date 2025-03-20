@@ -1,25 +1,32 @@
 import React from 'react';
 import styles from '../styles/DefaultItemPicker.module.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
-import {muscles as defaultItems} from '../../../constants/defaultMuscles';
 
-interface TargetGroup {
+interface Equipment {
     id: string;
     name: string;
-    author: string;
+    attributes?: EquipmentAttributes[];
 }
-interface TargetGroupPickerProps {
+  
+interface EquipmentAttributes {
+    name: string;
+    value: number;
+    unit: string;
+}
+interface EquipmentPickerProps {
     closeModal: () => void;
-    addItem: (item: TargetGroup) => void;
-    currentItems: TargetGroup[]
+    addItem: (item: Equipment) => void;
+    currentItems: Equipment[]
 }
-const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addItem, currentItems}) => {
+const EquipmentPicker: React.FC<EquipmentPickerProps> = ({closeModal, addItem, currentItems}) => {
 
-
+    const defaultItems = useSelector((state: RootState)=>state.user.equipment);
 
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const [items, setItems] = useState<TargetGroup[]>(defaultItems.map(({ name, id }) => ({ name, id, author: "system" })) || []);
+    const [items, setItems] = useState<Equipment[]>(defaultItems || []);
 
 
 
@@ -33,7 +40,7 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
     const handleSeach = (value: string) =>{
         setSearchQuery(value.toLowerCase());
         if(value.toLowerCase().length > 0){
-            const filteredItems = currentItems.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
+            const filteredItems = currentItems.filter((item: Equipment) => item.name.toLowerCase().includes(value.toLowerCase()));
             setItems(filteredItems);
         }
        
@@ -55,6 +62,12 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
                     checkIfAdded(item) ? null : (
                         <div className={styles.tag} key={'equipment-'+item.name+index}>
                             <p className={styles.name}>{item.name}</p>
+                            <div className={styles.attributes}>
+                                {item.attributes && item.attributes.length > 0 ? 
+                                    <div className={styles.attribute} key={'attribute-'+item.name}>
+                                        <p>{item.attributes[0]?.value} {item.attributes[0]?.unit}</p>
+                                    </div> : null}
+                            </div>
                             <button type="button" className="clear-button" onClick={()=>addItem(item)}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                         </div>
                     )
@@ -64,4 +77,4 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
      );
 }
  
-export default TargetGroupPicker;
+export default EquipmentPicker;

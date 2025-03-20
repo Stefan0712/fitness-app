@@ -249,8 +249,7 @@ const CreateExercise: React.FC = () => {
                         : null}
                         {currentScreen === 'equipment' ? 
                             <div className={styles.screen}>
-                                <CreateEquipment addEquipment={addEquipment} />
-                                <DefaultItems key='default-items-equipment' allItems={equipment} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
+                                <CreateEquipment addEquipment={addEquipment} allItems={equipments} />
                                 <div className={styles["equipments-container"]}>
                                     {equipments?.length > 0 ? equipments.map((item,index)=><div key={item.name+index} className={styles["equipment-body"]}>
                                         <p>{item.name}</p>
