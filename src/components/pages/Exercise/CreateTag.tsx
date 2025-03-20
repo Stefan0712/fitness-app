@@ -4,6 +4,7 @@ import { useState } from "react";
 import ColorPicker from "../../common/ColorPicker/ColorPicker.tsx";
 import { IconLibrary } from "../../../IconLibrary";
 import {v4 as uuidv4} from 'uuid';
+import TagPicker from "../../common/TagPicker/TagPicker.tsx";
 
 interface Tag {
     id: string;
@@ -14,13 +15,15 @@ interface Tag {
 interface CreateTagProps {
     addTag: (tag: Tag)=>void;
     author: string;
+    allTags: Tag[]
 }
-const CreateTag: React.FC<CreateTagProps> = ({addTag, author}) => {
+const CreateTag: React.FC<CreateTagProps> = ({addTag, author, allTags}) => {
 
     const [name, setName] = useState<string>('');
     const [color, setColor] = useState<string>('#FFFFF');
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
+    const [showTags, setShowTags] = useState<boolean>(false);
 
     const addButtonStyles = {
         width: '40px', 
@@ -40,7 +43,7 @@ const CreateTag: React.FC<CreateTagProps> = ({addTag, author}) => {
         width: '100%', 
         height: '50px', 
         display: 'grid', 
-        gridTemplateColumns: '50px 1fr 50px', 
+        gridTemplateColumns: '50px 50px 1fr 50px', 
         gap: '5px'
     }
 
@@ -72,7 +75,9 @@ const CreateTag: React.FC<CreateTagProps> = ({addTag, author}) => {
     }
     return ( 
         <div style={createTagStyles}>
+            {showTags ? <TagPicker closeModal={()=>setShowTags(false)} currentTags={allTags} addTag={addTag} /> : null}
             {showColorPicker ? <ColorPicker closeModal={()=>setShowColorPicker(false)} getColor={setColor} currentColor={color}/> : null}
+            <button type="button" className="clear-button" onClick={()=>setShowTags(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
             <button className={styles['colorpicker-button']} type="button" style={colorButtonStyles} onClick={()=>setShowColorPicker(true)} />
             <input className={`${error ? 'error-input' : ''}`} type="text" name="name" id="name" onChange={(e)=>handleNameInput(e.target.value)} value={name} placeholder="Name"/>
             <button type="button" className={styles['add-tag-button']} onClick={handleAddTag} style={addButtonStyles}><img style={{width: '40px', height: '40px'}} src={IconLibrary.Add} alt="" /></button>

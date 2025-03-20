@@ -77,7 +77,7 @@ interface Field {
 const CreateExercise: React.FC = () => {
 
     const equipment = useSelector((state: RootState)=>state.user.equipment);
-    const tags = useSelector((state: RootState)=>state.user.tags);
+    
 
     const user = useSelector((state: RootState)=>state.user.userData.id)
 
@@ -86,7 +86,9 @@ const CreateExercise: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [currentScreen, setCurrentScreen] = useState<string>('fields')
+    const [currentScreen, setCurrentScreen] = useState<string>('fields');
+    const [showGroups, setShowGroups] = useState<boolean>(false);
+    const [showEquipments, setShowEquipments] = useState<boolean>(false);
 
     //form values
     const [name, setName] = useState<string>('');
@@ -224,8 +226,8 @@ const CreateExercise: React.FC = () => {
                         : null}
                         {currentScreen === 'tags' ? 
                             <div className={`${styles.screen} ${currentScreen === styles.tags ? styles.expand : null}`}>
-                                <CreateTag addTag={addTag} author={user} />
-                                {/* <DefaultItems key='default-items-tags' allItems={tags} title={'Saved Tags'} savedItems={exerciseTags} addItem={addTag}/> */}
+                                <CreateTag addTag={addTag} author={user} allTags={exerciseTags} />
+                                
                                 <div className={styles["tags-container"]}>
                                     {exerciseTags?.length > 0 ? exerciseTags.map((item)=><div key={item.name+item.color} className={styles["tag-body"]}><div className={styles["tag-color"]} style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setExerciseTags((exerciseTags)=>[...exerciseTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>

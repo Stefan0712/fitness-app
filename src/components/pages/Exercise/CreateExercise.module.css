@@ -153,6 +153,7 @@ fieldset{
     width: 3px;
 }
 .tags-container{
+    padding: 10px 0;
     width: 100%;
     height: 150px;
     display: flex;
@@ -160,6 +161,8 @@ fieldset{
     gap: 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 .equipments-container{
     width: 100%;
