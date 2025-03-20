@@ -6,9 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { addExercise } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom';
-import { muscles as defaultmuscleGroups, muscles } from "../../../constants/defaultMuscles";
-import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator";
-import DefaultItems from "../../common/DefaultItems/DefaultItems";
 import { IconLibrary } from "../../../IconLibrary";
 import CreateExerciseField from "../../common/CreateExerciseField/CreateExerciseField";
 import { RootState } from "../../../store/index.ts";
@@ -56,8 +53,8 @@ interface Equipment {
   
 interface EquipmentAttributes {
     name: string;
-    value: number;
-    unit: string;
+    value?: number;
+    unit?: string;
 }
   
   
@@ -226,7 +223,7 @@ const CreateExercise: React.FC = () => {
                             </div>
                         : null}
                         {currentScreen === 'tags' ? 
-                            <div className={`${styles.screen} ${currentScreen === styles.tags ? styles.expand : null}`}>
+                             <div className={styles.screen}>
                                 <CreateTag addTag={addTag} author={user} allTags={exerciseTags} />
                                 
                                 <div className={styles["tags-container"]}>

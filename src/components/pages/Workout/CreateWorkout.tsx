@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addExercise, addWorkout } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
-import CustomItemCreator from "../../common/CustomItemCreator/CustomItemCreator.js";
 import { exercises as databaseExercises } from "../../../database.js";
 import {RootState} from '../../../store/index.ts';
 
 //default values
-import { defaultTags } from "../../../constants/defaultTags.js";
-import { muscles as defaultTargetGroups } from "../../../constants/defaultMuscles.js";
 import {defaultEquipment} from "../../../constants/defaultEquipment.js";
 import DefaultItems from "../../common/DefaultItems/DefaultItems.js";
+import CreateTag from "../Exercise/CreateTag.tsx";
+import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
+import CreateEquipment from "../Exercise/CreateEquipment.tsx";
 
 
 interface Exercise {
@@ -55,7 +55,7 @@ interface Equipment {
   
 interface EquipmentAttributes {
     name: string;
-    value: number;
+    value?: number;
     unit: string;
 }
   
@@ -103,6 +103,10 @@ const CreateWorkout: React.FC = () => {
     const [exercisesSource, setExercisesSource] = useState<string>('library')
 
     const [exercises, setExercises] = useState<Exercise[]>([]);
+
+    const [showGroups, setShowGroups] = useState(false);
+    const [groupName, setGroupName] = useState('');
+
 
 
     const userId = useSelector((state: RootState)=>state.user.userData.id);
@@ -177,10 +181,19 @@ const CreateWorkout: React.FC = () => {
     const addEquipment = (newItem) =>{
         setEquipments((equipments)=>[...equipments, {...newItem, id: uuidv4()}]);
     }
-    const addTargetGroups = (newItem) =>{
-        setTargetGroups((targetGorups)=>[...targetGorups, {...newItem, id: uuidv4()}]);
-    }
-   
+
+   const handleAddGroup = () =>{
+           if(groupName.length > 0 && groupName.length < 15){
+               const groupData: TargetGroup = {
+                   id: uuidv4(),
+                   author: userId,
+                   name: groupName
+               }
+               setTargetGroups(targetGroups=>[...targetGroups,groupData]);
+               setGroupName('');
+           }
+       }
+       
     return ( 
         <div className="create-workout-page page">
             <div className='header'>
@@ -202,7 +215,6 @@ const CreateWorkout: React.FC = () => {
                         </select>
                     </div>
                     <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
-                    <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
                     <div className='screen-selector'>
                         <button type="button" onClick={()=>setCurrentScreen('exercises')} className={currentScreen === 'exercises' ? 'selected-screen-button' : ''}>Exercises</button>
                         <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? 'selected-screen-button' : ''}>Tags</button>
@@ -248,7 +260,7 @@ const CreateWorkout: React.FC = () => {
                                             <div className="exercise-info">
                                                 <h4>{exercise.name}</h4>
                                                 <div className="exercise-tags">
-                                                    {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p>{tag.name}</p>) : ''}
+                                                    {exercise.tags?.length > 0 ? exercise.tags.slice(0, 3).map(tag=><p>{tag.name}</p>) : ''}
                                                 </div>
                                             </div>
                                             <p className="exercise-sets">{exercise.sets} sets</p>
@@ -275,29 +287,36 @@ const CreateWorkout: React.FC = () => {
                                 </div>
                             </fieldset>
                         ) : currentScreen === 'tags' ? (
-                            <fieldset className="tag-selector">
-                                <CustomItemCreator addItem={addTag} type={'tag'}/>
-                                <DefaultItems key={'tags'} allItems={[...defaultTags]} title={'Saved Tags'} savedItems={workoutTags} addItem={addTag}/>
-                                <div className="selected-tags">
+                            <div className="screen">
+                                <CreateTag addTag={addTag} author={userId} allTags={workoutTags} />
+                                
+                                <div className="tags-container">
                                     {workoutTags?.length > 0 ? workoutTags.map((item)=><div key={item.name+item.color} className="tag-body"><div className="tag-color" style={{backgroundColor: item.color}}></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setWorkoutTags((workoutTags)=>[...workoutTags.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
-                            </fieldset>
+                            </div>
                         ) : currentScreen === 'equipment' ? (
-                            <fieldset className="tag-selector">
-                                {/* <CustomItemCreator addItem={addEquipment} type={'equipment'}/> */}
-                                <DefaultItems key={'equipment'} allItems={[...defaultEquipment]} title={'Saved Equipment'} savedItems={equipments} addItem={addEquipment}/>
-                                <div className="selected-tags">
-                                    {equipments?.length > 0 ? equipments.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                            <div className="screen">
+                                <CreateEquipment addEquipment={addEquipment} allItems={equipments} />
+                                <div className="equipments-container">
+                                    {equipments?.length > 0 ? equipments.map((item,index)=><div key={item.name+index} className="equipment-body">
+                                        <p>{item.name}</p>
+                                        <div>{item.attributes && item.attributes.length > 0 ? item.attributes.map((item, index)=>(<p className="attribute" key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}</div>
+                                        <img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/>
+                                    </div>) : ''}
                                 </div>
-                            </fieldset>
+                            </div>
                         ) : currentScreen === 'groups' ? (
-                            <fieldset className="tag-selector">
-                                <CustomItemCreator addItem={addTargetGroups} type={'target-group'}/>
-                                <DefaultItems key={'groups'} allItems={[...defaultTargetGroups]} title={'Saved Target Groups'} savedItems={targetGroups} addItem={addTargetGroups}/>
-                                <div className="selected-tags">
-                                    {targetGroups?.length > 0 ? targetGroups.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((targetGroups)=>[...targetGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
+                            <div className="screen">
+                                <div className='new-target-group'>
+                                    <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
+                                    <input type='text' name="groupName" onChange={(e)=>setGroupName(e.target.value)} value={groupName} placeholder="Muscle Name" />
+                                    <button type="button" className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
+                                </div>  
+                                {showGroups ? <TargetGroupPicker closeModal={()=>setShowGroups(false)} currentItems={targetGroups} addItem={(groupData)=>setTargetGroups(targetGroups=>[...targetGroups,groupData])} /> : null}
+                                <div className="tags-container">
+                                    {targetGroups?.length > 0 ? targetGroups.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((muscleGroups)=>[...muscleGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
                                 </div>
-                            </fieldset>
+                            </div> 
                         ) : null}
                     </div>
                     

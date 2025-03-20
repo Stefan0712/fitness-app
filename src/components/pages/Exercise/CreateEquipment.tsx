@@ -13,8 +13,8 @@ interface Equipment {
 
 interface EquipmentAttributes {
     name: string;
-    value: number;
-    unit: string;
+    value?: number;
+    unit?: string;
 }
 interface CreateEquipmentProps {
     addEquipment: (equipment: Equipment) => void;
@@ -51,7 +51,7 @@ const CreateEquipment: React.FC<CreateEquipmentProps> = ({addEquipment, allItems
             const equipmentData: Equipment = {
                 id: uuidv4(),
                 name,
-                attributes: [{name: unit, unit, value: parseInt(value)}]
+                attributes: [{name: unit, unit, value: typeof value === 'string' ? parseInt(value) : value}]
             };
             addEquipment(equipmentData);
             setName('');

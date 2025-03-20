@@ -13,8 +13,8 @@ interface Equipment {
   
 interface EquipmentAttributes {
     name: string;
-    value: number;
-    unit: string;
+    value?: number;
+    unit?: string;
 }
 interface EquipmentPickerProps {
     closeModal: () => void;

@@ -91,17 +91,7 @@
    height: 40px;
    min-height: 40px;
 }
-.tags-container{
-    width: 100%;
-    max-width: calc(100vw - 30px);
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
+
 .tag-body{
     height: 20px;
     padding: 0 10px;
@@ -213,4 +203,29 @@
     width: 2px;
     background-color: rgba(255, 255, 255, 0.151);
     border-radius: 3px;
+}
+.groups,
+.tags,
+.equipments{
+    width: 100%;
+    height: auto;
+    padding-bottom: 15px;
+}
+.groups-container,
+.tags-container,
+.equipments-container{
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+.groups-container p,
+.equipment{
+    padding: 3px 10px;
+    background-color: #111214;
+}
+h3{
+    padding-left: 15px;
 }
