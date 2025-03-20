@@ -67,22 +67,30 @@
     right: 20px;
     top: 40px;
 }
+.full-width{
+    width: 100% !important;
+}
+.info-block.fields{
+    width: 100%;
+}
+.info-block.fields .info-block-value{
+    
+    padding: 0;
+}
 .view-exercise .field-body #field-name{
-    width: 50%;
+    margin-right: auto;
+    max-width: calc(100% - 150px);
 }
 .view-exercise .field-body #field-target{
-    width: 29%;
+    max-width: 50px;
 }
 .view-exercise .field-body #field-unit{
-    width: 30%;
+    max-width: 100px;
 }
 .view-exercise .exercise-fields{
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: #1A1A1B;
-    border-radius: 5px;
-    padding: 10px;
 }
 .view-exercise .exercise-fields .fields-header{
     border-bottom:1px solid rgba(211, 211, 211, 0.212);
