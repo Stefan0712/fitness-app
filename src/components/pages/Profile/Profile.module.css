@@ -1,0 +1,56 @@
+/*edit profile*/
+
+.edit-profile{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 75px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    gap: 10px;
+}
+.edit-profile .save-button{
+    width: 100px;
+    height: 40px;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    top: 30px;
+    right: 15px;
+}
+.edit-profile-form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: hidden;
+}
+.half{
+    width: calc(50% - 6px);
+}
+fieldset{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+}
+.profile-settings{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    gap: 5px;
+}
+input,
+select,
+option{
+    height: 40px;
+    background-color: var(--input-bg);
+    border: 1px solid rgba(65, 65, 65, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}

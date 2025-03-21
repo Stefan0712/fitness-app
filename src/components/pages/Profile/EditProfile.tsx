@@ -83,15 +83,14 @@ const EditProfile = () => {
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Edit Profile</h2>
-                <button className="save-button" onClick={handleSaveProfile}>Save</button>
+                <button className={styles['save-button']} onClick={handleSaveProfile}>Save</button>
             </div>
             <form className={styles["edit-profile-form"]}>
-                <div className="personal-information-container inputs-container">
-                    <fieldset>
+                    <fieldset className={styles.half}>
                         <label>Name</label>
                         <input type="text" name="name"  id="name"  value={name} onChange={(e) => setName(e.target.value)} ></input>
                     </fieldset>
-                    <fieldset>
+                    <fieldset className={styles.half}>
                         <label>Username</label>
                         <input type="text" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)}
                         />
@@ -103,6 +102,22 @@ const EditProfile = () => {
                     <fieldset>
                         <label>Email</label>
                         <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </fieldset>
+                    <fieldset className={styles.half}>
+                        <label>Age</label>
+                        <input type="number" name="age" id="age" value={age} onChange={(e) => setAge(e.target.value)} />
+                    </fieldset>
+                    <fieldset className={styles.half}>
+                        <label>Gender</label>
+                        <input type="text" name="gender" id="gender" value={gender} onChange={(e) => setGender(e.target.value)} />
+                    </fieldset>
+                    <fieldset className={styles.half}>
+                        <label>Height (cm)</label>
+                        <input type="number" name="height" id="height" value={height} onChange={(e) => setHeight(e.target.value)} />
+                    </fieldset>
+                    <fieldset className={styles.half}>
+                        <label>Weight (kg)</label>
+                        <input type="number" name="weight" id="weight" value={weight} onChange={(e) => setWeight(e.target.value)} />
                     </fieldset>
                     <div className={styles['profile-settings']}>
                         <fieldset>
@@ -134,27 +149,6 @@ const EditProfile = () => {
                             </select>
                         </fieldset>
                     </div>
-                </div>
-                <div className="health-information-container inputs-container">
-                    <fieldset>
-                        <label>Age</label>
-                        <input type="number" name="age" id="age" value={age} onChange={(e) => setAge(e.target.value)} />
-                    </fieldset>
-                    <fieldset>
-                        <label>Gender</label>
-                        <input type="text" name="gender" id="gender" value={gender} onChange={(e) => setGender(e.target.value)} />
-                    </fieldset>
-                    <fieldset>
-                        <label>Height (cm)</label>
-                        <input type="number" name="height" id="height" value={height} onChange={(e) => setHeight(e.target.value)} />
-                    </fieldset>
-                    <fieldset>
-                        <label>Weight (kg)</label>
-                        <input type="number" name="weight" id="weight" value={weight} onChange={(e) => setWeight(e.target.value)} />
-                    </fieldset>
-                </div>
-                
-                
             </form>
         </div>
      );
