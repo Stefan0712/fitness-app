@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.ab7a5030.css",
-    "main.js": "/fitness-app/static/js/main.d7bd6c77.js",
+    "main.css": "/fitness-app/static/css/main.e6429b3b.css",
+    "main.js": "/fitness-app/static/js/main.7c90d80c.js",
     "static/media/medal.svg": "/fitness-app/static/media/medal.53db8d4fc8c43ab8422c73652b4f7b00.svg",
     "static/media/settings.svg": "/fitness-app/static/media/settings.dfcebfd4cd0e3bf55fe731758a563602.svg",
     "static/media/muscle.svg": "/fitness-app/static/media/muscle.2e4dde1846aa7d14dfb5f1ecac32e4dc.svg",
@@ -15,6 +15,8 @@
     "static/media/dumbbell.svg": "/fitness-app/static/media/dumbbell.198d9eb583527ad1049958cd795eb362.svg",
     "static/media/dumbbell-2.svg": "/fitness-app/static/media/dumbbell-2.2d93c21ad02fb456cdc8b2cbf87afb90.svg",
     "static/media/fork.svg": "/fitness-app/static/media/fork.dc4f18ef34bd16ec1491cfd3c9fe60e4.svg",
+    "static/media/disableFullscreen.svg": "/fitness-app/static/media/disableFullscreen.3e53f76ffbaa37d5041b82a2a5537d6e.svg",
+    "static/media/enableFullscreen.svg": "/fitness-app/static/media/enableFullscreen.86a291e032dc6952740fd9e86d6545cf.svg",
     "static/media/thumb-up.svg": "/fitness-app/static/media/thumb-up.56ce263a85e67a86c5676acaa6c1531b.svg",
     "static/media/hide.svg": "/fitness-app/static/media/hide.9be35eaa007cb44c5768991eb3b9eee6.svg",
     "static/media/alarm.svg": "/fitness-app/static/media/alarm.971ccbb3edb3ad0bde3ad38c4990f1c4.svg",
@@ -75,16 +77,16 @@
     "static/media/list.svg": "/fitness-app/static/media/list.4f96b9137b1be16fa6939ee771a5eb62.svg",
     "static/media/pause.svg": "/fitness-app/static/media/pause.51b9f51bab305572f40d502ac3739995.svg",
     "static/media/stop.svg": "/fitness-app/static/media/stop.18da6b61592c86fa2dad0bbb90514166.svg",
-    "static/media/loading.svg": "/fitness-app/static/media/loading.a48716b60feb9f93d2cd521cf79bf10a.svg",
+    "static/media/loading.svg": "/fitness-app/static/media/loading.4d4232985c039afe7813a7c17c799e52.svg",
     "static/media/clipboard.svg": "/fitness-app/static/media/clipboard.53cc1850890226ef59696d900a462e70.svg",
     "static/media/home.svg": "/fitness-app/static/media/home.1f4a00cdec6ce4dfc33479e9ad44d08f.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.8aefe30ba0188b831ef98d9d1956a5cc.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.d4cbd790f65d0bfe5bb99503a158fcbf.svg",
-    "main.ab7a5030.css.map": "/fitness-app/static/css/main.ab7a5030.css.map",
-    "main.d7bd6c77.js.map": "/fitness-app/static/js/main.d7bd6c77.js.map"
+    "main.e6429b3b.css.map": "/fitness-app/static/css/main.e6429b3b.css.map",
+    "main.7c90d80c.js.map": "/fitness-app/static/js/main.7c90d80c.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab7a5030.css",
-    "static/js/main.d7bd6c77.js"
+    "static/css/main.e6429b3b.css",
+    "static/js/main.7c90d80c.js"
   ]
 }
