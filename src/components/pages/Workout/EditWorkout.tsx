@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import './workout.css';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addExercise, addWorkout } from "../../../store/userSlice.ts";
+import { addExercise, addWorkout, updateWorkout } from "../../../store/userSlice.ts";
 import { useParams } from "react-router-dom";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
@@ -160,22 +160,24 @@ const EditWorkout: React.FC = () => {
         };
 
         console.log(newWorkoutData);
-        dispatch(addWorkout(newWorkoutData));
+        dispatch(updateWorkout(newWorkoutData));
         navigate(`/workout/${workoutData.id}/view`);
         }
         
     }
     const fetchExercises = () => {
-        const fetchedExercises = workoutData.exercises.map((ex) => {
+        if(workoutData){
+            const fetchedExercises = workoutData.exercises.map((ex) => {
             
-            const libraryExercise = createdExercises.find(item=>item.id===ex);
-            if(libraryExercise) return libraryExercise;
-            const databaseExercise = defaultExercises.find(item=>item.id===ex);
-            if(databaseExercise) return databaseExercise;
-            console.log("Exercise was not found. ID: "+ex);
-        }).filter(Boolean);
-        console.log(fetchedExercises)
-        setExercises(fetchedExercises);
+                const libraryExercise = createdExercises.find(item=>item.id===ex);
+                if(libraryExercise) return libraryExercise;
+                const databaseExercise = defaultExercises.find(item=>item.id===ex);
+                if(databaseExercise) return databaseExercise;
+                console.log("Exercise was not found. ID: "+ex);
+            }).filter(Boolean);
+            console.log(fetchedExercises)
+            setExercises(fetchedExercises);
+        }
     };
 
 

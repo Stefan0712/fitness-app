@@ -57,7 +57,7 @@ const CreateTag: React.FC<CreateTagProps> = ({addTag, author, allTags}) => {
             const tagData = {
                 id: uuidv4(),
                 name,
-                color,
+                color: color ?? '#FFFFFF',
                 author
             }
             addTag(tagData);
