@@ -1,6 +1,6 @@
 .quick-menu{
     width: 100%;
-    height: 500px;
+    height: 380px;
     position: fixed;
     bottom: 75px;
     left: 0px;
@@ -37,7 +37,7 @@
 
 }
 .close-button{
-    justify-content: center;
+    font-size: 20px;
 }
 .quick-button p{
     font-size: 20px;
@@ -51,8 +51,31 @@
 
 
 
-
-
+.enabled-awake-button{
+    border: 3px solid green !important;
+}
+.quick-settings{
+    display: grid;
+    grid-template-columns: 60px 100px 1fr;
+    width: 90%;
+    height: 60px;
+    border-radius: 10px;
+    align-items: center;
+    gap: 10px;
+}
+.awake-button{
+    border: 3px solid transparent;
+    font-size: 20px;
+}
+.quick-settings button{
+    border: none;
+    background-color: var(--quick-menu-button-background);
+    height: 100%;
+    border-radius: 10px;
+}
+.fullscreen-button{
+    background-color: var(--quick-menu-button-background);
+}
 
 
 
@@ -64,7 +87,7 @@
         bottom: -110%;
     }
     to{
-        height: 360px;
+        height: 380px;
         opacity: 1;
         bottom: 75px;
     }

@@ -28,14 +28,6 @@ const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, 
 
     return ( 
         <div className={styles["quick-menu"]} ref={quickMenuRef}>             
-            <button className={styles['quick-button']} onClick={toggleFullscreen}>
-                {/* <img src={IconLibrary.Stopwatch} alt=''></img> */}
-                <p>Toggle Fullscreen</p>
-            </button>
-            <button className={styles['quick-button']} onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
-                {/* <img src={IconLibrary.Stopwatch} alt=''></img> */}
-                <p>{`${noSleep.enabled ? 'Disable Screen Wake' : 'Enable Screen Wake'}`}</p>
-            </button>
             <button className={styles['quick-button']} onClick={openStopwatch}>
                 <img src={IconLibrary.Stopwatch} alt=''></img>
                 <p>Stopwatch</p>
@@ -52,9 +44,17 @@ const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, 
                 <img src={IconLibrary.Goals} alt=''></img>
                 <p>Goals</p>
             </button> 
-            <button className={`${styles['quick-button']} ${styles['close-button']}`} onClick={closeQuickmenu}>
-                <p>Close</p>
-            </button> 
+            <div className={styles['quick-settings']}>
+                <button className={styles['fullscreen-button']} onClick={toggleFullscreen}>
+                    <img className='medium-icon' src={document.fullscreenElement !== null ? IconLibrary.DisableFullscreen : IconLibrary.EnableFullscreen} alt=''></img>
+                </button>
+                <button className={`${styles['awake-button']} ${noSleep.enabled ? styles['enabled-awake-button'] : ''}`} onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
+                    <p>{`${noSleep.enabled ? 'Screen Awake' : 'Screen Awake'}`}</p>
+                </button>
+                <button className={styles['close-button']} onClick={closeQuickmenu}>
+                    <p>Close</p>
+                </button>
+            </div>
         </div>
     );
 }

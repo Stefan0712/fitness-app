@@ -62,6 +62,8 @@ import Note from './assets/note.svg';
 import Goals from './assets/goals.svg';
 import Menu from './assets/menu.svg';
 import Hide from './assets/hide.svg';
+import EnableFullscreen from './assets/enableFullscreen.svg';
+import DisableFullscreen from './assets/disableFullscreen.svg';
 
 
 export const IconLibrary = {
@@ -124,5 +126,7 @@ export const IconLibrary = {
     Goals,
     Menu,
     Dots,
-    Hide
+    Hide,
+    EnableFullscreen,
+    DisableFullscreen,
 }
