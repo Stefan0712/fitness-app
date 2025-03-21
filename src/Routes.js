@@ -12,7 +12,7 @@ import EditWorkout from './components/pages/Workout/EditWorkout.tsx';
 import CreateWorkout from './components/pages/Workout/CreateWorkout.tsx';
 import EditExercise from './components/pages/Exercise/EditExercise.tsx';
 import CreateExercise from './components/pages/Exercise/CreateExercise.tsx';
-import EditProfile from './components/pages/Profile/EditProfile';
+import EditProfile from './components/pages/Profile/EditProfile.tsx';
 import ViewWorkout from './components/pages/Workout/ViewWorkout';
 import ViewExercise from './components/pages/Exercise/ViewExercise';
 import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';

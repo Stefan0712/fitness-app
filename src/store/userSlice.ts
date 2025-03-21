@@ -213,6 +213,12 @@ interface InitialStateObject {
     bio?: string,
     isPrivate: boolean,
     isPremium: true,
+    profileSettings: {
+      showEmail: string,
+      showPosts: string,
+      showDetails: string,
+      showProfile: string
+    },
     badges: Badges[]
   },
   goals: Goal[],
@@ -252,6 +258,12 @@ const initialState: InitialStateObject = {
     bio: 'I swear I am real',
     isPrivate: false,
     isPremium: true,
+    profileSettings: {
+      showEmail: "false",
+      showPosts: "false",
+      showDetails: "false",
+      showProfile: "false"
+    },
     badges: []
   },
   goals: [
@@ -546,7 +558,11 @@ const userSlice = createSlice({
     state.dashboardSections = action.payload;
   },
     reset: () => initialState,
+    resetProfile: (state) =>{
+      state.userData = initialState.userData;
+    },
   },
+  
 });
 
 export const {
@@ -575,7 +591,8 @@ export const {
   addGoal,
   updateGoal,
   removeGoal,
-  updateDashboardLayout
+  updateDashboardLayout,
+  resetProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;

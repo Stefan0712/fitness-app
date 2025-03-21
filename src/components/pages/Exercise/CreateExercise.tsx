@@ -74,7 +74,6 @@ interface Field {
 }
 const CreateExercise: React.FC = () => {
 
-    const equipment = useSelector((state: RootState)=>state.user.equipment);
     
 
     const user = useSelector((state: RootState)=>state.user.userData.id)

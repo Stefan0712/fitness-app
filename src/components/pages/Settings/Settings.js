@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { reset } from '../../../store/userSlice.ts';
+import { reset, resetProfile } from '../../../store/userSlice.ts';
 import { IconLibrary } from "../../../IconLibrary";
 import { useDispatch } from 'react-redux';
 import styles from './Settings.module.css';
@@ -17,6 +17,10 @@ const Settings = ({closeSettings}) => {
         dispatch(reset());
         closeSettings();
     }
+    const handleResetProfile = () =>{
+        dispatch(resetProfile());
+        closeSettings();
+    }
     return ( 
         <div className={styles["settings-page"]}>
             <div className={styles.header}>
@@ -31,6 +35,7 @@ const Settings = ({closeSettings}) => {
             <Link to={'/tags'}>Tags </Link>
             </div>
             <button key={'reset-button'} className='orange-button large-button' onClick={handleStoreReset}>Reset Store</button>
+            <button key={'reset-button'} className='orange-button large-button' onClick={handleResetProfile}>Reset Profile</button>
         </div>
      );
 }
