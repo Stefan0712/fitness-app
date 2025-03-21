@@ -26,8 +26,11 @@ nav{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 8px;
     text-decoration: none;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
   }
   .nav-button img{
     height: 25px;

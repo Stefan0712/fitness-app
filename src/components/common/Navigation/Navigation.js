@@ -11,6 +11,7 @@ import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
 import NoSleep from 'nosleep.js';
+import Settings from '../../pages/Settings/Settings.js';
 
 
 const Navigation = () => {
@@ -26,8 +27,8 @@ const Navigation = () => {
 
     
     
-
-
+    const [showSettings, setShowSettings] = useState(false);
+   
 
 
 
@@ -90,7 +91,7 @@ const Navigation = () => {
             {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
-
+            {showSettings ? <Settings closeSettings={()=>setShowSettings(false)} /> : null}
 
 
 
@@ -111,10 +112,10 @@ const Navigation = () => {
                 <img src={IconLibrary.Clipboard} alt=''></img>
                 <p>Activity</p>
             </Link>
-            <Link to='/profile' onClick={closeAll} className={styles['nav-button']}>
-                <img src={IconLibrary.Profile} alt=''></img>
-                <p>Profile</p>
-            </Link>
+            <button onClick={()=>setShowSettings(true)} className={styles['nav-button']}>
+                <img src={IconLibrary.Menu} alt=''></img>
+                <p>Menu</p>
+            </button>
             
         </nav>
      );
