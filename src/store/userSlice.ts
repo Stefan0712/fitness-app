@@ -65,6 +65,15 @@ interface Equipment {
   attributes?: EquipmentAttributes[];
 }
 
+interface Macro{
+  id: string;
+  name: string;
+  unit: string;
+  value: number;
+  target: number;
+  isEnabled: boolean;
+}
+
 interface EquipmentAttributes {
   name: string;
   value: number;
@@ -219,6 +228,7 @@ interface InitialStateObject {
   workouts: Workout[],
   message: string | null,
   dashboardSections: Section[],
+  macros: Macro[];
 }
 const initialState: InitialStateObject = {
   userId: uuidv4(),
@@ -261,6 +271,14 @@ const initialState: InitialStateObject = {
       icon: IconLibrary.Steps,
       color: 'green'
     }
+  ],
+  macros: [
+    { id: 'b1f5d9d8-3e17-4c9f-bf8a-9d6bfe1d2e38', name: "Calories", unit: "kcal", value: 0, target: 0, isEnabled: false },
+    { id: 'c4729a56-87a9-4fb8-9408-1e5f4d9dbe12', name: "Protein", unit: "g", value: 0, target: 0, isEnabled: false },
+    { id: 'fe829f3e-55c0-4dfb-b6f7-1e8d9fcbf8d1id', name: "Carbs", unit: "g", value: 0, target: 0, isEnabled: false },
+    { id: 'a61c3792-2d6d-4c63-903c-5a728d5b3e4e', name: "Fats", unit: "g", value: 0, target: 0, isEnabled: false },
+    { id: 'd3f6f1bb-865f-46b2-9c79-719d6a3e5410', name: "Sugar", unit: "g", value: 0, target: 0, isEnabled: false },
+    { id: 'f9b7c5e4-1af8-42f5-b6a8-d71cb8edcf1c', name: "Sodium", unit: "mg", value: 0, target: 0, isEnabled: false },
   ],
   activity: [],
   
