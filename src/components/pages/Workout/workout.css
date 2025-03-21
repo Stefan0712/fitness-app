@@ -5,6 +5,7 @@
 
 .create-workout-page{
     height: calc(100vh - 75px);
+    position: relative;
 }
 .create-workout-page form{
     width: 100%;
@@ -14,6 +15,10 @@
     gap: 5px;
     align-items: center;
     padding-bottom: 100px;
+}
+.create-workout-page .loading{
+    height: calc(100vh - 200px);
+    width: 100%;
 }
 .two-inputs{
     width: 100%;

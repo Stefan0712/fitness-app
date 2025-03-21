@@ -8,7 +8,7 @@ import Library from './components/pages/Library/Library';
 import Logs from './components/pages/Activity/Activity';
 import Profile from './components/pages/Profile/Profile';
 import Workout from './components/pages/Workout/Workout';
-import EditWorkout from './components/pages/Workout/EditWorkout';
+import EditWorkout from './components/pages/Workout/EditWorkout.tsx';
 import CreateWorkout from './components/pages/Workout/CreateWorkout.tsx';
 import EditExercise from './components/pages/Exercise/EditExercise';
 import CreateExercise from './components/pages/Exercise/CreateExercise.tsx';

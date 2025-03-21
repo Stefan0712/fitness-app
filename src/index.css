@@ -424,7 +424,26 @@ body{
   color: red !important;
   border: 1px solid red !important;
 }
-
+.loading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.loading-icon{
+  width: 60px;
+  height: 60px;
+  margin: 0 !important;
+  animation: loadingSpin 1s infinite;
+}
+@keyframes loadingSpin {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(350deg);
+  }
+}
 
 
 
