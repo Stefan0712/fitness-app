@@ -44,6 +44,7 @@ const CreateExerciseField = ({addField}) => {
     const clearInputs = () =>{
         setName('');
         setUnit('');
+        setTarget('');
     }
     return ( 
         <div className={styles["create-exercise-field"]}>

@@ -86,7 +86,6 @@ const CreateExercise: React.FC = () => {
 
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
     const [showGroups, setShowGroups] = useState<boolean>(false);
-    const [showEquipments, setShowEquipments] = useState<boolean>(false);
 
     //form values
     const [name, setName] = useState<string>('');

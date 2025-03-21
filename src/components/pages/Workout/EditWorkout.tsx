@@ -217,7 +217,8 @@ const EditWorkout: React.FC = () => {
                 </div>
             </div>
         )
-    }
+    }else{
+
     return ( 
         <div className="create-workout-page page">
             <div className='header'>
@@ -348,6 +349,8 @@ const EditWorkout: React.FC = () => {
                 </form>
         </div>
      );
-}
+
+        }    }
+
 
 export default EditWorkout;
