@@ -49,12 +49,12 @@ const Workout = () => {
             setExercises(getExercises());
         }else if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-            console.log(snapshots)
             const snapshot = snapshots?.workouts?.find(item=>item.snapshotId===snapshotId);
             if(snapshot){
                 const workout = workouts.find(item=>item.id === snapshot.data.workoutId);
-                const workoutData = {...workout, exercises: snapshot.data.exercises};
-                setWorkoutData(workoutData);
+                const newWorkoutData = {...workout, exercises: snapshot.data.exercises};
+                setWorkoutData(newWorkoutData);
+                setExercises(snapshot.data.exercises)
                 setSeconds(snapshot.duration)
                 setSeconds(snapshot.duration);
             }else{
@@ -66,7 +66,9 @@ const Workout = () => {
         if(!currentExercise && exercises && exercises.length > 0){
             setCurrentExercise(exercises[0].id);
         }
-        saveProgress()
+        if(workoutData){
+            saveProgress();
+        }
     },[exercises]);
 
 
@@ -182,7 +184,7 @@ const Workout = () => {
         }
         let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
     
-        const existingIndex = snapshots.workouts.findIndex(snap => snap.data.id === workoutData.id);
+        const existingIndex = snapshots.workouts.findIndex(snap => snap.snapshotId === snapshotId);
 
         // If an existing snapshot for the exercise is found, replace it
         if (existingIndex !== -1) {
@@ -217,9 +219,7 @@ const Workout = () => {
                         return { 
                             ...field, 
                             isCompleted: !field.isCompleted, 
-                            value: !field.isCompleted && (!field.value || field.value === 0) 
-                            ? parseInt(field.target, 10)
-                            : field.value  
+                            value: !field.isCompleted && (!field.value || field.value === 0) ? parseInt(field.target, 10) : 0
                         }
                     }
                     return field;
@@ -276,39 +276,7 @@ const Workout = () => {
     };
     
     
-    // const completeAllFields = (exerciseId, setIndex) => {
-    //     setExercises((prevExercises) => {
-    //       console.log("Before Update:", prevExercises);
-      
-    //       const updatedExercises = prevExercises.map((exercise) =>
-    //         exercise.id === exerciseId
-    //           ? {
-    //               ...exercise,
-    //               sets: exercise.sets.map((set, index) => {
-    //                 if (index === setIndex) {
-    //                   return {
-    //                     ...set,
-    //                     fields: set.fields.map((field) => ({
-    //                       ...field,
-    //                       isCompleted: true,
-    //                     })),
-    //                     isCompleted: true,
-    //                   };
-    //                 }
-    //                 return set;
-    //               }),
-    //             }
-    //           : exercise
-    //       );
-    //   //asd
-    //       console.log("After Update:", updatedExercises);
-      
-    //       return updatedExercises;
-    //     });
-    //   };
-      
-      
-      
+
       
       
     
@@ -337,7 +305,8 @@ const Workout = () => {
                 const sets = [...exercise.sets]; // Create a shallow copy of the sets
                 const updatedSets = sets.map((set, index) => {
                     if (index === setNo) {
-                        return { ...set, isCompleted: value, isSkipped: false }; // Toggle isCompleted for that specific set and reset the isSkipped value
+                        const updatedFields = set.fields.map(item=> ({...item, isCompleted: !set.isCompleted ? true : false, value:  !set.isCompleted ? item.target : 0}))
+                        return { ...set, isCompleted: value, fields: updatedFields}; // Toggle isCompleted for that specific set and reset the isSkipped value
                     } else {
                         return set;
                     }
@@ -366,6 +335,7 @@ const Workout = () => {
     
         setExercises(updatedExercises);
     }
+
     const handleChangeCurrentExercise = (id) =>{
         setCurrentSet(0);
         setCurrentExercise(id)
@@ -378,79 +348,92 @@ const Workout = () => {
 // TODO: Add an option to add an exercise to the currently running exercise. Let the user have the option to
 // TODO: use existing ones or create a quick one on the go
 
+    if(workoutData){
 
-    return (
-        <div className={`${styles["workout-page"]} page`}>
-            <div className={styles['page-header']}>
-                <div className={styles.timer}>{formatTime(seconds)}</div>
-                <h2>{workoutData.name}</h2>
-                <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
-            </div>
-            <div className={styles.content}>
-
-                {showExercises ? (
-                    <div className={styles.exercises }>
-                    <div className={styles['exercises-header']}>
-                        <h3>Exercises</h3>
-                        <button className={styles['hide-exercises']}>
-                            <img src={IconLibrary.Add} className="small-icon" alt="add exercise"></img>
-                        </button>
-                    </div>
-                    <div className={styles["exercises-container"]}>
-                        {exercises?.map((exercise, index) => (
-                            <div
-                                className={`${styles["exercise-body"]} ${currentExercise === exercise.id ? styles['selected-exercise'] : ''}`}
-                                key={index + 'exercise'}
-                                onClick={() => handleChangeCurrentExercise(exercise.id)}
-                            >
-                                <p>{exercise.name}</p>
-                                <input type="checkbox" style={{height: '30px', width: '30px'}} onChange={()=>handleCompleteExercise(exercise.id)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
-                            </div>
-                        ))}
-                    </div>  
+        return (
+            <div className={`${styles["workout-page"]} page`}>
+                <div className={styles['page-header']}>
+                    <div className={styles.timer}>{formatTime(seconds)}</div>
+                    <h2>{workoutData.name}</h2>
+                    <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
                 </div>
-                ) : null}
-            <div className={styles['current-exercise']}>
-                    <div className={styles["current-exercise-header"]}>
-                        <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
-                        <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
-                            <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
-                        </button>
-                    </div>
-                    <div className={styles['sets-container']}>
-                        {exercises?.find((ex) => ex.id === currentExercise)?.sets.map((item, index)=>(
-                            <div className={`${styles.set} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
-                                <div className={styles['set-top']}>
-                                    <p className={styles['set-title']}>{`Set ${index+1}`}</p>
-                                    <input type="checkbox" className={styles['set-checkbox']} onChange={()=>toggleSetCompletion(currentExercise, index, !item.isCompleted)} checked={item.isCompleted}></input>
+                <div className={styles.content}>
+    
+                    {showExercises ? (
+                        <div className={styles.exercises }>
+                        <div className={styles['exercises-header']}>
+                            <h3>Exercises</h3>
+                            <button className={styles['hide-exercises']}>
+                                <img src={IconLibrary.Add} className="small-icon" alt="add exercise"></img>
+                            </button>
+                        </div>
+                        <div className={styles["exercises-container"]}>
+                            {exercises?.map((exercise, index) => (
+                                <div
+                                    className={`${styles["exercise-body"]} ${currentExercise === exercise.id ? styles['selected-exercise'] : ''}`}
+                                    key={index + 'exercise'}
+                                    onClick={() => handleChangeCurrentExercise(exercise.id)}
+                                >
+                                    <p>{exercise.name}</p>
+                                    <input type="checkbox" style={{height: '30px', width: '30px'}} onChange={()=>handleCompleteExercise(exercise.id)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
                                 </div>
-                                <div className={styles['set-fields']}>
-                                    {item?.fields?.map((field)=>(
-                                        <div className={styles["field"]} key={field.id}>
-                                            <p className={styles["field-name"]}>{field.name}</p>
-                                            <div className={styles["field-input"]}>
-                                                <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
-                                                <p>{field.value || 0}/{field.target|| field.targetValue || 0}</p>
-                                                <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
+                            ))}
+                        </div>  
+                    </div>
+                    ) : null}
+                <div className={styles['current-exercise']}>
+                        <div className={styles["current-exercise-header"]}>
+                            <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
+                            <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
+                                <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
+                            </button>
+                        </div>
+                        <div className={styles['sets-container']}>
+                            {exercises?.find((ex) => ex.id === currentExercise)?.sets.map((item, index)=>(
+                                <div className={`${styles.set} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
+                                    <div className={styles['set-top']}>
+                                        <p className={styles['set-title']}>{`Set ${index+1}`}</p>
+                                        <input type="checkbox" className={styles['set-checkbox']} onChange={()=>toggleSetCompletion(currentExercise, index, !item.isCompleted)} checked={item.isCompleted}></input>
+                                    </div>
+                                    <div className={styles['set-fields']}>
+                                        {item?.fields?.map((field)=>(
+                                            <div className={styles["field"]} key={field.id}>
+                                                <p className={styles["field-name"]}>{field.name}</p>
+                                                <div className={styles["field-input"]}>
+                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
+                                                    <p>{field.value || 0}/{field.target|| field.targetValue || 0}</p>
+                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
+                                                </div>
+                                                <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field.id)}></input>
                                             </div>
-                                            <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field.id)}></input>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                        
+                            ))}
+                            
+                        </div>
                     </div>
+                </div> 
+                <div className={styles['buttons-container']}>
+                    <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
+                    <button onClick={()=>console.log("Save progress was pressed")}>Save Progress</button>
+                    <button onClick={()=>setShowExercises(showExercises=>!showExercises)}>{showExercises ? 'Hide Exercises' : 'Show Exercises'}</button>
+                    <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.Arrow} alt="next exercise"></img></button>
                 </div>
-            </div> 
-            <div className={styles['buttons-container']}>
-                <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
-                <button onClick={()=>console.log("Save progress was pressed")}>Save Progress</button>
-                <button onClick={()=>setShowExercises(showExercises=>!showExercises)}>{showExercises ? 'Hide Exercises' : 'Show Exercises'}</button>
-                <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.Arrow} alt="next exercise"></img></button>
             </div>
-        </div>
-    );
+        );
+    }else{
+        return(
+            <div className="create-workout-page page">
+                <div className='header'>
+                    <h2>Loading workout</h2>
+                </div>
+                <div className="loading">
+                    <img className="loading-icon" src={IconLibrary.Loading} alt="loading"></img>
+                </div>
+            </div>
+        )
+    }
 };
 
 export default Workout;

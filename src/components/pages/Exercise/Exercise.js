@@ -169,7 +169,7 @@ const Exercise = () => {
                     isCompleted: !field.isCompleted, 
                     value: !field.isCompleted && (!field.value || field.value === 0) 
                     ? parseInt(field.target, 10)
-                    : field.value  
+                    : 0
                 }
             }
             return field;

@@ -90,6 +90,16 @@ const Dashboard = () => {
                 </Link>
             ))}
                 </div> : null }
+            {workoutSnapshots && workoutSnapshots.length > 0 ? <div className={styles.snapshots}>
+                <h4>Unfinished activity</h4>
+                {workoutSnapshots.map((item,index)=>(
+                <Link to={`/workout/${item.snapshotId}/restore`} className={styles.snapshot} key={'snapshot-'+index}>
+                    <h4>{item.name}</h4>
+                    <p>{item.progress}%</p>
+                    <p>{getHourFromTimestamp(item.timestamp)}</p>
+                </Link>
+            ))}
+                </div> : null }
         {dashboardComponents && dashboardComponents.length > 0 ? (
             dashboardComponents.map((item, index) => {
             // For better performance, create a goal map outside the rendering loop if it's needed multiple times
