@@ -133,3 +133,135 @@
 
   /* View Workout Log */
 
+.tag-body{
+  overflow: hidden;
+  width: fit-content;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-items: center;
+  height: 30px;
+  background-color: var(--background);
+  border-radius: 5px;
+}
+.tag-color{
+    height: 100%;
+    width: 3px;
+}
+.view-workout-log{
+  width: calc(100vw - 30px);
+  height: 600px;
+  padding: 10px;
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--modal-bg);
+  border-radius: 10px;
+}
+.top{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.meta{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.log-name{
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.view-workout-log h3{
+  margin: 0;
+}
+.log-timestamp{
+  width: 100%;
+  opacity: 0.5;
+}
+.log-content{
+  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.infoBlockTags,
+.infoBlockGroups{
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tags,
+.groups{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  height: 30px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.group{
+  padding: 5px 10px;
+  background-color: var(--background);
+  border-radius: 5px;
+}
+.workout-details{
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  max-height: 200px;
+  min-height: 100px;
+}
+.infoBlock{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.workout-log-details .infoBlock{
+  flex-direction: row;
+  width: calc((50% / 2) -10px);
+}
+.workout-log-details{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: 50px;
+  align-items: center;
+}
+.exercises{
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 10px;
+  height: 310px;
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.exercise{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.exercise h4{
+  margin-right: auto;
+}
+.finished-ex-icon{
+  width: 30px;
+}

@@ -6,6 +6,7 @@ import { getWeekRange, getCurrentDay, formatActivityDate, getHourFromTimestamp }
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import DaySelector from './DaySelector';
+import ViewWorkoutLog from './ViewWorkoutLog.tsx';
 
 
 
@@ -27,6 +28,7 @@ const LogsHistory = () => {
     const todayDate = getCurrentDay(todayDateRaw)
     const [selectedDay, setSelectedDay] = useState(todayDate);
 
+    const [openedLog, setOpenedLog] = useState(null);
 
     const calculateGoalProgress = (weekData, type = graphType) => {
         const goalProgressByDay = weekData.map((day) => {
@@ -83,7 +85,7 @@ const LogsHistory = () => {
     }
     return ( 
         <div className={styles['logs-history']}>
-                
+                {openedLog && openedLog.type === 'workout' ? <ViewWorkoutLog logData={openedLog} closeLog={()=>setOpenedLog(null)} /> : null}
                 <div className={styles['toggle-buttons-container']}>
                     <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Current Week</button>
                     <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Last 7 Days</button>
@@ -93,7 +95,7 @@ const LogsHistory = () => {
                 {weekData && weekData.length > 0 && selectedDay ? (
                         weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
                             weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
-                                <div className={styles['log-body']} key={'log-' + index} onClick={()=>console.log(item)}>
+                                <div className={styles['log-body']} key={'log-' + index} onClick={()=>setOpenedLog(item)}>
                                     <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
                                     <p className={styles['log-value']}>
