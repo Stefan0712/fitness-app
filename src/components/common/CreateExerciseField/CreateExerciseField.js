@@ -21,7 +21,7 @@ const CreateExerciseField = ({addField}) => {
                 id: uuidv4(),
                 name,
                 unit,
-                targetValue: target,
+                target: target,
                 isCompleted: false,
                 value: 0,
             }

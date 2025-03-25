@@ -69,7 +69,7 @@ interface Field {
     name: string,
     unit: string,
     value: number,
-    targetValue?: number,
+    target?: number,
     description?: string,
     isCompleted: boolean
 }
@@ -226,7 +226,7 @@ const EditExercise: React.FC = () => {
                                         {fields?.length > 0 ? fields.map((field, index)=>(
                                                 <div className={styles["field-body"]} id={'field-'+index} key={field.name+index}>
                                                     <h4>{field.name}</h4>
-                                                    <p>{field.targetValue || null}</p>
+                                                    <p>{field.target || null}</p>
                                                     <p>{field.unit}</p>
                                                     <button type="button" onClick={()=>handleRemoveField(field)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
                                                 </div>

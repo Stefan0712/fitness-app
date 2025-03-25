@@ -99,7 +99,7 @@ const Exercise = () => {
                     ...field, 
                     isCompleted: !field.isCompleted, 
                     value: !field.isCompleted && (!field.value || field.value === 0) 
-                    ? parseInt(field.targetValue, 10)
+                    ? parseInt(field.target, 10)
                     : field.value  
                 }
             }
@@ -134,9 +134,9 @@ const Exercise = () => {
                         // Update the value by adding the changeAmount, ensuring it doesn't go below 0
                         const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
     
-                        // Check if the new value passes the targetValue (either above or below)
-                        const shouldComplete = newValue >= field.targetValue;
-                        const shouldDecomplete = newValue < field.targetValue;
+                        // Check if the new value passes the target (either above or below)
+                        const shouldComplete = newValue >= field.target;
+                        const shouldDecomplete = newValue < field.target;
 
                         return {
                             ...field,
@@ -158,57 +158,34 @@ const Exercise = () => {
     
     const completeAllFields = (exerciseId, setNo) => {
            
-                    const updatedSets = [...exerciseData.sets];
-                    const updatedSet = { ...updatedSets[setNo] };
-    
-                    // Toggle all fields in the set
-                    const updatedFields = updatedSet.fields.map((field) => ({
-                        ...field,
-                        isCompleted: true, // Mark all fields as completed
-                        value: !field.isCompleted && (!field.value || field.value === 0) 
-                            ? parseInt(field.targetValue, 10)
-                            : field.value 
-                    }));
-    
-                    // Update the set's fields and completion status
-                    updatedSet.fields = updatedFields;
-                    updatedSet.isCompleted = true; // All fields are completed, so the set is completed
-    
-                    // Update the sets array
-                    updatedSets[setNo] = updatedSet;
-    
-                    // Check if all sets are completed to update the exercise's completion status
-                    const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
-    
-                    setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted });
+        const updatedSets = [...exerciseData.sets];
+        const updatedSet = { ...updatedSets[setNo] };
+
+        // Toggle all fields in the set
+        const updatedFields = updatedSet.fields.map((field) => ({
+            ...field,
+            isCompleted: true, // Mark all fields as completed
+            value: !field.isCompleted && (!field.value || field.value === 0) 
+                ? parseInt(field.target, 10)
+                : field.value 
+        }));
+
+        // Update the set's fields and completion status
+        updatedSet.fields = updatedFields;
+        updatedSet.isCompleted = true; // All fields are completed, so the set is completed
+
+        // Update the sets array
+        updatedSets[setNo] = updatedSet;
+
+        // Check if all sets are completed to update the exercise's completion status
+        const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
+
+        setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted });
                 
                
         
         
     };
-    
-
-    
-    
-    
-
-
-    const handleSkipSet = (setNo) =>{
-        
-        // Find the set by index (setNo)
-        const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
-        const updatedSets = sets.map((set, index)=>{
-            if(index === setNo){
-                return { ...set, isSkipped: !set.isSkipped, isCompleted: false } //toggle isSkipped for that specific set and make sure isCompleted is false
-            }else{
-                return set
-            }
-        })
-        
-        setExerciseData({ ...exerciseData, sets: updatedSets });
-            
-    
-    }
 
     const handleAddSet = () =>{
 
@@ -222,35 +199,22 @@ const Exercise = () => {
            
     }
     
-    const handleCompleteSet = (setNo) => {
+    const toggleSetCompletion = (setNo) => {
         
-                const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
-                const updatedSets = sets.map((set, index) => {
-                    if (index === setNo) {
-                        return { ...set, isCompleted: !set.isCompleted, isSkipped: false }; // Toggle isCompleted for that specific set and reset the isSkipped value
-                    } else {
-                        return set;
-                    }
-                });
+        const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
+        const updatedSets = sets.map((set, index) => {
+            if (index === setNo) {
+                return { ...set, isCompleted: !set.isCompleted, isSkipped: false }; // Toggle isCompleted for that specific set and reset the isSkipped value
+            } else {
+                return set;
+            }
+        });
 
-                // Check if all sets are completed and update the exercise's isCompleted
-                const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
-              
-                setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted}); // Set exercise isCompleted to true if all sets are completed
+        // Check if all sets are completed and update the exercise's isCompleted
+        const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
+        
+        setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted}); // Set exercise isCompleted to true if all sets are completed
        
-    };
-    
-    const handlePrevSet = () => {
-        if (currentSet > 0) {
-            setCurrentSet(prevSet => prevSet - 1);
-        }
-    };
-    
-    const handleNextSet = () => {
-        const setsLength = exerciseData.sets.length;
-        if (currentSet < setsLength - 1) {
-            setCurrentSet(prevSet => prevSet + 1); 
-        }
     };
     //TODO: Make instructions collapsed by default
     if(exerciseData){
@@ -258,53 +222,47 @@ const Exercise = () => {
             <div className={`page ${styles['exercise-page']}`}>
                 <div className="header">
                     <div className="date">{getDateForHeader()}</div>
-                    <h2>{exerciseData.name}</h2>
+                    <h2>{exerciseData?.name}</h2>
                 </div>
-                <div className={styles["exercise-top"]}>
-                    <div className={styles.timer}>{formatTime(seconds)}</div>
-                    <button onClick={()=>finishExercise()} className="medium-button orange-button">Finish</button>
-                </div>
-                {exerciseData?.instructions && exerciseData?.instructions?.length > 0 ? (
-                    <>
-                        <h3>Instructions</h3>
-                        <div className={styles.instructions}>
-                                {exerciseData.instructions?.map((item,index)=>(<p>{index+1}.  {item}</p>))}
-                        </div>
-                    </>
-                ) : null}
-                <h3>Exercise Fields</h3>
-                <div className={styles.exercise}>
-                        <div className={styles["exercise-header"]}>
-                            <p>{currentSet + 1}/{exerciseData?.sets.length}</p>
-                        </div>
-                        <div className={styles["exercise-fields"]}>
-                            {exerciseData.sets[currentSet].fields?.map((field)=>(
-                                <div className={styles.field} key={field.id}>
-                                    <p className={styles["field-name"]}>{field.name}</p>
-                                    <div className={styles["field-input"]}>
-                                        <button onClick={()=>handleChangeFieldValue(currentSet, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
-                                        <p>{field.value || 0}/{field.targetValue || 0}</p>
-                                        <button onClick={()=>handleChangeFieldValue(currentSet, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
-                                    </div>
-                                    <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentSet, field.id)}></input>
+                <div className={styles.content}>                
+            <div className={styles['current-exercise']}>
+                    <div className={styles["current-exercise-header"]}>
+                        <h3>{exerciseData?.name}</h3>
+                        <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentSet)}>
+                            <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
+                        </button>
+                    </div>
+                    <div className={styles['sets-container']}>
+                        {exerciseData?.sets.map((item, index)=>(
+                            <div className={`${styles.set} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
+                                <div className={styles['set-top']}>
+                                    <p className={styles['set-title']}>{`Set ${index+1}`}</p>
+                                    <input type="checkbox" className={styles['set-checkbox']} onChange={()=>toggleSetCompletion(index, !item.isCompleted)} checked={item.isCompleted}></input>
                                 </div>
-                            ))}
-                        </div>
-                      
-                        <div className={styles["sets-controls"]}>
-                            <img onClick={handlePrevSet} src={IconLibrary.Arrow} style={{transform: 'rotateY(180deg)'}} className={styles["navigation-button" ]} alt="previous set"></img>
-                            <div className={styles["sets-icons"]}>
-                                {exerciseData?.sets?.map((field, index)=>(<img className={`${styles["field-icon"]} ${currentSet === index ? styles['selected-set-icon'] : null}`} key={index+'field-icon'} onClick={()=>setCurrentSet(index)} src={field.isCompleted ? IconLibrary.CircleCheckmark : field.isSkipped ? IconLibrary.Skip : IconLibrary.Circle} alt="" />))}
+                                <div className={styles['set-fields']}>
+                                    {item?.fields?.map((field)=>(
+                                        <div className={styles["field"]} key={field.id}>
+                                            <p className={styles["field-name"]}>{field.name}</p>
+                                            <div className={styles["field-input"]}>
+                                                <button onClick={()=>handleChangeFieldValue(index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
+                                                <p>{field.value || 0}/{field.target || 0}</p>
+                                                <button onClick={()=>handleChangeFieldValue(index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
+                                            </div>
+                                            <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(index, field.id)}></input>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <img onClick={handleNextSet} src={IconLibrary.Arrow} className={styles["navigation-button"]} alt="next set"></img>
-                        </div>
+                        ))}
+                        
+                    </div>
                 </div>
-                <div className={styles.buttons}>
-                    <button type="button" onClick={()=>handleSkipSet(currentSet)}>Skip Set</button>
-                    <button type="button" onClick={()=>handleAddSet( currentSet)}>Add Set</button>
-                    <button type="button" onClick={()=>handleCompleteSet(currentSet)}>Finish Set</button>
-                </div>
+            </div> 
+            <div className={styles['buttons-container']}>
+                <button onClick={()=>console.log("Save progress was pressed")}>Save Progress</button>
+                <button onClick={()=>console.log("Finished exercise")}>Finish</button>
             </div>
+        </div>
          
         )
     }else{

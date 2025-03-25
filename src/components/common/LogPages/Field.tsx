@@ -19,7 +19,7 @@ interface DataObj {
     description: string;
     unit: string;
     value: number;
-    targetValue: number;
+    target: number;
 }
 
 interface FieldDataObject {
@@ -28,14 +28,14 @@ interface FieldDataObject {
     description?: string;
     unit?: string;
     value?: number;
-    targetValue?: number;
+    target?: number;
 }
 
 const Field: React.FC<FieldParams> = ({fieldData, saveField, type}) => {
 
     const [name, setName] = useState<string>(fieldData?.name || '');
     const [unit, setUnit] = useState<string>(fieldData?.unit || '');
-    const [target, setTarget] = useState<number>(fieldData?.targetValue || 0)
+    const [target, setTarget] = useState<number>(fieldData?.target || 0)
     const [value, setValue] = useState<number>(0);
     const [viewType, setViewType] = useState<string>(type || "view");
 
@@ -49,7 +49,7 @@ const Field: React.FC<FieldParams> = ({fieldData, saveField, type}) => {
             name,
             unit,
             value,
-            targetValue: target
+            target: target
         }
         if(fieldData){
             setViewType('view')
@@ -96,7 +96,7 @@ const Field: React.FC<FieldParams> = ({fieldData, saveField, type}) => {
         return (
             <div className={`${styles.field} ${styles.view}`}>
                 <p className={styles["name"]}><b>{fieldData.name}</b></p>
-                <p className={styles["target"]}>{fieldData.targetValue || 0}</p>
+                <p className={styles["target"]}>{fieldData.target || 0}</p>
                 <p className={styles["unit"]}>{fieldData.unit}</p>
                 <img className="small-icon" src={IconLibrary.Add} onClick={()=>setViewType('edit')} />
             </div>

@@ -18,7 +18,7 @@ export const exercises = [
     "rest": 30,
     "restUnit": 'seconds',
     "visibility": "private",
-    "fields": [{"id": "system", "name": "weight", "value": 0, "targetValue": 10,"unit": "kg"}],
+    "fields": [{"id": "system", "name": "weight", "value": 0, "target": 10,"unit": "kg"}],
     "notes": ["Avoid using momentum and focus on the controlled movement of the dumbbells."],
     "equipments": [{"id": "system", "name": "Dumbbell", "attributes": [{"name": "Weight", "unit": "kg", "value": 10}]}],
     "muscleGroups": [{"name": "Shoulders", "id": "aslkjdn1lkw-asdsa-das", "author": "system"}],
@@ -50,7 +50,7 @@ export const exercises = [
     "rest": 30,
     "restUnit": "seconds",
     "visibility": "private",
-    "fields": [{"id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "targetValue": 12}],
+    "fields": [{"id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "target": 12}],
     "notes": ["Keep your body straight and engage your core throughout the movement."],
     "equipments": [],
     "muscleGroups": [
@@ -89,7 +89,7 @@ export const exercises = [
     "restUnit": "seconds",
     "visibility": "private",
     "fields": [
-      { "id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "targetValue": 20 }
+      { "id": "1298h-x9asj-12mk", "name": "Repetitions", "unit": "reps", "value": 0, "target": 20 }
     ],
     "notes": ["Focus on using your abs to lift your torso, not your neck or hands."],
     "equipments": [],
