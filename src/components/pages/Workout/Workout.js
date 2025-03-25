@@ -160,6 +160,9 @@ const Workout = () => {
             }
         }
         dispatch(addLog(log));
+        const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+        snapshots.workouts = snapshots.workouts.filter(item => item.snapshotId !== snapshotId);
+        localStorage.setItem('snapshots', JSON.stringify(snapshots));  
         navigate('/logs');
 
     }
@@ -184,7 +187,7 @@ const Workout = () => {
         }
         let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
     
-        const existingIndex = snapshots.workouts.findIndex(snap => snap.snapshotId === snapshotId);
+        const existingIndex = snapshots.workouts.findIndex(snap => snap.data.workoutId === workoutData.id);
 
         // If an existing snapshot for the exercise is found, replace it
         if (existingIndex !== -1) {
@@ -416,7 +419,6 @@ const Workout = () => {
                 </div> 
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
-                    <button onClick={()=>console.log("Save progress was pressed")}>Save Progress</button>
                     <button onClick={()=>setShowExercises(showExercises=>!showExercises)}>{showExercises ? 'Hide Exercises' : 'Show Exercises'}</button>
                     <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.Arrow} alt="next exercise"></img></button>
                 </div>

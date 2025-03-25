@@ -108,9 +108,7 @@ const Exercise = () => {
         }
         dispatch(addLog(log));
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        console.log(snapshots.exercises, snapshotId)
         snapshots.exercises = snapshots.exercises.filter(item => item.snapshotId !== snapshotId);
-        console.log(snapshots)
         localStorage.setItem('snapshots', JSON.stringify(snapshots));        
         navigate('/logs');
     }
