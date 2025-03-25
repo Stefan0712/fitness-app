@@ -53,6 +53,7 @@ const Exercise = () => {
     },[])
     useEffect(()=>{
         if(exerciseData){
+            console.log("Progress Saved");
             saveProgress();
         }
     },[exerciseData])
@@ -107,20 +108,22 @@ const Exercise = () => {
         }
         dispatch(addLog(log));
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        snapshots.exercises = snapshots.exercises.filter(snapshot => snapshot.snapshotId !== snapshotId);
+        console.log(snapshots.exercises, snapshotId)
+        snapshots.exercises = snapshots.exercises.filter(item => item.snapshotId !== snapshotId);
+        console.log(snapshots)
         localStorage.setItem('snapshots', JSON.stringify(snapshots));        
         navigate('/logs');
     }
     const saveProgress = () =>{
         const timestamp = new Date().toISOString();
         const snapshot = {
-            snapshotId: uuidv4(),
+            snapshotId: snapshotId || uuidv4(),
             timestamp,
             type: 'exercise',
             name: exerciseData.name,
             progress: getProgress(),
             duration: seconds,
-            data:exerciseData,
+            data: exerciseData,
         }
         let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
     
