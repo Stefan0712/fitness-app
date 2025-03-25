@@ -82,9 +82,21 @@ const Exercise = () => {
         }
         dispatch(addLog(log));
         navigate('/logs');
-
     }
-    //
+    const saveProgress = () =>{
+        const snapshot = {
+            id: uuidv4(),
+            icon: IconLibrary.Exercise,
+            type: 'exercise',
+            data: {
+                duration: formatTime(seconds),
+                finishedAt: getFullHour(),
+                ...exerciseData, 
+                
+            }
+        }
+        console.log(snapshot)
+    }
     const handleCompleteField = (setNo, fieldId) => {
                 
 
@@ -115,45 +127,47 @@ const Exercise = () => {
         
         setExerciseData({ ...exerciseData, sets: updatedSets });
     
+        saveProgress();
         
     
     };
 
     const handleChangeFieldValue = (setNo, fieldId, changeAmount) => {
     
-                // Find the set by index (setNo)
-                const updatedSets = [...exerciseData.sets]; // Create a shallow copy of the sets
-                const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
-    
-                // Find the field by id and update the value
-                const updatedFields = updatedSet.fields.map((field) => {
-                    if (field.id === fieldId) {
-                        // If value is null, treat it as 0
-                        const currentValue = field.value === null ? 0 : field.value;
-    
-                        // Update the value by adding the changeAmount, ensuring it doesn't go below 0
-                        const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
-    
-                        // Check if the new value passes the target (either above or below)
-                        const shouldComplete = newValue >= field.target;
-                        const shouldDecomplete = newValue < field.target;
+        // Find the set by index (setNo)
+        const updatedSets = [...exerciseData.sets]; // Create a shallow copy of the sets
+        const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
 
-                        return {
-                            ...field,
-                            value: newValue,
-                            isCompleted: shouldComplete ? true : shouldDecomplete ? false : field.isCompleted,
-                        }; // Update the value of the field
-                    }
-                    return field;
-                });
-    
-                // Update the set's fields
-                updatedSet.fields = updatedFields;
-                updatedSets[setNo] = updatedSet; // Update the specific set
-    
-                setExerciseData({ ...exerciseData, sets: updatedSets });
+        // Find the field by id and update the value
+        const updatedFields = updatedSet.fields.map((field) => {
+            if (field.id === fieldId) {
+                // If value is null, treat it as 0
+                const currentValue = field.value === null ? 0 : field.value;
+
+                // Update the value by adding the changeAmount, ensuring it doesn't go below 0
+                const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
+
+                // Check if the new value passes the target (either above or below)
+                const shouldComplete = newValue >= field.target;
+                const shouldDecomplete = newValue < field.target;
+
+                return {
+                    ...field,
+                    value: newValue,
+                    isCompleted: shouldComplete ? true : shouldDecomplete ? false : field.isCompleted,
+                }; // Update the value of the field
+            }
+            return field;
+        });
+
+        // Update the set's fields
+        updatedSet.fields = updatedFields;
+        updatedSets[setNo] = updatedSet; // Update the specific set
+
+        setExerciseData({ ...exerciseData, sets: updatedSets });
             
    
+        saveProgress();
     };
     
     const completeAllFields = (exerciseId, setNo) => {
@@ -184,6 +198,7 @@ const Exercise = () => {
                 
                
         
+        saveProgress();
         
     };
 
@@ -195,16 +210,17 @@ const Exercise = () => {
             fields: exerciseData.fields ? JSON.parse(JSON.stringify(exerciseData.fields)) : [], // Deep copy of fields array
             isCompleted: false,
             isSkipped: false,
-            }]  });
+        }]  });
            
+        saveProgress();
     }
     
     const toggleSetCompletion = (setNo) => {
-        
-        const sets = [...exerciseData.sets]; // Create a shallow copy of the sets
+        const sets = [...exerciseData.sets]; // Copy sets
         const updatedSets = sets.map((set, index) => {
             if (index === setNo) {
-                return { ...set, isCompleted: !set.isCompleted, isSkipped: false }; // Toggle isCompleted for that specific set and reset the isSkipped value
+                const updatedFields = set.fields.map(item=> ({...item, isCompleted: !set.isCompleted ? true : false, value:  !set.isCompleted ? item.target : 0}))
+                return { ...set, isCompleted: !set.isCompleted, fields: updatedFields}; // Toggle isCompleted for that specific set and reset the isSkipped value
             } else {
                 return set;
             }
@@ -215,7 +231,12 @@ const Exercise = () => {
         
         setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted}); // Set exercise isCompleted to true if all sets are completed
        
+        saveProgress();
     };
+
+   
+
+
     //TODO: Make instructions collapsed by default
     if(exerciseData){
         return ( 
