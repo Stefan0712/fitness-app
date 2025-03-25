@@ -6,6 +6,7 @@ import { addLog } from '../../../store/userSlice.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime, getDateForHeader, getFullHour } from '../../../helpers';
 import { v4 as uuidv4 } from 'uuid';
+import { exercises as databaseExercises } from '../../../database.js';
  
 
 
@@ -14,7 +15,11 @@ const Exercise = () => {
     const {id, snapshotId} = useParams(); //get the id of the exercise from url
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const originalExercise = useSelector((state)=>state.user.exercises.find((ex)=>ex.id===id)); //get the original exercise saved into the library
+    const libraryExercises = useSelector((state)=>state.user.exercises); 
+
+    const libraryExerciseId = libraryExercises.findIndex(item=>item.id===id);
+    const databaseExerciseId = databaseExercises.findIndex(item=>item.id===id);
+    const originalExercise = libraryExerciseId >= 0 ? libraryExercises[libraryExerciseId] : databaseExerciseId >= 0 ? databaseExercises[databaseExerciseId] : null;
 
 
     const [seconds, setSeconds] = useState(0); //the exercise timer
@@ -101,6 +106,9 @@ const Exercise = () => {
             }
         }
         dispatch(addLog(log));
+        const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+        snapshots.exercises = snapshots.exercises.filter(snapshot => snapshot.snapshotId !== snapshotId);
+        localStorage.setItem('snapshots', JSON.stringify(snapshots));        
         navigate('/logs');
     }
     const saveProgress = () =>{
