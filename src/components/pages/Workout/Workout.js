@@ -14,48 +14,63 @@ import styles from './Workout.module.css';
 
 
 const Workout = () => {
-    const { id } = useParams();
+    const { id, snapshotId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [showExercises, setShowExercises] = useState(false);
     
-
-    const workoutData = useSelector((state) => state.user.workouts.find((item) => item.id === id));
+    const workouts = useSelector((state) => state.user.workouts)
+    const [workoutData, setWorkoutData] = useState(workouts.find((item) => item.id === id));
     const libraryExercises = useSelector((state) => state.user.exercises);
     const [exercises, setExercises] = useState([]);
     const [currentExercise, setCurrentExercise] = useState(null); 
     const [seconds, setSeconds] = useState(0);
     const [currentSet, setCurrentSet] = useState(0);
 
+
+
+
+
     useEffect(() => {
-        setExercises(getExercises());
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
     
         return () => clearInterval(timer);
     }, []);
+
+
+
+
+
+    useEffect(() => {
+        if(!snapshotId){
+            setExercises(getExercises());
+        }else if(snapshotId){
+            const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+            console.log(snapshots)
+            const snapshot = snapshots?.workouts?.find(item=>item.snapshotId===snapshotId);
+            if(snapshot){
+                const workout = workouts.find(item=>item.id === snapshot.data.workoutId);
+                const workoutData = {...workout, exercises: snapshot.data.exercises};
+                setWorkoutData(workoutData);
+                setSeconds(snapshot.duration)
+                setSeconds(snapshot.duration);
+            }else{
+                console.log("Snapshot not found")
+            }
+        }
+    }, []);
     useEffect(()=>{
         if(!currentExercise && exercises && exercises.length > 0){
             setCurrentExercise(exercises[0].id);
-            
         }
-        console.log(exercises)
+        saveProgress()
     },[exercises]);
-    // useEffect(() => {
-    //     exercises.forEach((exercise) => {
-    //         exercise.sets.forEach((set, setNo) => {
-    //             if (!set.isCompleted && set.fields.every(f => f.isCompleted)) {
-    //                 toggleSetCompletion(exercise.id, setNo);
-    //             }
-    //         });
-    //     });
-    // }, [exercises]);
-    useEffect(()=>{
-        console.log(workoutData)
-        console.log(exercises)
-    },workoutData, exercises)
+
+
+
 
 
 
@@ -63,26 +78,26 @@ const Workout = () => {
     const getExercises = () => {
         // Make deep copies of all exercises
         return workoutData.exercises
-          .map(({ source, id }) => {
+          .map(id => {
             let exercise = null;
-      
             // Check the source and make a deep copy of the object
-            if (source === "database") {
+            const dbExIndex = databaseExercises.findIndex(item=>item.id === id);
+            const libExIndex = libraryExercises.findIndex(item=>item.id === id);
+            if (dbExIndex >= 0) {
               exercise = JSON.parse(
-                JSON.stringify(databaseExercises.find((item) => item.id === id))
+                JSON.stringify(databaseExercises[dbExIndex])
               );
-            } else if (source === "library") {
+            } else if (libExIndex >= 0) {
               exercise = JSON.parse(
-                JSON.stringify(libraryExercises.find((item) => item.id === id))
+                JSON.stringify(libraryExercises[libExIndex])
               );
             }
-      
             // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
             if (exercise) {
               if (!exercise.completedSets) {
                 exercise.completedSets = 0;
               }
-      
+
               // Transform sets property from number to an array to make it easier to track progress of that exercise
               if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
                 const setsArray = [];
@@ -97,7 +112,7 @@ const Workout = () => {
                 exercise.sets = setsArray; // Replace the sets number with the array
               }
             } else {
-              console.error(`Exercise with id "${id}" not found in "${source}"`);
+              console.error(`Exercise with id "${id}" not found`);
             }
       
             return exercise || null; // Return null if not found
@@ -154,14 +169,13 @@ const Workout = () => {
     const saveProgress = () =>{
         const timestamp = new Date().toISOString();
         const snapshot = {
-            snapshotId: uuidv4(),
+            snapshotId: snapshotId || uuidv4(),
             timestamp,
             type: 'workout',
             name: workoutData.name,
             progress: getProgress(),
-            duration: formatTime(seconds),
+            duration: seconds,
             data:{
-                duration: formatTime(seconds),
                 workoutId: workoutData.id,
                 exercises: exercises
             },
@@ -186,7 +200,6 @@ const Workout = () => {
         // Save the updated snapshots back to localStorage
         localStorage.setItem('snapshots', JSON.stringify(snapshots));
 
-        console.log(`Snapshot for workout saved:`, snapshot);
     }
 
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
@@ -250,12 +263,10 @@ const Workout = () => {
                 });
     
                 updatedSet.fields = updatedFields;
-                updatedSets[setNo] = updatedSet;
-    
-                // Only update isCompleted based on set completion status, not on each field.
-                const allFieldsCompleted = updatedFields.every((f) => f.isCompleted);
-                updatedSet.isCompleted = allFieldsCompleted;
-    
+                const isSetCompleted = updatedSet.fields.every(item=>item.isCompleted === true);
+                console.log(updatedSet.fields, isSetCompleted)
+                updatedSets[setNo] = {...updatedSet, isCompleted: isSetCompleted};
+        
                 return { ...ex, sets: updatedSets };
             }
             return ex; // If not the correct exercise, return as is
@@ -265,36 +276,36 @@ const Workout = () => {
     };
     
     
-    const completeAllFields = (exerciseId, setIndex) => {
-        setExercises((prevExercises) => {
-          console.log("Before Update:", prevExercises);
+    // const completeAllFields = (exerciseId, setIndex) => {
+    //     setExercises((prevExercises) => {
+    //       console.log("Before Update:", prevExercises);
       
-          const updatedExercises = prevExercises.map((exercise) =>
-            exercise.id === exerciseId
-              ? {
-                  ...exercise,
-                  sets: exercise.sets.map((set, index) => {
-                    if (index === setIndex) {
-                      return {
-                        ...set,
-                        fields: set.fields.map((field) => ({
-                          ...field,
-                          isCompleted: true,
-                        })),
-                        isCompleted: true,
-                      };
-                    }
-                    return set;
-                  }),
-                }
-              : exercise
-          );
-      //asd
-          console.log("After Update:", updatedExercises);
+    //       const updatedExercises = prevExercises.map((exercise) =>
+    //         exercise.id === exerciseId
+    //           ? {
+    //               ...exercise,
+    //               sets: exercise.sets.map((set, index) => {
+    //                 if (index === setIndex) {
+    //                   return {
+    //                     ...set,
+    //                     fields: set.fields.map((field) => ({
+    //                       ...field,
+    //                       isCompleted: true,
+    //                     })),
+    //                     isCompleted: true,
+    //                   };
+    //                 }
+    //                 return set;
+    //               }),
+    //             }
+    //           : exercise
+    //       );
+    //   //asd
+    //       console.log("After Update:", updatedExercises);
       
-          return updatedExercises;
-        });
-      };
+    //       return updatedExercises;
+    //     });
+    //   };
       
       
       
@@ -319,7 +330,7 @@ const Workout = () => {
     }
     
     const toggleSetCompletion = (exerciseId, setNo, value) => {
-        completeAllFields(exerciseId, setNo);
+        // completeAllFields(exerciseId, setNo);
         const updatedExercises = exercises.map((exercise) => {
             if (exercise.id === exerciseId) {
                 // Find the set by index (setNo)
@@ -419,7 +430,7 @@ const Workout = () => {
                                             <p className={styles["field-name"]}>{field.name}</p>
                                             <div className={styles["field-input"]}>
                                                 <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
-                                                <p>{field.value || 0}/{field.target || 0}</p>
+                                                <p>{field.value || 0}/{field.target|| field.targetValue || 0}</p>
                                                 <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
                                             </div>
                                             <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field.id)}></input>
