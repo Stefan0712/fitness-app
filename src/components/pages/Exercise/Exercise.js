@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const Exercise = () => {
 
-    const {id} = useParams(); //get the id of the exercise from url
+    const {id, snapshotId} = useParams(); //get the id of the exercise from url
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const originalExercise = useSelector((state)=>state.user.exercises.find((ex)=>ex.id===id)); //get the original exercise saved into the library
@@ -23,7 +23,7 @@ const Exercise = () => {
 
     //timer logic
     useEffect(() => {
-        setExerciseData(formatExercise()); //makes sure to format the exercise on first render
+        
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
@@ -31,6 +31,26 @@ const Exercise = () => {
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(()=>{
+        if(!snapshotId){
+            setExerciseData(formatExercise()); //makes sure to format the exercise on first render
+        }else if(snapshotId){
+            const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+            console.log(snapshots)
+            const snapshot = snapshots?.exercises?.find(item=>item.snapshotId===snapshotId);
+            if(snapshot){
+                setExerciseData(snapshot.data);
+                setSeconds(snapshot.duration);
+            }else{
+                console.log("Snapshot not found")
+            }
+        }
+    },[])
+    useEffect(()=>{
+        if(exerciseData){
+            saveProgress();
+        }
+    },[exerciseData])
 
 
     //takes the original exercise and format it as needed
@@ -91,7 +111,7 @@ const Exercise = () => {
             type: 'exercise',
             name: exerciseData.name,
             progress: getProgress(),
-            duration: formatTime(seconds),
+            duration: seconds,
             data:exerciseData,
         }
         let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
@@ -117,14 +137,9 @@ const Exercise = () => {
         console.log(`Snapshot for exercise saved:`, snapshot);
     }
     const getProgress = () =>{
-        const totalTarget = exerciseData.sets
-            .map(set => set.fields)  // Get fields array from each set
-            .flat()                  // Have all fields in one array
-            .reduce((sum, field) => sum + field.target, 0);
-        const totalValues = exerciseData.sets
-            .map(set => set.fields)  // Get fields array from each set
-            .flat()                  // Have all fields in one array
-            .reduce((sum, field) => sum + field.value, 0);
+        const totalTarget = exerciseData.sets.reduce((sum, set) => sum + set.target, 0);
+            
+        const totalValues = exerciseData.sets.reduce((sum, set) => sum + set.value, 0);            
         const progress = (totalValues / totalTarget) * 100;
         return parseFloat(progress.toFixed(2));
     }
@@ -158,7 +173,6 @@ const Exercise = () => {
         
         setExerciseData({ ...exerciseData, sets: updatedSets });
     
-        saveProgress();
         
     
     };
@@ -196,7 +210,7 @@ const Exercise = () => {
         const isSetCompleted = updatedSet.fields.every(item=>item.isCompleted === true);
         updatedSets[setNo] = {...updatedSet, isCompleted: isSetCompleted}; // Update the specific set
         setExerciseData({ ...exerciseData, sets: updatedSets });
-        saveProgress();
+        
     };
     
 
@@ -210,7 +224,6 @@ const Exercise = () => {
             isSkipped: false,
         }]  });
            
-        saveProgress();
     }
     
     const toggleSetCompletion = (setNo) => {
@@ -229,7 +242,6 @@ const Exercise = () => {
         
         setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted}); // Set exercise isCompleted to true if all sets are completed
        
-        saveProgress();
     };
 
    

@@ -48,7 +48,7 @@ function AppRoutes() {
       <Route path="/exercise/:id/view" element={<ViewExercise />} />
       <Route path="/exercise/:id/edit" element={<EditExercise />} />
       <Route path="/exercise/:id/start" element={<Exercise />} />
-      <Route path="/exercise/:snapshotId/start" element={<Exercise />} />
+      <Route path="/exercise/:snapshotId/restore" element={<Exercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />

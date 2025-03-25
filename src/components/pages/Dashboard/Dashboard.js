@@ -1,4 +1,4 @@
-import { getDateForHeader } from '../../../helpers';
+import { getDateForHeader, getHourFromTimestamp } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -80,13 +80,16 @@ const Dashboard = () => {
 
 
         <div className={styles['dashboard-content']}>
-            {exerciseSnapshots && exerciseSnapshots.length > 0 ? exerciseSnapshots.map((item,index)=>(
-                <div className={styles.snapshot} key={'snapshot-'+index}>
-                    <h3>{item.name}</h3>
-                    <p>{item.completion}%</p>
-                    <p>{item.timestamp}</p>
-                </div>
-            )) : null }
+            {exerciseSnapshots && exerciseSnapshots.length > 0 ? <div className={styles.snapshots}>
+                <h4>Unfinished activity</h4>
+                {exerciseSnapshots.map((item,index)=>(
+                <Link to={`/exercise/${item.snapshotId}/restore`} className={styles.snapshot} key={'snapshot-'+index}>
+                    <h4>{item.name}</h4>
+                    <p>{item.progress}%</p>
+                    <p>{getHourFromTimestamp(item.timestamp)}</p>
+                </Link>
+            ))}
+                </div> : null }
         {dashboardComponents && dashboardComponents.length > 0 ? (
             dashboardComponents.map((item, index) => {
             // For better performance, create a goal map outside the rendering loop if it's needed multiple times
