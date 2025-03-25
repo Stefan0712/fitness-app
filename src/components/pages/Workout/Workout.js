@@ -146,7 +146,48 @@ const Workout = () => {
         navigate('/logs');
 
     }
+    const getProgress = () =>{
+        const completedExercises = exercises.filter(item=>item.isCompleted).length;
+        const progress = (completedExercises / exercises.length) * 100;
+        return parseFloat(progress.toFixed(2));
+    }
+    const saveProgress = () =>{
+        const timestamp = new Date().toISOString();
+        const snapshot = {
+            snapshotId: uuidv4(),
+            timestamp,
+            type: 'workout',
+            name: workoutData.name,
+            progress: getProgress(),
+            duration: formatTime(seconds),
+            data:{
+                duration: formatTime(seconds),
+                workoutId: workoutData.id,
+                exercises: exercises
+            },
+        }
+        let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
+    
+        const existingIndex = snapshots.workouts.findIndex(snap => snap.data.id === workoutData.id);
 
+        // If an existing snapshot for the exercise is found, replace it
+        if (existingIndex !== -1) {
+            snapshots.workouts[existingIndex] = snapshot;
+        } else {
+            // If no snapshot exists, just add the new snapshot
+            snapshots.workouts.push(snapshot);
+        }
+
+        // Limit to 3 exercise snapshots
+        if (snapshots.workouts.length > 3) {
+            snapshots.workouts.shift(); // Remove the oldest snapshot
+        }
+
+        // Save the updated snapshots back to localStorage
+        localStorage.setItem('snapshots', JSON.stringify(snapshots));
+
+        console.log(`Snapshot for workout saved:`, snapshot);
+    }
 
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
         // Create a deep copy of exercises
@@ -318,7 +359,7 @@ const Workout = () => {
         setCurrentSet(0);
         setCurrentExercise(id)
     }
-// Remove the +/- buttons from current exercise and show just a text input and a checkbox for the entire exercise
+    
 // Make it so if the current selected exercise is selected, then move to the next one that is not completed
 // Auto finish the workout when all exercises are finished
 

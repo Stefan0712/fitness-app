@@ -28,6 +28,11 @@ const Dashboard = () => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
     const [message, setMessage] = useState(null);
 
+
+    const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+    const exerciseSnapshots = snapshots?.exercises?.filter(item=>item.type==='exercise');
+    const workoutSnapshots = snapshots?.workouts?.filter(item=>item.type==='workout');
+
     const getCurrentWeek = () => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
@@ -75,6 +80,13 @@ const Dashboard = () => {
 
 
         <div className={styles['dashboard-content']}>
+            {exerciseSnapshots && exerciseSnapshots.length > 0 ? exerciseSnapshots.map((item,index)=>(
+                <div className={styles.snapshot} key={'snapshot-'+index}>
+                    <h3>{item.name}</h3>
+                    <p>{item.completion}%</p>
+                    <p>{item.timestamp}</p>
+                </div>
+            )) : null }
         {dashboardComponents && dashboardComponents.length > 0 ? (
             dashboardComponents.map((item, index) => {
             // For better performance, create a goal map outside the rendering loop if it's needed multiple times

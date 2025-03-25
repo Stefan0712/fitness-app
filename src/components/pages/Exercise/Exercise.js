@@ -62,7 +62,6 @@ const Exercise = () => {
         } else {
             console.error(`Failed to format exercise`);
         }
-    
         return exercise; //return the modified exercise
     };
 
@@ -73,6 +72,7 @@ const Exercise = () => {
             id: uuidv4(),
             icon: IconLibrary.Exercise,
             type: 'exercise',
+            name: exerciseData.name,
             data: {
                 duration: formatTime(seconds),
                 finishedAt: getFullHour(),
@@ -84,18 +84,49 @@ const Exercise = () => {
         navigate('/logs');
     }
     const saveProgress = () =>{
+        const timestamp = new Date().toISOString();
         const snapshot = {
-            id: uuidv4(),
-            icon: IconLibrary.Exercise,
+            snapshotId: uuidv4(),
+            timestamp,
             type: 'exercise',
-            data: {
-                duration: formatTime(seconds),
-                finishedAt: getFullHour(),
-                ...exerciseData, 
-                
-            }
+            name: exerciseData.name,
+            progress: getProgress(),
+            duration: formatTime(seconds),
+            data:exerciseData,
         }
-        console.log(snapshot)
+        let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
+    
+        const existingIndex = snapshots.exercises.findIndex(snap => snap.data.id === exerciseData.id);
+
+        // If an existing snapshot for the exercise is found, replace it
+        if (existingIndex !== -1) {
+            snapshots.exercises[existingIndex] = snapshot;
+        } else {
+            // If no snapshot exists, just add the new snapshot
+            snapshots.exercises.push(snapshot);
+        }
+
+        // Limit to 3 exercise snapshots
+        if (snapshots.exercises.length > 3) {
+            snapshots.exercises.shift(); // Remove the oldest snapshot
+        }
+
+        // Save the updated snapshots back to localStorage
+        localStorage.setItem('snapshots', JSON.stringify(snapshots));
+
+        console.log(`Snapshot for exercise saved:`, snapshot);
+    }
+    const getProgress = () =>{
+        const totalTarget = exerciseData.sets
+            .map(set => set.fields)  // Get fields array from each set
+            .flat()                  // Have all fields in one array
+            .reduce((sum, field) => sum + field.target, 0);
+        const totalValues = exerciseData.sets
+            .map(set => set.fields)  // Get fields array from each set
+            .flat()                  // Have all fields in one array
+            .reduce((sum, field) => sum + field.value, 0);
+        const progress = (totalValues / totalTarget) * 100;
+        return parseFloat(progress.toFixed(2));
     }
     const handleCompleteField = (setNo, fieldId) => {
                 
@@ -211,6 +242,7 @@ const Exercise = () => {
                 <div className="header">
                     <div className="date">{getDateForHeader()}</div>
                     <h2>{exerciseData?.name}</h2>
+                    <p className={styles.timer}>{formatTime(seconds)}</p>
                 </div>
                 <div className={styles.content}>                
             <div className={styles['current-exercise']}>
@@ -247,8 +279,7 @@ const Exercise = () => {
                 </div>
             </div> 
             <div className={styles['buttons-container']}>
-                <button onClick={()=>console.log("Save progress was pressed")}>Save Progress</button>
-                <button onClick={()=>console.log("Finished exercise")}>Finish</button>
+                <button onClick={finishExercise}>Finish</button>
             </div>
         </div>
          
