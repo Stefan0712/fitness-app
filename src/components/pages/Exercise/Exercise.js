@@ -150,7 +150,6 @@ const Exercise = () => {
                 // Check if the new value passes the target (either above or below)
                 const shouldComplete = newValue >= field.target;
                 const shouldDecomplete = newValue < field.target;
-
                 return {
                     ...field,
                     value: newValue,
@@ -159,48 +158,16 @@ const Exercise = () => {
             }
             return field;
         });
+        
 
         // Update the set's fields
         updatedSet.fields = updatedFields;
-        updatedSets[setNo] = updatedSet; // Update the specific set
-
+        const isSetCompleted = updatedSet.fields.every(item=>item.isCompleted === true);
+        updatedSets[setNo] = {...updatedSet, isCompleted: isSetCompleted}; // Update the specific set
         setExerciseData({ ...exerciseData, sets: updatedSets });
-            
-   
         saveProgress();
     };
     
-    const completeAllFields = (exerciseId, setNo) => {
-           
-        const updatedSets = [...exerciseData.sets];
-        const updatedSet = { ...updatedSets[setNo] };
-
-        // Toggle all fields in the set
-        const updatedFields = updatedSet.fields.map((field) => ({
-            ...field,
-            isCompleted: true, // Mark all fields as completed
-            value: !field.isCompleted && (!field.value || field.value === 0) 
-                ? parseInt(field.target, 10)
-                : field.value 
-        }));
-
-        // Update the set's fields and completion status
-        updatedSet.fields = updatedFields;
-        updatedSet.isCompleted = true; // All fields are completed, so the set is completed
-
-        // Update the sets array
-        updatedSets[setNo] = updatedSet;
-
-        // Check if all sets are completed to update the exercise's completion status
-        const allSetsCompleted = updatedSets.every((set) => set.isCompleted);
-
-        setExerciseData({ ...exerciseData, sets: updatedSets, isCompleted: allSetsCompleted });
-                
-               
-        
-        saveProgress();
-        
-    };
 
     const handleAddSet = () =>{
 
