@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { exercises as databaseExercises } from '../../../database';
 import { workouts as databaseWorkouts} from '../../../database';
+import { deleteWorkout } from '../../../store/userSlice.ts';
 
 
 //TODO: fix tags not properly showing when there are too many.
@@ -33,8 +34,8 @@ const ViewWorkout = () => {
     
     
 
-    const deleteWorkout = () =>{
-        dispatch(deleteWorkout(id))
+    const handleDeleteWorkout = () =>{
+        dispatch(deleteWorkout(id));
         navigate('/library');
     }   
     //function to search and populate each exercise based on the course
@@ -141,7 +142,7 @@ const ViewWorkout = () => {
                     <div className={styles['menu-buttons']}>
                         {showConfirmDelete ? (
                             <div className={styles['buttons-container']}>
-                                <button className={styles['menu-button']} onClick={deleteWorkout}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
+                                <button className={styles['menu-button']} onClick={handleDeleteWorkout}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
                                 <div className={styles['divider']} />
                                 <button className={styles['menu-button']} onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
                             </div>
