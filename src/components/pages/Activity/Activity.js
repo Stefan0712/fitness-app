@@ -12,7 +12,7 @@ import LogsHistory from "./LogsHistory/LogsHistory";
 
 
 const Activity = () => {
-    const [currentScreen, setCurrentScreen] = useState('stats');
+    const [currentScreen, setCurrentScreen] = useState('logs');
 
 
     
@@ -23,10 +23,10 @@ const Activity = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Activity</h2>
             </div>
-            <div className={styles['toggle-buttons-container']}>
+            {/* <div className={styles['toggle-buttons-container']}>
                 <button className={`${styles['toggle-button']} ${currentScreen === 'stats' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('stats')}>Stats</button>
                 <button className={`${styles['toggle-button']} ${currentScreen === 'logs' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('logs')}>Logs</button>
-            </div>
+            </div> */}
             <div className={styles.content}>
                 {currentScreen === 'stats' ? <LogsStats /> : currentScreen === "logs" ? <LogsHistory /> : null}
             </div>

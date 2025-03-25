@@ -84,9 +84,9 @@ const LogsHistory = () => {
     return ( 
         <div className={styles['logs-history']}>
                 
-                <div className={styles['time-interval-buttons-container']}>
-                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''}`}>Current Week</button>
-                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''}`}>Last 7 Days</button>
+                <div className={styles['toggle-buttons-container']}>
+                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Current Week</button>
+                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Last 7 Days</button>
                 </div>
                 {weekData ? <DaySelector weekData={weekData} selectedDay={selectedDay} selectDay={handleDaySelect} /> : null}
                 <div className={styles["logs-container"]}>
@@ -94,13 +94,13 @@ const LogsHistory = () => {
                         weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
                             weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
                                 <div className={styles['log-body']} key={'log-' + index} onClick={()=>console.log(item)}>
-                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.data.workoutData?.name : (item.data?.name || item.name)}</p>
+                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
                                     <p className={styles['log-value']}>
                                         {item.type === 'exercise' ? `${typeof item.data.sets === 'object' ? item.data.sets.length : item.data.sets} sets` : 
                                         item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
                                         item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` :
-                                        item.type === 'workout' ? `${item.data?.workoutData?.exercises?.length} exercises` : null}
+                                        item.type === 'workout' ? `${item.data?.exercises?.length} exercises` : null}
                                     </p>
                                 </div>
                             ))
