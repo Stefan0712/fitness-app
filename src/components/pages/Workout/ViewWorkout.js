@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { exercises as databaseExercises } from '../../../database';
 import { workouts as databaseWorkouts} from '../../../database';
-import { deleteWorkout } from '../../../store/userSlice.ts';
+import { addWorkout, deleteWorkout } from '../../../store/userSlice.ts';
 
 
 //TODO: fix tags not properly showing when there are too many.
@@ -55,7 +55,10 @@ const ViewWorkout = () => {
     useEffect(()=>{
         fetchExercises();
     },[])
-
+    const handleSaveWorkout = () =>{
+        dispatch(addWorkout(workoutData));
+        navigate('/library');
+    }
     if(workoutData){
 
         return ( 
@@ -63,7 +66,8 @@ const ViewWorkout = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{workoutData.name}</h2>
-                    <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>
+                    {libraryWorkoutIndex >= 0 ? <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link> 
+                    : <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> }
                 </div>
                <div className={styles['view-workout-content']}>
                <div className={styles['workout-info']}>

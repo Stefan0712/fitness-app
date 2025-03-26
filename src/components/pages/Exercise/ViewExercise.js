@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import './exercise.css';
 import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
-import { deleteExercise } from "../../../store/userSlice.ts";
+import { addExercise, deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
 import { exercises as databaseExercises } from "../../../database.js";
 
@@ -27,6 +27,11 @@ const ViewExercise = () => {
         navigate('/library');
            
     }
+
+    const handleSaveExercise = () =>{
+        dispatch(addExercise(exerciseData));
+        navigate('/library');
+    }
     if(exerciseData){
 
         return ( 
@@ -34,7 +39,7 @@ const ViewExercise = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{exerciseData?.name}</h2>
-                    <Link to={`/exercise/${exerciseData.id}/start`} className='start-workout-button'>Start</Link>
+                    {libraryExerciseIndex >= 0 ? <Link to={`/exercise/${exerciseData.id}/start`} className='start-workout-button'>Start</Link> : <button onClick={handleSaveExercise} className='start-workout-button'>Save</button>}
                 </div>
                 <div className="exercise-info">
                     <div className='workout-description'>

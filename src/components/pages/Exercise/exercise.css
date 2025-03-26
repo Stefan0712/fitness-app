@@ -125,16 +125,7 @@
     height: 100%;
     width: 100%;
 }
-.view-exercise .header button{
-    width: 50px;
-    background-color: transparent;
-    border: 1px solid transparent;
-    font-size: 2rem;
-    font-weight: 600;
-    position: absolute;
-    top: 30px;
-    right: 20px;
-}
+
 .tag-color{
     height: 100%;
     width: 5px;
