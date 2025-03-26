@@ -33,6 +33,17 @@ const Dashboard = () => {
     const exerciseSnapshots = snapshots?.exercises?.filter(item=>item.type==='exercise');
     const workoutSnapshots = snapshots?.workouts?.filter(item=>item.type==='workout');
 
+
+
+    const handleDeleteSnapshot = (type, snapshotId) =>{
+        console.log("Deleted snapshot: ",type, snapshotId);
+        const exSnapshots = type === "exercise" ? exerciseSnapshots.filter(item=>item.snapshotId!==snapshotId) : exerciseSnapshots;
+        const workSnapshots = type === "workout" ? workoutSnapshots.filter(item=>item.snapshotId!==snapshotId) : workoutSnapshots;
+        localStorage.setItem('snapshots', JSON.stringify({exercises: exSnapshots, workouts: workSnapshots})); 
+    }
+
+
+
     const getCurrentWeek = () => {
         const today = new Date();
         return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
@@ -59,7 +70,7 @@ const Dashboard = () => {
         setMessage(message);
         console.log("Message function was triggered", message)
     }
-
+    
    
     return ( 
         <div className={`${styles.dashboard} page`}>
@@ -83,21 +94,23 @@ const Dashboard = () => {
             {exerciseSnapshots && exerciseSnapshots.length > 0 ? <div className={styles.snapshots}>
                 <h4>Unfinished activity</h4>
                 {exerciseSnapshots.map((item,index)=>(
-                <Link to={`/exercise/${item.snapshotId}/restore`} className={styles.snapshot} key={'snapshot-'+index}>
-                    <h4>{item.name}</h4>
+                <div className={styles.snapshot} key={'snapshot-'+index}>
+                    <Link to={`/exercise/${item.snapshotId}/restore`}><h4>{item.name}</h4></Link>
                     <p>{item.progress}%</p>
                     <p>{getHourFromTimestamp(item.timestamp)}</p>
-                </Link>
+                    <img className='small-icon' onClick={()=>handleDeleteSnapshot('exercise', item.snapshotId)} src={IconLibrary.Close} alt='' />
+                </div>
             ))}
                 </div> : null }
             {workoutSnapshots && workoutSnapshots.length > 0 ? <div className={styles.snapshots}>
                 <h4>Unfinished activity</h4>
                 {workoutSnapshots.map((item,index)=>(
-                <Link to={`/workout/${item.snapshotId}/restore`} className={styles.snapshot} key={'snapshot-'+index}>
-                    <h4>{item.name}</h4>
+                <div className={styles.snapshot} key={'snapshot-'+index}>
+                    <Link to={`/workout/${item.snapshotId}/restore`}><h4>{item.name}</h4></Link>
                     <p>{item.progress}%</p>
                     <p>{getHourFromTimestamp(item.timestamp)}</p>
-                </Link>
+                    <img className='small-icon' onClick={()=>handleDeleteSnapshot('workout', item.snapshotId)} src={IconLibrary.Close} alt='' />
+                </div>
             ))}
                 </div> : null }
         {dashboardComponents && dashboardComponents.length > 0 ? (
