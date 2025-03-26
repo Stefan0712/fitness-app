@@ -11,7 +11,7 @@ import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
 import NoSleep from 'nosleep.js';
-import Settings from '../../pages/Settings/Settings.js';
+import Menu from '../../pages/Settings/Menu.js';
 
 
 const Navigation = () => {
@@ -91,7 +91,7 @@ const Navigation = () => {
             {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
-            {showSettings ? <Settings closeSettings={()=>setShowSettings(false)} /> : null}
+            {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
 
 
 

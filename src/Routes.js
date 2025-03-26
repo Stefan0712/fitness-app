@@ -21,6 +21,7 @@ import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
 import DashboardLayout from './components/pages/Dashboard/DashboardLayout';
+import Settings from './components/pages/Settings/Settings.tsx';
 
 
 function AppRoutes() {
@@ -55,6 +56,7 @@ function AppRoutes() {
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />
       <Route path='/equipment' element={<Equipment />} />
+      <Route path='/settings' element={<Settings />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
       <Route path="*" element={<Dashboard />} />
       
