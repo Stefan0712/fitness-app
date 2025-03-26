@@ -8,6 +8,7 @@ import { IconLibrary } from "../../../IconLibrary";
 import {exercises as databaseExercises} from '../../../database';
 
 import styles from './Workout.module.css';
+import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
  
 
 
@@ -19,6 +20,7 @@ const Workout = () => {
     const navigate = useNavigate();
 
     const [showExercises, setShowExercises] = useState(false);
+    const [showExercisePicker, setShowExercisePicker] = useState(false);
     
     const workouts = useSelector((state) => state.user.workouts)
     const [workoutData, setWorkoutData] = useState(workouts.find((item) => item.id === id));
@@ -139,6 +141,10 @@ const Workout = () => {
             setCurrentExercise(exercises[selectedExerciseIndex + 1].id);
         }
     };
+    const addExercise = (exercise) =>{
+        setExercises(exercises=>[...exercises, exercise]);
+        setShowExercisePicker(false);
+    }
     //finish the workout by saving it as a log and redirrecting the user to he activity page
     const finishWorkout = () =>{
         //create the log object that will be saved to the redux store
@@ -348,8 +354,7 @@ const Workout = () => {
 // Auto finish the workout when all exercises are finished
 
 
-// TODO: Add an option to add an exercise to the currently running exercise. Let the user have the option to
-// TODO: use existing ones or create a quick one on the go
+
 
     if(workoutData){
 
@@ -361,13 +366,13 @@ const Workout = () => {
                     <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
                 </div>
                 <div className={styles.content}>
-    
+                    {showExercisePicker ? <ExercisePicker closeModal={()=>setShowExercisePicker(false)} currentExercises={exercises} addExercise={addExercise} /> : null}
                     {showExercises ? (
                         <div className={styles.exercises }>
                         <div className={styles['exercises-header']}>
                             <h3>Exercises</h3>
                             <button className={styles['hide-exercises']}>
-                                <img src={IconLibrary.Add} className="small-icon" alt="add exercise"></img>
+                                <img src={IconLibrary.Add} onClick={()=>setShowExercisePicker(true)} className="small-icon" alt="add exercise"></img>
                             </button>
                         </div>
                         <div className={styles["exercises-container"]}>
