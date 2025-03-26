@@ -74,7 +74,7 @@ const ViewWorkoutLog: React.FC<ViewWorkoutLogProps> = ({logData, closeLog}) => {
                         <img src={logData.icon} className='small-icon' alt=''/>
                         <h3>{logData.name}</h3>
                     </div>
-                    <p className={styles['log-timestamp']}>{getDateFromTimestamp(logData.timestamp)} at {getHourFromTimestamp(logData.timestamp)}</p>
+                    <p className={styles['log-timestamp']}>{getDateFromTimestamp(logData.timestamp)} at {getHourFromTimestamp(logData.timestamp)} for {logData.data.duration}</p>
                 </div>
                     <div className={styles['workout-details']}>
                         <div className={styles.infoBlockTags}>
@@ -97,16 +97,6 @@ const ViewWorkoutLog: React.FC<ViewWorkoutLogProps> = ({logData, closeLog}) => {
                                     </div>
                                 )): null}
                             </div>
-                        </div>
-                    </div>
-                    <div className={styles['workout-log-details']}>
-                        <div className={styles.infoBlock}>
-                            <label>Duration</label>
-                            <p className={styles.infoBlockValue}>{logData.data.duration}</p>
-                        </div>
-                        <div className={styles.infoBlock}>
-                            <label>Finished at</label>
-                            <p className={styles.infoBlockValue}>{logData.data.finishedAt}</p>
                         </div>
                     </div>
                     <div className={styles.exercises}>

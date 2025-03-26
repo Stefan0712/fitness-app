@@ -125,3 +125,12 @@
     align-items: center;
     justify-content: center;
 }
+.exercise-log-errors{
+    position: absolute;
+    width: calc(100% - 30px);
+    left: 15px;
+    bottom: 15px;
+    background-color: var(--cancel);
+    border-radius: 10px;
+    padding: 10px;
+}
