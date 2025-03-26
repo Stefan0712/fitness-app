@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import './exercise.css';
-import { useState } from "react";
 import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
 import { deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
@@ -20,7 +19,6 @@ const ViewExercise = () => {
     const exerciseData = libraryExerciseIndex >=0 ? libraryExercises[libraryExerciseIndex] : databaseExerciseIndex >=0 ? databaseExercises[databaseExerciseIndex] : null;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
 
 
@@ -36,6 +34,7 @@ const ViewExercise = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{exerciseData?.name}</h2>
+                    <Link to={`/exercise/${exerciseData.id}/start`} className='start-workout-button'>Start</Link>
                 </div>
                 <div className="exercise-info">
                     <div className='workout-description'>
@@ -107,27 +106,9 @@ const ViewExercise = () => {
                         </div>
                         {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
                     </div>
-                    <div className='view-workout-buttons'>
-                        <div className='view-workout-menu-buttons'>
-                            {showConfirmDelete ? (
-                                <div className='buttons-container'>
-                                    <button className='view-workout-menu-button' onClick={deleteEx}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
-                                    <div className='divider' />
-                                    <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
-                                </div>
-                            ):(
-                                <div className='buttons-container'>
-                                    <button className='view-workout-menu-button' onClick={()=>setShowConfirmDelete(true)}>Delete</button>
-                                    <div className='divider' />
-                                    <Link className='view-workout-menu-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
-                                </div>
-                            )}
-                            
-                        </div>
-                        <Link to={`/exercise/${exerciseData.id}/start`} className='orange-button large-button start-workout-button'>Start Exercise</Link>
-                    </div>
+                <button className='exercise-button' onClick={deleteEx}>Delete</button>
+                <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
                 </div>
-    
             </div>
          );
     }else{

@@ -18,7 +18,6 @@ const ViewWorkout = () => {
     const navigate = useNavigate();
    
 
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
     const [exercises, setExercises] = useState([]);
     const libraryWorkouts = useSelector((state)=>state.user.workouts);
@@ -64,7 +63,7 @@ const ViewWorkout = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{workoutData.name}</h2>
-                    
+                    <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>
                 </div>
                <div className={styles['view-workout-content']}>
                <div className={styles['workout-info']}>
@@ -137,25 +136,11 @@ const ViewWorkout = () => {
                             <b className={styles['exercise-name']}>{exercise.name}</b>
                             <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
                         </div>
-                  )) : (<p>Loading Exercises</p>)}
-                <div className={styles['buttons']}>
-                    <div className={styles['menu-buttons']}>
-                        {showConfirmDelete ? (
-                            <div className={styles['buttons-container']}>
-                                <button className={styles['menu-button']} onClick={handleDeleteWorkout}><img className='small-icon' src={IconLibrary.Yes} alt=''/></button>
-                                <div className={styles['divider']} />
-                                <button className={styles['menu-button']} onClick={()=>setShowConfirmDelete(false)}><img className='small-icon' src={IconLibrary.No} alt=''/></button>
-                            </div>
-                        ):(
-                            <div className={styles['buttons-container']}>
-                                <button className={styles['menu-button']} onClick={()=>setShowConfirmDelete(true)}>Delete</button>
-                                <div className={styles['divider']} />
-                                <Link  className={styles['menu-button']} to={`/workout/${workoutData.id}/edit`}>Edit</Link>
-                            </div>
-                        )}
-                    </div>
-                    <Link to={`/workout/${workoutData.id}/start`} className={`orange-button large-button ${styles['start-workout-button']}`}>Start Workout</Link>
+                  )) : (<p>Loading Exercises</p>)} 
                 </div>
+                <div className={styles['bottom-buttons']}>
+                    <button className={styles['menu-button']} onClick={handleDeleteWorkout}>Delete</button>
+                    <Link  className={styles['menu-button']} to={`/workout/${workoutData.id}/edit`}>Edit</Link>
                 </div>
                </div>
             </div>
