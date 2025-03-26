@@ -30,6 +30,8 @@ const Workout = () => {
     const [seconds, setSeconds] = useState(0);
     const [currentSet, setCurrentSet] = useState(0);
 
+    const [extendedMode, setExtendedMode] = useState(true);
+
 
 
 
@@ -398,12 +400,12 @@ const Workout = () => {
                         </div>
                         <div className={styles['sets-container']}>
                             {exercises?.find((ex) => ex.id === currentExercise)?.sets.map((item, index)=>(
-                                <div className={`${styles.set} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
+                                <div className={`${styles.set} ${extendedMode ? '' : styles['simplified-set']} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
                                     <div className={styles['set-top']}>
                                         <p className={styles['set-title']}>{`Set ${index+1}`}</p>
                                         <input type="checkbox" className={styles['set-checkbox']} onChange={()=>toggleSetCompletion(currentExercise, index, !item.isCompleted)} checked={item.isCompleted}></input>
                                     </div>
-                                    <div className={styles['set-fields']}>
+                                    {extendedMode ? <div className={styles['set-fields']}>
                                         {item?.fields?.map((field)=>(
                                             <div className={styles["field"]} key={field.id}>
                                                 <p className={styles["field-name"]}>{field.name}</p>
@@ -415,7 +417,7 @@ const Workout = () => {
                                                 <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field.id)}></input>
                                             </div>
                                         ))}
-                                    </div>
+                                    </div> : null}
                                 </div>
                             ))}
                             
@@ -424,8 +426,9 @@ const Workout = () => {
                 </div> 
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
+                    <button onClick={()=>setExtendedMode(extendedMode=>!extendedMode)}>{extendedMode ? 'Minimize Sets' : 'Extend Sets'}</button>
                     <button onClick={()=>setShowExercises(showExercises=>!showExercises)}>{showExercises ? 'Hide Exercises' : 'Show Exercises'}</button>
-                    <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.Arrow} alt="next exercise"></img></button>
+                    <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.BackArrow} style={{transform: 'rotateZ(180deg)'}} alt="next exercise"></img></button>
                 </div>
             </div>
         );
