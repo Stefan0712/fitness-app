@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import DaySelector from './DaySelector';
 import ViewWorkoutLog from './ViewWorkoutLog.tsx';
+import ViewGoalLog from './ViewGoalLog.tsx';
+import ViewFoodLog from './ViewFoodLog.tsx';
 
 
 
@@ -15,7 +17,6 @@ const LogsHistory = () => {
 
     const [showInfo, setShowInfo] = useState(null);
     const activity = useSelector((state)=>state.user.activity);
-    console.log(activity)
     const [showLog, setShowLog] = useState(null);
     const [intervalPart, setIntervalPart] = useState('last-seven-days')
     const [weekRange, setWeekRange] = useState(getWeekRange(getCurrentDay(),'last-seven-days'));
@@ -86,6 +87,8 @@ const LogsHistory = () => {
     return ( 
         <div className={styles['logs-history']}>
                 {openedLog && openedLog.type === 'workout' ? <ViewWorkoutLog logData={openedLog} closeLog={()=>setOpenedLog(null)} /> : null}
+                {openedLog && openedLog.type === 'goal' ? <ViewGoalLog logData={openedLog} closeLog={()=>setOpenedLog(null)} /> : null}
+                {openedLog && openedLog.type === 'food' ? <ViewFoodLog logData={openedLog} closeLog={()=>setOpenedLog(null)} /> : null}
                 <div className={styles['toggle-buttons-container']}>
                     <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Current Week</button>
                     <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Last 7 Days</button>

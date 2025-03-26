@@ -149,7 +149,9 @@
     height: 100%;
     width: 3px;
 }
-.view-workout-log{
+.view-workout-log,
+.view-goal-log,
+.view-food-log{
   width: calc(100vw - 30px);
   height: 600px;
   padding: 10px;
@@ -160,6 +162,39 @@
   flex-direction: column;
   background-color: var(--modal-bg);
   border-radius: 10px;
+}
+.view-food-log{
+  height: 350px;
+  gap: 10px;
+}
+.view-food-log .meta{
+  height: 80px;
+}
+.food-log-details{
+  width: 100%;
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  
+}
+.view-food-log label{
+  opacity: 0.5;
+}
+.view-food-log .log-container{
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.view-goal-log .log-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.view-goal-log{
+  height: 250px;
 }
 .top{
   width: 100%;
@@ -182,7 +217,7 @@
   gap: 15px;
   align-items: center;
 }
-.view-workout-log h3{
+h3{
   margin: 0;
 }
 .log-timestamp{
@@ -239,6 +274,26 @@
   gap: 10px;
   height: 50px;
   align-items: center;
+}
+.view-goal-log .goal-log-details{
+  width: 100%;
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+.view-goal-log .description{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.view-goal-log label{
+  opacity: 0.5;
 }
 .exercises{
   background-color: var(--secondary);

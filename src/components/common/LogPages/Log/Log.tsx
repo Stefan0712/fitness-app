@@ -70,7 +70,7 @@ const Log: React.FC<LogProps> = ({id}) => {
                     time,
                     description,
                     name,
-                    unit
+                    unit: goalData.unit
                 }
             }
             dispatch(addLog(data));
