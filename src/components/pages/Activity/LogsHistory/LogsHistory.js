@@ -79,9 +79,6 @@ const LogsHistory = () => {
     const closeViewLog = () =>{
         setShowLog(null)
     }
-    /* 
-     TODO: Recreate screens for viewing logs. Maybe some modal at the middle of the screen with the data and a delete button.
-    */
     const handleDaySelect = (date) =>{
         setSelectedDay(date);
     }
@@ -101,13 +98,16 @@ const LogsHistory = () => {
                         weekData.find(item => item.date === selectedDay)?.logs?.length > 0 ? (
                             weekData.find(item => item.date === selectedDay)?.logs.map((item, index) => (
                                 <div className={styles['log-body']} key={'log-' + index} onClick={()=>setOpenedLog(item)}>
-                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
+                                    <img className={styles['log-icon']} src={item.icon} alt='' />
                                     <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
+                                    <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
                                     <p className={styles['log-value']}>
-                                        {item.type === 'exercise' ? `${typeof item.data?.sets === 'object' ? item.data?.sets?.length : item.data?.sets} sets` : 
-                                        item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
-                                        item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` :
-                                        item.type === 'workout' ? `${item.data?.exercises?.length} exercises` : null}
+                                        {
+                                            item.data && item.type === 'exercise' && item.data.sets ? `${ Array.isArray(item.data.sets) ? item.data.sets.length : item.data.sets} sets` : 
+                                            item.data && item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
+                                            item.data && item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` :
+                                            item.data && item.type === 'workout' && item.data.exercises ? `${item.data.exercises.length} exercises` : null
+                                        }
                                     </p>
                                 </div>
                             ))
