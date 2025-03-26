@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { exercises as databaseExercises } from '../../../database';
 import { workouts as databaseWorkouts} from '../../../database';
+import {v4 as uuidv4} from 'uuid';
 import { addWorkout, deleteWorkout } from '../../../store/userSlice.ts';
 
 
@@ -55,9 +56,12 @@ const ViewWorkout = () => {
     useEffect(()=>{
         fetchExercises();
     },[])
+
     const handleSaveWorkout = () =>{
-        dispatch(addWorkout(workoutData));
-        navigate('/library');
+        if(databaseWorkoutIndex >= 0 ){
+            dispatch(addWorkout({...workoutData, sourceId: workoutData.id, id: uuidv4()}));
+            navigate('/library');
+        }
     }
     if(workoutData){
 

@@ -5,6 +5,7 @@ import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
 import { addExercise, deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
 import { exercises as databaseExercises } from "../../../database.js";
+import {v4 as uuidv4} from 'uuid';
 
 
 
@@ -29,8 +30,10 @@ const ViewExercise = () => {
     }
 
     const handleSaveExercise = () =>{
-        dispatch(addExercise(exerciseData));
-        navigate('/library');
+        if(databaseExerciseIndex >=0){
+            dispatch(addExercise({...exerciseData, sourceId: exerciseData.id, id: uuidv4()}));
+            navigate('/library');
+        }
     }
     if(exerciseData){
 
