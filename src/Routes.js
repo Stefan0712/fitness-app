@@ -22,6 +22,7 @@ import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
 import DashboardLayout from './components/pages/Dashboard/DashboardLayout';
 import Settings from './components/pages/Settings/Settings.tsx';
+import Explore from './components/pages/Explore/Explore.tsx';
 
 
 function AppRoutes() {
@@ -55,6 +56,7 @@ function AppRoutes() {
       <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
       <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />
+      <Route path='/explore' element={<Explore />} />
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />

@@ -28,8 +28,8 @@ const Settings = ({closeSettings}) => {
                 <Link onClick={closeSettings} to={'/'}>Equipment </Link>
                 <Link onClick={closeSettings} to={'/'}>Tags </Link>
                 <h3 className={styles.category}>Explore</h3>
-                <Link onClick={closeSettings} to={'/'}>Workouts</Link>
-                <Link onClick={closeSettings} to={'/'}>Exercises</Link>
+                <Link onClick={closeSettings} to={'/explore'}>Workouts</Link>
+                <Link onClick={closeSettings} to={'/explore'}>Exercises</Link>
                 {/* <Link to={'/'}>Guides</Link> */}
                 <h3 className={styles.category}>More</h3>
                 <Link onClick={closeSettings} to={'/settings'}>App Settings</Link>
