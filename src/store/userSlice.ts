@@ -194,6 +194,7 @@ interface Badges {
 interface InitialStateObject {
   userId: string,
   userData: {
+    firstRun: string,
     name?: string,
     username?: string,
     id: string,
@@ -239,11 +240,12 @@ interface InitialStateObject {
 const initialState: InitialStateObject = {
   userId: uuidv4(),
   userData: {
-    name: 'Stefan',
-    username: 'Stefan06',
-    id: "98123-asd2-12ok5-bvn2112-1v3123",
-    email: 'fake.mail@gmail.com',
-    createdAt: '2025-03-17',
+    firstRun: 'true',
+    name: '',
+    username: '',
+    id: "",
+    email: '',
+    createdAt: '',
     friends: [],
     followers: [],
     following: [],
@@ -251,11 +253,11 @@ const initialState: InitialStateObject = {
     posts: [],
     likes: [],
     savedPosts: [],
-    age: 25,
-    gender: 'Male',
-    height: 180,
-    weight: 80,
-    bio: 'I swear I am real',
+    age: 0,
+    gender: '',
+    height: 0,
+    weight: 0,
+    bio: '',
     isPrivate: false,
     isPremium: true,
     profileSettings: {
@@ -377,7 +379,16 @@ const userSlice = createSlice({
     },
 
     updateUserData: (state, action) => {
-      state.userData = { ...state.userData, ...action.payload };
+      const newData = action.payload;
+      const newUserData = {
+        ...state.userData,
+        ...newData,
+        id: uuidv4(),
+        firstRun: false,
+        createdAt: getCurrentDay(),
+        
+      }
+      state.userData = newUserData;
     },
 
     deleteExercise: (state, action) => {

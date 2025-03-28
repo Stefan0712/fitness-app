@@ -5,7 +5,7 @@
     background-color: var(--background);
     min-height: 100vh;
     z-index: 1;
-    
+    color: var(--text-color) !important;
 }
 .dashboard-content::-webkit-scrollbar{
     display: none;
@@ -39,7 +39,7 @@
     display: grid;
     grid-template-columns: 1fr 30px;
     grid-template-rows: 1fr 2fr;
-
+    color: var(--text-color);
 }
 .dashboard .header .date{
     color: rgba(255, 255, 255, 0.336);
@@ -264,6 +264,7 @@
     background-color: #1A1A1B;
     padding: 5px 10px;
     border-radius: 5px;
+    margin-top: 0;
 }
 .dashboard-layout .enabled-components,
 .dashboard-layout .disabled-components{

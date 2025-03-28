@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 import styles from './Navigation.module.css';
@@ -17,7 +17,7 @@ import Menu from '../../pages/Settings/Menu.js';
 const Navigation = () => {
 
     const noSleep = new NoSleep();
-
+    const location = useLocation();
     const [showQuickmenu, setShowQuickmenu] = useState(false)
 
     const [showFoodLog, setShowFoodLog] = useState(false);
@@ -85,40 +85,42 @@ const Navigation = () => {
         }
       };
  
-    return ( 
-        <nav>
-            {showGoals ? <Goals closeMenu={closeGoals}/> : null}
-            {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
-            {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
-            {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
-            {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
-
-
-
-            {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
-            openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
-            <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
-                <img src={IconLibrary.Home} alt=''></img>
-                <p>Home</p>
-            </Link>
-            <Link to='/library' onClick={closeAll}  className={styles['nav-button']}>
-                <img src={IconLibrary.List} alt=''></img>
-                <p>Library</p>
-            </Link>
-            <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={openQuickmenu}>
-                <button><img src={IconLibrary.Plus} alt='' /></button>
-            </div>
-            <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
-                <img src={IconLibrary.Clipboard} alt=''></img>
-                <p>Activity</p>
-            </Link>
-            <button onClick={()=>setShowSettings(true)} className={styles['nav-button']}>
-                <img src={IconLibrary.Menu} alt=''></img>
-                <p>Menu</p>
-            </button>
-            
-        </nav>
-     );
+      if(location.pathname !== '/get-started'){
+        return ( 
+            <nav>
+                {showGoals ? <Goals closeMenu={closeGoals}/> : null}
+                {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
+                {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
+                {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
+                {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
+    
+    
+    
+                {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
+                openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
+                <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
+                    <img src={IconLibrary.Home} alt=''></img>
+                    <p>Home</p>
+                </Link>
+                <Link to='/library' onClick={closeAll}  className={styles['nav-button']}>
+                    <img src={IconLibrary.List} alt=''></img>
+                    <p>Library</p>
+                </Link>
+                <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={openQuickmenu}>
+                    <button><img src={IconLibrary.Plus} alt='' /></button>
+                </div>
+                <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
+                    <img src={IconLibrary.Clipboard} alt=''></img>
+                    <p>Activity</p>
+                </Link>
+                <button onClick={()=>setShowSettings(true)} className={styles['nav-button']}>
+                    <img src={IconLibrary.Menu} alt=''></img>
+                    <p>Menu</p>
+                </button>
+                
+            </nav>
+         );
+      }
 }
  
 export default Navigation;

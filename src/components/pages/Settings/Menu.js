@@ -20,7 +20,7 @@ const Settings = ({closeSettings}) => {
             <div className={styles.container}>
                 <h3 className={styles.category}>Personal</h3>
                 <Link onClick={closeSettings} to={'/profile'}>Profile </Link>
-                <Link onClick={closeSettings}k to={'/edit-profile'}>Edit Profile </Link>
+                <Link onClick={closeSettings} to={'/edit-profile'}>Edit Profile </Link>
                 {/* <Link to={'/'}>Bookmarks</Link> */}
                 {/* <Link to={'/'}>My Posts</Link> */}
                 {/* <Link to={'/'}>Logout</Link> */}

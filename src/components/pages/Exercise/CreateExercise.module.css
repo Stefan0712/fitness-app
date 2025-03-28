@@ -50,8 +50,8 @@ fieldset{
 .create-exercise-page form option{
     height: 40px;
     width: 100%;
-    background-color: white;
-    color: rgba(0, 0, 0, 0.534);
+    background-color: var(--input-bg);
+    color: var(--input-color);
     padding-left: 15px;
     border: 1px solid transparent;
     border-radius: 5px;

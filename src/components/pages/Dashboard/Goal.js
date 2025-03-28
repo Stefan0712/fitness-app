@@ -10,8 +10,10 @@ import { updateDashboardLayout } from '../../../store/userSlice.ts';
 
 
 const Goal = ({data,showMessage}) => {
-
-    const logs = useSelector((state)=>state.user?.activity[getCurrentDay()]?.logs?.filter(item=>item.id === data.id));
+    const activity = useSelector(state => state.user.activity);
+    const currentDate = getCurrentDay();
+    const currentDayIndex = activity.findIndex(item=>item.date === currentDate);
+    const logs = activity[currentDayIndex]?.logs?.filter(item=>item.id === data.id);
     const currentWeeksLogs = useCurrentWeekLogs();
     const dispatch = useDispatch();
     const dashboardSections = useSelector((state)=>state.user.dashboardSections);
@@ -78,7 +80,7 @@ const Goal = ({data,showMessage}) => {
                 <div className={styles['history-container']}>
                     {logs && logs?.length > 0 ? logs.map((item,index)=>(
                          <div className={styles.log} key={index}>
-                            <p>{item.data.value} {data.unit} at {getHourFromTimestamp(item.timestamp)} on {getDateFromTimestamp(item.timestamp)}</p>
+                            <p><b>{item.data.value} {data.unit}</b> at <b>{getHourFromTimestamp(item.timestamp)}</b> on <b>{getDateFromTimestamp(item.timestamp)}</b></p>
                             <p>{Math.round((item.data.value/data.target)*100)}%</p>
                          </div>
                     )) : <p>No logs found</p>}

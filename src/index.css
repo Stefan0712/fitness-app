@@ -468,4 +468,26 @@ body{
   --modal-bg: #222324;
   --confirm: #4CAF50;
   --cancel: #F44336;
+  --tag-background: #111214;
+  --tag-text: white;
+
+}
+.light{
+  --background: white;
+  --secondary: lightgray;
+  --text-color: black;
+  --accent-color: #EB5928;
+  --dashboard-module-background: #1A1A1B;
+  --dashboard-module-container: #111214;
+  --quick-menu-button-background: #EB5928;
+  --quick-menu-button-text: white;
+  --general-border: rgba(221, 221, 221, 0.1);
+  --toggle-button-background: #1A1A1B;
+  --toggle-button-active: white;
+  --input-bg: #1A1A1B;
+  --modal-bg: #222324;
+  --confirm: #4CAF50;
+  --cancel: #F44336;
+  --tag-background: #111214;
+  --tag-text: white;
 }

@@ -306,7 +306,7 @@ const CreateWorkout: React.FC = () => {
                         ) : currentScreen === 'groups' ? (
                             <div className="screen">
                                 <div className='new-target-group'>
-                                    <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
+                                    <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img   className="small-icon" src={IconLibrary.Search} alt=""/></button>
                                     <input type='text' name="groupName" onChange={(e)=>setGroupName(e.target.value)} value={groupName} placeholder="Muscle Name" />
                                     <button type="button" className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
                                 </div>  

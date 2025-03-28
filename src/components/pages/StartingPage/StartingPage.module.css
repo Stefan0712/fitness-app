@@ -1,0 +1,22 @@
+.get-started-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 25px;
+}
+.health-information{
+    width: 100%;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+}
+.submit{
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+}

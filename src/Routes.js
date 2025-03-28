@@ -1,8 +1,8 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import StartingPage from './components/pages/StartingPage/StartingPage';
+import { useEffect } from 'react';
+import StartingPage from './components/pages/StartingPage/StartingPage.tsx';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import Library from './components/pages/Library/Library';
 import Logs from './components/pages/Activity/Activity';
@@ -26,12 +26,15 @@ import Explore from './components/pages/Explore/Explore.tsx';
 
 
 function AppRoutes() {
-
+  const location = useLocation();
   const navigate = useNavigate();
-  const isFirstTime = useSelector((state)=>state.user.isFirstTime)
-  if(isFirstTime){
-    navigate('/get-started')
-  }
+
+  const isFirstTime = useSelector((state)=>state.user.userData.firstRun);
+  useEffect(()=>{
+    if(isFirstTime && location.pathname !== '/get-started'){
+      navigate('/get-started')
+    }
+  },[isFirstTime])
 
   
   return (

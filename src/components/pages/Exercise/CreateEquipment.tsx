@@ -65,7 +65,7 @@ const CreateEquipment: React.FC<CreateEquipmentProps> = ({addEquipment, allItems
     return ( 
         <div className={styles['create-equipment']}>
             {showEquipments ? <EquipmentPicker closeModal={()=>setShowEquipments(false)} currentItems={allItems} addItem={addEquipment} /> : null}
-            <button type="button" className="clear-button" onClick={()=>setShowEquipments(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
+            <button type="button" className="clear-button" onClick={()=>setShowEquipments(true)}><img   className="small-icon" src={IconLibrary.Search} alt=""/></button>
             <input className={error ? 'input-error' : ''} type='text' onChange={(e)=>handleNameChange(e.target.value)} value={name} maxLength={15} placeholder='Name'/>
             <input type='text' onChange={(e)=>handleUnitChange(e.target.value)} value={unit} placeholder='Unit'/>
             <input type='number' onChange={(e)=>handleValueChange(e.target.value)} value={value} placeholder='Value'/>

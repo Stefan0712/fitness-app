@@ -11,7 +11,6 @@ import {v4 as uuidv4} from 'uuid';
 import { addWorkout, deleteWorkout } from '../../../store/userSlice.ts';
 
 
-//TODO: fix tags not properly showing when there are too many.
 const ViewWorkout = () => {
 
     const {id} = useParams();

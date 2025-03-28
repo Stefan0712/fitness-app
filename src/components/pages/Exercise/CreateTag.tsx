@@ -77,7 +77,7 @@ const CreateTag: React.FC<CreateTagProps> = ({addTag, author, allTags}) => {
         <div style={createTagStyles}>
             {showTags ? <TagPicker closeModal={()=>setShowTags(false)} currentTags={allTags} addTag={addTag} /> : null}
             {showColorPicker ? <ColorPicker closeModal={()=>setShowColorPicker(false)} getColor={setColor} currentColor={color}/> : null}
-            <button type="button" className="clear-button" onClick={()=>setShowTags(true)}><img style={{filter: 'invert(1)'}} className="small-icon" src={IconLibrary.Search} alt=""/></button>
+            <button type="button" className="clear-button" onClick={()=>setShowTags(true)}><img   className="small-icon" src={IconLibrary.Search} alt=""/></button>
             <button className={styles['colorpicker-button']} type="button" style={colorButtonStyles} onClick={()=>setShowColorPicker(true)} />
             <input className={`${error ? 'error-input' : ''}`} type="text" name="name" id="name" onChange={(e)=>handleNameInput(e.target.value)} value={name} placeholder="Name"/>
             <button type="button" className={styles['add-tag-button']} onClick={handleAddTag} style={addButtonStyles}><img style={{width: '40px', height: '40px'}} src={IconLibrary.Add} alt="" /></button>
