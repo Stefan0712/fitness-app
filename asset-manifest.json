@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.5dda8784.css",
-    "main.js": "/fitness-app/static/js/main.ca8414a0.js",
+    "main.css": "/fitness-app/static/css/main.c2e9ad5e.css",
+    "main.js": "/fitness-app/static/js/main.389ea40e.js",
     "static/media/medal.svg": "/fitness-app/static/media/medal.53db8d4fc8c43ab8422c73652b4f7b00.svg",
     "static/media/settings.svg": "/fitness-app/static/media/settings.dfcebfd4cd0e3bf55fe731758a563602.svg",
     "static/media/muscle.svg": "/fitness-app/static/media/muscle.2e4dde1846aa7d14dfb5f1ecac32e4dc.svg",
@@ -58,7 +58,7 @@
     "static/media/sleep.svg": "/fitness-app/static/media/sleep.e8fae72fcfdcad2a9e51c7bf1ccc72c8.svg",
     "static/media/weight.svg": "/fitness-app/static/media/weight.306fffaf4092b564650ff1f1faba842d.svg",
     "static/media/steps.svg": "/fitness-app/static/media/steps.53c6ea266ea72fd3fa79de15140e07ff.svg",
-    "static/media/search.svg": "/fitness-app/static/media/search.30c9be57f2f18e0e351fb481ae3466fe.svg",
+    "static/media/search.svg": "/fitness-app/static/media/search.ed86c20dcfa57f89fd1d5ac6bf54756c.svg",
     "static/media/back-arrow.svg": "/fitness-app/static/media/back-arrow.eb515c82f36307c5131ddb593172f0f9.svg",
     "static/media/lap.svg": "/fitness-app/static/media/lap.c2978c99064bbdcb9fce8b2c6ebf25d1.svg",
     "static/media/link.svg": "/fitness-app/static/media/link.39f745a1e33c56998802fa51dccae53f.svg",
@@ -82,11 +82,11 @@
     "static/media/home.svg": "/fitness-app/static/media/home.1f4a00cdec6ce4dfc33479e9ad44d08f.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.8aefe30ba0188b831ef98d9d1956a5cc.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.d4cbd790f65d0bfe5bb99503a158fcbf.svg",
-    "main.5dda8784.css.map": "/fitness-app/static/css/main.5dda8784.css.map",
-    "main.ca8414a0.js.map": "/fitness-app/static/js/main.ca8414a0.js.map"
+    "main.c2e9ad5e.css.map": "/fitness-app/static/css/main.c2e9ad5e.css.map",
+    "main.389ea40e.js.map": "/fitness-app/static/js/main.389ea40e.js.map"
   },
   "entrypoints": [
-    "static/css/main.5dda8784.css",
-    "static/js/main.ca8414a0.js"
+    "static/css/main.c2e9ad5e.css",
+    "static/js/main.389ea40e.js"
   ]
 }
