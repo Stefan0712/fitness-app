@@ -91,6 +91,11 @@ const Dashboard = () => {
 
 
         <div className={styles['dashboard-content']}>
+            <div className={styles['dashboard-warning']}>
+
+                <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>
+
+            </div>
             {exerciseSnapshots && exerciseSnapshots.length > 0 ? <div className={styles.snapshots}>
                 <h4>Unfinished activity</h4>
                 {exerciseSnapshots.map((item,index)=>(

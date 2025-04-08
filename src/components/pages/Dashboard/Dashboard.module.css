@@ -10,6 +10,19 @@
 .dashboard-content::-webkit-scrollbar{
     display: none;
 }
+@media (max-width: 400px){
+    .dashboard-warning{
+        display: none;
+    }
+}
+.dashboard-warning{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: orange;
+    border-radius: 5px;
+    text-shadow: 1px 1px 1px black;
+}
 @media (min-width: 800px) {
     .dashboard{
         grid-column: 2 / 4;
