@@ -31,11 +31,11 @@ export const mockWorkouts = [
     "notes": "Perform each stretch slowly and focus on breathing deeply during each movement.",
     "imageUrl": "",
     "exercises": [
-      {source: "library", id: "f53e6689-7281-4935-bb8c-3e90e6d859c7"},
-      {source: "library", id: "g53e6689-7281-4935-bb8c-3e90e6d859c8"},
-      {source: "library", id: "h53e6689-7281-4935-bb8c-3e90e6d859c9"},
-      {source: "library", id: "i53e6689-7281-4935-bb8c-3e90e6d859ca"},
-      {source: "library", id: "j53e6689-7281-4935-bb8c-3e90e6d859cb"},
+      "f53e6689-7281-4935-bb8c-3e90e6d859c7",
+      "g53e6689-7281-4935-bb8c-3e90e6d859c8",
+      "h53e6689-7281-4935-bb8c-3e90e6d859c9",
+      "i53e6689-7281-4935-bb8c-3e90e6d859ca",
+      "j53e6689-7281-4935-bb8c-3e90e6d859cb",
     ]
   },
   {
@@ -71,9 +71,9 @@ export const mockWorkouts = [
     "notes": "Perform each exercise with high intensity and minimal rest in between to keep your heart rate elevated.",
     "imageUrl": "",
     "exercises": [
-      {source: "library", id: "j53e6689-7281-4935-bb8c-3e90e6d859cb"},
-      {source: "library", id: "e53e6689-7281-4935-bb8c-3e90e6d859c6"},
-      {source: "library", id: "g53e6689-7281-4935-bb8c-3e90e6d859c8"},
+      "j53e6689-7281-4935-bb8c-3e90e6d859cb",
+      "e53e6689-7281-4935-bb8c-3e90e6d859c6",
+      "g53e6689-7281-4935-bb8c-3e90e6d859c8",
     ]
   }
 

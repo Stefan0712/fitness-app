@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    height: calc(100vh - 75px);
 }
 @media (min-width: 800px) {
     .library{
@@ -69,6 +70,8 @@
     width: 100%;
     padding: 0 10px 0 5px;
     overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
 }
 
 .item-body{
@@ -79,7 +82,7 @@
     justify-content: space-between;
     border-radius: 3px;
     text-decoration: none;
-    
+    flex-shrink: 0;
 }
 .workout-body{
     height: 80px;
