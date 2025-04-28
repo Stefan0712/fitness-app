@@ -122,6 +122,7 @@
     gap: 10px;
     background-color: #1A1A1B;
     border-radius: 5px;
+    flex-shrink: 0;
 }
 .exercise-body .exercise-name{
     margin-right: auto;

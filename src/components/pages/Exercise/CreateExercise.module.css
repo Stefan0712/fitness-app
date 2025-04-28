@@ -171,6 +171,7 @@ fieldset{
     flex-direction: column;
     gap: 10px;
     overflow-y: auto;
+    margin-top: 20px;
 }
 .equipment-body{
     display: flex;
