@@ -23,6 +23,7 @@ import Exercise from './components/pages/Exercise/Exercise';
 import DashboardLayout from './components/pages/Dashboard/DashboardLayout';
 import Settings from './components/pages/Settings/Settings.tsx';
 import Explore from './components/pages/Explore/Explore.tsx';
+import DefaultFields from './components/pages/Settings/DefaultFields.tsx';
 
 
 function AppRoutes() {
@@ -63,6 +64,7 @@ function AppRoutes() {
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
+      <Route path='/default-fields' element={<DefaultFields />} />
       <Route path="*" element={<Dashboard />} />
       
     </Routes>

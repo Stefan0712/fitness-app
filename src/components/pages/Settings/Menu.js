@@ -27,6 +27,7 @@ const Settings = ({closeSettings}) => {
                 <h3 className={styles.category}>Custom Items</h3>
                 <Link onClick={closeSettings} to={'/'}>Equipment </Link>
                 <Link onClick={closeSettings} to={'/'}>Tags </Link>
+                <Link onClick={closeSettings} to={'/default-fields'}>Default Fields</Link>
                 <h3 className={styles.category}>Explore</h3>
                 <Link onClick={closeSettings} to={'/explore'}>Workouts</Link>
                 <Link onClick={closeSettings} to={'/explore'}>Exercises</Link>
