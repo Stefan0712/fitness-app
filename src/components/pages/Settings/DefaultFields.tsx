@@ -12,6 +12,8 @@ const DefaultFields: React.FC = () => {
     const existingFields = useSelector((state: RootState)=>state.user.defaultFields);
     const dispatch = useDispatch();
 
+    const [mode, setMode] = useState<string>('view');
+    const [showForm, setShowForm] = useState<boolean>(true);
 
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -48,6 +50,9 @@ const DefaultFields: React.FC = () => {
         if(!unit || unit.length <1 || unit.length > 5 ){
             tempErrors.push("Unit is invalid. It should be between 1 and 5 characters");
         }
+        if(description.length > 50 ){
+            tempErrors.push("Description is too long. Keep it under 50 characters.");
+        }
         if(!target || target < 1 ){
              tempErrors.push("Target should be above 0");
             if(target > 99999){
@@ -71,7 +76,7 @@ const DefaultFields: React.FC = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Default Fields</h2>
             </div>
-            {errors && errors.length > 0 ? <ul>
+            {errors && errors.length > 0 ? <ul className={styles.errors}>
                 {errors.map((item, index)=><li key={"Error-"+index}>{item}</li>)}
             </ul> : null}
             <div className={styles['fields-container']}>
@@ -88,7 +93,8 @@ const DefaultFields: React.FC = () => {
                     </div>
                 </div>) : <p>No fields created</p>}
             </div>
-            <div className={styles['new-field-form']}>
+            <div className={`${styles['new-field-form']} ${showForm ? styles.extended : ''}`}>
+                <h3 onClick={()=>setShowForm(prev=>!prev)}>Create a new field</h3>
                 <fieldset>
                     <label>Name</label>
                     <input type='text' name='name' id='name' value={name} onChange={(e)=>setName(e.target.value)}></input>
