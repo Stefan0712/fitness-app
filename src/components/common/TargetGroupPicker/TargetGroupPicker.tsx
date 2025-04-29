@@ -19,7 +19,8 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
 
 
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const [items, setItems] = useState<TargetGroup[]>(defaultItems.map(({ name, id }) => ({ name, id, author: "system" })) || []);
+    const defaultTargetMuscles = defaultItems.map(({ name, id }) => ({ name, id, author: "system" })) || []
+    const [items, setItems] = useState<TargetGroup[]>(defaultTargetMuscles);
 
 
 
@@ -31,12 +32,13 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
     }
 
     const handleSeach = (value: string) =>{
+        console.log(value, searchQuery, items)
         setSearchQuery(value);
         if (!value.trim()) {
-            setItems(items); // Reset if search is empty
+            setItems(defaultTargetMuscles); // Reset if search is empty
             return;
         }
-        const filteredItems = items.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
+        const filteredItems = defaultTargetMuscles.filter((item: TargetGroup) => item.name.toLowerCase().includes(value.toLowerCase()));
         setItems(filteredItems);
     }
 
@@ -44,7 +46,7 @@ const TargetGroupPicker: React.FC<TargetGroupPickerProps> = ({closeModal, addIte
     return ( 
         <div className={styles['tag-picker']}>
             <div className={styles.top}>
-                <h3>My Tags</h3>
+                <h3>Target Muscles</h3>
                 <button type="button" className="clear-button" onClick={closeModal}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles['search-bar']}>
