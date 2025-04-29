@@ -107,6 +107,7 @@ export interface Workout {
     }
   }
   export interface Field {
+    id: string,
     name: string,
     unit: string,
     value: number,
@@ -223,6 +224,7 @@ export interface Workout {
       language: string,
       unitSystem: string,
     },
+    defaultFields: Field[],
     tags: Tag[],
     equipment: Equipment[],
     exercises: Exercise[],

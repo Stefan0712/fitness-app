@@ -54,6 +54,7 @@ const initialState: InitialStateObject = {
       color: 'green'
     }
   ],
+  defaultFields: [],
   macros: [
     { id: 'b1f5d9d8-3e17-4c9f-bf8a-9d6bfe1d2e38', name: "Calories", unit: "kcal", value: 0, target: 0, isEnabled: false },
     { id: 'c4729a56-87a9-4fb8-9408-1e5f4d9dbe12', name: "Protein", unit: "g", value: 0, target: 0, isEnabled: false },
@@ -312,7 +313,7 @@ const userSlice = createSlice({
      if(activityEntry){
       const index = state.activity.findIndex(entry=>entry===activityEntry);
       state.activity[index].goals = state.activity[index].goals.filter(item=>item.id!==action.payload);
-      state.activity[index].logs = state.activity[index].logs.filter(item=>item.id!=action.payload);
+      state.activity[index].logs = state.activity[index].logs.filter(item=>item.id!==action.payload);
       console.log("Goal updated:",state.activity[index])
      }
      
@@ -333,6 +334,25 @@ const userSlice = createSlice({
       console.log("Goal updated:",state.activity[activityIndex])
      }
   },
+  createDefaultField: (state, action) =>{
+    if(state.defaultFields){
+      state.defaultFields.push(action.payload);
+    }else{
+      state.defaultFields = [action.payload]
+    }
+  },
+  updateDefaultField: (state, action) =>{
+    const index = state.defaultFields.findIndex(item=>item.id === action.payload.id);
+    if(index >= 0 ){
+      state.defaultFields[index] = action.payload;
+    }
+  },
+  deleteDefaultField: (state, action) =>{
+    const index = state.defaultFields.findIndex(item=>item.id === action.payload.id);
+    if(index >= 0 ){
+      state.defaultFields = state.defaultFields.filter(item=>item.id!==action.payload);
+    }
+  },
   updateDashboardLayout: (state, action) =>{
     state.dashboardSections = action.payload;
   },
@@ -346,6 +366,9 @@ const userSlice = createSlice({
 
 export const {
   reset,
+  createDefaultField,
+  updateDefaultField,
+  deleteDefaultField,
   saveExerciseToLibrary,
   saveWorkoutToLibrary,
   setUserData,
