@@ -348,9 +348,11 @@ const userSlice = createSlice({
     }
   },
   deleteDefaultField: (state, action) =>{
+    console.log(action.payload)
     const index = state.defaultFields.findIndex(item=>item.id === action.payload.id);
+    console.log(index)
     if(index >= 0 ){
-      state.defaultFields = state.defaultFields.filter(item=>item.id!==action.payload);
+      state.defaultFields = state.defaultFields.filter(item=>item.id!==action.payload.id);
     }
   },
   updateDashboardLayout: (state, action) =>{

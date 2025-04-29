@@ -4,16 +4,17 @@ import { Field } from '../../common/interfaces';
 import styles from './DefaultFields.module.css';
 import React, { useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
-import { createDefaultField, updateDefaultField } from '../../../store/userSlice.ts';
+import { createDefaultField, deleteDefaultField, updateDefaultField } from '../../../store/userSlice.ts';
 import {RootState} from '../../../store/index.ts';
+import { IconLibrary } from '../../../IconLibrary.js';
 
 const DefaultFields: React.FC = () => {
 
     const existingFields = useSelector((state: RootState)=>state.user.defaultFields);
     const dispatch = useDispatch();
 
-    const [mode, setMode] = useState<string>('view');
-    const [showForm, setShowForm] = useState<boolean>(true);
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [showForm, setShowForm] = useState<boolean>(false);
 
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -74,7 +75,7 @@ const DefaultFields: React.FC = () => {
         <div className={styles['default-fields']}>
             <div className='header'>
                 <div className='date'>{getDateForHeader()}</div>
-                <h2>Default Fields</h2>
+                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}><h2>Default Fields</h2><button style={{backgroundColor: "transparent", border: 'none'}} onClick={()=>setEditMode(prev=>!prev)}><img style={{width: '25px', height: '25px'}} src={editMode ? IconLibrary.Checkmark : IconLibrary.Edit} alt='Enable edit mode'/></button></div>
             </div>
             {errors && errors.length > 0 ? <ul className={styles.errors}>
                 {errors.map((item, index)=><li key={"Error-"+index}>{item}</li>)}
@@ -87,9 +88,14 @@ const DefaultFields: React.FC = () => {
                         <p>Target: {item.target} {item.unit}</p>
                     </div>
                     <div>
+                        {editMode ? 
+                        <button style={{backgroundColor: "transparent", border: 'none'}} onClick={()=>dispatch(deleteDefaultField(item))}>
+                            <img style={{width: '25px', height: '25px'}} src={IconLibrary.Close} alt='delete field'></img>
+                        </button> 
+                        : 
                         <button onClick={()=>toggleField(item)} className={`${styles.toggle} ${item.isEnabled ? styles.enabled : styles.disabled}`}>
                             <div className={styles['toggle-ball']}></div>
-                        </button>  
+                        </button> } 
                     </div>
                 </div>) : <p>No fields created</p>}
             </div>
