@@ -17,6 +17,18 @@
     overflow: hidden;
     padding: 5px;
 }
+.category-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 5px;
+    gap: 10px;
+    height: 50px;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--general-border);
+}
 .toggle-buttons button{
     width: 50%;
     height: 100%;

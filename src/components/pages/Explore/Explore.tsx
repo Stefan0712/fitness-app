@@ -32,6 +32,7 @@ const Explore = () => {
                 <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
                 <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
+            <Link className={styles['category-button']} to={'/library'}>Back to library</Link>
             <div className={styles["library-items-container"]}>
             {filteredItems && filteredItems.length > 0 ? (
                 filteredItems.map((data, index) => (
