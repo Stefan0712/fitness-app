@@ -150,35 +150,27 @@
 .buttons{
     width: 100%;
     display: flex;
-    align-items: center;
-}
-.category-buttons{
-    display: flex;
-    padding: 3px;
-    border-radius: 5px;
     gap: 10px;
 }
+
 .category-button{
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    border-radius: 25px;
-    height: 30px;
-    padding: 0 10px;
+    border-radius: 5px;
+    gap: 10px;
+    height: 50px;
+    width: calc(100% - 60px);
     background-color: transparent;
     border: 1px solid var(--general-border);
 }
 .add-button{
-    width: 30px;
-    height: 30px;
-    margin-left: auto;
-    background-color: transparent;
-    border: none;
+    width: 50px;
 }
 .add-button img{
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
 }
 
 

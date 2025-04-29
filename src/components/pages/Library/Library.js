@@ -41,7 +41,7 @@ const Library = () => {
             </div>
             <div className={styles["library-items-container"]}>
                 <div className={styles.buttons}>
-                    <Link to={'/explore'}>Explore more</Link>
+                    <Link className={styles['category-button']} to={'/explore'}>Explore more</Link>
                     {libraryScreen === "workouts" ? <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link> :  <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>}
                 </div>
                 {filteredItems && filteredItems.length > 0 ? (
