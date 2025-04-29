@@ -45,7 +45,7 @@ const DefaultFields: React.FC = () => {
         if(!name || name.length <3 || name.length > 15 ){
             tempErrors.push("Name is invalid. It should be between 3 and 14 characters");
         }
-        if(!unit || name.length <1 || name.length > 5 ){
+        if(!unit || unit.length <1 || unit.length > 5 ){
             tempErrors.push("Unit is invalid. It should be between 1 and 5 characters");
         }
         if(!target || target < 1 ){
@@ -71,6 +71,9 @@ const DefaultFields: React.FC = () => {
                 <div className='date'>{getDateForHeader()}</div>
                 <h2>Default Fields</h2>
             </div>
+            {errors && errors.length > 0 ? <ul>
+                {errors.map((item, index)=><li key={"Error-"+index}>{item}</li>)}
+            </ul> : null}
             <div className={styles['fields-container']}>
                 {existingFields && existingFields.length > 0 ? existingFields.map((item,index)=><div className={styles.field} key={'Field-'+index}>
                     <div className={styles['field-info']}>
