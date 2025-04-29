@@ -114,7 +114,7 @@ const CreateExercise: React.FC = () => {
             description, 
             reference, 
             difficulty, 
-            sets, 
+            sets: sets === 0 ? 1 : sets, 
             duration, 
             durationUnit: 'min',
             rest: parseInt(rest),
