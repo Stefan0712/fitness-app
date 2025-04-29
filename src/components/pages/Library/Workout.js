@@ -1,6 +1,7 @@
 import styles from './Library.module.css';
 import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
+import { makeFirstUpperCase } from '../../../helpers';
 
 const Workout = ({workout}) => {
     return ( 
@@ -9,7 +10,7 @@ const Workout = ({workout}) => {
                 <h4>{workout.name}</h4>
                 <div className={styles["item-description"]}>
                     <p>{workout.exercises?.length || 0} exercises</p>
-                    <p>{workout.difficulty || ''}</p>
+                    <p>{makeFirstUpperCase(workout.difficulty || '')}</p>
                 </div>
                 <div className={styles['workout-tags']}>
                     {workout.tags && workout.tags.length > 0 ? 

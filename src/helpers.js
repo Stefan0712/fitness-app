@@ -4,7 +4,9 @@ export const getDateForHeader = () =>{
     
 }
 export const makeFirstUpperCase = (string)=>{
-    return string[0].toUpperCase() + string.slice(1);
+    if(string && string.length > 0){
+      return string[0].toUpperCase() + string.slice(1);
+    }else {return ""}
 }
 export const getDayFromDate = (date) =>{
     if (!date) return '';  

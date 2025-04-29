@@ -1,6 +1,7 @@
 import styles from './Library.module.css';
 import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
+import { makeFirstUpperCase } from '../../../helpers';
 
 const Exercise = ({data}) => {
     return ( 
@@ -10,7 +11,7 @@ const Exercise = ({data}) => {
                 <div className={styles["item-description"]}>
                     <p>{data.sets} Sets</p>
                     <p>{data.category?.name || null}</p>
-                    <p>{data.difficulty}</p>
+                    <p>{makeFirstUpperCase(data?.difficulty || '')}</p>
                 </div>
             </div>
             <div className={styles["item-button"]}>
