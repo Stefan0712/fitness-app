@@ -79,7 +79,7 @@ const ViewWorkout = () => {
                             <img className='small-icon' src={IconLibrary.InfoCircle} alt=''></img>
                             <p>Description</p>
                         </div>
-                        <p className={styles['value']}>{workoutData.description}</p>
+                        <p className={styles['value']}>{workoutData.description || "Description not set"}</p>
                     </div>
                     <div className={`${styles['block']} ${styles.groups}`}>
                         <div className={styles['header']}>

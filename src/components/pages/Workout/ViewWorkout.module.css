@@ -103,13 +103,15 @@
     width: 3px;
 }
 .workout-exercises{
-    height: calc(50% - 40px);
+    height: calc(50% - 60px);
     border-radius: 5px;
     padding: 10px 0;
     width: 100%;
     gap: 10px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    margin: 10px 0;
 }
 .exercise-name{
     display: flex;
@@ -183,7 +185,7 @@
     justify-content: space-between;
     gap: 10px;
     margin-top: auto;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .menu-button{
