@@ -76,7 +76,8 @@ const CreateExercise: React.FC = () => {
 
     
 
-    const user = useSelector((state: RootState)=>state.user.userData.id)
+    const user = useSelector((state: RootState)=>state.user.userData.id);
+    const defaultFields = useSelector((state: RootState)=>state.user.defaultFields) || [];
 
     const [isExtended, setIsExtended] = useState<boolean>(true);
 
@@ -96,7 +97,7 @@ const CreateExercise: React.FC = () => {
     const [equipments, setEquipments] = useState<Equipment[]>([]);
     const [sets, setSets] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
-    const [fields, setFields] = useState<Field[]>([]);
+    const [fields, setFields] = useState<Field[]>(defaultFields);
     const [rest, setRest] = useState<string>('');
 
     const [groupName, setGroupName] = useState<string>('');
@@ -213,7 +214,7 @@ const CreateExercise: React.FC = () => {
                                                 <h4>{field.name}</h4>
                                                 <p>{field.target || null}</p>
                                                 <p>{field.unit}</p>
-                                                <button type="button" onClick={()=>setFields((fields)=>[...fields.filter(item=>item==field)])} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
+                                                <button type="button" onClick={()=>setFields((fields)=>[...fields.filter(item=>item!==field)])} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
                                             </div>
                                     )): <h3>No fields created</h3>}
                                 </div>
