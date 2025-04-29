@@ -113,7 +113,8 @@ export interface Workout {
     value: number,
     target?: number,
     description?: string,
-    isCompleted: boolean
+    isCompleted: boolean,
+    isEnabled?: boolean,
   }
   export interface ExerciseLog extends BaseLog{
     data: {
