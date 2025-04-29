@@ -30,16 +30,18 @@ const Dashboard = () => {
 
 
     const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-    const exerciseSnapshots = snapshots?.exercises?.filter(item=>item.type==='exercise');
-    const workoutSnapshots = snapshots?.workouts?.filter(item=>item.type==='workout');
-
+    const [exerciseSnapshots, setExerciseSnapshots] = useState(snapshots?.exercises?.filter(item=>item.type==='exercise'));
+    const [workoutSnapshots, setWorkoutSnapshot] = useState(snapshots?.workouts?.filter(item=>item.type==='workout'))
 
 
     const handleDeleteSnapshot = (type, snapshotId) =>{
         console.log("Deleted snapshot: ",type, snapshotId);
         const exSnapshots = type === "exercise" ? exerciseSnapshots.filter(item=>item.snapshotId!==snapshotId) : exerciseSnapshots;
         const workSnapshots = type === "workout" ? workoutSnapshots.filter(item=>item.snapshotId!==snapshotId) : workoutSnapshots;
+        setExerciseSnapshots(exSnapshots);
+        setWorkoutSnapshot(workSnapshots);
         localStorage.setItem('snapshots', JSON.stringify({exercises: exSnapshots, workouts: workSnapshots})); 
+        
     }
 
 
