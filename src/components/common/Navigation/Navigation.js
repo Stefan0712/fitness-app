@@ -7,7 +7,6 @@ import {IconLibrary} from '../../../IconLibrary';
 
 import QuickMenu from '../QuickMenu/QuickMenu';
 import ExerciseLog from '../LogPages/ExerciseLog.tsx';
-import Stopwatch from '../Stopwatch/Stopwatch';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
 import NoSleep from 'nosleep.js';
@@ -22,7 +21,6 @@ const Navigation = () => {
 
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [showExerciseLog, setShowExerciseLog] = useState(false);
-    const [showStopwatch, setShowStopwatch] = useState(false);
     const [showGoals, setShowGoals] = useState(false);
 
     
@@ -51,18 +49,11 @@ const Navigation = () => {
         setShowExerciseLog(true);
         setShowQuickmenu(false);
     }
-    const openStopwatch = () =>{
-        setShowStopwatch(true);
-        setShowQuickmenu(false);
-    }
     const closeGoals = () =>{
         setShowGoals(false)
     }
     const closeFoodLogs = () =>{
         setShowFoodLog(false)
-    }
-    const closeStopwatch = () =>{
-        setShowStopwatch(false)
     }
     const closeExerciseLogs = () =>{
         setShowExerciseLog(false)
@@ -89,7 +80,6 @@ const Navigation = () => {
         return ( 
             <nav>
                 {showGoals ? <Goals closeMenu={closeGoals}/> : null}
-                {showStopwatch ? <Stopwatch closeMenu={closeStopwatch} /> : null}
                 {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
                 {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
                 {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
@@ -97,7 +87,7 @@ const Navigation = () => {
     
     
                 {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
-                openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} openStopwatch={openStopwatch} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
+                openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
                 <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                     <img src={IconLibrary.Home} alt=''></img>
                     <p>Home</p>

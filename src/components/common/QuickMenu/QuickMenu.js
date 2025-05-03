@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 
 
-const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, openFoodLogs, noSleep, toggleFullscreen}) => {
+const QuickMenu = ({closeQuickmenu, openGoals, openExerciseLogs, openFoodLogs, noSleep, toggleFullscreen}) => {
 
     const quickMenuRef = useRef(null);
 
@@ -28,10 +28,6 @@ const QuickMenu = ({closeQuickmenu, openGoals, openStopwatch, openExerciseLogs, 
 
     return ( 
         <div className={styles["quick-menu"]} ref={quickMenuRef}>             
-            <button className={styles['quick-button']} onClick={openStopwatch}>
-                <img src={IconLibrary.Stopwatch} alt=''></img>
-                <p>Stopwatch</p>
-            </button>
             <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
                 <img src={IconLibrary.Food} alt=''></img>
                 <p>Log Food</p>
