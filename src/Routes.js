@@ -24,6 +24,7 @@ import DashboardLayout from './components/pages/Dashboard/DashboardLayout';
 import Settings from './components/pages/Settings/Settings.tsx';
 import Explore from './components/pages/Explore/Explore.tsx';
 import DefaultFields from './components/pages/Settings/DefaultFields.tsx';
+import Auth from './components/pages/Auth/Auth.tsx';
 
 
 function AppRoutes() {
@@ -32,8 +33,8 @@ function AppRoutes() {
 
   const isFirstTime = useSelector((state)=>state.user.userData.firstRun);
   useEffect(()=>{
-    if(isFirstTime && location.pathname !== '/get-started'){
-      navigate('/get-started')
+    if(isFirstTime && location.pathname !== '/auth'){
+      navigate('/auth')
     }
   },[isFirstTime])
 
@@ -41,6 +42,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
+      <Route path="/auth" element={<Auth />} />
       <Route path="/get-started" element={<StartingPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/library" element={<Library />} />

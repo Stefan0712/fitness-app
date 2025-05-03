@@ -113,7 +113,7 @@ const Navigation = () => {
                     <img src={IconLibrary.Clipboard} alt=''></img>
                     <p>Activity</p>
                 </Link>
-                <button onClick={()=>setShowSettings(true)} className={styles['nav-button']}>
+                <button onClick={()=>setShowSettings(prev=>!prev)} className={styles['nav-button']}>
                     <img src={IconLibrary.Menu} alt=''></img>
                     <p>Menu</p>
                 </button>
