@@ -54,7 +54,7 @@ This app is a work in progress and is built to showcase modern web development p
 
 ## 🚀 How to Run the App  
 
-For now, the app is still not ready. As soon as it gets to a state where it can be used, I will update this section
+You can either clone this repo to run the latest version, or use the live version hosted through github pages for the latest stable version
 
 ## 🤝 Contributing
 
