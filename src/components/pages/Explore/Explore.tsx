@@ -1,5 +1,4 @@
 import styles from './Explore.module.css';
-import { exercises, workouts } from "../../../database";
 import React, { useEffect, useState } from 'react';
 import { getDateForHeader } from '../../../helpers';
 import { Link } from 'react-router-dom';
@@ -42,8 +41,8 @@ const Explore = () => {
                 <h2>Explore</h2>
             </div>
             <div className={styles["toggle-buttons"]}>
-                <button onClick={fetchExercises} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
-                <button onClick={fetchWorkouts} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
+                <button onClick={()=>(fetchExercises(), setLibraryScreen('exercises'))} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
+                <button onClick={()=>(fetchWorkouts(), setLibraryScreen('workouts'))} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
             <Link className={styles['category-button']} to={'/library'}>Back to library</Link>
             <div className={styles["library-items-container"]}>
