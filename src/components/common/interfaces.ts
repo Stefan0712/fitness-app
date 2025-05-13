@@ -211,10 +211,13 @@ export interface Workout {
       isPrivate: boolean,
       isPremium: true,
       profileSettings: {
-        showEmail: string,
-        showPosts: string,
-        showDetails: string,
-        showProfile: string
+        showMyWorkouts: string,
+        showProfile: string,
+        showMyExercises: string,
+        showMyActivity: string,
+        showMyDetails: string,
+        showMyPlans: string,
+        showMyPosts: string
       },
       badges: Badges[]
     },

@@ -29,10 +29,13 @@ const initialState: InitialStateObject = {
     isPrivate: false,
     isPremium: true,
     profileSettings: {
-      showEmail: "false",
-      showPosts: "false",
-      showDetails: "false",
-      showProfile: "false"
+      showMyWorkouts: 'private',
+      showProfile: 'private',
+      showMyExercises: 'private',
+      showMyActivity: 'private',
+      showMyDetails: 'private',
+      showMyPlans: 'private',
+      showMyPosts: 'private'
     },
     badges: []
   },
@@ -362,7 +365,17 @@ const userSlice = createSlice({
     resetProfile: (state) =>{
       state.userData = initialState.userData;
     },
-  },
+    updateProfileOnLogin: (state, action) =>{
+      state.userData = {
+        ...state.userData,
+        ...action.payload,
+        profileSettings: {
+          ...state.userData.profileSettings,
+          ...(action.payload.profileSettings || {})
+        }
+      }
+    }
+  }
   
 });
 
@@ -397,6 +410,7 @@ export const {
   removeGoal,
   updateDashboardLayout,
   resetProfile,
+  updateProfileOnLogin
 } = userSlice.actions;
 
 export default userSlice.reducer;

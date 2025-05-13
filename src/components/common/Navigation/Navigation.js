@@ -76,7 +76,7 @@ const Navigation = () => {
         }
       };
  
-      if(location.pathname !== '/get-started'){
+      if(location.pathname !== '/get-started' || location.pathname !== '/auth'){
         return ( 
             <nav>
                 {showGoals ? <Goals closeMenu={closeGoals}/> : null}
@@ -87,7 +87,7 @@ const Navigation = () => {
     
     
                 {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
-                openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
+                    openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
                 <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                     <img src={IconLibrary.Home} alt=''></img>
                     <p>Home</p>

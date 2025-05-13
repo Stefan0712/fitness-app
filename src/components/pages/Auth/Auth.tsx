@@ -2,15 +2,19 @@ import React, {useState} from "react";
 import styles from './Auth.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Logo from '../../../assets/logo.png';
+import { updateProfileOnLogin } from "../../../store/userSlice.ts";
+import { useDispatch } from "react-redux";
 
 
 const Auth = () =>{
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
 
 
-    const [currentScreen, setCurrentScreen] = useState<string>('login')
+    const [currentScreen, setCurrentScreen] = useState<string>('starting')
 
     const [username, setUsername] = useState<string>('')
     const [email, setEmail] = useState<string>('')
@@ -35,7 +39,6 @@ const Auth = () =>{
         }
 
     }
-    console.log(process.env.REACT_APP_API_URL)
     const handleLogin = async () =>{
         try{
             const loginData = {username, password};
@@ -46,7 +49,7 @@ const Auth = () =>{
                 localStorage.setItem("username", user.username);
                 localStorage.setItem("role", user.role);
                 localStorage.setItem("token", response.data.token)
-              
+                
                 // Double-check if they were saved correctly
                 const savedId = localStorage.getItem("userId");
                 const savedUsername = localStorage.getItem("username");
@@ -54,6 +57,8 @@ const Auth = () =>{
               
                 if (savedId && savedUsername && savedRole) {
                     showMessage('Logged in successfuly','success');
+                    dispatch(updateProfileOnLogin(response.data.profileData));
+                    console.log(response.data.profileData)
                     navigate("/profile");
                 } else {
                     showMessage('Something went wrong!','error');
@@ -83,21 +88,26 @@ const Auth = () =>{
 
     return (
         <div className={styles.authPage}>
-            {currentScreen === 'login' ? <form className={`${styles['auth-form']} ${`styles.login`}`}>
-                <h2>Login</h2>
-                <fieldset>
-                    <label>Username</label>
-                    <input type="string" name="username" id="username" onChange={(e)=>setUsername(e.target.value)} value={username} required></input>
-                </fieldset>
-                <fieldset>
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" onChange={(e)=>setPassword(e.target.value)} value={password} required></input>
-                </fieldset>
-                <button type="button" onClick={login}>Login</button>
-                <div className={styles.otherMethods}>
-                    <p>You can <button type="button" className={styles.registerButton} onClick={()=>setCurrentScreen('register')}>register</button> if you don't have an account or continue with a <button className={styles.localButton} onClick={()=>navigate('/get-started')}>local account</button></p>
-                </div>
-                </form> : <form className={`${styles['auth-form']} ${`styles.register`}`}>
+            <div className={styles.top}>
+                <img className={styles.logo} src={Logo} alt="logo"></img>
+                <h2>EasyFit</h2>
+            </div>
+            {currentScreen === 'login' ? 
+                <form className={`${styles['auth-form']} ${`styles.login`}`}>
+                    <h2>Login</h2>
+                    <fieldset>
+                        <label>Username</label>
+                        <input type="string" name="username" id="username" onChange={(e)=>setUsername(e.target.value)} value={username} required></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>Password</label>
+                        <input type="password" name="password" id="password" onChange={(e)=>setPassword(e.target.value)} value={password} required></input>
+                    </fieldset>
+                    <button type="button" className={styles.accentButton} onClick={login}>Login</button>
+                    <button type="button" className={styles.darkButton} onClick={()=>setCurrentScreen('starting')}>Back</button>
+
+                </form> 
+                : currentScreen === 'register' ? <form className={`${styles['auth-form']} ${`styles.register`}`}>
                 <h2>Register</h2>
                 <fieldset>
                     <label>Username</label>
@@ -111,11 +121,20 @@ const Auth = () =>{
                     <label>Password</label>
                     <input type="password" name="password" id="password" onChange={(e)=>setPassword(e.target.value)} value={password} required></input>
                 </fieldset>
-                <button type="button" onClick={handleRegister}>Register</button>
-                <div className={styles.otherMethods}>
-                    <p>You can login if you already have an account or continue with a <button className={styles.localButton} onClick={()=>navigate('/get-started')}>local account</button></p>
+                <div className={styles.registerButtons}>
+                    <button type="button" className={styles.darkButton} onClick={()=>setCurrentScreen('starting')}>Back</button>
+                    <button type="button" className={styles.accentButton} onClick={handleRegister}>Register</button>
                 </div>
-            </form>}
+        
+            </form> : <div className={styles.starting}>
+                
+                
+                <div className={styles.startingScreenButtons}>
+                    <button className={styles.darkButton} onClick={()=>setCurrentScreen('login')}>Login</button>
+                    <button className={styles.accentButton} onClick={()=>setCurrentScreen('register')}>Register</button>
+                </div>
+                <p>Or continue with an <Link to={'/get-started'}>offline account</Link></p>
+            </div>}
             
         </div>
     )

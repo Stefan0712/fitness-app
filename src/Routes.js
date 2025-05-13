@@ -31,12 +31,12 @@ function AppRoutes() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isFirstTime = useSelector((state)=>state.user.userData.firstRun);
+  const userId = localStorage.getItem('userId')
   useEffect(()=>{
-    if(isFirstTime && location.pathname !== '/auth'){
+    if(!userId && location.pathname !== '/auth'){
       navigate('/auth')
     }
-  },[isFirstTime])
+  },[userId])
 
   
   return (

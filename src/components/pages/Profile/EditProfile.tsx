@@ -121,7 +121,7 @@ const EditProfile = () => {
                     </fieldset>
                     <div className={styles['profile-settings']}>
                         <fieldset>
-                            <label>Email</label>
+                            <label>Details</label>
                             <select name="showEmail" id="showEmail" value={showEmail} onChange={(e) => setShowEmail(e.target.value)}>
                                 <option value={"false"} selected>Hide</option>
                                 <option value={"true"}>Show</option>
@@ -135,7 +135,7 @@ const EditProfile = () => {
                             </select>
                         </fieldset>
                         <fieldset>
-                            <label>Details</label>
+                            <label>Activity</label>
                             <select name="showDetails" id="showDetails" value={showDetails} onChange={(e) => setShowDetails(e.target.value )}>
                                 <option value={"false"} selected>Hide</option>
                                 <option value={"true"}>Show</option>
@@ -148,6 +148,30 @@ const EditProfile = () => {
                                 <option value={"true"}>Public</option>
                             </select>
                         </fieldset>
+                    </div>
+                    <div className={styles['profile-settings']}>
+                        <fieldset>
+                            <label>Workouts</label>
+                            <select name="showEmail" id="showEmail" value={showEmail} onChange={(e) => setShowEmail(e.target.value)}>
+                                <option value={"false"} selected>Hide</option>
+                                <option value={"true"}>Show</option>
+                            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label>Exercises</label>
+                            <select name="showPosts" id="showPosts" value={showPosts} onChange={(e) => setShowPosts(e.target.value)}>
+                                <option value={"false"} selected>Hide</option>
+                                <option value={"true"}>Show</option>
+                            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label>Plans</label>
+                            <select name="showDetails" id="showDetails" value={showDetails} onChange={(e) => setShowDetails(e.target.value )}>
+                                <option value={"false"} selected>Hide</option>
+                                <option value={"true"}>Show</option>
+                            </select>
+                        </fieldset>
+
                     </div>
             </form>
         </div>

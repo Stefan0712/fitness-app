@@ -5,7 +5,7 @@ import { getDateForHeader } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
-import { IconLibrary } from '../../../IconLibrary';
+import axios from 'axios';
 
 
 const Explore = () => {
@@ -13,14 +13,27 @@ const Explore = () => {
     const [libraryScreen, setLibraryScreen] = useState('exercises');
     const [filteredItems, setFilteredItems] = useState([]);
 
-
-    useEffect(()=>{
-        if(libraryScreen === 'exercises'){
-            setFilteredItems(exercises);
-        }else if(libraryScreen === 'workouts'){
-            setFilteredItems(workouts);
+    const fetchExercises = async () =>{
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise`,{ withCredentials: true });
+            if(response.data){
+                setFilteredItems(response.data)
+            }
+        }catch(error){
+            console.error(error)
         }
-    },[libraryScreen])
+    }
+    const fetchWorkouts = async () =>{
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout`,{ withCredentials: true });
+            if(response.data){
+                setFilteredItems(response.data)
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+    useEffect(()=>{fetchExercises()},[])
 
     return ( 
         <div className={styles.explore}>
@@ -29,8 +42,8 @@ const Explore = () => {
                 <h2>Explore</h2>
             </div>
             <div className={styles["toggle-buttons"]}>
-                <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
-                <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
+                <button onClick={fetchExercises} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
+                <button onClick={fetchWorkouts} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
             <Link className={styles['category-button']} to={'/library'}>Back to library</Link>
             <div className={styles["library-items-container"]}>
