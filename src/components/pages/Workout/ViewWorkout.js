@@ -1,7 +1,7 @@
 import './workout.css';
 import styles from './ViewWorkout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getDateForHeader, makeFirstUpperCase } from '../../../helpers'
 import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
@@ -9,11 +9,16 @@ import { exercises as databaseExercises } from '../../../database';
 import { workouts as databaseWorkouts} from '../../../database';
 import {v4 as uuidv4} from 'uuid';
 import { addWorkout, deleteWorkout } from '../../../store/userSlice.ts';
+import axios from 'axios';
 
 
 const ViewWorkout = () => {
 
     const {id} = useParams();
+    const userId = localStorage.getItem('userId');
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const type = query.get('type');
     const dispatch = useDispatch();
     const navigate = useNavigate();
    
@@ -22,12 +27,13 @@ const ViewWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const libraryWorkouts = useSelector((state)=>state.user.workouts);
 
-    const libraryWorkoutIndex = libraryWorkouts.findIndex(item=>item.id===id);
-    const databaseWorkoutIndex = databaseWorkouts.findIndex(item=>item.id===id);
+    const libraryWorkoutIndex = type !== 'online' ? libraryWorkouts.findIndex(item=>item.id===id) : null;
+    const databaseWorkoutIndex = type !== 'online' ? databaseWorkouts.findIndex(item=>item.id===id) : null;
 
-    const workoutData = libraryWorkoutIndex >=0 ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
+    const offlineWorkoutData = libraryWorkoutIndex >=0 && libraryWorkoutIndex && databaseWorkoutIndex ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
     const libraryExercises = useSelector((state)=>state.user.exercises);
 
+    const [workoutData, setWorkoutData] = useState(null);
     
     
     
@@ -50,12 +56,26 @@ const ViewWorkout = () => {
         console.log(fetchedExercises)
         setExercises(fetchedExercises);
     };
-    
-
+    const fetchWorkout = async () =>{
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout/${id}`,{ withCredentials: true });
+            if(response.data){
+                setWorkoutData(response.data);
+                
+                console.log(response.data)
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
     useEffect(()=>{
-        fetchExercises();
+        if(type && type === 'online'){
+            fetchWorkout();
+        }else{
+            setWorkoutData(offlineWorkoutData);
+            fetchExercises();
+        }
     },[])
-
     const handleSaveWorkout = () =>{
         if(databaseWorkoutIndex >= 0 ){
             dispatch(addWorkout({...workoutData, sourceId: workoutData.id, id: uuidv4()}));
@@ -137,18 +157,33 @@ const ViewWorkout = () => {
                 </div>
                 <h3 className='subtitle full-width'>Exercises</h3>
                 <div className={styles['workout-exercises']}>
-                  {exercises?.length > 0 ? exercises.map((exercise, index)=>(
+                  {(!type || type !=='online') && exercises?.length > 0 ? exercises.map((exercise, index)=>(
                         <div className={styles['exercise-body']} key={index+'ex'}>
                             <p className={styles['exercise-index']}>{index+1}</p>
                             <b className={styles['exercise-name']}>{exercise.name}</b>
                             <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
                         </div>
-                  )) : (<p>Loading Exercises</p>)} 
+                  )): 
+                  type === 'online' && workoutData.phases?.length > 0 ? workoutData.phases.map((phase,index)=>(
+                        <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
+                            <b>{phase.name}</b>
+                            {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
+                                <div className={styles['exercise-body']} key={index+'ex'}>
+                                    <p className={styles['exercise-index']}>{index+1}</p>
+                                    <b className={styles['exercise-name']}>{exercise.name}</b>
+                                    <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
+                                </div>
+                            )) : (<p>No exercises</p>)} 
+                        </div>))
+                   : (<p>Loading Exercises</p>)} 
+
+                  
+
                 </div>
-                <div className={styles['bottom-buttons']}>
+                {userId === workoutData.authorId ? <div className={styles['bottom-buttons']}>
                     <button className={styles['menu-button']} onClick={handleDeleteWorkout}>Delete</button>
                     <Link  className={styles['menu-button']} to={`/workout/${workoutData.id}/edit`}>Edit</Link>
-                </div>
+                </div> : null}
                </div>
             </div>
          );

@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import './exercise.css';
 import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
@@ -6,23 +6,49 @@ import { addExercise, deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
 import { exercises as databaseExercises } from "../../../database.js";
 import {v4 as uuidv4} from 'uuid';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 
 const ViewExercise = () => {
 
     const {id} = useParams();
-    const libraryExercises = useSelector((state)=>state.user.exercises);
+    const userId = localStorage.getItem('userId');
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const type = query.get('type');
 
-    const libraryExerciseIndex = libraryExercises.findIndex(item=>item.id===id);
-    const databaseExerciseIndex = databaseExercises.findIndex(item=>item.id===id);
-
-    const exerciseData = libraryExerciseIndex >=0 ? libraryExercises[libraryExerciseIndex] : databaseExerciseIndex >=0 ? databaseExercises[databaseExerciseIndex] : null;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
+    const libraryExercises = useSelector((state)=>state.user.exercises);
+    const libraryExerciseIndex = type !== 'online' ? libraryExercises.findIndex(item=>item.id===id) : null;
+    const databaseExerciseIndex = type !== 'online' ? databaseExercises.findIndex(item=>item.id===id) : null;
+    const offlineExerciseData = libraryExerciseIndex >=0 && type !== 'online' && libraryExerciseIndex && databaseExerciseIndex ? libraryExercises[libraryExerciseIndex] : databaseExerciseIndex >=0 ? databaseExercises[databaseExerciseIndex] : null;
 
+
+    const [exerciseData, setExerciseData] = useState(null);
+
+    
+    const fetchExercise = async () =>{
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise/view/${id}`,{ withCredentials: true });
+            if(response.data){
+                setExerciseData(response.data)
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+    useEffect(()=>{
+        if(type && type === 'online'){
+            fetchExercise();
+        }else{
+            setExerciseData(offlineExerciseData)
+        }
+    })
     const deleteEx = (id) =>{
         dispatch(deleteExercise(id))
         navigate('/library');
@@ -42,7 +68,7 @@ const ViewExercise = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{exerciseData?.name}</h2>
-                    {libraryExerciseIndex >= 0 ? <Link to={`/exercise/${exerciseData.id}/start`} className='start-workout-button'>Start</Link> : <button onClick={handleSaveExercise} className='start-workout-button'>Save</button>}
+                    {libraryExerciseIndex >= 0 && type !== 'online' ? <Link to={`/exercise/${exerciseData.id}/start`} className='start-workout-button'>Start</Link> : <button onClick={handleSaveExercise} className='start-workout-button'>Save</button>}
                 </div>
                 <div className="exercise-info">
                     <div className='workout-description'>
@@ -114,8 +140,8 @@ const ViewExercise = () => {
                         </div>
                         {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
                     </div>
-                <button className='exercise-button' onClick={deleteEx}>Delete</button>
-                <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link>
+                {userId === exerciseData.authorId ? <button className='exercise-button' onClick={deleteEx}>Delete</button> : null}
+                {userId === exerciseData.authorId ? <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> : null}
                 </div>
             </div>
          );

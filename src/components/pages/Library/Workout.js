@@ -3,9 +3,9 @@ import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
 import { makeFirstUpperCase } from '../../../helpers';
 
-const Workout = ({workout}) => {
+const Workout = ({workout, id}) => {
     return ( 
-        <Link to={`/workout/${workout.id}/view/`} className={`${styles["item-body"]} ${styles['workout-body']}`}>
+        <Link to={`/workout/${id}/view/?type=online`} className={`${styles["item-body"]} ${styles['workout-body']}`}>
             <div className={`${styles["item-info"]}`}>
                 <h4>{workout.name}</h4>
                 <div className={styles["item-description"]}>
