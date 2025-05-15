@@ -44,9 +44,9 @@ const ViewWorkout = () => {
         navigate('/library');
     }   
     //function to search and populate each exercise based on the course
-    const fetchExercises = () => {
-        if(workoutData){
-            const fetchedExercises = workoutData.exercises.map((ex) => {
+    const fetchExercises = (data) => {
+        if(data){
+            const fetchedExercises = data.exercises.map((ex) => {
                 if(typeof ex === 'string'){
                     const libraryExercise = libraryExercises.find(item=>item.id===ex);
                     if(libraryExercise) return libraryExercise;
@@ -80,8 +80,7 @@ const ViewWorkout = () => {
         }else{
             console.log("Offline workout")
             setWorkoutData(offlineWorkoutData);
-            console.log(offlineWorkoutData);
-            fetchExercises();
+            fetchExercises(offlineWorkoutData);
         }
     },[])
     const handleSaveWorkout = () =>{
