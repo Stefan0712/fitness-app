@@ -8,7 +8,7 @@ import { IconLibrary } from '../../../IconLibrary';
 import { exercises as databaseExercises } from '../../../database';
 import { workouts as databaseWorkouts} from '../../../database';
 import {v4 as uuidv4} from 'uuid';
-import { addWorkout, deleteWorkout } from '../../../store/userSlice.ts';
+import { addWorkout, deleteWorkout, saveOnlineWorkoutToLibrary } from '../../../store/userSlice.ts';
 import axios from 'axios';
 
 
@@ -47,12 +47,15 @@ const ViewWorkout = () => {
     const fetchExercises = () => {
         if(workoutData){
             const fetchedExercises = workoutData.exercises.map((ex) => {
-            
-            const libraryExercise = libraryExercises.find(item=>item.id===ex);
-            if(libraryExercise) return libraryExercise;
-            const databaseExercise = databaseExercises.find(item=>item.id===ex);
-            if(databaseExercise) return databaseExercise;
-            console.log("Exercise was not found. ID: "+ex);
+                if(typeof ex === 'string'){
+                    const libraryExercise = libraryExercises.find(item=>item.id===ex);
+                    if(libraryExercise) return libraryExercise;
+                    const databaseExercise = databaseExercises.find(item=>item.id===ex);
+                    if(databaseExercise) return databaseExercise;
+                    console.log("Exercise was not found. ID: "+ex);
+                }else{
+                    return ex;
+                }
             }).filter(Boolean); // Remove null values if any source is invalid
             console.log(fetchedExercises)
             setExercises(fetchedExercises);
@@ -77,13 +80,16 @@ const ViewWorkout = () => {
         }else{
             console.log("Offline workout")
             setWorkoutData(offlineWorkoutData);
+            console.log(offlineWorkoutData);
             fetchExercises();
         }
     },[])
     const handleSaveWorkout = () =>{
-        if(databaseWorkoutIndex >= 0 ){
+        if(type !== "online" && databaseWorkoutIndex >= 0 ){
             dispatch(addWorkout({...workoutData, sourceId: workoutData.id, id: uuidv4()}));
             navigate('/library');
+        }else if(type === 'online'){
+            dispatch(saveOnlineWorkoutToLibrary({...workoutData, sourceId: workoutData._id, id: uuidv4()}));
         }
     }
     if(workoutData){
@@ -161,14 +167,14 @@ const ViewWorkout = () => {
                 </div>
                 <h3 className='subtitle full-width'>Exercises</h3>
                 <div className={styles['workout-exercises']}>
-                  {!workoutData.phases && workoutData.exercises && exercises.length > 0 ? exercises.map((exercise, index)=>(
+                  {type !== "online" && workoutData.exercises && exercises.length > 0 ? exercises.map((exercise, index)=>(
                         <div className={styles['exercise-body']} key={index+'ex'}>
                             <p className={styles['exercise-index']}>{index+1}</p>
                             <b className={styles['exercise-name']}>{exercise.name}</b>
                             <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
                         </div>
                   )): 
-                  workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
+                  type === 'online' && workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
                         <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
                             <b>{phase.name}</b>
                             {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
