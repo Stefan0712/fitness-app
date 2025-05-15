@@ -45,9 +45,11 @@ const ViewExercise = () => {
             fetchExercise();
         }else{
             setExerciseData(offlineExerciseData)
+            console.log(offlineExerciseData)
         }
+        
     },[])
-    const deleteEx = (id) =>{
+    const deleteEx = () =>{
         if(type !== 'online'){
             dispatch(deleteExercise(id))
             navigate('/library');
@@ -140,8 +142,8 @@ const ViewExercise = () => {
                         </div>
                         {exerciseData.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index+1}. {step}</p>)) : 'None'}
                     </div>
-                {userId === exerciseData.authorId ? <button className='exercise-button' onClick={deleteEx}>Delete</button> : null}
-                {userId === exerciseData.authorId ? <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> : null}
+                {(userId === exerciseData.authorId) || type !=='online' ? <button className='exercise-button' onClick={deleteEx}>Delete</button> : null}
+                {(userId === exerciseData.authorId) || type !=='online' ? <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> : null}
                 </div>
             </div>
          );

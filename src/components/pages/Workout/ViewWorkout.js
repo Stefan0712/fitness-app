@@ -89,6 +89,7 @@ const ViewWorkout = () => {
             navigate('/library');
         }else if(type === 'online'){
             dispatch(saveOnlineWorkoutToLibrary({...workoutData, sourceId: workoutData._id, id: uuidv4()}));
+            navigate('/library');
         }
     }
     if(workoutData){

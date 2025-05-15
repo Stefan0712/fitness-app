@@ -147,7 +147,8 @@ const userSlice = createSlice({
     setUserData: (state, action) => ({ ...state, ...action.payload }),
 
     addExercise: (state, action) => {
-      state.exercises.push({...action.payload, source: 'library'});
+      console.log(action.payload)
+      state.exercises.push({...action.payload});
     },
 
     updateUserData: (state, action) => {
@@ -236,7 +237,6 @@ const userSlice = createSlice({
     saveExerciseToLibrary: (state, action) =>{
       const localCopy = {
         ...action.payload, 
-        sourceId: action.payload.id,
         id: uuidv4(),
         source: 'database',
         savedAt: new Date().toISOString(),
@@ -258,10 +258,10 @@ const userSlice = createSlice({
       // Save all exercises locally
       let exercisesCopy = [];
       if(action.payload.phases && action.payload.phases.length > 0){
-        action.payload.phases.forEach(phase=>exercisesCopy = [...exercisesCopy, ...phase.exercises.map(ex=>({...ex,id:ex._id, phase: phase.name}))])
+        action.payload.phases.forEach(phase=>exercisesCopy = [...exercisesCopy, ...phase.exercises.map(ex=>({...ex, sourceId: ex._id, id:ex._id, phase: phase.name}))])
       }
-      console.log(exercisesCopy)
-      state.exercises = [...state.exercises, ...exercisesCopy]
+      const uniqueExercises = exercisesCopy.filter(item=>!state.exercises.some(i=>i.sourceId === item.sourceId));
+      state.exercises = [...state.exercises, ...uniqueExercises]
 
 
       const localCopy = {
