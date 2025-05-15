@@ -266,7 +266,7 @@ const userSlice = createSlice({
 
       const localCopy = {
         ...action.payload, 
-        exercises: exercisesCopy,
+        exercises: exercisesCopy.map(item=>item._id),
         phases: action.payload.phases.map(phase=>phase.name),
         sourceId: action.payload.id,
         id: uuidv4(),
