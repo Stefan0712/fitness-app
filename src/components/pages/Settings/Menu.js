@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { IconLibrary } from "../../../IconLibrary.js";
 import styles from './Menu.module.css';
+import { logoutUser } from '../../../auth.js';
 
 
 const Settings = ({closeSettings}) => {
@@ -35,7 +36,7 @@ const Settings = ({closeSettings}) => {
                 <h3 className={styles.category}>More</h3>
                 <Link onClick={closeSettings} to={'/settings'}>App Settings</Link>
                 <Link onClick={closeSettings} to={'/about'}>About</Link>
-                
+                <button className={styles.setting} onClick={logoutUser}>Logout</button>
             </div>
             
         </div>

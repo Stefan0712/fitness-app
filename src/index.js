@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider, useSelector } from 'react-redux';
 import { store, persistor } from './store/index.ts'; // Make sure this path points to your Redux store
 import { PersistGate } from 'redux-persist/integration/react';
@@ -28,12 +28,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
+      <HashRouter>
         <ThemeWrapper>
           <Navigation />
           <AppRoutes />
         </ThemeWrapper>
-      </BrowserRouter>
+      </HashRouter>
     </PersistGate>
   </Provider>
 );
