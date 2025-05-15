@@ -20,7 +20,7 @@ const Workout = ({workout, id, type}) => {
     };
 
     return ( 
-        <Link to={`/workout/${id}/view/${type === 'online' ? '?type=online' : ''}`} className={`${styles["item-body"]} ${styles['workout-body']}`}>
+        <Link to={`/workout/${id}/view/${type === 'online' ? '?type=online' : type !== 'online' && workout.isCached ? '?type=cached' : ''}`} className={`${styles["item-body"]} ${styles['workout-body']}`}>
             <div className={`${styles["item-info"]}`}>
                 <h4>{workout.name}</h4>
                 <div className={styles["item-description"]}>

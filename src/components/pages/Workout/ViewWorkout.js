@@ -10,6 +10,7 @@ import { workouts as databaseWorkouts} from '../../../database';
 import {v4 as uuidv4} from 'uuid';
 import { addWorkout, deleteWorkout, saveOnlineWorkoutToLibrary } from '../../../store/userSlice.ts';
 import axios from 'axios';
+import { getWorkoutById } from '../../../db.js';
 
 
 const ViewWorkout = () => {
@@ -77,12 +78,20 @@ const ViewWorkout = () => {
         if(type && type === 'online'){
             console.log("Online workout")
             fetchWorkout();
-        }else{
+        }else if(type === 'cached'){
+            getWorkoutFromDb();
+            console.log("Cached version of this workout")
+        }
+        else{
             console.log("Offline workout")
             setWorkoutData(offlineWorkoutData);
             fetchExercises(offlineWorkoutData);
         }
-    },[])
+    },[]);
+    const getWorkoutFromDb = async () =>{
+        const workout = await getWorkoutById(id);
+        setWorkoutData(workout)
+    }
     const handleSaveWorkout = () =>{
         if(type !== "online" && databaseWorkoutIndex >= 0 ){
             dispatch(addWorkout({...workoutData, sourceId: workoutData.id, id: uuidv4()}));

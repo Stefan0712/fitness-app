@@ -5,18 +5,26 @@ import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
 import axios from 'axios';
+import { getAllWorkouts, saveExercise, saveWorkout } from '../../../db';
+import { Exercise as IExercise, Workout as IWorkout } from '../../common/interfaces';
 
 
 const Explore = () => {
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
-    const [filteredItems, setFilteredItems] = useState([]);
+    const [filteredItems, setFilteredItems] = useState<IExercise[] | IWorkout[]>([]);
+    const [source, setSource] = useState<string | null>(null);
 
     const fetchExercises = async () =>{
         try{
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise`,{ withCredentials: true });
             if(response.data){
-                setFilteredItems(response.data)
+                setSource('online')
+                setFilteredItems(response.data);
+                for (let ex of response.data) {
+                    await saveExercise(ex);
+                }
+                console.log('All exercises saved to IndexedDB');
             }
         }catch(error){
             console.error(error)
@@ -24,15 +32,30 @@ const Explore = () => {
     }
     const fetchWorkouts = async () =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout`,{ withCredentials: true });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workoutssss`,{ withCredentials: true });
             if(response.data){
-                setFilteredItems(response.data)
+                setSource('online')
+                setFilteredItems(response.data);
+                for (let workout of response.data) {
+                    await saveWorkout(workout);
+                }
+                console.log('All workouts saved to IndexedDB');
             }
         }catch(error){
-            console.error(error)
+            console.error(error);
+            getSavedWorkouts();
         }
     }
-    useEffect(()=>{fetchExercises()},[])
+    useEffect(()=>{
+        fetchExercises();
+    },[])
+
+    const getSavedWorkouts = async () =>{
+        const workouts = await getAllWorkouts();
+        setFilteredItems(workouts);
+        console.log("Restored cached workouts");
+        setSource('cache')
+    }
 
     return ( 
         <div className={styles.explore}>
@@ -48,7 +71,7 @@ const Explore = () => {
             <div className={styles["library-items-container"]}>
             {filteredItems && filteredItems.length > 0 ? (
                 filteredItems.map((data, index) => (
-                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} type={'online'} /> : <Exercise id={data._id} type={'online'} key={'exercise-'+index} index={index} data={data} />
+                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} type={source === 'cache' ? 'offline' : 'online'} /> : <Exercise id={data._id} type={'online'} key={'exercise-'+index} index={index} data={data} />
                 ))
             ) : (
                 libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>
