@@ -4,7 +4,6 @@ import './exercise.css';
 import { getDateForHeader, makeFirstUpperCase } from "../../../helpers";
 import { addExercise, deleteExercise } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
-import { exercises as databaseExercises } from "../../../database.js";
 import {v4 as uuidv4} from 'uuid';
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -24,10 +23,8 @@ const ViewExercise = () => {
 
 
     const libraryExercises = useSelector((state)=>state.user.exercises);
-    const libraryExerciseIndex = type !== 'online' ? libraryExercises.findIndex(item=>item.id===id) : null;
-    const databaseExerciseIndex = type !== 'online' ? databaseExercises.findIndex(item=>item.id===id) : null;
-    const offlineExerciseData = libraryExerciseIndex >=0 && type !== 'online' && libraryExerciseIndex && databaseExerciseIndex ? libraryExercises[libraryExerciseIndex] : databaseExerciseIndex >=0 ? databaseExercises[databaseExerciseIndex] : null;
-
+    const libraryExerciseIndex = type !== 'online' && libraryExercises ? libraryExercises.findIndex(item=>item.id===id) : null;
+    const offlineExerciseData = libraryExerciseIndex >=0 ? libraryExercises[libraryExerciseIndex] : null;
 
     const [exerciseData, setExerciseData] = useState(null);
 
@@ -36,7 +33,8 @@ const ViewExercise = () => {
         try{
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise/view/${id}`,{ withCredentials: true });
             if(response.data){
-                setExerciseData(response.data)
+                setExerciseData(response.data);
+                console.log(response.data)
             }
         }catch(error){
             console.error(error)
@@ -48,16 +46,18 @@ const ViewExercise = () => {
         }else{
             setExerciseData(offlineExerciseData)
         }
-    })
+    },[])
     const deleteEx = (id) =>{
-        dispatch(deleteExercise(id))
-        navigate('/library');
+        if(type !== 'online'){
+            dispatch(deleteExercise(id))
+            navigate('/library');
+        }
            
     }
 
     const handleSaveExercise = () =>{
-        if(databaseExerciseIndex >=0){
-            dispatch(addExercise({...exerciseData, sourceId: exerciseData.id, id: uuidv4()}));
+        if(type === 'online'){
+            dispatch(addExercise({...exerciseData, sourceId: exerciseData._id, id: uuidv4()}));
             navigate('/library');
         }
     }
@@ -92,12 +92,12 @@ const ViewExercise = () => {
                             <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
                             <p className='info-block-name'>Equipment</p>
                         </div>
-                        <p className='info-block-value tags'>{exerciseData.equipment?.length > 0 ? exerciseData.equipment.map(eq=>(
+                        <div className='info-block-value tags'>{exerciseData.equipment?.length > 0 ? exerciseData.equipment.map(eq=>(
                             <div className="tag-body" key={eq.id}>
                                 <div className="tag-color" style={{backgroundColor: eq.color}}></div>
                                 <div className="tag-name">{eq.name}</div>
                             </div>
-                            )) : 'None'}</p>
+                            )) : 'None'}</div>
                     </div>
                     <div className='info-block'>
                         <div className='info-block-header'>
@@ -138,7 +138,7 @@ const ViewExercise = () => {
                         <div className='info-block-header'>
                             <p className='info-block-name'>Steps</p>
                         </div>
-                        {exerciseData.steps?.length > 0 ? exerciseData.steps.map((step, index) => (<p>{index}. {step}</p>)) : 'None'}
+                        {exerciseData.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index+1}. {step}</p>)) : 'None'}
                     </div>
                 {userId === exerciseData.authorId ? <button className='exercise-button' onClick={deleteEx}>Delete</button> : null}
                 {userId === exerciseData.authorId ? <Link className='exercise-button' to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> : null}
