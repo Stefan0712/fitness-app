@@ -254,6 +254,21 @@ const userSlice = createSlice({
       
       state.workouts = [...state.workouts, localCopy];
     },
+    saveOnlineWorkoutToLibrary: (state, action) =>{
+      const localCopy = {
+        ...action.payload, 
+        sourceId: action.payload.id,
+        id: uuidv4(),
+        typed: 'saved'
+      };
+      let exercisesCopy = [];
+      if(action.payload.phases && action.payload.phases.length > 0){
+        action.payload.phases.forEach(phase=>exercisesCopy = [...exercisesCopy, ...phase.exercises])
+      }
+      console.log(exercisesCopy)
+      state.exercises = [...state.exercises, ...exercisesCopy]
+      state.workouts = [...state.workouts, localCopy];
+    },
     addTag: (state, action) => {
       const data = action.payload
       const newItem = {

@@ -25,6 +25,7 @@ const Library = () => {
             setFilteredItems(exercises);
         }else if(libraryScreen === 'workouts'){
             setFilteredItems(workouts);
+            console.log(workouts)
         }
     },[libraryScreen])
 
@@ -46,7 +47,7 @@ const Library = () => {
                 </div>
                 {filteredItems && filteredItems.length > 0 ? (
                     filteredItems.map((data, index) => (
-                        libraryScreen === "workouts" ? <Workout key={'workout-'+index} index={index} workout={data} /> : <Exercise key={'exercise-'+index} index={index} data={data} />
+                        libraryScreen === "workouts" ? <Workout key={'workout-'+index} id={data.id} index={index} workout={data} /> : <Exercise key={'exercise-'+index} id={data.id} index={index} data={data} />
                     ))
                 ) : (
                     libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>

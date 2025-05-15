@@ -48,7 +48,7 @@ const Explore = () => {
             <div className={styles["library-items-container"]}>
             {filteredItems && filteredItems.length > 0 ? (
                 filteredItems.map((data, index) => (
-                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} /> : <Exercise id={data._id} key={'exercise-'+index} index={index} data={data} />
+                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} type={'online'} /> : <Exercise id={data._id} type={'online'} key={'exercise-'+index} index={index} data={data} />
                 ))
             ) : (
                 libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>

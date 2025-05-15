@@ -27,10 +27,10 @@ const ViewWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const libraryWorkouts = useSelector((state)=>state.user.workouts);
 
-    const libraryWorkoutIndex = type !== 'online' ? libraryWorkouts.findIndex(item=>item.id===id) : null;
-    const databaseWorkoutIndex = type !== 'online' ? databaseWorkouts.findIndex(item=>item.id===id) : null;
-
-    const offlineWorkoutData = libraryWorkoutIndex >=0 && libraryWorkoutIndex && databaseWorkoutIndex ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
+    const libraryWorkoutIndex = type || type !== 'online' ? libraryWorkouts.findIndex(item=>item.id===id) : null;
+    const databaseWorkoutIndex = type || type !== 'online' ? databaseWorkouts.findIndex(item=>item.id===id) : null;
+    console.log(libraryWorkoutIndex, databaseWorkoutIndex)
+    const offlineWorkoutData = libraryWorkoutIndex >=0 ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
     const libraryExercises = useSelector((state)=>state.user.exercises);
 
     const [workoutData, setWorkoutData] = useState(null);
@@ -45,16 +45,18 @@ const ViewWorkout = () => {
     }   
     //function to search and populate each exercise based on the course
     const fetchExercises = () => {
-        const fetchedExercises = workoutData.exercises.map((ex) => {
+        if(workoutData){
+            const fetchedExercises = workoutData.exercises.map((ex) => {
             
             const libraryExercise = libraryExercises.find(item=>item.id===ex);
             if(libraryExercise) return libraryExercise;
             const databaseExercise = databaseExercises.find(item=>item.id===ex);
             if(databaseExercise) return databaseExercise;
             console.log("Exercise was not found. ID: "+ex);
-        }).filter(Boolean); // Remove null values if any source is invalid
-        console.log(fetchedExercises)
-        setExercises(fetchedExercises);
+            }).filter(Boolean); // Remove null values if any source is invalid
+            console.log(fetchedExercises)
+            setExercises(fetchedExercises);
+        }
     };
     const fetchWorkout = async () =>{
         try{
@@ -70,8 +72,10 @@ const ViewWorkout = () => {
     }
     useEffect(()=>{
         if(type && type === 'online'){
+            console.log("Online workout")
             fetchWorkout();
         }else{
+            console.log("Offline workout")
             setWorkoutData(offlineWorkoutData);
             fetchExercises();
         }
@@ -89,7 +93,7 @@ const ViewWorkout = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{workoutData.name}</h2>
-                    {libraryWorkoutIndex >= 0 ? <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link> 
+                    {(libraryWorkoutIndex && libraryWorkoutIndex >= 0) || type !== 'online' ? <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link> 
                     : <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> }
                 </div>
                <div className={styles['view-workout-content']}>
@@ -157,14 +161,14 @@ const ViewWorkout = () => {
                 </div>
                 <h3 className='subtitle full-width'>Exercises</h3>
                 <div className={styles['workout-exercises']}>
-                  {(!type || type !=='online') && exercises?.length > 0 ? exercises.map((exercise, index)=>(
+                  {!workoutData.phases && workoutData.exercises && exercises.length > 0 ? exercises.map((exercise, index)=>(
                         <div className={styles['exercise-body']} key={index+'ex'}>
                             <p className={styles['exercise-index']}>{index+1}</p>
                             <b className={styles['exercise-name']}>{exercise.name}</b>
                             <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
                         </div>
                   )): 
-                  type === 'online' && workoutData.phases?.length > 0 ? workoutData.phases.map((phase,index)=>(
+                  workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
                         <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
                             <b>{phase.name}</b>
                             {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
