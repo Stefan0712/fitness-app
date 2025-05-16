@@ -56,7 +56,7 @@
     justify-content: center;
     gap: 20px;
 }
-button{
+.authPage button{
     width: 100%;
     height: 50px;
     border: none;

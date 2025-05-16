@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
 import axios from 'axios';
-import { getAllWorkouts, saveExercise, saveWorkout } from '../../../db';
+import { getAllExercises, getAllWorkouts, saveExercise, saveWorkout } from '../../../db';
 import { Exercise as IExercise, Workout as IWorkout } from '../../common/interfaces';
 
 
@@ -17,7 +17,7 @@ const Explore = () => {
 
     const fetchExercises = async () =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise`,{ withCredentials: true });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise?app=true`,{ withCredentials: true });
             if(response.data){
                 setSource('online')
                 setFilteredItems(response.data);
@@ -27,12 +27,15 @@ const Explore = () => {
                 console.log('All exercises saved to IndexedDB');
             }
         }catch(error){
-            console.error(error)
+            console.error(error);
+            getSavedExercises();
         }
     }
+
+
     const fetchWorkouts = async () =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workoutssss`,{ withCredentials: true });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout`,{ withCredentials: true });
             if(response.data){
                 setSource('online')
                 setFilteredItems(response.data);
@@ -56,6 +59,12 @@ const Explore = () => {
         console.log("Restored cached workouts");
         setSource('cache')
     }
+    const getSavedExercises = async () =>{
+        const exercises = await getAllExercises();
+        setFilteredItems(exercises);
+        console.log("Restored cached exercises");
+        setSource('cache')
+    }
 
     return ( 
         <div className={styles.explore}>
@@ -71,7 +80,7 @@ const Explore = () => {
             <div className={styles["library-items-container"]}>
             {filteredItems && filteredItems.length > 0 ? (
                 filteredItems.map((data, index) => (
-                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} type={source === 'cache' ? 'offline' : 'online'} /> : <Exercise id={data._id} type={'online'} key={'exercise-'+index} index={index} data={data} />
+                    libraryScreen === "workouts" ? <Workout id={data._id} key={'workout-'+index} index={index} workout={data} type={source === 'cache' ? 'offline' : 'online'} /> : <Exercise id={data._id} type={source === 'cache' ? 'offline' : 'online'} key={'exercise-'+index} index={index} data={data} />
                 ))
             ) : (
                 libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>

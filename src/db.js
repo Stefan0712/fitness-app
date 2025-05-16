@@ -11,7 +11,7 @@ export const initDB = async () => {
 
 export const saveExercise = async (exercise) => {
   const db = await initDB();
-  await db.put('exercises', exercise);
+  await db.put('exercises', {...exercise, isCached: true});
 };
 export const saveWorkout = async (workout) => {
   const db = await initDB();

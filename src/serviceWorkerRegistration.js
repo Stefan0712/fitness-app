@@ -1,4 +1,3 @@
-// This is for handling the registration of the service worker in React apps
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||

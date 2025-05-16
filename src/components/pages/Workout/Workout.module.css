@@ -289,7 +289,8 @@ h3{
     color: var(--text-color);
     border-radius: 5px;
     height: 40px;
-    flex-grow: 1
+    flex-grow: 1;
+    font-size: 15px;
 }
 .navigation-button{
     width: 50px !important;

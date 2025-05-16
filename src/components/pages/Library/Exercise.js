@@ -5,7 +5,7 @@ import { makeFirstUpperCase } from '../../../helpers';
 
 const Exercise = ({data, id, type}) => {
     return ( 
-        <Link to={`/exercise/${id}/view/${type === 'online' ? '?type=online' : ''}`} className={styles["item-body"]}>
+        <Link to={`/exercise/${id}/view/${type === 'online' ? '?type=online' : type !== 'online' && data.isCached ? '?type=cached' : ''}`} className={styles["item-body"]}>
             <div className={styles["item-info"]}>
                 <h4>{data.name}</h4>
                 <div className={styles["item-description"]}>

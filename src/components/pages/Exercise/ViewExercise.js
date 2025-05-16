@@ -7,6 +7,7 @@ import { IconLibrary } from "../../../IconLibrary";
 import {v4 as uuidv4} from 'uuid';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getExerciseById } from "../../../db.js";
 
 
 
@@ -43,12 +44,21 @@ const ViewExercise = () => {
     useEffect(()=>{
         if(type && type === 'online'){
             fetchExercise();
-        }else{
+        }else if(type === 'cached'){
+            getExerciseFromDb();
+            console.log("Cached version of this workout")
+        }
+        else{
             setExerciseData(offlineExerciseData)
             console.log(offlineExerciseData)
         }
         
-    },[])
+    },[]);
+    const getExerciseFromDb = async () =>{
+            const exercise = await getExerciseById(id);
+            setExerciseData(exercise);
+            console.log(exercise)
+        }
     const deleteEx = () =>{
         if(type !== 'online'){
             dispatch(deleteExercise(id))

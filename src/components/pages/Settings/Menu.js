@@ -6,7 +6,7 @@ import { logoutUser } from '../../../auth.js';
 
 const Settings = ({closeSettings}) => {
 
-
+    const isLoggedIn = localStorage.getItem('userId') ? true : false;
 
     
 
@@ -36,7 +36,7 @@ const Settings = ({closeSettings}) => {
                 <h3 className={styles.category}>More</h3>
                 <Link onClick={closeSettings} to={'/settings'}>App Settings</Link>
                 <Link onClick={closeSettings} to={'/about'}>About</Link>
-                <button className={styles.setting} onClick={logoutUser}>Logout</button>
+                {isLoggedIn ? <button className={styles.setting} onClick={logoutUser}>Logout</button> : <Link to={'/auth'} className={styles.setting} >Login</Link>}
             </div>
             
         </div>
