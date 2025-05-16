@@ -13,9 +13,11 @@ import CreateTag from "./CreateTag.tsx";
 import styles from "./CreateExercise.module.css";
 import CreateEquipment from "./CreateEquipment.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
+import { saveItem } from "../../../db.js";
 
 interface Exercise {
-    id: string;
+    id?: string;
+    _id?: string;
     sourceId?: string;
     createdAt: string; 
     updatedAt?: string | null;
@@ -106,7 +108,7 @@ const CreateExercise: React.FC = () => {
         e.preventDefault();
         const createdAt = new Date().toISOString();
         const exerciseData: Exercise = {
-            id: uuidv4(), 
+            _id: uuidv4(), 
             createdAt, 
             author: user,
             isFavorite: false,
@@ -129,7 +131,7 @@ const CreateExercise: React.FC = () => {
             instructions: []
         };
         console.log(exerciseData)
-        dispatch(addExercise(exerciseData));
+        saveItem('exercises', exerciseData)
         navigate('/library');
         
     }

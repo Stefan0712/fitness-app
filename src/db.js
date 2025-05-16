@@ -1,42 +1,61 @@
 import { openDB } from 'idb';
 
 export const initDB = async () => {
-  return openDB('EasyFitDB', 1, {
-    upgrade(db) {
-      db.createObjectStore('exercises', { keyPath: '_id' });
-      db.createObjectStore('workouts', { keyPath: '_id' });
+  return openDB('EasyFitDB', 3, {
+    upgrade(db, oldVersion) {
+      const stores = [
+        'exercises',
+        'workouts',
+        'cachedExercises',
+        'cachedWorkouts',
+        'goals',
+        'logs',
+        'tags',
+        'cachedTags',
+        'equipment',
+        'cachedEquipment',
+        'targetMuscles',
+        'cachedTargetMuscles',
+      ];
+
+      for (const storeName of stores) {
+        if (!db.objectStoreNames.contains(storeName)) {
+          db.createObjectStore(storeName, { keyPath: '_id' });
+        }
+      }
     },
   });
 };
 
-export const saveExercise = async (exercise) => {
+// Reset only one store
+export const clearStore = async (storeName) => {
   const db = await initDB();
-  await db.put('exercises', {...exercise, isCached: true});
-};
-export const saveWorkout = async (workout) => {
-  const db = await initDB();
-  await db.put('workouts', {...workout, isCached: true});
-};
-
-export const getAllExercises = async () => {
-  const db = await initDB();
-  return await db.getAll('exercises');
-};
-export const getAllWorkouts = async () => {
-  const db = await initDB();
-  return await db.getAll('workouts');
-};
-export const getWorkoutById = async (id) => {
-  const db = await initDB();
-  return await db.get('workouts', id);
-};
-export const deleteExercise = async (id) => {
-  const db = await initDB();
-  await db.delete('exercises', id);
+  const tx = db.transaction(storeName, 'readwrite');
+  await tx.objectStore(storeName).clear();
+  await tx.done;
 };
 
-export const getExerciseById = async (id) => {
+
+// Save one item
+export const saveItem = async (storeName, item) => {
   const db = await initDB();
-  return await db.get('exercises', id);
+  await db.put(storeName, item);
 };
 
+// Get one item by id
+export const getItemById = async (storeName, _id) => {
+  const db = await initDB();
+  return db.get(storeName, _id);
+};
+
+// Get all items
+export const getAllItems = async (storeName) => {
+  const db = await initDB();
+  return db.getAll(storeName);
+};
+
+// Delete one item
+export const deleteItem = async (storeName, _id) => {
+  const db = await initDB();
+  return db.delete(storeName, _id);
+};

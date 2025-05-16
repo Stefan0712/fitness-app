@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
 import axios from 'axios';
-import { getAllExercises, getAllWorkouts, saveExercise, saveWorkout } from '../../../db';
+import { getAllItems, saveItem } from '../../../db';
 import { Exercise as IExercise, Workout as IWorkout } from '../../common/interfaces';
 
 
@@ -22,7 +22,7 @@ const Explore = () => {
                 setSource('online')
                 setFilteredItems(response.data);
                 for (let ex of response.data) {
-                    await saveExercise(ex);
+                    await saveItem('cachedExercises', ex);
                 }
                 console.log('All exercises saved to IndexedDB');
             }
@@ -40,7 +40,7 @@ const Explore = () => {
                 setSource('online')
                 setFilteredItems(response.data);
                 for (let workout of response.data) {
-                    await saveWorkout(workout);
+                    await saveItem('cachedWorkouts',workout);
                 }
                 console.log('All workouts saved to IndexedDB');
             }
@@ -54,13 +54,13 @@ const Explore = () => {
     },[])
 
     const getSavedWorkouts = async () =>{
-        const workouts = await getAllWorkouts();
+        const workouts = await getAllItems('workouts');
         setFilteredItems(workouts);
         console.log("Restored cached workouts");
         setSource('cache')
     }
     const getSavedExercises = async () =>{
-        const exercises = await getAllExercises();
+        const exercises = await getAllItems('exercises');
         setFilteredItems(exercises);
         console.log("Restored cached exercises");
         setSource('cache')

@@ -1,35 +1,34 @@
 import { getDateForHeader } from "../../../helpers";
 import styles from './Library.module.css';
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState, useEffect } from "react";
 
 import Exercise from './Exercise';
 import Workout from "./Workout";
+import { getAllItems } from "../../../db";
 
 
 const Library = () => {
-
-    const exercises = useSelector((state)=>state.user.exercises);
-    const workouts = useSelector((state)=>state.user.workouts);
-
-
     const [libraryScreen, setLibraryScreen] = useState('exercises');
-
     const [filteredItems, setFilteredItems] = useState([]);
-
 
     useEffect(()=>{
         if(libraryScreen === 'exercises'){
-            setFilteredItems(exercises);
+            getExercises();
         }else if(libraryScreen === 'workouts'){
-            setFilteredItems(workouts);
-            console.log(workouts)
+            getWorkouts();
         }
     },[libraryScreen])
 
-
+    const getWorkouts = async () =>{
+        const workouts = await getAllItems('workouts');
+        setFilteredItems(workouts)
+    }
+    const getExercises = async () =>{
+        const exercises = await getAllItems('exercises');
+        setFilteredItems(exercises)
+    }
     return ( 
         <div className={`${styles.library}`}>
             <div className='header'>

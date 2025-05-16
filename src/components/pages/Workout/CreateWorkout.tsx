@@ -14,6 +14,7 @@ import {RootState} from '../../../store/index.ts';
 import CreateTag from "../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../Exercise/CreateEquipment.tsx";
+import { saveItem } from "../../../db.js";
 
 
 interface Exercise {
@@ -73,7 +74,8 @@ interface Field {
     isCompleted: boolean
 }
 interface Workout {
-    id: string;
+    id?: string;
+    _id?: string;
     name: string;
     description: string;
     difficulty: string;
@@ -144,7 +146,7 @@ const CreateWorkout: React.FC = () => {
             exercisesIds.push(item.id)
         });
         const workoutData: Workout = {
-            id: uuidv4(), 
+            _id: uuidv4(), 
             author: userId, 
             createdAt, 
             updatedAt: '',
@@ -163,8 +165,7 @@ const CreateWorkout: React.FC = () => {
             exercises: exercisesIds, 
         };
 
-        console.log(workoutData);
-        dispatch(addWorkout(workoutData));
+        saveItem('workouts', workoutData)
         navigate('/library');
         
     }

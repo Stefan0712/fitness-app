@@ -10,7 +10,7 @@ import { workouts as databaseWorkouts} from '../../../database';
 import {v4 as uuidv4} from 'uuid';
 import { addWorkout, deleteWorkout, saveOnlineWorkoutToLibrary } from '../../../store/userSlice.ts';
 import axios from 'axios';
-import { getWorkoutById } from '../../../db.js';
+import { getItemById } from '../../../db.js';
 
 
 const ViewWorkout = () => {
@@ -89,7 +89,7 @@ const ViewWorkout = () => {
         }
     },[]);
     const getWorkoutFromDb = async () =>{
-        const workout = await getWorkoutById(id);
+        const workout = await getItemById('cachedWorkouts', id);
         setWorkoutData(workout)
     }
     const handleSaveWorkout = () =>{

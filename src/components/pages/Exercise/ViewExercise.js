@@ -7,7 +7,7 @@ import { IconLibrary } from "../../../IconLibrary";
 import {v4 as uuidv4} from 'uuid';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getExerciseById } from "../../../db.js";
+import { getItemById } from "../../../db.js";
 
 
 
@@ -55,7 +55,7 @@ const ViewExercise = () => {
         
     },[]);
     const getExerciseFromDb = async () =>{
-            const exercise = await getExerciseById(id);
+            const exercise = await getItemById('cachedExercises', id);
             setExerciseData(exercise);
             console.log(exercise)
         }

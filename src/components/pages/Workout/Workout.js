@@ -87,17 +87,11 @@ const Workout = () => {
           .map(id => {
             let exercise = null;
             // Check the source and make a deep copy of the object
-            const dbExIndex = databaseExercises.findIndex(item=>item.id === id);
-            const libExIndex = libraryExercises.findIndex(item=>item.id === id);
-            if (dbExIndex >= 0) {
-              exercise = JSON.parse(
-                JSON.stringify(databaseExercises[dbExIndex])
-              );
-            } else if (libExIndex >= 0) {
-              exercise = JSON.parse(
-                JSON.stringify(libraryExercises[libExIndex])
-              );
-            }
+            const exIndex = libraryExercises.findIndex(item=>item.id === id);
+            exercise = JSON.parse(
+            JSON.stringify(libraryExercises[exIndex])
+            );
+            
             // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
             if (exercise) {
               if (!exercise.completedSets) {
