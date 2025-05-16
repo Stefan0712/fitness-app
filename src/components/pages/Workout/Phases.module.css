@@ -1,0 +1,76 @@
+.phases{
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondary);
+    position: relative;
+}
+.phasesButtons{
+    width: 100%;
+    display: flex;
+    height: 40px;
+    margin-top: auto;
+    border-top: 1px solid var(--general-border);
+    align-items: center;
+}
+.phaseButton.selectedButton{
+    background-color: white;
+    color: black;
+}
+.phaseContent{
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+.phaseButton{
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    padding: 0 10px;
+}
+.addExerciseButton{
+    background-color: var(--background);
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    width: 100%;
+}
+.phasesHeader{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.phasesHeader button{
+    background-color: transparent;
+    border: none;
+}
+.phaseExercise{
+    width: 100%;
+    height: 40px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0 10px;
+    gap: 10px;
+}
+.phaseExercise b{
+    margin-right: auto;
+
+}
+.phaseExercise button{
+    background-color: transparent;
+    border: none;
+}
+.phaseExercise button img{
+    width: 30px;
+    height: 30px;
+}

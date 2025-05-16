@@ -4,7 +4,7 @@ import './workout.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addExercise, addWorkout } from "../../../store/userSlice.ts";
+import { addExercise } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
 import { exercises as databaseExercises } from "../../../database.js";
@@ -14,102 +14,19 @@ import {RootState} from '../../../store/index.ts';
 import CreateTag from "../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../Exercise/CreateEquipment.tsx";
-import { saveItem } from "../../../db.js";
-
-
-interface Exercise {
-    id: string;
-    sourceId: string;
-    createdAt: string; 
-    updatedAt: string | null;
-    author: string;
-    isFavorite: boolean;
-    isCompleted: boolean;
-    name: string;
-    description: string;
-    reference: string;
-    difficulty: string;
-    sets: number;
-    duration: number;
-    durationUnit: string;
-    rest: number;
-    restUnit: string;
-    visibility: string;
-    fields: Field[];
-    notes: string;
-    equipment: Equipment[];
-    muscleGroups: TargetGroup[];
-    tags: Tag[];
-}
-interface TargetGroup {
-    id: string;
-    name: string;
-    author: string;
-}
-interface Equipment {
-    id: string;
-    name: string;
-    attributes?: EquipmentAttributes[];
-}
-  
-interface EquipmentAttributes {
-    name: string;
-    value?: number;
-    unit: string;
-}
-  
-  
-interface Tag {
-    id: string;
-    name: string;
-    color: string;
-    author: string;
-}
-interface Field {
-    name: string,
-    unit: string,
-    value: number,
-    target?: number,
-    description?: string,
-    isCompleted: boolean
-}
-interface Workout {
-    id?: string;
-    _id?: string;
-    name: string;
-    description: string;
-    difficulty: string;
-    targetGroup: TargetGroup[];
-    duration: number; 
-    equipment: Equipment[];
-    exercises: string[];
-    createdAt: string; 
-    updatedAt?: string; 
-    author: string;
-    imageUrl?: string; 
-    isFavorite: boolean;
-    isCompleted: boolean;
-    visibility: string;
-    tags?: Tag[];
-    reference?: string; 
-  }
+import { getAllItems, saveItem } from "../../../db.js";
+import { Equipment, Exercise, Phase, Tag, TargetGroup, Workout } from "../../common/interfaces.ts";
+import Phases from "./Phases.tsx";
 
 const CreateWorkout: React.FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const createdExercises = useSelector((state: RootState) => state.user.exercises);
-    
-    const [exercisesSource, setExercisesSource] = useState<string>('library')
-
-    const [exercises, setExercises] = useState<Exercise[]>([]);
 
     const [showGroups, setShowGroups] = useState(false);
     const [groupName, setGroupName] = useState('');
-
-
-
     const userId = useSelector((state: RootState)=>state.user.userData.id);
+
     //form values
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -123,28 +40,17 @@ const CreateWorkout: React.FC = () => {
 
     const [notes, setNotes] = useState<string>('');
 
+    const [phases, setPhases] = useState<Phase[]>([{id: 'phase-id-1', name: 'Warm-up', order: 1, exercises:[]},{id: 'phase-id-2', name: 'Workout', order: 1, exercises:[]}]);
+
+
+
 
     const [currentScreen, setCurrentScreen] = useState<string>('exercises');
 
-    const handleRemoveExercise = (id) =>{
-        setExercises((exercises)=>exercises.filter((item)=>item.id !== id));
-    }
-
-    useEffect(()=>{
-        console.log(exercises, databaseExercises, createdExercises)
-    }, [exercises])
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date().toISOString(); //get timestamp
-        let exercisesIds: string[] = []; //empty array to store the ids and sources of exercises
-
-        //extract only the id and source from each exercise
-        exercises.forEach((item)=>{
-            if(!createdExercises.some(item=>item.id === item.id)){
-                dispatch(addExercise(item))
-            }
-            exercisesIds.push(item.id)
-        });
+        
         const workoutData: Workout = {
             _id: uuidv4(), 
             author: userId, 
@@ -162,7 +68,7 @@ const CreateWorkout: React.FC = () => {
             equipment: equipments, 
             tags: workoutTags, 
             targetGroup: targetGroups, 
-            exercises: exercisesIds, 
+            phases
         };
 
         saveItem('workouts', workoutData)
@@ -200,7 +106,7 @@ const CreateWorkout: React.FC = () => {
                 <h2>Create Workout</h2>
                 <button className="orange-button submit-button" onClick={handleSubmit}>Create</button>
             </div>
-                <form>
+                <form onSubmit={(e)=>e.preventDefault()}>
                     <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={100} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
                     <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={100} placeholder="Description"></input>
                     <div className="two-inputs">
@@ -222,69 +128,7 @@ const CreateWorkout: React.FC = () => {
                     </div>
                     <div className="selected-screen-container">
                         {currentScreen === 'exercises' ? (
-                            <fieldset className="exercises-fieldset">
-                                <div className="source-buttons">
-                                    <button type="button" className={exercisesSource === "library" ? 'selected-button' : ''} onClick={()=>setExercisesSource('library')}>Library</button>
-                                    <button type="button" className={exercisesSource === "database" ? 'selected-button' : ''} onClick={()=>setExercisesSource('database')}>Database</button>
-                                </div>
-                                <div className="exercises-container">
-                                {exercisesSource === 'library' && (
-                                    createdExercises?.length > 0 ? (
-                                        createdExercises.map((exercise, index) => 
-                                        exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                            <div className="exercise-body" id={exercise.name} key={index}>
-                                            <div className="exercise-info">
-                                                <h4>{exercise.name}</h4>
-                                                <div className="exercise-tags">
-                                                    {exercise.tags?.length > 0 ? exercise.tags.map(tag=><p key={tag.name}>{tag.name}</p>) : ''}
-                                                </div>
-                                            </div>
-                                            <p className="exercise-sets">{exercise.sets} sets</p>
-                                            <button type="button" onClick={(e) => handleAddExercise('library', exercise, e)} className="small-square transparent-bg" >
-                                                <img src={IconLibrary.Add}
-                                                className="small-icon" alt="" />
-                                            </button>
-                                            </div>
-                                        )
-                                        )
-                                    ) : (
-                                        <h3>Your library is empty</h3>
-                                    )
-                                    )}
-                                {exercisesSource === 'database' && (
-                                    databaseExercises?.length > 0 ? (
-                                        databaseExercises.map((exercise, index) => 
-                                        exercises.some((ex) => ex.id === exercise.id) ? null : (
-                                            <div className="exercise-body" id={exercise.name+exercise.id} key={index}>
-                                            <div className="exercise-info">
-                                                <h4>{exercise.name}</h4>
-                                                <div className="exercise-tags">
-                                                    {exercise.tags?.length > 0 ? exercise.tags.slice(0, 3).map(tag=><p>{tag.name}</p>) : ''}
-                                                </div>
-                                            </div>
-                                            <p className="exercise-sets">{exercise.sets} sets</p>
-                                            <button  type="button" onClick={(e) => handleAddExercise('database', exercise, e)} className="small-square transparent-bg" >
-                                                <img src={IconLibrary.Add} className="small-icon" alt="" />
-                                            </button>
-                                            </div>
-                                        )
-                                        )
-                                    ) : (<h3>Could not load exercises</h3>)
-                                    )}
-        
-                                </div>
-                                <div className="exercises-container">
-                                    {exercises?.length > 0 ? exercises.map((item, index)=>(
-                                            <div className="exercise-body added-exercise" id={item.name+index} key={index+'exercise'}>
-                                                <div className="exercise-info">
-                                                    <h4>{item.name}</h4>
-                                                        {item.sets ? (<p>{item.sets} sets</p>) : ''}
-                                                </div>
-                                                <button type="button" onClick={()=>handleRemoveExercise(item.id)} className="small-square transparent-bg"><img src={IconLibrary.No} className="white-icon small-icon" alt=""></img></button>
-                                            </div>
-                                    )): <h3>No exercises added.</h3>}
-                                </div>
-                            </fieldset>
+                            <Phases phases={phases} setPhases={setPhases} />
                         ) : currentScreen === 'tags' ? (
                             <div className="screen">
                                 <CreateTag addTag={addTag} author={userId} allTags={workoutTags} />

@@ -4,7 +4,6 @@ import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { addExercise } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom';
 import { IconLibrary } from "../../../IconLibrary";
 import CreateExerciseField from "../../common/CreateExerciseField/CreateExerciseField";
@@ -16,8 +15,7 @@ import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.
 import { saveItem } from "../../../db.js";
 
 interface Exercise {
-    id?: string;
-    _id?: string;
+    _id: string;
     sourceId?: string;
     createdAt: string; 
     updatedAt?: string | null;

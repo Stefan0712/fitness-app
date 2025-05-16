@@ -1,13 +1,11 @@
 export interface Workout {
-    id: string;
+    _id: string;
     name: string;
     description: string;
     difficulty: string;
-    category: WorkoutCategory;
     targetGroup: TargetGroup[];
     duration: number; 
     equipment: Equipment[];
-    exercises: Exercise[];
     createdAt: string; 
     updatedAt?: string; 
     author: string;
@@ -15,7 +13,9 @@ export interface Workout {
     isFavorite: boolean;
     isCompleted: boolean;
     tags?: Tag[];
+    visibility: string;
     reference?: string; 
+    phases: Phase[];
   }
   export interface Exercise {
     id: string;
@@ -41,6 +41,16 @@ export interface Workout {
     muscleGroups: TargetGroup[];
     tags: Tag[];
   }
+  export interface WorkoutExercise {
+    sourceId: string;
+    fields: Field[];
+    sets: number;
+    equipment: Equipment[];
+    muscleGroups: TargetGroup[];
+    tags: Tag[];
+    reference: string;
+    rest: number;
+}
   export interface WorkoutCategory {
     id: string;
     name: string;
@@ -236,4 +246,11 @@ export interface Workout {
     message: string | null,
     dashboardSections: Section[],
     macros: Macro[];
-  }
+}
+
+export interface Phase {
+  id: string;
+  name: string;
+  order: number;
+  exercises: WorkoutExercise[];
+}
