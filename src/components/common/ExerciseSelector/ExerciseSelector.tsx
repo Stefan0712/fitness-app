@@ -56,12 +56,7 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close})
                     <div className={styles['loading']}>Loading...</div>
                 ) : (
                     filteredExercises.map((ex, index) => (
-                        <div key={'Add-exercise-'+index} className={styles['exercise-item']}>
-                            <span className={styles['exercise-name']}>{ex.name}</span>
-                            <button type='button' className={styles['add-btn']} onClick={()=>addExercise(ex)}>
-                                <img src={IconLibrary.Add} alt="Add" />
-                            </button>
-                        </div>
+                        <ExerciseBody addExercise={addExercise} exercise={ex} index={index} />
                     ))
                 )}
             </div>
@@ -71,3 +66,24 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close})
 };
 
 export default ExerciseSelector;
+
+const ExerciseBody = ({addExercise, exercise, index}) =>{
+
+    const [isAdded, setIsAdded] = useState(false);
+
+    const handleAddExercise = (exercise) => { 
+        addExercise(exercise);
+        setIsAdded(true);
+        setTimeout(() => {
+            setIsAdded(false);
+        }, 1000);
+    }
+    return (
+        <div key={'Add-exercise-'+index} className={styles['exercise-item']}>
+            <span className={styles['exercise-name']}>{exercise.name}</span>
+            <button type='button' className={styles['add-btn']} onClick={()=>handleAddExercise(exercise)}>
+                <img src={isAdded ? IconLibrary.Checkmark : IconLibrary.Add} alt="Add" />
+            </button>
+        </div>
+    )
+}
