@@ -199,7 +199,7 @@ const ViewWorkout = () => {
                   
 
                 </div>
-                {(userId === workoutData.authorId || type !== 'online') ? <div className={styles['bottom-buttons']}>
+                {(userId === workoutData.author || type !== 'online') ? <div className={styles['bottom-buttons']}>
                     <button className={styles['menu-button']} onClick={handleDeleteWorkout}>Delete</button>
                     <Link  className={styles['menu-button']} to={`/workout/${workoutData.id}/edit`}>Edit</Link>
                 </div> : null}

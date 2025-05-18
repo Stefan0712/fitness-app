@@ -48,6 +48,7 @@
     border: none;
     height: 40px;
     width: 100%;
+    flex-shrink: 0;
 }
 .phasesHeader{
     height: 40px;
@@ -70,6 +71,14 @@
     border-radius: 5px;
     padding: 0 10px;
     gap: 10px;
+    flex-shrink: 0;
+}
+.phaseExercises{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-bottom: 25px;
 }
 .phaseExercise b{
     margin-right: auto;
@@ -80,6 +89,6 @@
     border: none;
 }
 .phaseExercise button img{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }

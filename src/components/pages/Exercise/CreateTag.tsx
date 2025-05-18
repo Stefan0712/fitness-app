@@ -20,7 +20,7 @@ interface CreateTagProps {
 const CreateTag: React.FC<CreateTagProps> = ({addTag, author, allTags}) => {
 
     const [name, setName] = useState<string>('');
-    const [color, setColor] = useState<string>('#FFFFF');
+    const [color, setColor] = useState<string>('#FFFFFF');
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const [showTags, setShowTags] = useState<boolean>(false);

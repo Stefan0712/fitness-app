@@ -85,11 +85,13 @@ const Phases = ({phases, setPhases}) => {
                 </div>
                 {phases && phases.length > 0 && selectedPhase ? <button type="button" className={styles.addExerciseButton} onClick={()=>setShowExerciseSelector(true)}>Add exercise</button> : null}
                 {phases && phases.length > 0 && selectedPhase ? <div className={styles.phaseExercises}>
-                    {selectedPhase && selectedPhase.exercises && selectedPhase.exercises.length > 0 ? selectedPhase.exercises.map((exercise, index)=>(<div className={styles.phaseExercise} key={'phase-exercise-'+index}>
-                        <b>{exercise.name}</b>
-                        <p>{exercise.sets || 0} sets</p>
-                        <button type="button" className="clear-btn"><img src={IconLibrary.Close} alt="" onClick={()=>handleRemoveExercise(exercise.sourceId)} /></button>
-                    </div>)) : <p className={styles.noExercises}>No exercises added</p>}
+                    {selectedPhase && selectedPhase.exercises && selectedPhase.exercises.length > 0 ? selectedPhase.exercises.map((exercise, index)=>(
+                        <div className={styles.phaseExercise} key={'phase-exercise-'+index}>
+                            <b>{exercise.name}</b>
+                            <p>{exercise.sets || 0} sets</p>
+                            <button type="button" className="clear-btn"><img src={IconLibrary.Close} alt="" onClick={()=>handleRemoveExercise(exercise.sourceId)} /></button>
+                        </div>
+                    )) : <p className={styles.noExercises}>No exercises added</p>}
                 </div> : phases && phases.length > 0 && !selectedPhase ? <p>No phase selected</p> : <p>No phases</p>}
             </div>
             <div className={styles.phasesButtons}>

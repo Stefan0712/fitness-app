@@ -34,7 +34,7 @@ interface Exercise {
     fields: Field[];
     notes: string[];
     equipment: Equipment[];
-    muscleGroups: TargetGroup[];
+    targetGroups: TargetGroup[];
     tags: Tag[];
     instructions: string[];
 }

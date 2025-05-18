@@ -3,7 +3,7 @@ export interface Workout {
     name: string;
     description: string;
     difficulty: string;
-    targetGroup: TargetGroup[];
+    targetGroups: TargetGroup[];
     duration: number; 
     equipment: Equipment[];
     createdAt: string; 
@@ -16,6 +16,7 @@ export interface Workout {
     visibility: string;
     reference?: string; 
     phases: Phase[];
+    notes: string;
   }
   export interface Exercise {
     id: string;
@@ -175,7 +176,7 @@ export interface Workout {
       finishedAt: string,
       workoutId: string,
       isCompleted: boolean,
-      targetGroup: string[],
+      targetGroups: string[],
       name: string,
       difficulty: string,
       description: string,

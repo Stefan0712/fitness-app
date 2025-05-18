@@ -1,31 +1,26 @@
 import { getDateForHeader } from "../../../helpers.js";
-import React, { useEffect } from "react";
+import React from "react";
 import './workout.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from "react-redux";
-import { addExercise } from "../../../store/userSlice.ts";
 import {useNavigate} from 'react-router-dom'
 import {IconLibrary} from '../../../IconLibrary.js';
-import { exercises as databaseExercises } from "../../../database.js";
-import {RootState} from '../../../store/index.ts';
 
 //default values
 import CreateTag from "../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../Exercise/CreateEquipment.tsx";
 import { saveItem } from "../../../db.js";
-import { Equipment, Exercise, Phase, Tag, TargetGroup, Workout } from "../../common/interfaces.ts";
+import { Equipment, Phase, Tag, TargetGroup, Workout } from "../../common/interfaces.ts";
 import Phases from "./Phases.tsx";
 
 const CreateWorkout: React.FC = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [showGroups, setShowGroups] = useState(false);
     const [groupName, setGroupName] = useState('');
-    const userId = useSelector((state: RootState)=>state.user.userData.id);
+    const userId = localStorage.getItem('userId') || '';
 
     //form values
     const [name, setName] = useState<string>('');
@@ -51,33 +46,39 @@ const CreateWorkout: React.FC = () => {
         e.preventDefault();
         const createdAt = new Date().toISOString(); //get timestamp
         
-        const workoutData: Workout = {
-            _id: uuidv4(), 
-            author: userId, 
-            createdAt, 
-            updatedAt: '',
-            name, 
-            description,
-            isFavorite: false,
-            isCompleted: false,
-            reference, 
-            difficulty,
-            visibility: 'private',
-            imageUrl: '',
-            duration: 0,
-            equipment: equipments, 
-            tags: workoutTags, 
-            targetGroup: targetGroups, 
-            phases
-        };
+       if(userId && userId.length > 0){
+            const workoutData: Workout = {
+                _id: uuidv4(), 
+                author: userId, 
+                createdAt, 
+                updatedAt: '',
+                name, 
+                description,
+                isFavorite: false,
+                isCompleted: false,
+                reference, 
+                difficulty,
+                visibility: 'private',
+                imageUrl: '',
+                duration: duration ? parseInt(duration) : 0,
+                equipment: equipments, 
+                tags: workoutTags, 
+                targetGroups, 
+                phases,
+                notes
+            };
 
-        saveItem('workouts', workoutData)
-        navigate('/library');
-        
-    }
-    const handleAddExercise = (source,exercise,e)=>{
-        console.log({source, exercise})
-        setExercises((exercises)=>[...exercises, exercise]);
+            console.log(workoutData);
+            if(workoutData.name.length < 1){
+                console.log("Workout name is required");
+            }else if(workoutData.name.length > 100){
+                console.log("Workout name is too long");
+            }else{
+                saveItem('workouts', workoutData)
+                navigate('/library');
+                console.log('Workout created');
+            }
+       }
     }
 
     const addTag = (newItem) =>{
@@ -119,6 +120,7 @@ const CreateWorkout: React.FC = () => {
                         </select>
                     </div>
                     <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
+                    <input type="test" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes..."></input>
                     <div className='screen-selector'>
                         <button type="button" onClick={()=>setCurrentScreen('exercises')} className={currentScreen === 'exercises' ? 'selected-screen-button' : ''}>Exercises</button>
                         <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? 'selected-screen-button' : ''}>Tags</button>
