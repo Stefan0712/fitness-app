@@ -30,7 +30,6 @@ const ViewWorkout = () => {
 
     const libraryWorkoutIndex = type || type !== 'online' ? libraryWorkouts.findIndex(item=>item.id===id) : null;
     const databaseWorkoutIndex = type || type !== 'online' ? databaseWorkouts.findIndex(item=>item.id===id) : null;
-    console.log(libraryWorkoutIndex, databaseWorkoutIndex)
     const offlineWorkoutData = libraryWorkoutIndex >=0 ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
     const libraryExercises = useSelector((state)=>state.user.exercises);
 
@@ -80,7 +79,7 @@ const ViewWorkout = () => {
             fetchWorkout();
         }else if(type === 'cached'){
             getWorkoutFromDb();
-            console.log("Cached version of this workout")
+            console.log("Cached version of this workout");
         }
         else{
             console.log("Offline workout")
@@ -91,6 +90,7 @@ const ViewWorkout = () => {
     const getWorkoutFromDb = async () =>{
         const workout = await getItemById('cachedWorkouts', id);
         setWorkoutData(workout)
+        console.log(workout, id)
     }
     const handleSaveWorkout = () =>{
         if(type !== "online" && databaseWorkoutIndex >= 0 ){
@@ -211,7 +211,7 @@ const ViewWorkout = () => {
             <div className="page workout-page">
                 <div className="header">
                     <div className="date">{getDateForHeader()}</div>
-                    <h2>Exercise loading</h2>
+                    <h2>Workout loading</h2>
                 </div>
                 <h1>Loading...</h1>
             </div>

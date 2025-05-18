@@ -14,7 +14,7 @@ import {RootState} from '../../../store/index.ts';
 import CreateTag from "../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../Exercise/CreateEquipment.tsx";
-import { getAllItems, saveItem } from "../../../db.js";
+import { saveItem } from "../../../db.js";
 import { Equipment, Exercise, Phase, Tag, TargetGroup, Workout } from "../../common/interfaces.ts";
 import Phases from "./Phases.tsx";
 
@@ -112,7 +112,6 @@ const CreateWorkout: React.FC = () => {
                     <div className="two-inputs">
                         <input type="number" name="duration" id="duration" onChange={(e) => setDuration(e.target.value)} value={duration} min={0} max={9999} placeholder="Duration"></input>
                         <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
-                            <option value="" selected disabled>Difficulty</option>
                             <option value="beginner">Beginner</option>
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>

@@ -6,6 +6,7 @@
     align-items: center;
     background-color: var(--secondary);
     position: relative;
+    padding-top: 10px;
 }
 .phasesButtons{
     width: 100%;
@@ -27,11 +28,19 @@
     gap: 1rem;
     padding: 0 1rem;
 }
+.addPhaseButton{
+    background-color: transparent;
+    border: none;
+    width: 50px;
+    flex-shrink: 0;
+    
+}
 .phaseButton{
     background-color: transparent;
     border: none;
     height: 40px;
     padding: 0 10px;
+    white-space: nowrap;
 }
 .addExerciseButton{
     background-color: var(--background);
