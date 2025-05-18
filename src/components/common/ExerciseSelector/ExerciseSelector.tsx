@@ -56,7 +56,7 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close})
                     <div className={styles['loading']}>Loading...</div>
                 ) : (
                     filteredExercises.map((ex, index) => (
-                        <div key={ex.sourceId+index} className={styles['exercise-item']}>
+                        <div key={'Add-exercise-'+index} className={styles['exercise-item']}>
                             <span className={styles['exercise-name']}>{ex.name}</span>
                             <button type='button' className={styles['add-btn']} onClick={()=>addExercise(ex)}>
                                 <img src={IconLibrary.Add} alt="Add" />
