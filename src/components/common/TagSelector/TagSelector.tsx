@@ -11,7 +11,7 @@ import { defaultTags } from '../../../constants/defaultTags.js';
 
 interface TagPickerProps {
     close: () => void;
-    setTags: (tag: Tag) => void;
+    setTags: (tag: ITag) => void;
     tags: ITag[]
 }
 

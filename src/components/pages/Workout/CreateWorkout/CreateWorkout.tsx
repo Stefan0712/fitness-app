@@ -7,12 +7,12 @@ import styles from './CreateWorkout.module.css';
 
 //default values
 import TargetGroupPicker from "../../../common/TargetGroupPicker/TargetGroupPicker.tsx";
-import CreateEquipment from "../../Exercise/CreateEquipment.tsx";
 import { saveItem } from "../../../../db.js";
 import { Equipment, Phase, Tag as ITag, TargetGroup, Workout } from "../../../common/interfaces.ts";
 import Phases from "./Phases/Phases.tsx";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
 import TagsScreen from "./Screens/TagsScreen.tsx";
+import EquipmentScreen from "./Screens/EquipmentScreen.tsx";
 
 
 const CreateWorkout: React.FC = () => {
@@ -113,16 +113,7 @@ const CreateWorkout: React.FC = () => {
                     ) : currentScreen === 'tags' ? (
                         <TagsScreen tags={tags} setTags={setTags} />
                     ) : currentScreen === 'equipment' ? (
-                        <div className={styles.screen}>
-                            <CreateEquipment addEquipment={addEquipment} allItems={equipments} />
-                            <div className="equipments-container">
-                                {equipments?.length > 0 ? equipments.map((item,index)=><div key={item.name+index} className="equipment-body">
-                                    <p>{item.name}</p>
-                                    <div>{item.attributes && item.attributes.length > 0 ? item.attributes.map((item, index)=>(<p className="attribute" key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}</div>
-                                    <img className="small-icon" src={IconLibrary.No} onClick={()=>setEquipments((equipments)=>[...equipments.filter(it=>it.id!==item.id)]) }/>
-                                </div>) : ''}
-                            </div>
-                        </div>
+                        <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
                     ) : currentScreen === 'groups' ? (
                         <div className={styles.screen}>
                             <div className='new-target-group'>
