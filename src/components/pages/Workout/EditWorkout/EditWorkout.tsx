@@ -11,7 +11,7 @@ import {RootState} from '../../../../store/index.ts';
 import {v4 as uuidv4} from 'uuid'
 
 //default values
-import CreateTag from "../../Exercise/CreateTag.tsx";
+import CreateTag from "./../../Exercise/CreateTag.tsx";
 import TargetGroupPicker from "../../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import CreateEquipment from "../../Exercise/CreateEquipment.tsx";
 

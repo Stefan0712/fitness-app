@@ -6,6 +6,7 @@ import { IconLibrary } from '../../../../IconLibrary.js';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { getItemById, saveItem, deleteItem } from '../../../../db.js';
+import AppHeader from '../../../common/AppHeader/AppHeader.tsx';
 
 
 const ViewWorkout = () => {
@@ -71,14 +72,7 @@ const ViewWorkout = () => {
 
         return ( 
             <div className={styles['view-workout-page']}>
-                <div className='header'>
-                    <div className='date'>{getDateForHeader()}</div>
-                    <h2>{workoutData.name}</h2>
-                    {type !== 'online' && type !== 'cached' ? 
-                        <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>  : 
-                        <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> 
-                    }
-                </div>
+                <AppHeader title={workoutData.name || 'View Workout'} button={type !== 'online' && type !== 'cached' ?  <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>  :  <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> } />
                <div className={styles['view-workout-content']}>
                <div className={styles['workout-info']}>
                     <div className={`${styles['block']} ${styles['description-container']} ${styles['full-width']}`}>

@@ -91,6 +91,7 @@ export interface Workout {
     name: string;
     color: string;
     author: string;
+    category?: string;
   }
   
   export interface Goal {
