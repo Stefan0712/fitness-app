@@ -1,6 +1,4 @@
-import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import StartingPage from './components/pages/StartingPage/StartingPage.tsx';
 import Dashboard from './components/pages/Dashboard/Dashboard';
@@ -8,15 +6,13 @@ import Library from './components/pages/Library/Library';
 import Logs from './components/pages/Activity/Activity';
 import Profile from './components/pages/Profile/Profile';
 import Workout from './components/pages/Workout/Workout';
-import EditWorkout from './components/pages/Workout/EditWorkout.tsx';
-import CreateWorkout from './components/pages/Workout/CreateWorkout.tsx';
+import EditWorkout from './components/pages/Workout/EditWorkout/EditWorkout.tsx';
+import CreateWorkout from './components/pages/Workout/CreateWorkout/CreateWorkout.tsx';
 import EditExercise from './components/pages/Exercise/EditExercise.tsx';
 import CreateExercise from './components/pages/Exercise/CreateExercise.tsx';
 import EditProfile from './components/pages/Profile/EditProfile.tsx';
-import ViewWorkout from './components/pages/Workout/ViewWorkout';
+import ViewWorkout from './components/pages/Workout/ViewWorkout/ViewWorkout';
 import ViewExercise from './components/pages/Exercise/ViewExercise';
-import ViewBrowseExercise from './components/pages/Exercise/ViewBrowseExercise';
-import ViewBrowseWorkout from './components/pages/Workout/ViewBrowseWorkout';
 import Tags from './components/pages/Settings/Tags';
 import Equipment from './components/pages/Settings/Equipment';
 import Exercise from './components/pages/Exercise/Exercise';
@@ -59,8 +55,6 @@ function AppRoutes() {
       <Route path="/exercise/:id/start" element={<Exercise />} />
       <Route path="/exercise/:snapshotId/restore" element={<Exercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
-      <Route path='/browse/exercise/:id/view' element={<ViewBrowseExercise />} />
-      <Route path='/browse/workout/:id/view' element={<ViewBrowseWorkout />} />
       <Route path='/tags' element={<Tags />} />
       <Route path='/explore' element={<Explore />} />
       <Route path='/equipment' element={<Equipment />} />

@@ -1,12 +1,11 @@
-import './workout.css';
 import styles from './ViewWorkout.module.css';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { getDateForHeader, makeFirstUpperCase } from '../../../helpers'
+import { getDateForHeader, makeFirstUpperCase } from '../../../../helpers.js'
 import { useState, useEffect } from 'react';
-import { IconLibrary } from '../../../IconLibrary';
+import { IconLibrary } from '../../../../IconLibrary.js';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
-import { getItemById, saveItem, deleteItem } from '../../../db.js';
+import { getItemById, saveItem, deleteItem } from '../../../../db.js';
 
 
 const ViewWorkout = () => {

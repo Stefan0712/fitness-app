@@ -1,4 +1,3 @@
-import { getDateForHeader } from "../../../helpers";
 import styles from './Library.module.css';
 import { Link } from "react-router-dom";
 import { IconLibrary } from "../../../IconLibrary";
@@ -7,6 +6,7 @@ import { useState, useEffect } from "react";
 import Exercise from './Exercise';
 import Workout from "./Workout";
 import { getAllItems } from "../../../db";
+import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 
 
 const Library = () => {
@@ -31,10 +31,7 @@ const Library = () => {
     }
     return ( 
         <div className={`${styles.library}`}>
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Library</h2>
-            </div>
+            <AppHeader title={"Library"} />
             <div className={styles["toggle-buttons"]}>
                 <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
                 <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>

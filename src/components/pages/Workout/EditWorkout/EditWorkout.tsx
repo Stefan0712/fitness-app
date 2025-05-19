@@ -1,20 +1,19 @@
-import { getDateForHeader } from "../../../helpers.js";
+import { getDateForHeader } from "../../../../helpers.js";
 import React, { useEffect } from "react";
-import './workout.css';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addExercise, addWorkout, updateWorkout } from "../../../store/userSlice.ts";
+import { addExercise, updateWorkout } from "../../../../store/userSlice.ts";
 import { useParams } from "react-router-dom";
 import {useNavigate} from 'react-router-dom'
-import {IconLibrary} from '../../../IconLibrary.js';
-import { exercises as defaultExercises } from "../../../database.js";
-import {RootState} from '../../../store/index.ts';
+import {IconLibrary} from '../../../../IconLibrary.js';
+import { exercises as defaultExercises } from "../../../../database.js";
+import {RootState} from '../../../../store/index.ts';
 import {v4 as uuidv4} from 'uuid'
 
 //default values
-import CreateTag from "../Exercise/CreateTag.tsx";
-import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
-import CreateEquipment from "../Exercise/CreateEquipment.tsx";
+import CreateTag from "../../Exercise/CreateTag.tsx";
+import TargetGroupPicker from "../../../common/TargetGroupPicker/TargetGroupPicker.tsx";
+import CreateEquipment from "../../Exercise/CreateEquipment.tsx";
 
 
 interface Exercise {

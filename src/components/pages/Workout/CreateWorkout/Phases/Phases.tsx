@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Phase, WorkoutExercise } from "../../common/interfaces.ts";
+import { Phase, WorkoutExercise } from "../../../../common/interfaces.ts";
 import styles from './Phases.module.css';
-import { IconLibrary } from "../../../IconLibrary.js";
-import ExerciseSelector from "../../common/ExerciseSelector/ExerciseSelector.tsx";
+import { IconLibrary } from "../../../../../IconLibrary.js";
+import ExerciseSelector from "../../../../common/ExerciseSelector/ExerciseSelector.tsx";
 import NewPhase from "./AddPhase.tsx";
 import EditPhase from "./EditPhase.tsx";
 

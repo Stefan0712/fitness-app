@@ -1,18 +1,17 @@
-import { getDateForHeader } from "../../../helpers.js";
+import { getDateForHeader } from "../../../../helpers.js";
 import React from "react";
-import './workout.css';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from 'react-router-dom'
-import {IconLibrary} from '../../../IconLibrary.js';
+import {IconLibrary} from '../../../../IconLibrary.js';
 
 //default values
-import CreateTag from "../Exercise/CreateTag.tsx";
-import TargetGroupPicker from "../../common/TargetGroupPicker/TargetGroupPicker.tsx";
-import CreateEquipment from "../Exercise/CreateEquipment.tsx";
-import { saveItem } from "../../../db.js";
-import { Equipment, Phase, Tag, TargetGroup, Workout } from "../../common/interfaces.ts";
-import Phases from "./Phases.tsx";
+import CreateTag from "../../Exercise/CreateTag.tsx";
+import TargetGroupPicker from "../../../common/TargetGroupPicker/TargetGroupPicker.tsx";
+import CreateEquipment from "../../Exercise/CreateEquipment.tsx";
+import { saveItem } from "../../../../db.js";
+import { Equipment, Phase, Tag, TargetGroup, Workout } from "../../../common/interfaces.ts";
+import Phases from "./Phases/Phases.tsx";
 
 const CreateWorkout: React.FC = () => {
 
