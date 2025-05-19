@@ -56,18 +56,7 @@ body{
     display: none;
   }
   
-  .header{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .header .date{
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .header h2{
-    margin-top: 0;
-  }
+
   .border-bottom{
     border-bottom: 1px solid rgba(211, 211, 211, 0.1);
     padding-bottom: 10px;

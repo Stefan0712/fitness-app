@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';
 import MessageModal from '../../common/MessageModal/MessageModal.tsx';
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 
 
 
@@ -77,11 +78,7 @@ const Dashboard = () => {
     return ( 
         <div className={`${styles.dashboard} page`}>
             {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} bottom={85} /> : null}
-            <div className={styles.header}>
-                <div className={styles.date}>{getDateForHeader()}</div>
-                <h2>Dashboard</h2>
-                <Link to={'/edit-dashboard'} type='button' className='clear-button'><img className='small-icon' src={IconLibrary.Edit} alt=''/></Link>
-            </div>
+            <AppHeader title={'Dashboard'} button={<Link to={'/edit-dashboard'} type='button' className='clear-button'><img className='small-icon' src={IconLibrary.Edit} alt=''/></Link>}/>
             
             {menu ? (
                 <div className={styles.menu}>
@@ -94,8 +91,8 @@ const Dashboard = () => {
 
         <div className={styles['dashboard-content']}>
             <div className={styles['dashboard-warning']}>
-
-                <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>
+            
+            <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>
 
             </div>
             {exerciseSnapshots && exerciseSnapshots.length > 0 ? <div className={styles.snapshots}>

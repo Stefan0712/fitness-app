@@ -1,16 +1,12 @@
 import './workout.css';
 import styles from './ViewWorkout.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getDateForHeader, makeFirstUpperCase } from '../../../helpers'
 import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
-import { exercises as databaseExercises } from '../../../database';
-import { workouts as databaseWorkouts} from '../../../database';
 import {v4 as uuidv4} from 'uuid';
-import { addWorkout, deleteWorkout, saveOnlineWorkoutToLibrary } from '../../../store/userSlice.ts';
 import axios from 'axios';
-import { getItemById } from '../../../db.js';
+import { getItemById, saveItem, deleteItem } from '../../../db.js';
 
 
 const ViewWorkout = () => {
@@ -20,18 +16,8 @@ const ViewWorkout = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
-    const dispatch = useDispatch();
     const navigate = useNavigate();
    
-
-
-    const [exercises, setExercises] = useState([]);
-    const libraryWorkouts = useSelector((state)=>state.user.workouts);
-
-    const libraryWorkoutIndex = type || type !== 'online' ? libraryWorkouts.findIndex(item=>item.id===id) : null;
-    const databaseWorkoutIndex = type || type !== 'online' ? databaseWorkouts.findIndex(item=>item.id===id) : null;
-    const offlineWorkoutData = libraryWorkoutIndex >=0 ? libraryWorkouts[libraryWorkoutIndex] : databaseWorkoutIndex >=0 ? databaseWorkouts[databaseWorkoutIndex] : null;
-    const libraryExercises = useSelector((state)=>state.user.exercises);
 
     const [workoutData, setWorkoutData] = useState(null);
     
@@ -39,28 +25,10 @@ const ViewWorkout = () => {
     
     
 
-    const handleDeleteWorkout = () =>{
-        dispatch(deleteWorkout(id));
+    const handleDeleteWorkout = async () =>{
+        await deleteItem('workouts', id)
         navigate('/library');
     }   
-    //function to search and populate each exercise based on the course
-    const fetchExercises = (data) => {
-        if(data){
-            const fetchedExercises = data.exercises.map((ex) => {
-                if(typeof ex === 'string'){
-                    const libraryExercise = libraryExercises.find(item=>item.id===ex);
-                    if(libraryExercise) return libraryExercise;
-                    const databaseExercise = databaseExercises.find(item=>item.id===ex);
-                    if(databaseExercise) return databaseExercise;
-                    console.log("Exercise was not found. ID: "+ex);
-                }else{
-                    return ex;
-                }
-            }).filter(Boolean); // Remove null values if any source is invalid
-            console.log(fetchedExercises)
-            setExercises(fetchedExercises);
-        }
-    };
     const fetchWorkout = async () =>{
         try{
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout/${id}`,{ withCredentials: true });
@@ -78,28 +46,27 @@ const ViewWorkout = () => {
             console.log("Online workout")
             fetchWorkout();
         }else if(type === 'cached'){
-            getWorkoutFromDb();
+            getWorkoutFromDb('cachedWorkouts');
             console.log("Cached version of this workout");
         }
         else{
             console.log("Offline workout")
-            setWorkoutData(offlineWorkoutData);
-            fetchExercises(offlineWorkoutData);
+            getWorkoutFromDb('workouts');
         }
     },[]);
-    const getWorkoutFromDb = async () =>{
-        const workout = await getItemById('cachedWorkouts', id);
+
+    const getWorkoutFromDb = async (source) =>{
+        const workout = await getItemById(source, id);
         setWorkoutData(workout)
         console.log(workout, id)
     }
-    const handleSaveWorkout = () =>{
-        if(type !== "online" && databaseWorkoutIndex >= 0 ){
-            dispatch(addWorkout({...workoutData, sourceId: workoutData.id, id: uuidv4()}));
+    const handleSaveWorkout = async () =>{
+        if(type === 'online'){
+            await saveItem('workouts', {...workoutData, sourceId: workoutData._id, id: uuidv4()})
             navigate('/library');
-        }else if(type === 'online'){
-            dispatch(saveOnlineWorkoutToLibrary({...workoutData, sourceId: workoutData._id, id: uuidv4()}));
-            navigate('/library');
+            console.log("Workout saved to library")
         }
+        
     }
     if(workoutData){
 
@@ -108,8 +75,10 @@ const ViewWorkout = () => {
                 <div className='header'>
                     <div className='date'>{getDateForHeader()}</div>
                     <h2>{workoutData.name}</h2>
-                    {(libraryWorkoutIndex && libraryWorkoutIndex >= 0) || type !== 'online' ? <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link> 
-                    : <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> }
+                    {type !== 'online' && type !== 'cached' ? 
+                        <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>  : 
+                        <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> 
+                    }
                 </div>
                <div className={styles['view-workout-content']}>
                <div className={styles['workout-info']}>
@@ -176,25 +145,19 @@ const ViewWorkout = () => {
                 </div>
                 <h3 className='subtitle full-width'>Exercises</h3>
                 <div className={styles['workout-exercises']}>
-                  {type !== "online" && workoutData.exercises && exercises.length > 0 ? exercises.map((exercise, index)=>(
-                        <div className={styles['exercise-body']} key={index+'ex'}>
-                            <p className={styles['exercise-index']}>{index+1}</p>
-                            <b className={styles['exercise-name']}>{exercise.name}</b>
-                            <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
-                        </div>
-                  )): 
-                  type === 'online' && workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
-                        <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
-                            <b>{phase.name}</b>
-                            {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
-                                <div className={styles['exercise-body']} key={index+'ex'}>
-                                    <p className={styles['exercise-index']}>{index+1}</p>
-                                    <b className={styles['exercise-name']}>{exercise.name}</b>
-                                    <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
-                                </div>
-                            )) : (<p>No exercises</p>)} 
-                        </div>))
-                   : (<p>Loading Exercises</p>)} 
+           
+                  {type === 'online' && workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
+                    <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
+                        <b>{phase.name}</b>
+                        {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
+                            <div className={styles['exercise-body']} key={index+'ex'}>
+                                <p className={styles['exercise-index']}>{index+1}</p>
+                                <b className={styles['exercise-name']}>{exercise.name}</b>
+                                <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
+                            </div>
+                        )) : (<p>No exercises</p>)} 
+                    </div>))
+                   : (<p>Loading exercises</p>)} 
 
                   
 
