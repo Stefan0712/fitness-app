@@ -9,6 +9,7 @@
 }
 .createWorkoutPage .workoutMeta{
     display: flex;
+    height: 200px;
     flex-direction: column;
     gap: 10px;
 }
@@ -51,7 +52,8 @@
 }
 .createWorkoutPage .screenContainer{
     width: 100%;
-    flex: 1;
+    height: calc(100% - 250px);
+    
 }
 .createWorkoutPage .screen{
     height: 100%;
@@ -71,7 +73,8 @@
     font-size: 1rem;
     flex-shrink: 0;
 }
-.createWorkoutPage .tagsContainer{
+.createWorkoutPage .tagsContainer,
+.createWorkoutPage .equipmentContainer{
     width: 100%;
     padding: 10px;
     display: flex;
@@ -79,7 +82,23 @@
     overflow-x: hidden;
     overflow-y: auto;
     gap: 10px;
-    height: calc(100% - 50px);
+    flex: 1;
+    max-height: calc(100% - 50px);
     background-color: var(--secondary);
 
+}
+.createWorkoutPage .addedEquipment{
+    width: 100%;
+    display: flex;
+    padding: 0 10px;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background);
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+.createWorkoutPage .equipmentContainer{
+    flex-direction: column;
+    flex-wrap: nowrap;
 }

@@ -54,7 +54,7 @@ const EquipmentSelector = ({close, equipments, setEquipments}) => {
                 <button type="button" className="clear-button" onClick={close}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles.top}>
-                <h3>Selected equipment</h3>
+                <h4>Selected equipment</h4>
                 <div className={styles.selectedEquipment}>
                     {equipments?.length > 0 ? equipments.map((item, index)=><div key={'Selected-equipment-'+index} className={styles.equipment}><b>{item.name}</b><button className="clear-button" onClick={()=>setEquipments(prev=>[...prev.filter(it=>it.id!==item.id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No tags selected</p>}
                 </div>

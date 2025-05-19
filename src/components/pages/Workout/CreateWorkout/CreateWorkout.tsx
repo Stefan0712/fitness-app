@@ -2,17 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from 'react-router-dom'
-import {IconLibrary} from '../../../../IconLibrary.js';
 import styles from './CreateWorkout.module.css';
 
 //default values
-import TargetGroupPicker from "../../../common/TargetGroupPicker/TargetGroupPicker.tsx";
 import { saveItem } from "../../../../db.js";
 import { Equipment, Phase, Tag as ITag, TargetGroup, Workout } from "../../../common/interfaces.ts";
 import Phases from "./Phases/Phases.tsx";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
 import TagsScreen from "./Screens/TagsScreen.tsx";
 import EquipmentScreen from "./Screens/EquipmentScreen.tsx";
+import MuscleScreen from "./Screens/MuscleScreen.tsx";
 
 
 const CreateWorkout: React.FC = () => {
@@ -115,17 +114,7 @@ const CreateWorkout: React.FC = () => {
                     ) : currentScreen === 'equipment' ? (
                         <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
                     ) : currentScreen === 'groups' ? (
-                        <div className={styles.screen}>
-                            <div className='new-target-group'>
-                                <button type="button" className="clear-button" onClick={()=>setShowGroups(true)}><img   className="small-icon" src={IconLibrary.Search} alt=""/></button>
-                                <input type='text' name="groupName" onChange={(e)=>setGroupName(e.target.value)} value={groupName} placeholder="Muscle Name" />
-                                <button type="button" className="clear-button" onClick={handleAddGroup}><img className="small-icon" src={IconLibrary.Add} alt="" /></button>
-                            </div>  
-                            {showGroups ? <TargetGroupPicker closeModal={()=>setShowGroups(false)} currentItems={targetGroups} addItem={(groupData)=>setTargetGroups(targetGroups=>[...targetGroups,groupData])} /> : null}
-                            <div className="tags-container">
-                                {targetGroups?.length > 0 ? targetGroups.map((item, index)=><div key={item.name+index} className="tag-body"><div className="tag-color"></div><p>{item.name}</p><img className="small-icon" src={IconLibrary.No} onClick={()=>setTargetGroups((muscleGroups)=>[...muscleGroups.filter(it=>it.id!==item.id)]) }/></div>) : ''}
-                            </div>
-                        </div> 
+                        <MuscleScreen targetGroups={targetGroups} setTargetGroups={setTargetGroups} />
                     ) : null}
                 </div>
                 
