@@ -453,6 +453,7 @@ body{
   --general-border: rgba(221, 221, 221, 0.1);
   --toggle-button-background: #1A1A1B;
   --toggle-button-active: white;
+  --toggle-button-active-text: black;
   --input-bg: #1A1A1B;
   --modal-bg: #222324;
   --confirm: #4CAF50;
