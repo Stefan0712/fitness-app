@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { IconLibrary } from '../../../IconLibrary';
 import { useNavigate } from 'react-router-dom';
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 
 const DashboardLayout = () => {
 
@@ -74,11 +75,7 @@ const DashboardLayout = () => {
   }
   return (
     <div className={`${styles['dashboard-layout']} page`}>
-      <div className={styles.header}>
-        <div className={styles.date}>{getDateForHeader()}</div>
-        <h2>Edit Dashboard</h2>
-        <button type='button' className='orange-button' onClick={handleSave}>Save</button>
-      </div>
+      <AppHeader title={'Edit Dashboard'} button={<button type='button' className='orange-button' onClick={handleSave}>Save</button>} />
       <h3>Active Components ({orderedComponents.length}/{goals.length + allSections.length})</h3>
       <div className={styles['enabled-components']}>
         {orderedComponents?.map((item) => (

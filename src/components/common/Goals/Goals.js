@@ -26,6 +26,7 @@ const Goals = ({closeMenu}) => {
     }
     return ( 
         <div className={styles.goals}>
+            
             <div className={styles.header}>
                 <h2>{currentScreen === 'new' ? 'New Goal' : currentScreen === 'all' ? 'Goals' : ''}</h2>
                 <img src={IconLibrary.No} className='small-icon' alt='edit goals' onClick={closeMenu} />
