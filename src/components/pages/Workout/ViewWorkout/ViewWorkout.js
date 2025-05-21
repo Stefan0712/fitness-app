@@ -1,6 +1,6 @@
 import styles from './ViewWorkout.module.css';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { getDateForHeader, makeFirstUpperCase } from '../../../../helpers.js'
+import { formatDate, getDateForHeader, makeFirstUpperCase } from '../../../../helpers.js'
 import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../../IconLibrary.js';
 import {v4 as uuidv4} from 'uuid';
@@ -71,95 +71,118 @@ const ViewWorkout = () => {
     if(workoutData){
 
         return ( 
-            <div className={styles['view-workout-page']}>
-                <AppHeader title={workoutData.name || 'View Workout'} button={type !== 'online' && type !== 'cached' ?  <Link to={`/workout/${workoutData.id}/start`} className={`${styles['start-workout-button']}`}>Start</Link>  :  <button className={`${styles['start-workout-button']}`} onClick={handleSaveWorkout}>Save</button> } />
-               <div className={styles['view-workout-content']}>
-               <div className={styles['workout-info']}>
-                    <div className={`${styles['block']} ${styles['description-container']} ${styles['full-width']}`}>
-                        <div className={styles['header']}>
-                            <img className='small-icon' src={IconLibrary.InfoCircle} alt=''></img>
-                            <p>Description</p>
+            <div className={styles.viewExercise}>
+                <AppHeader title={workoutData.name} button={type !== 'online' && type !== 'cached' ? <Link to={`/workout/${workoutData.id}/start`} className={styles.startButton}>Start</Link> : <button onClick={handleSaveWorkout} className={styles.startButton}>Save</button>} />
+                <div className={styles.content}>
+                    <div className={styles.twoBlocks}>
+                        <div className={styles.half}>
+                            <b>Created at</b>
+                            <p>{workoutData.createdAt ? formatDate(workoutData.createdAt) : 'Not set'}</p>
                         </div>
-                        <p className={styles['value']}>{workoutData.description || "Description not set"}</p>
+                        <div className={styles.half}>
+                            <b>UpdatedAt</b>
+                            <p>{workoutData.updatedAt ? formatDate(workoutData.updatedAt) : 'Not set'}</p>
+                        </div>
                     </div>
-                    <div className={`${styles['block']} ${styles.groups}`}>
-                        <div className={styles['header']}>
-                            <img className='small-icon white-icon' src={IconLibrary.Tag} alt=''></img>
-                            <p className={styles['name']}>Tags</p>
+                    <div className={styles.twoBlocks}>
+                        <div className={styles.half}>
+                            <b>Duration</b>
+                            <p>{workoutData.duration} {workoutData.durationUnit}</p>
                         </div>
-                        <div className={`${styles['tags-container']}`}>
-                            {workoutData.tags?.length > 0 ? workoutData.tags.map(tag=>
-                            (
-                                <div className={styles["tag-body"]} key={tag.id}>
-                                    <div className={styles["tag-color"]} style={{backgroundColor: tag.color}}></div>
-                                    <div className={styles["tag-name"]}>{tag.name}</div>
+                        <div className={styles.half}>
+                            <b>Rest</b>
+                            <p>{workoutData.rest} {workoutData.restUnit}</p>
+                        </div>
+                    </div>
+                    <div className={styles.twoBlocks}>
+                        <div className={styles.half}>
+                            <b>Difficulty</b>
+                            <p>{makeFirstUpperCase(workoutData.difficulty)}</p>
+                        </div>
+                        <div className={styles.half}>
+                            <b>Reference (url)</b>
+                            <p>{workoutData.reference || 'Not set'}</p>
+                        </div>
+                    </div>
+                    <div className={styles.block}>
+                        <b>Description</b>
+                        <p>{workoutData.description}</p>
+                    </div>
+                    <div className={styles.block}>
+                        <b>Notes</b>
+                        <p>{workoutData.notes || 'Not set'}</p>
+                    </div>
+                    <div className={styles.block}>
+                        <div className={styles.blockHeader}>
+                            <img className={styles.blockIcon} src={IconLibrary.Tag} alt=''></img>
+                            <p>Tags</p>
+                        </div>
+                        <div className={styles.tags}>
+                            {workoutData.tags?.length > 0 ? workoutData.tags.map(tag=>(
+                                <div className={styles.tag} key={tag.name}>
+                                    <div className={styles.tagColor} style={{backgroundColor: tag.color}}></div>
+                                    <p>{tag.name}</p>
                                 </div>
-                            )) : 'None'}
+                            )) : <p>No tags</p>}
                         </div>
                     </div>
-                    <div className={`${styles['block']} ${styles.equipments}`}>
-                        <div className={styles['header']}>
-                            <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
-                            <p className={styles['name']}>Equipment</p>
+                    <div className={styles.block}>
+                        <div className={styles.blockHeader}>
+                            <img className={styles.blockIcon} src={IconLibrary.Dumbbell} alt=''></img>
+                            <p>Equipment</p>
                         </div>
-                        <div className={`${styles['equipments-container']}`}>
-                            {workoutData.equipment && workoutData.equipment?.length > 0 ? workoutData.equipment.map(eq=>(
-                            <div className={styles["equipment"]} key={eq.id}>
-                                <div className={styles["equipment-name"]}>{eq.name}</div>
+                        <div className={styles.equipments}
+                        >{workoutData.equipment?.length > 0 ? workoutData.equipment.map((eq)=>(
+                            <div className={styles.equipment} key={eq.name}>
+                                <p>{eq.name}</p>
                             </div>
-                            )) : (
-                                <div className={styles["equipment"]} key={'default equipment'}>
-                                    <div className={styles["equipment-name"]}>None</div>
+                            )) : <p>No equipment needed</p>}</div>
+                    </div>
+                    <div className={styles.block}>
+                        <div className={styles.blockHeader}>
+                            <img className={styles.blockIcon} src={IconLibrary.Muscle} alt=''></img>
+                            <p>Target Muscles</p>
+                        </div>
+                        <div className={styles.muscles}>
+                            {workoutData.targetGroups?.length > 0 ? workoutData.targetGroups.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
+                        </div>
+                    </div>
+                    <div className={styles.block}>
+                        <div className={styles.blockHeader}>
+                            <img className={styles.blockIcon} src={IconLibrary.List} alt=''></img>
+                            <p>Exercises</p>
+                        </div>
+                        <div className={styles.exercises}>
+                            {workoutData.phases.length > 0 ? (
+                                workoutData.phases.map((phase, phaseIndex) => (
+                                <div className={styles.phase} key={'phase' + phaseIndex}>
+                                    <h3>{phase.name}</h3>
+                                    {phase.exercises.length > 0 ? (
+                                    phase.exercises.map((exercise, index) => (
+                                        <div className={styles.exercise} key={'exercise' + index}>
+                                        <b>{exercise.name}</b>
+                                        <p>x {exercise.sets}</p>
+                                        </div>
+                                    ))
+                                    ) : (
+                                    <p>No exercises</p>
+                                    )}
                                 </div>
+                                ))
+                            ) : (
+                                <p>No phases</p>
                             )}
                         </div>
                     </div>
-                    <div className={`${styles['block']} ${styles.groups}`}>
-                        <div className={styles['header']}>
-                            <img className='small-icon white-icon' src={IconLibrary.Muscle} alt=''></img>
-                            <p className={styles['name']}>Target Muscles</p>
-                        </div>
-                        <p className={`${styles['groups-container']}`}>{workoutData.targetGroup?.length > 0 ? workoutData.targetGroup.map((group,index) =><p key={'group '+index}>{group.name}</p>  ) : 'None'}</p>
-                    </div>
-                    <div className={styles['block']}>
-                        <div className={styles['header']}>
-                            <img className='small-icon white-icon' src={IconLibrary.Dumbbell} alt=''></img>
-                            <p className={styles['name']}>Difficulty</p>
-                        </div>
-                        <p className={styles['value']}>{workoutData.difficulty ? makeFirstUpperCase(workoutData.difficulty) : 'Not set'}</p>
-                    </div>
-                    <div className={styles['block']}>
-                        <div className={styles['header']}>
-                            <img className='small-icon white-icon' src={IconLibrary.Link} alt=''></img>
-                            <p className={styles['name']}>Reference (url)</p>
-                        </div>
-                        <p className={styles['value']}>{workoutData.reference ? workoutData.reference : 'Not Set'}</p>
-                    </div> 
+                    {(userId === workoutData.author._id) || type !=='online' ? 
+                        <div className={styles.bottomButtons}>
+                            <button className={styles.exerciseButton} onClick={handleDeleteWorkout}>Delete</button>
+                            <Link className={styles.exerciseButton} to={`/workout/${workoutData.id}/edit`}>Edit</Link> 
+                        </div> 
+                    : null}
                 </div>
-                <h3 className='subtitle full-width'>Exercises</h3>
-                <div className={styles['workout-exercises']}>
-           
-                  {type === 'online' && workoutData.phases && workoutData.phases.length > 0 ? workoutData.phases.map((phase,index)=>(
-                    <div style={{display: 'flex', flexDirection: 'column', gap:'10px'}} key={'phase-'+index}>
-                        <b>{phase.name}</b>
-                        {phase.exercises?.length > 0 ? phase.exercises.map((exercise, index)=>(
-                            <div className={styles['exercise-body']} key={index+'ex'}>
-                                <p className={styles['exercise-index']}>{index+1}</p>
-                                <b className={styles['exercise-name']}>{exercise.name}</b>
-                                <p className={styles['exercise-sets']}>{exercise.sets} sets</p>
-                            </div>
-                        )) : (<p>No exercises</p>)} 
-                    </div>))
-                   : (<p>Loading exercises</p>)} 
-
-                  
-
-                </div>
-                {(userId === workoutData.author || type !== 'online') ? <div className={styles['bottom-buttons']}>
-                    <button className={styles['menu-button']} onClick={handleDeleteWorkout}>Delete</button>
-                    <Link  className={styles['menu-button']} to={`/workout/${workoutData.id}/edit`}>Edit</Link>
-                </div> : null}
-               </div>
+                 
+                
             </div>
          );
     }else{
