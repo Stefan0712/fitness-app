@@ -62,7 +62,7 @@ const ViewWorkout = () => {
     }
     const handleSaveWorkout = async () =>{
         if(type === 'online'){
-            await saveItem('workouts', {...workoutData, sourceId: workoutData._id, id: uuidv4()})
+            await saveItem('workouts', {...workoutData, sourceId: workoutData._id, _id: uuidv4()})
             navigate('/library');
             console.log("Workout saved to library")
         }

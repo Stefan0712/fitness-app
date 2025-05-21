@@ -1,11 +1,7 @@
-import { getDateForHeader } from "../../../helpers";
-import './exercise.css';
 import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from 'react-router-dom';
-import { IconLibrary } from "../../../IconLibrary";
-import CreateExerciseField from "../../common/CreateExerciseField/CreateExerciseField";
 import styles from "./CreateExercise.module.css";
 import { saveItem } from "../../../db.js";
 import { Equipment, Field, Tag, TargetGroup, Exercise } from "../../common/interfaces.tsx";
@@ -18,13 +14,8 @@ import InstructionsScreen from "./Screens/InstructionsScreen/InstructionsScreen.
 
 const CreateExercise: React.FC = () => {
 
-    
-
-
     const navigate = useNavigate();
-
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
-
     //form values
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -46,12 +37,13 @@ const CreateExercise: React.FC = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const createdAt = new Date();
+        const id = uuidv4()
         const exerciseData: Exercise = {
-            _id: uuidv4(),
+            _id: id,
             author: localStorage.getItem('userId') || '',
             createdAt, 
             updatedAt: createdAt,
-            sourceId: '',
+            sourceId: id,
             isCompleted: false, 
             name, 
             description, 
@@ -71,11 +63,9 @@ const CreateExercise: React.FC = () => {
             instructions: []
         };
         console.log(exerciseData)
-        //saveItem('exercises', exerciseData)
-        //navigate('/library');
-        
+        saveItem('exercises', exerciseData)
+        navigate('/library');
     }
-
     return ( 
         <div className={styles.createExercise}>
             <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />

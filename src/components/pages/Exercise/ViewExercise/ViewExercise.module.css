@@ -1,0 +1,123 @@
+.viewExercise{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    height: calc(100vh - 75px);
+}
+.viewExercise .content{
+    height: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+.viewExercise .blockIcon{
+    width: 15px;
+    height: 15px;
+}
+.viewExercise .block,
+.viewExercise .twoBlocks{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.viewExercise .twoBlocks{
+    flex-direction: row;
+    gap: 10px;
+}
+.viewExercise .half{
+    width: 50%;
+}
+.viewExercise .block b,
+.viewExercise .twoBlocks .half b{
+    opacity: 0.5;
+}
+.viewExercise .tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.viewExercise  .tags .tag{
+    background-color: var(--background);
+    border-radius: 5px;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.viewExercise  .tags .tag .tagColor{
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+}
+.viewExercise .blockHeader{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.viewExercise .equipments,
+.viewExercise .muscles,
+.viewExercise .fields{
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.viewExercise .equipments .equipment,
+.viewExercise .muscles .muscle,
+.viewExercise .fields .field{
+    width: calc(50% - 4px);
+    background-color: var(--background);
+    border-radius: 5px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.viewExercise .fields .field{
+    width: 100%;
+    gap: 10px;
+    padding: 0 10px;
+    height: 40px;
+}
+.viewExercise .fields .field b{
+    margin-right: auto;
+}
+.viewExercise .bottomButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.viewExercise .bottomButtons .exerciseButton{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--general-border);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.viewExercise .startButton{
+    width: 100px;
+    height: 40px;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
