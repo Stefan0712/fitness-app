@@ -19,13 +19,13 @@ export interface Workout {
     notes: string;
   }
   export interface Exercise {
-    id: string;
-    sourceId: string;
-    createdAt: string; 
-    updatedAt: string | null;
+    _id?: string;
+    id?: string;
     author: string;
-    isFavorite: boolean;
+    createdAt: Date; 
+    updatedAt: Date;
     isCompleted: boolean;
+    sourceId: string;
     name: string;
     description: string;
     reference: string;
@@ -39,19 +39,20 @@ export interface Workout {
     fields: Field[];
     notes: string;
     equipment: Equipment[];
-    muscleGroups: TargetGroup[];
+    targetGroups: TargetGroup[];
     tags: Tag[];
+    instructions: string[];
   }
   export interface WorkoutExercise {
-    sourceId: string;
-    fields: Field[];
-    sets: number;
-    equipment: Equipment[];
-    muscleGroups: TargetGroup[];
+    exerciseId: string,
+    isCompleted: boolean,
+    name: string,
+    difficulty: string,
+    description: string,
+    sets: Set[],
+    fields: Field[],
     tags: Tag[];
-    reference: string;
-    rest: number;
-}
+  }
   export interface WorkoutCategory {
     id: string;
     name: string;
@@ -65,7 +66,7 @@ export interface Workout {
   }
   
   export interface Equipment {
-    id: string;
+    _id: string;
     name: string;
     attributes?: EquipmentAttributes[];
   }
@@ -119,11 +120,11 @@ export interface Workout {
     }
   }
   export interface Field {
-    id: string,
+    _id: string,
     name: string,
     unit: string,
     value: number,
-    target?: number,
+    target: number,
     description?: string,
     isCompleted: boolean,
     isEnabled?: boolean,
@@ -132,7 +133,7 @@ export interface Workout {
     data: {
       name: string,
       time: string,
-      targetGroups: string[],
+      targetGroups: TargetGroup[],
       duration: number,
       fields: Field[]
     }
@@ -160,24 +161,14 @@ export interface Workout {
     isSkipped: boolean;
     order: number;
   }
-  export interface WorkoutExercise {
-    exerciseId: string,
-    isCompleted: boolean,
-    name: string,
-    difficulty: string,
-    description: string,
-    sets: Set[],
-    fields: Field[],
-    tags: Tag[];
-  
-  }
+
   export interface WorkoutLog extends BaseLog{
     data:{
       duration: string,
       finishedAt: string,
       workoutId: string,
       isCompleted: boolean,
-      targetGroups: string[],
+      targetGroups: TargetGroup[],
       name: string,
       difficulty: string,
       description: string,

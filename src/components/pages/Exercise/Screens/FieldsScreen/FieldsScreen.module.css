@@ -1,0 +1,56 @@
+.fieldsScreen{
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.fieldsScreen .newField{
+    height: 50px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 75px 50px 50px;
+    gap: 10px;
+    align-items: center;
+}
+.fieldsScreen .requiredFields{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.fieldsScreen fieldset{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    background-color: var(--secondary);
+    padding: 0 10px;
+    border-radius: 5px;
+    height: 40px;
+}
+.fieldsScreen fieldset label{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.fieldsScreen .requiredFields input,
+.fieldsScreen .requiredFields select{
+    border: 1px solid var(--general-border);
+    height: 30px;
+    align-self: center !important;
+}
+.fieldsScreen .field{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+    height: 40px;
+    padding-left: 10px;
+}
+.fieldsScreen .field h4{
+    margin-right: auto;
+}

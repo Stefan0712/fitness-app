@@ -1,202 +1,121 @@
-
-fieldset{
-    border: none;
+.createExercise {
+    width: 100%;
+    height: calc(100vh - 75px);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+.createExercise .exerciseInfo{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    gap: 5px;
+    gap: 10px;
 }
-.create-exercise-page .exercise-info{
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    transition: all 0.1s;
-    overflow: hidden;
-}
-.small-inputs{
-    width: 100%;
+.createExercise .inputGroup{
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 5px;
-}
-.exercise-info h3{
-    height: 40px;
-    min-height: 40px;
-    width: 100%;
-}
-.exercise-info.extended-info{
-    height: 230px;
-    transition: all 0.1s;
-}
-.create-exercise-page .header button{
-    position: absolute;
-    top: 30px;
-    right: 10px;
-    width: 100px;
-    height: 40px;
-}
-.create-exercise-page form{
-    width: 100%;
-    margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-}
-.create-exercise-page form input,
-.create-exercise-page form select,
-.create-exercise-page form option{
-    height: 40px;
-    width: 100%;
-    background-color: var(--input-bg);
-    color: var(--input-color);
-    padding-left: 15px;
-    border: 1px solid transparent;
-    border-radius: 5px;
-}
-
-.create-exercise-page .fields-container{
-    height: auto;
-    margin-bottom: 25px;
-    padding: 15px 0;
-}
-.create-exercise-page .field-inputs{
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-.create-exercise-page .field-container{
-    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
-    height: 75px;
-    align-items: center;
 }
-.create-exercise-page .field-body{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-.create-exercise-page .field-body h4{
-    margin-right: auto;
-}
-.create-exercise-page .field-inputs input{
-    width: 100px;
-}
-
-.exercise-screens-buttons-container{
-    display: flex;
+.createExercise .screenSwitcher{
     width: 100%;
     height: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 5px;
     align-items: center;
-    background-color: #3b3b3b;
-    border-radius: 10px;
-    padding: 4px;
-    margin: 10px 0;
+    background-color: var(--toggle-button-background);
+    align-self: center;;
 }
-.exercise-screens-buttons-container button{
-    height: 42px;
-    width: auto;
-    flex-grow: 1;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 6px;
-}
-.exercise-screens-buttons-container button.show-screen{
-    background-color: white;
-    color: black;
-}
-.exercise-screens-container{
-    width: 100%;
-    overflow-x: hidden;
-    display: flex;
-}
-.exercise-screens-container .screen{
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-.submit{
-    width: 75px;
-    height: 40px;
+.createExercise .submit {
+    background-color: var(--accent-color);
     border: none;
     border-radius: 5px;
-    background-color: var(--accent-color);
-    position: absolute;
-    right: 20px;
-    top: 30px;
 }
-.tag-body{
-    overflow: hidden;
-    width: fit-content;
-    padding-right: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    align-items: center;
+.createExercise .screenSwitcher button{
+    background-color: transparent;
+    border: none;
     height: 40px;
-    background-color: var(--secondary);
-    border-radius: 5px;
-}
-.tag-body img{
-    width: 20px;
-    height: 20px;
-}
-.tag-color{
-    height: 100%;
-    width: 3px;
-}
-.tags-container{
-    padding: 10px 0;
-    width: 100%;
-    height: 150px;
+    padding: 0 10px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    align-items: flex-start;
-    align-content: flex-start;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
 }
-.equipments-container{
-    width: 100%;
-    height: 200px;
+.createExercise .screenSwitcher button.selectedButton{
+    background-color: var(--toggle-button-active);
+    color: var(--toggle-button-active-text);
+}
+.createExercise form{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto;
-    margin-top: 20px;
+    height: 100%;
 }
-.equipment-body{
+.createExercise .screenContainer{
+    width: 100%;
+    height: calc(100% - 250px);
+    
+}
+.createExercise .screen{
+    height: 100%;
+    width: 100%;
+    position: relative;
     display: flex;
-    align-items: center;
-    padding: 0 10px;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
+}
+.addTagButton{
     width: 100%;
     height: 40px;
     background-color: var(--secondary);
+    color: var(--button-text);
+    border: 1px solid var(--general-border);
     border-radius: 5px;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
-.equipment-body img{
-    margin-left: auto;
-}
-.create-equipment{
+.createExercise .tagsContainer,
+.createExercise .equipmentContainer{
     width: 100%;
-    display: grid;
-    grid-template-columns:50px 3fr 1fr 1fr 50px;
-    gap: 5px;
-}
-.new-target-group{
-    width: 100%;
-    height: 40px;
-    display: grid;
-    grid-template-columns: 50px 1fr 50px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
     gap: 10px;
+    flex: 1;
+    max-height: calc(100% - 50px);
+    background-color: var(--secondary);
+
+}
+.createExercise .addedEquipment{
+    width: 100%;
+    display: flex;
+    padding: 0 10px;
+    height: 40px;
     align-items: center;
+    justify-content: space-between;
+    background-color: var(--background);
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+.createExercise .equipmentContainer{
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.twoInputs,
+.timeInputs {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+.timeInputs{
+    grid-template-columns: 1fr 1fr;
+}
+
+label{
+    color: var(--text);
+    opacity: 0.5;
 }
