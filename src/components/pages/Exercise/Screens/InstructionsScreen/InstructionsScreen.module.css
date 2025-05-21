@@ -1,0 +1,33 @@
+.instructionsScreen{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 40vh;
+}
+.instructionsScreen .newInstruction{
+    height: 50px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 50px;
+    align-items: center;
+}
+.instructionsScreen .instruction{
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.instructionsScreen .createdInstructions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

@@ -40,7 +40,7 @@ const CreateExercise: React.FC = () => {
     const [notes, setNotes] = useState<string>('');
     const [visibility, setVisibility] = useState<string>('private');
     const [restUnit, setRestUnit] = useState<string>('seconds');
-    const [durationUnit, setDurationUnit] = useState<string>('seconds');
+    const [durationUnit, setDurationUnit] = useState<string>('minutes');
     const [instructions, setInstructions] = useState<string[]>([]);
 
     const handleSubmit = (e)=>{

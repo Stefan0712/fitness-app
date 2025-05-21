@@ -19,7 +19,7 @@ const FieldsScreen = ({values, setters}) => {
                 _id: uuidv4(),
                 name,
                 value: 0,
-                target: parseInt(target),
+                target: parseInt(target) > 0 ? parseInt(target) : 0,
                 unit,
                 isCompleted: false
             }
@@ -30,7 +30,7 @@ const FieldsScreen = ({values, setters}) => {
         }
     }
     return ( 
-        <div className={styles.fieldsScreen}>
+        <div className={`${styles.fieldsScreen} ${styles.screen}`}>
             
             <div className={styles.requiredFields}>
                 <fieldset className={styles.sets}>
@@ -76,7 +76,7 @@ const FieldBody = ({field, setFields}) =>{
     return(
         <div className={styles.field}>
             <h4>{field.name}</h4>
-            <b>{field.target} {field.unit}</b>
+            <b>{field.target || ''} {field.unit || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={()=>setFields(prev=>[...prev.filter(item=>item._id !== field._id)])}><img src={IconLibrary.Close} alt='remove field' style={{width: '30px', height: '30px'}} /></button>
         </div>
     )

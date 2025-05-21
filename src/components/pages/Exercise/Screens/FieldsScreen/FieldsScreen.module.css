@@ -1,6 +1,6 @@
 .fieldsScreen{
     width: 100%;
-    flex: 1;
+    height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,16 @@
     border-radius: 5px;
     height: 40px;
     padding-left: 10px;
+    flex-shrink: 0;
 }
 .fieldsScreen .field h4{
     margin-right: auto;
+}
+.fieldsScreen .fields{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 80px;
 }
