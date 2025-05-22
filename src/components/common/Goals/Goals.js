@@ -1,49 +1,50 @@
 import styles from './Goals.module.css';
 import GoalsLog from '../LogPages/GoalsLog.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
-import { useSelector } from 'react-redux';
 import GoalBody from './GoalBody';
 import NewGoal from './NewGoal.tsx';
+import { getAllItems } from '../../../db.js';
 
 
 
 const Goals = ({closeMenu}) => {
 
 
-    const goals = useSelector((state)=>state.user.goals);
     const [logGoal, setLogGoal] = useState(null);
-    const [currentScreen, setCurrentScreen] = useState('all')
+    const [goals, setGoals] = useState(null);
+    const [showNewGoal, setShowNewGoal] = useState(false);
+    const [selectedGoal, setSelectedGoal] = useState(null);
+
+    const getGoals = async () =>{
+        const items = await getAllItems('goals');
+        if(items){
+            setGoals(items);
+        }
+    }
+    
+    useEffect(()=>{getGoals()},[]);
 
 
-    const handleOpenLogForm = (id) =>{
-        setLogGoal(id);
-        setCurrentScreen('single');
-    }
-    const handleCloseGoalsLog = () =>{
-        setLogGoal(null);
-        setCurrentScreen('all');
-    }
     return ( 
         <div className={styles.goals}>
-            
-            <div className={styles.header}>
-                <h2>{currentScreen === 'new' ? 'New Goal' : currentScreen === 'all' ? 'Goals' : ''}</h2>
-                <img src={IconLibrary.No} className='small-icon' alt='edit goals' onClick={closeMenu} />
-            </div>
-            <div className={styles.content}>
-                {currentScreen === 'all' ? (
-                    <div className={styles['all-goals-container']}>
-                    <button className={styles['new-goal-button']} type='button' onClick={()=>setCurrentScreen('new')}>
+            <div className={styles.goalsSection}>
+                <div className={styles.header}>
+                    <h3>Goals</h3>
+                    <img src={IconLibrary.No} className='small-icon' alt='edit goals' onClick={closeMenu} />
+                </div>
+                {showNewGoal ? <NewGoal close={()=>(setShowNewGoal(false), getGoals())} /> : null}
+                <div className={styles.content}>
+                    <button className={styles['new-goal-button']} type='button' onClick={()=>setShowNewGoal(true)}>
                         <img src={IconLibrary.Plus} alt='create goal'></img>
                         <p>New Goal</p>
                     </button>
-                    {goals?.map((goal, index)=>(
-                        <GoalBody goal={goal} index={index} openLogForm={handleOpenLogForm}/>
-                    ))}
+                    {goals && goals.length > 0 ?  goals?.map((goal, index)=>(
+                        <GoalBody key={'Goal-body-'+index} goal={goal} index={index} setSelectedGoal={()=>(setSelectedGoal(goal), console.log(goal))}/>
+                    )) : <p>No goals</p>}
                 </div>
-                ) : currentScreen === 'single' && logGoal ? <GoalsLog closeLogWindow={()=>handleCloseGoalsLog()} id={logGoal} /> : currentScreen === 'new' ? <NewGoal closeNewGoal={()=>setCurrentScreen('all')} /> : null}
             </div>
+            {selectedGoal ? <GoalsLog data={selectedGoal} /> : null}
         </div>
      );
 }

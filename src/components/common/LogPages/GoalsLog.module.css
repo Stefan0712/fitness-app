@@ -1,19 +1,30 @@
 .log-form{
     width: 100%;
-    bottom: 0px;
-    height: 450px;
-    position: absolute;
+    height: 420px;
     background-color: var(--modal-bg);
-    left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 15;
-    animation-name: quickMenuAnimation;
-    animation-duration: 0.1s;
     padding: 0 15px;
-    gap: 20px;
+    gap: 10px;
+    animation: showLogInputs 0.1s;
 }
+@keyframes showLogInputs {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 420px;
+    }
+} 
+.log-form .notLoaded{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (min-width: 800px) {
     .log-form{
         width: 100% !important; 
@@ -21,14 +32,6 @@
         bottom: 0;
     }
 
-}
-@keyframes quickMenuAnimation {
-    0%{
-        height: 0;
-    }
-    100%{
-        height: calc(100vh - 75px) !important;
-    }
 } 
 .top-bar img{
     width: 30px;
@@ -48,7 +51,8 @@
     padding-top: 20px;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 10px;
+    gap: 20px;
 }
 .toggle-buttons-container{
     width: 100%;
@@ -79,3 +83,7 @@
     overflow: hidden;
 }
 
+.log-form input,
+.log-form textarea{
+    height: 50px;
+}

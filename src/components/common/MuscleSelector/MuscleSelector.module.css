@@ -22,12 +22,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow: hidden;
 }
 .muscleSelector .top h3{
     height: 30px;
     width: 100%;
 }
-.muscleSelector .top .selectedMuscle{
+.muscleSelector .top .selectedMuscles{
     width: 100%;
     min-height: 50px;
     max-height: calc(100% - 30px);

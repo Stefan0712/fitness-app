@@ -1,0 +1,98 @@
+.exercise-log{
+    width: calc(100vw - 20px);
+    bottom: 85px;
+    height: 600px;
+    position: absolute;
+    background-color: var(--modal-bg);
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    animation-name: exerciseLogAnimation;
+    animation-duration: 0.1s;
+    z-index: 10;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+}
+.exercise-log .fields{
+    max-height: 200px;
+}
+@keyframes slideUp {
+    from{
+        height: 0;
+    }
+    to{
+        height: 100vh;
+    }
+}
+.exercise-log .top-bar img{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+}
+.exercise-log .top-bar button{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.exercise-log .top-bar{
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+.exercise-log input,
+.exercise-log select,
+.exercise-log option{
+    height: 40px;
+    min-height: 40px;
+    border: none;
+    background-color: var(--input-bg);
+    border-radius: 5px;
+    padding-left: 10px;
+    color: white;
+}
+.exercise-log .twoInputs{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+.exercise-log .selected-target-muscles{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100px;
+    flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.exercise-log .selected-target-muscles .target-muscle{
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background-color: var(--background);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.exercise-log h4{
+    width: 100%;
+}
+.exercise-log .submit{
+    width: 125px;
+    border: none;
+    background-color: var(--background);
+    border-radius: 5px;
+    height: 50px;
+    margin-top: auto;
+    font-size: 18px;
+}

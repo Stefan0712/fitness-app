@@ -104,18 +104,18 @@ export interface Workout {
     _id: string,
     timestamp: Date,
     type: 'food'| 'workout' | 'exercise' | 'goal',
-    name: string,
+    title: string,
     icon: string,
+    data: GoalLog | ExerciseLog | WorkoutLog | FoodLog,
   }
-  export interface GoalLog extends BaseLog{
-    data: {
-      value: number;
-      time: string;
-      date: Date;
-      description: string;
-      name: string;
-      unit: string;
-    }
+  export interface GoalLog{
+    value: number;
+    time: string;
+    date: string;
+    description: string;
+    name: string;
+    unit: string;
+    
   }
   export interface Field {
     _id: string,
@@ -127,17 +127,17 @@ export interface Workout {
     isCompleted: boolean,
     isEnabled?: boolean,
   }
-  export interface ExerciseLog extends BaseLog{
-    data: {
-      name: string,
-      time: string,
-      targetMuscles: TargetGroup[],
-      duration: number,
-      fields: Field[]
-    }
+  export interface ExerciseLog{
+    
+    name: string,
+    time: string,
+    targetMuscles: TargetGroup[],
+    duration: number,
+    fields: Field[],
+    sets: number,
+    
   }
-  export interface FoodLog extends BaseLog{
-    data: {
+  export interface FoodLog{
       name: string,
       qty: number,
       unit: string,
@@ -151,7 +151,7 @@ export interface Workout {
       type: string,
       notes?: string
   
-    }
+    
   }
   export interface Set{
     fields: Field[];
@@ -159,8 +159,7 @@ export interface Workout {
     order: number;
   }
 
-  export interface WorkoutLog extends BaseLog{
-    data:{
+  export interface WorkoutLog{
       duration: string,
       finishedAt: string,
       startedAt: string,
@@ -171,7 +170,7 @@ export interface Workout {
       difficulty: string,
       description: string,
       phases: Phase[]
-    }
+    
   }
   export interface Section {
     type: string,

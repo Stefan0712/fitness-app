@@ -9,11 +9,11 @@ import { muscles } from '../../../constants/defaultMuscles.js';
 
 interface TagPickerProps {
     close: () => void;
-    settargetMuscles: (muscle: TargetGroup) => void;
+    setTargetMuscles: (muscle: TargetGroup) => void;
     targetMuscles: TargetGroup[]
 }
 
-const TagPicker: React.FC<TagPickerProps> = ({close, settargetMuscles, targetMuscles}) => {
+const TagPicker: React.FC<TagPickerProps> = ({close, setTargetMuscles, targetMuscles}) => {
 
     const [items, setItems] = useState<TargetGroup[]>(muscles || []); // Search results
     const [name, setName] = useState<string>('');
@@ -45,7 +45,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, settargetMuscles, targetMus
                 name,
                 author: localStorage.getItem('userId') || 'user',
             }
-            settargetMuscles((prev: TargetGroup[]) => [...prev, newGroup]);
+            setTargetMuscles((prev: TargetGroup[]) => [...prev, newGroup]);
         }
     }
     return ( 
@@ -55,9 +55,8 @@ const TagPicker: React.FC<TagPickerProps> = ({close, settargetMuscles, targetMus
                 <button type="button" className="clear-button" onClick={close}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles.top}>
-                <h3>Added muscles</h3>
                 <div className={styles.selectedMuscles}>
-                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>settargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No muscle added</p>}
+                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No muscle added</p>}
                 </div>
             </div>
             <div className={styles.bottom}>
@@ -67,7 +66,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, settargetMuscles, targetMus
                         checkIfAdded(item) ? null : (
                             <div className={styles.resultMuscle} key={'muscle-'+item.name+index}>
                                 <p className={styles.name}>{item.name}</p>
-                                <button type="button" className="clear-button" onClick={()=>settargetMuscles(prev =>[...prev, item])}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
+                                <button type="button" className="clear-button" onClick={()=>setTargetMuscles(prev =>[...prev, item])}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                             </div>
                         )
                     ):<p>Items not found</p>}

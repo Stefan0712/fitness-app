@@ -1,60 +1,29 @@
-import { useEffect, useState } from "react";
-import './exerciseLog.css'
+import { useState } from "react";
+import styles from './ExerciseLogs.module.css'
 import { v4 as uuidv4 } from 'uuid';
-import { addLog } from "../../../store/userSlice.ts";
-import { useDispatch } from "react-redux";
 import { IconLibrary } from "../../../IconLibrary";
-import {muscles} from '../../../constants/defaultMuscles';
-import Field from "./Field.tsx";
 import React from "react";
-
+import { BaseLog, ExerciseLog as IExerciseLog, Field as IField, TargetGroup } from "../interfaces.ts";
+import FieldsScreen from '../../pages/Exercise/Screens/FieldsScreen/FieldsScreen.tsx';
+import MuscleSelector from '../../common/MuscleSelector/MuscleSelector.tsx';
+import {saveItem} from '../../../db.js';
 
 
 interface ExerciseLogProps {
     closeMenu: ()=> void;
 }
-interface LogData {
-    id: string;
-    type: string;
-    name: string;
-    icon: string;
-    data: ExerciseInputs;
-}
-interface ExerciseInputs {
-    name: string;
-    time: string;
-    targetGroup: string;
-    sets: number;
-    duration: string;
-    fields: Field[];
-}
-interface Field {
-    id: string;
-    name: string;
-    unit: string;
-    value: number;
-    target: number;
-    isCompleted: boolean;
-}
-
 const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     
+
+    const [showTargeMuscleSelector, setShowTargetMuscleSelector] = useState(false);
+
     const [name, setName] = useState<string>('');
-    
-    const [targetGroup, setTargetGroup] = useState<string>('Arms');
+    const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([]);
     const [duration, setDuration] = useState<string>('');
     const [sets, setSets] = useState<string>('');
-    const [savedValues, setSavedValues] = useState<Field[]>([]);
+    const [fields, setFields] = useState<IField[]>([])
 
-    const dispatch = useDispatch();
 
-    const [fieldName, setFieldName] = useState<string>('');
-    const [fieldUnit, setFieldUnit] = useState<string>('');
-    const [fieldTarget, setFieldTarget] = useState<number | string>('')
-    const [fieldValue, setFieldValue] = useState<number | string>('');
-
-    const [errors, setErorrs] = useState<string[]>([]);
-    const [isFieldValid, setIsFieldValid] = useState<boolean>(true);
 
     const getCurrentTime = () => {
         const now = new Date();
@@ -64,124 +33,56 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     };
     const [time, setTime] = useState<string>(getCurrentTime());
 
-    const logExercise = () =>{
-        if(!checkForErrors()){
-            const data: LogData = {
-                id: uuidv4(),
+    const logExercise = async () =>{
+        if(name.length > 0){
+
+            const data: BaseLog = {
+                _id: uuidv4(),
                 type: 'exercise',
-                name: "Exercise",
+                title: "Exercise",
                 icon: IconLibrary.Exercise,
+                timestamp: new Date(),
                 data:{
                     name,
                     time, 
-                    targetGroup,
-                    duration,
+                    targetMuscles,
+                    duration: parseInt(duration),
                     sets: typeof sets === 'string' ? parseInt(sets) : sets || 1,
-                    fields: savedValues
+                    fields
                 }
             }
-            dispatch(addLog(data))
+            await saveItem('logs', data)
             closeMenu();
         }
     }
-
-    const addField = (data) =>{
-        setSavedValues((savedValues)=>[...savedValues, data]);
-        setIsFieldValid(true);      
-    }
-    const handleSaveField = () =>{
-        if(fieldName 
-            && fieldName.length > 0 
-            && fieldName.length < 15 
-            && fieldUnit.length > 0 
-            && fieldUnit.length < 6
-            && fieldValue
-            && (typeof fieldValue === 'string' ? parseInt(fieldValue) : fieldValue) > 0 
-            && fieldTarget
-            && (typeof fieldTarget === 'string' ? parseInt(fieldTarget) : fieldTarget) > 0){
-                const field: Field = {
-                    id: uuidv4(),
-                    name: fieldName,
-                    value: typeof fieldValue === 'string' ? parseInt(fieldValue) : fieldValue || 0,
-                    target: typeof fieldTarget === 'string' ? parseInt(fieldTarget) : fieldTarget || 0,
-                    unit: fieldUnit,
-                    isCompleted: true
-                }
-                addField(field);
-                setFieldName('');
-                setFieldTarget(0);
-                setFieldUnit('');
-                setFieldValue(0);  
-        }else{
-            setIsFieldValid(false);
-            console.log("Not valid field", isFieldValid)
-        }
-    }
-    const checkForErrors = () =>{
-        setErorrs([]);
-        let errorrArr: string[] = [];
-        if(!name || name.length < 1 || name.length > 15){
-            errorrArr.push("Name is invalid")
-        };
-        if((typeof duration === 'string' ? parseInt(duration) : duration) < 1 || !duration){
-            errorrArr.push('Duration is invalid');
-        }
-        if((typeof sets === 'string' ? parseInt(sets) : sets) < 1 || !sets){
-            errorrArr.push('Sets is invalid');
-        }
-        setErorrs(errorrArr);
-        setTimeout(()=>setErorrs([]),2000);
-        if(errorrArr && errorrArr.length > 0){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
     return ( 
-        <div className="exercise-log">
-            <div className="top-bar">
+        <div className={styles['exercise-log']}>
+            <div className={styles['top-bar']}>
                 <h1>Log Exercise</h1>
                 <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
             </div>
-            <div className="exercise-main-info">
-                <div className="first-line">
-                    <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Exercise Name" required></input>
-                    <select name="targetGroup" id="targetGroup" required={true} onChange={(e) => setTargetGroup(e.target.value)} value={targetGroup}>
-                        {muscles?.map((item)=>(
-                            <option value={item.value}>{item.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="same-line-space">
-                    <input type="time" name="time" id="time" onChange={(e)=>setTime(e.target.value)} value={time}></input>
-                    <input type="number" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)" required></input>
-                    <input type="number" name="sets" id="sets" onChange={(e)=>setSets(e.target.value)} value={sets} placeholder={"Sets"}  required></input>
-                </div>
+            {showTargeMuscleSelector ? <MuscleSelector targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} close={()=>setShowTargetMuscleSelector(false)}/> : null}
+            <div className={styles.twoInputs}>
+                <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Exercise Name" required></input>
+                <input type="time" name="time" id="time" onChange={(e)=>setTime(e.target.value)} value={time}></input>
+            </div>
+            <div className={styles.twoInputs}>
+                <input type="number" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)" required></input>
+                <input type="number" name="sets" id="sets" onChange={(e)=>setSets(e.target.value)} value={sets} placeholder={"Sets"}  required></input>
+            </div>
+            <h4>Target Muscles</h4>
+            <div className={styles['selected-target-muscles']}>
+                <button className={styles['target-muscle']} onClick={()=>setShowTargetMuscleSelector(true)}><img style={{width: '25px', height: '25px'}} src={IconLibrary.Add} alt="add target muscle" /></button>
+                {targetMuscles && targetMuscles.length > 0 ? targetMuscles.map((muscle,index)=><div key={'selected-muscle-'+index} className={styles["target-muscle"]}>
+                    <p>{muscle.name}</p>
+                    <button className='clear-button' onClick={()=>setTargetMuscles(prev=>[...prev.filter(item=>item._id!==muscle._id)])}><img style={{width: '20px', height: '20px'}} src={IconLibrary.Close} alt="remove target muscle" /></button>
+                </div>) : <div className={styles["target-muscle"]}>No target muscle</div>}
             </div>
             <h4>Fields</h4>
-            <div className="fields-container">
-                {savedValues?.map((item)=>(
-                    <div className='field'>
-                        <p className="field-name"><b>{item.name}</b></p>
-                        <p className="field-target">{item.target || 0}</p>
-                        <p className="field-unit">{item.unit}</p>
-                        <img className="small-icon" src={IconLibrary.No} onClick={()=>setSavedValues(savedValues=>savedValues.filter(value=>value.id!==item.id))} />
-                    </div>
-                ))}
+            <div className={styles.fields}>
+                <FieldsScreen values={{fields}} setters={{setFields}} hasRequiredFields={false} />
             </div>
-            <div className="new-field">
-                <input type='text' name='name' id='name' onChange={(e)=>setFieldName(e.target.value)} value={fieldName} placeholder="Name" className={!isFieldValid && (!fieldName || fieldName.length < 1 || fieldName.length > 15) ? 'input-error': ''}></input>
-                <input type='text' name='name' id='name' onChange={(e)=>setFieldUnit(e.target.value)} value={fieldUnit} placeholder="Unit" className={!isFieldValid && (!fieldUnit || fieldUnit.length < 1 || fieldUnit.length > 5) ? 'input-error': ''}></input>
-                <input type='number' name='value' id='value' onChange={(e)=>setFieldValue(parseInt(e.target.value))} value={fieldValue} placeholder="Value" className={!isFieldValid && (!fieldValue || (typeof fieldValue === 'string' ? parseInt(fieldValue) : fieldValue) < 1) ? 'input-error': ''}></input>
-                <input type='number' name='target' id='target' onChange={(e)=>setFieldTarget(parseInt(e.target.value))} value={fieldTarget} placeholder="Target" className={!isFieldValid && (!fieldTarget || (typeof fieldTarget === 'string' ? parseInt(fieldTarget) : fieldTarget) < 1) ? 'input-error': ''}></input>
-                <img className='small-icon' src={IconLibrary.Add} onClick={handleSaveField}></img>            
-            </div>
-            <button className="exercise-log-submit-button" onClick={logExercise}>Log Exercise</button>
-            {errors && errors.length > 0 ? <div className="exercise-log-errors" onClick={()=>setErorrs([])}>
-                {errors.map((item, index)=><p className="error" key={'error-'+index}>{item}</p>)}
-            </div> 
-            : null}
+            <button className={styles.submit} onClick={logExercise}>Log Exercise</button>
         </div>
      );
 }

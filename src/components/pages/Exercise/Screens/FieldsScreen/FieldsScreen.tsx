@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import { IconLibrary } from '../../../../../IconLibrary';
 
 
-const FieldsScreen = ({values, setters}) => {
+const FieldsScreen = ({values, setters, hasRequiredFields}) => {
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [unit, setUnit] = useState('');
@@ -32,7 +32,7 @@ const FieldsScreen = ({values, setters}) => {
     return ( 
         <div className={`${styles.fieldsScreen} ${styles.screen}`}>
             
-            <div className={styles.requiredFields}>
+            {hasRequiredFields ? <div className={styles.requiredFields}>
                 <fieldset className={styles.sets}>
                     <label htmlFor='sets'>Sets</label>
                     <input type='number' id='sets' name='sets' value={values.sets} onChange={(e)=>setters.setSets(parseInt(e.target.value))} min={1} max={50} />
@@ -55,7 +55,7 @@ const FieldsScreen = ({values, setters}) => {
                         <option value={'hours'}>Hours</option>
                     </select>
                 </fieldset>
-            </div>
+            </div> : null}
             <div className={styles.newField}>
                 <input type='text' id='name' name='name' value={name} onChange={(e)=>setName(e.target.value)} minLength={0} maxLength={20} placeholder='Name' />
                 <input type='string' id='target' name='target' value={target} onChange={(e)=>setTarget(e.target.value)} placeholder='Target'/>

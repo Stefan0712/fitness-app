@@ -105,13 +105,14 @@ const CreateExercise: React.FC = () => {
                         <FieldsScreen 
                             values={{ fields, sets, duration, durationUnit, rest, restUnit }}
                             setters={{ setFields, setSets, setDuration, setDurationUnit, setRest, setRestUnit }}
+                            hasRequiredFields={true}
                         />
                     ) : currentScreen === 'tags' ? (
                         <TagsScreen tags={tags} setTags={setTags} />
                     ) : currentScreen === 'equipment' ? (
                         <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
                     ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetMuscles={targetMuscles} settargetMuscles={settargetMuscles} />
+                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} />
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}

@@ -1,12 +1,24 @@
 import styles from './History/History.module.css';
+import {getHourFromTimestamp, makeDateNice} from '../../../helpers';
+import { useState } from 'react';
+import { IconLibrary } from '../../../IconLibrary';
+import { deleteItem } from '../../../db';
 
-const GoalLogBody = ({log, getCurrentTime, unit, selectLog, percentage, selectedLog}) => {
+const GoalLogBody = ({log, refreshLogs}) => {
+
+
+    const [showDeleteButton, setShowDeleteButton] = useState(false);
+
+    const handleDelete = async () =>{
+        await deleteItem('logs', log._id);
+        refreshLogs();
+    }
     return ( 
-        <div className={`${styles["log-body"]} ${selectedLog?.id === log.id ? styles['selected-log'] : ''}`} key={log.timestamp} onClick={()=>selectLog({id: log.id, timestamp: log.timestamp})}>
-            <div className={styles.hour}>{getCurrentTime(log.timestamp)}</div>
+        <div className={`${styles["log-body"]}`} key={log.timestamp} onClick={()=>setShowDeleteButton(prev=>!prev)}>
             <p className={styles.name}>{log.data.name || 'Food log'}</p>
-            <p className={styles.percentage}>{percentage.toFixed(1)}%</p>
-            <div className={styles.value}><p>{log.data.value}</p> <p>{unit}</p></div>
+            <div className={styles.date}>Logged at {getHourFromTimestamp(log.timestamp)} on {makeDateNice(log.timestamp)}</div>
+            <div className={styles.value}><p>{log.data.value}</p> <p>{log.data.unit}</p></div>
+            {showDeleteButton ? <button type='button' onClick={handleDelete} className={styles.deleteLogBtn}><img src={IconLibrary.Delete} alt='delete log' /></button> : null}
         </div>
      );
 }

@@ -1,115 +1,75 @@
-import styles from './Edit.module.css';
+import styles from '../../Goals/Goals.module.css';
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeGoal, updateGoal } from '../../../../store/userSlice.ts';
-import MessageModal from '../../MessageModal/MessageModal.tsx';
 import ColorPicker from '../../ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../IconPicker/IconPicker.tsx';
 import DeletePrompt from './DeletePrompt.tsx';
+import { Goal } from '../../interfaces.ts';
+import { saveItem } from '../../../../db.js';
 
-interface Icon {
-    url: string;
-    name: string;
-}
-interface GoalData{
-    icon: Icon;
-    id: string;
-    name: string;
-    target: number;
-    unit: string;
-    color: string;
-}
+
 interface EditParams {
     closeEdit: ()=> void;
-    goalId: string;
+    goalData: Goal;
+    refreshLogData: ()=>void;
 }
-interface MessageObject{
-    message: string;
-    type: string;
-}
-const Edit: React.FC<EditParams> = ({closeEdit, goalId}) => {
-
-
-    const dispatch = useDispatch();
-    const goalData = useSelector<GoalData>((state)=>state.user.goals.find((item)=>item.id===goalId));
+const Edit: React.FC<EditParams> = ({goalData, closeEdit, refreshLogData}) => {
 
     const [name, setName] = useState<string>(goalData.name || '');
     const [unit, setUnit] = useState<string>(goalData.unit || '');
     const [target, setTarget] = useState<number>(goalData.target || 0);
     const [color, setColor] = useState<string>(goalData.color || 'white');
-    const [icon, setIcon] = useState<Icon>(goalData.icon)
-    const [message, setMessage] = useState<MessageObject | null>(null);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [showDeletePrompt, setShowDeletePrompt] = useState<boolean>(false);
+    const [icon, setIcon] = useState(goalData.icon || '')
 
 
-    const handleUpdateGoal = () =>{
-       if(!name){
-        setMessage({type: 'fail', message: "Name invalid"});
-       }else if(!target || target <= 0){
-        setMessage({type: 'fail', message: "Target value invalid"});
-       }else if(!unit){
-        setMessage({type: 'fail', message: "Unit invalid"});
-       }else{
+    const handleUpdateGoal = async () =>{
+       
         if(name && unit && target){
-            const newData: GoalData = {
-                id: goalId,
+            const newData: Goal = {
+                _id: goalData._id,
                 name,
                 unit,
                 target,
                 color,
-                icon
+                icon: goalData.icon
             }
-            console.log(newData)
-            dispatch(updateGoal(newData));
-            setMessage({type: 'success', message: "Goal updated successfully"});
+            console.log(newData);
+            await saveItem('goals', newData)
             closeEdit();
-
-        }else{
-            console.log('Something went wrong',{
-                name: name || 'Missing name',
-                unit: unit || 'Missing unit',
-                target,
-                color,
-                icon
-            })
+            refreshLogData();
         }
-       }
+ 
         
     }
 
     return ( 
         <div className={styles['edit-goal']}>
-            {message ? <MessageModal closeModal={()=>setMessage(null)} type={message.type} message={message.message} /> : null}
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
             {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
-            {showDeletePrompt ? <DeletePrompt closeModal={()=>setShowDeletePrompt(false)} id={goalId} sendMessage={()=>setMessage({type: 'success', message: "Deleted successfully"})} /> : null }
-            <fieldset className={styles.name}>
-                <label>Name</label>
-                <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name}></input>
-            </fieldset>
-            <fieldset className={styles.unit}>
-                <label>Unit</label>
-                <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit}></input>
-            </fieldset>
-            <fieldset className={styles.target}>
-                <label>Target</label>
-                <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target}></input>
-            </fieldset>
-            <fieldset className={styles.modals}>
-                <div className={styles['color-input']}>
-                    <label>Color</label>
-                    <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-                </div>
-                <div className={styles['icon-input']}>
-                    <label>Icon</label>
+            <div className={styles.goal}>
+                <div className={styles["goal-color"]} style={{backgroundColor: color}} />
+                <img src={icon} className={"small-icon"}></img>
+                <p className={styles.name}>{name}</p>
+                <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
+            </div>
+            <div className={styles['new-goal-inputs']}>
+                <div className={styles.firstRow}>
+                    <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
                     <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                 </div>
-            </fieldset>
-            <button type="button" className={styles.submit} onClick={handleUpdateGoal} disabled={showDeletePrompt}>Update Goal</button>
-            <button type="button" className={styles.delete} onClick={()=>setShowDeletePrompt(true)}>Delete Goal</button>
+                <div className={styles.secondRow}>
+                    <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                    <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
+                    <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                </div>
+            </div>
+            <div className={styles['new-goal-buttons']}>
+                <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Save</button>
+                <button type="button" className={styles.cancel} onClick={closeEdit}>Cancel</button>
+            </div>
         </div>
      );
 }

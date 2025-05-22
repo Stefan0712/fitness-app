@@ -1,22 +1,18 @@
-import { useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../../IconLibrary';
 import styles from './Edit.module.css';
 import React from 'react';
-import { removeGoal } from '../../../../store/userSlice.ts';
+import { deleteItem } from '../../../../db.js';
 
 interface DeletePromptProps{
     id: string;
     closeModal: ()=>void;
-    sendMessage: () => void;
 }
 
-const DeletePrompt: React.FC<DeletePromptProps> = ({id, closeModal, sendMessage}) => {
+const DeletePrompt: React.FC<DeletePromptProps> = ({_id, closeModal}) => {
 
-    const dispatch = useDispatch();
 
-    const handleDeleteGoal = () =>{
-        dispatch(removeGoal(id));
-        sendMessage();
+    const handleDeleteGoal = async () =>{
+        await deleteItem('goals',_id)
         closeModal();
     }
     return ( 

@@ -58,7 +58,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
         const data: IFoodLog = {
             _id: uuidv4(),
             type: 'food', 
-            name: 'Food Log', 
+            title: 'Food Log', 
             icon: '/icons/food.svg',
             timestamp: currentDate,
             data: {
