@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.f8ae9c8b.css",
-    "main.js": "/fitness-app/static/js/main.79fbb19c.js",
+    "main.css": "/fitness-app/static/css/main.5c2214d0.css",
+    "main.js": "/fitness-app/static/js/main.42d0070b.js",
     "static/media/logo.png": "/fitness-app/static/media/logo.3884486c9e6daaac17d4.png",
     "static/media/medal.svg": "/fitness-app/static/media/medal.53db8d4fc8c43ab8422c73652b4f7b00.svg",
     "static/media/settings.svg": "/fitness-app/static/media/settings.dfcebfd4cd0e3bf55fe731758a563602.svg",
@@ -28,6 +28,7 @@
     "static/media/profile.svg": "/fitness-app/static/media/profile.044a586dc4d62ffdc82fbeec996f96e9.svg",
     "static/media/no-smoking.svg": "/fitness-app/static/media/no-smoking.2162f94ec314b826ccdc67a9491ea7da.svg",
     "static/media/jumping-rope.svg": "/fitness-app/static/media/jumping-rope.7702fd18651352f9e1a6e6947593b97a.svg",
+    "static/media/log.svg": "/fitness-app/static/media/log.4a31e6812b50cc04ded0e7bfb1dcaf33.svg",
     "static/media/download.svg": "/fitness-app/static/media/download.876191660fee459e1e3611a61a1c06c0.svg",
     "static/media/exercise.svg": "/fitness-app/static/media/exercise.be2cc4833e579b81493ef60ec95bddcc.svg",
     "static/media/checkmark.svg": "/fitness-app/static/media/checkmark.97659c7d993ce7397516a1b82375eb1b.svg",
@@ -83,11 +84,11 @@
     "static/media/home.svg": "/fitness-app/static/media/home.1f4a00cdec6ce4dfc33479e9ad44d08f.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.8aefe30ba0188b831ef98d9d1956a5cc.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.d4cbd790f65d0bfe5bb99503a158fcbf.svg",
-    "main.f8ae9c8b.css.map": "/fitness-app/static/css/main.f8ae9c8b.css.map",
-    "main.79fbb19c.js.map": "/fitness-app/static/js/main.79fbb19c.js.map"
+    "main.5c2214d0.css.map": "/fitness-app/static/css/main.5c2214d0.css.map",
+    "main.42d0070b.js.map": "/fitness-app/static/js/main.42d0070b.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8ae9c8b.css",
-    "static/js/main.79fbb19c.js"
+    "static/css/main.5c2214d0.css",
+    "static/js/main.42d0070b.js"
   ]
 }
