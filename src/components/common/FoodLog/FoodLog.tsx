@@ -2,41 +2,24 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { addLog } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
+
+import {saveItem} from '../../../db.js';
+
 import History from './History/History.tsx';
 
 import styles from './FoodLog.module.css';
+import { FoodLog as IFoodLog } from "../interfaces.ts";
 
 
 
 interface FoodLogProps {
     closeMenu: ()=> void;
 }
-interface InputsData {
-    name: string,
-    qty: number;
-    unit: string;
-    protein: number;
-    carbs: number;
-    fats: number;
-    sugar: number;
-    calories: number;
-    sodium: number;
-    time: string;
-    type: string;
-    note: string;
-}
-interface LogData{
-    id: string;
-    type: string;
-    name: string;
-    icon: string;
-    data: InputsData
-}
 
 
-// TODO: Implement the feature to include values from foods to goals. Maybe add some default "goals" for each property/macro of foods that are hidden by default and let the user show them if they want. Use them for stats
+
+
 const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
 
     
@@ -53,9 +36,10 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
     const [sugar, setSugar] = useState<number | string>('');
     const [calories, setCalories] = useState<number | string>('');
     const [sodium, setSodium] = useState<number | string>('');
-    const [time, setTime] = useState<string>('');
-    const [type, setType] = useState<string>('unset');
-    const [note, setNote] = useState<string>('');
+    const now = new Date();
+    const [time, setTime] = useState<string>(now.toTimeString().slice(0, 5));
+    const [type, setType] = useState<string>('other');
+    const [notes, setNotes] = useState<string>('');
     
 
 
@@ -70,14 +54,16 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
         }
     }
     const handleLog = ()=>{
-        const data: LogData = {
-            id: uuidv4(),
+        const currentDate = new Date();
+        const data: IFoodLog = {
+            _id: uuidv4(),
             type: 'food', 
             name: 'Food Log', 
             icon: '/icons/food.svg',
+            timestamp: currentDate,
             data: {
                 name,
-                unit: unit,
+                unit,
                 qty: convertToInt(qty),
                 protein: convertToInt(protein),
                 carbs: convertToInt(carbs),
@@ -87,10 +73,10 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                 sodium: convertToInt(sodium),
                 time,
                 type,
-                note
+                notes
             }
         }
-        dispatch(addLog(data));
+        saveItem('logs', data)
         closeMenu();
     }
     return ( 
@@ -112,7 +98,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                         <input className={styles['half-input']} type="number" name="qty" id="qty" onChange={(e) => setQty(e.target.value)} value={qty} placeholder="Qty" />
                         <input className={styles['half-input']} type="text" name="unit" id="unit" onChange={(e) => setUnit(e.target.value)} value={unit} placeholder="Unit" />
                         <select className={styles['half-input']} name="type" id="type" onChange={(e) => setType(e.target.value)} value={type}>
-                            <option value={'unset'}>Unset</option>
+                            <option value={'other'}>Other</option>
                             <option value={'breakfast'}>Breakfast</option>
                             <option value={'lunch'}>Lunch</option>
                             <option value={'dinner'}>Dinner</option>
@@ -127,7 +113,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                         <input className={styles['half-input']} type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
                     <fieldset>
                         <label>Notes</label>
-                        <input type="text" id="note-content" name="note-content" onChange={(e) => setNote(e.target.value)} value={note} placeholder="Notes" />
+                        <input type="text" id="note-content" name="note-content" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes" />
                     </fieldset>
                     <button className={`${styles["log-food-btn"]} orange-button`} onClick={handleLog}>Log</button>
                 </div>
@@ -136,11 +122,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
             </div>
 
 
-            
-            {/* <fieldset className={styles.includeInput}>
-                <label>Include this food in daily goals?</label>
-                <input type="checkbox" checked={includeInGoals} onChange={()=>setIncludeInGoals(includeInGoals => !includeInGoals)}></input>
-            </fieldset> */}
+    
             
             
         </div>

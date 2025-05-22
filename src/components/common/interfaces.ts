@@ -69,7 +69,7 @@ export interface Workout {
   }
   
   export interface Macro{
-    id: string;
+    _id: string;
     name: string;
     unit: string;
     value: number;
@@ -101,9 +101,9 @@ export interface Workout {
     color: string
   }
   export interface BaseLog{
-    id: string,
+    _id: string,
     timestamp: Date,
-    type: string,
+    type: 'food'| 'workout' | 'exercise' | 'goal',
     name: string,
     icon: string,
   }
@@ -179,7 +179,7 @@ export interface Workout {
     identifier: string,
   }
   export interface Badges {
-    id: string,
+    _id: string,
     name: string,
     value: number
   }
@@ -189,7 +189,7 @@ export interface Workout {
       firstRun: string,
       name?: string,
       username?: string,
-      id: string,
+      _id: string,
       email?: string,
       createdAt: string,
       friends: string[],

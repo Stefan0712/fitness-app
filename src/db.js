@@ -49,10 +49,35 @@ export const getItemById = async (storeName, _id) => {
 };
 
 // Get all items
-export const getAllItems = async (storeName) => {
+export const getAllItems = async (storeName, filterOptions = {}) => {
   const db = await initDB();
-  return db.getAll(storeName);
+  const allItems = await db.getAll(storeName);
+
+  return allItems.filter(item => {
+    let matches = true;
+
+    // Filter by date (same year, month, day)
+    if (filterOptions.date) {
+      const targetDate = new Date(filterOptions.date);
+      const itemDate = new Date(item.timestamp);
+
+      matches &&= (
+        itemDate.getFullYear() === targetDate.getFullYear() &&
+        itemDate.getMonth() === targetDate.getMonth() &&
+        itemDate.getDate() === targetDate.getDate()
+      );
+    }
+
+    // Filter by type (exact match)
+    if (filterOptions.type) {
+      matches &&= item.type === filterOptions.type;
+    }
+
+    return matches;
+  });
 };
+
+
 
 // Delete one item
 export const deleteItem = async (storeName, _id) => {
