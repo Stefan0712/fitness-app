@@ -216,20 +216,13 @@ export interface Workout {
       },
       badges: Badges[]
     },
-    goals: Goal[],
     preferences: {
       theme: string,
       language: string,
       unitSystem: string,
     },
-    defaultFields: Field[],
-    tags: Tag[],
-    equipment: Equipment[],
-    exercises: Exercise[],
-    workouts: Workout[],
     message: string | null,
     dashboardSections: Section[],
-    macros: Macro[];
 }
 
 export interface Phase {

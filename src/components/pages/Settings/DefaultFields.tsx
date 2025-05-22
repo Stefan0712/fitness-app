@@ -4,13 +4,12 @@ import { Field } from '../../common/interfaces';
 import styles from './DefaultFields.module.css';
 import React, { useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
-import { createDefaultField, deleteDefaultField, updateDefaultField } from '../../../store/userSlice.ts';
 import {RootState} from '../../../store/index.ts';
 import { IconLibrary } from '../../../IconLibrary.js';
 
 const DefaultFields: React.FC = () => {
 
-    const existingFields = useSelector((state: RootState)=>state.user.defaultFields);
+    const existingFields = []
     const dispatch = useDispatch();
 
     const [editMode, setEditMode] = useState<boolean>(false);
@@ -26,7 +25,7 @@ const DefaultFields: React.FC = () => {
     const handleCreateField = () =>{
         if(!checkForErrors()){
             const data: Field = {
-                id: uuidv4(),
+                _id: uuidv4(),
                 name,
                 description,
                 target,
@@ -35,7 +34,7 @@ const DefaultFields: React.FC = () => {
                 isCompleted: false,
                 isEnabled: true
             }
-            dispatch(createDefaultField(data));
+            console.log(data)
             setName('');
             setDescription('');
             setTarget(0);
@@ -69,7 +68,7 @@ const DefaultFields: React.FC = () => {
 
     }
     const toggleField = (field) =>{
-        dispatch(updateDefaultField({...field, isEnabled: !field.isEnabled}))
+        console.log("Enabled field: ",field)
     }
     return ( 
         <div className={styles['default-fields']}>

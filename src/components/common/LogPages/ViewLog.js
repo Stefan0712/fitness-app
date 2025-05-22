@@ -1,31 +1,19 @@
+import { deleteItem } from "../../../db.js";
 import { formatDate } from "../../../helpers";
-import { useDispatch } from "react-redux";
-import {removeLog} from '../../../store/userSlice.ts'
+
 
 const ViewLog = ({log, closeViewLog}) => {
-
-
-
-    const dispatch = useDispatch();
-
-
-
-
-    const handleDelete = () =>{
-        dispatch(removeLog(log.timestamp));
+    const handleDelete = async () =>{
+        await deleteItem('logs', log._id)
         closeViewLog();
     }
-
-
     return ( 
         <div className="view-log">
             <div className="view-log-header">
                 <h2 className="full-width">{log.name || log.data.workoutData?.name}</h2>
                 <img src="/icons/close.svg" className="small-icon" onClick={()=>closeViewLog()} />
             </div>
-            
             <p className="full-width">Logged on {formatDate(log.timestamp)}</p>
-            
             {log.type === 'food' ? (
                 <div className="food-log-info">
                     <p className="full-width">{log.data.name}</p>
@@ -116,9 +104,6 @@ const ViewLog = ({log, closeViewLog}) => {
                     
                 </div>
             ) : ''}
-
-
-
             <button onClick={handleDelete} className="delete-log-button orange-button large-button">Delete Log</button>
         </div>
      );

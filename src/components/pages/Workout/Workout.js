@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-import { addLog } from "../../../store/userSlice.ts";
 import { IconLibrary } from "../../../IconLibrary";
-import {exercises as databaseExercises} from '../../../database';
 
 import styles from './Workout.module.css';
 import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
+import { saveItem } from "../../../db.js";
  
 
 
@@ -161,7 +160,7 @@ const Workout = () => {
                 exercises: exercises
             }
         }
-        dispatch(addLog(log));
+        saveItem('logs',log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
         snapshots.workouts = snapshots.workouts.filter(item => item.snapshotId !== snapshotId);
         localStorage.setItem('snapshots', JSON.stringify(snapshots));  

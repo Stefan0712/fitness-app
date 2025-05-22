@@ -2,33 +2,42 @@ import styles from './Exercise.module.css';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IconLibrary } from '../../../IconLibrary';
-import { addLog } from '../../../store/userSlice.ts';
-import { useDispatch, useSelector } from 'react-redux';
-import { formatTime, getDateForHeader, getFullHour } from '../../../helpers';
+import { formatTime, getFullHour } from '../../../helpers';
 import { v4 as uuidv4 } from 'uuid';
-import { exercises as databaseExercises } from '../../../database.js';
+import { getAllItems, getItemById, saveItem } from '../../../db.js';
+import { getDateForHeader } from '../../../helpers';
  
 
 
 const Exercise = () => {
 
     const {id, snapshotId} = useParams(); //get the id of the exercise from url
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const libraryExercises = useSelector((state)=>state.user.exercises); 
 
-    const libraryExerciseId = libraryExercises.findIndex(item=>item.id===id);
-    const databaseExerciseId = databaseExercises.findIndex(item=>item.id===id);
-    const originalExercise = libraryExerciseId >= 0 ? libraryExercises[libraryExerciseId] : databaseExerciseId >= 0 ? databaseExercises[databaseExerciseId] : null;
-
-
+    const [libraryExercises, setLibraryExercises] = useState([])
+    const [originalExercise, setOriginalExercise] = useState();
     const [seconds, setSeconds] = useState(0); //the exercise timer
     const [currentSet, setCurrentSet] = useState(0); //tracks the current selected set
     const [exerciseData, setExerciseData] = useState(null); //here will be stored the formated original exercise
 
+    const getLibraryExercises = async () => {
+        const exercises = await getAllItems('exercises');
+        if(exercises){
+            setLibraryExercises(exercises);
+        }
+    }
+    useEffect(()=>{getLibraryExercises()},[])
+    const getExerciseData = async () => {
+        const exercises = await getItemById('exercises', id);
+        if(exercises){
+            setOriginalExercise(exercises);
+        }
+    }
+    useEffect(()=>{getExerciseData()},[])
+
+
     //timer logic
     useEffect(() => {
-        
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
@@ -98,7 +107,7 @@ const Exercise = () => {
             id: uuidv4(),
             icon: IconLibrary.Exercise,
             type: 'exercise',
-            name: exerciseData.name,
+            title: exerciseData.name,
             data: {
                 duration: formatTime(seconds),
                 finishedAt: getFullHour(),
@@ -106,7 +115,7 @@ const Exercise = () => {
                 
             }
         }
-        dispatch(addLog(log));
+        saveItem('logs', log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
         snapshots.exercises = snapshots.exercises.filter(item => item.snapshotId !== snapshotId);
         localStorage.setItem('snapshots', JSON.stringify(snapshots));        

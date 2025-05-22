@@ -1,17 +1,15 @@
 import CustomItem from '../../common/CustomItem/CustomItem';
 import styles from './Settings.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { IconLibrary } from '../../../IconLibrary';
 import { getDateForHeader } from '../../../helpers';
 import { useEffect, useState } from 'react';
 import CustomItemCreator from '../../common/CustomItemCreator/CustomItemCreator';
-import { addTag, removeTag, updateTag } from '../../../store/userSlice.ts';
 
 const Tags = () => {
 
     const dispatch = useDispatch();
 
-    const tags = useSelector((state)=>state.user.tags);
+    const tags = [];
 
     const [defaultTags, setDefaultTags] = useState([]);
     const [userTags, setUserTags] = useState([]);
@@ -38,14 +36,14 @@ const Tags = () => {
     },[tags])
 
     const createTag = (tag) =>{
-        dispatch(addTag(tag));
+        console.log("Created tag")
     }
     const deleteTag = (id)=>{
-        dispatch(removeTag(id));
+        console.log("Deleted tag")
 
     }
     const editTag = (data) =>{
-        dispatch(updateTag(data));
+        console.log("Edit tag")
     }
     return ( 
         <div className={`${styles['tags-page']} ${styles['custom-items-page']} page`}>

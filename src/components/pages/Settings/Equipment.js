@@ -1,15 +1,12 @@
 import styles from './Settings.module.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary.js';
 import { getDateForHeader } from '../../../helpers.js';
 import { useEffect, useState } from 'react';
-import { addEquipment, removeEquipment, updateEquipment } from '../../../store/userSlice.ts';
 
 const Equipment = () => {
 
-    const dispatch = useDispatch();
 
-    const allItems = useSelector((state)=>state.user.equipment);
+    const allItems = []
 
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -18,7 +15,7 @@ const Equipment = () => {
 
 
     const deleteItem = (id)=>{
-        dispatch(removeEquipment(id));
+        console.log('Deleted equipment with id: ', id)
     }
 
     return ( 
@@ -59,7 +56,6 @@ export default Equipment;
 
 const EquipmentForm = ({closeForm, data, type}) =>{
 
-    const dispatch = useDispatch();
 
     const [name, setName] = useState(data?.name || '');
     const [attributes, setAttributes] = useState(data?.attributes || []);
@@ -84,7 +80,8 @@ const EquipmentForm = ({closeForm, data, type}) =>{
             name, 
             attributes,   
         }
-        dispatch(addEquipment(itemData));
+        console.log("Equipment added")
+        //TODO: Add logic to add equipment
         closeForm();
     }
     const handleUpdateEquipment = () =>{
@@ -93,7 +90,7 @@ const EquipmentForm = ({closeForm, data, type}) =>{
             name,
             attributes
         }
-        dispatch(updateEquipment(itemData));
+        // TODO: Replace dispatch(updateEquipment(itemData)); with idb function
         closeForm();
     }
     return (
