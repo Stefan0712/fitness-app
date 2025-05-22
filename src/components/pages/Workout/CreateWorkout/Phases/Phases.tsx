@@ -18,15 +18,16 @@ const Phases = ({phases, setPhases}) => {
     
 
     const handleRemoveExercise = (exerciseId: string) => {
+        console.log(exerciseId)
         const updatedPhases = phases.map(phase => {
-            if (phase.id === selectedPhase.id) {
-                return {...phase, exercises: phase.exercises.filter(ex => ex.sourceId !== exerciseId)};
+            if (phase._id === selectedPhase?._id) {
+                return {...phase, exercises: phase.exercises.filter(ex => ex._id !== exerciseId)};
             }
             return phase;
         });
 
         // Also update selectedPhase state to reflect the change
-        const updatedSelectedPhase = updatedPhases.find(p => p.id === selectedPhase.id);
+        const updatedSelectedPhase = updatedPhases.find(p => p.id === selectedPhase?.id);
 
         setPhases(updatedPhases);
         if (updatedSelectedPhase) {
@@ -36,14 +37,14 @@ const Phases = ({phases, setPhases}) => {
 
     const handleAddExercise = (exercise: WorkoutExercise) => {
        const updatedPhases = phases.map(phase => {
-            if (phase.id === selectedPhase.id) {
+            if (phase._id === selectedPhase?._id) {
                 return {...phase, exercises: [...phase.exercises, exercise]};
             }
             return phase;
         });
 
         // Also update selectedPhase state to reflect the change
-        const updatedSelectedPhase = updatedPhases.find(p => p.id === selectedPhase.id);
+        const updatedSelectedPhase = updatedPhases.find(p => p._id === selectedPhase?._id);
 
         setPhases(updatedPhases);
         if (updatedSelectedPhase) {
@@ -51,7 +52,7 @@ const Phases = ({phases, setPhases}) => {
         }
     }
     const handleDeletePhase = (phase: Phase) => {
-        const updatedPhases = phases.filter(p => p.id !== phase.id);
+        const updatedPhases = phases.filter(p => p._id !== phase._id);
         setPhases(updatedPhases);
         if (updatedPhases.length > 0) {
             setSelectedPhase(updatedPhases[0]);
@@ -61,7 +62,7 @@ const Phases = ({phases, setPhases}) => {
     }
     const handleUpdatePhase = (phase: Phase) => {
         const updatedPhases = phases.map(p => {
-            if (p.id === phase.id) {
+            if (p._id === phase._id) {
                 return {...p, name: phase.name};
             }
             return p;
@@ -70,7 +71,8 @@ const Phases = ({phases, setPhases}) => {
         setPhases(updatedPhases);
         setShowEditPhase(null);
     }
-    return ( 
+    if(phases){
+        return ( 
         <div className={styles.phases}>
             {showExerciseSelector ? <ExerciseSelector addExercise={handleAddExercise} close={()=>setShowExerciseSelector(false)} /> : null}
             {showAddPhase ? <NewPhase close={()=>setShowAddPhase(false)} addPhase={(phase: Phase)=>{setPhases([...phases, phase]); setSelectedPhase(phase);}} lastOrder={phases.length} /> : null}
@@ -89,19 +91,20 @@ const Phases = ({phases, setPhases}) => {
                         <div className={styles.phaseExercise} key={'phase-exercise-'+index}>
                             <b>{exercise.name}</b>
                             <p>{exercise.sets || 0} sets</p>
-                            <button type="button" className="clear-btn"><img src={IconLibrary.Close} alt="" onClick={()=>handleRemoveExercise(exercise.sourceId)} /></button>
+                            <button type="button" className="clear-btn"><img src={IconLibrary.Close} alt="" onClick={()=>handleRemoveExercise(exercise?._id)} /></button>
                         </div>
                     )) : <p className={styles.noExercises}>No exercises added</p>}
                 </div> : phases && phases.length > 0 && !selectedPhase ? <p>No phase selected</p> : <p>No phases</p>}
             </div>
             <div className={styles.phasesButtons}>
                 <div style={{display: 'flex', alignItems: 'center', width: 'calc(100% - 50px)', overflowX: 'auto', overflowY: 'hidden'}}>
-                    {phases && phases.length > 0 ? phases.map((item: Phase, index: number)=>(<button type="button" key={'Phase-button-'+index} className={`${styles.phaseButton} ${selectedPhase.id === item.id ? styles.selectedButton : ''}`} onClick={()=>setSelectedPhase(item)}>{item.name}</button>)):null}
+                    {phases && phases.length > 0 ? phases.map((item: Phase, index: number)=>(<button type="button" key={'Phase-button-'+index} className={`${styles.phaseButton} ${selectedPhase?._id === item?._id ? styles.selectedButton : ''}`} onClick={()=>setSelectedPhase(item)}>{item.name}</button>)):null}
                 </div>
                 <button type="button" className={styles.addPhaseButton} onClick={()=>setShowAddPhase(true)}><img src={IconLibrary.Add} style={{height: '30px', width: '30px'}} /></button>
             </div>
         </div>
      );
+    }
 }
  
 export default Phases;

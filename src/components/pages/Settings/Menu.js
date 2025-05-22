@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { IconLibrary } from "../../../IconLibrary.js";
 import styles from './Menu.module.css';
 import { logoutUser } from '../../../auth.js';
+import NoSleep from 'nosleep.js';
 
 
 const Settings = ({closeSettings}) => {
@@ -9,8 +10,18 @@ const Settings = ({closeSettings}) => {
     const isLoggedIn = localStorage.getItem('userId') ? true : false;
 
     
-
-
+    const noSleep = new NoSleep();
+    const toggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+            // If not in fullscreen, request fullscreen
+            document.documentElement.requestFullscreen();
+        } else {
+            // If in fullscreen, exit fullscreen
+            if (document.exitFullscreen) {
+            document.exitFullscreen();
+            }
+        }
+    };
     
     return ( 
         <div className={styles["menu-page"]}>
@@ -19,6 +30,12 @@ const Settings = ({closeSettings}) => {
                 <h1>Menu</h1>
             </div>
             <div className={styles.container}>
+                <button className={styles.setting} onClick={toggleFullscreen}>
+                    <p>Toggle Fullscreen</p>
+                </button>
+                <button className={`${styles.setting} ${noSleep.enabled ? styles['enabled-awake-button'] : ''}`} onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
+                    <p>{`${noSleep.enabled ? 'Screen Awake' : 'Screen Awake'}`}</p>
+                </button>
                 <h3 className={styles.category}>Personal</h3>
                 <Link onClick={closeSettings} to={'/profile'}>Profile </Link>
                 <Link onClick={closeSettings} to={'/edit-profile'}>Edit Profile </Link>

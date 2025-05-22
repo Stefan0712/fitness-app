@@ -13,8 +13,8 @@ const Filter = ({allItems, filterItems}) => {
     const [equipment, setEquipment] = useState([]);
     const [selectedEquipment, setSelectedEquipment] = useState([]);
 
-    const [targetGroups, setTargetGroups] = useState([]);
-    const [selectedTargetGroups, setSelectedTargetGroups] = useState([]);
+    const [targetMuscles, settargetMuscles] = useState([]);
+    const [selectedtargetMuscles, setSelectedtargetMuscles] = useState([]);
 
 
 
@@ -32,7 +32,7 @@ const Filter = ({allItems, filterItems}) => {
         return Array.from(uniqueItems); // Convert the Set back to an array
 
     }
-    const getTargetGroups = () =>{
+    const gettargetMuscles = () =>{
         const uniqueItems = new Set();
 
         allItems?.forEach((item) => {
@@ -65,7 +65,7 @@ const Filter = ({allItems, filterItems}) => {
         console.log(allItems)
         setTags(getTags())
         setEquipment(getEquipment());
-        setTargetGroups(getTargetGroups());
+        settargetMuscles(gettargetMuscles());
     },[allItems])
 
 
@@ -104,8 +104,8 @@ const Filter = ({allItems, filterItems}) => {
                 <fieldset>
                     <label>Target Muscles</label>
                     <select className={styles['filter-dropdown']}>
-                        {targetGroups && targetGroups.length > 0 ? targetGroups.map((item)=>(<option value={item}>{item}</option>)) : null}
-                        {targetGroups?.length === 0 ? <option value={'none'}>None found</option> :null}
+                        {targetMuscles && targetMuscles.length > 0 ? targetMuscles.map((item)=>(<option value={item}>{item}</option>)) : null}
+                        {targetMuscles?.length === 0 ? <option value={'none'}>None found</option> :null}
                     </select>
                 </fieldset>
                 <fieldset>

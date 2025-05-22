@@ -18,6 +18,9 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
 }
+.createWorkoutPage input{
+    color: white;
+}
 .createWorkoutPage .screenSwitcher{
     width: 100%;
     height: 50px;

@@ -1,80 +1,59 @@
 .quick-menu{
     width: 100%;
-    height: 300px;
+    height: 170px;
     position: fixed;
     bottom: 75px;
     left: 0px;
     display: flex;
-    align-items: center;
     flex-direction: column;
     z-index: 15;
     border-radius: 5px;
     animation: quickMenuOpenUp 0.2s;
     gap: 10px;
     overflow: hidden;
+    background-color: #1A1A1B;
+    border-top: 1px solid var(--general-border);
 }
-
-.header{
+.quick-menu .buttons{
+    display: flex;
     width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.quick-menu .header{
+    width: 100%;
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
+    padding-left: 15px;
 }
 
-.quick-button{
-    width: 90%;
-    height: 60px;
+.quick-menu .quick-button{
+    width: 25%;
+    height: 100px;
     padding: 0 15px;
     border-radius: 10px;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
     color: var(--quick-menu-button-text);
     align-items: center;
+    justify-content: center;
     background-color: var(--quick-menu-button-background);
     border: none;
-    /* #1A1A1B*/
 
 }
-.close-button{
+.quick-menu .close-button{
     font-size: 20px;
 }
-.quick-button p{
+.quick-menu .quick-button p{
     font-size: 20px;
     font-weight: 500;
 }
-.quick-button img{
+.quick-menu .quick-button img{
     width: 30px;
     height: 30px;
-}
-
-
-
-
-.enabled-awake-button{
-    border: 3px solid green !important;
-}
-.quick-settings{
-    display: grid;
-    grid-template-columns: 60px 100px 1fr;
-    width: 90%;
-    height: 60px;
-    border-radius: 10px;
-    align-items: center;
-    gap: 10px;
-}
-.awake-button{
-    border: 3px solid transparent;
-    font-size: 20px;
-}
-.quick-settings button{
-    border: none;
-    background-color: var(--quick-menu-button-background);
-    height: 100%;
-    border-radius: 10px;
-}
-.fullscreen-button{
-    background-color: var(--quick-menu-button-background);
 }
 
 
@@ -87,7 +66,7 @@
         bottom: -110%;
     }
     to{
-        height: 380px;
+        height: 170px;
         opacity: 1;
         bottom: 75px;
     }

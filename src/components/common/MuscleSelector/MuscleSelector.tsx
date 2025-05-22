@@ -9,11 +9,11 @@ import { muscles } from '../../../constants/defaultMuscles.js';
 
 interface TagPickerProps {
     close: () => void;
-    setTargetGroups: (muscle: TargetGroup) => void;
-    targetGroups: TargetGroup[]
+    settargetMuscles: (muscle: TargetGroup) => void;
+    targetMuscles: TargetGroup[]
 }
 
-const TagPicker: React.FC<TagPickerProps> = ({close, setTargetGroups, targetGroups}) => {
+const TagPicker: React.FC<TagPickerProps> = ({close, settargetMuscles, targetMuscles}) => {
 
     const [items, setItems] = useState<TargetGroup[]>(muscles || []); // Search results
     const [name, setName] = useState<string>('');
@@ -22,7 +22,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetGroups, targetGrou
 
 
     const checkIfAdded = (item) =>{
-        if (targetGroups?.find(existingItem => existingItem.id === item.id)) {
+        if (targetMuscles?.find(existingItem => existingItem._id === item._id)) {
             return true;
         }
         return false;
@@ -41,11 +41,11 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetGroups, targetGrou
     const handleAddMuscle = () =>{
         if(name.length > 0 && name.length < 18){
             const newGroup: TargetGroup = {
-                id: uuidv4(),
+                _id: uuidv4(),
                 name,
                 author: localStorage.getItem('userId') || 'user',
             }
-            setTargetGroups((prev: TargetGroup[]) => [...prev, newGroup]);
+            settargetMuscles((prev: TargetGroup[]) => [...prev, newGroup]);
         }
     }
     return ( 
@@ -57,7 +57,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetGroups, targetGrou
             <div className={styles.top}>
                 <h3>Added muscles</h3>
                 <div className={styles.selectedMuscles}>
-                    {targetGroups?.length > 0 ? targetGroups.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetGroups(prev=>[...prev.filter(it=>it.id!==item.id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No muscle added</p>}
+                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>settargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No muscle added</p>}
                 </div>
             </div>
             <div className={styles.bottom}>
@@ -67,7 +67,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetGroups, targetGrou
                         checkIfAdded(item) ? null : (
                             <div className={styles.resultMuscle} key={'muscle-'+item.name+index}>
                                 <p className={styles.name}>{item.name}</p>
-                                <button type="button" className="clear-button" onClick={()=>setTargetGroups(prev =>[...prev, item])}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
+                                <button type="button" className="clear-button" onClick={()=>settargetMuscles(prev =>[...prev, item])}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
                             </div>
                         )
                     ):<p>Items not found</p>}

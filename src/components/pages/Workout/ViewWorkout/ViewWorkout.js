@@ -90,15 +90,11 @@ const ViewWorkout = () => {
                             <p>{workoutData.duration} {workoutData.durationUnit}</p>
                         </div>
                         <div className={styles.half}>
-                            <b>Rest</b>
-                            <p>{workoutData.rest} {workoutData.restUnit}</p>
-                        </div>
-                    </div>
-                    <div className={styles.twoBlocks}>
-                        <div className={styles.half}>
                             <b>Difficulty</b>
                             <p>{makeFirstUpperCase(workoutData.difficulty)}</p>
                         </div>
+                    </div>
+                    <div className={styles.block}>
                         <div className={styles.half}>
                             <b>Reference (url)</b>
                             <p>{workoutData.reference || 'Not set'}</p>
@@ -144,7 +140,7 @@ const ViewWorkout = () => {
                             <p>Target Muscles</p>
                         </div>
                         <div className={styles.muscles}>
-                            {workoutData.targetGroups?.length > 0 ? workoutData.targetGroups.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
+                            {workoutData.targetMuscles?.length > 0 ? workoutData.targetMuscles.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
                         </div>
                     </div>
                     <div className={styles.block}>
@@ -158,15 +154,12 @@ const ViewWorkout = () => {
                                 <div className={styles.phase} key={'phase' + phaseIndex}>
                                     <h3>{phase.name}</h3>
                                     {phase.exercises.length > 0 ? (
-                                    phase.exercises.map((exercise, index) => (
+                                        phase.exercises.map((exercise, index) => (
                                         <div className={styles.exercise} key={'exercise' + index}>
                                         <b>{exercise.name}</b>
                                         <p>x {exercise.sets}</p>
                                         </div>
-                                    ))
-                                    ) : (
-                                    <p>No exercises</p>
-                                    )}
+                                    ))) : (<p>No exercises</p>)}
                                 </div>
                                 ))
                             ) : (
@@ -177,7 +170,7 @@ const ViewWorkout = () => {
                     {(userId === workoutData.author._id) || type !=='online' ? 
                         <div className={styles.bottomButtons}>
                             <button className={styles.exerciseButton} onClick={handleDeleteWorkout}>Delete</button>
-                            <Link className={styles.exerciseButton} to={`/workout/${workoutData.id}/edit`}>Edit</Link> 
+                            <Link className={styles.exerciseButton} to={`/workout/${workoutData._id}/edit`}>Edit</Link> 
                         </div> 
                     : null}
                 </div>

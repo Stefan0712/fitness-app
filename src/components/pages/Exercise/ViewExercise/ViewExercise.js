@@ -142,7 +142,7 @@ const ViewExercise = () => {
                             <p>Target Muscles</p>
                         </div>
                         <div className={styles.muscles}>
-                            {exerciseData.targetGroups?.length > 0 ? exerciseData.targetGroups.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
+                            {exerciseData.targetMuscles?.length > 0 ? exerciseData.targetMuscles.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
                         </div>
                     </div>
                     <div className={styles.block}>

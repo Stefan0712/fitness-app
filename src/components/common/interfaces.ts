@@ -3,7 +3,7 @@ export interface Workout {
     name: string;
     description: string;
     difficulty: string;
-    targetGroups: TargetGroup[];
+    targetMuscles: TargetGroup[];
     duration: number; 
     equipment: Equipment[];
     createdAt: string; 
@@ -39,28 +39,25 @@ export interface Workout {
     fields: Field[];
     notes: string;
     equipment: Equipment[];
-    targetGroups: TargetGroup[];
+    targetMuscles: TargetGroup[];
     tags: Tag[];
     instructions: string[];
   }
   export interface WorkoutExercise {
-    exerciseId: string,
+    _id: string,
+    sourceId: string,
     isCompleted: boolean,
     name: string,
     difficulty: string,
     description: string,
+    equipment: Equipment[],
     sets: Set[],
     fields: Field[],
     tags: Tag[];
   }
-  export interface WorkoutCategory {
-    id: string;
-    name: string;
-    color: string;
-  }
   
   export interface TargetGroup {
-    id: string;
+    _id: string;
     name: string;
     author: string;
   }
@@ -88,7 +85,7 @@ export interface Workout {
   
   
   export interface Tag {
-    id: string;
+    _id: string;
     name: string;
     color: string;
     author: string;
@@ -96,7 +93,7 @@ export interface Workout {
   }
   
   export interface Goal {
-    id: string,
+    _id: string,
     name: string,
     unit: string,
     target: number,
@@ -105,7 +102,7 @@ export interface Workout {
   }
   export interface BaseLog{
     id: string,
-    timestamp: string,
+    timestamp: Date,
     type: string,
     name: string,
     icon: string,
@@ -114,6 +111,7 @@ export interface Workout {
     data: {
       value: number;
       time: string;
+      date: Date;
       description: string;
       name: string;
       unit: string;
@@ -133,7 +131,7 @@ export interface Workout {
     data: {
       name: string,
       time: string,
-      targetGroups: TargetGroup[],
+      targetMuscles: TargetGroup[],
       duration: number,
       fields: Field[]
     }
@@ -151,14 +149,13 @@ export interface Workout {
       sodium: number,
       time: string,
       type: string,
-      note?: string
+      notes?: string
   
     }
   }
   export interface Set{
     fields: Field[];
     isCompleted: boolean;
-    isSkipped: boolean;
     order: number;
   }
 
@@ -166,19 +163,15 @@ export interface Workout {
     data:{
       duration: string,
       finishedAt: string,
+      startedAt: string,
       workoutId: string,
       isCompleted: boolean,
-      targetGroups: TargetGroup[],
+      targetMuscles: TargetGroup[],
       name: string,
       difficulty: string,
       description: string,
-      exercises: WorkoutExercise[]
+      phases: Phase[]
     }
-  }
-  export interface Activity {
-    date: string;
-    logs: (WorkoutLog | ExerciseLog | FoodLog | GoalLog)[];
-    goals: Goal[]
   }
   export interface Section {
     type: string,
@@ -225,7 +218,6 @@ export interface Workout {
       badges: Badges[]
     },
     goals: Goal[],
-    activity: Activity[],
     preferences: {
       theme: string,
       language: string,
@@ -242,7 +234,7 @@ export interface Workout {
 }
 
 export interface Phase {
-  id: string;
+  _id: string;
   name: string;
   order: number;
   exercises: WorkoutExercise[];

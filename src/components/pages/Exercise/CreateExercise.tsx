@@ -20,7 +20,7 @@ const CreateExercise: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [reference, setReference] = useState<string>('');
-    const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
+    const [targetMuscles, settargetMuscles] = useState<TargetGroup[]>([]);
     const [difficulty, setDifficulty] = useState<string>('beginner');
     const [tags, setTags] = useState<Tag[]>([]);
     const [equipments, setEquipments] = useState<Equipment[]>([]);
@@ -56,7 +56,7 @@ const CreateExercise: React.FC = () => {
             restUnit: 'seconds',
             visibility: 'private',
             notes,
-            targetGroups, 
+            targetMuscles, 
             fields, 
             tags, 
             equipment: equipments, 
@@ -111,7 +111,7 @@ const CreateExercise: React.FC = () => {
                     ) : currentScreen === 'equipment' ? (
                         <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
                     ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetGroups={targetGroups} setTargetGroups={setTargetGroups} />
+                        <MuscleScreen targetMuscles={targetMuscles} settargetMuscles={settargetMuscles} />
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}

@@ -17,7 +17,7 @@ const EquipmentSelector = ({close, equipments, setEquipments}) => {
         
         
         const checkIfAdded = (item) =>{
-            if (equipments.find(existingItem => existingItem.id === item.id)) {
+            if (equipments.find(existingItem => existingItem._id === item._id)) {
                 return true;
             }
             return false;
@@ -35,7 +35,7 @@ const EquipmentSelector = ({close, equipments, setEquipments}) => {
         const handleAddEquipment = () =>{
             if(name.length > 0 && name.length < 15){
                 const equipmentData: Equipment = {
-                    id: uuidv4(),
+                    _id: uuidv4(),
                     name,
                     attributes: [{name: unit, unit, value: typeof value === 'string' ? parseInt(value) : value}]
                 };
@@ -56,7 +56,7 @@ const EquipmentSelector = ({close, equipments, setEquipments}) => {
             <div className={styles.top}>
                 <h4>Selected equipment</h4>
                 <div className={styles.selectedEquipment}>
-                    {equipments?.length > 0 ? equipments.map((item, index)=><div key={'Selected-equipment-'+index} className={styles.equipment}><b>{item.name}</b><button className="clear-button" onClick={()=>setEquipments(prev=>[...prev.filter(it=>it.id!==item.id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No tags selected</p>}
+                    {equipments?.length > 0 ? equipments.map((item, index)=><div key={'Selected-equipment-'+index} className={styles.equipment}><b>{item.name}</b><button className="clear-button" onClick={()=>setEquipments(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No tags selected</p>}
                 </div>
             </div>
             <div className={styles.bottom}>

@@ -154,7 +154,7 @@ const Workout = () => {
                 finishedAt: getFullHour(),
                 workoutId: workoutData.id,
                 isCompleted: true,
-                targetGroup: workoutData.targetGroups,
+                targetGroup: workoutData.targetMuscles,
                 name: workoutData.name,
                 difficulty: workoutData.difficulty,
                 description: workoutData.description,

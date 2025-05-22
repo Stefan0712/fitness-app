@@ -9,13 +9,11 @@ import QuickMenu from '../QuickMenu/QuickMenu';
 import ExerciseLog from '../LogPages/ExerciseLog.tsx';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
-import NoSleep from 'nosleep.js';
 import Menu from '../../pages/Settings/Menu.js';
 
 
 const Navigation = () => {
 
-    const noSleep = new NoSleep();
     const location = useLocation();
     const [showQuickmenu, setShowQuickmenu] = useState(false)
 
@@ -33,6 +31,7 @@ const Navigation = () => {
 
     const openQuickmenu = () =>{
         setShowQuickmenu(true);
+        console.log("Opened quick menu")
     }
     const closeQuickmenu = () =>{
         setShowQuickmenu(false);
@@ -59,35 +58,21 @@ const Navigation = () => {
         setShowExerciseLog(false)
     }
     const closeAll = () =>{
+        console.log('Close function ran')
         closeExerciseLogs();
         closeFoodLogs();
         closeGoals();
         closeQuickmenu();
     }
-    const toggleFullscreen = () => {
-        if (!document.fullscreenElement) {
-          // If not in fullscreen, request fullscreen
-          document.documentElement.requestFullscreen();
-        } else {
-          // If in fullscreen, exit fullscreen
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          }
-        }
-      };
- 
-      if(location.pathname !== '/get-started' || location.pathname !== '/auth'){
+
+      if(location.pathname !== '/get-started' && location.pathname !== '/auth'){
         return ( 
             <nav>
                 {showGoals ? <Goals closeMenu={closeGoals}/> : null}
                 {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
                 {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
                 {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
-    
-    
-    
-                {showQuickmenu ? (<QuickMenu closeQuickmenu={closeQuickmenu} 
-                    openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} toggleFullscreen={toggleFullscreen} noSleep={noSleep}  />) : ''}
+                {showQuickmenu ? <QuickMenu closeQuickmenu={closeQuickmenu} openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
                 <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                     <img src={IconLibrary.Home} alt=''></img>
                     <p>Home</p>
@@ -96,9 +81,9 @@ const Navigation = () => {
                     <img src={IconLibrary.List} alt=''></img>
                     <p>Library</p>
                 </Link>
-                <div className={`${styles['nav-button']} ${styles['center-nav-button']}`} onClick={openQuickmenu}>
-                    <button><img src={IconLibrary.Plus} alt='' /></button>
-                </div>
+                <button type='button' className={`${styles['nav-button']} ${styles.center}`} onClick={()=>setShowQuickmenu(!showQuickmenu)}>
+                    <img src={showQuickmenu ? IconLibrary.Close : IconLibrary.Add} alt='' />
+                </button>
                 <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
                     <img src={IconLibrary.Clipboard} alt=''></img>
                     <p>Activity</p>

@@ -27,7 +27,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
 
 
     const checkIfAdded = (item) =>{
-        if (tags.find(existingItem => existingItem.id === item.id)) {
+        if (tags.find(existingItem => existingItem._id === item._id)) {
             return true;
         }
         return false;
@@ -39,20 +39,20 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
             setItems(defaultTags); // Reset if search is empty
             return;
         }
-        const filteredItems = defaultTags.filter((item: Tag) => item.name.toLowerCase().includes(value.toLowerCase()));
+        const filteredItems = defaultTags.filter((item: ITag) => item.name.toLowerCase().includes(value.toLowerCase()));
         setItems(filteredItems);
     }
 
     const handleAddTag = () =>{
         if(name.length > 0 && name.length < 18){
             const newTag: ITag = {
-                id: uuidv4(),
+                _id: uuidv4(),
                 name,
                 color: color,
                 category: 'activity',
                 author: localStorage.getItem('userId') || 'user',
             }
-            setTags((prev: Tag[]) => [...prev, newTag]);
+            setTags((prev: ITag[]) => [...prev, newTag]);
         }
     }
     return ( 
@@ -64,7 +64,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
             <div className={styles.top}>
                 <h3>Selected tags</h3>
                 <div className={styles.selectedTags}>
-                    {tags?.length > 0 ? tags.map((item, index)=><Tag key={'tag-'+item.name+index} tag={item} removeTag={(id)=>setTags(tags=>[...tags.filter(it=>it.id!==id)])}/>) : <p>No tags selected</p>}
+                    {tags?.length > 0 ? tags.map((item, index)=><Tag key={'tag-'+item.name+index} tag={item} removeTag={(id)=>setTags(tags=>[...tags.filter(it=>it._id!==id)])}/>) : <p>No tags selected</p>}
                 </div>
             </div>
             <div className={styles.bottom}>

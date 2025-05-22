@@ -64,9 +64,10 @@ import Menu from './assets/menu.svg';
 import Hide from './assets/hide.svg';
 import EnableFullscreen from './assets/enableFullscreen.svg';
 import DisableFullscreen from './assets/disableFullscreen.svg';
-
+import Log from './assets/log.svg';
 
 export const IconLibrary = {
+    Log,
     Play,
     InfoCircle,
     Back,

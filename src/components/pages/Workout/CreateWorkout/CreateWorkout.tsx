@@ -29,7 +29,7 @@ const CreateWorkout: React.FC = () => {
     const [duration, setDuration] = useState<string>('');
     const [tags, setTags] = useState<ITag[]>([])
     const [equipments, setEquipments] = useState<Equipment[]>([]);
-    const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([])
+    const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([])
     const [notes, setNotes] = useState<string>('');
     const [phases, setPhases] = useState<Phase[]>([{id: 'phase-id-1', name: 'Warm-up', order: 1, exercises:[]},{id: 'phase-id-2', name: 'Workout', order: 1, exercises:[]}]);
     const [currentScreen, setCurrentScreen] = useState<string>('exercises');
@@ -54,7 +54,7 @@ const CreateWorkout: React.FC = () => {
                 duration: duration ? parseInt(duration) : 0,
                 equipment: equipments, 
                 tags, 
-                targetGroups, 
+                targetMuscles, 
                 phases,
                 notes
             };
@@ -68,18 +68,6 @@ const CreateWorkout: React.FC = () => {
             }
        }
     }
-
-    const addEquipment = (newItem) =>{
-        setEquipments((equipments)=>[...equipments, {...newItem, id: uuidv4()}]);
-    }
-    const handleAddGroup = () =>{
-        if(groupName.length > 0 && groupName.length < 15){
-            const groupData: TargetGroup = { id: uuidv4(), author: userId, name: groupName}
-            setTargetGroups(targetGroups=>[...targetGroups,groupData]);
-            setGroupName('');
-        }
-    }
-       
     return ( 
         <div className={styles.createWorkoutPage}>
             <AppHeader title="Create Workout" button={<button className="orange-button submit-button" onClick={handleSubmit}>Create</button>} />
@@ -114,7 +102,7 @@ const CreateWorkout: React.FC = () => {
                     ) : currentScreen === 'equipment' ? (
                         <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
                     ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetGroups={targetGroups} setTargetGroups={setTargetGroups} />
+                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} />
                     ) : null}
                 </div>
                 
