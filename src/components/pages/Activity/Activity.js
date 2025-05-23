@@ -1,9 +1,9 @@
 
-import { getDateForHeader } from "../../../helpers";
 import styles from './Activity.module.css';
 import { useState } from "react";
 import LogsStats from "./LogsStats/LogsStats";
 import LogsHistory from "./LogsHistory/LogsHistory";
+import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 
 
     //TODO: Add some kind of identifier to goals (eg: lowered case goal name) and use that to filter them
@@ -19,10 +19,7 @@ const Activity = () => {
 
     return (
         <div className={`${styles["logs"]} page`}>
-            <div className="header">
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Activity</h2>
-            </div>
+            <AppHeader title={'Activity'} />
             {/* <div className={styles['toggle-buttons-container']}>
                 <button className={`${styles['toggle-button']} ${currentScreen === 'stats' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('stats')}>Stats</button>
                 <button className={`${styles['toggle-button']} ${currentScreen === 'logs' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('logs')}>Logs</button>
