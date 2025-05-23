@@ -76,10 +76,10 @@
     font-size: 1rem;
     flex-shrink: 0;
 }
-.createWorkoutPage .tagsContainer,
-.createWorkoutPage .equipmentContainer{
+.screen .tagsContainer,
+.screen .equipmentContainer{
     width: 100%;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
     flex-wrap: wrap;
     overflow-x: hidden;
@@ -87,21 +87,19 @@
     gap: 10px;
     flex: 1;
     max-height: calc(100% - 50px);
-    background-color: var(--secondary);
-
 }
-.createWorkoutPage .addedEquipment{
+.screen .addedEquipment{
     width: 100%;
     display: flex;
     padding: 0 10px;
     height: 40px;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--background);
+    background-color: var(--secondary);
     border-radius: 5px;
     flex-shrink: 0;
 }
-.createWorkoutPage .equipmentContainer{
+.screen .equipmentContainer{
     flex-direction: column;
     flex-wrap: nowrap;
 }

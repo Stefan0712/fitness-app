@@ -20,7 +20,7 @@ const CreateExercise: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [reference, setReference] = useState<string>('');
-    const [targetMuscles, settargetMuscles] = useState<TargetGroup[]>([]);
+    const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([]);
     const [difficulty, setDifficulty] = useState<string>('beginner');
     const [tags, setTags] = useState<Tag[]>([]);
     const [equipments, setEquipments] = useState<Equipment[]>([]);

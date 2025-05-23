@@ -56,7 +56,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetMuscles, targetMus
             </div>
             <div className={styles.top}>
                 <div className={styles.selectedMuscles}>
-                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Add} alt="" /></button></div>) : <p>No muscle added</p>}
+                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Close} alt="" /></button></div>) : <p>No muscle added</p>}
                 </div>
             </div>
             <div className={styles.bottom}>

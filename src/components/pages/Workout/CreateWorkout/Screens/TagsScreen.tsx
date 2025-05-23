@@ -14,7 +14,7 @@ const TagsScreen = ({tags, setTags}) => {
             {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null}
                 <button type='button' className={styles.addTagButton} onClick={()=>setShowTagSelector(true)}> Add Tag</button>
             <div className={styles.tagsContainer}>
-                {tags?.length > 0 ? tags.map((item)=><Tag tag={item} key={item.id} removeTag={(tagId)=>setTags(prev => [...prev.filter(item=>item._id !== tagId)])} />) : ''}
+                {tags?.length > 0 ? tags.map((tag)=><Tag tag={tag} key={tag._id} removeTag={()=>setTags(prev => [...prev.filter(item=>item._id !== tag._id)])} />) : ''}
             </div>
         </div>
      );
