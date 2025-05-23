@@ -16,7 +16,7 @@ const Activity = () => {
 
 
     
-
+    // TODO: Fix workout log 
     return (
         <div className={`${styles["logs"]} page`}>
             <AppHeader title={'Activity'} />

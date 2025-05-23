@@ -72,7 +72,7 @@ const ViewWorkout = () => {
 
         return ( 
             <div className={styles.viewExercise}>
-                <AppHeader title={workoutData.name} button={type !== 'online' && type !== 'cached' ? <Link to={`/workout/${workoutData.id}/start`} className={styles.startButton}>Start</Link> : <button onClick={handleSaveWorkout} className={styles.startButton}>Save</button>} />
+                <AppHeader title={workoutData.name} button={type !== 'online' && type !== 'cached' ? <Link to={`/workout/${workoutData._id}/start`} className={styles.startButton}>Start</Link> : <button onClick={handleSaveWorkout} className={styles.startButton}>Save</button>} />
                 <div className={styles.content}>
                     <div className={styles.twoBlocks}>
                         <div className={styles.half}>

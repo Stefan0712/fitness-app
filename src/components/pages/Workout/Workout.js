@@ -1,13 +1,12 @@
 import { formatTime, getFullHour } from "../../../helpers";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary";
 
 import styles from './Workout.module.css';
 import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
-import { saveItem } from "../../../db.js";
+import { getAllItems, getItemById, saveItem } from "../../../db.js";
  
 
 
@@ -15,15 +14,12 @@ import { saveItem } from "../../../db.js";
 
 const Workout = () => {
     const { id, snapshotId } = useParams();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [showExercises, setShowExercises] = useState(false);
     const [showExercisePicker, setShowExercisePicker] = useState(false);
     
-    const workouts = useSelector((state) => state.user.workouts)
-    const [workoutData, setWorkoutData] = useState(workouts.find((item) => item.id === id));
-    const libraryExercises = useSelector((state) => state.user.exercises);
+    const [workoutData, setWorkoutData] = useState(null);
     const [exercises, setExercises] = useState([]);
     const [currentExercise, setCurrentExercise] = useState(null); 
     const [seconds, setSeconds] = useState(0);
@@ -44,18 +40,25 @@ const Workout = () => {
     }, []);
 
 
-
-
+    const getWorkoutData = async () =>{
+        const response = await getItemById('workouts', id);
+        if(response){
+            setWorkoutData(response);
+            console.log('WorkoutData',response)
+        }
+    }
+    useEffect(()=>{
+        getWorkoutData();
+    },[])
 
     useEffect(() => {
-        if(!snapshotId){
+        if(!snapshotId && workoutData){
             setExercises(getExercises());
         }else if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
             const snapshot = snapshots?.workouts?.find(item=>item.snapshotId===snapshotId);
             if(snapshot){
-                const workout = workouts.find(item=>item.id === snapshot.data.workoutId);
-                const newWorkoutData = {...workout, exercises: snapshot.data.exercises};
+                const newWorkoutData = {...workoutData, exercises: snapshot.data.exercises};
                 setWorkoutData(newWorkoutData);
                 setExercises(snapshot.data.exercises)
                 setSeconds(snapshot.duration)
@@ -64,10 +67,11 @@ const Workout = () => {
                 console.log("Snapshot not found")
             }
         }
-    }, []);
+    }, [workoutData]);
+
     useEffect(()=>{
         if(!currentExercise && exercises && exercises.length > 0){
-            setCurrentExercise(exercises[0].id);
+            setCurrentExercise(exercises[0]._id);
         }
         if(workoutData){
             saveProgress();
@@ -81,59 +85,48 @@ const Workout = () => {
 
 
     const getExercises = () => {
-        // Make deep copies of all exercises
-        return workoutData.exercises
-          .map(id => {
-            let exercise = null;
-            // Check the source and make a deep copy of the object
-            const exIndex = libraryExercises.findIndex(item=>item.id === id);
-            exercise = JSON.parse(
-            JSON.stringify(libraryExercises[exIndex])
-            );
-            
-            // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
-            if (exercise) {
-              if (!exercise.completedSets) {
-                exercise.completedSets = 0;
-              }
-
-              // Transform sets property from number to an array to make it easier to track progress of that exercise
-              if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
-                const setsArray = [];
-                for (let i = 0; i < exercise.sets; i++) {
-                  setsArray.push({
-                    order: i + 1,
-                    fields: exercise.fields ? JSON.parse(JSON.stringify(exercise.fields)) : [], // Deep copy of fields array
-                    isCompleted: false,
-                    isSkipped: false,
-                  });
+        
+        const exercises = [];
+        if(workoutData && workoutData.phases?.length > 0){
+            workoutData.phases.map(phase=>{
+                phase.exercises && phase.exercises.length > 0 ? phase.exercises.map(exercise=>{
+                    const newSets = [];
+                    for (let i = 0; i < exercise.sets; i++) {
+                        newSets.push({
+                           order: exercises.length,
+                            fields: exercise.fields ? JSON.parse(JSON.stringify(exercise.fields)) : [], // Deep copy of fields array
+                            isCompleted: false,
+                            isSkipped: false,
+                        });
+                    }
+                    const ex = {
+                        ...exercise,
+                        phaseName: phase.name,
+                        sets: newSets
+                    };
+                    exercises.push(ex);
                 }
-                exercise.sets = setsArray; // Replace the sets number with the array
-              }
-            } else {
-              console.error(`Exercise with id "${id}" not found`);
-            }
-      
-            return exercise || null; // Return null if not found
-          })
-          .filter(Boolean); // Remove null values
-      };
+            ) : console.log("There are no exercises in phase ", phase.name)})
+        }
+        console.log(exercises)
+        return exercises;
+    };
       
 
 
     // Functions to move through exercises
     const prevExercise = () => {
-        const selectedExerciseIndex = exercises.findIndex((obj) => obj.id === currentExercise);
+        const selectedExerciseIndex = exercises.findIndex((obj) => obj._id === currentExercise);
         if (selectedExerciseIndex > 0) {
-            setCurrentExercise(exercises[selectedExerciseIndex - 1].id);
+            setCurrentExercise(exercises[selectedExerciseIndex - 1]._id);
         }
     };
 
     const nextExercise = () => {
         //checks if the current exercise index is not bigger than the last index of the exercises array
-        const selectedExerciseIndex = exercises.findIndex((obj) => obj.id === currentExercise);
+        const selectedExerciseIndex = exercises.findIndex((obj) => obj._id === currentExercise);
         if (selectedExerciseIndex < exercises.length - 1) {
-            setCurrentExercise(exercises[selectedExerciseIndex + 1].id);
+            setCurrentExercise(exercises[selectedExerciseIndex + 1]._id);
         }
     };
     const addExercise = (exercise) =>{
@@ -141,70 +134,77 @@ const Workout = () => {
         setShowExercisePicker(false);
     }
     //finish the workout by saving it as a log and redirrecting the user to he activity page
-    const finishWorkout = () =>{
+    const finishWorkout = async () =>{
         //create the log object that will be saved to the redux store
         const log = {
-            id: uuidv4(),
-            icon: '/icons/workout.svg',
+            _id: uuidv4(),
+            icon: IconLibrary.Workout,
             type: 'workout',
-            name: workoutData.name,
+            title: workoutData.name,
+            timestamp: new Date(),
             data: {
                 duration: formatTime(seconds),
                 finishedAt: getFullHour(),
-                workoutId: workoutData.id,
+                workoutId: workoutData._id,
                 isCompleted: true,
                 targetGroup: workoutData.targetMuscles,
                 name: workoutData.name,
                 difficulty: workoutData.difficulty,
                 description: workoutData.description,
-                exercises: exercises
+                exercises: exercises,
+                tags: workoutData.tags,
+                workoutId: workoutData._id
             }
         }
-        saveItem('logs',log)
+        await saveItem('logs',log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        snapshots.workouts = snapshots.workouts.filter(item => item.snapshotId !== snapshotId);
+        snapshots.workouts = snapshots.workouts.filter(item => item.data.id !== id);
         localStorage.setItem('snapshots', JSON.stringify(snapshots));  
         navigate('/logs');
 
     }
     const getProgress = () =>{
-        const completedExercises = exercises.filter(item=>item.isCompleted).length;
-        const progress = (completedExercises / exercises.length) * 100;
-        return parseFloat(progress.toFixed(2));
+        if(workoutData && exercises){
+            const completedExercises = exercises?.filter(item=>item.isCompleted).length;
+            const progress = (completedExercises / exercises.length) * 100;
+            return parseFloat(progress.toFixed(2));
+        }
     }
     const saveProgress = () =>{
-        const timestamp = new Date().toISOString();
-        const snapshot = {
-            snapshotId: snapshotId || uuidv4(),
-            timestamp,
-            type: 'workout',
-            name: workoutData.name,
-            progress: getProgress(),
-            duration: seconds,
-            data:{
-                workoutId: workoutData.id,
-                exercises: exercises
-            },
-        }
-        let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
-    
-        const existingIndex = snapshots.workouts.findIndex(snap => snap.data.workoutId === workoutData.id);
+        if(workoutData && exercises){
+            const timestamp = new Date().toISOString();
+            const snapshot = {
+                snapshotId: snapshotId || uuidv4(),
+                timestamp,
+                type: 'workout',
+                name: workoutData.name,
+                progress: getProgress(),
+                duration: seconds,
+                data:{
+                    workoutId: workoutData._id,
+                    exercises: exercises
+                },
+            }
+            let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
+        
+            const existingIndex = snapshots.workouts.findIndex(snap => snap.data.workoutId === workoutData._id);
 
-        // If an existing snapshot for the exercise is found, replace it
-        if (existingIndex !== -1) {
-            snapshots.workouts[existingIndex] = snapshot;
-        } else {
-            // If no snapshot exists, just add the new snapshot
-            snapshots.workouts.push(snapshot);
-        }
+            // If an existing snapshot for the exercise is found, replace it
+            if (existingIndex !== -1) {
+                snapshots.workouts[existingIndex] = snapshot;
+            } else {
+                // If no snapshot exists, just add the new snapshot
+                snapshots.workouts.push(snapshot);
+            }
 
-        // Limit to 3 exercise snapshots
-        if (snapshots.workouts.length > 3) {
-            snapshots.workouts.shift(); // Remove the oldest snapshot
-        }
+            // Limit to 3 exercise snapshots
+            if (snapshots.workouts.length > 3) {
+                snapshots.workouts.shift(); // Remove the oldest snapshot
+            }
 
-        // Save the updated snapshots back to localStorage
-        localStorage.setItem('snapshots', JSON.stringify(snapshots));
+            // Save the updated snapshots back to localStorage
+            localStorage.setItem('snapshots', JSON.stringify(snapshots));
+        }
 
     }
 
@@ -212,14 +212,14 @@ const Workout = () => {
         // Create a deep copy of exercises
         const updatedExercises = exercises.map((ex) => {
             // Find the exercise by id
-            if (ex.id === exerciseId) {
+            if (ex._id === exerciseId) {
                 // Find the set by index (setNo)
                 const updatedSets = [...ex.sets]; // Create a shallow copy of the sets
                 const updatedSet = { ...updatedSets[setNo] }; // Copy the specific set
     
                 // Find the field by id and toggle the isCompleted value
                 const updatedFields = updatedSet.fields.map((field) => {
-                    if (field.id === fieldId) {
+                    if (field._id === fieldId) {
                         return { 
                             ...field, 
                             isCompleted: !field.isCompleted, 
@@ -246,12 +246,12 @@ const Workout = () => {
 
     const handleChangeFieldValue = (exerciseId, setNo, fieldId, changeAmount) => {
         const updatedExercises = exercises.map((ex) => {
-            if (ex.id === exerciseId) {
+            if (ex._id === exerciseId) {
                 const updatedSets = [...ex.sets];
                 const updatedSet = { ...updatedSets[setNo] };
     
                 const updatedFields = updatedSet.fields.map((field) => {
-                    if (field.id === fieldId) {
+                    if (field._id === fieldId) {
                         const currentValue = field.value === null ? 0 : field.value;
                         const newValue = Math.max(0, currentValue + changeAmount); // Ensure value doesn't go below 0
                         const shouldComplete = newValue >= field.target;
@@ -286,7 +286,7 @@ const Workout = () => {
     
     const handleAddSet = (exerciseId) =>{
         const updatedExercises = exercises.map((ex) => {
-            if (ex.id === exerciseId) {
+            if (ex._id === exerciseId) {
                 //creates a new set object and appends it to the current exercise sets array
                 return { ...ex, sets: [...ex.sets, {
                     order: ex.sets.length,
@@ -304,7 +304,7 @@ const Workout = () => {
     const toggleSetCompletion = (exerciseId, setNo, value) => {
         // completeAllFields(exerciseId, setNo);
         const updatedExercises = exercises.map((exercise) => {
-            if (exercise.id === exerciseId) {
+            if (exercise._id === exerciseId) {
                 // Find the set by index (setNo)
                 const sets = [...exercise.sets]; // Create a shallow copy of the sets
                 const updatedSets = sets.map((set, index) => {
@@ -330,7 +330,7 @@ const Workout = () => {
     
     const handleCompleteExercise = (exerciseId) =>{
         const updatedExercises = exercises.map((ex) => {
-            if (ex.id === exerciseId) {
+            if (ex._id === exerciseId) {
                 
                 return { ...ex, isCompleted: !ex.isCompleted}; //toggle is completed for this exercise
             }
@@ -373,12 +373,12 @@ const Workout = () => {
                         <div className={styles["exercises-container"]}>
                             {exercises?.map((exercise, index) => (
                                 <div
-                                    className={`${styles["exercise-body"]} ${currentExercise === exercise.id ? styles['selected-exercise'] : ''}`}
+                                    className={`${styles["exercise-body"]} ${currentExercise === exercise._id ? styles['selected-exercise'] : ''}`}
                                     key={index + 'exercise'}
-                                    onClick={() => handleChangeCurrentExercise(exercise.id)}
+                                    onClick={() => handleChangeCurrentExercise(exercise._id)}
                                 >
                                     <p>{exercise.name}</p>
-                                    <input type="checkbox" style={{height: '30px', width: '30px'}} onChange={()=>handleCompleteExercise(exercise.id)} checked={exercises?.find((ex) => ex.id === exercise.id)?.isCompleted}></input>
+                                    <input type="checkbox" style={{height: '30px', width: '30px'}} onChange={()=>handleCompleteExercise(exercise._id)} checked={exercises?.find((ex) => ex._id === exercise._id)?.isCompleted}></input>
                                 </div>
                             ))}
                         </div>  
@@ -386,13 +386,13 @@ const Workout = () => {
                     ) : null}
                 <div className={styles['current-exercise']}>
                         <div className={styles["current-exercise-header"]}>
-                            <h3>{exercises?.find((ex) => ex.id === currentExercise)?.name}</h3>
+                            <h3>{exercises?.find((ex) => ex._id === currentExercise)?.name}</h3>
                             <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
                                 <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
                             </button>
                         </div>
                         <div className={styles['sets-container']}>
-                            {exercises?.find((ex) => ex.id === currentExercise)?.sets.map((item, index)=>(
+                            {exercises?.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
                                 <div className={`${styles.set} ${extendedMode ? '' : styles['simplified-set']} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
                                     <div className={styles['set-top']}>
                                         <p className={styles['set-title']}>{`Set ${index+1}`}</p>
@@ -400,14 +400,14 @@ const Workout = () => {
                                     </div>
                                     {extendedMode ? <div className={styles['set-fields']}>
                                         {item?.fields?.map((field)=>(
-                                            <div className={styles["field"]} key={field.id}>
+                                            <div className={styles["field"]} key={field._id}>
                                                 <p className={styles["field-name"]}>{field.name}</p>
                                                 <div className={styles["field-input"]}>
-                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
+                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field._id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
                                                     <p>{field.value || 0}/{field.target|| field.targetValue || 0}</p>
-                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
+                                                    <button onClick={()=>handleChangeFieldValue(currentExercise, index, field._id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
                                                 </div>
-                                                <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field.id)}></input>
+                                                <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(currentExercise, index, field._id)}></input>
                                             </div>
                                         ))}
                                     </div> : null}
