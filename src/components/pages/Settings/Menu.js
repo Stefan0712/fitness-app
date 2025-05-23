@@ -24,36 +24,34 @@ const Settings = ({closeSettings}) => {
     };
     
     return ( 
-        <div className={styles["menu-page"]}>
-            <div className={styles.header}>
-                <img onClick={closeSettings} src={IconLibrary.Arrow} style={{transform: 'rotateX(180deg)'}} alt='close settings'></img>
-                <h1>Menu</h1>
+        <div className={styles.sideMenu}>
+            <div className={styles.top}>
+                <img className={styles.profileImage} src={IconLibrary.ProfilePlaceholder} alt='' /> 
+                <fiv className={styles.userInfo}>
+                    <h3>{localStorage.getItem('username')}</h3>
+                    <p>{localStorage.getItem('role')}</p>
+                </fiv>
+                <Link onClick={closeSettings} to={'/settings'}><img className={styles.menuIcon} src={IconLibrary.Settings} alt='' /></Link>
             </div>
             <div className={styles.container}>
-                <button className={styles.setting} onClick={toggleFullscreen}>
-                    <p>Toggle Fullscreen</p>
-                </button>
-                <button className={`${styles.setting} ${noSleep.enabled ? styles['enabled-awake-button'] : ''}`} onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
-                    <p>{`${noSleep.enabled ? 'Screen Awake' : 'Screen Awake'}`}</p>
-                </button>
-                <h3 className={styles.category}>Personal</h3>
-                <Link onClick={closeSettings} to={'/profile'}>Profile </Link>
-                <Link onClick={closeSettings} to={'/edit-profile'}>Edit Profile </Link>
-                {/* <Link to={'/'}>Bookmarks</Link> */}
-                {/* <Link to={'/'}>My Posts</Link> */}
-                <h3 className={styles.category}>Custom Items</h3>
-                <Link onClick={closeSettings} to={'/'}>Equipment </Link>
-                <Link onClick={closeSettings} to={'/'}>Tags </Link>
-                <Link onClick={closeSettings} to={'/default-fields'}>Default Fields</Link>
-                <h3 className={styles.category}>Explore</h3>
-                <Link onClick={closeSettings} to={'/explore'}>Workouts</Link>
-                <Link onClick={closeSettings} to={'/explore'}>Exercises</Link>
-                {/* <Link to={'/'}>Guides</Link> */}
-                <h3 className={styles.category}>More</h3>
-                <Link onClick={closeSettings} to={'/settings'}>App Settings</Link>
-                <Link onClick={closeSettings} to={'/about'}>About</Link>
-                {isLoggedIn ? <button className={styles.setting} onClick={logoutUser}>Logout</button> : <Link to={'/auth'} className={styles.setting} >Login</Link>}
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/profile'}><img className={styles.menuIcon} src={IconLibrary.Profile} alt='' /> Profile</Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/'}><img className={styles.menuIcon} src={IconLibrary.Equipment} alt='' /> Equipment </Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/'}><img className={styles.menuIcon} src={IconLibrary.Tags} alt='' /> Tags </Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/default-fields'}><img className={styles.menuIcon} src={IconLibrary.Fields} alt='' /> Fields</Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/about'}><img className={styles.menuIcon} src={IconLibrary.Help} alt='' /> Help</Link>
+                {isLoggedIn ? <button className={styles.menuButton} onClick={logoutUser}><img className={styles.menuButton} src={IconLibrary.Logout} alt='' /> Logout</button> : <Link to={'/auth'} className={styles.authButton}> Login<img className={styles.settingButtonIcon} src={IconLibrary.Login} alt='' /></Link>}
             </div>
+           <div className={styles.bottom}>
+                <button className={'clear-button'} onClick={toggleFullscreen}>
+                    <img src={IconLibrary.EnableFullscreen} style={{width: '30px', height: '30px'}} alt='toggle fullscreen' />
+                </button>
+                <button className='clear-button' onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
+                    <img src={noSleep.enabled ? IconLibrary.EnabledAwake : IconLibrary.DisabledAwake} style={{width: '30px', height: '30px'}} alt='toggle keep screen awake' />
+                </button>
+                <button className={`clear-button ${styles.closeButton}`} onClick={closeSettings}>
+                    <img src={IconLibrary.BackArrow} style={{width: '30px', height: '30px'}} alt='close menu' />
+                </button>
+           </div>
         </div>
      );
 }

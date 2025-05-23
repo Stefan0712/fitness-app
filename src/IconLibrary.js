@@ -39,7 +39,8 @@ import Previous from './assets/previous.svg';
 import Pause from './assets/pause.svg';
 import Plus from './assets/plus.svg';
 import PlusCircle from './assets/plus-circle.svg';
-import Profile from './assets/profile.svg';
+import Profile from './assets/profileIcon.svg';
+import ProfilePlaceholder from './assets/profile-placeholder.png';
 import Restart from './assets/restart.svg';
 import Sleep from './assets/sleep.svg';
 import Start from './assets/start.svg';
@@ -65,8 +66,25 @@ import Hide from './assets/hide.svg';
 import EnableFullscreen from './assets/enableFullscreen.svg';
 import DisableFullscreen from './assets/disableFullscreen.svg';
 import Log from './assets/log.svg';
+import Login from './assets/login.svg';
+import Logout from './assets/logout.svg';
+import Equipment from './assets/equipment.svg';
+import Tags from './assets/tags.svg';
+import Fields from './assets/inputField.svg';
+import Help from './assets/help.svg';
+import EnabledAwake from './assets/enabledScreenWake.svg';
+import DisabledAwake from './assets/disabledScreenWake.svg';
 
 export const IconLibrary = {
+    ProfilePlaceholder,
+    Equipment,
+    Fields,
+    Tags,
+    Help,
+    EnabledAwake,
+    DisabledAwake,
+    Login,
+    Logout,
     Log,
     Play,
     InfoCircle,
