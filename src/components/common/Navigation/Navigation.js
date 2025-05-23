@@ -78,14 +78,14 @@ const Navigation = () => {
                     <p>Home</p>
                 </Link>
                 <Link to='/library' onClick={closeAll}  className={styles['nav-button']}>
-                    <img src={IconLibrary.List} alt=''></img>
+                    <img src={IconLibrary.Library} alt=''></img>
                     <p>Library</p>
                 </Link>
                 <button type='button' className={`${styles['nav-button']} ${styles.center}`} onClick={()=>setShowQuickmenu(!showQuickmenu)}>
                     <img src={showQuickmenu ? IconLibrary.Close : IconLibrary.Add} alt='' />
                 </button>
                 <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
-                    <img src={IconLibrary.Clipboard} alt=''></img>
+                    <img src={IconLibrary.Activity} alt=''></img>
                     <p>Activity</p>
                 </Link>
                 <button onClick={()=>setShowSettings(prev=>!prev)} className={styles['nav-button']}>

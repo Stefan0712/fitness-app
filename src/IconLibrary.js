@@ -74,8 +74,12 @@ import Fields from './assets/inputField.svg';
 import Help from './assets/help.svg';
 import EnabledAwake from './assets/enabledScreenWake.svg';
 import DisabledAwake from './assets/disabledScreenWake.svg';
+import Library from './assets/library.svg';
+import Activity from './assets/activity.svg';
 
 export const IconLibrary = {
+    Activity,
+    Library,
     ProfilePlaceholder,
     Equipment,
     Fields,
