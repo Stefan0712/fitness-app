@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { IconLibrary } from '../../../IconLibrary';
 import { formatTime, getFullHour } from '../../../helpers';
 import { v4 as uuidv4 } from 'uuid';
-import { getAllItems, getItemById, saveItem } from '../../../db.js';
+import { getItemById, saveItem } from '../../../db.js';
 import { getDateForHeader } from '../../../helpers';
  
 
@@ -14,24 +14,26 @@ const Exercise = () => {
     const {id, snapshotId} = useParams(); //get the id of the exercise from url
     const navigate = useNavigate();
 
-    const [libraryExercises, setLibraryExercises] = useState([])
     const [originalExercise, setOriginalExercise] = useState();
     const [seconds, setSeconds] = useState(0); //the exercise timer
     const [currentSet, setCurrentSet] = useState(0); //tracks the current selected set
     const [exerciseData, setExerciseData] = useState(null); //here will be stored the formated original exercise
 
-    const getLibraryExercises = async () => {
-        const exercises = await getAllItems('exercises');
-        if(exercises){
-            setLibraryExercises(exercises);
-        }
-    }
-    useEffect(()=>{getLibraryExercises()},[])
     const getExerciseData = async () => {
-        const exercises = await getItemById('exercises', id);
-        if(exercises){
+        console.log(id)
+        if(snapshotId){
+            const exercises = await getItemById('exercises', snapshotId);
+            if(exercises){
             setOriginalExercise(exercises);
         }
+        }else{
+            const exercises = await getItemById('exercises', id);
+            if(exercises){
+            setOriginalExercise(exercises);
+        }
+        }
+        
+        
     }
     useEffect(()=>{getExerciseData()},[])
 
@@ -46,7 +48,7 @@ const Exercise = () => {
     }, []);
 
     useEffect(()=>{
-        if(!snapshotId){
+        if(!snapshotId && originalExercise){
             setExerciseData(formatExercise()); //makes sure to format the exercise on first render
         }else if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
@@ -59,7 +61,7 @@ const Exercise = () => {
                 console.log("Snapshot not found")
             }
         }
-    },[])
+    },[originalExercise])
     useEffect(()=>{
         if(exerciseData){
             console.log("Progress Saved");
@@ -101,23 +103,29 @@ const Exercise = () => {
     };
 
 
-    const finishExercise = () =>{
+    const finishExercise = async () =>{
         //create the log object that will be saved to the redux store
         const log = {
-            id: uuidv4(),
+            _id: uuidv4(),
             icon: IconLibrary.Exercise,
             type: 'exercise',
             title: exerciseData.name,
+            timestamp: new Date(),
             data: {
-                duration: formatTime(seconds),
                 finishedAt: getFullHour(),
-                ...exerciseData, 
+                duration: formatTime(seconds),
+                exerciseId: exerciseData._id,
+                name: exerciseData.name,
+                targetMuscles: exerciseData.targetMuscles,
+                fields: exerciseData.fields,
+                sets: exerciseData.sets,
+                tags: exerciseData.tags
                 
             }
         }
-        saveItem('logs', log)
+        await saveItem('logs', log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        snapshots.exercises = snapshots.exercises.filter(item => item.snapshotId !== snapshotId);
+        snapshots.exercises = snapshots.exercises.filter(item => item.data._id !== id);
         localStorage.setItem('snapshots', JSON.stringify(snapshots));        
         navigate('/logs');
     }

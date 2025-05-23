@@ -128,14 +128,14 @@ export interface Workout {
     isEnabled?: boolean,
   }
   export interface ExerciseLog{
-    
-    name: string,
-    time: string,
-    targetMuscles: TargetGroup[],
+    exerciseId: string,
     duration: number,
+    name: string,
+    finishedAt: string,
+    targetMuscles: TargetGroup[],
     fields: Field[],
-    sets: number,
-    
+    sets: Set[],
+    tags: Tag[],
   }
   export interface FoodLog{
       name: string,
