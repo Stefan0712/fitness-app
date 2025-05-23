@@ -1,6 +1,6 @@
 .default-fields{
     width: 100vw;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 60px);
     padding: 10px;
     display: flex;
     flex-direction: column;

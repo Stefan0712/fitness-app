@@ -58,7 +58,7 @@
         height: 0;
     }
     100%{
-        height: calc(100vh - 75px);
+        height: calc(100vh - 60px);
     }
 }
 

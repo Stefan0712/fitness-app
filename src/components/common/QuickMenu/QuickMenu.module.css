@@ -1,6 +1,6 @@
 .quick-menu{
     width: 100vw;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 60px);
     position: fixed;
     bottom: 75px;
     left: 0px;

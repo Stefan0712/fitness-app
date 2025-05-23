@@ -82,7 +82,7 @@ fieldset{
   
   .page{
     background-color: #111214;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 60px);
     overflow-y: auto;
     width: 100vw;
     padding: 20px 15px;

@@ -4,7 +4,7 @@
 
 
 .create-workout-page{
-    height: calc(100vh - 75px);
+    height: calc(100vh - 60px);
     position: relative;
 }
 .create-workout-page form{

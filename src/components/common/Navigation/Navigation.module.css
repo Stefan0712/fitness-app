@@ -1,6 +1,6 @@
 nav{
     width: 100vw;
-    height: 75px;
+    height: 60px;
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -30,7 +30,7 @@ nav{
     text-decoration: none;
     background-color: transparent;
     border: none;
-    font-size: 14px;
+    font-size: 12px;
   }
   .nav-button p{
     color: rgba(255, 255, 255, 0.75);
@@ -40,6 +40,7 @@ nav{
     border-radius: 100%;
     width: 50px;
     height: 50px;
+    transform: translateY(-20px);
   }
   .nav-button.center img{
     width: 30px;
