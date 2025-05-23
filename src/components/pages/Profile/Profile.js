@@ -1,7 +1,8 @@
-import { getDateForHeader } from "../../../helpers";
 import { useSelector } from "react-redux";
 import './profile.css';
 import { IconLibrary } from "../../../IconLibrary";
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
+import { Link } from "react-router-dom";
 
 
 
@@ -19,13 +20,11 @@ const Profile = () => {
 
     return ( 
         <div className="profile-page page">
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Profile</h2>
-            </div>
+            <AppHeader title="Profile" button={<Link style={{textDecoration: 'none'}} to={'/edit-profile'}><img className="small-icon" src={IconLibrary.Edit} alt="edit profile" /></Link>} />
             
-            <img className="profile-image" src={IconLibrary.Profile}></img>
-            <h2 className="profile-name">{userData.name ? userData.name : 'Not Set'}</h2>
+            <img className="profile-image" src={IconLibrary.ProfilePlaceholder}></img>
+            <h2 className="profile-name">{userData.name || userData.username || 'Name not set'}</h2>
+            <p className="profile-bio">{userData.bio ? userData.bio : 'Bio not set'}</p>
             <div className="profile-info">
                 
                 <div className="user-info">
@@ -47,7 +46,7 @@ const Profile = () => {
                         <h3>{userData.weight ? userData.weight : 'Not Set'}</h3>
                     </div>
                 </div>
-                <p className="profile-bio">{userData.bio ? userData.bio : 'Bio not set'}</p>
+                
 
                 
                 

@@ -6,6 +6,7 @@ import styles from './Profile.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/index.ts";
 import React from "react";
+import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 
 
 interface Badges {
@@ -80,11 +81,7 @@ const EditProfile = () => {
 
     return ( 
         <div className={styles['edit-profile']}>
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Edit Profile</h2>
-                <button className={styles['save-button']} onClick={handleSaveProfile}>Save</button>
-            </div>
+            <AppHeader title={'Edit profile'} button={<button className={styles['save-button']} onClick={handleSaveProfile}>Save</button>} />
             <form className={styles["edit-profile-form"]}>
                     <fieldset className={styles.half}>
                         <label>Name</label>
