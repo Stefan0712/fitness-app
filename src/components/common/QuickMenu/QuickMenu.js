@@ -7,19 +7,25 @@ const QuickMenu = ({openGoals, openExerciseLogs, openFoodLogs, }) => {
 
     return ( 
         <div className={styles["quick-menu"]}>  
-            <h3 className={styles.header}>Log</h3>           
-            <div className={styles.buttons}>
-                <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
-                    <img src={IconLibrary.Food} alt=''></img>
-                    <p>Food</p>
+            <div className={styles.menuBg}></div>
+            <div className={styles.buttonsContainer}>
+                <button id='thirdButton' className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
+                    <p>Log Food</p>
+                    <div className={styles.iconBg}>
+                        <img src={IconLibrary.Food} alt=''></img>
+                    </div>
                 </button>
-                <button className={styles['quick-button']} onClick={openExerciseLogs} key={'exercise'}>
-                    <img src={IconLibrary.Exercise} alt=''></img>
-                    <p>Exercise</p>
+                <button id='secondButton' className={styles['quick-button']} onClick={openExerciseLogs} key={'exercise'}>
+                    <p>Log Activity</p>
+                    <div className={styles.iconBg}>
+                        <img src={IconLibrary.Exercise} alt=''></img>
+                    </div>
                 </button>
-                <button className={styles['quick-button']} onClick={openGoals} key={'goals'}>
-                    <img src={IconLibrary.Goals} alt=''></img>
-                    <p>Goal</p>
+                <button id='firstButton' className={styles['quick-button']} onClick={openGoals} key={'goals'}>
+                    <p>Log Goal</p>
+                    <div className={styles.iconBg}>
+                        <img src={IconLibrary.Goals} alt=''></img>
+                    </div>
                 </button> 
             </div>
         </div>

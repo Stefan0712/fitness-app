@@ -1,63 +1,87 @@
 .quick-menu{
-    width: 100%;
-    height: 170px;
+    width: 100vw;
+    height: calc(100vh - 75px);
     position: fixed;
     bottom: 75px;
     left: 0px;
     display: flex;
     flex-direction: column;
     z-index: 15;
-    border-radius: 5px;
     animation: quickMenuOpenUp 0.2s;
-    gap: 10px;
     overflow: hidden;
-    background-color: #1A1A1B;
-    border-top: 1px solid var(--general-border);
 }
-.quick-menu .buttons{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.quick-menu .header{
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-}
-
-.quick-menu .quick-button{
-    width: 25%;
-    height: 100px;
-    padding: 0 15px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: var(--quick-menu-button-text);
-    align-items: center;
-    justify-content: center;
-    background-color: var(--quick-menu-button-background);
-    border: none;
-
-}
-.quick-menu .close-button{
-    font-size: 20px;
-}
-.quick-menu .quick-button p{
-    font-size: 20px;
-    font-weight: 500;
-}
-.quick-menu .quick-button img{
+.quick-menu img{
     width: 30px;
     height: 30px;
 }
+.quick-menu .menuBg{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 16;
+}
+.quick-menu .buttonsContainer{
+    z-index: 20;
+    margin-top: auto;
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 20px;
+}
+
+.quick-menu .quick-button{
+    width: 80%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0 20px;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    animation: slideFromRight 0.2s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+.quick-button .iconBg{
+    width: 50px;
+    height: 50px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid rgba(211, 211, 211, 0.1);
+}
+.quick-button:nth-child(1){
+    animation-delay: 300ms;
+}
+.quick-button:nth-child(2){
+    animation-delay: 200ms;
+}
+.quick-button:nth-child(3){
+    animation-delay: 100ms;
+}
 
 
-
+@keyframes slideFromRight {
+    from{
+        transform: translatey(10px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+}
 
 @keyframes quickMenuOpenUp {
     from{
