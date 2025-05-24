@@ -183,7 +183,6 @@ export interface Workout {
     value: number
   }
   export interface InitialStateObject {
-    userId: string,
     userData: {
       firstRun: string,
       name?: string,

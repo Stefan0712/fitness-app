@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { InitialStateObject } from '../components/common/interfaces';
 
 const initialState: InitialStateObject = {
-  userId: uuidv4(),
   userData: {
     firstRun: 'true',
     name: '',
@@ -42,7 +41,6 @@ const initialState: InitialStateObject = {
     language: 'en',
     unitSystem: 'metric',
   },
-  message: null,
   dashboardSections: [
     {type: 'goal', order: 1, identifier: 'bc8d7239-4396-4cc9-b052-6105e3728a15'},
     {type: 'goal', order: 2, identifier: '3d629850-384e-4adf-95f8-6c8209c3fe1f'},
@@ -61,7 +59,7 @@ const userSlice = createSlice({
       const newUserData = {
         ...state.userData,
         ...newData,
-        id: uuidv4(),
+        _id: uuidv4(),
         firstRun: false,
         createdAt: getCurrentDay(),
         

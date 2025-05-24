@@ -5,12 +5,16 @@ import axios from 'axios';
 import Logo from '../../../assets/logo.png';
 import { updateProfileOnLogin } from "../../../store/userSlice.ts";
 import { useDispatch } from "react-redux";
+import { useUI } from "../../../context/UIContext.jsx";
+import AppHeader from "../../common/AppHeader/AppHeader.tsx";
+import { makeFirstUpperCase } from "../../../helpers.js";
 
 
 const Auth = () =>{
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {showMessage} = useUI();
     
 
 
@@ -22,17 +26,13 @@ const Auth = () =>{
     const [errors, setErrors] = useState<string[]>([]);
 
 
-    const showMessage = (message, type) =>{
-        setErrors(prev=>[...prev, message]);
-    }
-
     const login = () =>{
         if(!username || username.length === 0){
-            setErrors(prev=>[...prev,'Username cannot be empty']);
+            showMessage('Username cannot be empty', 'error');
 
         }
         if(!password || password.length === 0){
-            setErrors(prev=>[...prev,'Password cannot be empty']);
+           showMessage('Password cannot be empty', 'error');
         }
         if(password && password.length>0 && username && username.length > 0){
             handleLogin();
@@ -44,11 +44,10 @@ const Auth = () =>{
             const loginData = {username, password};
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData,{ withCredentials: true })
             const user = response.data.user;
-            if (user?.id && user?.username && user?.role) {
+            if (user && user._id && user.username && user.role) {
                 localStorage.setItem("userId", user.id);
                 localStorage.setItem("username", user.username);
                 localStorage.setItem("role", user.role);
-                localStorage.setItem("token", response.data.token)
                 
                 // Double-check if they were saved correctly
                 const savedId = localStorage.getItem("userId");
@@ -58,8 +57,7 @@ const Auth = () =>{
                 if (savedId && savedUsername && savedRole) {
                     showMessage('Logged in successfuly','success');
                     dispatch(updateProfileOnLogin(response.data.profileData));
-                    console.log(response.data.profileData)
-                    navigate("/profile");
+                    navigate("/sync");
                 } else {
                     showMessage('Something went wrong!','error');
                 }
@@ -82,19 +80,18 @@ const Auth = () =>{
 
     }
     const handleRegister = () =>{
-        console.log('register');
+        showMessage('This should register you but it does not work right now :(');
+
     }
-
-
     return (
         <div className={styles.authPage}>
+            <AppHeader title={makeFirstUpperCase(currentScreen)} />
             <div className={styles.top}>
                 <img className={styles.logo} src={Logo} alt="logo"></img>
                 <h2>EasyFit</h2>
             </div>
             {currentScreen === 'login' ? 
                 <form className={`${styles['auth-form']} ${`styles.login`}`}>
-                    <h2>Login</h2>
                     <fieldset>
                         <label>Username</label>
                         <input type="string" name="username" id="username" onChange={(e)=>setUsername(e.target.value)} value={username} required></input>
@@ -108,7 +105,6 @@ const Auth = () =>{
 
                 </form> 
                 : currentScreen === 'register' ? <form className={`${styles['auth-form']} ${`styles.register`}`}>
-                <h2>Register</h2>
                 <fieldset>
                     <label>Username</label>
                     <input type="string" name="username" id="username" onChange={(e)=>setUsername(e.target.value)} value={username} required></input>
