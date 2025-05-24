@@ -6,6 +6,7 @@ import IconPicker from '../../IconPicker/IconPicker.tsx';
 import DeletePrompt from './DeletePrompt.tsx';
 import { Goal } from '../../interfaces.ts';
 import { saveItem } from '../../../../db.js';
+import { useUI } from '../../../../context/UIContext.jsx';
 
 
 interface EditParams {
@@ -15,6 +16,8 @@ interface EditParams {
 }
 const Edit: React.FC<EditParams> = ({goalData, closeEdit, refreshLogData}) => {
 
+
+    const {showMessage} = useUI();
     const [name, setName] = useState<string>(goalData.name || '');
     const [unit, setUnit] = useState<string>(goalData.unit || '');
     const [target, setTarget] = useState<number>(goalData.target || 0);
@@ -37,7 +40,8 @@ const Edit: React.FC<EditParams> = ({goalData, closeEdit, refreshLogData}) => {
                 icon: goalData.icon
             }
             console.log(newData);
-            await saveItem('goals', newData)
+            await saveItem('goals', newData);
+            showMessage("Goal updated successfully", 'success');
             closeEdit();
             refreshLogData();
         }

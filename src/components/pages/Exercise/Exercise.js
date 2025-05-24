@@ -6,6 +6,7 @@ import { formatTime, getFullHour } from '../../../helpers';
 import { v4 as uuidv4 } from 'uuid';
 import { getItemById, saveItem } from '../../../db.js';
 import { getDateForHeader } from '../../../helpers';
+import { useUI } from '../../../context/UIContext.jsx';
  
 
 
@@ -13,6 +14,7 @@ const Exercise = () => {
 
     const {id, snapshotId} = useParams(); //get the id of the exercise from url
     const navigate = useNavigate();
+    const {showMessage} = useUI();
 
     const [originalExercise, setOriginalExercise] = useState();
     const [seconds, setSeconds] = useState(0); //the exercise timer
@@ -20,20 +22,21 @@ const Exercise = () => {
     const [exerciseData, setExerciseData] = useState(null); //here will be stored the formated original exercise
 
     const getExerciseData = async () => {
-        console.log(id)
         if(snapshotId){
             const exercises = await getItemById('exercises', snapshotId);
             if(exercises){
-            setOriginalExercise(exercises);
-        }
+                setOriginalExercise(exercises);
+            }else{
+                showMessage("Failed to get snapshot", 'error');
+            }
         }else{
             const exercises = await getItemById('exercises', id);
             if(exercises){
-            setOriginalExercise(exercises);
+                setOriginalExercise(exercises);
+            }else{
+                showMessage("Failed to get exercise data", 'error');
+            }
         }
-        }
-        
-        
     }
     useEffect(()=>{getExerciseData()},[])
 
@@ -57,8 +60,9 @@ const Exercise = () => {
             if(snapshot){
                 setExerciseData(snapshot.data);
                 setSeconds(snapshot.duration);
+                showMessage("Snapshot restored", 'success');
             }else{
-                console.log("Snapshot not found")
+                showMessage("Snapshot not found", 'error')
             }
         }
     },[originalExercise])
@@ -126,7 +130,8 @@ const Exercise = () => {
         await saveItem('logs', log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
         snapshots.exercises = snapshots.exercises.filter(item => item.data._id !== id);
-        localStorage.setItem('snapshots', JSON.stringify(snapshots));        
+        localStorage.setItem('snapshots', JSON.stringify(snapshots));    
+        showMessage("Exercise finished", 'success');    
         navigate('/logs');
     }
     const saveProgress = () =>{

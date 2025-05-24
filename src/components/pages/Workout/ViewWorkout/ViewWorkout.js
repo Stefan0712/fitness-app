@@ -7,6 +7,7 @@ import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { getItemById, saveItem, deleteItem } from '../../../../db.js';
 import AppHeader from '../../../common/AppHeader/AppHeader.tsx';
+import { useUI } from '../../../../context/UIContext.jsx';
 
 
 const ViewWorkout = () => {
@@ -17,6 +18,7 @@ const ViewWorkout = () => {
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
     const navigate = useNavigate();
+    const {showConfirmationModal, showMessage} = useUI();
    
 
     const [workoutData, setWorkoutData] = useState(null);
@@ -26,6 +28,7 @@ const ViewWorkout = () => {
     
 
     const handleDeleteWorkout = async () =>{
+        showMessage("Workout deleted successfully", 'confirm')
         await deleteItem('workouts', id)
         navigate('/library');
     }   
@@ -34,39 +37,34 @@ const ViewWorkout = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/workout/${id}`,{ withCredentials: true });
             if(response.data){
                 setWorkoutData(response.data);
-                
-                console.log(response.data)
             }
         }catch(error){
-            console.error(error)
+            console.error(error);
+            showMessage("Failed to fetch workout data", "error");
         }
     }
     useEffect(()=>{
         if(type && type === 'online'){
-            console.log("Online workout")
             fetchWorkout();
         }else if(type === 'cached'){
             getWorkoutFromDb('cachedWorkouts');
-            console.log("Cached version of this workout");
+            showMessage("Restored cached workout data")
         }
         else{
-            console.log("Offline workout")
             getWorkoutFromDb('workouts');
         }
     },[]);
 
     const getWorkoutFromDb = async (source) =>{
         const workout = await getItemById(source, id);
-        setWorkoutData(workout)
-        console.log(workout, id)
+        setWorkoutData(workout);
     }
     const handleSaveWorkout = async () =>{
         if(type === 'online'){
             await saveItem('workouts', {...workoutData, sourceId: workoutData._id, _id: uuidv4()})
             navigate('/library');
-            console.log("Workout saved to library")
+            showMessage("Workout saved to library", "success");
         }
-        
     }
     if(workoutData){
 
@@ -169,7 +167,7 @@ const ViewWorkout = () => {
                     </div>
                     {(userId === workoutData.author._id) || type !=='online' ? 
                         <div className={styles.bottomButtons}>
-                            <button className={styles.exerciseButton} onClick={handleDeleteWorkout}>Delete</button>
+                            <button className={styles.exerciseButton} onClick={()=>showConfirmationModal({title: "Delete workout?", message: "Delete workout from your library? This cannot be undone.", onConfirm: handleDeleteWorkout})}>Delete</button>
                             <Link className={styles.exerciseButton} to={`/workout/${workoutData._id}/edit`}>Edit</Link> 
                         </div> 
                     : null}

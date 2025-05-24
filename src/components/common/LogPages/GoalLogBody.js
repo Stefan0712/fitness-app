@@ -3,14 +3,17 @@ import {getHourFromTimestamp, makeDateNice} from '../../../helpers';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { deleteItem } from '../../../db';
+import { useUI } from '../../../context/UIContext';
 
 const GoalLogBody = ({log, refreshLogs}) => {
 
 
     const [showDeleteButton, setShowDeleteButton] = useState(false);
+    const {showMessage} = useUI();
 
     const handleDelete = async () =>{
         await deleteItem('logs', log._id);
+        showMessage("Log deleted successfully", 'success');
         refreshLogs();
     }
     return ( 

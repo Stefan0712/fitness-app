@@ -10,6 +10,7 @@ import History from './History/History.tsx';
 
 import styles from './FoodLog.module.css';
 import { FoodLog as IFoodLog } from "../interfaces.ts";
+import { useUI } from "../../../context/UIContext.jsx";
 
 
 
@@ -23,7 +24,7 @@ interface FoodLogProps {
 const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
 
     
-    const dispatch = useDispatch();
+    const {showMessage} = useUI();
     
     const [currentScreen, setCurrentScreen] = useState<string>('log')
 
@@ -76,7 +77,8 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                 notes
             }
         }
-        saveItem('logs', data)
+        saveItem('logs', data);
+        showMessage("Food logged successfully", "success");
         closeMenu();
     }
     return ( 

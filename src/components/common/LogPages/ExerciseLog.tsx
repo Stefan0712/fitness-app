@@ -3,10 +3,11 @@ import styles from './ExerciseLogs.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary";
 import React from "react";
-import { BaseLog, ExerciseLog as IExerciseLog, Field as IField, TargetGroup } from "../interfaces.ts";
+import { BaseLog, Field as IField, TargetGroup } from "../interfaces.ts";
 import FieldsScreen from '../../pages/Exercise/Screens/FieldsScreen/FieldsScreen.tsx';
 import MuscleSelector from '../../common/MuscleSelector/MuscleSelector.tsx';
 import {saveItem} from '../../../db.js';
+import { useUI } from "../../../context/UIContext.jsx";
 
 
 interface ExerciseLogProps {
@@ -23,6 +24,8 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     const [sets, setSets] = useState<string>('');
     const [fields, setFields] = useState<IField[]>([])
 
+
+    const {showMessage} = useUI();
 
 
     const getCurrentTime = () => {
@@ -51,7 +54,8 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
                     fields
                 }
             }
-            await saveItem('logs', data)
+            await saveItem('logs', data);
+            showMessage("Exercise logged successfully", 'success');
             closeMenu();
         }
     }

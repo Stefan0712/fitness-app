@@ -7,6 +7,7 @@ import { IconLibrary } from "../../../IconLibrary";
 import styles from './Workout.module.css';
 import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
 import { getAllItems, getItemById, saveItem } from "../../../db.js";
+import { useUI } from "../../../context/UIContext.jsx";
  
 
 
@@ -15,6 +16,7 @@ import { getAllItems, getItemById, saveItem } from "../../../db.js";
 const Workout = () => {
     const { id, snapshotId } = useParams();
     const navigate = useNavigate();
+    const {showMessage} = useUI();
 
     const [showExercises, setShowExercises] = useState(false);
     const [showExercisePicker, setShowExercisePicker] = useState(false);
@@ -45,6 +47,8 @@ const Workout = () => {
         if(response){
             setWorkoutData(response);
             console.log('WorkoutData',response)
+        }else{
+            showMessage("Failed to get workout data", 'error');
         }
     }
     useEffect(()=>{
@@ -63,8 +67,9 @@ const Workout = () => {
                 setExercises(snapshot.data.exercises)
                 setSeconds(snapshot.duration)
                 setSeconds(snapshot.duration);
+                showMessage("Workout restored successfully", 'success');
             }else{
-                console.log("Snapshot not found")
+                showMessage("Snapshot not found","error")
             }
         }
     }, [workoutData]);
@@ -108,7 +113,6 @@ const Workout = () => {
                 }
             ) : console.log("There are no exercises in phase ", phase.name)})
         }
-        console.log(exercises)
         return exercises;
     };
       
@@ -132,6 +136,7 @@ const Workout = () => {
     const addExercise = (exercise) =>{
         setExercises(exercises=>[...exercises, exercise]);
         setShowExercisePicker(false);
+        showMessage("Exercise added", 'success');
     }
     //finish the workout by saving it as a log and redirrecting the user to he activity page
     const finishWorkout = async () =>{
@@ -156,7 +161,8 @@ const Workout = () => {
                 workoutId: workoutData._id
             }
         }
-        await saveItem('logs',log)
+        await saveItem('logs',log);
+        showMessage("Workout finished successfully", 'success');
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
         snapshots.workouts = snapshots.workouts.filter(item => item.data.id !== id);
         localStorage.setItem('snapshots', JSON.stringify(snapshots));  
@@ -299,6 +305,7 @@ const Workout = () => {
         });
     
         setExercises(updatedExercises);
+        showMessage("Added a new set", 'success');
     }
     
     const toggleSetCompletion = (exerciseId, setNo, value) => {

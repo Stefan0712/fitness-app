@@ -3,6 +3,7 @@ import styles from './Log.module.css';
 import React from "react";
 import { BaseLog, Goal } from "../../interfaces.ts";
 import { saveItem } from "../../../../db.js";
+import { useUI } from "../../../../context/UIContext.jsx";
 
 interface LogGoalProps {
     goalData: Goal;
@@ -10,6 +11,8 @@ interface LogGoalProps {
 }
 
 const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
+
+    const { showMessage } = useUI();
 
     const todayDate = new Date();
 
@@ -45,7 +48,8 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
                     date
                 }
             }
-            await saveItem('logs', data)
+            await saveItem('logs', data);
+            showMessage("Goal logged successfully", 'success');
             setInputValue(0);
             setName('');
             setDescription('');
