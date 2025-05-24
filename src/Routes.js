@@ -1,5 +1,4 @@
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import StartingPage from './components/pages/StartingPage/StartingPage.tsx';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import Library from './components/pages/Library/Library';
@@ -21,20 +20,10 @@ import Settings from './components/pages/Settings/Settings.tsx';
 import Explore from './components/pages/Explore/Explore.tsx';
 import DefaultFields from './components/pages/Settings/DefaultFields.tsx';
 import Auth from './components/pages/Auth/Auth.tsx';
+import Sync from './components/pages/Sync/Sync.tsx';
 
 
 function AppRoutes() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const userId = localStorage.getItem('userId')
-  useEffect(()=>{
-    if(!userId && location.pathname !== '/auth'){
-      navigate('/auth')
-    }
-  },[userId])
-
-  
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
@@ -56,6 +45,7 @@ function AppRoutes() {
       <Route path="/exercise/:snapshotId/restore" element={<Exercise />} />
       <Route path="/create-exercise" element={<CreateExercise />} />
       <Route path='/tags' element={<Tags />} />
+      <Route path='/sync' element={<Sync />} />
       <Route path='/explore' element={<Explore />} />
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/settings' element={<Settings />} />

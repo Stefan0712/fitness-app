@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from './Auth.module.css';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Logo from '../../../assets/logo.png';
 import { updateProfileOnLogin } from "../../../store/userSlice.ts";
@@ -133,7 +133,6 @@ const Auth = () =>{
                     <button className={styles.darkButton} onClick={()=>setCurrentScreen('login')}>Login</button>
                     <button className={styles.accentButton} onClick={()=>setCurrentScreen('register')}>Register</button>
                 </div>
-                <p>Or continue with an <Link to={'/get-started'}>offline account</Link></p>
             </div>}
             
         </div>

@@ -17,8 +17,6 @@ import MuscleScreen from "./Screens/MuscleScreen.tsx";
 const CreateWorkout: React.FC = () => {
 
     const navigate = useNavigate();
-    const [showGroups, setShowGroups] = useState(false);
-    const [groupName, setGroupName] = useState('');
     const userId = localStorage.getItem('userId') || '';
 
     //form values

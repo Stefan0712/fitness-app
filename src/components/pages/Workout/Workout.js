@@ -97,9 +97,10 @@ const Workout = () => {
                 phase.exercises && phase.exercises.length > 0 ? phase.exercises.map(exercise=>{
                     const newSets = [];
                     for (let i = 0; i < exercise.sets; i++) {
+                        console.log(exercise.fields)
                         newSets.push({
                            order: exercises.length,
-                            fields: exercise.fields ? JSON.parse(JSON.stringify(exercise.fields)) : [], // Deep copy of fields array
+                            fields: exercise.fields ?? [],
                             isCompleted: false,
                             isSkipped: false,
                         });
@@ -113,6 +114,7 @@ const Workout = () => {
                 }
             ) : console.log("There are no exercises in phase ", phase.name)})
         }
+        console.log(exercises)
         return exercises;
     };
       

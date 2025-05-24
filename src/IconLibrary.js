@@ -76,8 +76,10 @@ import EnabledAwake from './assets/enabledScreenWake.svg';
 import DisabledAwake from './assets/disabledScreenWake.svg';
 import Library from './assets/library.svg';
 import Activity from './assets/activity.svg';
+import Sync from './assets/sync.svg';
 
 export const IconLibrary = {
+    Sync,
     Activity,
     Library,
     ProfilePlaceholder,

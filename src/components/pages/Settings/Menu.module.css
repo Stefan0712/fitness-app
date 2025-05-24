@@ -4,7 +4,7 @@
     overflow: hidden;
     position: fixed;
     z-index: 100;
-    bottom: 75px;
+    bottom: 60px;
     left: 0;
     animation: showSettings 0.1s;
     animation-fill-mode: forwards;
