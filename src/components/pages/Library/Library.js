@@ -2,7 +2,7 @@ import styles from './Library.module.css';
 import { Link } from "react-router-dom";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState, useEffect } from "react";
-
+import { useUI } from '../../../context/UIContext.jsx';
 import Exercise from './Exercise';
 import Workout from "./Workout";
 import { getAllItems } from "../../../db";
@@ -12,6 +12,7 @@ import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 const Library = () => {
     const [libraryScreen, setLibraryScreen] = useState('exercises');
     const [filteredItems, setFilteredItems] = useState([]);
+    const {showMessage, showConfirmationModal} = useUI();
 
     useEffect(()=>{
         if(libraryScreen === 'exercises'){
@@ -19,6 +20,7 @@ const Library = () => {
         }else if(libraryScreen === 'workouts'){
             getWorkouts();
         }
+        showConfirmationModal("This will delete the exercise from your library and cannot be undone", ()=>console.log('It was confirmed boys...'));
     },[libraryScreen])
 
     const getWorkouts = async () =>{

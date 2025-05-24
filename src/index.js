@@ -7,6 +7,7 @@ import { store, persistor } from './store/index.ts'; // Make sure this path poin
 import { PersistGate } from 'redux-persist/integration/react';
 import Navigation from './components/common/Navigation/Navigation.js';
 import AppRoutes from './Routes';
+import { UIProvider } from './context/UIContext.jsx';
 
 
 // Register Service Worker
@@ -29,10 +30,12 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <HashRouter>
-        <ThemeWrapper>
-          <Navigation />
-          <AppRoutes />
-        </ThemeWrapper>
+        <UIProvider>
+            <ThemeWrapper>
+            <Navigation />
+            <AppRoutes />
+          </ThemeWrapper>
+        </UIProvider>
       </HashRouter>
     </PersistGate>
   </Provider>

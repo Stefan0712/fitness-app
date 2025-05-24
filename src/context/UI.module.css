@@ -1,0 +1,97 @@
+.toast{
+    width: calc(100vw - 20px);
+    border-radius: 5px;
+    padding: 20px 10px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    animation: slideIn 0.1s;
+    z-index: 9999;
+}
+.toast.error{
+    background-color: rgb(241, 73, 73);
+}
+.toast.success{
+    background-color: rgb(77, 189, 62);
+}
+.toast.info{
+    background-color: var(--secondary);
+    border: 1px solid var(--general-border);
+}
+@keyframes slideIn {
+    from {
+        transform: translateY(-150%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+.confirmModal{
+    width: calc(100vw - 20px);
+    position: fixed;
+    left: 10px;
+    bottom: 50vh;
+    transform: scale(1) translateY(50%);
+    background-color: var(--modal-bg);
+    border-radius: 5px;
+    min-height: 200px;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    align-items: center;
+    z-index: 9999;
+    animation: popInModal 0.1s;
+}
+@keyframes popInModal {
+    from{
+        opacity: 0;
+        transform: scale(0.75) translateY(50%);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1) translateY(50%);
+    }
+}
+.confirmModal .title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+.confirmModal .content{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90%;
+    padding-top: 15px;
+}
+.confirmModal .buttons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+}
+.confirmModal .buttons button{
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+
+}
+.confirmModal .message{
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+}
+.confirmModal .cancel{
+    background-color: rgb(241, 73, 73);
+}
+.confirmModal .confirm{
+    background-color: rgb(77, 189, 62);
+}
