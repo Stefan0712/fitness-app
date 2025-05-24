@@ -1,7 +1,7 @@
 import styles from './UI.module.css'
 import { useUI } from './UIContext';
 
-export function ConfirmationModal({ message, onConfirm, onCancel, title }) {
+export function ConfirmationModal({ title, message, onConfirm, onCancel  }) {
 
     const { hideConfirmationModal } = useUI();
 

@@ -1,12 +1,13 @@
 import styles from './Explore.module.css';
 import React, { useEffect, useState } from 'react';
-import { getDateForHeader } from '../../../helpers';
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
 import axios from 'axios';
 import { getAllItems, saveItem } from '../../../db';
 import { Exercise as IExercise, Workout as IWorkout } from '../../common/interfaces';
+import { useUI } from '../../../context/UIContext';
 
 
 const Explore = () => {
@@ -14,6 +15,7 @@ const Explore = () => {
     const [libraryScreen, setLibraryScreen] = useState('exercises');
     const [filteredItems, setFilteredItems] = useState<IExercise[] | IWorkout[]>([]);
     const [source, setSource] = useState<string | null>(null);
+    const { showMessage } = useUI();
 
     const fetchExercises = async () =>{
         try{
@@ -28,6 +30,7 @@ const Explore = () => {
             }
         }catch(error){
             console.error(error);
+            showMessage("Could not get exercises from the API", 'error');
             getSavedExercises();
         }
     }
@@ -46,6 +49,7 @@ const Explore = () => {
             }
         }catch(error){
             console.error(error);
+            showMessage("Could not get workouts from the API", 'error');
             getSavedWorkouts();
         }
     }
@@ -56,22 +60,19 @@ const Explore = () => {
     const getSavedWorkouts = async () =>{
         const workouts = await getAllItems('workouts');
         setFilteredItems(workouts);
-        console.log("Restored cached workouts");
+        showMessage("Restored cached workouts");
         setSource('cache')
     }
     const getSavedExercises = async () =>{
         const exercises = await getAllItems('exercises');
         setFilteredItems(exercises);
-        console.log("Restored cached exercises");
+        showMessage("Restored cached exercises");
         setSource('cache')
     }
 
     return ( 
         <div className={styles.explore}>
-            <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Explore</h2>
-            </div>
+            <AppHeader title="Explore" />
             <div className={styles["toggle-buttons"]}>
                 <button onClick={()=>(fetchExercises(), setLibraryScreen('exercises'))} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
                 <button onClick={()=>(fetchWorkouts(), setLibraryScreen('workouts'))} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>

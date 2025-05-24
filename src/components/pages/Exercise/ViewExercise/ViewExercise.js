@@ -7,6 +7,7 @@ import axios from "axios";
 import { deleteItem, getItemById, saveItem } from "../../../../db.js";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewExercise.module.css';
+import { useUI } from "../../../../context/UIContext.jsx";
 
 
 
@@ -17,9 +18,10 @@ const ViewExercise = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
+    const {showConfirmationModal, showMessage} = useUI();
 
     const navigate = useNavigate();
-
+    
     const [exerciseData, setExerciseData] = useState(null);
 
     
@@ -31,7 +33,9 @@ const ViewExercise = () => {
                 console.log(response.data)
             }
         }catch(error){
-            console.error(error)
+            console.error(error);
+            showMessage('Server error', 'error')
+
         }
     }
     useEffect(()=>{
@@ -39,20 +43,19 @@ const ViewExercise = () => {
             fetchExercise();
         }else if(type === 'cached'){
             getExerciseFromDb('cachedExercises');
-            console.log("Cached version of this workout")
+            showMessage("This is a cached exercise");
         }
         else{
             getExerciseFromDb('exercises');
         }
-        
     },[]);
+
     const getExerciseFromDb = async (source) =>{
             const exercise = await getItemById(source, id);
             setExerciseData(exercise);
-            console.log(exercise)
         }
     const deleteEx = async () =>{
-        if(type !== 'online' && exerciseData.author._id === userId){
+        if(type !== 'online' || exerciseData.author._id === userId){
             await deleteItem('exercises', exerciseData._id)
             navigate('/library');
         }
@@ -63,11 +66,10 @@ const ViewExercise = () => {
         if(type === 'online'){
             await saveItem('exercises', {...exerciseData, sourceId: exerciseData._id, _id: uuidv4()})
             navigate('/library');
-            console.log("Exercise saved to library")
+            showMessage("Exercise saved to library", 'success')
         }
     }
     if(exerciseData){
-
         return ( 
             <div className={styles.viewExercise}>
                 <AppHeader title={exerciseData.name} button={type !== 'online' && type !== 'cached' ? <Link to={`/exercise/${exerciseData._id}/start`} className={styles.startButton}>Start</Link> : <button onClick={handleSaveExercise} className={styles.startButton}>Save</button>} />
@@ -75,40 +77,40 @@ const ViewExercise = () => {
                     <div className={styles.twoBlocks}>
                         <div className={styles.half}>
                             <b>Created at</b>
-                            <p>{exerciseData.createdAt ? formatDate(exerciseData.createdAt) : 'Not set'}</p>
+                            <p>{exerciseData.createdAt ? formatDate(exerciseData.createdAt) : 'Unset'}</p>
                         </div>
                         <div className={styles.half}>
                             <b>UpdatedAt</b>
-                            <p>{exerciseData.updatedAt ? formatDate(exerciseData.updatedAt) : 'Not set'}</p>
+                            <p>{exerciseData.updatedAt ? formatDate(exerciseData.updatedAt) : 'Unset'}</p>
                         </div>
                     </div>
                     <div className={styles.twoBlocks}>
                         <div className={styles.half}>
                             <b>Duration</b>
-                            <p>{exerciseData.duration} {exerciseData.durationUnit}</p>
+                            <p>{exerciseData.duration || 'Unset'} {exerciseData.duration ? exerciseData.durationUnit : ''}</p>
                         </div>
                         <div className={styles.half}>
                             <b>Rest</b>
-                            <p>{exerciseData.rest} {exerciseData.restUnit}</p>
+                            <p>{exerciseData.rest || 'Unset'} {exerciseData.rest ? exerciseData.restUnit : ''}</p>
                         </div>
                     </div>
                     <div className={styles.twoBlocks}>
                         <div className={styles.half}>
                             <b>Difficulty</b>
-                            <p>{makeFirstUpperCase(exerciseData.difficulty)}</p>
+                            <p>{makeFirstUpperCase(exerciseData.difficulty) || 'Unset'}</p>
                         </div>
                         <div className={styles.half}>
                             <b>Reference (url)</b>
-                            <p>{exerciseData.reference || 'Not set'}</p>
+                            <p>{exerciseData.reference || 'Unset'}</p>
                         </div>
                     </div>
                     <div className={styles.block}>
                         <b>Description</b>
-                        <p>{exerciseData.description}</p>
+                        <p>{exerciseData.description || 'Unset'}</p>
                     </div>
                     <div className={styles.block}>
                         <b>Notes</b>
-                        <p>{exerciseData.notes || 'Not set'}</p>
+                        <p>{exerciseData.notes && exerciseData.notes.length > 0 ? exerciseData.notes : 'Unset'}</p>
                     </div>
                     <div className={styles.block}>
                         <div className={styles.blockHeader}>
@@ -170,7 +172,7 @@ const ViewExercise = () => {
                     </div>
                     {(userId === exerciseData.author._id) || type !=='online' ? 
                         <div className={styles.bottomButtons}>
-                            <button className={styles.exerciseButton} onClick={deleteEx}>Delete</button>
+                            <button className={styles.exerciseButton} onClick={()=>showConfirmationModal({title: 'Delete exercise?', message: "This will delete exercise from your library and cannot be undone", onConfirm: deleteEx})}>Delete</button>
                             <Link className={styles.exerciseButton} to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> 
                         </div> 
                     : null}
