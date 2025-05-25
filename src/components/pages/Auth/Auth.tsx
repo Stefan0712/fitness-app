@@ -3,8 +3,6 @@ import styles from './Auth.module.css';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Logo from '../../../assets/logo.png';
-import { updateProfileOnLogin } from "../../../store/userSlice.ts";
-import { useDispatch } from "react-redux";
 import { useUI } from "../../../context/UIContext.jsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import { makeFirstUpperCase } from "../../../helpers.js";
@@ -13,7 +11,6 @@ import { makeFirstUpperCase } from "../../../helpers.js";
 const Auth = () =>{
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const {showMessage} = useUI();
     
 
@@ -23,7 +20,6 @@ const Auth = () =>{
     const [username, setUsername] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('');
-    const [errors, setErrors] = useState<string[]>([]);
 
 
     const login = () =>{
@@ -56,7 +52,6 @@ const Auth = () =>{
               
                 if (savedId && savedUsername && savedRole) {
                     showMessage('Logged in successfuly','success');
-                    dispatch(updateProfileOnLogin(response.data.profileData));
                     navigate("/sync");
                 } else {
                     showMessage('Something went wrong!','error');

@@ -1,12 +1,10 @@
-import { getDateForHeader } from "../../../helpers.js";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "../../../store/userSlice.ts";
 import { useState } from "react";
 import styles from './Profile.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store/index.ts";
 import React from "react";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
+import { getItemById, saveItem } from "../../../db.js";
+import { useUI } from "../../../context/UIContext.jsx";
 
 
 interface Badges {
@@ -15,7 +13,7 @@ interface Badges {
     value: number
 }
 
-interface userData {
+interface UserDataInterface {
     name?: string,
     username?: string,
     id: string,
@@ -45,10 +43,12 @@ interface userData {
 }
 const EditProfile = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userData = useSelector((state: RootState)=>state.user.userData);
+    const {showMessage} = useUI();
+    const storedUser = localStorage.getItem('user');
+    const loggedUser = storedUser ? JSON.parse(storedUser) : null;
 
+    const [userData, setUserData] = useState<UserDataInterface | null >(null)
     const [username, setUsername] = useState<string>(userData?.username || "");
     const [name, setName] = useState<string>(userData?.name || "")
     const [bio, setBio] = useState<string>(userData?.bio || "");
@@ -64,21 +64,33 @@ const EditProfile = () => {
 
 
     const handleSaveProfile = (e) =>{
-        e.preventDefault();
-        const profileData: userData = {
-            ...userData,
-            username, 
-            name, 
-            bio, 
-            age: typeof age === 'string' ? parseInt(age) : age,
-            gender, 
-            height: typeof height === 'string' ? parseInt(height) : height, 
-            weight: typeof weight === 'string' ? parseInt(weight) : weight
-        };
-        dispatch(updateUserData(profileData));
-        navigate('/profile');
+       if(userData){
+            e.preventDefault();
+            const profileData: UserDataInterface = {
+                ...userData,
+                username, 
+                name, 
+                bio, 
+                age: typeof age === 'string' ? parseInt(age) : age,
+                gender, 
+                height: typeof height === 'string' ? parseInt(height) : height, 
+                weight: typeof weight === 'string' ? parseInt(weight) : weight
+            };
+            saveItem('userData', {...userData, ...profileData});
+            showMessage("Profile updated!", "success");
+            navigate('/profile');
+       }
     }
+    const getUserData = async () =>{
 
+        try {
+            const data = await getItemById('userData',loggedUser._id);
+            setUserData(data);
+        }catch(e){
+            console.error(e)
+            showMessage("Failed to get user data", 'error');
+        }
+    }
     return ( 
         <div className={styles['edit-profile']}>
             <AppHeader title={'Edit profile'} button={<button className={styles['save-button']} onClick={handleSaveProfile}>Save</button>} />

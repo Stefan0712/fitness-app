@@ -188,7 +188,6 @@ export interface Workout {
       language: string,
       unitSystem: string,
     },
-    message: string | null,
     dashboardSections: Section[],
 }
 
