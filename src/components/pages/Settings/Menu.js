@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { IconLibrary } from "../../../IconLibrary.js";
 import styles from './Menu.module.css';
-import { logoutUser } from '../../../auth.js';
+import { logoutUser } from '../../../auth.ts';
 import NoSleep from 'nosleep.js';
 import {useUI} from '../../../context/UIContext.jsx';
 

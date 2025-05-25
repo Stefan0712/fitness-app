@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
 import {IconLibrary} from '../../../IconLibrary';
 import QuickMenu from '../QuickMenu/QuickMenu';
@@ -7,10 +7,13 @@ import ExerciseLog from '../LogPages/ExerciseLog.tsx';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Goals from '../Goals/Goals';
 import Menu from '../../pages/Settings/Menu.js';
+import { useUI } from '../../../context/UIContext.jsx';
 
 
 const Navigation = () => {
 
+    const {showConfirmationModal} = useUI();
+    const navigate = useNavigate();
 
     const [showQuickmenu, setShowQuickmenu] = useState(false)
     const [showFoodLog, setShowFoodLog] = useState(false);
@@ -48,7 +51,14 @@ const Navigation = () => {
         closeGoals();
         closeQuickmenu();
     }
-
+    useEffect(()=>{
+        const userData = localStorage.getItem('user');
+        if(!userData){
+            showConfirmationModal({title: "First time?", message: "Do you want to create a local account? It is not required but it will enhance your experience", onConfirm: ()=>navigate('/get-started')})
+        }else{
+            console.log(JSON.parse(userData).username)
+        }
+    },[])
     return ( 
         <nav>
             {showGoals ? <Goals closeMenu={closeGoals}/> : null}

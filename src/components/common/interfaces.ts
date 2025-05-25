@@ -183,38 +183,6 @@ export interface Workout {
     value: number
   }
   export interface InitialStateObject {
-    userData: {
-      firstRun: string,
-      name?: string,
-      username?: string,
-      _id: string,
-      email?: string,
-      createdAt: string,
-      friends: string[],
-      followers: string[],
-      following: string[],
-      comments: string[],
-      posts: string[],
-      likes: string[],
-      savedPosts: string[],
-      age?: number,
-      gender?: string,
-      height?: number,
-      weight?: number,
-      bio?: string,
-      isPrivate: boolean,
-      isPremium: true,
-      profileSettings: {
-        showMyWorkouts: string,
-        showProfile: string,
-        showMyExercises: string,
-        showMyActivity: string,
-        showMyDetails: string,
-        showMyPlans: string,
-        showMyPosts: string
-      },
-      badges: Badges[]
-    },
     preferences: {
       theme: string,
       language: string,
@@ -230,3 +198,41 @@ export interface Phase {
   order: number;
   exercises: WorkoutExercise[];
 }
+export interface userData {
+    firstRun: string,
+    name?: string,
+    username?: string,
+    _id: string,
+    type: "local" | "online",
+    isLinked: boolean,
+    linkedTo: string,
+    lastSync: Date | '',
+    updatedAt: Date,
+    email?: string,
+    createdAt: Date,
+    friends: string[],
+    followers: string[],
+    role: string,
+    following: string[],
+    comments: string[],
+    posts: string[],
+    likes: string[],
+    savedPosts: string[],
+    age?: number,
+    gender?: string,
+    height?: number,
+    weight?: number,
+    bio?: string,
+    isPrivate: boolean,
+    isPremium: boolean,
+    profileSettings: {
+      showMyWorkouts: string,
+      showProfile: string,
+      showMyExercises: string,
+      showMyActivity: string,
+      showMyDetails: string,
+      showMyPlans: string,
+      showMyPosts: string
+    },
+    badges: Badges[]
+  }

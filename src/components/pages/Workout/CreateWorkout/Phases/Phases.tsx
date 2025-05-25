@@ -27,7 +27,7 @@ const Phases = ({phases, setPhases}) => {
         });
 
         // Also update selectedPhase state to reflect the change
-        const updatedSelectedPhase = updatedPhases.find(p => p.id === selectedPhase?.id);
+        const updatedSelectedPhase = updatedPhases.find(p => p._id === selectedPhase?._id);
 
         setPhases(updatedPhases);
         if (updatedSelectedPhase) {

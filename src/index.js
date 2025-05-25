@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { HashRouter } from 'react-router-dom';
@@ -25,6 +25,8 @@ function ThemeWrapper({ children }) {
 
   return children;
 }
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

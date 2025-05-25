@@ -1,7 +1,7 @@
 import { openDB } from 'idb';
 
 export const initDB = async () => {
-  return openDB('EasyFitDB', 3, {
+  return openDB('EasyFitDB', 4, {
     upgrade(db, oldVersion) {
       const stores = [
         'exercises',
@@ -10,6 +10,7 @@ export const initDB = async () => {
         'cachedWorkouts',
         'goals',
         'logs',
+        'userData',
         'tags',
         'cachedTags',
         'equipment',
@@ -86,4 +87,19 @@ export const getAllItems = async (storeName, filterOptions = {}) => {
 export const deleteItem = async (storeName, _id) => {
   const db = await initDB();
   return db.delete(storeName, _id);
+};
+
+
+// Utilities for userData
+
+export const saveUserData = async (userData) => {
+  await saveItem('userData', { ...userData, _id: 'local-user' });
+};
+
+export const getUserData = async () => {
+  return await getItemById('userData', 'local-user');
+};
+
+export const clearUserData = async () => {
+  return await deleteItem('userData', 'local-user');
 };

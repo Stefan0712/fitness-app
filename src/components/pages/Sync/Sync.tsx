@@ -1,4 +1,4 @@
-import { isLoggedIn } from '../../../auth';
+import { isLoggedIn } from '../../../auth.ts';
 import LoginError from '../../common/CommonComponents/LoginError.tsx';
 import styles from './Sync.module.css';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';

@@ -11,11 +11,13 @@ import MuscleScreen from "../Workout/CreateWorkout/Screens/MuscleScreen.tsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import FieldsScreen from "./Screens/FieldsScreen/FieldsScreen.tsx";
 import InstructionsScreen from "./Screens/InstructionsScreen/InstructionsScreen.tsx";
+import { useUI } from "../../../context/UIContext.jsx";
 
 const CreateExercise: React.FC = () => {
 
     const navigate = useNavigate();
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
+    const {showMessage} = useUI();
     //form values
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -34,13 +36,13 @@ const CreateExercise: React.FC = () => {
     const [durationUnit, setDurationUnit] = useState<string>('minutes');
     const [instructions, setInstructions] = useState<string[]>([]);
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=> {
         e.preventDefault();
         const createdAt = new Date();
         const id = uuidv4()
         const exerciseData: Exercise = {
             _id: id,
-            author: localStorage.getItem('userId') || '',
+            author: localStorage.getItem('userId') || 'local-user',
             createdAt, 
             updatedAt: createdAt,
             sourceId: id,
@@ -62,8 +64,8 @@ const CreateExercise: React.FC = () => {
             equipment: equipments, 
             instructions: []
         };
-        console.log(exerciseData)
-        saveItem('exercises', exerciseData)
+        await saveItem('exercises', exerciseData);
+        showMessage('Exercise created', 'success')
         navigate('/library');
     }
     return ( 

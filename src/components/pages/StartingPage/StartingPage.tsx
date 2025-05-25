@@ -1,14 +1,16 @@
 import { getDateForHeader } from "../../../helpers";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "../../../store/userSlice.ts";
 import { useState } from "react";
 import styles from './StartingPage.module.css';
-import { useDispatch } from "react-redux";
 import React from "react";
+import { createLocalUser } from "../../../auth.ts";
+import { useUI } from "../../../context/UIContext.jsx";
+import objectId from 'bson-objectid';
 
 
 
 interface UserData {
+    _id: string,
     name?: string,
     username: string,
     email?: string,
@@ -21,7 +23,7 @@ interface UserData {
 
 const StartingPage = () => {
      
-    const dispatch = useDispatch();
+    const {showMessage} = useUI();
     const navigate = useNavigate();
 
     const [username, setUsername] = useState<string>("");
@@ -35,9 +37,10 @@ const StartingPage = () => {
 
 
 
-    const handleSaveProfile = (e) =>{
+    const handleSaveProfile = async () =>{
         if(username && username.length > 0){
             const profileData: UserData = {
+                _id: objectId().toHexString(),
                 username, 
                 name, 
                 bio, 
@@ -47,7 +50,13 @@ const StartingPage = () => {
                 height: parseInt(height), 
                 weight: parseInt(weight)
             };
-            dispatch(updateUserData(profileData))
+            const response = await createLocalUser(profileData);
+            if(response){
+                showMessage('Local user created successfully', 'success');
+                localStorage.setItem('user',JSON.stringify({_id: profileData._id, username, type: 'local'}));
+            }else{
+                showMessage('There was a problem creating a local user', 'error')
+            }
             navigate('/profile')
         }
     }
