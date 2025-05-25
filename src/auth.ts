@@ -36,7 +36,10 @@ export const isLoggedIn = () => {
   const userId = localStorage.getItem("userId");
   return Boolean(userId);
 };
-
+export const getUser = () =>{
+  const savedUser = localStorage.getItem('user');
+  return savedUser ? JSON.parse(savedUser) : null;
+}
 interface UserDataProps {
     _id: string,
     name?: string,

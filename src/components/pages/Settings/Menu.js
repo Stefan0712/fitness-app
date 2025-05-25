@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { IconLibrary } from "../../../IconLibrary.js";
 import styles from './Menu.module.css';
-import { logoutUser } from '../../../auth.ts';
+import { getUser, logoutUser } from '../../../auth.ts';
 import NoSleep from 'nosleep.js';
 import {useUI} from '../../../context/UIContext.jsx';
 
@@ -9,17 +9,17 @@ import {useUI} from '../../../context/UIContext.jsx';
 const Settings = ({closeSettings}) => {
 
     const isLoggedIn = localStorage.getItem('userId') ? true : false;
+    const loggedUser = getUser();
     const {showMessage} = useUI();
     
     const noSleep = new NoSleep();
+
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
-            // If not in fullscreen, request fullscreen
             document.documentElement.requestFullscreen();
         } else {
-            // If in fullscreen, exit fullscreen
             if (document.exitFullscreen) {
-            document.exitFullscreen();
+                document.exitFullscreen();
             }
         }
     };
@@ -42,6 +42,9 @@ const Settings = ({closeSettings}) => {
                 {isLoggedIn ? <div className={styles.userInfo}>
                     <h3>{localStorage.getItem('username')}</h3>
                     <p>{localStorage.getItem('role')}</p>
+                </div> : loggedUser ? <div className={styles.userInfo}>
+                    <h3>{loggedUser.username}</h3>
+                    <p>{loggedUser.role}</p>
                 </div> : <div className={styles.userInfo}><h3>Login</h3></div>}
                 <Link onClick={closeSettings} to={'/settings'}><img className={styles.menuIcon} src={IconLibrary.Settings} alt='' /></Link>
             </div>
