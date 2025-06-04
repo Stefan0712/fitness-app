@@ -1,9 +1,10 @@
 import styles from './Dashboard.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { getCurrentDay } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
+import { getAllItems } from '../../../db.js';
 
 const ActivityComponent = ({isSmallScreen, showMessage}) => {
     const dispatch = useDispatch();
@@ -14,8 +15,16 @@ const ActivityComponent = ({isSmallScreen, showMessage}) => {
     const [selectedDate, setSelectedDate] = useState(getCurrentDay());
 
 
-    const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
-    const activity = userActivity?.logs.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
+    const [userActivity, setUserActivity] = useState([]);
+
+    const getUserLogs = async () =>{
+        const items = await getAllItems('logs',{date: getCurrentDay(), type: 'activity'});
+        setUserActivity(items);
+    };
+    useEffect(()=>{
+        getUserLogs();
+    },[])
+    const activity = userActivity?.filter((log)=>log.type==="workout" || log.type==="exercise" || log.type==='activity');
     const hideModule = () =>{
         dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'activity')));
         showMessage({message: "Activity was hidden", type: 'success'});

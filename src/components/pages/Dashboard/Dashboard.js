@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     const dispatch = useDispatch();
 
-    const userGoals = useSelector((state)=>state.user.goals);
+    const [userGoals, setUserGoals] = useState([]);
     const dashboardComponents = useSelector((state)=>state.user.dashboardSections);
 
 

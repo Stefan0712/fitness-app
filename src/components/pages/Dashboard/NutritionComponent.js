@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { makeFirstUpperCase, getCurrentDay } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
+import { getAllItems } from '../../../db.js';
 
 const NutritionComponent = ({isSmallScreen, showMessage}) => {
 
@@ -14,8 +15,17 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
     const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
     const [selectedDate, setSelectedDate] = useState(getCurrentDay());
-    const userActivity = useSelector((state)=>state.user.activity[selectedDate]);
-    const foodHistory = userActivity?.logs.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
+    const [userActivity, setUserActivity] = useState([]);
+    
+    const getUserLogs = async () =>{
+        const items = await getAllItems('logs',{date: getCurrentDay(), type: 'activity'});
+        setUserActivity(items);
+    };
+    useEffect(()=>{
+        getUserLogs();
+    },[])
+
+    const foodHistory = userActivity?.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
 
     useEffect(()=>{
         if(foodHistory){
