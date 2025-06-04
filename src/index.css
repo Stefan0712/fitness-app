@@ -484,4 +484,52 @@ fieldset{
   --cancel: #F44336;
   --tag-background: #111214;
   --tag-text: white;
+  
+}
+
+
+
+
+/* Loading page */
+.loadingPage {
+  height: calc(100vh - 60px);
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  padding: 10px;
+}
+
+.loadingContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loadingIcon {
+  width: 75px;
+  height: 75px;
+  animation: loadingIconAnimation 1.5s linear infinite;
+}
+
+
+
+@keyframes loadingIconAnimation {
+  0%{
+    transform: rotateZ(0);
+  }
+  25%{
+    transform: rotateZ(90deg);
+  }
+  50%{
+    transform: rotateZ(180deg);
+  }
+  75%{
+    transform: rotateZ(270deg);
+  }
+  100%{
+    transform: rotateZ(360deg);
+  }
 }
