@@ -93,13 +93,28 @@ export const deleteItem = async (storeName, _id) => {
 // Utilities for userData
 
 export const saveUserData = async (userData) => {
-  await saveItem('userData', { ...userData, _id: 'local-user' });
+  await saveItem('userData', userData);
 };
 
 export const getUserData = async () => {
-  return await getItemById('userData', 'local-user');
+  const localUserData = JSON.parse(localStorage.getItem('user'));
+
+  if(localUserData){
+    const userData =  await getItemById('userData', localUserData._id);
+    return userData;
+  }else {
+    console.log("No local user data");
+    return null;
+  }
+  
 };
 
 export const clearUserData = async () => {
-  return await deleteItem('userData', 'local-user');
+  const localUserData = JSON.parse(localStorage.getItem('user'));
+  if(localUserData){
+    return await deleteItem('userData', localUserData._id);
+  }else {
+    console.log("No local user data");
+    return null;
+  }
 };

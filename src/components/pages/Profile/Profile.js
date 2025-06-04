@@ -1,10 +1,11 @@
 import './profile.css';
 import { IconLibrary } from "../../../IconLibrary";
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserData } from "../../../db.js";
 import { useEffect, useState } from "react";
 import Loading from '../../common/Loading.js';
+import { useUI } from '../../../context/UIContext.jsx';
 
 
 
@@ -13,14 +14,23 @@ import Loading from '../../common/Loading.js';
 
 const Profile = () => {
 
+    const navigate = useNavigate();
+    const {showConfirmationModal} = useUI();
     const [userData, setUserData] = useState(null);
 
     const getData = async () =>{
         const data = await getUserData();
-        setUserData(data);
+        if(data){
+            setUserData(data);
+            console.log(data)
+        }else{
+            showConfirmationModal({title: 'No data found', message: "No user data found. Do you want to create a local account?", onConfirm: ()=>navigate('/get-started')})
+        }
     }
 
-    useEffect(()=>{getData()},[])
+    useEffect(()=>{
+        getData();
+    },[])
    
 
 
@@ -28,7 +38,7 @@ const Profile = () => {
  
     if(!userData){
         return (<Loading title={'Profile'} />)
-    }else {
+    }else if(userData){
         return ( 
             <div className="profile-page page">
                 <AppHeader title="Profile" button={<Link style={{textDecoration: 'none'}} to={'/edit-profile'}><img className="small-icon" src={IconLibrary.Edit} alt="edit profile" /></Link>} />

@@ -55,7 +55,7 @@ export const createLocalUser = async (props: UserDataProps) =>{
   try{
     const now = new Date();
     const userData: userData = {
-      firstRun: 'true',
+      firstRun: 'false',
       name: props.name ?? '',
       username: props.username,
       _id: props._id ?? objectId().toHexString(),
