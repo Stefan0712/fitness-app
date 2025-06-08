@@ -9,7 +9,7 @@ import EditPhase from "./EditPhase.tsx";
 
 const Phases = ({phases, setPhases}) => {
 
-    const [selectedPhase, setSelectedPhase] = useState<Phase | null>(phases[0]);
+    const [selectedPhase, setSelectedPhase] = useState<Phase | null>(null);
 
     const [showAddPhase, setShowAddPhase] = useState(false);
     const [showEditPhase, setShowEditPhase] = useState<Phase | null>(null);
@@ -98,7 +98,7 @@ const Phases = ({phases, setPhases}) => {
             </div>
             <div className={styles.phasesButtons}>
                 <div style={{display: 'flex', alignItems: 'center', width: 'calc(100% - 50px)', overflowX: 'auto', overflowY: 'hidden'}}>
-                    {phases && phases.length > 0 ? phases.map((item: Phase, index: number)=>(<button type="button" key={'Phase-button-'+index} className={`${styles.phaseButton} ${selectedPhase?._id === item?._id ? styles.selectedButton : ''}`} onClick={()=>setSelectedPhase(item)}>{item.name}</button>)):null}
+                    {phases && phases.length > 0 ? phases.map((item: Phase, index: number)=>(<button type="button" key={'Phase-button-'+index} className={`${styles.phaseButton} ${selectedPhase && selectedPhase.id === item?.id ? styles.selectedButton : ''}`} onClick={()=>(setSelectedPhase(item), console.log(item.id, selectedPhase.id))}>{item.name}</button>)):null}
                 </div>
                 <button type="button" className={styles.addPhaseButton} onClick={()=>setShowAddPhase(true)}><img src={IconLibrary.Add} style={{height: '30px', width: '30px'}} /></button>
             </div>

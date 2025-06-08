@@ -64,7 +64,7 @@ const EditExercise: React.FC = () => {
             instructions: []
         };
         await saveItem('exercises', newData);
-        showMessage('Exercise created', 'success')
+        showMessage('Exercise updated', 'success')
         navigate('/library');
         }
     }
