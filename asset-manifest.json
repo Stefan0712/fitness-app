@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.8a48d02b.css",
-    "main.js": "/fitness-app/static/js/main.5980eb68.js",
+    "main.css": "/fitness-app/static/css/main.63b2a5f4.css",
+    "main.js": "/fitness-app/static/js/main.2ac89f27.js",
     "static/media/logo.png": "/fitness-app/static/media/logo.3884486c9e6daaac17d4.png",
     "static/media/enableFullscreen.svg": "/fitness-app/static/media/enableFullscreen.e931b2a9bdd2e5057a610426735cb800.svg",
     "static/media/medal.svg": "/fitness-app/static/media/medal.53db8d4fc8c43ab8422c73652b4f7b00.svg",
@@ -46,6 +46,7 @@
     "index.html": "/fitness-app/index.html",
     "static/media/sync.svg": "/fitness-app/static/media/sync.79a3fba83d73db07a28b3401a6821748.svg",
     "static/media/scale.svg": "/fitness-app/static/media/scale.afb413497c75b043068e0bc852f64e72.svg",
+    "static/media/duplicate.svg": "/fitness-app/static/media/duplicate.1cfc5c3ad5038e4b9e1e3d83bda344e5.svg",
     "static/media/menu.svg": "/fitness-app/static/media/menu.42ffcc0d9173397657cd866887d39081.svg",
     "static/media/bicycle.svg": "/fitness-app/static/media/bicycle.f7acf979b0cb32f6d74911c105be29b5.svg",
     "static/media/inputField.svg": "/fitness-app/static/media/inputField.229beaa43078a0c2c642638966b4e87f.svg",
@@ -95,11 +96,11 @@
     "static/media/clipboard.svg": "/fitness-app/static/media/clipboard.53cc1850890226ef59696d900a462e70.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.8aefe30ba0188b831ef98d9d1956a5cc.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.d4cbd790f65d0bfe5bb99503a158fcbf.svg",
-    "main.8a48d02b.css.map": "/fitness-app/static/css/main.8a48d02b.css.map",
-    "main.5980eb68.js.map": "/fitness-app/static/js/main.5980eb68.js.map"
+    "main.63b2a5f4.css.map": "/fitness-app/static/css/main.63b2a5f4.css.map",
+    "main.2ac89f27.js.map": "/fitness-app/static/js/main.2ac89f27.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a48d02b.css",
-    "static/js/main.5980eb68.js"
+    "static/css/main.63b2a5f4.css",
+    "static/js/main.2ac89f27.js"
   ]
 }
