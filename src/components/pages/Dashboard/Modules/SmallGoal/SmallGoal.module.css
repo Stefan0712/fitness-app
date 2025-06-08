@@ -1,0 +1,15 @@
+.smallGoal{
+    width: calc(50% - 10px);
+    height: 100px;
+    background-color: var(--dashboard-module-background);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.smallGoal .goalTop{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

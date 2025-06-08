@@ -1,8 +1,7 @@
 import { getHourFromTimestamp } from '../../../helpers';
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { startOfWeek, addDays } from 'date-fns';
+import { useSelector } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
@@ -15,31 +14,22 @@ import SmallGoal from './Modules/SmallGoal/SmallGoal.tsx';
 
 
 const Dashboard = () => {
-
-
+    const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+    const dashboardComponents = useSelector((state)=>state.user.dashboardSections);  
+    
     const [userGoals, setUserGoals] = useState([]);
-
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
+    const [message, setMessage] = useState(null);
+    const [exerciseSnapshots, setExerciseSnapshots] = useState(snapshots?.exercises?.filter(item=>item.type==='exercise'));
+    const [workoutSnapshots, setWorkoutSnapshot] = useState(snapshots?.workouts?.filter(item=>item.type==='workout'))
+    
     const getUserGoals = async () =>{
         const response = await getAllItems('goals');
-        console.log(response)
         if(response){
             setUserGoals([...response]);
         }
     }
     useEffect(()=>{getUserGoals()},[])
-    const dashboardComponents = useSelector((state)=>state.user.dashboardSections);
-
-
-    const [currentWeek, setCurrentWeek] = useState([])
-    
-
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
-    const [message, setMessage] = useState(null);
-
-    const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-    const [exerciseSnapshots, setExerciseSnapshots] = useState(snapshots?.exercises?.filter(item=>item.type==='exercise'));
-    const [workoutSnapshots, setWorkoutSnapshot] = useState(snapshots?.workouts?.filter(item=>item.type==='workout'))
-
 
     const handleDeleteSnapshot = (type, snapshotId) =>{
         console.log("Deleted snapshot: ",type, snapshotId);
@@ -50,13 +40,6 @@ const Dashboard = () => {
         localStorage.setItem('snapshots', JSON.stringify({exercises: exSnapshots, workouts: workSnapshots})); 
         
     }
-
-    const getCurrentWeek = () => {
-        const today = new Date();
-        return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(today, { weekStartsOn: 1 }), i));
-    };
-
-    useEffect(()=>{setCurrentWeek(getCurrentWeek())},[])
     useEffect(() => {
         const handleResize = () => setIsSmallScreen(window.innerWidth < 800);
         window.addEventListener("resize", handleResize);
