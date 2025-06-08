@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-    const {showMessage, showConfirmationModal} = useUI();
+    const {showConfirmationModal} = useUI();
     const navigate = useNavigate();
     
     const [userGoals, setUserGoals] = useState([]);
@@ -55,7 +55,7 @@ const Dashboard = () => {
 
     return ( 
         <div className={`${styles.dashboard} page`}>
-            <AppHeader title={'Dashboard'} button={<Link to={'/edit-dashboard'} type='button' className='clear-button'><img className='small-icon' src={IconLibrary.Edit} alt=''/></Link>}/>
+            <AppHeader title={'Dashboard'}/>
             <div className={styles['dashboard-content']}>
                 <div className={styles['dashboard-warning']}>
                     <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>

@@ -76,6 +76,9 @@ export const getAllItems = async (storeName, filterOptions = {}) => {
     if (filterOptions._id) {
       matches &&= item._id === filterOptions._id;
     }
+    if (filterOptions.goalId) {
+      matches &&= item.goalId === filterOptions.goalId;
+    }
 
     return matches;
   });

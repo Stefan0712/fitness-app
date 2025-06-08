@@ -4,6 +4,7 @@ import React from "react";
 import { BaseLog, Goal } from "../../interfaces.ts";
 import { saveItem } from "../../../../db.js";
 import { useUI } from "../../../../context/UIContext.jsx";
+import ObjectID from "bson-objectid";
 
 interface LogGoalProps {
     goalData: Goal;
@@ -35,7 +36,8 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
         if(goalData){
             const data: BaseLog = {
                 type: 'goal', 
-                _id: goalData._id,
+                goalId: goalData._id,
+                _id: ObjectID().toHexString(),
                 title: `${goalData.name} Log`, 
                 icon: goalData.icon,
                 timestamp: todayDate,

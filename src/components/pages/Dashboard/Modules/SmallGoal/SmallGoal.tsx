@@ -14,7 +14,7 @@ const SmallGoal: React.FC<SmallGoalProps> = ({goal}) => {
     const [currentProgress, setCurrentProgress] = useState(0);
 
     const getLogs = async () =>{
-        const response = await getAllItems('logs',{type: 'goal', date: getCurrentDay(), _id: goal._id});
+        const response = await getAllItems('logs',{type: 'goal', date: getCurrentDay(), goalId: goal._id});
         console.log(response)
         if(response){
             setLogs(response);
@@ -22,7 +22,7 @@ const SmallGoal: React.FC<SmallGoalProps> = ({goal}) => {
         }
     }
     const getTotalProgress = (items) =>{
-        return items.reduce((sum, item)=> sum + item.data.value, 0);
+        return items.reduce((sum, item)=> sum + parseInt(item.data.value), 0);
     }
 
     useEffect(()=>{getLogs()},[])
