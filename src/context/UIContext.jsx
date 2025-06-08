@@ -39,7 +39,6 @@ export function UIProvider({ children }) {
 const cancel = () => {
     if (confirmation?.onCancel){
       confirmation.onCancel();
-      console.log("cancel on cancel ran")
     }
     setConfirmation(null);
   };

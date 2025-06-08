@@ -8,7 +8,7 @@ import Export from './Export.tsx';
 const Sync = () => {
     
 
-    const [currentScreen, setCurrentScreen] = useState<'import' | 'export' | 'backup'>('export');
+    const [currentScreen, setCurrentScreen] = useState<'import' | 'export' | 'backup'>('import');
 
 
     return (
