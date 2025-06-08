@@ -67,9 +67,9 @@ const LogsHistory = () => {
                 <div className={styles["logs-container"]}>
                 {logs && logs.length > 0 ? logs.map((item, index) => (
                         <div className={styles['log-body']} key={'log-' + index} onClick={()=>setOpenedLog(item)}>
-                            <img className={styles['log-icon']} src={item.type === 'food' ? IconLibrary.Food : item.type === 'exercise' ? IconLibrary.Exercise : item.type === 'workout' ? IconLibrary.Dumbbell : IconLibrary.Circle} alt='' />
+                            <img className={styles['log-icon']} src={item.type === 'food' ? IconLibrary.Food : item.type === 'exercise' ? IconLibrary.Exercise : item.type === 'workout' ? IconLibrary.Dumbbell : IconLibrary.Goals} alt='' />
                             <p className={styles['log-time']}>{getHourFromTimestamp(item.timestamp)}</p>
-                            <p className={styles['log-name']}>{item.type === 'goal' ? item.name : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
+                            <p className={styles['log-name']}>{item.type === 'goal' ? item.name || item.title : item.type === 'workout' ? item?.name : (item.data?.name || item.name)}</p>
                             <p className={styles['log-value']}>
                                 {
                                     item.data && item.type === 'exercise' && item.data.sets ? `${ Array.isArray(item.data.sets) ? item.data.sets.length : item.data.sets} sets` : 

@@ -48,6 +48,7 @@
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
+    z-index: 10;
 }
 .new-goal-button{
     width: 100%;
