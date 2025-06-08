@@ -25,8 +25,8 @@ export function UIProvider({ children }) {
 
 
   // Show a confirmation modal with optional title
-  const showConfirmationModal = useCallback(( {title = "Are you sure?", message, onConfirm}) => {
-    setConfirmation({ title, message, onConfirm });
+  const showConfirmationModal = useCallback(( {title = "Are you sure?", message, onConfirm, onCancel}) => {
+    setConfirmation({ title, message, onConfirm, onCancel });
   }, []);
 
   // Called when user confirms in the modal
@@ -36,7 +36,13 @@ export function UIProvider({ children }) {
   };
 
   // Called when user cancels
-  const cancel = () => setConfirmation(null);
+const cancel = () => {
+    if (confirmation?.onCancel){
+      confirmation.onCancel();
+      console.log("cancel on cancel ran")
+    }
+    setConfirmation(null);
+  };
 
   return (
     <UIContext.Provider value={{ showMessage, showConfirmationModal }}>

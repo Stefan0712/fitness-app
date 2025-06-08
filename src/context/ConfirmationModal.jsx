@@ -7,8 +7,10 @@ export function ConfirmationModal({ title, message, onConfirm, onCancel  }) {
 
   const handleCancel = () => {
     if (onCancel) {
+      console.log('On cancel ran', onCancel)
       onCancel();
     } else {
+      console.log("Default cancel function ran")
       hideConfirmationModal(); // just close the modal if no onCancel is provided
     }
   };

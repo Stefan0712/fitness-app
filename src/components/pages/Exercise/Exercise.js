@@ -26,8 +26,6 @@ const Exercise = () => {
             const exercises = await getItemById('exercises', snapshotId);
             if(exercises){
                 setOriginalExercise(exercises);
-            }else{
-                showMessage("Failed to get snapshot", 'error');
             }
         }else{
             const exercises = await getItemById('exercises', id);
@@ -55,8 +53,7 @@ const Exercise = () => {
             setExerciseData(formatExercise()); //makes sure to format the exercise on first render
         }else if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-            console.log(snapshots)
-            const snapshot = snapshots?.exercises?.find(item=>item.snapshotId===snapshotId);
+            const snapshot = snapshots.exercise
             if(snapshot){
                 setExerciseData(snapshot.data);
                 setSeconds(snapshot.duration);
@@ -129,8 +126,7 @@ const Exercise = () => {
         }
         await saveItem('logs', log)
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        snapshots.exercises = snapshots.exercises.filter(item => item.data._id !== id);
-        localStorage.setItem('snapshots', JSON.stringify(snapshots));    
+        localStorage.setItem('snapshots', JSON.stringify({workout: snapshots.workout, exercise: null}));    
         showMessage("Exercise finished", 'success');    
         navigate('/logs');
     }
@@ -145,31 +141,13 @@ const Exercise = () => {
             duration: seconds,
             data: exerciseData,
         }
-        let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
-    
-        const existingIndex = snapshots.exercises.findIndex(snap => snap.data.id === exerciseData.id);
-
-        // If an existing snapshot for the exercise is found, replace it
-        if (existingIndex !== -1) {
-            snapshots.exercises[existingIndex] = snapshot;
-        } else {
-            // If no snapshot exists, just add the new snapshot
-            snapshots.exercises.push(snapshot);
-        }
-
-        // Limit to 3 exercise snapshots
-        if (snapshots.exercises.length > 3) {
-            snapshots.exercises.shift(); // Remove the oldest snapshot
-        }
-
         // Save the updated snapshots back to localStorage
-        localStorage.setItem('snapshots', JSON.stringify(snapshots));
-
+        const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
+        localStorage.setItem('snapshots', JSON.stringify({workout: snapshots.workout, exercise: snapshot}));
         console.log(`Snapshot for exercise saved:`, snapshot);
     }
     const getProgress = () =>{
         const totalTarget = exerciseData.sets.reduce((sum, set) => sum + set.target, 0);
-            
         const totalValues = exerciseData.sets.reduce((sum, set) => sum + set.value, 0);            
         const progress = (totalValues / totalTarget) * 100;
         return parseFloat(progress.toFixed(2));

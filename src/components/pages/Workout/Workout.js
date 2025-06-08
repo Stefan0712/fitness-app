@@ -52,7 +52,9 @@ const Workout = () => {
         }
     }
     useEffect(()=>{
-        getWorkoutData();
+        if(!snapshotId){
+            getWorkoutData();
+        }
     },[])
 
     useEffect(() => {
@@ -60,7 +62,7 @@ const Workout = () => {
             setExercises(getExercises());
         }else if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-            const snapshot = snapshots?.workouts?.find(item=>item.snapshotId===snapshotId);
+            const snapshot = snapshots.workout;
             if(snapshot){
                 const newWorkoutData = {...workoutData, exercises: snapshot.data.exercises};
                 setWorkoutData(newWorkoutData);
@@ -72,7 +74,7 @@ const Workout = () => {
                 showMessage("Snapshot not found","error")
             }
         }
-    }, [workoutData]);
+    }, []);
 
     useEffect(()=>{
         if(!currentExercise && exercises && exercises.length > 0){
@@ -83,14 +85,7 @@ const Workout = () => {
         }
     },[exercises]);
 
-
-
-
-
-
-
     const getExercises = () => {
-        
         const exercises = [];
         if(workoutData && workoutData.phases?.length > 0){
             workoutData.phases.map(phase=>{
@@ -166,8 +161,7 @@ const Workout = () => {
         await saveItem('logs',log);
         showMessage("Workout finished successfully", 'success');
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
-        snapshots.workouts = snapshots.workouts.filter(item => item.data.id !== id);
-        localStorage.setItem('snapshots', JSON.stringify(snapshots));  
+        localStorage.setItem('snapshots', JSON.stringify({exercise: snapshots.exercise, workout: null}));  
         navigate('/logs');
 
     }
@@ -191,31 +185,12 @@ const Workout = () => {
                 data:{
                     workoutId: workoutData._id,
                     exercises: exercises
-                },
+                }
             }
-            let snapshots = JSON.parse(localStorage.getItem('snapshots')) || { exercises: [], workouts: [] };
-        
-            const existingIndex = snapshots.workouts.findIndex(snap => snap.data.workoutId === workoutData._id);
-
-            // If an existing snapshot for the exercise is found, replace it
-            if (existingIndex !== -1) {
-                snapshots.workouts[existingIndex] = snapshot;
-            } else {
-                // If no snapshot exists, just add the new snapshot
-                snapshots.workouts.push(snapshot);
-            }
-
-            // Limit to 3 exercise snapshots
-            if (snapshots.workouts.length > 3) {
-                snapshots.workouts.shift(); // Remove the oldest snapshot
-            }
-
-            // Save the updated snapshots back to localStorage
-            localStorage.setItem('snapshots', JSON.stringify(snapshots));
+            let snapshots = JSON.parse(localStorage.getItem('snapshots')) || {};
+            localStorage.setItem('snapshots', JSON.stringify({exercise: snapshots.exercise, workout: snapshot}));
         }
-
     }
-
     const handleCompleteField = (exerciseId, setNo, fieldId) => {
         // Create a deep copy of exercises
         const updatedExercises = exercises.map((ex) => {
