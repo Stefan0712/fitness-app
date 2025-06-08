@@ -77,6 +77,7 @@ import DisabledAwake from './assets/disabledScreenWake.svg';
 import Library from './assets/library.svg';
 import Activity from './assets/activity.svg';
 import Sync from './assets/sync.svg';
+import Duplicate from './assets/duplicate.svg';
 
 export const IconLibrary = {
     Sync,
@@ -154,4 +155,5 @@ export const IconLibrary = {
     Hide,
     EnableFullscreen,
     DisableFullscreen,
+    Duplicate
 }

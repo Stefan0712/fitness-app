@@ -1,5 +1,150 @@
 .sync{
-    width: 100vw;
+    display: grid;
+    grid-template-rows: 60px 50px 1fr;
+    gap: 10px;
     height: calc(100vh - 60px);
+    width: 100vw;
     padding: 10px;
+    overflow: hidden;
+}
+
+.sync .screenSwitcher{
+    height: 50px;
+    display: flex;
+    gap: 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    align-items: center;
+    background-color: var(--toggle-button-background);
+}
+.sync .screenSwitcher button{
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+.sync .screenSwitcher button.selected{
+    background-color: var(--toggle-button-active);
+    color: var(--toggle-button-active-text);
+}
+.sync .screenContainer{
+    padding: 10px 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+/* Export */
+
+.exportScreen {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.exportScreen .row{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.exportScreen .row button{
+    height: 40px;
+    padding: 0 10px;
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+/* Import */
+.importScreen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+.importScreen .fileInput{
+    background-color: var(--secondary);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+}
+
+.fileInput input{
+    border: none;
+}
+.importScreen h3{
+    flex-shrink: 0;
+    height: 30px;
+    margin: 10px 0;
+}
+.exercisesContainer{
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+.importExercise{
+    width: 100%;
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
+}
+.duplicateImportIcon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.importExercise.selectedExercise{
+    border-color: var(--general-border);
+    background-color: rgba(211, 211, 211, 0.281);
+}
+.importExercise .rowList{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+.importExercise .rowList p{
+    text-wrap: nowrap;
+}
+.importExercise .rowList img{
+    width: 15px;
+    height: 15px;
+}
+.importScreen .buttons{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.importScreen .buttons button{
+    height: 40px;
+    border: none;
+    padding: 0 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
 }

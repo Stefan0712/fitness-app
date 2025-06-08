@@ -83,6 +83,20 @@ export const getAllItems = async (storeName, filterOptions = {}) => {
     return matches;
   });
 };
+// Save multiple items at once
+export const saveMultipleItems = async (storeName, items) => {
+  if (!Array.isArray(items)) return;
+
+  const db = await initDB();
+  const tx = db.transaction(storeName, 'readwrite');
+  const store = tx.objectStore(storeName);
+
+  for (const item of items) {
+    store.put(item); // or store.add(item) to prevent overwrites
+  }
+
+  await tx.done;
+};
 
 
 

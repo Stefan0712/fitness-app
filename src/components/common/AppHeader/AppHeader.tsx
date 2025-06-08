@@ -1,7 +1,11 @@
 import styles from './AppHeader.module.css';
 import { getDateForHeader } from '../../../helpers';
 
-const AppHeader = ({title, button}) => {
+interface AppHeaderProps{
+    title: string;
+    button?: any;
+}
+const AppHeader: React.FC<AppHeaderProps> = ({title, button}) => {
     return ( 
         <div className={styles.header}>
             <div className={styles.date}>{getDateForHeader()}</div>
