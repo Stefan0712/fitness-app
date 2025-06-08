@@ -173,7 +173,7 @@ const ViewExercise = () => {
                     {(userId === exerciseData.author._id) || type !=='online' ? 
                         <div className={styles.bottomButtons}>
                             <button className={styles.exerciseButton} onClick={()=>showConfirmationModal({title: 'Delete exercise?', message: "This will delete exercise from your library and cannot be undone", onConfirm: deleteEx})}>Delete</button>
-                            <Link className={styles.exerciseButton} to={`/exercise/${exerciseData.id}/edit`}>Edit</Link> 
+                            <Link className={styles.exerciseButton} to={`/exercise/${exerciseData._id}/edit`}>Edit</Link> 
                         </div> 
                     : null}
                 </div>
