@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./axios.js";
 import {userData} from './components/common/interfaces.ts';
 import objectId from 'bson-objectid';
 import { saveUserData } from "./db.js";

@@ -3,7 +3,7 @@ import styles from './ExerciseSelector.module.css';
 import { getAllItems } from '../../../db';
 import { IconLibrary } from '../../../IconLibrary';
 import { WorkoutExercise } from '../interfaces';
-import axios from 'axios';
+import axios from '../../../axios';
 
 
 type SourceType = 'library' | 'online';

@@ -4,7 +4,7 @@ import { formatDate, getDateForHeader, makeFirstUpperCase } from '../../../../he
 import { useState, useEffect } from 'react';
 import { IconLibrary } from '../../../../IconLibrary.js';
 import {v4 as uuidv4} from 'uuid';
-import axios from 'axios';
+import axios from '../../../../axios.js';
 import { getItemById, saveItem, deleteItem } from '../../../../db.js';
 import AppHeader from '../../../common/AppHeader/AppHeader.tsx';
 import { useUI } from '../../../../context/UIContext.jsx';

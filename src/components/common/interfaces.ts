@@ -109,6 +109,7 @@ export interface Workout {
     data: GoalLog | ExerciseLog | WorkoutLog | FoodLog,
   }
   export interface GoalLog{
+    _id: string;
     value: number;
     time: string;
     date: string;

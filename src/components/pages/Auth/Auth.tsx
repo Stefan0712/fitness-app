@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from './Auth.module.css';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from '../../../axios.js';
 import Logo from '../../../assets/logo.png';
 import { useUI } from "../../../context/UIContext.jsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";

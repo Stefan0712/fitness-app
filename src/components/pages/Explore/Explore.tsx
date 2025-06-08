@@ -4,7 +4,7 @@ import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 import { Link } from 'react-router-dom';
 import Workout from '../Library/Workout';
 import Exercise from '../Library/Exercise';
-import axios from 'axios';
+import axios from '../../../axios.js';
 import { getAllItems, saveItem } from '../../../db';
 import { Exercise as IExercise, Workout as IWorkout } from '../../common/interfaces';
 import { useUI } from '../../../context/UIContext';
@@ -19,7 +19,7 @@ const Explore = () => {
 
     const fetchExercises = async () =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise?app=true`,{ withCredentials: true });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise?app=true`,{ withCredentials: true, headers: {"ngrok-skip-browser-warning": true} });
             if(response.data){
                 setSource('online')
                 setFilteredItems(response.data);
