@@ -3,12 +3,12 @@ import styles from './Sync.module.css';
 
 const WorkoutImport = ({item, index, library, selectedItems, handleItemSelection}) => {
     return ( 
-        <div key={'Workout-'+index} className={`${styles.importExercise} ${selectedItems.includes(item) ? styles.selectedExercise : ''}`} onClick={()=>handleItemSelection(item)}>
+        <div key={'Workout-'+item._id} className={`${styles.importExercise} ${selectedItems.includes(item) ? styles.selectedExercise : ''}`} onClick={()=>handleItemSelection(item)}>
             {library.workouts.some(i=>i._id === item._id || i.sourceId === item._id) ? <img src={IconLibrary.Duplicate} className={styles.duplicateImportIcon} alt="" /> : null}
             <h4>{item.name}</h4>
             <div className={styles.rowList}>
                 <img src={IconLibrary.Tags} alt='' /> 
-                {item.tags?.map((tag, index)=><p key={'tax-'+index}>{tag.name}</p>)}
+                {item.tags && item.tags.length > 0 ? item.tags?.map((tag, index)=><p key={'tax-'+index}>{tag.name}</p>) : <p>No tags</p>}
             </div>
             <div className={styles.rowList}>
                 <img src={IconLibrary.Muscle} alt='' /> 

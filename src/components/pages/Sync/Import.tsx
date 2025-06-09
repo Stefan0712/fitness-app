@@ -25,23 +25,32 @@ const Import = () => {
     useEffect(()=>{handleGetLibrary()},[])
 
     const handleInitialImport = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
         try {
             const parsed = JSON.parse(event.target?.result as string);
-            setImportData(parsed);
+            if (Array.isArray(parsed.data)) {
+                parsed.data = parsed.data.map(item => {
+                    if (item.muscleGroups && !item.targetMuscles) {
+                        return {...item, targetMuscles: item.muscleGroups, muscleGroups: undefined};
+                    }
+                    return item;
+                });
+            }
             console.log(parsed)
-            showMessage("File successfully imported!", "success")
+            setImportData(parsed);
+            showMessage("File successfully imported!", "success");
         } catch (err) {
             console.error("Failed to parse JSON:", err);
             alert("Invalid JSON file.");
         }
-        };
-        reader.readAsText(file);
     };
+    reader.readAsText(file);
+};
+
 
     const handleItemSelection = (item) =>{
         if(selectedItems.includes(item)){
@@ -78,9 +87,9 @@ const Import = () => {
             <div className={styles.exercisesContainer}>
                 {importData?.data && importData?.data.length > 0 ? importData?.data.map((item, index)=>(
                     importData.type === 'exercises' ? 
-                        <ExerciseImport item={item} index={index} library={library} selectedItems={selectedItems} handleItemSelection={handleItemSelection} /> 
+                        <ExerciseImport key={"Exercise-"+index} item={item} index={index} library={library} selectedItems={selectedItems} handleItemSelection={handleItemSelection} /> 
                     : importData.type === 'workouts' ? 
-                        <WorkoutImport item={item} index={index} library={library} selectedItems={selectedItems} handleItemSelection={handleItemSelection} /> 
+                        <WorkoutImport key={"Workout-"+index} item={item} index={index} library={library} selectedItems={selectedItems} handleItemSelection={handleItemSelection} /> 
                     : null
                 )): <p>No exercises found</p>}
             </div>
