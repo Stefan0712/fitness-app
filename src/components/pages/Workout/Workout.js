@@ -86,22 +86,31 @@ const Workout = () => {
             saveProgress();
         }
     },[exercises]);
-
+    //TODO: Fix completed exercise now showing in exercise list, update the ui of Add Exercise, add rest to exercises,
     const getExercises = () => {
         const exercises = [];
         if(workoutData && workoutData.phases?.length > 0){
             workoutData.phases.map(phase=>{
                 phase.exercises && phase.exercises.length > 0 ? phase.exercises.map(exercise=>{
                     const newSets = [];
-                    for (let i = 0; i < exercise.sets; i++) {
-                        console.log(exercise.fields)
+                    if(exercise.sets === 0){
                         newSets.push({
                            order: exercises.length,
                             fields: exercise.fields ?? [],
                             isCompleted: false,
                             isSkipped: false,
                         });
+                    }else{
+                        for (let i = 0; i < exercise.sets; i++) {
+                            newSets.push({
+                            order: exercises.length,
+                                fields: exercise.fields ?? [],
+                                isCompleted: false,
+                                isSkipped: false,
+                            });
+                        }
                     }
+                    
                     const ex = {
                         ...exercise,
                         initialId: exercise._id,
@@ -351,7 +360,7 @@ const Workout = () => {
                 <div className={styles.content}>
                     {showExercisePicker ? <ExercisePicker closeModal={()=>setShowExercisePicker(false)} currentExercises={exercises} addExercise={addExercise} /> : null}
                     {showExercises ? (
-                        <div className={styles.exercises }>
+                        <div className={styles.exercises}>
                         <div className={styles['exercises-header']}>
                             <h3>Exercises</h3>
                             <button className={styles['hide-exercises']}>

@@ -5,6 +5,7 @@ import { RootState } from '../../../store';
 import { useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { exercises as dbExercises } from '../../../database';
+import { getAllItems } from '../../../db';
 
 
 interface Set{
@@ -79,18 +80,26 @@ interface ExercisePickerProps{
 
 const ExercisePicker: React.FC<ExercisePickerProps> = ({closeModal, addExercise, currentExercises}) => {
 
-    const libraryExercises = useSelector((state: RootState)=>state.user.exercises);
+    const [libraryExercises, setLibraryExercises] = useState([]);
     
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [showLibraryEx, setShowLibraryEx] = useState(true);
     const [showDatabaseEx, setShowDatabaseEx] = useState(true);
 
-    const getAllItems = () =>{
-        const tempDb = showDatabaseEx ? [...dbExercises] : [];
-        const tempLib = showLibraryEx ? [...libraryExercises] : [];
-        return [...tempDb, ...tempLib]
+
+    const getLibraryExercises = async () => {
+        try{
+            const items = await getAllItems('exercises');
+            if(items && items.length > 0){
+                setLibraryExercises(items);
+            }
+        }catch(error){
+            console.error('Error')
+        }
     }
-    const [items, setItems] = useState<Exercise[]>(getAllItems || []);
+    useEffect(()=>{getLibraryExercises()},[])
+
+    const [items, setItems] = useState<Exercise[]>(libraryExercises || []);
 
    
     useEffect(()=>{
@@ -112,24 +121,24 @@ const ExercisePicker: React.FC<ExercisePickerProps> = ({closeModal, addExercise,
 
     const handleSeach = (value: string) =>{
 
-        setSearchQuery(value);
-        if (!value.trim()) {
-            setItems(getAllItems()); // Reset if search is empty
-            return;  
+        if(libraryExercises && libraryExercises.length > 0){
+            setSearchQuery(value);
+            if (!value.trim()) {
+                setItems(libraryExercises); // Reset if search is empty
+                return;  
+            }
+            
+            const filteredItems: Exercise[] = items.filter(item => item.name.toLowerCase().includes(value.toLowerCase())) || [];
+            setItems(filteredItems);
         }
-        
-        const filteredItems: Exercise[] = items.filter(item => item.name.toLowerCase().includes(value.toLowerCase())) || [];
-        setItems(filteredItems);
     }
 
     const updateFilters = () =>{
-        const filteredItems = getAllItems().filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase())) || [];
-        setItems(filteredItems)
+        if(libraryExercises && libraryExercises.length > 0){
+            const filteredItems = libraryExercises.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase())) || [];
+            setItems(filteredItems)
+        }
     }
-
-
-
-
     const convertExercise = (exercise) => {
         const tempExercise = {...exercise};
         // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
@@ -157,16 +166,9 @@ const ExercisePicker: React.FC<ExercisePickerProps> = ({closeModal, addExercise,
 
         return tempExercise;
     };
-          
-
-
-
     const handleAddExercise = ( exercise ) => {
         addExercise(convertExercise(exercise))
     }
-
-
-
 
     return ( 
         <div className={styles['exercise-picker']}>
@@ -186,7 +188,7 @@ const ExercisePicker: React.FC<ExercisePickerProps> = ({closeModal, addExercise,
             </div>
             <div className={styles.results}>
                 {items?.length > 0 ? items.map((item,index)=>
-                    checkIfAdded(item) ? null : (
+                    (
                         <div className={styles.exercise} key={'exercise-'+item.name+index}>
                             <p className={styles.name}>{item.name}</p>
                             {item.sets ? <p>{item.sets} sets</p> : null}

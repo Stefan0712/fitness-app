@@ -107,7 +107,7 @@
     transition: all 0.1s;
     position: absolute;
     right: 15px;
-    bottom: 75px;
+    bottom: 100px;
     background-color: #1A1A1B;
     border: 1px solid var(--general-border);
     z-index: 10;
