@@ -6,7 +6,7 @@ import { IconLibrary } from "../../../IconLibrary";
 
 import styles from './Workout.module.css';
 import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
-import { getAllItems, getItemById, saveItem } from "../../../db.js";
+import { getItemById, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
  
 
@@ -58,9 +58,7 @@ const Workout = () => {
     },[])
 
     useEffect(() => {
-        if(!snapshotId && workoutData){
-            setExercises(getExercises());
-        }else if(snapshotId){
+        if(snapshotId){
             const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
             const snapshot = snapshots.workout;
             if(snapshot){
@@ -75,7 +73,11 @@ const Workout = () => {
             }
         }
     }, []);
-
+    useEffect(()=>{
+        if(!snapshotId && workoutData){
+            setExercises(getExercises());
+        } 
+    },[workoutData]);
     useEffect(()=>{
         if(!currentExercise && exercises && exercises.length > 0){
             setCurrentExercise(exercises[0]._id);
@@ -102,6 +104,8 @@ const Workout = () => {
                     }
                     const ex = {
                         ...exercise,
+                        initialId: exercise._id,
+                        _id: uuidv4(),
                         phaseName: phase.name,
                         sets: newSets
                     };
