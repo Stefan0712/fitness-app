@@ -89,7 +89,33 @@
 
 
 
-
+.new-goal input{
+    color: white;
+}
+.new-goal .targetButton{
+    width: 100%;
+    color: white;
+}
+.new-goal .numberInputs{
+    width: 100%;
+}
+.new-goal .numberInputs .secondRow{
+    grid-template-columns: 1fr 50px !important;
+    width: 100%; 
+}
+.new-goal .yesnoInputs{
+    width: 100%;
+}
+.new-goal .yesnoInputs .firstRow{
+    grid-template-columns: 1fr 50px 60px;
+    width: 100%; 
+}
+.new-goal .targetInputs,
+.new-goal .numberInputs{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
 /* New Goal component */
 
 .new-goal{
@@ -126,6 +152,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    width: 100%;
 }
 .new-goal .firstRow,
 .edit-goal .firstRow{

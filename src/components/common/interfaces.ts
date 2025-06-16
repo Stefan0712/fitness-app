@@ -98,7 +98,8 @@ export interface Workout {
     unit: string,
     target: number,
     icon: string,
-    color: string
+    color: string,
+    type: string,
   }
   export interface BaseLog{
     _id: string,

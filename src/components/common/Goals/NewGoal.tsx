@@ -16,16 +16,39 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
+    const [type, setType] = useState<string>('target')
 
     const handleAddGoal = async () =>{
-        if(name && unit && target){
+        if(type === 'target' && target && name && unit){
             const goalData: Goal = {
                 _id: uuidv4(),
                 name,
                 unit,
                 target,
                 color,
-                icon
+                icon,
+                type
+            }
+            await saveItem('goals',goalData)
+            close();
+        }else if(type === 'yes-no'){
+            const goalData = {
+                _id: uuidv4(),
+                name,
+                color,
+                icon,
+                type
+            }
+            await saveItem('goals',goalData)
+            close();
+        }else if(type === 'number' && name && unit){
+            const goalData = {
+                _id: uuidv4(),
+                name,
+                unit,
+                color,
+                icon,
+                type
             }
             await saveItem('goals',goalData)
             close();
@@ -35,7 +58,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 unit: unit || 'Missing unit',
                 target,
                 color,
-                icon
+                icon,
+                type
             })
         }
         
@@ -54,16 +78,38 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 <p className={styles.name}>{name}</p>
                 <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
             </div>
+            <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
+                <option value={'yes-no'}>Yes/No</option>
+                <option value={'number'}>Number</option>
+                <option value={'target'}>Target</option>
+            </select>
             <div className={styles['new-goal-inputs']}>
-                <div className={styles.firstRow}>
-                    <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
-                    <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
-                </div>
-                <div className={styles.secondRow}>
-                    <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
-                    <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
-                    <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-                </div>
+                {type === 'target' ? <div className={styles.targetInputs}>
+                    <div className={styles.firstRow}>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                    </div>
+                    <div className={styles.secondRow}>
+                        <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                        <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
+                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                    </div>
+                </div> : type === 'yes-no' ? <div className={styles.yesnoInputs}>
+                    <div className={styles.firstRow}>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                    </div>
+                </div> : type === 'number' ? <div className={styles.numberInputs}>
+                    <div className={styles.firstRow}>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                    </div>
+                    <div className={styles.secondRow}>
+                        <input type='text' className={styles.unitInput} name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                    </div>
+                </div> : null}
             </div>
             <div className={styles['new-goal-buttons']}>
                 <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
