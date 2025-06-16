@@ -16,7 +16,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
-    const [type, setType] = useState<string>('target')
+    const [type, setType] = useState<string>('target');
 
     const handleAddGoal = async () =>{
         if(type === 'target' && target && name && unit){
