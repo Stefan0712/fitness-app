@@ -44,7 +44,7 @@ const Goals = ({closeMenu}) => {
                     )) : <p>No goals</p>}
                 </div>
             </div>
-            {selectedGoal ? <GoalsLog data={selectedGoal} /> : null}
+            {selectedGoal ? <GoalsLog key={selectedGoal._id} data={selectedGoal} /> : null}
         </div>
      );
 }

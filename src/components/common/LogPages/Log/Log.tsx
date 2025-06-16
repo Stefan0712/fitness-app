@@ -17,10 +17,10 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
 
     const todayDate = new Date();
 
-    const [inputValue, setInputValue] = useState<number>(0);
+    const [inputValue, setInputValue] = useState<string>(goalData.type === 'number' || goalData.type === 'target' ? '0' : goalData.type === 'yes-no' ? 'yes' : '0');
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [date, setDate] = useState(todayDate.toISOString().split('T')[0])
+    const [date, setDate] = useState(todayDate.toISOString().split('T')[0]);
 
     const getCurrentTime = (input: Date | string = new Date()): string => {
         const date = typeof input === "string" ? new Date(input) : input;
@@ -42,17 +42,18 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
                 icon: goalData.icon,
                 timestamp: todayDate,
                 data: {
-                    value: inputValue,
+                    value: goalData.type === 'number' || goalData.type === 'target' ? parseInt(inputValue) : goalData.type === 'yes-no' ? inputValue : inputValue,
                     time,
                     description,
                     name,
                     unit: goalData.unit,
-                    date
+                    date,
+                    type: goalData.type || 'target'
                 }
             }
             await saveItem('logs', data);
             showMessage("Goal logged successfully", 'success');
-            setInputValue(0);
+            setInputValue('0');
             setName('');
             setDescription('');
             setTime(getCurrentTime());
@@ -69,8 +70,14 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
                     <input type="time" name="time" id="time" onChange={((e)=>setTime(e.target.value))} value={time} />
                 </fieldset>
                 <fieldset>
-                    <label>Value</label>
-                    <input type="number" onChange={(e)=>setInputValue(parseInt(e.target.value))} value={inputValue}></input>
+                    <label>{goalData.type === 'yes-no' ? 'Completed?' : 'Value'}</label>
+                    {goalData.type && (goalData.type === 'number' || goalData.type === 'target') ? 
+                        <input type="number" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+                        : goalData.type && goalData.type === 'yes-no' ? <select onChange={(e)=>setInputValue(e.target.value)} value={inputValue}>
+                            <option value={'yes'}>Yes</option>
+                            <option value={'no'}>No</option>
+                        </select> : null
+                    }
                 </fieldset>
                 <fieldset>
                     <label>Date</label>
