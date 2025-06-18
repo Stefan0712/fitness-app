@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './Log.module.css';
 import React from "react";
 import { BaseLog, Goal } from "../../interfaces.ts";
-import { saveItem } from "../../../../db.js";
+import { getAllItems, saveItem } from "../../../../db.js";
 import { useUI } from "../../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
+import { getCurrentDay } from "../../../../helpers.js";
 
 interface LogGoalProps {
     goalData: Goal;
@@ -13,7 +14,7 @@ interface LogGoalProps {
 
 const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
 
-    const { showMessage } = useUI();
+    const { showMessage, showConfirmationModal } = useUI();
 
     const todayDate = new Date();
 
@@ -21,6 +22,7 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [date, setDate] = useState(todayDate.toISOString().split('T')[0]);
+    const [prevId, setPrevId] = useState('')
 
     const getCurrentTime = (input: Date | string = new Date()): string => {
         const date = typeof input === "string" ? new Date(input) : input;
@@ -31,13 +33,37 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
     
     const [time, setTime] = useState<string>(getCurrentTime())
 
+    const checkIfAlreadyLogged = async () =>{
+        try{
+            const existingLog = await getAllItems('logs', {goalId: goalData._id, date: getCurrentDay()});
+            if(existingLog && existingLog.length > 0){
+                showConfirmationModal({title: "Already Logged", message:"You already added a log for this goal. If you log again it will override the old one. Do you want to continue?", onConfirm: ()=>populateLog(existingLog[0])})
+            }
+        }catch(error){
+            console.error(error);
+        }
+    }
+    const populateLog = async (prevLog) =>{
+        console.log(prevLog)
+        setName(prevLog.data.name);
+        setDescription(prevLog.data.description);
+        setDate(prevLog.data.data);
+        setInputValue(prevLog.data.value);
+        setPrevId(prevLog._id);
+    }
+    useEffect(()=>{
+        if(goalData.type === 'yes-no' || goalData.type === 'number'){
+            checkIfAlreadyLogged();
+        }
+    },[])
+
 
     const submitLog = async () =>{
         if(goalData){
             const data: BaseLog = {
                 type: 'goal', 
                 goalId: goalData._id,
-                _id: ObjectID().toHexString(),
+                _id: prevId || ObjectID().toHexString(),
                 title: `${goalData.name} Log`, 
                 icon: goalData.icon,
                 timestamp: todayDate,

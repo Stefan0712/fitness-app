@@ -78,8 +78,18 @@ import Library from './assets/library.svg';
 import Activity from './assets/activity.svg';
 import Sync from './assets/sync.svg';
 import Duplicate from './assets/duplicate.svg';
+import NotCompleted from './assets/x.svg';
+import Line from './assets/line.svg';
+import Completed from './assets/completed.svg';
+import ArrowUp from './assets/arrowUp.svg';
+import ArrowDown from './assets/arrowDown.svg';
 
 export const IconLibrary = {
+    ArrowUp,
+    ArrowDown,
+    NotCompleted,
+    Line,
+    Completed,
     Sync,
     Activity,
     Library,

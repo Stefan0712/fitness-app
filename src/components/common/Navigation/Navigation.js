@@ -55,8 +55,6 @@ const Navigation = () => {
         const userData = localStorage.getItem('user');
         if(!userData){
             showConfirmationModal({title: "First time?", message: "Do you want to create a local account? It is not required but it will enhance your experience", onConfirm: ()=>navigate('/get-started')})
-        }else{
-            console.log(JSON.parse(userData).username)
         }
     },[])
     return ( 

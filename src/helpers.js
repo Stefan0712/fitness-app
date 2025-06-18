@@ -62,7 +62,17 @@ export const formatDate = (date) => {
     
     return `${year} ${month} ${day}`;
 }
+export const getLastThreeDays = () => {
+  const dates = [];
 
+  for (let i = 0; i <= 2; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i); // subtract i days from today
+    dates.push(date.toISOString().split('T')[0]);
+  }
+
+  return dates;
+};
 
 export const convertGroupFromLowerToUpperCase = (input)=>{
   return input
