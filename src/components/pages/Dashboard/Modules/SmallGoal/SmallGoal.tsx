@@ -86,8 +86,6 @@ const BooleanGoal = ({ goal }) => {
             );
             const results = await Promise.all(promises);
             const formattedLogs = results.map(arr => (Array.isArray(arr) && arr.length ? arr[0] : null));
-            console.log("Successfully fetched logs")
-            console.log(formattedLogs, formattedLogs.length)
             setLogs(formattedLogs);
         } catch (error) {
             console.error(error);
