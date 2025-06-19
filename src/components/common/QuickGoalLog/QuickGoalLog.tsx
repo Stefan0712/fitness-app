@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import styles from './Log.module.css';
+import styles from './QuickGoalLog.module.css';
 import React from "react";
-import { BaseLog, Goal } from "../../interfaces.ts";
-import { getAllItems, saveItem } from "../../../../db.js";
-import { useUI } from "../../../../context/UIContext.jsx";
+import { BaseLog, Goal } from "../interfaces.ts";
+import { getAllItems, saveItem } from "../../../db.js";
+import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
-import { getCurrentDay } from "../../../../helpers.js";
+import { getCurrentDay } from "../../../helpers.js";
+import { useNavigate } from "react-router-dom";
 
 interface LogGoalProps {
     goalData: Goal;
-    setCurrentScreen: (screen: string) => void;
+    close: () => void;
+    closeMenu: () => void;
 }
 
-const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
+const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu}) => {
 
     const { showMessage, showConfirmationModal } = useUI();
+    const navigate = useNavigate();
 
     const todayDate = new Date();
 
@@ -31,7 +34,7 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
         return `${hours}:${minutes}`;
     };
     
-    const [time, setTime] = useState<string>(getCurrentTime())
+    const [time, setTime] = useState<string>(getCurrentTime());
 
     const checkIfAlreadyLogged = async () =>{
         try{
@@ -44,7 +47,6 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
         }
     }
     const populateLog = async (prevLog) =>{
-        console.log(prevLog)
         setName(prevLog.data.name);
         setDescription(prevLog.data.description);
         setDate(prevLog.data.data);
@@ -83,12 +85,15 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
             setName('');
             setDescription('');
             setTime(getCurrentTime());
-            setCurrentScreen('history');
+            close();
+            closeMenu();
+            navigate(`/goals/view/${goalData._id}`)
         }
     }
 
     return ( 
         <div className={styles.log}>
+            <h3>{goalData.name}</h3>
             <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} placeholder="Name"/>
             <div className={styles.threeItems}>
                 <fieldset>
@@ -111,9 +116,12 @@ const Log: React.FC<LogGoalProps> = ({goalData, setCurrentScreen}) => {
                 </fieldset>
             </div>
             <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description} placeholder="Description"></textarea>
-            <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
+            <div className={styles.buttons}>
+                <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
+                <button type="button" className={styles["close-button"]} onClick={close}>Close</button>
+            </div>
         </div>
      );
 }
  
-export default Log;
+export default QuickGoalLog;

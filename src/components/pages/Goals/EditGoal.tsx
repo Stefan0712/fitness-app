@@ -3,25 +3,25 @@ import { IconLibrary } from '../../../IconLibrary.js';
 import { useState } from 'react';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ColorPicker from '../ColorPicker/ColorPicker.tsx';
-import IconPicker from '../IconPicker/IconPicker.tsx';
-import { Goal } from '../interfaces.ts';
+import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
+import IconPicker from '../../common/IconPicker/IconPicker.tsx';
+import { Goal } from '../../common/interfaces.ts';
 import { saveItem } from '../../../db.js';
 
-const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
-    const [name, setName] = useState<string>('');
-    const [unit, setUnit] = useState<string>('');
-    const [target, setTarget] = useState<number>(0);
-    const [color, setColor] = useState<string>('#FFFFFF');
-    const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
+const EditGoal = ({close, goalData}) => {
+    const [name, setName] = useState<string>(goalData.name || '');
+    const [unit, setUnit] = useState<string>(goalData.unit || '');
+    const [target, setTarget] = useState<number>(goalData.target || 0);
+    const [color, setColor] = useState<string>(goalData.color || '#FFFFFF');
+    const [icon, setIcon] = useState<string>(goalData.icon || IconLibrary.Dumbbell);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
-    const [type, setType] = useState<string>('target');
+    const [type, setType] = useState<string>(goalData.type || 'target');
 
-    const handleAddGoal = async () =>{
+    const handleEditGoal = async () =>{
         if(type === 'target' && target && name && unit){
-            const goalData: Goal = {
-                _id: uuidv4(),
+            const newData: Goal = {
+                _id: goalData._id,
                 name,
                 unit,
                 target,
@@ -29,28 +29,28 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 icon,
                 type
             }
-            await saveItem('goals',goalData)
+            await saveItem('goals',newData)
             close();
         }else if(type === 'yes-no'){
-            const goalData = {
-                _id: uuidv4(),
+            const newData = {
+                _id: goalData._id,
                 name,
                 color,
                 icon,
                 type
             }
-            await saveItem('goals',goalData)
+            await saveItem('goals',newData)
             close();
         }else if(type === 'number' && name && unit){
-            const goalData = {
-                _id: uuidv4(),
+            const newData = {
+                _id: goalData._id,
                 name,
                 unit,
                 color,
                 icon,
                 type
             }
-            await saveItem('goals',goalData)
+            await saveItem('goals',newData)
             close();
         }else{
             console.log('Something went wrong',{
@@ -70,11 +70,11 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
             {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
             <div className={styles.header}>
-                <h3>New Goal</h3>
+                <h3>Edit Goal</h3>
             </div>
             <div className={styles.goal}>
                 <div className={styles["goal-color"]} style={{backgroundColor: color}} />
-                <img src={icon} className={styles['goal-icon']}></img>
+                <img src={icon} className={'small-icon'}></img>
                 <p className={styles.name}>{name}</p>
                 <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
             </div>
@@ -112,11 +112,11 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 </div> : null}
             </div>
             <div className={styles['new-goal-buttons']}>
-                <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
+                <button type="button" className={styles.submit} onClick={handleEditGoal}>Update Goal</button>
                 <button type="button" className={styles.cancel} onClick={close}>Cancel</button>
             </div>
         </div>
      );
 }
  
-export default NewGoal;
+export default EditGoal;

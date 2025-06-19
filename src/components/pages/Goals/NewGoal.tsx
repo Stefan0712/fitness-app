@@ -1,87 +1,80 @@
-import styles from '../../Goals/Goals.module.css';
-import React from 'react';
+import styles from './Goals.module.css';
+import { IconLibrary } from '../../../IconLibrary.js';
 import { useState } from 'react';
-import ColorPicker from '../../ColorPicker/ColorPicker.tsx';
-import IconPicker from '../../IconPicker/IconPicker.tsx';
-import { Goal } from '../../interfaces.ts';
-import { saveItem } from '../../../../db.js';
-import { useUI } from '../../../../context/UIContext.jsx';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
+import IconPicker from '../../common/IconPicker/IconPicker.tsx';
+import { Goal } from '../../common/interfaces.ts';
+import { saveItem } from '../../../db.js';
 
-
-interface EditParams {
-    closeEdit: ()=> void;
-    goalData: Goal;
-    refreshLogData: ()=>void;
-}
-const Edit: React.FC<EditParams> = ({goalData, closeEdit, refreshLogData}) => {
-
-
-    const {showMessage} = useUI();
-    const [name, setName] = useState<string>(goalData.name || '');
-    const [unit, setUnit] = useState<string>(goalData.unit || '');
-    const [target, setTarget] = useState<number>(goalData.target || 0);
-    const [color, setColor] = useState<string>(goalData.color || 'white');
+const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
+    const [name, setName] = useState<string>('');
+    const [unit, setUnit] = useState<string>('');
+    const [target, setTarget] = useState<number>(0);
+    const [color, setColor] = useState<string>('#FFFFFF');
+    const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
-    const [icon, setIcon] = useState(goalData.icon || '')
     const [type, setType] = useState<string>('target');
 
-    const handleUpdateGoal = async () =>{
-        let newData;
-        if(name && unit && target){
-            if(type === 'target' && target && name && unit){
-                newData = {
-                    _id: goalData._id,
-                    name,
-                    unit,
-                    target,
-                    color,
-                    icon,
-                    type
-                }
-            }else if(type === 'yes-no'){
-                newData = {
-                    _id: goalData._id,
-                    name,
-                    color,
-                    icon,
-                    type
-                }
-            }else if(type === 'number' && name && unit){
-                newData = {
-                    _id: goalData._id,
-                    name,
-                    unit,
-                    color,
-                    icon,
-                    type
-                }
-            }else{
-                console.log('Something went wrong',{
-                    name: name || 'Missing name',
-                    unit: unit || 'Missing unit',
-                    target,
-                    color,
-                    icon,
-                    type
-                })
+    const handleAddGoal = async () =>{
+        if(type === 'target' && target && name && unit){
+            const goalData: Goal = {
+                _id: uuidv4(),
+                name,
+                unit,
+                target,
+                color,
+                icon,
+                type
             }
-            await saveItem('goals', newData);
-            showMessage("Goal updated successfully", 'success');
-            closeEdit();
-            refreshLogData();
+            await saveItem('goals',goalData)
+            close();
+        }else if(type === 'yes-no'){
+            const goalData = {
+                _id: uuidv4(),
+                name,
+                color,
+                icon,
+                type
+            }
+            await saveItem('goals',goalData)
+            close();
+        }else if(type === 'number' && name && unit){
+            const goalData = {
+                _id: uuidv4(),
+                name,
+                unit,
+                color,
+                icon,
+                type
+            }
+            await saveItem('goals',goalData)
+            close();
+        }else{
+            console.log('Something went wrong',{
+                name: name || 'Missing name',
+                unit: unit || 'Missing unit',
+                target,
+                color,
+                icon,
+                type
+            })
         }
- 
         
     }
-
+    
     return ( 
-        <div className={styles['edit-goal']}>
+        <div className={styles['new-goal']}>
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
             {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
+            <div className={styles.header}>
+                <h3>New Goal</h3>
+            </div>
             <div className={styles.goal}>
                 <div className={styles["goal-color"]} style={{backgroundColor: color}} />
-                <img src={icon} className={"small-icon"}></img>
+                <img src={icon} className={styles['goal-icon']}></img>
                 <p className={styles.name}>{name}</p>
                 <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
             </div>
@@ -119,11 +112,11 @@ const Edit: React.FC<EditParams> = ({goalData, closeEdit, refreshLogData}) => {
                 </div> : null}
             </div>
             <div className={styles['new-goal-buttons']}>
-                <button type="button" className={styles.submit} onClick={handleUpdateGoal}>Save</button>
-                <button type="button" className={styles.cancel} onClick={closeEdit}>Cancel</button>
+                <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
+                <button type="button" className={styles.cancel} onClick={close}>Cancel</button>
             </div>
         </div>
      );
 }
  
-export default Edit;
+export default NewGoal;

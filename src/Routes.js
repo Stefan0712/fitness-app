@@ -21,6 +21,8 @@ import Explore from './components/pages/Explore/Explore.tsx';
 import DefaultFields from './components/pages/Settings/DefaultFields.tsx';
 import Auth from './components/pages/Auth/Auth.tsx';
 import Sync from './components/pages/Sync/Sync.tsx';
+import Goals from './components/pages/Goals/Goals.tsx';
+import ViewGoal from './components/pages/Goals/ViewGoal.tsx';
 
 
 function AppRoutes() {
@@ -51,6 +53,8 @@ function AppRoutes() {
       <Route path='/settings' element={<Settings />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
       <Route path='/default-fields' element={<DefaultFields />} />
+      <Route path='/goals' element={<Goals />} />
+      <Route path='/goals/view/:id' element={<ViewGoal />} />
       <Route path="*" element={<Dashboard />} />
       
     </Routes>
