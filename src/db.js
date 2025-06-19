@@ -106,6 +106,18 @@ export const deleteItem = async (storeName, _id) => {
   return db.delete(storeName, _id);
 };
 
+export const deleteItemsByGoalId = async (storeName, goalId) => {
+  const db = await initDB();
+  const tx = db.transaction(storeName, 'readwrite');
+  const store = tx.objectStore(storeName);
+  const allItems = await store.getAll();
+  const itemsToDelete = allItems.filter(item => item.goalId === goalId);
+  for (const item of itemsToDelete) {
+    await store.delete(item._id);
+  }
+
+  await tx.done;
+};
 
 // Utilities for userData
 

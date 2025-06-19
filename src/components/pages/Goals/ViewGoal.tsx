@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import { IconLibrary } from "../../../IconLibrary";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewGoal.module.css';
-import { useParams } from "react-router-dom";
-import { getAllItems, getItemById } from "../../../db";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
 import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, makeDateNice, makeFirstUpperCase } from "../../../helpers";
 import Loading from "../../common/Loading";
 import { Goal } from "../../common/interfaces.ts";
 import EditGoal from "./EditGoal.tsx";
+import {useUI} from '../../../context/UIContext.jsx';
 
 
 const ViewGoal = () => {
 
     const {id} = useParams();
+    const {showConfirmationModal, showMessage} = useUI();
+    const navigate = useNavigate();
+
+
     const [goalData, setGoalData] = useState<Goal | null>(null);
     const [goalLogs, setGoalLogs] = useState<Goal[]>([]);
     const [editGoal, setEditGoal] = useState(null);
@@ -58,6 +63,17 @@ const ViewGoal = () => {
     };
 
     useEffect(() => {getPastLogs()},[id]);
+
+    const handleDeleteGoal = async () =>{
+        try{
+            await deleteItem('goals', id);
+            await deleteItemsByGoalId('goals',id)
+            showMessage("Goal deleted successfully!", "success");
+            navigate('/goals');
+        }catch(error){
+            console.error(error)
+        }
+    }
     if(!goalData){
         return(<Loading title={'View Goal'}/>)
     }else{
@@ -110,6 +126,7 @@ const ViewGoal = () => {
                     </div>
                 )) : <p>No logs today</p>}
             </div>
+            <button className={styles.deleteButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete your goal and all related logs. Are you sure you want to continue?', onConfirm: handleDeleteGoal})}>Delete Goal</button>
         </div>
      );
     }
