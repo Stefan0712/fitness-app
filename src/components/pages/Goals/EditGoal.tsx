@@ -1,19 +1,23 @@
 import styles from './Goals.module.css';
 import { IconLibrary } from '../../../IconLibrary.js';
 import { useState } from 'react';
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal } from '../../common/interfaces.ts';
 import { saveItem } from '../../../db.js';
+import { useUI } from '../../../context/UIContext.jsx';
 
 const EditGoal = ({close, goalData}) => {
+
+    const {showMessage} = useUI();
+
+
     const [name, setName] = useState<string>(goalData.name || '');
     const [unit, setUnit] = useState<string>(goalData.unit || '');
     const [target, setTarget] = useState<number>(goalData.target || 0);
     const [color, setColor] = useState<string>(goalData.color || '#FFFFFF');
     const [icon, setIcon] = useState<string>(goalData.icon || IconLibrary.Dumbbell);
+    const [pinToDashboard, setPinToDashboard] = useState<boolean>(goalData.pinToDashboard || false);
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>(goalData.type || 'target');
@@ -27,9 +31,11 @@ const EditGoal = ({close, goalData}) => {
                 target,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard
             }
-            await saveItem('goals',newData)
+            await saveItem('goals',newData);
+            showMessage("Goal updated successfully!",'success');
             close();
         }else if(type === 'yes-no'){
             const newData = {
@@ -37,9 +43,11 @@ const EditGoal = ({close, goalData}) => {
                 name,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard
             }
-            await saveItem('goals',newData)
+            await saveItem('goals',newData);
+            showMessage("Goal updated successfully!",'success');
             close();
         }else if(type === 'number' && name && unit){
             const newData = {
@@ -48,9 +56,11 @@ const EditGoal = ({close, goalData}) => {
                 unit,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard
             }
-            await saveItem('goals',newData)
+            await saveItem('goals',newData);
+            showMessage("Goal updated successfully!",'success');
             close();
         }else{
             console.log('Something went wrong',{
@@ -59,7 +69,8 @@ const EditGoal = ({close, goalData}) => {
                 target,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard
             })
         }
         
@@ -78,11 +89,20 @@ const EditGoal = ({close, goalData}) => {
                 <p className={styles.name}>{name}</p>
                 <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
             </div>
-            <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
-                <option value={'yes-no'}>Yes/No</option>
-                <option value={'number'}>Number</option>
-                <option value={'target'}>Target</option>
-            </select>
+            <div className={styles.goalSettings}>
+                <fieldset className={styles.goalType}>
+                    <label>Goal Type</label>
+                    <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
+                        <option value={'yes-no'}>Yes/No</option>
+                        <option value={'number'}>Number</option>
+                        <option value={'target'}>Target</option>
+                    </select>
+                </fieldset>
+                <fieldset className={styles.goalPin}>
+                    <label>Pin to Dashboard ?</label>
+                    <input type='checkbox' onChange={(e)=>setPinToDashboard(e.target.checked)} checked={pinToDashboard} id='pin' className={styles.targetButton} name='pin' />
+                </fieldset>
+            </div>
             <div className={styles['new-goal-inputs']}>
                 {type === 'target' ? <div className={styles.targetInputs}>
                     <div className={styles.firstRow}>

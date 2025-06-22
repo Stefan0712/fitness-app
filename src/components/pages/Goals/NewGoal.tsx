@@ -27,7 +27,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 target,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard: true
             }
             await saveItem('goals',goalData)
             close();
@@ -37,7 +38,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 name,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard: true
             }
             await saveItem('goals',goalData)
             close();
@@ -48,7 +50,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 unit,
                 color,
                 icon,
-                type
+                type,
+                pinToDashboard: true
             }
             await saveItem('goals',goalData)
             close();

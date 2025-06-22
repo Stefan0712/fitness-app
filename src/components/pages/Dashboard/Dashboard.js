@@ -60,7 +60,7 @@ const Dashboard = () => {
                 <div className={styles['dashboard-warning']}>
                     <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>
                 </div>
-            {userGoals && userGoals.length > 0 ? userGoals.map((goal, index)=><SmallGoal key={"dashboard-goal-"+index} goal={goal} />) : null}
+            {userGoals && userGoals.length > 0 ? userGoals.filter(item=>item.pinToDashboard).map((goal, index)=><SmallGoal key={"dashboard-goal-"+index} goal={goal} />) : null}
             <ActivityComponent key={'activity'} isSmallScreen={isSmallScreen}/>
             <NutritionComponent key={'nutrition'} isSmallScreen={isSmallScreen}/>   
             </div>
