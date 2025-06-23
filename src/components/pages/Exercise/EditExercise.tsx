@@ -106,7 +106,7 @@ const EditExercise: React.FC = () => {
     }else {
     return ( 
         <div className={styles.createExercise}>
-            <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />
+            <AppHeader title="Edit Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Save</button>} />
             <form>
                 <div className={styles.exerciseInfo} >
                     <h3>Exercise Info</h3> 

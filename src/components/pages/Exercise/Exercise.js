@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getItemById, saveItem } from '../../../db.js';
 import { getDateForHeader } from '../../../helpers';
 import { useUI } from '../../../context/UIContext.jsx';
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
  
 
 
@@ -65,7 +66,6 @@ const Exercise = () => {
     },[originalExercise])
     useEffect(()=>{
         if(exerciseData){
-            console.log("Progress Saved");
             saveProgress();
         }
     },[exerciseData])
@@ -82,7 +82,6 @@ const Exercise = () => {
             if (!exercise.completedSets) {
             exercise.completedSets = 0;
             }
-    
             // Transform sets property from number to an array to make it easier to track progress of that exercise
             if (typeof exercise.sets === "number" || typeof exercise.sets === 'string') {
             const setsArray = []; //init an empty array
@@ -90,7 +89,7 @@ const Exercise = () => {
             for (let i = 0; i < exercise.sets; i++) {
                 setsArray.push({
                 order: i + 1,
-                fields: exercise.fields ? JSON.parse(JSON.stringify(exercise.fields)) : [], // Deep copy of fields array
+                fields: exercise.fields ? [...JSON.parse(JSON.stringify(exercise.fields)), {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] : [], // Deep copy of fields array
                 isCompleted: false,
                 isSkipped: false,
                 });
@@ -144,7 +143,6 @@ const Exercise = () => {
         // Save the updated snapshots back to localStorage
         const snapshots = JSON.parse(localStorage.getItem("snapshots")) || {};
         localStorage.setItem('snapshots', JSON.stringify({workout: snapshots.workout, exercise: snapshot}));
-        console.log(`Snapshot for exercise saved:`, snapshot);
     }
     const getProgress = () =>{
         const totalTarget = exerciseData.sets.reduce((sum, set) => sum + set.target, 0);
@@ -260,11 +258,7 @@ const Exercise = () => {
     if(exerciseData){
         return ( 
             <div className={`page ${styles['exercise-page']}`}>
-                <div className="header">
-                    <div className="date">{getDateForHeader()}</div>
-                    <h2>{exerciseData?.name}</h2>
-                    <p className={styles.timer}>{formatTime(seconds)}</p>
-                </div>
+                <AppHeader title={exerciseData?.name} button={<p className={styles.timer}>{formatTime(seconds)}</p>} />
                 <div className={styles.content}>                
             <div className={styles['current-exercise']}>
                     <div className={styles["current-exercise-header"]}>
@@ -282,7 +276,7 @@ const Exercise = () => {
                                 </div>
                                 <div className={styles['set-fields']}>
                                     {item?.fields?.map((field)=>(
-                                        <div className={styles["field"]} key={field.id}>
+                                        <div className={styles["field"]} key={field._id}>
                                             <p className={styles["field-name"]}>{field.name}</p>
                                             <div className={styles["field-input"]}>
                                                 <button onClick={()=>handleChangeFieldValue(index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
@@ -299,6 +293,9 @@ const Exercise = () => {
                     </div>
                 </div>
             </div> 
+            <div className={styles.instructionsContainer}>
+                {exerciseData.instructions && exerciseData.instructions.length > 0 ? exerciseData.instructions.map((item, index)=><p key={'instruction-'+index}>{index+1}. {item}</p>):<p>No instructions for this exercise</p>}
+            </div>
             <div className={styles['buttons-container']}>
                 <button onClick={finishExercise}>Finish</button>
             </div>

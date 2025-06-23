@@ -9,7 +9,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({title, button}) => {
     return ( 
         <div className={styles.header}>
             <div className={styles.date}>{getDateForHeader()}</div>
-            <h2>{title}</h2>
+            <h3>{title}</h3>
             {button ? button : null}
         </div>
      );
