@@ -2,7 +2,7 @@ import styles from './Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
-import { makeFirstUpperCase, getCurrentDay } from '../../../helpers';
+import { makeFirstUpperCase, getCurrentDay, getHourFromTimestamp } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
@@ -14,30 +14,28 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
     const [showMenu, setShowMenu] = useState(false);
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
     const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(getCurrentDay());
     const [userActivity, setUserActivity] = useState([]);
     
     const getUserLogs = async () =>{
-        const items = await getAllItems('logs',{date: getCurrentDay(), type: 'activity'});
+        const items = await getAllItems('logs',{date: getCurrentDay(), type: 'food'});
         setUserActivity(items);
     };
     useEffect(()=>{
         getUserLogs();
     },[])
 
-    const foodHistory = userActivity?.length > 0 ? userActivity.logs.filter(item=> item.type ==='food') : null;
 
     useEffect(()=>{
-        if(foodHistory){
+        if(userActivity){
             const totals = getFoodCardData();
             if (JSON.stringify(totals) !== JSON.stringify(foodCardData)) {
                 setFoodCardData(totals);
             }
         }
-    },[foodHistory]);
+    },[userActivity]);
     const getFoodCardData = () => {
  
-        if(foodHistory && foodHistory.length > 0 && foodHistory.some(item=>item.type==="food")){
+        if(userActivity && userActivity.length > 0 && userActivity.some(item=>item.type==="food")){
             const totals = {
                 calories: 0,
                 protein: 0,
@@ -46,7 +44,7 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
                 sugar: 0,
                 fats: 0,
             };
-            foodHistory.forEach(obj => {
+            userActivity.forEach(obj => {
                 totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
                 totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
                 totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
@@ -109,15 +107,20 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
                     <h3>History</h3>
                     <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
                 </div>
-        
-                {userActivity?.logs?.length > 0 ? (userActivity.logs.filter(item=> item.type ==='food').map((log)=>(
+                <div className={styles.tableHeader}>
+                    <p></p>
+                    <p>Name</p>
+                    <p>Qty</p>
+                    <p>Time</p>
+                </div>
+                {userActivity?.length > 0 ? userActivity.map((log)=>(
                     <div className={`${styles['activity-item']}`} key={log.timestamp}>
-                        <img src={log.icon} className='small-icon'></img>
-                        <p className={styles['activity-name']}>{log.data.name}</p> 
-                        <p className={styles['activity-duration']}>{makeFirstUpperCase(log.data.type)}</p> at
-                        <p className={styles['activity-time']}>{log.data.time}</p>
+                        <img src={IconLibrary.Food} className='small-icon'></img>
+                        <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
+                        <p className={styles['activity-duration']}>{log.data.qty} {log.data.unit}</p>
+                        <p className={styles['activity-time']}>{getHourFromTimestamp(log.timestamp)}</p>
                     </div>
-                ))) : (<h3>No activity</h3>)}
+                )) : <h3>No activity</h3>}
             </div>
         </div>
      );
