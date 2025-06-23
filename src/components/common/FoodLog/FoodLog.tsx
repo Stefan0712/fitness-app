@@ -46,7 +46,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
 
     const convertToInt = (value: string | number): number =>{
         if(typeof value === 'string'){
-            return parseInt(value);
+            return parseFloat(value);
         }else if(typeof value === 'number'){
             return value;
         }else{
@@ -107,12 +107,12 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                             <option value={'snack'}>Snack</option>
                         </select>
                         <input className={styles['half-input']} type="time" name="time" id="time" onChange={(e) => setTime(e.target.value)} value={time} placeholder="Time" />
-                        <input className={styles['half-input']} type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} placeholder="Calories" />
-                        <input className={styles['half-input']} type="number" name="protein" id="protein" onChange={(e) => setProtein(e.target.value)} value={protein} placeholder="Protein" />
-                        <input className={styles['half-input']} type="number" name="carbs" id="carbs" onChange={(e) => setCarbs(e.target.value)} value={carbs} placeholder="Carbs" />
-                        <input className={styles['half-input']} type="number" name="fats" id="fats" onChange={(e) => setFats(e.target.value)} value={fats} placeholder="Fats" />
-                        <input className={styles['half-input']} type="number" name="sugar" id="sugar" onChange={(e) => setSugar(e.target.value)} value={sugar} placeholder="Sugar" />
-                        <input className={styles['half-input']} type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} placeholder="Calories" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="protein" id="protein" onChange={(e) => setProtein(e.target.value)} value={protein} placeholder="Protein" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="carbs" id="carbs" onChange={(e) => setCarbs(e.target.value)} value={carbs} placeholder="Carbs" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="fats" id="fats" onChange={(e) => setFats(e.target.value)} value={fats} placeholder="Fats" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="sugar" id="sugar" onChange={(e) => setSugar(e.target.value)} value={sugar} placeholder="Sugar" />
+                        <input className={styles['half-input']} step={"0.1"} type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
                     <fieldset>
                         <label>Notes</label>
                         <input type="text" id="note-content" name="note-content" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes" />

@@ -103,7 +103,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu}) => {
                 <fieldset>
                     <label>{goalData.type === 'yes-no' ? 'Completed?' : 'Value'}</label>
                     {goalData.type && (goalData.type === 'number' || goalData.type === 'target') ? 
-                        <input type="number" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
+                        <input type="number" step={"0.1"} onChange={(e)=>setInputValue(e.target.value)} value={inputValue}></input>
                         : goalData.type && goalData.type === 'yes-no' ? <select onChange={(e)=>setInputValue(e.target.value)} value={inputValue}>
                             <option value={'yes'}>Yes</option>
                             <option value={'no'}>No</option>
