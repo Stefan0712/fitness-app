@@ -5,6 +5,7 @@ import { getCurrentDay, getLastThreeDays } from '../../../../../helpers';
 import {Goal} from '../../../../common/interfaces';
 import ProgressBar from '../../../../common/SVG/ProgressBar.tsx';
 import {IconLibrary} from '../../../../../IconLibrary.js';
+import { useNavigate } from 'react-router-dom';
 
 interface SmallGoalProps {
     goal: Goal;
@@ -14,6 +15,7 @@ interface SmallGoalProps {
 }
 const SmallGoal: React.FC<SmallGoalProps> = ({goal, editMode, toggleGoal, goalsLength}) => {
 
+    const navigate = useNavigate();
     const handleTogglePin = async () =>{
         try{
             const updatedGoal = {...goal, pinToDashboard: !goal.pinToDashboard, order: goalsLength}
@@ -25,7 +27,7 @@ const SmallGoal: React.FC<SmallGoalProps> = ({goal, editMode, toggleGoal, goalsL
     }
 
     return ( 
-        <div className={styles.smallGoal}>
+        <div className={styles.smallGoal} onClick={!editMode ? ()=>navigate(`/goals/view/${goal._id}`) : undefined}>
             <div className={styles.goalTop}>
                 <img className='small-icon' src={goal.icon} alt='' />
                 <h4>{goal.name}</h4>
