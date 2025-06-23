@@ -1,52 +1,73 @@
-import styles from './Settings.module.css';
+import styles from './Equipment.module.css';
 import { IconLibrary } from '../../../IconLibrary.js';
-import { getDateForHeader } from '../../../helpers.js';
 import { useEffect, useState } from 'react';
+import { deleteItem, getAllItems, saveItem } from '../../../db.js';
+import AppHeader from '../../common/AppHeader/AppHeader.tsx';
+import { getUser } from '../../../auth.ts';
+import {v4 as uuidv4} from 'uuid';
+import {useUI} from '../../../context/UIContext.jsx';
 
 const Equipment = () => {
 
-
-    const allItems = []
-
+    const {showMessage, showConfirmationModal} = useUI();
+    const [equipment, setEquipment] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
 
     const [showEditForm, setShowEditForm] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false)
 
 
-    const deleteItem = (id)=>{
-        console.log('Deleted equipment with id: ', id)
+    const getEquipment = async () =>{
+        try{
+            const response = await getAllItems('equipment');
+            console.log(response)
+            setEquipment(response);
+        }catch(error){
+            console.error(error);
+        }
+    }
+    useEffect(()=>{getEquipment()},[]);
+
+    const deleteEquipment = async (id)=> {
+        try{
+            await deleteItem('equipment', id);
+            showMessage("Equipment Deleted!", 'success');
+            setSelectedItem(null);
+            getEquipment();
+        }catch(error){
+            console.error(error)
+        }
     }
 
     return ( 
-        <div className={`${styles['tags-page']} ${styles['custom-items-page']} page`}>
-             <div className='header'>
-                <div className='date'>{getDateForHeader()}</div>
-                <h2>Manage Equipment</h2>
-            </div>
+        <div className={styles.equipmentPage}>
+             <AppHeader title='Equipment' button={<button style={{backgroundColor: 'transparent', alignSelf: 'center'}} className={styles['menu-button']} onClick={()=>setShowAddForm(true)}><img className='small-icon' src={IconLibrary.Add} alt='edit item' /></button>} />
             <div className={styles.menu}>
-                <button className={styles['menu-button']} onClick={()=>setShowAddForm(true)}><img className='small-icon' src={IconLibrary.Add} alt='edit item' /></button>
                 {selectedItem ? 
-                    <>
-                        <button className={styles['menu-button']} onClick={()=>setShowEditForm(selectedItem)}><img className='small-icon' src={IconLibrary.Edit} alt='edit item' /></button>
-                        <button className={styles['menu-button']} onClick={()=>deleteItem(selectedItem)}><img className='small-icon' src={IconLibrary.Delete} alt='delete item' /></button>
-                    </> : null}
+                <div className={styles.equipmentMenu}>
+                    <button className={styles['menu-button']} onClick={()=>setShowEditForm(selectedItem)}><img className='small-icon' src={IconLibrary.Edit} alt='edit item' /></button>
+                    <button className={styles['menu-button']} onClick={()=>showConfirmationModal({title: "Delete equipment", message: "Are you sure you want to delete this equipment? This cannot be undone!", onConfirm: ()=>deleteEquipment(selectedItem)})}><img className='small-icon' src={IconLibrary.Delete} alt='delete item' /></button>
+                </div> : null}
             </div>
-            <div className='screens-container'>
-                <div className={`screen`}>
-                    {allItems?.map((item, index)=>(
-                        <div className={`${styles['equipment']} ${selectedItem === item.id ? styles['selected-equipment'] : ''}`} key={"equipment-"+index} onClick={()=>setSelectedItem(item.id)}>
+            <div className={styles.equipmentContainer}>
+                {equipment?.map((item, index)=>(
+                    <div className={`${styles['equipment']} ${selectedItem === item._id ? styles['selected-equipment'] : ''}`} key={"equipment-"+index} onClick={()=>setSelectedItem(prev=> prev ? null : item._id)}>
+                        <div className={styles.equipmentTop}>
                             <h4>{item.name}</h4>
+                            <p>{item.attributes.length} attributes</p>
+                        </div>
+                        <div className={styles.attributes}>
                             {item.attributes?.length > 0 ? item.attributes.map((item, index)=>(<p className={styles['attribute']} key={'attribute-'+index}>{item.value} {item.unit}</p>)): null}
                         </div>
-                    )) }  
-                </div>  
+                        
+                    </div>
+                )) }  
             </div> 
             
             
                  
             {showAddForm ? <EquipmentForm type={'add'} closeForm={()=>setShowAddForm(false)} /> : null}
-            {showEditForm ? <EquipmentForm type={'edit'} closeForm={()=>setShowEditForm(false)} data={allItems.find(item=>item.id===selectedItem)} /> : null}
+            {showEditForm ? <EquipmentForm type={'edit'} closeForm={()=>setShowEditForm(false)} data={equipment.find(item=>item._id===selectedItem)} /> : null}
         </div>
      );
 }
@@ -56,6 +77,7 @@ export default Equipment;
 
 const EquipmentForm = ({closeForm, data, type}) =>{
 
+    const {showMessage} = useUI();
 
     const [name, setName] = useState(data?.name || '');
     const [attributes, setAttributes] = useState(data?.attributes || []);
@@ -75,22 +97,27 @@ const EquipmentForm = ({closeForm, data, type}) =>{
     const removeItem = (name)=>{
         setAttributes(attributes=>[...attributes.filter(item=>item.name!==name)]);
     };
-    const handleAddEquipment = () =>{
+    const handleAddEquipment = async () =>{
         const itemData = {
+            _id: uuidv4(),
+            author: getUser()._id || 'local-user',
             name, 
             attributes,   
         }
-        console.log("Equipment added")
-        //TODO: Add logic to add equipment
+        await saveItem('equipment',itemData)
+        showMessage("Equipment created!",'success');
         closeForm();
     }
-    const handleUpdateEquipment = () =>{
+
+
+    const handleUpdateEquipment = async () =>{
         const itemData = {
-            id: data.id,
+            ...data,
             name,
             attributes
         }
-        // TODO: Replace dispatch(updateEquipment(itemData)); with idb function
+        await saveItem('equipment', itemData)
+        showMessage("Equipment updated successfully!",'success');
         closeForm();
     }
     return (

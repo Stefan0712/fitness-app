@@ -50,8 +50,8 @@ const Settings = ({closeSettings}) => {
             </div>
             <div className={styles.container}>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/profile'}><img className={styles.menuIcon} src={IconLibrary.Profile} alt='' /> Profile</Link>
-                <Link className={styles.menuButton} onClick={closeSettings} to={'/'}><img className={styles.menuIcon} src={IconLibrary.Equipment} alt='' /> Equipment </Link>
-                <Link className={styles.menuButton} onClick={closeSettings} to={'/'}><img className={styles.menuIcon} src={IconLibrary.Tags} alt='' /> Tags </Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/equipment'}><img className={styles.menuIcon} src={IconLibrary.Equipment} alt='' /> Equipment </Link>
+                <Link className={styles.menuButton} onClick={closeSettings} to={'/tags'}><img className={styles.menuIcon} src={IconLibrary.Tags} alt='' /> Tags </Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/goals'}><img className={styles.menuIcon} src={IconLibrary.Goals} alt='' /> Goals </Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/default-fields'}><img className={styles.menuIcon} src={IconLibrary.Fields} alt='' /> Fields</Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/about'}><img className={styles.menuIcon} src={IconLibrary.Help} alt='' /> Help</Link>
