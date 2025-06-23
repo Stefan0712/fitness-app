@@ -79,10 +79,14 @@
     padding-bottom: 100px;
     padding-top: 20px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 15px;
 }
-
+.dashboard-content .goalsContainer{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 .section{
     width: 100%;
     height: auto;
@@ -184,28 +188,7 @@
 .block-title{
    color: rgba(255, 255, 255, 0.5);
 }
-.snapshots{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.snapshot{
-    height: 50px;
-    min-height: 50px;
-    width: 100%;
-    border-radius: 10px;
-    background-color: var(--secondary);
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    gap: 15px;
-    
-}
-.snapshot a{
-    margin-right: auto;
-    text-decoration: none;
-}
+
 
 /* Edit Dashboard */
 .dashboard-layout{
