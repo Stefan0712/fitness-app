@@ -1,128 +1,68 @@
-import { getDateForHeader, makeFirstUpperCase } from '../../../helpers';
 import styles from './Dashboard.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { updateDashboardLayout } from '../../../store/userSlice.ts';
+import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import { useNavigate } from 'react-router-dom';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
+import {getAllItems, saveItem} from '../../../db.js';
+import SmallGoal from './Modules/SmallGoal/SmallGoal.tsx';
 
 const DashboardLayout = () => {
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const goals = useSelector((state) => state.user.goals);
-  const enabledComponents = useSelector((state) => state.user.dashboardSections);
-  const [orderedComponents, setOrderedComponents] = useState(enabledComponents || []);
+  const [goals, setGoals] = useState([]);
+  const [showDisabledComponents, setShowDisabledComponents] = useState(false);
 
-  const allSections = [
-    { name: 'Activity', type: 'section', identifier: 'activity' },
-    { name: 'Nutrition', type: 'section', identifier: 'nutrition' },
-  ];
 
-  // Show Component
-  const showComponent = (item) => {
-    setOrderedComponents((orderedComponents)=>[...orderedComponents, item])
-  };
-  const showGoal = (goal) =>{
-    setOrderedComponents(orderedComponents=>[
-        ...orderedComponents,
-        {
-            type: 'goal',
-            order: orderedComponents.length + 1,
-            identifier: goal.id
-        }
-    ]);
-  }
-  // Move Up Function
-  const moveUp = (identifier) => {
-    const index = orderedComponents.findIndex((obj) => obj.identifier === identifier);
-    if (index > 0) {
-      // Swap the item with the one above it
-      const newOrderedComponents = [...orderedComponents];
-      [newOrderedComponents[index], newOrderedComponents[index - 1]] = [
-        newOrderedComponents[index - 1],
-        newOrderedComponents[index],
-      ];
-
-      // Update the state with the new order
-      setOrderedComponents(newOrderedComponents);
+  const getGoals = async () =>{
+    try{
+      const response = await getAllItems('goals');
+      const normalized = await normalizeGoalOrder(response);
+      setGoals(normalized);
+    }catch(error){
+      console.error(error)
     }
-  };
+  }
+  useEffect(()=>{
+    
+    getGoals();
+  },[]);
 
-  // Move Down Function
-  const moveDown = (identifier) => {
-    const index = orderedComponents.findIndex((obj) => obj.identifier === identifier);
-    if (index < orderedComponents.length - 1) {
-      // Swap the item with the one below it
-      const newOrderedComponents = [...orderedComponents];
-      [newOrderedComponents[index], newOrderedComponents[index + 1]] = [
-        newOrderedComponents[index + 1],
-        newOrderedComponents[index],
-      ];
+  const toggleGoal = (goal) =>{
+    console.log(goal.order);
+    const tempGoals = goals;
+    setGoals(prev=>prev.map(item=>item._id === goal._id ? {...item, pinToDashboard: !item.pinToDashboard} : item));
+  }
 
-      // Update the state with the new order
-      setOrderedComponents(newOrderedComponents);
+  const normalizeGoalOrder = async (goals) => {
+    const normalizedGoals = goals
+      .filter(goal => goal)
+      .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999))
+      .map((goal, index) => ({...goal, order: index}));
+    for (const goal of normalizedGoals) {
+      await saveItem('goals', goal);
     }
-  };
-  const handleSave = () =>{
-    dispatch(updateDashboardLayout(orderedComponents));
-    navigate('/dashboard');
-  }
-  const removeComponent = (identifier) =>{
-    setOrderedComponents((orderedComponents)=>[...orderedComponents.filter(item=>item.identifier!==identifier)]);
-  }
+    return normalizedGoals;
+};
+
+
+
   return (
     <div className={`${styles['dashboard-layout']} page`}>
-      <AppHeader title={'Edit Dashboard'} button={<button type='button' className='orange-button' onClick={handleSave}>Save</button>} />
-      <h3>Active Components ({orderedComponents.length}/{goals.length + allSections.length})</h3>
-      <div className={styles['enabled-components']}>
-        {orderedComponents?.map((item) => (
-          <div className={styles['component']} key={item.identifier}>
-            <div className={styles['order-buttons']}>
-              <button className="clear-button" onClick={() => moveUp(item.identifier)}>
-                <img
-                  src={IconLibrary.Arrow}
-                  style={{ transform: 'rotateZ(270deg)' }}
-                  className="small-icon"
-                  alt=""
-                />
-              </button>
-              <button className="clear-button" onClick={() => moveDown(item.identifier)}>
-                <img
-                  src={IconLibrary.Arrow}
-                  style={{ transform: 'rotateZ(90deg)' }}
-                  className="small-icon"
-                  alt=""
-                />
-              </button>
-            </div>
-            <p>{goals?.find((i) => i.id === item.identifier)?.name || allSections?.find((i) => i.identifier === item.identifier)?.name}</p>
-            <button className="clear-button" onClick={()=>removeComponent(item.identifier)}>
-              <img src={IconLibrary.Close} className="small-icon" alt="" />
-            </button>
-          </div>
-        ))}
+      <AppHeader title={'Edit Dashboard'} />
+      <div className={styles.enabledComponents}>
+        <h4>Enabled Components</h4>
+        <div className={styles.componentsContainer}>
+          {goals && goals.length > 0 ? goals
+          .filter(item=>item.pinToDashboard)
+          .map(goal=><SmallGoal key={goal._id} toggleGoal={toggleGoal} goal={goal} editMode={true} />) : <p>No components to show</p>}
+        </div>
       </div>
-      <h3>Inactive Components</h3>
-      <div className={styles['disabled-components']}>
-        {goals?.filter((goal) => !orderedComponents.some((i) => i.identifier === goal.id)).map((item) => (
-          <div className={styles['component']} key={item.id}>
-            <p>{item.name}</p>
-            <button className="clear-button" onClick={()=>showGoal(item)}>
-              <img src={IconLibrary.Add} className="small-icon" alt="" />
-            </button>
-          </div>
-        ))}
-        {allSections?.filter((section) => !orderedComponents.some((i) => i.identifier === section.identifier)).map((item) => (
-          <div className={styles['component']} key={item.identifier}>
-            <p>{makeFirstUpperCase(item.identifier)}</p>
-            <button className="clear-button" onClick={()=>showComponent(item)}>
-              <img src={IconLibrary.Add} className="small-icon" alt="" />
-            </button>
-          </div>
-        ))}
+      <div className={`${styles.disabledComponents} ${showDisabledComponents ? styles.expandedDisabled : ''}`}>
+        <button className={styles.showDisabledButton} onClick={()=>setShowDisabledComponents(prev=>!prev)}><img src={IconLibrary.Arrow} alt=''/></button>
+        <div className={styles.componentsContainer}>
+          {goals && goals.length > 0 ? goals.filter(item=>!item.pinToDashboard).map(goal=><SmallGoal goalsLength={goals.filter(item=>item.pinToDashboard).length} key={goal._id} toggleGoal={toggleGoal} goal={goal} editMode={true} />) : <p>No components to show</p>}
+        </div>
       </div>
     </div>
   );

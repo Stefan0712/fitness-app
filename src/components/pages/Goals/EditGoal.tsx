@@ -32,7 +32,8 @@ const EditGoal = ({close, goalData}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard
+                pinToDashboard,
+                order: goalData.order || -1
             }
             await saveItem('goals',newData);
             showMessage("Goal updated successfully!",'success');
@@ -44,7 +45,8 @@ const EditGoal = ({close, goalData}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard
+                pinToDashboard,
+                order: goalData.order || -1
             }
             await saveItem('goals',newData);
             showMessage("Goal updated successfully!",'success');
@@ -57,7 +59,8 @@ const EditGoal = ({close, goalData}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard
+                pinToDashboard,
+                order: goalData.order || -1
             }
             await saveItem('goals',newData);
             showMessage("Goal updated successfully!",'success');

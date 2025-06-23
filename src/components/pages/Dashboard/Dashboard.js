@@ -1,7 +1,6 @@
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
-import { Link } from 'react-router-dom';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
@@ -55,7 +54,7 @@ const Dashboard = () => {
 
     return ( 
         <div className={`${styles.dashboard} page`}>
-            <AppHeader title={'Dashboard'}/>
+            <AppHeader title={'Dashboard'} button={<button className={styles.editButton} onClick={()=>navigate('/edit-dashboard')}><img className='small-icon' src={IconLibrary.Edit} alt='edit dashboard' /></button>} />
             <div className={styles['dashboard-content']}>
                 <div className={styles['dashboard-warning']}>
                     <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>

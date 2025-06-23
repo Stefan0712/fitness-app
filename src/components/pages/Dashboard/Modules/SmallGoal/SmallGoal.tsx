@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './SmallGoal.module.css';
-import { getAllItems } from '../../../../../db';
+import { getAllItems, saveItem } from '../../../../../db';
 import { getCurrentDay, getLastThreeDays } from '../../../../../helpers';
 import {Goal} from '../../../../common/interfaces';
 import ProgressBar from '../../../../common/SVG/ProgressBar.tsx';
@@ -8,13 +8,28 @@ import {IconLibrary} from '../../../../../IconLibrary.js';
 
 interface SmallGoalProps {
     goal: Goal;
+    editMode?: string;
+    toggleGoal: (goal) =>void;
+    goalsLength: number;
 }
-const SmallGoal: React.FC<SmallGoalProps> = ({goal}) => {
+const SmallGoal: React.FC<SmallGoalProps> = ({goal, editMode, toggleGoal, goalsLength}) => {
+
+    const handleTogglePin = async () =>{
+        try{
+            const updatedGoal = {...goal, pinToDashboard: !goal.pinToDashboard, order: goalsLength}
+            await saveItem('goals', updatedGoal);
+            toggleGoal(updatedGoal)
+        }catch(error){
+            console.error(error)
+        }
+    }
+
     return ( 
         <div className={styles.smallGoal}>
             <div className={styles.goalTop}>
                 <img className='small-icon' src={goal.icon} alt='' />
                 <h4>{goal.name}</h4>
+                {editMode ? <button onClick={handleTogglePin} className={styles.pinButton}><img src={goal.pinToDashboard ? IconLibrary.Close : IconLibrary.Add} alt='' /></button> : null}
             </div>
             {goal.type === 'target' ? <TargetGoal goal={goal} /> : goal.type === 'number' ? <NumberGoal goal={goal} /> : goal.type === 'yes-no' ? <BooleanGoal goal={goal} /> : null}
         </div>

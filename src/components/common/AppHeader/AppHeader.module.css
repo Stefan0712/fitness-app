@@ -25,7 +25,8 @@
     display: flex;
     align-items: center;
     height: 40px;
-    justify-content: flex-end
+    justify-content: flex-end;
+    border: none;
 }
 .header button{
     justify-content: center;

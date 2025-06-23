@@ -1,12 +1,12 @@
 import styles from './Goals.module.css';
 import { IconLibrary } from '../../../IconLibrary.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal } from '../../common/interfaces.ts';
-import { saveItem } from '../../../db.js';
+import { getAllItems, saveItem } from '../../../db.js';
 
 const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [name, setName] = useState<string>('');
@@ -17,6 +17,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>('target');
+    const [allGoals, setAllGoals] = useState([]);
 
     const handleAddGoal = async () =>{
         if(type === 'target' && target && name && unit){
@@ -28,7 +29,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard: true
+                pinToDashboard: true,
+                order: allGoals.length
             }
             await saveItem('goals',goalData)
             close();
@@ -39,7 +41,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard: true
+                pinToDashboard: true,
+                order: allGoals.length
             }
             await saveItem('goals',goalData)
             close();
@@ -51,7 +54,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 color,
                 icon,
                 type,
-                pinToDashboard: true
+                pinToDashboard: true,
+                order: allGoals.length
             }
             await saveItem('goals',goalData)
             close();
@@ -67,7 +71,15 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
         }
         
     }
-    
+    const getAllGoals = async () =>{
+        try{
+            const result = await getAllItems('goals');
+            setAllGoals(result);
+        }catch(error){
+            console.error(error)
+        }
+    }
+    useEffect(()=>{getAllGoals()},[]);
     return ( 
         <div className={styles['new-goal']}>
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}

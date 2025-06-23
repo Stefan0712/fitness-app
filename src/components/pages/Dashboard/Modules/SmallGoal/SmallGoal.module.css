@@ -7,6 +7,22 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
+}
+.smallGoal .pinButton img{
+    height: 20px;
+    width: 20px;
+}
+.smallGoal .pinButton{
+    background-color: var(--background);
+    border: none;
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border-radius: 5px;
 }
 .smallGoal .goalTop{
     display: flex;

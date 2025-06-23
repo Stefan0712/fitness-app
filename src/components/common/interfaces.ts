@@ -101,6 +101,7 @@ export interface Workout {
     color: string,
     type: string,
     pinToDashboard: boolean,
+    order: number,
   }
   export interface BaseLog{
     _id: string,
