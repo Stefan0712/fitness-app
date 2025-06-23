@@ -1,0 +1,56 @@
+.tagsPage{
+    padding: 10px;
+    height: calc(100vh - 60px);
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 60px 50px 1fr 60px;
+    align-items: center;
+    position: relative;
+}
+.tagsPage .addTagButton{
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+}
+.tagsPage .tagForm {
+    width: 100%;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr 50px 40px;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.tagsPage .tag.selectedTag{
+    background-color: var(--modal-bg);
+}
+.tagsPage .tagsContainer{
+    height: 100%;
+    width: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.tagsPage .tag{
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.tagsPage .tagForm input{
+    height: 40px;
+}
+.tagsPage .tagForm .colorButton{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+}
+.tagsPage .tagForm .addTagButton img{
+    width: 35px;
+    height: 35px;
+}
