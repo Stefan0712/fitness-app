@@ -2,7 +2,6 @@ import styles from './Library.module.css';
 import { Link } from "react-router-dom";
 import { IconLibrary } from "../../../IconLibrary";
 import { useState, useEffect } from "react";
-import { useUI } from '../../../context/UIContext.jsx';
 import Exercise from './Exercise';
 import Workout from "./Workout";
 import { getAllItems } from "../../../db";

@@ -6,11 +6,7 @@ import { makeFirstUpperCase } from '../../../helpers';
 const Exercise = ({data, id, type}) => {
     return ( 
         <Link className={styles.libraryExercise} to={`/exercise/${id}/view/${type === 'online' ? '?type=online' : type !== 'online' && data.isCached ? '?type=cached' : ''}`}>
-            <div className={styles.top}>
-                <h4>{data.name}</h4>
-                <p>{data.sets} Sets</p>
-                <p>{makeFirstUpperCase(data?.difficulty || '')}</p>
-            </div>
+            <h3>{data.name}</h3>
             <div className={styles.bottom}>
                 <div className={styles.tags}>
                     <div className={styles.tag}><img className={styles.exerciseIcon} src={IconLibrary.Tags} alt=''/></div>
