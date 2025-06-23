@@ -29,7 +29,7 @@ const Goals = ({closeMenu}) => {
                 {selectedGoal ? <QuickGoalLog close={()=>setSelectedGoal(null)} closeMenu={closeMenu} goalData={selectedGoal} /> : null}
                 <div className={styles.content}>
                     {goals && goals.length > 0 ?  goals?.map((goal, index)=>(
-                        <GoalBody key={'Goal-body-'+index} goal={goal} index={index} setSelectedGoal={()=>setSelectedGoal(goal)}/>
+                        <GoalBody key={'Goal-body-'+goal._id} goal={goal} index={index} setSelectedGoal={()=>setSelectedGoal(goal)}/>
                     )) : <p>No goals</p>}
                 </div>
             </div>
