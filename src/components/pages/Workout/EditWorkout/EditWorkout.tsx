@@ -36,11 +36,13 @@ const EditWorkout = () => {
 
     
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
+        if(workoutData){
             const newDate = new Date().toISOString(); //get timestamp
             const newData: Workout = {
                 ...workoutData,
+                _id: id || workoutData._id,
                 updatedAt: newDate,
                 name, 
                 description,
@@ -48,7 +50,7 @@ const EditWorkout = () => {
                 difficulty,
                 visibility: 'private',
                 imageUrl: '',
-                duration,
+                duration: parseInt(duration),
                 equipment, 
                 tags, 
                 targetMuscles, 
@@ -61,14 +63,14 @@ const EditWorkout = () => {
                 console.log("Workout name is too long");
             }else{
                 console.log(newData)
-                saveItem('workouts', workoutData)
+                await  saveItem('workouts', newData)
                 navigate('/library');
             }
+        }
        
     }
     const getWorkoutData = async () =>{
         const data: Workout = await getItemById('workouts', id);
-        console.log(data)
         if(data){
             setWorkoutData(data);
             setName(data.name);
@@ -96,7 +98,7 @@ const EditWorkout = () => {
     useEffect(()=>{getWorkoutData()},[])
     return ( 
         <div className={styles.createWorkoutPage}>
-            <AppHeader title="Create Workout" button={<button className="orange-button submit-button" onClick={handleSubmit}>Create</button>} />
+            <AppHeader title="Edit Workout" button={<button className="orange-button submit-button" onClick={handleSubmit}>Save</button>} />
             <form onSubmit={(e)=>e.preventDefault()}>
                 <div className={styles.workoutMeta}>
                     <input type="text" name="name" id="name" required={true} minLength={3} maxLength={100} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
@@ -128,7 +130,7 @@ const EditWorkout = () => {
                     ) : currentScreen === 'equipment' ? (
                         <EquipmentScreen equipments={equipment} setEquipments={setEquipment} />
                     ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetMuscles={targetMuscles} settargetMuscles={settargetMuscles} />
+                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={settargetMuscles} />
                     ) : null}
                 </div>
                 

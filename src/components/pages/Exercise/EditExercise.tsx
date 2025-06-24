@@ -61,7 +61,7 @@ const EditExercise: React.FC = () => {
             fields, 
             tags, 
             equipment: equipments, 
-            instructions: []
+            instructions
         };
         await saveItem('exercises', newData);
         showMessage('Exercise updated', 'success')
@@ -90,10 +90,10 @@ const EditExercise: React.FC = () => {
         setDifficulty(s.difficulty || 'beginner');
         setTags(s.tags || []);
         setEquipments(s.equipment || []);
-        setSets(s.sets ?? 1); // Use ?? to allow 0
+        setSets(s.sets || 1);
         setDuration(s.duration ?? 0);
         setFields(s.fields || []);
-        setRest(s.rest ?? 30);
+        setRest(s.rest || 30);
         setNotes(s.notes || '');
         setVisibility(s.visibility || 'private');
         setRestUnit(s.restUnit || 'seconds');
@@ -129,7 +129,6 @@ const EditExercise: React.FC = () => {
                                 <option value="expert">Expert</option>
                             </select>
                     </div>
-
                 </div>
                 <div className={styles.screenSwitcher}>
                     <button type="button" onClick={()=>setCurrentScreen('fields')} className={currentScreen === 'fields' ? styles.selectedButton : ''}>Fields</button>

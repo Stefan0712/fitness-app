@@ -226,7 +226,7 @@ const Exercise = () => {
         //creates a new set object and appends it to the current exercise sets array
         setExerciseData({ ...exerciseData, sets: [...exerciseData.sets, {
             order: exerciseData.sets.length,
-            fields: exerciseData.fields ? JSON.parse(JSON.stringify(exerciseData.fields)) : [], // Deep copy of fields array
+            fields: exerciseData.fields ? [...JSON.parse(JSON.stringify(exerciseData.fields)), {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exerciseData?.rest, isCompleted: false}] : [], // Deep copy of fields array
             isCompleted: false,
             isSkipped: false,
         }]  });

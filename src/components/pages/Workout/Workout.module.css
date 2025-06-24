@@ -262,6 +262,27 @@ h3{
     background-color: #111214;
 }
 
+.workout-page .instructionsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.workout-page .instructionsContainer p{
+    padding: 10px 5px;
+    background-color: var(--background);
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
 
 .content{
     height: 100%;

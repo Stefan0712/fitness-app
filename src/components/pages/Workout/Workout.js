@@ -96,7 +96,7 @@ const Workout = () => {
                     if(exercise.sets === 0){
                         newSets.push({
                            order: exercises.length,
-                            fields: exercise.fields ?? [],
+                            fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
                             isCompleted: false,
                             isSkipped: false,
                         });
@@ -104,7 +104,7 @@ const Workout = () => {
                         for (let i = 0; i < exercise.sets; i++) {
                             newSets.push({
                             order: exercises.length,
-                                fields: exercise.fields ?? [],
+                                fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
                                 isCompleted: false,
                                 isSkipped: false,
                             });
@@ -414,6 +414,9 @@ const Workout = () => {
                         </div>
                     </div>
                 </div> 
+                <div className={styles.instructionsContainer}>
+                    {exercises?.find(item=>item._id === currentExercise)?.instructions?.length > 0 ? exercises.find(item=>item._id === currentExercise).instructions.map((item, index)=><p key={'instruction-'+index}>{index+1}. {item}</p>):<p>No instructions for this exercise</p>}
+                </div>
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
                     <button onClick={()=>setExtendedMode(extendedMode=>!extendedMode)}>{extendedMode ? 'Minimize Sets' : 'Extend Sets'}</button>

@@ -53,6 +53,7 @@ const ViewExercise = () => {
     const getExerciseFromDb = async (source) =>{
             const exercise = await getItemById(source, id);
             setExerciseData(exercise);
+            console.log(exercise)
         }
     const deleteEx = async () =>{
         if(type !== 'online' || exerciseData.author._id === userId){
@@ -167,7 +168,7 @@ const ViewExercise = () => {
                             <p>Instructions</p>
                         </div>
                         <div className={styles.instructions}>
-                            {exerciseData.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index+1}. {step}</p>)) : 'None'}
+                            {exerciseData?.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index+1}. {step}</p>)) : 'None'}
                         </div>
                     </div>
                     {(userId === exerciseData.author._id) || type !=='online' ? 

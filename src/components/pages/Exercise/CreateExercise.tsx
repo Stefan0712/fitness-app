@@ -62,7 +62,7 @@ const CreateExercise: React.FC = () => {
             fields, 
             tags, 
             equipment: equipments, 
-            instructions: []
+            instructions
         };
         await saveItem('exercises', exerciseData);
         showMessage('Exercise created', 'success')
