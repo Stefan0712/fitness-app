@@ -11,6 +11,7 @@ type SourceType = 'library' | 'online';
 interface ExerciseSelectorProps {
     addExercise: (exercise: WorkoutExercise) => void;
     close: () => void;
+    phaseId?: string;
 }
 const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close}) => {
 
@@ -19,6 +20,7 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close})
     const [search, setSearch] = useState('');
     const [exercises, setExercises] = useState<WorkoutExercise[]>([]);
     const [loading, setLoading] = useState(false);
+    
 
     useEffect(() => {
         const fetchExercises = async () => {
@@ -70,10 +72,13 @@ export default ExerciseSelector;
 const ExerciseBody = ({addExercise, exercise, index}) =>{
 
     const [isAdded, setIsAdded] = useState(false);
+    const [sets, setSets] = useState(0);
+
 
     const handleAddExercise = (exercise) => { 
-        addExercise(exercise);
+        addExercise({...exercise, sets});
         setIsAdded(true);
+        setSets(1);
         setTimeout(() => {
             setIsAdded(false);
         }, 1000);
@@ -81,6 +86,18 @@ const ExerciseBody = ({addExercise, exercise, index}) =>{
     return (
         <div key={'Add-exercise-'+index} className={styles['exercise-item']}>
             <span className={styles['exercise-name']}>{exercise.name}</span>
+            <select className={styles.exerciseSetInput} value={sets} onChange={(e)=>setSets(parseInt(e.target.value))}>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                <option value={7}>7</option>
+                <option value={8}>8</option>
+                <option value={9}>9</option>
+                <option value={10}>10</option>
+            </select>
             <button type='button' className={styles['add-btn']} onClick={()=>handleAddExercise(exercise)}>
                 <img src={isAdded ? IconLibrary.Checkmark : IconLibrary.Add} alt="Add" />
             </button>

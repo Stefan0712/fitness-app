@@ -1,13 +1,23 @@
 .tagSelector{
-    width: calc(100% - 20px);
+    width: 100vw;
     height: 75vh;
     background-color: var(--secondary);
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
+    position: fixed;
+    bottom: 75px;
+    left: 0;
     border-radius: 5px;
     border: 1px solid var(--general-border);
     padding: 10px;
+    z-index: 200;
+    animation: slideUp 0.2s;
+}
+@keyframes slideUp {
+    from{
+        transform: translateY(110%);
+    }
+    to{
+        transform: translateY(0);
+    }
 }
 .tagSelector .header{
     width: 100%;

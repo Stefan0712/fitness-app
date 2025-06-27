@@ -27,7 +27,7 @@ const CreateExercise: React.FC = () => {
     const [tags, setTags] = useState<Tag[]>([]);
     const [equipments, setEquipments] = useState<Equipment[]>([]);
     const [sets, setSets] = useState<number>(1);
-    const [duration, setDuration] = useState<number>(0);
+    const [duration, setDuration] = useState<number>(1);
     const [fields, setFields] = useState<Field[]>([]);
     const [rest, setRest] = useState<number>(30);
     const [notes, setNotes] = useState<string>('');

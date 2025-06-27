@@ -33,10 +33,10 @@ const FieldsScreen = ({values, setters, hasRequiredFields}) => {
         <div className={`${styles.fieldsScreen} ${styles.screen}`}>
             
             {hasRequiredFields ? <div className={styles.requiredFields}>
-                <fieldset className={styles.sets}>
+                {/* <fieldset className={styles.sets}>
                     <label htmlFor='sets'>Sets</label>
                     <input type='number' id='sets' name='sets' value={values.sets} onChange={(e)=>setters.setSets(parseInt(e.target.value))} min={1} max={50} />
-                </fieldset>
+                </fieldset> */}
                 <fieldset className={styles.durationInputs}>
                     <label htmlFor="duration">Duration</label>
                     <input type="number" name="duration" id={styles.durationValue} onChange={(e) => setters.setDuration(parseInt(e.target.value))} value={values.duration} placeholder="Duration"></input>

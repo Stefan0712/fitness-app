@@ -62,7 +62,6 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
                 <button type="button" className="clear-button" onClick={close}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
             <div className={styles.top}>
-                <h3>Selected tags</h3>
                 <div className={styles.selectedTags}>
                     {tags?.length > 0 ? tags.map((item, index)=><Tag key={'tag-'+item.name+index} tag={item} removeTag={(id)=>setTags(tags=>[...tags.filter(it=>it._id!==id)])}/>) : <p>No tags selected</p>}
                 </div>
