@@ -87,17 +87,14 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             <div className={styles.header}>
                 <h3>New Goal</h3>
             </div>
-            <div className={styles.goal}>
-                <div className={styles["goal-color"]} style={{backgroundColor: color}} />
-                <img src={icon} className={styles['goal-icon']}></img>
-                <p className={styles.name}>{name}</p>
-                <p style={{color: color}} className={styles.target}>0/{target || 0} {unit}</p>
-            </div>
-            <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
-                <option value={'yes-no'}>Yes/No</option>
-                <option value={'number'}>Number</option>
-                <option value={'target'}>Target</option>
-            </select>
+            <fieldset>
+                <label>Goal Type</label>
+                <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
+                    <option value={'yes-no'}>Yes/No</option>
+                    <option value={'number'}>Number</option>
+                    <option value={'target'}>Target</option>
+                </select>
+            </fieldset>
             <div className={styles['new-goal-inputs']}>
                 {type === 'target' ? <div className={styles.targetInputs}>
                     <div className={styles.firstRow}>

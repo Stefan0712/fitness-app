@@ -11,12 +11,10 @@ import { IconLibrary } from '../../../IconLibrary';
 
 const Goals = () => {
 
-    const {showMessage, showConfirmationModal} = useUI();
     const navigate = useNavigate();
 
     const [goals, setGoals] = useState([])
     const [showNewGoal, setShowNewGoal] = useState(false);
-    const [editGoal, setEditGoal] = useState(null);
 
 
     const getGoals = async () =>{
