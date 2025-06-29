@@ -54,6 +54,16 @@
     gap: 10px;
     height: 100%;
 }
+.addTagButton{
+    width: 100%;
+    height: 40px;
+    background-color: var(--secondary);
+    color: var(--button-text);
+    border: 1px solid var(--general-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
 .createWorkoutPage .screenContainer{
     width: 100%;
     height: calc(100% - 250px);

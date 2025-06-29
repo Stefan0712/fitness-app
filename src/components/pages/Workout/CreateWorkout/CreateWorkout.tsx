@@ -12,12 +12,8 @@ import { saveItem } from "../../../../db.js";
 import { Equipment, Phase, Tag as ITag, TargetGroup, Workout } from "../../../common/interfaces.ts";
 import Phases from "./Phases/Phases.tsx";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
-import TagsScreen from "./Screens/TagsScreen.tsx";
-import EquipmentScreen from "./Screens/EquipmentScreen.tsx";
-import MuscleScreen from "./Screens/MuscleScreen.tsx";
 import { useUI } from "../../../../context/UIContext.jsx";
 import { IconLibrary } from "../../../../IconLibrary.js";
-import Tag from "../../../common/Tag/Tag.tsx";
 
 
 const CreateWorkout: React.FC = () => {

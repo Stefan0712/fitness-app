@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import { IconLibrary } from '../../../../../IconLibrary';
 
 
-const FieldsScreen = ({values, setters, hasRequiredFields}) => {
+const FieldsScreen = ({fields, setFields}) => {
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [unit, setUnit] = useState('');
@@ -23,7 +23,7 @@ const FieldsScreen = ({values, setters, hasRequiredFields}) => {
                 unit,
                 isCompleted: false
             }
-            setters.setFields(prev=>[...prev, fieldData]);
+            setFields(prev=>[...prev, fieldData]);
             setName('');
             setUnit('');
             setTarget("");
@@ -31,31 +31,6 @@ const FieldsScreen = ({values, setters, hasRequiredFields}) => {
     }
     return ( 
         <div className={`${styles.fieldsScreen} ${styles.screen}`}>
-            
-            {hasRequiredFields ? <div className={styles.requiredFields}>
-                {/* <fieldset className={styles.sets}>
-                    <label htmlFor='sets'>Sets</label>
-                    <input type='number' id='sets' name='sets' value={values.sets} onChange={(e)=>setters.setSets(parseInt(e.target.value))} min={1} max={50} />
-                </fieldset> */}
-                <fieldset className={styles.durationInputs}>
-                    <label htmlFor="duration">Duration</label>
-                    <input type="number" name="duration" id={styles.durationValue} onChange={(e) => setters.setDuration(parseInt(e.target.value))} value={values.duration} placeholder="Duration"></input>
-                    <select name="durationUnit" id={styles.durationUnit} onChange={(e) => setters.setDurationUnit(e.target.value)} value={values.durationUnit}>
-                        <option value={'seconds'}>Seconds</option>
-                        <option value={'minutes'}>Minutes</option>
-                        <option value={'hours'}>Hours</option>
-                    </select>
-                </fieldset>
-                <fieldset className={styles.restInputs}>
-                    <label htmlFor="rest">Rest</label>
-                    <input type="number" name="rest" id={styles.restValue} onChange={(e) => setters.setRest(parseInt(e.target.value))} value={values.rest} placeholder="Rest"></input>
-                    <select name="restUnit" id={styles.restUnit} onChange={(e) => setters.setRestUnit(e.target.value)} value={values.restUnit}>
-                        <option value={'seconds'}>Seconds</option>
-                        <option value={'minutes'}>Minutes</option>
-                        <option value={'hours'}>Hours</option>
-                    </select>
-                </fieldset>
-            </div> : null}
             <div className={styles.newField}>
                 <input type='text' id='name' name='name' value={name} onChange={(e)=>setName(e.target.value)} minLength={0} maxLength={20} placeholder='Name' />
                 <input type='string' id='target' name='target' value={target} onChange={(e)=>setTarget(e.target.value)} placeholder='Target'/>
@@ -63,7 +38,7 @@ const FieldsScreen = ({values, setters, hasRequiredFields}) => {
                 <button onClick={handleAddField} type='button' className='clear-button'><img src={IconLibrary.Add} alt='add new field' style={{width: '30px', height: '30px'}} /></button>
             </div>
             <div className={styles.fields}>
-                {values.fields?.length > 0 ? values.fields?.map((field, index)=><FieldBody key={'Created-field-'+index} field={field} setFields={setters.setFields} />) : <p>No custom fields created</p>}
+                {fields?.length > 0 ? fields?.map((field, index)=><FieldBody key={'Created-field-'+index} field={field} setFields={setFields} />) : <p>No custom fields created</p>}
             </div>
         </div>
      );

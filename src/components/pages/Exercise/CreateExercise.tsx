@@ -26,7 +26,6 @@ const CreateExercise: React.FC = () => {
     const [difficulty, setDifficulty] = useState<string>('beginner');
     const [tags, setTags] = useState<Tag[]>([]);
     const [equipments, setEquipments] = useState<Equipment[]>([]);
-    const [sets, setSets] = useState<number>(1);
     const [duration, setDuration] = useState<number>(1);
     const [fields, setFields] = useState<Field[]>([]);
     const [rest, setRest] = useState<number>(30);
@@ -51,7 +50,7 @@ const CreateExercise: React.FC = () => {
             description, 
             reference, 
             difficulty, 
-            sets, 
+            sets: 1, 
             duration, 
             durationUnit: 'min',
             rest,
@@ -85,15 +84,34 @@ const CreateExercise: React.FC = () => {
                         </select>
                     </div>
                     <div className={styles.twoInputs}>
-                            <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
-                            <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                                <option value="expert">Expert</option>
-                            </select>
+                        <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
+                        <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
                     </div>
-
+                    <div style={{width: '100%', height: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignItems: 'center'}}>
+                        <fieldset className={styles.multipleInputs}>
+                            <label htmlFor="duration">Duration</label>
+                            <input className={styles.numberInput} type="number" name="duration" id={styles.durationValue} onChange={(e) => setDuration(parseInt(e.target.value))} value={duration} placeholder="Duration"></input>
+                            <select name="durationUnit" id={styles.durationUnit} onChange={(e) => setDurationUnit(e.target.value)} value={durationUnit}>
+                                <option value={'seconds'}>Seconds</option>
+                                <option value={'minutes'}>Minutes</option>
+                                <option value={'hours'}>Hours</option>
+                            </select>
+                        </fieldset>
+                        <fieldset className={styles.multipleInputs}>
+                            <label htmlFor="rest">Rest</label>
+                            <input className={styles.numberInput} type="number" name="rest" id={styles.restValue} onChange={(e) => setRest(parseInt(e.target.value))} value={rest} placeholder="Rest"></input>
+                            <select name="restUnit" id={styles.restUnit} onChange={(e) => setRestUnit(e.target.value)} value={restUnit}>
+                                <option value={'seconds'}>Seconds</option>
+                                <option value={'minutes'}>Minutes</option>
+                                <option value={'hours'}>Hours</option>
+                            </select>
+                        </fieldset>
+                    </div>
                 </div>
                 <div className={styles.screenSwitcher}>
                     <button type="button" onClick={()=>setCurrentScreen('fields')} className={currentScreen === 'fields' ? styles.selectedButton : ''}>Fields</button>
@@ -104,11 +122,7 @@ const CreateExercise: React.FC = () => {
                 </div>
                 <div className={styles.screenContainer}>
                     {currentScreen === 'fields' ? (
-                        <FieldsScreen 
-                            values={{ fields, sets, duration, durationUnit, rest, restUnit }}
-                            setters={{ setFields, setSets, setDuration, setDurationUnit, setRest, setRestUnit }}
-                            hasRequiredFields={true}
-                        />
+                        <FieldsScreen fields={fields} setFields={setFields}/>
                     ) : currentScreen === 'tags' ? (
                         <TagsScreen tags={tags} setTags={setTags} />
                     ) : currentScreen === 'equipment' ? (
