@@ -6,11 +6,13 @@ import Exercise from './Exercise';
 import Workout from "./Workout";
 import { getAllItems } from "../../../db";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
+import SearchBar from '../../common/SearchBar/SearchBar.tsx';
 
 
 const Library = () => {
     const [libraryScreen, setLibraryScreen] = useState('exercises');
     const [filteredItems, setFilteredItems] = useState([]);
+    const [allItems, setAllItems] = useState([])
 
     useEffect(()=>{
         if(libraryScreen === 'exercises'){
@@ -22,11 +24,11 @@ const Library = () => {
 
     const getWorkouts = async () =>{
         const workouts = await getAllItems('workouts');
-        setFilteredItems(workouts)
+        setAllItems(workouts)
     }
     const getExercises = async () =>{
         const exercises = await getAllItems('exercises');
-        setFilteredItems(exercises)
+        setAllItems(exercises)
     }
     return ( 
         <div className={`${styles.library}`}>
@@ -35,6 +37,7 @@ const Library = () => {
                 <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
                 <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
+            <SearchBar originalItemList={allItems} setFilteredItems={setFilteredItems} />
             <div className={styles["library-items-container"]}>
                 <div className={styles.buttons}>
                     <Link className={styles['category-button']} to={'/explore'}>Explore more</Link>

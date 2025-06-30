@@ -83,8 +83,12 @@ import Line from './assets/line.svg';
 import Completed from './assets/completed.svg';
 import ArrowUp from './assets/arrowUp.svg';
 import ArrowDown from './assets/arrowDown.svg';
+import Sort from './assets/sort.svg';
+import Levels from './assets/levels.svg';
 
 export const IconLibrary = {
+    Sort,
+    Levels,
     ArrowUp,
     ArrowDown,
     NotCompleted,

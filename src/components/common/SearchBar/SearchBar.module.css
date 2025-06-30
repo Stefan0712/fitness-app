@@ -1,0 +1,105 @@
+.searchBarContainer{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.searchBarContainer .searchBar{
+    width: 100%;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    align-items: center;
+    gap: 10px;
+}
+.searchBarContainer .filterButton{
+    background-color: transparent;
+    border: none;
+}
+.searchBarContainer .filterButton img{
+    width: 30px;
+    height: 30px;
+}
+.searchBarContainer .filters{
+    background-color: var(--secondary);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    height: 0px;
+    transition: all 0.1s;
+    opacity: 0;
+}
+.searchBarContainer .filters.expandedFilters{
+    height: 320px;
+    opacity: 1;
+    transition: all 0.1s;
+}
+.searchBarContainer .filterIcon{
+    width: 20px;
+    height: 20px;
+}
+.searchBarContainer .applyFiltersButton{
+    width: calc(100% - 20px);
+    height: 40px;
+    background-color: var(--background);
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.searchBarContainer .addFilterButton{
+    background-color: transparent;
+    border: none;
+}
+.searchBarContainer .addFilterButton img{
+    width: 30px;
+    height: 30px;
+}
+
+.filters .twoItems{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+.filters .twoItems fieldset{
+    display: grid;
+    align-items: center;
+    gap: 10px;
+    grid-template-columns: 30px 1fr;
+    padding: 5px 10px;
+}
+.filterByTag,
+.filterByMuscles,
+.filterByEquipment{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 30px 1fr 40px;
+    align-items: center;
+    padding: 0 10px;
+}
+.filterByTag .itemsContainer,
+.filterByMuscles .itemsContainer,
+.filterByEquipment  .itemsContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: var(--background);
+    padding: 0 10px;
+}
+.filters .duration{
+    display: grid;
+    grid-template-columns: 75px 1fr 75px;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+}

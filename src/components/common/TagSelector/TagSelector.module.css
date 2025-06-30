@@ -71,7 +71,8 @@
 .tagSelector .newTag{
     height: 50px;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
     align-items: center;
     gap: 10px;
 }
