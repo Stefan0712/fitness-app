@@ -5,7 +5,6 @@ import {IconLibrary} from '../../../IconLibrary';
 import QuickMenu from '../QuickMenu/QuickMenu';
 import ExerciseLog from '../LogPages/ExerciseLog.tsx';
 import FoodLog from '../FoodLog/FoodLog.tsx';
-import Goals from '../Goals/Goals';
 import Menu from '../../pages/Settings/Menu.js';
 import { useUI } from '../../../context/UIContext.jsx';
 
@@ -18,14 +17,9 @@ const Navigation = () => {
     const [showQuickmenu, setShowQuickmenu] = useState(false)
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [showExerciseLog, setShowExerciseLog] = useState(false);
-    const [showGoals, setShowGoals] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
    
     const closeQuickmenu = () =>{
-        setShowQuickmenu(false);
-    }
-    const openGoals = () =>{
-        setShowGoals(true);
         setShowQuickmenu(false);
     }
     const openFoodLogs = () =>{
@@ -36,9 +30,6 @@ const Navigation = () => {
         setShowExerciseLog(true);
         setShowQuickmenu(false);
     }
-    const closeGoals = () =>{
-        setShowGoals(false)
-    }
     const closeFoodLogs = () =>{
         setShowFoodLog(false)
     }
@@ -48,7 +39,6 @@ const Navigation = () => {
     const closeAll = () =>{
         closeExerciseLogs();
         closeFoodLogs();
-        closeGoals();
         closeQuickmenu();
     }
     useEffect(()=>{
@@ -59,11 +49,11 @@ const Navigation = () => {
     },[])
     return ( 
         <nav>
-            {showGoals ? <Goals closeMenu={closeGoals}/> : null}
+            
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
             {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
-            {showQuickmenu ? <QuickMenu closeQuickmenu={closeQuickmenu} openGoals={openGoals} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
+            {showQuickmenu ? <QuickMenu closeQuickmenu={closeQuickmenu} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>

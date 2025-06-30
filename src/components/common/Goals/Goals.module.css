@@ -4,14 +4,22 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
     position: absolute;
-    bottom: 85px;
+    bottom: 10px;
     left: 10px;
     border-radius: 10px;
-    z-index: 10;
+    z-index: 25;
     background-color: #1A1A1B;
     border: 1px solid rgba(221, 221, 221, 0.1);
+    animation: slideGoalLogUp 0.2s;
 }
-
+@keyframes slideGoalLogUp {
+    from{
+        bottom: -100%;
+    }
+    to{
+        bottom: 10px;
+    }
+}
 
 .header{
     height: 50px;

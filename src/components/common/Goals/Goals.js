@@ -8,11 +8,10 @@ import NewGoal from '../../pages/Goals/NewGoal.tsx';
 
 
 
-const Goals = ({closeMenu}) => {
+const Goals = ({closeMenu, setSelectedGoal, selectedGoal}) => {
 
 
     const [goals, setGoals] = useState(null);
-    const [selectedGoal, setSelectedGoal] = useState(null);
     const [showAddGoal, setShowAddGoal] = useState(false);
     const getGoals = async () =>{
         const items = await getAllItems('goals');
@@ -29,7 +28,7 @@ const Goals = ({closeMenu}) => {
                     <img src={IconLibrary.No} className='small-icon' alt='edit goals' onClick={closeMenu} />
                 </div>
                 {showAddGoal ? <NewGoal close={()=>setShowAddGoal(false)} /> : null}
-                {selectedGoal ? <QuickGoalLog close={()=>setSelectedGoal(null)} closeMenu={closeMenu} goalData={selectedGoal} /> : null}
+                
                 <div className={styles.content}>
                     <button onClick={()=>setShowAddGoal(true)} style={{width: '100%', height: '40px', border:'none',borderRadius:'5px',backgroundColor: 'var(--background)'}}>New Goal </button>
                     {goals && goals.length > 0 ?  goals?.map((goal, index)=>(

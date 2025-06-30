@@ -8,7 +8,6 @@ import DaySelector from './DaySelector';
 import ViewWorkoutLog from './ViewWorkoutLog.tsx';
 import ViewGoalLog from './ViewGoalLog.tsx';
 import ViewFoodLog from './ViewFoodLog.tsx';
-import ViewExerciseLog from './ViewExerciseLog/ViewExerciseLog.tsx';
 import { getAllItems } from '../../../../db.js';
 import { IconLibrary } from '../../../../IconLibrary.js';
 
@@ -20,7 +19,6 @@ const LogsHistory = () => {
     const [showInfo, setShowInfo] = useState(null);
     const [logs, setLogs] = useState([])
     const [showLog, setShowLog] = useState(null);
-    const [intervalPart, setIntervalPart] = useState('last-seven-days')
     const [weekData, setWeekData] = useState(null);
     const todayDateRaw = new Date();
     const todayDate = getCurrentDay(todayDateRaw)
@@ -40,13 +38,6 @@ const LogsHistory = () => {
     }
 
     useEffect(()=>{if(selectedDay){getLogs()}},[selectedDay]);
-
-
-    const switchInterval = (type) =>{
-        setIntervalPart(type);
-        getLogs(getWeekRange(getCurrentDay(), type));
-    }
-
     const closeViewLog = () =>{
         setShowLog(null);
     }
@@ -58,11 +49,6 @@ const LogsHistory = () => {
                 {openedLog && openedLog.type === 'workout' ? <ViewWorkoutLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
                 {openedLog && openedLog.type === 'goal' ? <ViewGoalLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
                 {openedLog && openedLog.type === 'food' ? <ViewFoodLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
-                {openedLog && openedLog.type === 'exercise' ? <ViewExerciseLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
-                <div className={styles['toggle-buttons-container']}>
-                    <button onClick={()=>switchInterval('current-week')} className={`${intervalPart === 'current-week' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Current Week</button>
-                    <button onClick={()=>switchInterval('last-seven-days')} className={`${intervalPart === 'last-seven-days' ? styles['selected-button'] : ''} ${styles['toggle-button']}`}>Last 7 Days</button>
-                </div>
                 {weekData ? <DaySelector weekData={weekData} selectedDay={selectedDay} selectDay={handleDaySelect} /> : null}
                 <div className={styles["logs-container"]}>
                 {logs && logs.length > 0 ? logs.map((item, index) => (
