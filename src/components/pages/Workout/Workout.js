@@ -18,6 +18,7 @@ const Workout = () => {
     const navigate = useNavigate();
     const {showMessage} = useUI();
 
+    const [showInstructions, setShowInstructions] = useState(false);
     const [showExercises, setShowExercises] = useState(false);
     const [showExercisePicker, setShowExercisePicker] = useState(false);
     
@@ -286,7 +287,7 @@ const Workout = () => {
                 //creates a new set object and appends it to the current exercise sets array
                 return { ...ex, sets: [...ex.sets, {
                     order: ex.sets.length,
-                    fields: ex.fields ? JSON.parse(JSON.stringify(ex.fields)) : [], // Deep copy of fields array
+                    fields: ex.fields ? [...JSON.parse(JSON.stringify(ex.fields)), {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  ex?.rest, isCompleted: false}] : [], // Deep copy of fields array
                     isCompleted: false,
                     isSkipped: false,
                   }],  };
@@ -295,7 +296,7 @@ const Workout = () => {
         });
     
         setExercises(updatedExercises);
-        showMessage("Added a new set", 'success');
+        showMessage("New set added", 'success');
     }
     
     const toggleSetCompletion = (exerciseId, setNo, value) => {
@@ -341,13 +342,6 @@ const Workout = () => {
         setCurrentSet(0);
         setCurrentExercise(id)
     }
-    
-// Make it so if the current selected exercise is selected, then move to the next one that is not completed
-// Auto finish the workout when all exercises are finished
-
-
-
-
     if(workoutData){
 
         return (
@@ -381,12 +375,17 @@ const Workout = () => {
                         </div>  
                     </div>
                     ) : null}
+                <div className={styles.exerciseHeader}>
+                    <h3>{exercises.find(item=>item._id === currentExercise)?.name || ''}</h3>
+                    {currentExercise ? <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
+                        <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
+                    </button> : null}
+                    <button className={styles.showExerciseListButton} onClick={()=>setShowExercises(showExercises=>!showExercises)}>
+                        <img src={IconLibrary.List} alt="" className="small-icon" />
+                    </button>
+                </div>
                 <div className={styles['current-exercise']}>
                         <div className={styles["current-exercise-header"]}>
-                            <h3>{exercises?.find((ex) => ex._id === currentExercise)?.name}</h3>
-                            <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
-                                <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
-                            </button>
                         </div>
                         <div className={styles['sets-container']}>
                             {exercises?.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
@@ -414,8 +413,16 @@ const Workout = () => {
                         </div>
                     </div>
                 </div> 
-                <div className={styles.instructionsContainer}>
-                    {exercises?.find(item=>item._id === currentExercise)?.instructions?.length > 0 ? exercises.find(item=>item._id === currentExercise).instructions.map((item, index)=><p key={'instruction-'+index}>{index+1}. {item}</p>):<p>No instructions for this exercise</p>}
+                <div className={`${styles.instructionsSection} ${showInstructions ? styles.expandedInstructions : ''}`}>
+                    <div className={styles.instructionsHeader} onClick={()=>setShowInstructions(prev=>!prev)}>
+                        <h3>Instructions</h3>
+                        <button className={styles.toggleInstructionsButton}>
+                            <img src={IconLibrary.Arrow} className="small-icon" alt="toggle instructions"></img>
+                        </button>
+                    </div>
+                    <div className={styles.instructionsContainer}>
+                        {exercises?.find(item=>item._id === currentExercise)?.instructions?.length > 0 ? exercises.find(item=>item._id === currentExercise).instructions.map((item, index)=><p key={'instruction-'+index}>{index+1}. {item}</p>):<p>No instructions for this exercise</p>}
+                    </div>
                 </div>
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
