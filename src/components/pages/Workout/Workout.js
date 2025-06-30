@@ -95,41 +95,44 @@ const Workout = () => {
         if(workoutData && workoutData.phases?.length > 0){
             workoutData.phases.map(phase=>{
                 phase.exercises && phase.exercises.length > 0 ? phase.exercises.map(exercise=>{
-                    const newSets = [];
-                    if(exercise.sets === 0){
-                        newSets.push({
-                           order: exercises.length,
-                            fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
-                            isCompleted: false,
-                            isSkipped: false,
-                        });
-                    }else{
-                        for (let i = 0; i < exercise.sets; i++) {
-                            newSets.push({
-                            order: exercises.length,
-                                fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
-                                isCompleted: false,
-                                isSkipped: false,
-                            });
-                        }
-                    }
-                    
-                    const ex = {
-                        ...exercise,
-                        initialId: exercise._id,
-                        _id: uuidv4(),
-                        phaseName: phase.name,
-                        sets: newSets
-                    };
-                    exercises.push(ex);
+                    exercises.push(formatExercise(exercise, phase.name));
                 }
             ) : console.log("There are no exercises in phase ", phase.name)})
         }
         console.log(exercises)
         return exercises;
     };
-      
-
+    
+    const formatExercise = (exercise, phaseName) =>{
+        const newSets = [];
+        if(exercise.sets === 0){
+            newSets.push({
+                order: exercises.length,
+                fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
+                isCompleted: false,
+                isSkipped: false,
+            });
+        }else{
+            for (let i = 0; i < exercise.sets; i++) {
+                newSets.push({
+                order: exercises.length,
+                    fields: [...exercise.fields, {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] ?? [],
+                    isCompleted: false,
+                    isSkipped: false,
+                });
+            }
+        }
+        
+        const ex = {
+            ...exercise,
+            initialId: exercise._id,
+            _id: uuidv4(),
+            phaseName,
+            sets: newSets
+        };
+        return ex;
+    }
+    
 
     // Functions to move through exercises
     const prevExercise = () => {
@@ -147,7 +150,7 @@ const Workout = () => {
         }
     };
     const addExercise = (exercise) =>{
-        setExercises(exercises=>[...exercises, exercise]);
+        setExercises(exercises=>[...exercises, formatExercise(exercise, 'Added during workout')]);
         setShowExercisePicker(false);
         showMessage("Exercise added", 'success');
     }
@@ -363,13 +366,10 @@ const Workout = () => {
                                 <img src={IconLibrary.Add} onClick={()=>setShowExercisePicker(true)} className="small-icon" alt="add exercise"></img>
                             </button>
                         </div>
+                        
                         <div className={styles["exercises-container"]}>
                             {exercises?.map((exercise, index) => (
-                                <div
-                                    className={`${styles["exercise-body"]} ${currentExercise === exercise._id ? styles['selected-exercise'] : ''}`}
-                                    key={index + 'exercise'}
-                                    onClick={() => handleChangeCurrentExercise(exercise._id)}
-                                >
+                                <div className={`${styles["exercise-body"]} ${currentExercise === exercise._id ? styles['selected-exercise'] : ''}`} key={index + 'exercise'} onClick={() => handleChangeCurrentExercise(exercise._id)}>
                                     <p>{exercise.name}</p>
                                     <input type="checkbox" style={{height: '30px', width: '30px'}} onChange={()=>handleCompleteExercise(exercise._id)} checked={exercises?.find((ex) => ex._id === exercise._id)?.isCompleted}></input>
                                 </div>
@@ -377,6 +377,13 @@ const Workout = () => {
                         </div>  
                     </div>
                     ) : null}
+                <div className={styles.workoutProgress}>
+                    <p>{exercises.filter(item=>item.isCompleted).length}/{exercises.length}</p>
+                    <div className={styles.progressBarContainer}>
+                        <div className={styles.progressBar} style={{width: `${Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%`}}></div>
+                    </div>
+                    <p>{Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%</p>
+                </div>
                 <div className={styles.exerciseHeader}>
                     <h3>{exercises.find(item=>item._id === currentExercise)?.name || ''}</h3>
                     {currentExercise ? <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise, currentSet)}>
@@ -387,8 +394,6 @@ const Workout = () => {
                     </button>
                 </div>
                 <div className={styles['current-exercise']}>
-                        <div className={styles["current-exercise-header"]}>
-                        </div>
                         <div className={styles['sets-container']}>
                             {exercises?.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
                                 <div className={`${styles.set} ${extendedMode ? '' : styles['simplified-set']} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>

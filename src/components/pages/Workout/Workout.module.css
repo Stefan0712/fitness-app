@@ -2,7 +2,7 @@
 .workout-page{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     position: relative;
     height: calc(100vh - 75px);
 }
@@ -51,7 +51,6 @@
     min-height: 325px;
     flex-grow: 1;
     background-color: #1A1A1B;
-    padding: 5px 10px;
     border-radius: 5px;
     position: relative;
 }
@@ -111,7 +110,7 @@
 .exercises{
     width: calc(100vw - 30px);
     flex-shrink: 0;
-    height: calc(100% - 220px);
+    height: calc(100% - 280px);
     transition: all 0.1s;;
     overflow: hidden;
     padding: 0;
@@ -209,12 +208,18 @@ h3{
 .current-set{
     background-color: #11121481;
 }
+.set.simplified-set .set-top{
+    border: none;
+    padding: 0;
+}
 .set-top{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 40px;
+    height: 50px;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.2);
+    padding-bottom: 10px;
 }
 .set-fields{
     width: 100%;
@@ -329,13 +334,13 @@ h3{
 }
 
 .content{
-    height: 100%;
-    max-height: calc(100vh - 250px);
+    flex-grow: 1;
+    max-height: calc(100vh - 300px);
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
 }
 
 .buttons-container{
@@ -344,6 +349,8 @@ h3{
     display: grid;
     grid-template-columns: 50px 1fr 1fr 50px;
     gap: 10px;
+    margin-top: auto;
+    flex-shrink: 0;
 }
 .buttons-container button{
     border: 1px solid var(--general-border);
@@ -359,5 +366,26 @@ h3{
 }
 .navigation-button{
     width: 50px !important;
+}
+.workoutProgress{
+    height: 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30px 1fr 40px;
+    gap: 10px;
+    align-items: center;
+}
+.workoutProgress .progressBarContainer{
+    height: 20px;
+    width: 100%;
+    background-color: var(--secondary);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+.workoutProgress .progressBar{
+    background-color: var(--accent-color);
+    height: 14px;
+    border-radius: 15px;
 }
 
