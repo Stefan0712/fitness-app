@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary";
 
 import styles from './Workout.module.css';
-import ExercisePicker from "../../common/ExercisePicker/ExercisePicker.tsx";
+import ExerciseSelector from "../../common/ExerciseSelector/ExerciseSelector.tsx";
 import { getItemById, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
  
@@ -29,18 +29,20 @@ const Workout = () => {
     const [currentSet, setCurrentSet] = useState(0);
 
     const [extendedMode, setExtendedMode] = useState(true);
+    const [isRunning, setIsRunning] = useState(true);
 
 
 
 
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setSeconds((prevSeconds) => prevSeconds + 1);
-        }, 1000);
-    
-        return () => clearInterval(timer);
-    }, []);
+        if(isRunning){
+            const timer = setInterval(() => {
+                setSeconds((prevSeconds) => prevSeconds + 1);
+            }, 1000);
+            return () => clearInterval(timer);
+        }
+    }, [isRunning]);
 
 
     const getWorkoutData = async () =>{
@@ -352,7 +354,7 @@ const Workout = () => {
                     <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
                 </div>
                 <div className={styles.content}>
-                    {showExercisePicker ? <ExercisePicker closeModal={()=>setShowExercisePicker(false)} currentExercises={exercises} addExercise={addExercise} /> : null}
+                    {showExercisePicker ? <ExerciseSelector close={()=>setShowExercisePicker(false)} addExercise={addExercise} /> : null}
                     {showExercises ? (
                         <div className={styles.exercises}>
                         <div className={styles['exercises-header']}>
@@ -427,7 +429,7 @@ const Workout = () => {
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}><img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img></button>
                     <button onClick={()=>setExtendedMode(extendedMode=>!extendedMode)}>{extendedMode ? 'Minimize Sets' : 'Extend Sets'}</button>
-                    <button onClick={()=>setShowExercises(showExercises=>!showExercises)}>{showExercises ? 'Hide Exercises' : 'Show Exercises'}</button>
+                    <button onClick={()=>(setIsRunning(prev=>!prev), saveProgress())}>{isRunning ? 'Pause' : 'Resume'}</button>
                     <button className={styles['navigation-button']} onClick={nextExercise}><img className="small-icon" src={IconLibrary.BackArrow} style={{transform: 'rotateZ(180deg)'}} alt="next exercise"></img></button>
                 </div>
             </div>
