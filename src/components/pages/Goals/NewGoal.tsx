@@ -8,8 +8,11 @@ import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal } from '../../common/interfaces.ts';
 import { getAllItems, saveItem } from '../../../db.js';
 import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
+import { useUI } from '../../../context/UIContext.jsx';
 
 const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
+
+    const {showMessage} = useUI();
     const [name, setName] = useState<string>('');
     const [unit, setUnit] = useState<string>('');
     const [target, setTarget] = useState<number>(0);
@@ -21,45 +24,76 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [allGoals, setAllGoals] = useState([]);
 
     const handleAddGoal = async () =>{
-        if(type === 'target' && target && name && unit){
-            const goalData: Goal = {
-                _id: uuidv4(),
-                name,
-                unit,
-                target,
-                color,
-                icon,
-                type,
-                pinToDashboard: true,
-                order: allGoals.length
+        if(type === 'target' ){
+            if(target && name && unit){
+                const goalData: Goal = {
+                    _id: uuidv4(),
+                    name,
+                    unit,
+                    target,
+                    color,
+                    icon,
+                    type,
+                    pinToDashboard: true,
+                    order: allGoals.length
+                }
+                await saveItem('goals',goalData);
+                showMessage("Goal created!",'success');
+                close();
+            }else{
+                if(!target){
+                    showMessage("Target is invalid. It should be a number", 'error');
+                }
+                if(!name){
+                    showMessage("Name is invalid. It cannot be empty", 'error');
+                }
+                if(!unit){
+                    showMessage("Unit is invalid. It cannot be empty", 'error');
+                }
+
             }
-            await saveItem('goals',goalData)
-            close();
+            
         }else if(type === 'yes-no'){
-            const goalData = {
-                _id: uuidv4(),
-                name,
-                color,
-                icon,
-                type,
-                pinToDashboard: true,
-                order: allGoals.length
-            }
-            await saveItem('goals',goalData)
-            close();
+           if(name && name.length > 0 ){
+                const goalData = {
+                    _id: uuidv4(),
+                    name,
+                    color,
+                    icon,
+                    type,
+                    pinToDashboard: true,
+                    order: allGoals.length
+                }
+                await saveItem('goals',goalData);
+                showMessage("Goal created!",'success');
+                close();
+           }else{
+            showMessage("Name is invalid. It should be at least one character long", 'error')
+           }
         }else if(type === 'number' && name && unit){
-            const goalData = {
-                _id: uuidv4(),
-                name,
-                unit,
-                color,
-                icon,
-                type,
-                pinToDashboard: true,
-                order: allGoals.length
+            if(name && unit && name.length > 0 ){
+                const goalData = {
+                    _id: uuidv4(),
+                    name,
+                    unit,
+                    color,
+                    icon,
+                    type,
+                    pinToDashboard: true,
+                    order: allGoals.length
+                }
+                await saveItem('goals',goalData);
+                showMessage("Goal created!",'success');
+                close();
+            }else{
+                if(!name){
+                    showMessage("Name is invalid. It cannot be empty", 'error');
+                }
+                if(!unit){
+                    showMessage("Unit is invalid. It cannot be empty", 'error');
+                }
+
             }
-            await saveItem('goals',goalData)
-            close();
         }else{
             console.log('Something went wrong',{
                 name: name || 'Missing name',
@@ -68,7 +102,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 color,
                 icon,
                 type
-            })
+            });
+            showMessage("There was an error. Check the console!",'error');
         }
         
     }
@@ -77,7 +112,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             const result = await getAllItems('goals');
             setAllGoals(result);
         }catch(error){
-            console.error(error)
+            console.error(error);
+            showMessage("Failed to get all goals", "error")
         }
     }
     useEffect(()=>{getAllGoals()},[]);
@@ -103,7 +139,6 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
                     <div className={styles.secondRow}>
-                        {/* <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input> */}
                         <UnitSelector unit={unit} setUnit={setUnit} />
                         <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
@@ -120,7 +155,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
                     <div className={styles.secondRow}>
-                        <input type='text' className={styles.unitInput} name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                        <UnitSelector unit={unit} setUnit={setUnit} />
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
                 </div> : null}

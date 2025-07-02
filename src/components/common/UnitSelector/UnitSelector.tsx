@@ -35,7 +35,8 @@ const UnitSelector = ({unit, setUnit}) => {
 
     const handleAddCustomUnit = () =>{
         if(label && label.length > 0 && shortLabel && shortLabel > 0){
-            setUnit({label, shortLabel, value: units.some(item=>item.shortLabel !== shortLabel) ? shortLabel+'-'+units.length : shortLabel, category: 'custom'})
+            setUnit({label, shortLabel, value: units.some(item=>item.shortLabel !== shortLabel) ? shortLabel+'-'+units.length : shortLabel, category: 'custom'});
+            showMessage("Unit selected",' success');
         }else{
             if(!label || label.length < 0){
                 showMessage('Invalid label. Try another one','error');
