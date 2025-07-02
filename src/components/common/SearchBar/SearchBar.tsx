@@ -4,9 +4,11 @@ import { IconLibrary } from '../../../IconLibrary';
 import TagSelector from '../TagSelector/TagSelector.tsx';
 import MuscleSelector from '../MuscleSelector/MuscleSelector.tsx';
 import EquipmentSelector from '../EquipmentSelector/EquipmentSelector.tsx';
-
+import {useUI} from '../../../context/UIContext.jsx'
 
 const SearchBar = ({originalItemList, setFilteredItems}) => {
+
+    const {showMessage} = useUI();
 
     const [expandFilters, setExpandFilters] = useState(false);
 
@@ -48,24 +50,47 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
         }
         // Filter by duration
         filtered = filtered.filter(item => item.duration <= selectedDuration);
-        // Sort by order
-        if (orderBy === 'asc') {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (orderBy === 'dec') {
-            filtered.sort((a, b) => b.name.localeCompare(a.name));
-        } else if (orderBy === 'new') {
-            filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        } else if (orderBy === 'old') {
-            filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        }
-
         setFilteredItems(filtered);
+        showMessage('Filters were applied', "success");
+    };
+    const handleQuerySearch = (searchQuery) => {
+        setQuery(searchQuery);
+        const tempQuery = searchQuery.trim().toLowerCase();
+        if (tempQuery.length > 2) {
+            const filtered = originalItemList.filter(item => item.name.toLowerCase().includes(tempQuery));
+            setFilteredItems(filtered);
+        } else {
+            // Reset to full list if query is empty or too short
+            setFilteredItems(originalItemList);
+        }
+    };
+
+    const handleOrder = (order) => {
+        setOrderBy(order)
+        const sorted = [...originalItemList]; 
+        switch (order) {
+            case 'asc':
+                sorted.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'dec':
+                sorted.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'new':
+                sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                break;
+            case 'old':
+                sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                break;
+            default:
+            break;
+        }
+        setFilteredItems(sorted);
     };
 
     return ( 
         <div className={styles.searchBarContainer}>
            <div className={styles.searchBar}>
-                <input type='text' minLength={3} id='searchBox' name='searchBox' value={query} onChange={(e)=>setQuery(e.target.value)} placeholder='Search....'/>
+                <input type='text' minLength={3} id='searchBox' name='searchBox' value={query} onChange={(e)=>handleQuerySearch(e.target.value)} placeholder='Search....'/>
                 <button onClick={()=>setExpandFilters(prev=>!prev)} className={styles.filterButton}><img src={IconLibrary.Filter} alt='filters' /></button>
            </div>
            {showTagPicker ? <TagSelector close={()=>setShowTagPicker(false)} tags={selectedTags} setTags={setSelectedTags} /> : null}
@@ -75,7 +100,7 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
                 <div className={styles.twoItems}>
                     <fieldset>
                         <img src={IconLibrary.Sort} alt='' className={styles.filterIcon} />
-                        <select onChange={(e)=>setOrderBy(e.target.value)} value={orderBy}>
+                        <select onChange={(e)=>handleOrder(e.target.value)} value={orderBy}>
                             <option value={'asc'}>Ascending</option>
                             <option value={'desc'}>Descending</option>
                             <option value={'new'}>New First</option>
