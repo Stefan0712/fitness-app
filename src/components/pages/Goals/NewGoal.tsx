@@ -7,6 +7,7 @@ import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal } from '../../common/interfaces.ts';
 import { getAllItems, saveItem } from '../../../db.js';
+import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
 
 const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [name, setName] = useState<string>('');
@@ -102,7 +103,8 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
                     <div className={styles.secondRow}>
-                        <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                        {/* <input type='text' name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input> */}
+                        <UnitSelector unit={unit} setUnit={setUnit} />
                         <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
