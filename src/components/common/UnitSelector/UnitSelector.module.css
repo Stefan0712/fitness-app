@@ -28,13 +28,13 @@
     height: 30px;
 }
 .unitSelector .results{
-    position: absolute;
+    position: fixed;
     display: grid;
     grid-template-rows: 50px 1fr 40px;
     gap: 10px;
     height: 400px;
     width: calc(100vw - 20px);
-    left: 0;
+    left: 10px;
     bottom: 50vh;
     transform: translateY(50%);
     background-color: var(--modal-bg);

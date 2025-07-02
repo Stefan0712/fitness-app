@@ -48,12 +48,12 @@ const UnitSelector = ({unit, setUnit}) => {
     }
     return ( 
         <div className={styles.unitSelector}>
-            <button className={styles.unitButton} onClick={()=>setShowList(prev=>!prev)}>{unit.label || 'Unit'}</button>
+            <button type='button' className={styles.unitButton} onClick={()=>setShowList(prev=>!prev)}>{unit.label || 'Unit'}</button>
             {showList ? <div className={styles.results}>
                 <div className={styles.unitHeader}>
                     <input type='text' id='unit' name='unit' placeholder='Unit' onChange={(e)=>handleSearchUnit(e.target.value)} value={label} />
                     <input type='text' id='unit' name='shortLabel' placeholder='Short name' onChange={(e)=>setShortLabel(e.target.value)} value={shortLabel} />
-                    <button className={styles.addUnitButton} onClick={handleAddCustomUnit}>
+                    <button type='button' className={styles.addUnitButton} onClick={handleAddCustomUnit}>
                         <img src={IconLibrary.Add} alt=''></img>
                     </button>
                 </div>
@@ -63,7 +63,7 @@ const UnitSelector = ({unit, setUnit}) => {
                             <b>{makeFirstUpperCase(category)}</b>
                             <div className={styles["unit-list"]}>
                             {items.map((unit) => (
-                                <button key={unit.value} onClick={()=>(setUnit(unit), setShowList(false))}>
+                                <button type='button' key={unit.value} onClick={()=>(setUnit(unit), setShowList(false))}>
                                     {unit.label} ({unit.shortLabel})
                                 </button>
                             ))}
@@ -71,7 +71,7 @@ const UnitSelector = ({unit, setUnit}) => {
                         </div>
                     ))}
                 </div>
-                <button className={styles.cancelButton} onClick={()=>setShowList(false)}>Cancel</button>
+                <button type='button' className={styles.cancelButton} onClick={()=>setShowList(false)}>Cancel</button>
             </div> : null}
         </div>
      );

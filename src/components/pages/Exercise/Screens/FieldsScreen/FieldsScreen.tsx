@@ -3,6 +3,7 @@ import styles from './FieldsScreen.module.css';
 import { Field } from '../../../../common/interfaces';
 import {v4 as uuidv4} from 'uuid';
 import { IconLibrary } from '../../../../../IconLibrary';
+import UnitSelector from '../../../../common/UnitSelector/UnitSelector.tsx';
 
 
 const FieldsScreen = ({fields, setFields}) => {
@@ -34,7 +35,7 @@ const FieldsScreen = ({fields, setFields}) => {
             <div className={styles.newField}>
                 <input type='text' id='name' name='name' value={name} onChange={(e)=>setName(e.target.value)} minLength={0} maxLength={20} placeholder='Name' />
                 <input type='string' id='target' name='target' value={target} onChange={(e)=>setTarget(e.target.value)} placeholder='Target'/>
-                <input type='text' id='unit' name='unit' value={unit} onChange={(e)=>setUnit(e.target.value)} minLength={0} maxLength={6} placeholder='Unit'/>
+                <UnitSelector unit={unit} setUnit={setUnit} />
                 <button onClick={handleAddField} type='button' className='clear-button'><img src={IconLibrary.Add} alt='add new field' style={{width: '30px', height: '30px'}} /></button>
             </div>
             <div className={styles.fields}>

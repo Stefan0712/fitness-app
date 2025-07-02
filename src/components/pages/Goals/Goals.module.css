@@ -1,5 +1,6 @@
 .goalsPage{
     padding: 10px;
+    position: relative;
 }
 .goalsPage .goal-icon{
     width: 30px;
@@ -44,7 +45,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
+    position: fixed;
     left: 10px;
     bottom: 100px;
     z-index: 500;
