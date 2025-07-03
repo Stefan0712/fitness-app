@@ -17,7 +17,6 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetMuscles, targetMus
 
     const [items, setItems] = useState<TargetGroup[]>(muscles || []); // Search results
     const [name, setName] = useState<string>('');
-    const [error, setError] = useState<boolean>(false);
 
 
 

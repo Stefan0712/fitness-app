@@ -94,7 +94,7 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
                 <button onClick={()=>setExpandFilters(prev=>!prev)} className={styles.filterButton}><img src={IconLibrary.Filter} alt='filters' /></button>
            </div>
            {showTagPicker ? <TagSelector close={()=>setShowTagPicker(false)} tags={selectedTags} setTags={setSelectedTags} /> : null}
-           {showMusclePicker ? <MuscleSelector close={()=>setShowMusclePicker(false)} targetMuscles={selectedEquipment} setTargetMuscles={setSelectedMuscles} /> : null}
+           {showMusclePicker ? <MuscleSelector close={()=>setShowMusclePicker(false)} targetMuscles={selectedMuscles} setTargetMuscles={setSelectedMuscles} /> : null}
            {showEquipmentPicker ? <EquipmentSelector close={()=>setShowEquipmentPicker(false)} equipments={selectedEquipment} setEquipments={setSelectedEquipment}/> : null}
            <div className={`${styles.filters} ${expandFilters ? styles.expandedFilters : ''}`}>
                 <div className={styles.twoItems}>
@@ -127,14 +127,14 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
                 <div className={styles.filterByMuscles}>
                     <img src={IconLibrary.Muscle} alt='' className={styles.filterIcon} />
                     <div className={styles.itemsContainer}>
-                        {selectedMuscles && selectedMuscles.length > 0 ? selectedMuscles.map(muscle=><div className={styles.selectedMuscle} key={muscle._id}></div>) : <div className={styles.selectedMuscle}>None</div>}
+                        {selectedMuscles && selectedMuscles.length > 0 ? selectedMuscles.map(muscle=><div className={styles.selectedMuscle} key={muscle._id}>{muscle.name}</div>) : <div className={styles.selectedMuscle}>None</div>}
                     </div>
                     <button className={styles.addFilterButton} onClick={()=>setShowMusclePicker(true)}><img src={IconLibrary.Add} alt='' /></button>
                 </div>
                 <div className={styles.filterByEquipment}>
                     <img src={IconLibrary.Equipment} alt='' className={styles.filterIcon} />
                     <div className={styles.itemsContainer}>
-                        {selectedEquipment && selectedEquipment.length > 0 ? selectedEquipment.map(equipment=><div className={styles.selectedTag} key={equipment._id}></div>) : <div className={styles.selectedEquipment}>None</div>}
+                        {selectedEquipment && selectedEquipment.length > 0 ? selectedEquipment.map(equipment=><div className={styles.selectedTag} key={equipment._id}>{equipment.name}</div>) : <div className={styles.selectedEquipment}>None</div>}
                     </div>
                     <button className={styles.addFilterButton} onClick={()=>setShowEquipmentPicker(true)}><img src={IconLibrary.Add} alt='' /></button>
                 </div>

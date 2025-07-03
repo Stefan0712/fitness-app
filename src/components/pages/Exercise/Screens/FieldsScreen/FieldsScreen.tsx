@@ -52,7 +52,7 @@ const FieldBody = ({field, setFields}) =>{
     return(
         <div className={styles.field}>
             <h4>{field.name}</h4>
-            <b>{field.target || ''} {field.unit || 'No unit'}</b>
+            <b>{field.target || ''} {field.unit.shortLabel || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={()=>setFields(prev=>[...prev.filter(item=>item._id !== field._id)])}><img src={IconLibrary.Close} alt='remove field' style={{width: '30px', height: '30px'}} /></button>
         </div>
     )
