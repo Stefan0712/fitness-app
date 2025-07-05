@@ -89,11 +89,11 @@ const ViewGoal = () => {
                     {goalLogs && goalLogs.length > 0 ? (
                         goalData.type === 'target' ? (
                             <>
-                                {goalLogs.reduce((sum, item) => sum + item.data.value, 0)}/{goalData.target || 0} {typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label}
+                                {goalLogs.reduce((sum, item) => sum + item.data.value, 0)}/{goalData.target || 0} {typeof goalData.unit === 'object' ? goalData.unit.label : goalData.unit || ''}
                             </>
                         ) : goalData.type === 'number' ? (
                             <>
-                                {goalLogs[0]?.data?.value ?? 0} {typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label}
+                                {goalLogs[0]?.data?.value ?? 0} {typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label || ''}
                             </>
                         ) : goalData.type === 'yes-no' ? (
                             <>
@@ -121,7 +121,7 @@ const ViewGoal = () => {
                     <div className={styles['log-body']} key={'log-' + index}>
                         <img className={"small-icon"} src={IconLibrary.Goals} alt='' />
                         <p className={styles['log-name']}>{log.name || goalData.name}</p>
-                        <p className={styles['log-value']}>{`${typeof log.data.value === 'string' ? makeFirstUpperCase(log.data.value) : log.data.value} ${typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label || ''}`}</p>
+                        <p className={styles['log-value']}>{`${typeof log.data.value === 'string' ? makeFirstUpperCase(log.data.value) : log.data.value} ${typeof goalData.unit === 'object' ? goalData.unit.label : goalData.unit || ''}`}</p>
                         <p className={styles['log-time']}>{getHourFromTimestamp(log.timestamp)}</p>
                     </div>
                 )) : <p>No logs today</p>}

@@ -98,6 +98,9 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                     return {...set, fields: updatedFields, isCompleted: isSetCompleted, status}; // Returns the updated fields and updated the isCompleted for the selected set if all fields are completed
                 });
                 const isExerciseCompleted = updatedSets.every(s => s.isCompleted); // Checks if all sets are completed to move to the next exercise
+                if(isExerciseCompleted){
+                    goToNextSetOrExercise();
+                }
                 return {...exercise, sets: updatedSets, isCompleted: isExerciseCompleted};
             })
         );
@@ -141,11 +144,32 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
             goToNextSetOrExercise();
         }, 50);
     };
+    const toggleSetCompletion = () => {
+        setExercises(prevExercises =>
+            prevExercises.map(exercise => {
+            if (exercise._id !== set.exerciseId) return exercise;
+            const updatedSets = exercise.sets.map(s => {
+                if (s._id !== set._id) return s;
+                const newCompletion = !s.isCompleted;
+                const newStatus: Set['status'] = newCompletion ? 'completed' : 'not-started';
+                const updatedFields = s.fields.map(field => newCompletion
+                ? { ...field, value: newCompletion ? field.target : 0, isCompleted: true }
+                : { ...field, value: 0, isCompleted: false }
+                );
+                return { ...s, isCompleted: newCompletion, status: newStatus, fields: updatedFields };
+            });
+                const isExerciseCompleted = updatedSets.every(s => s.isCompleted);
+                return { ...exercise, sets: updatedSets, isCompleted: isExerciseCompleted };
+            })
+        );
+        setTimeout(()=>{goToNextSetOrExercise()}, 100)
+    };
+
 
     return ( 
         <div className={`${styles.workoutSet} ${currentSet === set._id ? styles.selectedSet : ''}`} onClick={()=>set._id ? setCurrentSet(set._id) : null}>
             <div className={styles.setHeader}>
-                <button className={styles.setCompletionButton}><img src={set.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' /></button>
+                <button onClick={currentSet === set._id ? toggleSetCompletion : ()=>console.log('You are not supposed to click this now')} className={styles.setCompletionButton}><img src={set.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' /></button>
                 <h3>Set {setIndex+1}</h3>
             </div>
             <div className={styles.setFields}>
