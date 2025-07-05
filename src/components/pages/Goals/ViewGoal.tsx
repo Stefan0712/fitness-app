@@ -89,11 +89,11 @@ const ViewGoal = () => {
                     {goalLogs && goalLogs.length > 0 ? (
                         goalData.type === 'target' ? (
                             <>
-                                {goalLogs.reduce((sum, item) => sum + item.data.value, 0)}/{goalData.target || 0} {goalData.unit}
+                                {goalLogs.reduce((sum, item) => sum + item.data.value, 0)}/{goalData.target || 0} {typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label}
                             </>
                         ) : goalData.type === 'number' ? (
                             <>
-                                {goalLogs[0]?.data?.value ?? 0} {goalData.unit}
+                                {goalLogs[0]?.data?.value ?? 0} {typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label}
                             </>
                         ) : goalData.type === 'yes-no' ? (
                             <>
@@ -121,7 +121,7 @@ const ViewGoal = () => {
                     <div className={styles['log-body']} key={'log-' + index}>
                         <img className={"small-icon"} src={IconLibrary.Goals} alt='' />
                         <p className={styles['log-name']}>{log.name || goalData.name}</p>
-                        <p className={styles['log-value']}>{`${log.data.value} ${log.data.unit || ''}`}</p>
+                        <p className={styles['log-value']}>{`${typeof log.data.value === 'string' ? makeFirstUpperCase(log.data.value) : log.data.value} ${typeof goalData.unit === 'string' ? goalData.unit : goalData.unit.label || ''}`}</p>
                         <p className={styles['log-time']}>{getHourFromTimestamp(log.timestamp)}</p>
                     </div>
                 )) : <p>No logs today</p>}
@@ -156,7 +156,7 @@ const NumberDay = ({ day, index, pastCompletion }) => {
     if (prevValue !== null && prevValue !== 0) {
         const diff = todayValue - prevValue;
         const percent = Math.floor(Math.abs(diff / prevValue) * 100);
-        diffText = diff > 0 ? `+${percent}%` : diff < 0 ? `-${percent}%` : '0%';
+        diffText = todayValue === 0 || prevValue === 0 ? '-' : diff > 0 ? `+${percent}%` : diff < 0 ? `-${percent}%` : '0%';
     }
 
     return (
@@ -168,7 +168,7 @@ const NumberDay = ({ day, index, pastCompletion }) => {
     );
 };
 
-const BooleanDay = ({day, index}) =>{
+const BooleanDay = ({day}) =>{
     return (
         <div key={day.date} className={styles.pastDay} style={{gridTemplateColumns: '1fr 50px'}}>
             <h4>{makeDateNice(day.date)}</h4>

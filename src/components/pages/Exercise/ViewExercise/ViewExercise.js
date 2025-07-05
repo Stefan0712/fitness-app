@@ -158,7 +158,7 @@ const ViewExercise = () => {
                                 <div className={styles.field} key={'field'+index}>
                                     <b>{fields.name}</b>
                                     <p>{fields.target}</p>
-                                    <p>{fields.unit}</p>
+                                    <p>{fields.unit.label}</p>
                                 </div>
                             )) : <p>No fields</p>}
                         </div>

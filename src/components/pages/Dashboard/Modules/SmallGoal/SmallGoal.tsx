@@ -56,7 +56,7 @@ const TargetGoal = ({goal}) =>{
     useEffect(()=>{getLogs()},[])
     return (
         <div className={styles.targetGoal}>
-            <p>{progress} / {goal.target} {goal.unit}</p>
+            <p>{progress} / {goal.target} {typeof goal.unit === 'string' ? goal.unit : goal.unit.label}</p>
             <div className={styles.progressCircle}>
                 <ProgressBar value={progress} target={goal.target} color={goal.color} /> 
             </div>
