@@ -17,6 +17,7 @@ export interface Workout {
     reference?: string; 
     phases: Phase[];
     notes: string;
+    exercises?: any;
   }
   export interface Exercise {
     _id?: string;
@@ -121,15 +122,34 @@ export interface Workout {
     unit: string;
     
   }
+  export interface Set {
+      exerciseId: string,
+      _id?: string,
+      isCompleted: boolean,
+      isSkipped: boolean,
+      rest: number,
+      order: number,
+      fields: Field[],
+      duration: number,
+      startedAt: Date | undefined,
+      finishedAt: Date | undefined,
+      status: 'not-started' | 'idle' | 'running' | 'paused' | 'completed' | 'skipped',
+  }
   export interface Field {
     _id: string,
     name: string,
-    unit: string,
+    unit: Unit,
     value: number,
     target: number,
     description?: string,
     isCompleted: boolean,
     isEnabled?: boolean,
+  }
+  export interface Unit {
+    label: string,
+    shortLabel: string,
+    value: string,
+    category: string
   }
   export interface ExerciseLog{
     exerciseId: string,

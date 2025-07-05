@@ -70,7 +70,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu}) => {
                 icon: goalData.icon,
                 timestamp: todayDate,
                 data: {
-                    value: goalData.type === 'number' || goalData.type === 'target' ? parseInt(inputValue) : goalData.type === 'yes-no' ? inputValue : inputValue,
+                    value: goalData.type === 'number' || goalData.type === 'target' ? parseFloat(inputValue) : goalData.type === 'yes-no' ? inputValue : inputValue,
                     time,
                     description,
                     name,

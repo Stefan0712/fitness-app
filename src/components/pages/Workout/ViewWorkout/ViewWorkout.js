@@ -138,7 +138,7 @@ const ViewWorkout = () => {
                             <p>Target Muscles</p>
                         </div>
                         <div className={styles.muscles}>
-                            {workoutData.targetMuscles?.length > 0 ? workoutData.targetMuscles.map(group => <div className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
+                            {workoutData.targetMuscles?.length > 0 ? workoutData.targetMuscles.map(group => <div key={group._id} className={styles.muscle}>{group.name}</div>) : <p>No target muscles provided</p>}
                         </div>
                     </div>
                     <div className={styles.block}>

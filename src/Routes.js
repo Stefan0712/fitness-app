@@ -4,7 +4,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import Library from './components/pages/Library/Library';
 import Logs from './components/pages/Activity/Activity';
 import Profile from './components/pages/Profile/Profile';
-import Workout from './components/pages/Workout/Workout';
+import Workout from './components/pages/Workout/Workout.tsx';
 import EditWorkout from './components/pages/Workout/EditWorkout/EditWorkout.tsx';
 import CreateWorkout from './components/pages/Workout/CreateWorkout/CreateWorkout.tsx';
 import EditExercise from './components/pages/Exercise/EditExercise.tsx';
