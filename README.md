@@ -287,5 +287,3 @@ Have feedback or ideas?
 Open an issue or reach out — let’s make **EasyFit** the best it can be!
 
 ---
-
-Let me know if you want a **shorter version for employers**, or to **add badges, installation steps, or contribution guidelines**!
