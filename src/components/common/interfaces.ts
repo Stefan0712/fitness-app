@@ -157,8 +157,9 @@ export interface Workout {
     name: string,
     finishedAt: string,
     targetMuscles: TargetGroup[],
+    equipment: Equipment[],
     fields: Field[],
-    sets: Set[],
+    sets: number,
     tags: Tag[],
   }
   export interface FoodLog{

@@ -6,9 +6,10 @@ import { IconLibrary } from '../../../../../IconLibrary';
 import UnitSelector from '../../../../common/UnitSelector/UnitSelector.tsx';
 
 
-const FieldsScreen = ({fields, setFields}) => {
+const FieldsScreen = ({fields, setFields, type='other'}) => {
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
+    const [value, setValue] = useState('')
     const [unit, setUnit] = useState('');
 
 
@@ -19,7 +20,7 @@ const FieldsScreen = ({fields, setFields}) => {
             const fieldData: Field = {
                 _id: uuidv4(),
                 name,
-                value: 0,
+                value: type === 'log' && value !== '' ? parseInt(value) : 0,
                 target: parseInt(target) > 0 ? parseInt(target) : 0,
                 unit,
                 isCompleted: false
@@ -34,7 +35,10 @@ const FieldsScreen = ({fields, setFields}) => {
         <div className={`${styles.fieldsScreen} ${styles.screen}`}>
             <div className={styles.newField}>
                 <input type='text' id='name' name='name' value={name} onChange={(e)=>setName(e.target.value)} minLength={0} maxLength={20} placeholder='Name' />
-                <input type='string' id='target' name='target' value={target} onChange={(e)=>setTarget(e.target.value)} placeholder='Target'/>
+                {type === 'log' ? 
+                    <input type='string' id='value' name='value' value={value} onChange={(e)=>setValue(e.target.value)} placeholder='Value'/> :
+                    <input type='string' id='target' name='target' value={target} onChange={(e)=>setTarget(e.target.value)} placeholder='Target'/>
+                }
                 <UnitSelector unit={unit} setUnit={setUnit} />
                 <button onClick={handleAddField} type='button' className='clear-button'><img src={IconLibrary.Add} alt='add new field' style={{width: '30px', height: '30px'}} /></button>
             </div>
@@ -52,7 +56,7 @@ const FieldBody = ({field, setFields}) =>{
     return(
         <div className={styles.field}>
             <h4>{field.name}</h4>
-            <b>{field.target || ''} {field.unit.shortLabel || 'No unit'}</b>
+            <b>{field.target || field.value || ''} {field.unit.shortLabel || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={()=>setFields(prev=>[...prev.filter(item=>item._id !== field._id)])}><img src={IconLibrary.Close} alt='remove field' style={{width: '30px', height: '30px'}} /></button>
         </div>
     )
