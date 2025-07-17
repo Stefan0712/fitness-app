@@ -79,7 +79,7 @@ const Phases = ({phases, setPhases}) => {
         <div className={styles.phases}>
             <div className={styles.phaseList}>
                 <div className={styles.phasesContainer}>
-                    {phases && phases.length > 0 ? phases.map(item=><button type="button" onClick={()=>setSelectedPhase(item)} className={`${selectedPhase?._id === item._id ? styles.selectedButton : ''} ${styles.phaseButton}`}>{item.name}</button>) : null}
+                    {phases && phases.length > 0 ? phases.map(item=><button type="button" key={item._id} onClick={()=>setSelectedPhase(item)} className={`${selectedPhase?._id === item._id ? styles.selectedButton : ''} ${styles.phaseButton}`}>{item.name}</button>) : null}
                 </div>
                 <div className={styles.phaseButtons}>
                     {selectedPhase ? <div className={styles.selectedPhaseButtons}>

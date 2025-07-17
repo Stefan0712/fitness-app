@@ -39,36 +39,33 @@ const CreateWorkout: React.FC = () => {
     const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([])
     const [notes, setNotes] = useState<string>('');
     const [phases, setPhases] = useState<Phase[]>([{_id: 'phase-id-1', name: 'Warm-up', order: 1, exercises:[]},{_id: 'phase-id-2', name: 'Workout', order: 1, exercises:[]}]);
-    const [currentScreen, setCurrentScreen] = useState<string>('exercises');
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        const createdAt = new Date().toISOString(); //get timestamp
-        const workoutData: Workout = {
-            _id: uuidv4(), 
-            author: userId || 'local-user', 
-            createdAt, 
-            updatedAt: '',
-            name, 
-            description,
-            isFavorite: false,
-            isCompleted: false,
-            reference, 
-            difficulty,
-            visibility: 'private',
-            imageUrl: '',
-            duration: duration ? parseInt(duration) : 0,
-            equipment: equipments, 
-            tags, 
-            targetMuscles, 
-            phases,
-            notes
-        };
-        if(workoutData.name.length < 1){
-            console.log("Workout name is required");
-        }else if(workoutData.name.length > 100){
-            console.log("Workout name is too long");
+        if(!name || name.length < 3){
+            showMessage('Name is invalid. It should be at least three characters long','error');  
         }else{
+            const createdAt = new Date().toISOString(); //get timestamp
+            const workoutData: Workout = {
+                _id: uuidv4(), 
+                author: userId || 'local-user', 
+                createdAt, 
+                updatedAt: '',
+                name, 
+                description,
+                isFavorite: false,
+                isCompleted: false,
+                reference, 
+                difficulty,
+                visibility: 'private',
+                imageUrl: '',
+                duration: duration ? parseInt(duration) : 0,
+                equipment: equipments, 
+                tags, 
+                targetMuscles, 
+                phases,
+                notes
+            };
             await saveItem('workouts', workoutData);
             showMessage("Workout created successfully", "success");
             navigate('/library');

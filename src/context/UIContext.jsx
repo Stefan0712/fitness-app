@@ -8,8 +8,8 @@ const UIContext = createContext();
 export const useUI = () => useContext(UIContext);
 
 export function UIProvider({ children }) {
-  const [toasts, setToasts] = useState([]); // { message, type }
-  const [confirmation, setConfirmation] = useState(null); // { title, message, onConfirm }
+  const [toasts, setToasts] = useState([]);
+  const [confirmation, setConfirmation] = useState(null);
 
   // Show a toast message for 3 seconds
   const showMessage = useCallback((message, type = "info") => {
@@ -19,10 +19,13 @@ export function UIProvider({ children }) {
     setToasts((prev) => [...prev, newToast]);
 
     setTimeout(() => {
-        setToasts((prev) => prev.filter((toast) => toast.id !== id));
+      setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, 3000);
-    }, []);
+  }, []);
 
+  const removeToast = (toastId) =>{
+    setToasts((prev) => prev.filter((toast) => toast.id !== toastId));
+  }
 
   // Show a confirmation modal with optional title
   const showConfirmationModal = useCallback(( {title = "Are you sure?", message, onConfirm, onCancel}) => {
@@ -46,7 +49,7 @@ const cancel = () => {
   return (
     <UIContext.Provider value={{ showMessage, showConfirmationModal }}>
       {children}
-      {toasts?.length > 0 && <div className={styles.toastsContainer}>{toasts.map((toast) => (<Toast key={toast.id} message={toast.message} type={toast.type} />))}</div>}
+      {toasts?.length > 0 && <div className={styles.toastsContainer}>{toasts.map((toast) => (<Toast key={toast.id} removeToast={()=>removeToast(toast.id)} message={toast.message} type={toast.type} />))}</div>}
       {confirmation && (
         <ConfirmationModal
           title={confirmation.title}

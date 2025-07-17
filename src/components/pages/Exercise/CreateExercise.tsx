@@ -38,35 +38,43 @@ const CreateExercise: React.FC = () => {
     const handleSubmit = async (e)=> {
         e.preventDefault();
         const createdAt = new Date();
-        const id = uuidv4()
-        const exerciseData: Exercise = {
-            _id: id,
-            author: localStorage.getItem('userId') || 'local-user',
-            createdAt, 
-            updatedAt: createdAt,
-            sourceId: id,
-            isCompleted: false, 
-            name, 
-            description, 
-            reference, 
-            difficulty, 
-            sets: 1, 
-            duration, 
-            durationUnit: 'min',
-            rest,
-            restUnit: 'seconds',
-            visibility: 'private',
-            notes,
-            targetMuscles, 
-            fields, 
-            tags, 
-            equipment: equipments, 
-            instructions
-        };
-        await saveItem('exercises', exerciseData);
-        showMessage('Exercise created', 'success')
-        navigate('/library');
+        //Check for name
+        if(!name || name.trim().length < 3){
+            showMessage('Name is invalid. It must be at least three characters long', "error")
+        }else{
+            const id = uuidv4()
+            const exerciseData: Exercise = {
+                _id: id,
+                author: localStorage.getItem('userId') || 'local-user',
+                createdAt, 
+                updatedAt: createdAt,
+                sourceId: id,
+                isCompleted: false, 
+                name, 
+                description, 
+                reference, 
+                difficulty, 
+                sets: 1, 
+                duration, 
+                durationUnit: 'min',
+                rest,
+                restUnit: 'seconds',
+                visibility: 'private',
+                notes,
+                targetMuscles, 
+                fields, 
+                tags, 
+                equipment: equipments, 
+                instructions
+            };
+            await saveItem('exercises', exerciseData);
+            showMessage('Exercise created', 'success')
+            navigate('/library');
+        }
     }
+
+
+
     return ( 
         <div className={styles.createExercise}>
             <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />
