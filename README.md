@@ -1,12 +1,4 @@
-Sure! Below is your corrected README with:
-
-* All **grammar, spelling, and punctuation mistakes fixed**.
-* **Correct Markdown formatting** applied (e.g., bullet points, headings, code formatting).
-* **“Fitness App” renamed to “EasyFit”** everywhere.
-
-I did **not** add or remove any content — just cleaned it up for correctness and clarity.
-
----
+ ---
 
 # EasyFit (Work in Progress and Open to Name Suggestions)
 
