@@ -4,7 +4,7 @@ import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewGoal.module.css';
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
-import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, makeDateNice, makeFirstUpperCase } from "../../../helpers";
+import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, isObject, makeDateNice, makeFirstUpperCase } from "../../../helpers";
 import Loading from "../../common/Loading";
 import { Goal } from "../../common/interfaces.ts";
 import EditGoal from "./EditGoal.tsx";
@@ -17,6 +17,7 @@ const ViewGoal = () => {
     const {showConfirmationModal, showMessage} = useUI();
     const navigate = useNavigate();
 
+    const [showDefaultValues, setShowDefaultValues] = useState(false);
 
     const [goalData, setGoalData] = useState<Goal | null>(null);
     const [goalLogs, setGoalLogs] = useState<Goal[]>([]);
@@ -114,6 +115,10 @@ const ViewGoal = () => {
                         goalData.type === 'yes-no' ? <BooleanDay key={day.date} day={day} index={index} /> : null
                         
                 )): null}
+            </div>
+            <h3>Default Values</h3>
+            <div className={styles.defaultValuesContainer}>
+                {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(item=><p key={item} className={styles.customValue}>{item} {isObject(goalData.unit) ? goalData.unit.shortLabel : goalData.unit}</p>) : <p>No custom values</p>}
             </div>
             <h3>Today's logs</h3>
             <div className={styles.history}>

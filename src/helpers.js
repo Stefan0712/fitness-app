@@ -162,3 +162,6 @@ export const formatActivityDate = (date) => {
   const options = { weekday: 'short', day: 'numeric', month: 'short' };
   return dateObj.toLocaleDateString('en-US', options);  // "Wed, 25 Nov"
 };
+export function isObject(val) {
+  return val !== null && typeof val === 'object' && !Array.isArray(val);
+}
