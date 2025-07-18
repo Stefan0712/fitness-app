@@ -5,7 +5,7 @@ import Goals from '../../common/Goals/Goals'
 import QuickGoalLog from '../QuickGoalLog/QuickGoalLog.tsx';
 
 
-const QuickMenu = ({openExerciseLogs, openFoodLogs, }) => {
+const QuickMenu = ({openExerciseLogs, openFoodLogs, closeQuickMenu}) => {
 
     const [selectedGoal, setSelectedGoal] = useState(null)
     const [showGoals, setShowGoals] = useState(false);
@@ -18,7 +18,7 @@ const QuickMenu = ({openExerciseLogs, openFoodLogs, }) => {
     return ( 
         <div className={styles["quick-menu"]}>  
             {showGoals ? <Goals closeMenu={()=>setShowGoals(false)} selectedGoal={selectedGoal} setSelectedGoal={openGoal}/> : null}
-            {selectedGoal ? <QuickGoalLog close={()=>setSelectedGoal(null)} closeMenu={()=>setSelectedGoal(null)} goalData={selectedGoal} /> : null}
+            {selectedGoal ? <QuickGoalLog closeQuickMenu={closeQuickMenu} close={()=>setSelectedGoal(null)} closeMenu={()=>setSelectedGoal(null)} goalData={selectedGoal} /> : null}
             <div className={styles.menuBg}></div>
             {showGoals || selectedGoal ? null : <div className={styles.buttonsContainer}>
                 <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>

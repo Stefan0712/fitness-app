@@ -17,8 +17,6 @@ const ViewGoal = () => {
     const {showConfirmationModal, showMessage} = useUI();
     const navigate = useNavigate();
 
-    const [showDefaultValues, setShowDefaultValues] = useState(false);
-
     const [goalData, setGoalData] = useState<Goal | null>(null);
     const [goalLogs, setGoalLogs] = useState<Goal[]>([]);
     const [editGoal, setEditGoal] = useState(null);

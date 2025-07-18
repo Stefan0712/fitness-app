@@ -22,6 +22,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>('target');
     const [allGoals, setAllGoals] = useState([]);
+    const [customValues, setCustomValues] = useState<number[]>([])
 
     const handleAddGoal = async () =>{
         if(type === 'target' ){
@@ -35,6 +36,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     icon,
                     type,
                     pinToDashboard: true,
+                    defaultValues: customValues,
                     order: allGoals.length
                 }
                 await saveItem('goals',goalData);
@@ -116,6 +118,13 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             showMessage("Failed to get all goals", "error")
         }
     }
+    const addDefaultValue = () =>{
+        if(customValues.length < 5){
+            setCustomValues(prev=>[...prev, 0]);
+        }else{
+            showMessage("You cannot have more than 5 custom values for one goal",'error');
+        }
+    }
     useEffect(()=>{getAllGoals()},[]);
     return ( 
         <div className={styles['new-goal']}>
@@ -160,6 +169,17 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     </div>
                 </div> : null}
             </div>
+            {type === 'target' ?
+                <>
+                    <p style={{width: '100%'}}>Default Values {customValues.length}/5</p>
+                    <div className={styles.customValuesSection}>
+                        <button className={styles.addCustomValue} onClick={addDefaultValue}><img src={IconLibrary.Add} alt='add custom value'></img></button>
+                        <div className={styles.customValues}>
+                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
+                        </div>
+                    </div>
+                </>
+            : null}
             <div className={styles['new-goal-buttons']}>
                 <button type="button" className={styles.submit} onClick={handleAddGoal}>Create Goal</button>
                 <button type="button" className={styles.cancel} onClick={close}>Cancel</button>
@@ -169,3 +189,29 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
 }
  
 export default NewGoal;
+
+
+const CustomValue = ({customValue, setCustomValues}) => {
+
+    const [editMode, setEditMode] = useState(false);
+    const [value, setValue] = useState(customValue || 0);
+
+    const updateValue = () => {
+        setCustomValues(prev => {
+            const index = prev.indexOf(customValue);
+            if (index === -1) return prev;
+            const updated = [...prev];
+            updated[index] = parseInt(value);
+            return updated;
+        });
+        setEditMode(false)
+    };
+    return (
+        <div className={styles.customValueBody} key={customValue} onClick={()=>!editMode ? setEditMode(true) : null}>
+            {editMode ? <input type='number' className={styles.customValueInput} value={value} onChange={(e)=>setValue(e.target.value)}></input> : <p className={styles.customValueInput}>{value}</p>}
+            <button onClick={()=>editMode ? updateValue() : setCustomValues(prev=>[...prev.filter(item=>item!==customValue)])}>
+                <img src={editMode ? IconLibrary.Checkmark : IconLibrary.Close} alt='' />
+            </button>
+        </div>
+    )
+}

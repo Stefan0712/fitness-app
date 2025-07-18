@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
 import GoalBody from './GoalBody';
 import { getAllItems } from '../../../db.js';
-import QuickGoalLog from '../QuickGoalLog/QuickGoalLog.tsx'
 import NewGoal from '../../pages/Goals/NewGoal.tsx';
 
 
 
-const Goals = ({closeMenu, setSelectedGoal, selectedGoal}) => {
+const Goals = ({closeMenu, setSelectedGoal}) => {
 
 
     const [goals, setGoals] = useState(null);
@@ -31,8 +30,8 @@ const Goals = ({closeMenu, setSelectedGoal, selectedGoal}) => {
                 
                 <div className={styles.content}>
                     <button onClick={()=>setShowAddGoal(true)} style={{width: '100%', height: '40px', border:'none',borderRadius:'5px',backgroundColor: 'var(--background)'}}>New Goal </button>
-                    {goals && goals.length > 0 ?  goals?.map((goal, index)=>(
-                        <GoalBody key={'Goal-body-'+goal._id} goal={goal} index={index} setSelectedGoal={()=>setSelectedGoal(goal)}/>
+                    {goals && goals.length > 0 ?  goals?.map(goal=>(
+                        <GoalBody key={goal._id} goal={goal} setSelectedGoal={()=>setSelectedGoal(goal)}/>
                     )) : <p>No goals</p>}
                 </div>
             </div>

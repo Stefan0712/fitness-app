@@ -14,7 +14,7 @@ interface LogGoalProps {
     closeMenu: () => void;
 }
 
-const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu}) => {
+const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, closeQuickMenu}) => {
 
     const { showMessage, showConfirmationModal } = useUI();
     const navigate = useNavigate();
@@ -87,7 +87,8 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu}) => {
             setTime(getCurrentTime());
             close();
             closeMenu();
-            navigate(`/goals/view/${goalData._id}`)
+            navigate(`/goals/view/${goalData._id}`);
+            closeQuickMenu();
         }
     }
 

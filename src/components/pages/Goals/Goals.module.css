@@ -11,7 +11,6 @@
     flex-direction: column;
     gap: 10px;
 }
-.goalsPage .goal,
 .new-goal .goal{
     width: 100%;
     height: 60px;
@@ -26,7 +25,32 @@
     flex-shrink: 0;
     z-index: 10;
 }
-
+.goalsPage .goal{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--secondary);
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: 10;
+}
+.goalsPage .goalTop{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.goalsPage .goalTop .goal-color{
+    width: 5px;
+    height: 100%;
+}
 .goalsPage .addGoalButton{
     width: 50px;
     height: 50px;
@@ -34,7 +58,33 @@
     border: none;
     justify-self: end;
 }
-
+.goalStatus{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.targetProgress{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.targetProgress .progressBarBackground{
+    width: 100%;
+    height: 9px;
+    display: flex;
+    align-items: center;
+    padding: 0 2px;
+    border-radius: 5px;
+    background-color: var(--background);
+    overflow: hidden;
+}
+.targetProgress .progressBar{
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+}
 /* New Goal component */
 
 .new-goal{

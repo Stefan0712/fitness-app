@@ -53,7 +53,7 @@ const Navigation = () => {
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
             {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
-            {showQuickmenu ? <QuickMenu closeQuickmenu={closeQuickmenu} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
+            {showQuickmenu ? <QuickMenu closeQuickMenu={closeQuickmenu} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
