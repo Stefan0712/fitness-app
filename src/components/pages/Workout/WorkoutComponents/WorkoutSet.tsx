@@ -87,7 +87,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
     const toggleFieldCompletion = ( exerciseId: string, setIndex: number, fieldId: string, checked: boolean ) => {
         setExercises(prevExercises =>
             prevExercises.map(exercise => { // Goes over all exercises
-                if (exercise._id !== exerciseId) return exercise; // Exist the function if no exercise is found
+                if (exercise._id !== exerciseId) return exercise; // Exit the function if no exercise is found
                 const updatedSets = exercise.sets.map((set, idx) => {
                     if (idx !== setIndex) return set; // Ignore sets that doesn't match the provided index
                     const updatedFields = set.fields.map(field => {
@@ -96,14 +96,16 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                     });
                     const isSetCompleted = updatedFields.every(f => f.isCompleted); // Checks if all fields are completed
                     if(isSetCompleted){
-                        nextSet(set._id);
+                        setTimeout(() => {
+                            nextSet(set._id);
+                        }, 100);
                     }
                     const status: 'not-started' | 'idle' | 'running' | 'paused' | 'completed' | 'skipped' = isSetCompleted ? 'completed' : 'not-started';
                     return {...set, fields: updatedFields, isCompleted: isSetCompleted, status}; // Returns the updated fields and updated the isCompleted for the selected set if all fields are completed
                 });
                 const isExerciseCompleted = updatedSets.every(s => s.isCompleted); // Checks if all sets are completed to move to the next exercise
                 if(isExerciseCompleted){
-                    goToNextSetOrExercise();
+                    setTimeout(()=>goToNextSetOrExercise(), 100);
                 }
                 return {...exercise, sets: updatedSets, isCompleted: isExerciseCompleted};
             })

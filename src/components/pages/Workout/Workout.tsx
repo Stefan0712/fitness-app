@@ -316,8 +316,6 @@ const Workout = () => {
                 setCurrentExercise(nextUnfinishedEx._id);
                 const firstUnfinishedSet = nextUnfinishedEx.sets.find(set => !set.isCompleted);
                 setCurrentSet(firstUnfinishedSet?._id ?? nextUnfinishedEx.sets[nextUnfinishedEx.sets.length - 1]?._id ?? null);
-            } else {
-                finishWorkout();
             }
         }
     };
