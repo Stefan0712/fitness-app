@@ -3,13 +3,17 @@ import { IconLibrary } from "../../../IconLibrary";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewGoal.module.css';
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
+import { deleteAllGoalLogs, deleteGoalLogs, deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
 import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, isObject, makeDateNice, makeFirstUpperCase } from "../../../helpers";
 import Loading from "../../common/Loading";
-import { Goal } from "../../common/interfaces.ts";
+import { Goal, GoalLog } from "../../common/interfaces.ts";
 import EditGoal from "./EditGoal.tsx";
 import {useUI} from '../../../context/UIContext.jsx';
 
+interface PastLogs {
+   date: string; 
+   logs: GoalLog[];
+}
 
 const ViewGoal = () => {
 
@@ -18,9 +22,9 @@ const ViewGoal = () => {
     const navigate = useNavigate();
 
     const [goalData, setGoalData] = useState<Goal | null>(null);
-    const [goalLogs, setGoalLogs] = useState<Goal[]>([]);
+    const [goalLogs, setGoalLogs] = useState<GoalLog[]>([]);
     const [editGoal, setEditGoal] = useState(null);
-    const [pastCompletion, setPastCompletion] = useState([]);
+    const [pastCompletion, setPastCompletion] = useState<PastLogs[]>([]);
 
     // Get data about the goal
     const getGoalData = async () =>{
@@ -47,17 +51,18 @@ const ViewGoal = () => {
     }
 
     const getPastLogs = async () => {
-        const lastThreeDays = getLastThreeDays();
-        try {
-           const promises = lastThreeDays.map(async (date) => {
-                const logs = await getAllItems('logs', { type: 'goal', date, goalId: id });
-                return { date, logs: Array.isArray(logs) ? logs : [] };
-            });
-            const results = await Promise.all(promises);
-            console.log(results)
-            setPastCompletion(results);
-        } catch (error) {
-            console.error(error);
+        if(id){
+            const lastThreeDays = getLastThreeDays();
+            try {
+            const promises = lastThreeDays.map(async (date) => {
+                    const logs = await getAllItems('logs', { type: 'goal', date, goalId: id });
+                    return { date, logs: Array.isArray(logs) ? logs : [] };
+                });
+                const results: PastLogs[] = await Promise.all(promises);
+                setPastCompletion(results);
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -71,6 +76,16 @@ const ViewGoal = () => {
             navigate('/goals');
         }catch(error){
             console.error(error)
+        }
+    }
+    const handleResetGoal = async () =>{
+        if(goalData){
+            const todayDate = getCurrentDay();
+            await deleteGoalLogs(id, todayDate);
+            await getGoalLogs(id);
+            await getPastLogs();
+        }else{
+            showMessage("Something went wrong! No goal data found?", "error");
         }
     }
     if(!goalData){
@@ -129,7 +144,10 @@ const ViewGoal = () => {
                     </div>
                 )) : <p>No logs today</p>}
             </div>
-            <button className={styles.deleteButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete your goal and all related logs. Are you sure you want to continue?', onConfirm: handleDeleteGoal})}>Delete Goal</button>
+            <div className={styles.buttonsContainer}>
+                <button className={styles.resetButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete all logs recorded today and cannot be undone. Are you sure you want to continue?', onConfirm: handleResetGoal})}>Reset</button>
+                <button className={styles.deleteButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete your goal and all related logs. Are you sure you want to continue?', onConfirm: handleDeleteGoal})}>Delete Goal</button>
+            </div>
         </div>
      );
     }

@@ -119,6 +119,53 @@ export const deleteItemsByGoalId = async (storeName, goalId) => {
   await tx.done;
 };
 
+// Delete all logs of a goal for a certain day
+
+export const deleteGoalLogs = async (goalId, targetDate) => {
+  const db = await initDB();
+  const tx = db.transaction('logs', 'readwrite');
+  const store = tx.objectStore('logs');
+  const allItems = await store.getAll();
+
+  const targetDateObj = new Date(targetDate); // Converts the provided date to a date object (passed date is yyyy-mm-dd)
+
+  // Filter only logs from the provided date
+  const itemsToDelete = allItems.filter(item => {
+    const itemDate = new Date(item.timestamp);
+
+    const isSameDay =
+      itemDate.getFullYear() === targetDateObj.getFullYear() &&
+      itemDate.getMonth() === targetDateObj.getMonth() &&
+      itemDate.getDate() === targetDateObj.getDate();
+
+    return item.goalId === goalId && isSameDay;
+  });
+
+  for(const item of itemsToDelete) {
+    await store.delete(item._id);
+  };
+  await tx.done;
+}
+
+// Delete all logs of a goal
+
+export const deleteAllGoalLogs = async (goalId) => {
+  const db = await initDB();
+  const tx = db.transaction('logs', 'readwrite');
+  const store = tx.objectStore('logs');
+  const allItems = await store.getAll();
+
+  const itemsToDelete = allItems.filter(item => item.goalId === goalId);
+
+  for (const item of itemsToDelete) {
+    await store.delete(item._id);
+  }
+
+  await tx.done;
+};
+
+
+
 // Utilities for userData
 
 export const saveUserData = async (userData) => {

@@ -48,19 +48,28 @@
     grid-template-columns: 1fr 100px 50px;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 .viewGoalPage .log-body{
     grid-template-columns: 50px 1fr 75px 75px;
 }
-.viewGoalPage .deleteButton{
-    width: 75%;
+.viewGoalPage .buttonsContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 25px;
+}
+.viewGoalPage .deleteButton,
+.viewGoalPage .resetButton{
+    width: 40%;
     height: 50px;
     background-color: var(--cancel);
     border: none;
     border-radius: 5px;
     align-self: center;
-    margin-top: auto;
-    margin-bottom: 25px;
 }
 .defaultValuesContainer{
     display: flex;
@@ -71,4 +80,12 @@
     padding: 5px 10px;
     background-color: var(--secondary);
     border-radius: 5px;
+}
+
+.viewGoalPage .history{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
 }

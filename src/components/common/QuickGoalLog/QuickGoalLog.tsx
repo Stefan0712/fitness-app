@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from './QuickGoalLog.module.css';
 import React from "react";
 import { BaseLog, Goal } from "../interfaces.ts";
-import { getAllItems, saveItem } from "../../../db.js";
+import { deleteGoalLogs, getAllItems, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
 import { getCurrentDay } from "../../../helpers.js";
@@ -12,6 +12,7 @@ interface LogGoalProps {
     goalData: Goal;
     close: () => void;
     closeMenu: () => void;
+    closeQuickMenu: () => void;
 }
 
 const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, closeQuickMenu}) => {
@@ -46,6 +47,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
             console.error(error);
         }
     }
+    // Used if goal type is yes-no or number to let the user "update" the previous log of the current day. Uses the same id as the prev log so that it will replace it keeping it only one log per day for that type of goal
     const populateLog = async (prevLog) =>{
         setName(prevLog.data.name);
         setDescription(prevLog.data.description);
@@ -53,6 +55,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
         setInputValue(prevLog.data.value);
         setPrevId(prevLog._id);
     }
+    // Checks if it is already logged
     useEffect(()=>{
         if(goalData.type === 'yes-no' || goalData.type === 'number'){
             checkIfAlreadyLogged();
@@ -64,7 +67,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
         if(goalData){
             const data: BaseLog = {
                 type: 'goal', 
-                goalId: goalData._id,
+                goalId: goalData._id, // Ref of the logged goal
                 _id: prevId || ObjectID().toHexString(),
                 title: `${goalData.name} Log`, 
                 icon: goalData.icon,
@@ -79,12 +82,19 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
                     type: goalData.type || 'target'
                 }
             }
+            // First it deletes all logs from the current day to make sure there is only one log for yes/no and number type goals.
+            if(goalData.type === 'yes-no' || goalData.type === 'number'){
+                const todayDate = getCurrentDay();
+                await deleteGoalLogs(goalData._id, todayDate)
+            }
             await saveItem('logs', data);
             showMessage("Goal logged successfully", 'success');
+            // Reset inputs 
             setInputValue('0');
             setName('');
             setDescription('');
             setTime(getCurrentTime());
+            // Closes the Quick log screen, the quick menu, the list of logs, and navigate to the logged goal
             close();
             closeMenu();
             navigate(`/goals/view/${goalData._id}`);

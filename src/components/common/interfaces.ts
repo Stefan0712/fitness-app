@@ -106,6 +106,7 @@ export interface Workout {
   }
   export interface BaseLog{
     _id: string,
+    goalId: string,
     timestamp: Date,
     type: 'food'| 'workout' | 'exercise' | 'goal',
     title: string,
@@ -113,14 +114,21 @@ export interface Workout {
     data: GoalLog | ExerciseLog | WorkoutLog | FoodLog,
   }
   export interface GoalLog{
-    _id: string;
-    value: number;
-    time: string;
-    date: string;
-    description: string;
-    name: string;
-    unit: string;
-    
+    _id: string,
+    goalId: string,
+    timestamp: Date,
+    type: 'goal',
+    title: string,
+    icon: string,
+    data: {
+      value: number | string;
+      time: string;
+      date: string;
+      description: string;
+      name: string;
+      unit: string;
+      type: 'target' | 'yes-no' | 'number';
+    }
   }
   export interface Set {
       exerciseId: string,
