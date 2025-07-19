@@ -27,11 +27,14 @@ interface WorkoutSetProps{
 const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExercise, currentSet, setExercises, setCurrentSet, allSets}) => {
 
     const [seconds, setSeconds] = useState(set.duration || 0);
-    const [isStarted, setIsStarted] = useState(false);
+    const [isStarted, setIsStarted] = useState(currentSet === set._id ? true : false);
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
-        if (isStarted) {
+        if(set.isCompleted){
+            setIsStarted(false)
+        }
+        if (isStarted && currentSet === set._id && !set.isCompleted) {
             interval = setInterval(() => {
                 setSeconds(prev => prev + 1);
             }, 1000);
@@ -40,7 +43,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
             updateSetMetadata(set.exerciseId, setIndex, {duration: seconds});
         }
         return () => {if(interval !== null) clearInterval(interval)};
-    }, [isStarted]);
+    }, [isStarted, currentSet, set.isCompleted]);
     
     useEffect(() => {
         if (set.isCompleted && set.status !== 'completed') {
@@ -68,6 +71,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
 
     useEffect(()=>{
         updateSetMetadata(set.exerciseId, setIndex, {startedAt: new Date()});
+        setIsStarted(true)
     },[]);
 
     const nextSet = (currentSet) =>{
@@ -167,7 +171,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
 
 
     return ( 
-        <div className={`${styles.workoutSet} ${currentSet === set._id ? styles.selectedSet : ''}`} onClick={()=>set._id ? setCurrentSet(set._id) : null}>
+        <div className={`${styles.workoutSet} ${currentSet === set._id ? styles.selectedSet : ''}`} onClick={()=>set._id ? (setCurrentSet(set._id), setIsStarted(true)) : null}>
             <div className={styles.setHeader}>
                 <button onClick={currentSet === set._id ? toggleSetCompletion : ()=>console.log('You are not supposed to click this now')} className={styles.setCompletionButton}><img src={set.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' /></button>
                 <h3>Set {setIndex+1}</h3>

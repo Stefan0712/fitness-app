@@ -2,7 +2,7 @@ import styles from './Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
-import { makeFirstUpperCase, getCurrentDay, getHourFromTimestamp } from '../../../helpers';
+import { getCurrentDay, getHourFromTimestamp } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
