@@ -6,6 +6,23 @@ Welcome to **EasyFit**! 🚀
 This is a **React-based web application** designed to help users manage their fitness goals, track workouts, and monitor progress—all in one place. The app is currently a **work in progress**, but the goal is to create a simple, effective, and **free-to-use** alternative to the complicated and expensive fitness apps on the market.
 
 ---
+## 📖 Table of Contents
+- [Purpose](#-purpose)
+- [About the App](#️-about-the-app)
+- [Features](#-features)
+- [What Can the App Do](#-what-can-the-app-do)
+- [Goals](#-goals)
+- [Logs](#-logs)
+- [Complete Workouts](#-complete-workouts)
+- [Other Screenshots](#-other-screenshots)
+- [Filter and Search](#-filter-and-search)
+- [Upcoming Features](#-upcoming-features)
+- [Known Issues](#-known-issues)
+- [To-Do List](#-to-do-list)
+- [Latest Updates](#-latest-updates)
+- [How to Run the App](#-how-to-run-the-app)
+- [Contributing](#-contributing)
+- [Feedback](#-feedback)
 
 ## 🎯 Purpose
 
@@ -19,9 +36,7 @@ This app is designed to:
 
 ## ℹ️ About the App
 
-EasyFit is your best option at keeping track of your fitness progress, be it activities, nutrition, or goals. With a simple interface, while giving you the freedom of customizing your experience, will allow you to either keep a detailed record of your progress, or just a simple one. Say goodbye to having to spend minutes to record your breakfast, spending minutes trying to figure out how the app works, or being hit in the face all the time with promps asking you to buy a subcription or to pay once to get rid of ads.
-
-This app has one goal in mind: To make achieving your goals a breeze. It doesn't need to feel like a chore to log your food or your workouts.
+EasyFit is your best option at keeping track of your fitness progress, be it activities, nutrition, or goals. With a simple interface that gives you the freedom to customize your experience, you can choose to keep either a detailed or minimal record of your progress. Say goodbye to wasting time logging your breakfast, figuring out how the app works, or being hit in the face all the time with prompts asking you to buy a subscription or to pay once to get rid of ads.
 
 ### Technologies Used
 
@@ -31,9 +46,9 @@ This app has one goal in mind: To make achieving your goals a breeze. It doesn't
 * **Redux Persist** – Preserves the state across browser sessions for a better user experience
 * **IndexedDB** – Used for saving all items locally
 * **UUID** and **bson-objectid** – Generates unique identifiers for app components like goals, exercises, and logs
-* **Axios** - Handling API requrests
+* **Axios** - Handling API requests
 * **NoSleepJs** - For the Keep Screen Awake feature
-* **Typescript** - For keeping the code clean and safe
+* **TypeScript** - For keeping the code clean and safe
 
 ---
 
@@ -45,16 +60,16 @@ This app has one goal in mind: To make achieving your goals a breeze. It doesn't
 * **Activity Logs** – View your daily progress and logged exercises and workouts
 * **Nutrition Logs** – Log and manage your food and water intake
 * **Food Logs** - Track quantity, meal type, and important macros
-* **Exercises Library** - Manage a local library of exercise
+* **Exercises Library** - Manage a local library of exercises
 * **Workouts Library** - Use your exercises to create all kinds of workouts
-* **Pre-made Exercises and Workouts** - Use the pre-made list of exercises and workotus already available through the API (API availability is limited for now since I host it on my pc)
-* **Simple and usefull Dashboard** - Stay updated on your progress with a simple dashboard with only the info you need
+* **Pre-made Exercises and Workouts** - Use the pre-made list of exercises and workouts already available through the API (API availability is limited for now since I host it on my pc)
+* **A simple and useful Dashboard** - Stay updated on your progress with a simple dashboard with only the info you need
 
 ---
 
 ## 📋 What Can the App Do
 
-Please keep in mind that the app is still work in progress. With that said, you should expect that some features might change, some might have bugs or not work at all, but I will update this ReadME as often as possible.
+Please keep in mind that the app is still work in progress. That said, some features may still change, contain bugs, or be non-functional, but I will update this ReadME as often as possible.
 
 ### Manage Exercises
 
@@ -112,11 +127,11 @@ Goals can be created from:
 
 Each goal requires a name, a color (default: white), and an icon (default: dumbbell). There are three types of goals, each with a different way of tracking progress:
 
-* **Target goals** where you set a target and an unit. This type of goal supports multiple logs and it tracks progress by summing up the value of each log. You can also have up to 5 default values for easier logging (e.g. steps, distance, sleep, etc.)
-* **Number goals** where you have a value and an unit. It accepts only one log per day and tracks progress by comparing the value to the past days (e.g. weight)
+* **Target goals** where you set a target and a unit. This type of goal supports multiple logs and it tracks progress by summing up the value of each log. You can also have up to 5 default values for easier logging (e.g. steps, distance, sleep, etc.)
+* **Number goals** where you have a value and a unit. It accepts only one log per day and tracks progress by comparing the value to the past days (e.g. weight)
 * **Boolean goals** where you can answer only with Yes or No. It also accepts only one log per day like the number goals (e.g. keeping track if you smoked today)
 
-Goals appear on the **Home page**, with different visuals depending on type. The *target goal* will have your current progress out of the target value and a progress bar. The *number goal* shows only today's logged value, if there is any, and an arrow indicating if it is bigger, the same, or smaller than the last one. And the *boolean goal* will have three icons representing the last three days. If you logged "Yes" there will be a checkmark, "No" will have an "X", and there will be a "-" if there is no goal. 
+Goals appear on the **Home page**, with different visuals depending on type. The *target goal* will have your current progress out of the target value and a progress bar. The *number goal* displays today’s logged value (if available), and an arrow showing whether it's higher, lower, or the same as the previous one. And the *boolean goal* will have three icons representing the last three days. If you logged "Yes" there will be a checkmark, "No" will have an "X", and there will be a "-" if there is no goal. 
 
 For those goals with only one log per day, there will be a prompt if the user tries to log another one for the same day, telling them that the other log will be replaced by the new log if they continue, avoiding having multiple ones.
 
@@ -151,7 +166,7 @@ For now those values are only used for the **Nutrition Module** on the dashboard
 
 ### 🏃 Activity Logs
 
-For logging physical activities other than already created exercises and workouts. Fields included:
+For logging physical activities other than already created exercises and workouts. Fields include:
 
 * Name
 * Time
@@ -159,7 +174,7 @@ For logging physical activities other than already created exercises and workout
 * Sets
 * Target muscles
 * Tags
-* Used Equipment
+* Equipment Used
 * Custom fields (e.g. Distance, Weight, Reps, etc)
 
 ### 🎯 Goal Logs
@@ -241,7 +256,7 @@ Filter workouts and exercises using search, difficulty, tags, muscles, equipment
 
 ## 📋 To-Do List
 
-Those are only some of the things that I work on right now. Bigger or not urgent tasks are not included here. 
+These are just some of the current tasks I'm working on. Larger or less urgent tasks are not included here. 
 **HP = High Priority | MP = Medium Priority | LP = Low Priority | QOL = Quality of Life**
 
 * ~~\[HP] Require name when creating exercises/workouts~~
@@ -262,7 +277,7 @@ Those are only some of the things that I work on right now. Bigger or not urgent
   2. Allow side-by-side comparison
   3. Let users merge or keep data separate
   4. Auto backup local exercises/workouts to the API
-* \[MP] Rework View Log screens in Acitvity page
+* \[MP] Rework View Log screens in Activity page
 * \[MP] Rework Default Fields page
 * \[MP] Rework Equipments page
 * \[MP] Rework Tags page
@@ -274,7 +289,7 @@ Those are only some of the things that I work on right now. Bigger or not urgent
 ### 19 July 2025
 
 * Fixed set timer not starting automatically when switching a new set and not stopping when the set was completed
-* Removed the auto-advanced to the next exercise feature for now and the auto-finish workout in case the user might want to add new exercises or sets
+* Removed the auto-advance to the next exercise feature for now and the auto-finish workout in case the user might want to add new exercises or sets
 * Added a progress circle and the goal icon to the Target Goal screen
 * Added a preview of the current progress for each Goal in the Goals page. The target goal has a progress bar, while the other two have a text with today's logged value (e.g. "500 ml water recorded at 12:30")
 * Added a Reset button to View Log which will delete all logs for that Goal from the current day. 
@@ -288,7 +303,7 @@ Those are only some of the things that I work on right now. Bigger or not urgent
   - Closing a Goal Log form will also close the quick menu
   - Added stylings to the small menu used for hiding Nutrition and Activity modules
   - Improved the layout of Activity Log by using the same three button layout for tags, target muscles, and equipment used in Create Workout
-  - For Target Goal Log: Moved Name right before Description, placed Value input on the same line as default values, removed labels, placed Date and Time on the same row, changed component height to auto
+  - In the Target Goal Log: Moved Name right before Description, placed Value input on the same line as default values, removed labels, placed Date and Time on the same row, changed component height to auto
 * Code improvements:
   - Removed unused components and files
   - Replaced old instances of "unit" when it was just a string with the next "unit" object
@@ -315,7 +330,7 @@ Those are only some of the things that I work on right now. Bigger or not urgent
 A live version can be accessed here [EasyFit Live Preview](https://stefan0712.github.io/fitness-app/). It can be run in the browser, but for the best experience I recommend installing it locally or using the fullscreen mode.
 
 ### Local version
-*If you use this on a big screen, please use the **Developer Tools** simulate a mobile device.* There is **no desktop mode** for this app for now so it will not work and looks as expected.
+*If you’re using a large screen, please use Developer Tools to simulate a mobile device.* There is **no desktop mode** for this app for now so it will not work and looks as expected.
 
 **Prerequisites**
 * Node.js
