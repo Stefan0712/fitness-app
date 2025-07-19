@@ -30,7 +30,7 @@ const QuickMenu = ({openExerciseLogs, openFoodLogs, closeQuickMenu}) => {
                 : selectedGoal.type === 'number' ? <NumberGoalForm close={closeLogScreen} goalData={selectedGoal} /> 
                 : null 
             : null}
-            <div className={styles.menuBg}></div>
+            <div className={styles.menuBg} onClick={closeQuickMenu}></div>
             {showGoals || selectedGoal ? null : <div className={styles.buttonsContainer}>
                 <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
                     <p>Log Food</p>

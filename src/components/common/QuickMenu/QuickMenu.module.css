@@ -35,7 +35,7 @@
 }
 
 .quick-menu .quick-button{
-    width: 80%;
+    width: fit-content;
     height: 50px;
     display: flex;
     align-items: center;

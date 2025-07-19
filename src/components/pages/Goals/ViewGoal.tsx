@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IconLibrary } from "../../../IconLibrary";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewGoal.module.css';
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteAllGoalLogs, deleteGoalLogs, deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
 import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, isObject, makeDateNice, makeFirstUpperCase } from "../../../helpers";
 import Loading from "../../common/Loading";
@@ -94,6 +94,7 @@ const ViewGoal = () => {
         return ( 
         <div className={styles.viewGoalPage}>
             <AppHeader title={goalData.name} button={<button onClick={()=>setEditGoal(goalData)} className={styles.editGoalButton}><img className='small-icon' src={IconLibrary.Edit} alt='' /></button>} />
+            <Link to={'/goals'}>Back to All Goals</Link>
             {editGoal ? <EditGoal close={()=>setEditGoal(null)} goalData={editGoal} /> : null}
             <div className={styles.goalPreview}>
                 <div className={styles["goal-color"]} style={{backgroundColor: goalData.color}} />
