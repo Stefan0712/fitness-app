@@ -11,15 +11,17 @@ This is a **React-based web application** designed to help users manage their fi
 
 This app is designed to:
 
-* Showcase my **web development skills** in React and Redux
+* Showcase my **web development skills** in React
 * Provide a **personal fitness tracking tool** for myself and anyone else who wants to use it
-* Serve as a **free, open-source** alternative to paid fitness apps
+* Serve as a **free** alternative to paid fitness apps
 
 ---
 
 ## ℹ️ About the App
 
-This fitness app is a React-based web application designed with modern web development tools and practices. It demonstrates the use of various libraries and frameworks to build a robust, scalable, and user-friendly application.
+EasyFit is your best option at keeping track of your fitness progress, be it activities, nutrition, or goals. With a simple interface, while giving you the freedom of customizing your experience, will allow you to either keep a detailed record of your progress, or just a simple one. Say goodbye to having to spend minutes to record your breakfast, spending minutes trying to figure out how the app works, or being hit in the face all the time with promps asking you to buy a subcription or to pay once to get rid of ads.
+
+This app has one goal in mind: To make achieving your goals a breeze. It doesn't need to feel like a chore to log your food or your workouts.
 
 ### Technologies Used
 
@@ -28,27 +30,31 @@ This fitness app is a React-based web application designed with modern web devel
 * **Redux** – Manages the application's state efficiently, ensuring a predictable data flow
 * **Redux Persist** – Preserves the state across browser sessions for a better user experience
 * **IndexedDB** – Used for saving all items locally
-* **UUID** – Generates unique identifiers for app components like goals, exercises, and logs
+* **UUID** and **bson-objectid** – Generates unique identifiers for app components like goals, exercises, and logs
+* **Axios** - Handling API requrests
+* **NoSleepJs** - For the Keep Screen Awake feature
+* **Typescript** - For keeping the code clean and safe
 
 ---
 
-## ✨ Features (Planned and Current)
+## ✨ Features
 
 ### ✅ Current Features
 
 * **Goal Tracking** – Track your fitness goals with an intuitive and clean interface
 * **Activity Logs** – View your daily progress and logged exercises and workouts
 * **Nutrition Logs** – Log and manage your food and water intake
-* **Fast to Use** – Forget about having to fill out dozens of fields for just one log. Besides the name, everything else is optional (in most cases)
-* **Works Offline** – (STILL WORKING ON IT) Everything is saved locally so you won't need a constant internet connection to use it
-* **Free** – All the important features are free to use\*
-* **Perfectly Balanced** – It is neither too simple nor too complicated. You can create custom equipment, fields, or tags, or just use the default ones
+* **Food Logs** - Track quantity, meal type, and important macros
+* **Exercises Library** - Manage a local library of exercise
+* **Workouts Library** - Use your exercises to create all kinds of workouts
+* **Pre-made Exercises and Workouts** - Use the pre-made list of exercises and workotus already available through the API (API availability is limited for now since I host it on my pc)
+* **Simple and usefull Dashboard** - Stay updated on your progress with a simple dashboard with only the info you need
 
 ---
 
 ## 📋 What Can the App Do
 
-This is a pretty detailed summary of what the app can and can't do at the moment.
+Please keep in mind that the app is still work in progress. With that said, you should expect that some features might change, some might have bugs or not work at all, but I will update this ReadME as often as possible.
 
 ### Manage Exercises
 
@@ -68,9 +74,9 @@ Exercises can be viewed, created, edited, or deleted. There is only one required
 * Target muscle groups worked by it
 * Instructions
 
-All exercises can be found inside the **Library** page and are saved locally using IndexedDB (idb). They can be exported into a JSON file as a backup or for migration, and new exercises can be imported if they match the correct format.
+All exercises can be found inside the **Library** page and are saved locally using IndexedDB (idb). They can be exported into a JSON file as a backup or for migration, and new exercises can be imported if they match the correct format. 
 
-The **Explore** page is similar to the Library page, except that it fetches public exercises from my fitness API, either fresh or cached.
+The **Explore** page is similar to the Library page, except that it fetches public exercises from my fitness API, either fresh or cached. For now the API is up only periodically for developing and testing, so it might not be available at all times. For testing purposes, I will soon include a JSON file with some exercises and workouts.
 
 The **View Exercise** screen shows all details about an exercise and allows the user to delete or edit it, but only if they are viewing the local version or are the author of the online one.
 
@@ -89,7 +95,7 @@ Similar to exercises, creating a workout allows the user to use either just a na
 * Targeted muscles
 * Phases
 
-Workouts are split into **phases** (default: “Warm-up” and “Workout”) to allow users to build full sessions. Users can add/edit/remove phases (at least one is required). Exercises are added to phases, with a dropdown to choose number of sets (1–10).
+Workouts are split into **phases** (with “Warm-up” and “Workout” being the default phases) to allow users to build full sessions. Users can add/edit/remove phases (with at least one required). Exercises are added to phases, with a dropdown to choose number of sets (1–10). Each exercise can be added multiple times to the same phase and workout.
 
 The **View Workout** page resembles the View Exercise page, with exercises grouped by phase. Workouts are saved and cached like exercises, follow the same rules for editing/deleting, and can be exported/imported via JSON.
 
@@ -104,17 +110,19 @@ Another core functionality of this app is the ability to **easily track goals**.
 Goals can be created from:
 `Menu > Goals > New Goal`
 
-Each goal requires a name, a color (default: white), and an icon (default: dumbbell). There are three ways to track a goal:
+Each goal requires a name, a color (default: white), and an icon (default: dumbbell). There are three types of goals, each with a different way of tracking progress:
 
-* By setting a **target value** (e.g. steps, distance, sleep, etc.)
-* By logging **one value per day** (e.g. weight)
-* By answering with **Yes or No** (e.g. “Did you stretch today?”)
+* **Target goals** where you set a target and an unit. This type of goal supports multiple logs and it tracks progress by summing up the value of each log. You can also have up to 5 default values for easier logging (e.g. steps, distance, sleep, etc.)
+* **Number goals** where you have a value and an unit. It accepts only one log per day and tracks progress by comparing the value to the past days (e.g. weight)
+* **Boolean goals** where you can answer only with Yes or No. It also accepts only one log per day like the number goals (e.g. keeping track if you smoked today)
 
-Goals appear on the **Home page**, with different visuals depending on type. If a daily goal is already logged, the app prompts the user when trying to overwrite it.
+Goals appear on the **Home page**, with different visuals depending on type. The *target goal* will have your current progress out of the target value and a progress bar. The *number goal* shows only today's logged value, if there is any, and an arrow indicating if it is bigger, the same, or smaller than the last one. And the *boolean goal* will have three icons representing the last three days. If you logged "Yes" there will be a checkmark, "No" will have an "X", and there will be a "-" if there is no goal. 
+
+For those goals with only one log per day, there will be a prompt if the user tries to log another one for the same day, telling them that the other log will be replaced by the new log if they continue, avoiding having multiple ones.
 
 ![Goals](https://i.imgur.com/MV4nLAB.png)
 
-All goals are listed in `Menu > Goals`. Clicking a goal opens its dedicated page, with a preview, summary of the last 3 days, and today’s logs. The goal can also be edited or deleted there.
+All goals are listed in `Menu > Goals`. You can also go to see a log page by clicking on it on the *Home page*. Clicking a goal opens its dedicated page, with a preview, summary of the last 3 days, and today’s logs. The goal can also be edited or deleted there.
 
 <p align="center">
   <img src="https://i.imgur.com/sw56al7.png" alt="Screenshot 1" width="30%" style="margin-right: 10px;" />
@@ -139,18 +147,20 @@ Used to track meals, snacks, or drinks. Fields include:
 * Macros (calories, protein, carbs, fats, sugar, sodium)
 * Notes
 
-These are shown in the **Nutrition Module** on the dashboard. The Food Log screen includes the form and a toggle to view today’s history.
+For now those values are only used for the **Nutrition Module** on the dashboard page with plans to have more stats and graphs. The Food Log screen includes the form and a toggle to view today’s history.
 
 ### 🏃 Activity Logs
 
-For logging non-exercise physical activities. Fields include:
+For logging physical activities other than already created exercises and workouts. Fields included:
 
 * Name
 * Time
 * Duration
 * Sets
 * Target muscles
-* Custom fields
+* Tags
+* Used Equipment
+* Custom fields (e.g. Distance, Weight, Reps, etc)
 
 ### 🎯 Goal Logs
 
@@ -224,44 +234,110 @@ Filter workouts and exercises using search, difficulty, tags, muscles, equipment
 
 ## 🐞 Known Issues
 
-* Menus not closing when clicking outside
-* No error when creating exercises/workouts without a name
-* Text wrapping issues in goals/logs
-* Some units displayed incorrectly due to migration
 * Component layout issues on smaller screens
+* Completing the last field of a set when doing a workout will show that it is completed for a moment and then revert back and only working when completing the second time
 
 ---
 
 ## 📋 To-Do List
 
+Those are only some of the things that I work on right now. Bigger or not urgent tasks are not included here. 
 **HP = High Priority | MP = Medium Priority | LP = Low Priority | QOL = Quality of Life**
 
-* \[MP] Fix unit migration bugs
-* \[HP] Require name when creating exercises/workouts
-* \[QOL] Fix menu not closing when clicking outside
+* ~~\[HP] Require name when creating exercises/workouts~~
+* ~~\[QOL] Fix menu not closing when clicking outside~~
 * \[QOL] Improve quick menu behavior
-* \[QOL] Add default goal values (e.g. 100ml, 250ml)
+* ~~\[QOL] Add default goal values (e.g. 100ml, 250ml)~~
 * \[QOL] Add default exercise fields (e.g. reps, duration)
-* \[MP] Style Hide Menu for Home modules
+* ~~\[MP] Style Hide Menu for Home modules~~
 * \[LP] Enable dashboard reorder
 * \[MP] Full app backup/export
 * \[MP] Redesign Create Exercise layout
-* \[MP] Improve Log Exercise UX
+* ~~\[MP] Improve Log Exercise UX~~
 * \[QOL] Add Help page
 * \[MP] Sync items with API
 * \[MP] Finish Light Theme
 * \[HP] Sync local and online accounts:
-
   1. Prompt user if there's a conflict
   2. Allow side-by-side comparison
   3. Let users merge or keep data separate
   4. Auto backup local exercises/workouts to the API
+* \[MP] Rework View Log screens in Acitvity page
+* \[MP] Rework Default Fields page
+* \[MP] Rework Equipments page
+* \[MP] Rework Tags page
 
 ---
 
+## Latest Updates
+
+### 19 July 2025
+
+* Fixed set timer not starting automatically when switching a new set and not stopping when the set was completed
+* Removed the auto-advanced to the next exercise feature for now and the auto-finish workout in case the user might want to add new exercises or sets
+* Added a progress circle and the goal icon to the Target Goal screen
+* Added a preview of the current progress for each Goal in the Goals page. The target goal has a progress bar, while the other two have a text with today's logged value (e.g. "500 ml water recorded at 12:30")
+* Added a Reset button to View Log which will delete all logs for that Goal from the current day. 
+* Created a function inside db.js to remove all logs for a certain goal and another one for removing all logs of a certain goal for a specified date
+* Created separate Log Goal Form components for each type of goal
+* Added Equipment and Tags for Activity logs
+* Added custom default values for Target Goals
+* Small UI improvements: 
+  - A back button from View Goal 
+  - Quick menu will close if you click outside the three button on the bottom right
+  - Closing a Goal Log form will also close the quick menu
+  - Added stylings to the small menu used for hiding Nutrition and Activity modules
+  - Improved the layout of Activity Log by using the same three button layout for tags, target muscles, and equipment used in Create Workout
+  - For Target Goal Log: Moved Name right before Description, placed Value input on the same line as default values, removed labels, placed Date and Time on the same row, changed component height to auto
+* Code improvements:
+  - Removed unused components and files
+  - Replaced old instances of "unit" when it was just a string with the next "unit" object
+  - Added fallbacks for not existing units in Activity page
+  - Removed some unused imports
+  - Added a check to make sure that name is at least three characters long when creating an exercise or a workout
+* Discovered bugs:
+  - Completing the last field of a set when doing a workout will show that it is completed for a moment and then revert back and only working when completing the second time.
+* Gallery: 
+<p align="center">
+  <img src="https://i.imgur.com/VrHPYXF.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/N6LbmEA.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/BbDlf8s.png" alt="Screenshot 6" width="30%" />
+</p>
+
+
+
+
+
 ## 🚀 How to Run the App
 
-For now, the app is still not ready. Once usable, this section will be updated.
+### Live version
+
+A live version can be accessed here [EasyFit Live Preview](https://stefan0712.github.io/fitness-app/). It can be run in the browser, but for the best experience I recommend installing it locally or using the fullscreen mode.
+
+### Local version
+*If you use this on a big screen, please use the **Developer Tools** simulate a mobile device.* There is **no desktop mode** for this app for now so it will not work and looks as expected.
+
+**Prerequisites**
+* Node.js
+* npm installed
+
+**Clone the Repository**
+```bash
+git clone https://github.com/Stefan0712/fitness-app.git
+cd fitness-tracker
+```
+**Install Dependencies**
+```bash
+npm install
+```
+**Run the Development Server**
+```bash
+npm run dev
+```
+**Open in Browser**
+```bash
+http://localhost:3006
+```
 
 ---
 
@@ -272,12 +348,6 @@ Contributions are welcome!
 * Fork this repository
 * Create a new branch
 * Submit a pull request
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**, which means you're free to use, modify, and distribute it as long as you provide attribution.
 
 ---
 

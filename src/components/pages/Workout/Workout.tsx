@@ -305,18 +305,19 @@ const Workout = () => {
         if (nextUncompletedSet) {
             setCurrentSet(nextUncompletedSet);
         } else {
-            // Mark current exercise as complete if needed
+            // Mark current exercise as complete
             if (!currentEx.isCompleted) {
                 handleCompleteExercise(currentEx._id);
+                console.log(currentEx)
             }
 
             // Move to next unfinished exercise
-            const nextUnfinishedEx = exercises.slice(currentExIndex + 1).find(ex => !ex.isCompleted);
-            if (nextUnfinishedEx) {
-                setCurrentExercise(nextUnfinishedEx._id);
-                const firstUnfinishedSet = nextUnfinishedEx.sets.find(set => !set.isCompleted);
-                setCurrentSet(firstUnfinishedSet?._id ?? nextUnfinishedEx.sets[nextUnfinishedEx.sets.length - 1]?._id ?? null);
-            }
+            // const nextUnfinishedEx = exercises.slice(currentExIndex + 1).find(ex => !ex.isCompleted);
+            // if (nextUnfinishedEx) {
+            //     setCurrentExercise(nextUnfinishedEx._id);
+            //     const firstUnfinishedSet = nextUnfinishedEx.sets.find(set => !set.isCompleted);
+            //     setCurrentSet(firstUnfinishedSet?._id ?? nextUnfinishedEx.sets[nextUnfinishedEx.sets.length - 1]?._id ?? null);
+            // }
         }
     };
 

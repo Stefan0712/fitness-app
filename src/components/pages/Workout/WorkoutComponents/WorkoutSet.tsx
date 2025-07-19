@@ -95,22 +95,16 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                         return {...field, isCompleted: checked, value: checked ? parseInt(field.target.toString()) : 0}; // Sets the field's isCompleted to the value of the checkbox and either resets the current value or sets it to target
                     });
                     const isSetCompleted = updatedFields.every(f => f.isCompleted); // Checks if all fields are completed
-                    if(isSetCompleted){
-                        setTimeout(() => {
-                            nextSet(set._id);
-                        }, 100);
-                    }
                     const status: 'not-started' | 'idle' | 'running' | 'paused' | 'completed' | 'skipped' = isSetCompleted ? 'completed' : 'not-started';
                     return {...set, fields: updatedFields, isCompleted: isSetCompleted, status}; // Returns the updated fields and updated the isCompleted for the selected set if all fields are completed
                 });
                 const isExerciseCompleted = updatedSets.every(s => s.isCompleted); // Checks if all sets are completed to move to the next exercise
-                if(isExerciseCompleted){
-                    setTimeout(()=>goToNextSetOrExercise(), 100);
-                }
                 return {...exercise, sets: updatedSets, isCompleted: isExerciseCompleted};
             })
         );
     };
+    
+
     const updateFieldValue = (exerciseId: string, setIndex: number, fieldId: string, value: number) => {
         setExercises(prevExercises => {
             return prevExercises.map(exercise => {
