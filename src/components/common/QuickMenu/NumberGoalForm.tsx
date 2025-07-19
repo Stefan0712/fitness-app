@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from './QuickGoalLog.module.css';
 import React from "react";
-import { BaseLog, Goal } from "../interfaces.ts";
+import { Goal, GoalLog } from "../interfaces.ts";
 import { deleteGoalLogs, getAllItems, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
@@ -15,14 +15,14 @@ interface LogGoalProps {
     closeQuickMenu: () => void;
 }
 
-const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, closeQuickMenu}) => {
+const NumberGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
 
     const { showMessage, showConfirmationModal } = useUI();
     const navigate = useNavigate();
 
     const todayDate = new Date();
 
-    const [inputValue, setInputValue] = useState<string>(goalData.type === 'number' || goalData.type === 'target' ? '0' : goalData.type === 'yes-no' ? 'yes' : '0');
+    const [inputValue, setInputValue] = useState<string>('0');
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [date, setDate] = useState(todayDate.toISOString().split('T')[0]);
@@ -47,7 +47,6 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
             console.error(error);
         }
     }
-    // Used if goal type is yes-no or number to let the user "update" the previous log of the current day. Uses the same id as the prev log so that it will replace it keeping it only one log per day for that type of goal
     const populateLog = async (prevLog) =>{
         setName(prevLog.data.name);
         setDescription(prevLog.data.description);
@@ -57,15 +56,13 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
     }
     // Checks if it is already logged
     useEffect(()=>{
-        if(goalData.type === 'yes-no' || goalData.type === 'number'){
-            checkIfAlreadyLogged();
-        }
+        checkIfAlreadyLogged();
     },[])
 
 
     const submitLog = async () =>{
         if(goalData){
-            const data: BaseLog = {
+            const data: GoalLog = {
                 type: 'goal', 
                 goalId: goalData._id, // Ref of the logged goal
                 _id: prevId || ObjectID().toHexString(),
@@ -73,20 +70,16 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
                 icon: goalData.icon,
                 timestamp: todayDate,
                 data: {
-                    value: goalData.type === 'number' || goalData.type === 'target' ? parseFloat(inputValue) : goalData.type === 'yes-no' ? inputValue : inputValue,
+                    value: parseFloat(inputValue),
                     time,
                     description,
                     name,
                     unit: goalData.unit,
                     date,
-                    type: goalData.type || 'target'
+                    type: 'number'
                 }
             }
-            // First it deletes all logs from the current day to make sure there is only one log for yes/no and number type goals.
-            if(goalData.type === 'yes-no' || goalData.type === 'number'){
-                const todayDate = getCurrentDay();
-                await deleteGoalLogs(goalData._id, todayDate)
-            }
+            await deleteGoalLogs(goalData._id, todayDate)
             await saveItem('logs', data);
             showMessage("Goal logged successfully", 'success');
             // Reset inputs 
@@ -96,9 +89,7 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
             setTime(getCurrentTime());
             // Closes the Quick log screen, the quick menu, the list of logs, and navigate to the logged goal
             close();
-            closeMenu();
             navigate(`/goals/view/${goalData._id}`);
-            closeQuickMenu();
         }
     }
 
@@ -138,4 +129,4 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
      );
 }
  
-export default QuickGoalLog;
+export default NumberGoalForm;
