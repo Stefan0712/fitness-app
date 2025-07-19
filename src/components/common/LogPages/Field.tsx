@@ -13,15 +13,6 @@ interface FieldParams {
     type: string;
 }
 
-interface DataObj {
-    id: string;
-    name: string;
-    description: string;
-    unit: string;
-    value: number;
-    target: number;
-}
-
 interface FieldDataObject {
     id?: string;
     name?: string;
