@@ -71,7 +71,7 @@ const ViewGoal = () => {
     const handleDeleteGoal = async () =>{
         try{
             await deleteItem('goals', id);
-            await deleteItemsByGoalId('goals',id)
+            await deleteAllGoalLogs(id);
             showMessage("Goal deleted successfully!", "success");
             navigate('/goals');
         }catch(error){
@@ -103,7 +103,7 @@ const ViewGoal = () => {
                     {goalLogs && goalLogs.length > 0 ? (
                         goalData.type === 'target' ? (
                             <>
-                                {goalLogs.reduce((sum, item) => sum + item.data.value, 0)}/{goalData.target || 0} {typeof goalData.unit === 'object' ? goalData.unit.label : goalData.unit || ''}
+                                {goalLogs.reduce((sum, item) => sum + parseInt(String(item.data.value)), 0)}/{goalData.target || 0} {typeof goalData.unit === 'object' ? goalData.unit.label : goalData.unit || ''}
                             </>
                         ) : goalData.type === 'number' ? (
                             <>
@@ -125,24 +125,27 @@ const ViewGoal = () => {
                     pastCompletion.map((day, index)=>(
                         goalData.type === 'target' ? <TargetDay key={day.date} day={day} index={index} goalData={goalData}/> :
                         goalData.type === 'number' ? <NumberDay key={day.date} day={day} index={index} pastCompletion={pastCompletion} /> :
-                        goalData.type === 'yes-no' ? <BooleanDay key={day.date} day={day} index={index} /> : null
+                        goalData.type === 'yes-no' ? <BooleanDay key={day.date} day={day} /> : null
                         
                 )): null}
             </div>
-            <h3>Default Values</h3>
-            <div className={styles.defaultValuesContainer}>
-                {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(item=><p key={item} className={styles.customValue}>{item} {isObject(goalData.unit) ? goalData.unit.shortLabel : goalData.unit}</p>) : <p>No custom values</p>}
-            </div>
+            {goalData.type === 'target' ? 
+            <>
+                <h3>Default Values</h3>
+                <div className={styles.defaultValuesContainer}>
+                    {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(item=><p key={item} className={styles.customValue}>{item} {goalData.unit.shortLabel}</p>) : <p className={styles.noItemsText}>No custom values</p>}
+                </div>
+            </> : null}
             <h3>Today's logs</h3>
             <div className={styles.history}>
                 {goalLogs && goalLogs.length > 0 ? goalLogs.map((log, index)=>(
                     <div className={styles['log-body']} key={'log-' + index}>
                         <img className={"small-icon"} src={IconLibrary.Goals} alt='' />
-                        <p className={styles['log-name']}>{log.name || goalData.name}</p>
-                        <p className={styles['log-value']}>{`${typeof log.data.value === 'string' ? makeFirstUpperCase(log.data.value) : log.data.value} ${typeof goalData.unit === 'object' ? goalData.unit.label : goalData.unit || ''}`}</p>
+                        <p className={styles['log-name']}>{log.title || goalData.name}</p>
+                        <p className={styles['log-value']}>{`${typeof log.data.value === 'string' ? makeFirstUpperCase(log.data.value) : log.data.value} ${typeof goalData.unit === 'object' ? goalData.unit.shortLabel : goalData.unit || ''}`}</p>
                         <p className={styles['log-time']}>{getHourFromTimestamp(log.timestamp)}</p>
                     </div>
-                )) : <p>No logs today</p>}
+                )) : <p className={styles.noItemsText}>No logs today</p>}
             </div>
             <div className={styles.buttonsContainer}>
                 <button className={styles.resetButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete all logs recorded today and cannot be undone. Are you sure you want to continue?', onConfirm: handleResetGoal})}>Reset</button>

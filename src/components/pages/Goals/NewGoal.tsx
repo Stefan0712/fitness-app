@@ -144,7 +144,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             <div className={styles['new-goal-inputs']}>
                 {type === 'target' ? <div className={styles.targetInputs}>
                     <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
                     <div className={styles.secondRow}>
@@ -154,13 +154,13 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     </div>
                 </div> : type === 'yes-no' ? <div className={styles.yesnoInputs}>
                     <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
                 </div> : type === 'number' ? <div className={styles.numberInputs}>
                     <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
                     </div>
                     <div className={styles.secondRow}>

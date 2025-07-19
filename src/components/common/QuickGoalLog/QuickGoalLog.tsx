@@ -126,6 +126,9 @@ const QuickGoalLog: React.FC<LogGoalProps> = ({goalData, close, closeMenu, close
                     <input type="date" onChange={(e)=>setDate(e.target.value)} value={date}></input>
                 </fieldset>
             </div>
+            <div className={styles.defaultValues}>
+                {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(value=><button key={value} className={styles.defaultValue} onClick={()=>setInputValue(value)}>{value}</button>) : null}
+            </div>
             <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description} placeholder="Description"></textarea>
             <div className={styles.buttons}>
                 <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>

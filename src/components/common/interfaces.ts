@@ -72,7 +72,7 @@ export interface Workout {
   export interface Macro{
     _id: string;
     name: string;
-    unit: string;
+    unit: Unit;
     value: number;
     target: number;
     isEnabled: boolean;
@@ -81,7 +81,7 @@ export interface Workout {
   export interface EquipmentAttributes {
     name: string;
     value: number;
-    unit: string;
+    unit: Unit;
   }
   
   
@@ -96,13 +96,14 @@ export interface Workout {
   export interface Goal {
     _id: string,
     name: string,
-    unit: string,
+    unit: Unit,
     target: number,
     icon: string,
     color: string,
     type: string,
     pinToDashboard: boolean,
     order: number,
+    defaultValues?: number[];
   }
   export interface BaseLog{
     _id: string,
@@ -126,7 +127,7 @@ export interface Workout {
       date: string;
       description: string;
       name: string;
-      unit: string;
+      unit: Unit;
       type: 'target' | 'yes-no' | 'number';
     }
   }
@@ -173,7 +174,7 @@ export interface Workout {
   export interface FoodLog{
       name: string,
       qty: number,
-      unit: string,
+      unit: Unit,
       protein: number,
       carbs: number,
       fats: number,

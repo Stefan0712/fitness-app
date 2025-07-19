@@ -59,8 +59,8 @@ const LogsHistory = () => {
                             <p className={styles['log-value']}>
                                 {
                                     item.data && item.type === 'exercise' && item.data.sets ? `${ Array.isArray(item.data.sets) ? item.data.sets.length : item.data.sets} sets` : 
-                                    item.data && item.type === 'food' ? `${item.data.qty} ${item.data.unit || ''}` : 
-                                    item.data && item.type === 'goal' ? `${item.data.value} ${item.data.unit || ''}` :
+                                    item.data && item.type === 'food' ? `${item.data.qty} ${item.data.unit?.shortLabel || ''}` : 
+                                    item.data && item.type === 'goal' ? `${item.data.value} ${item.data.unit?.shortLabel || ''}` :
                                     item.data && item.type === 'workout' && item.data.exercises ? `${item.data.exercises.length} exercises` : null
                                 }
                             </p>

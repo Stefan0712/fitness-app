@@ -14,7 +14,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     animation-name: slideInModal;
     animation-duration: 0.1s;
-    z-index: 50;
+    z-index: 500;
 }
 @keyframes slideInModal {
     from{
