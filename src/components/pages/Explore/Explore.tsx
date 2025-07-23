@@ -1,3 +1,5 @@
+// Explore page will show exercises and workouts fetched from the API, or a cached version if the API is not available and it managed to get at least one list of items from it
+
 import styles from './Explore.module.css';
 import React, { useEffect, useState } from 'react';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
@@ -14,19 +16,18 @@ const Explore = () => {
 
     const [libraryScreen, setLibraryScreen] = useState('exercises');
     const [filteredItems, setFilteredItems] = useState<IExercise[] | IWorkout[]>([]);
-    const [source, setSource] = useState<string | null>(null);
+    const [source, setSource] = useState<string | null>(null); // This state tracks if the items shown are cached or straight from the API
     const { showMessage } = useUI();
 
     const fetchExercises = async () =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise?app=true`,{ withCredentials: true, headers: {"ngrok-skip-browser-warning": true} });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/exercise?app=true`,{ withCredentials: true, headers: {"ngrok-skip-browser-warning": true} }); // app=true is used to let the api know how to format the items returned
             if(response.data){
-                setSource('online')
+                setSource('online');
                 setFilteredItems(response.data);
                 for (let ex of response.data) {
                     await saveItem('cachedExercises', ex);
-                }
-                console.log('All exercises saved to IndexedDB');
+                }; // Cache all fetched items
             }
         }catch(error){
             console.error(error);
@@ -34,7 +35,6 @@ const Explore = () => {
             getSavedExercises();
         }
     }
-
 
     const fetchWorkouts = async () =>{
         try{
@@ -45,24 +45,26 @@ const Explore = () => {
                 for (let workout of response.data) {
                     await saveItem('cachedWorkouts',workout);
                 }
-                console.log('All workouts saved to IndexedDB');
             }
         }catch(error){
             console.error(error);
             showMessage("Could not get workouts from the API", 'error');
             getSavedWorkouts();
         }
-    }
+    };
+
     useEffect(()=>{
         fetchExercises();
-    },[])
+    },[]); // Fetch exercises by default since that is also the default screen on first load
 
+    // Restores the cached list of workouts
     const getSavedWorkouts = async () =>{
         const workouts = await getAllItems('workouts');
         setFilteredItems(workouts);
         showMessage("Restored cached workouts");
         setSource('cache')
     }
+    // Restores the cached list of exercises
     const getSavedExercises = async () =>{
         const exercises = await getAllItems('exercises');
         setFilteredItems(exercises);

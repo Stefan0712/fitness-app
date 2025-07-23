@@ -1,3 +1,6 @@
+// The Nutrition module will be visible on the Dashboard page.
+// It shows the total amount of each macros for all logs recorded in the current day, together with a list of today's food logs
+
 import styles from './Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,21 +13,22 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
 
     const dispatch = useDispatch();
 
-    const dashboardSections = useSelector((state)=>state.user.dashboardSections);
-    const [showMenu, setShowMenu] = useState(false);
+    const dashboardSections = useSelector((state)=>state.user.dashboardSections); // A copy of the list of enlabled dashboard components used to check if this one is enabled
+    const [showMenu, setShowMenu] = useState(false); // The state for the small menu with the Hide button
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
-    const [isNutritionExpanded, setIsNutritionExpanded] = useState(false);
-    const [userActivity, setUserActivity] = useState([]);
+    const [isNutritionExpanded, setIsNutritionExpanded] = useState(false); // The state for expanding the history part of the component
+    const [userActivity, setUserActivity] = useState([]); // All food logs recorded today
     
+    // This will fetch all food logs from today only on the first load
     const getUserLogs = async () =>{
         const items = await getAllItems('logs',{date: getCurrentDay(), type: 'food'});
         setUserActivity(items);
     };
     useEffect(()=>{
         getUserLogs();
-    },[])
+    },[]);
 
-
+    // When userActivity is updated, trigger the function that will extract relevant data, only if userActivity is not empty
     useEffect(()=>{
         if(userActivity){
             const totals = getFoodCardData();
@@ -33,8 +37,9 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
             }
         }
     },[userActivity]);
+
+    // If userActivity is not empty, then get the total of each macro, checking if at least one log is of type "food"
     const getFoodCardData = () => {
- 
         if(userActivity && userActivity.length > 0 && userActivity.some(item=>item.type==="food")){
             const totals = {
                 calories: 0,
@@ -54,9 +59,8 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
             });
             return totals;
         }
-    
-        
     };
+    // Updates the list of enabled dashboard section and shown a confirmation message
     const hideModule = () =>{
         dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'nutrition')));
         showMessage({message: "Nutrition was hidden", type: 'success'});

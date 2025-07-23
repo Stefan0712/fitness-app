@@ -1,3 +1,5 @@
+// Navigation Bar component
+// It is always visible at the bottom of the page so I placed Log screen inside of this to make sure they will be visible across the entire app
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
@@ -36,20 +38,23 @@ const Navigation = () => {
     const closeExerciseLogs = () =>{
         setShowExerciseLog(false)
     }
+    // Used to close everything when the user clicks on a link
     const closeAll = () =>{
         closeExerciseLogs();
         closeFoodLogs();
         closeQuickmenu();
     }
+
+    // Will check if it's the first time when the user uses the app. If it's their first time, they will be prompted to go and complete a basic profile
     useEffect(()=>{
         const userData = localStorage.getItem('user');
         if(!userData){
             showConfirmationModal({title: "First time?", message: "Do you want to create a local account? It is not required but it will enhance your experience", onConfirm: ()=>navigate('/get-started')})
         }
-    },[])
+    },[]);
+
     return ( 
         <nav>
-            
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
             {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
@@ -73,7 +78,6 @@ const Navigation = () => {
                 <img src={IconLibrary.Menu} alt=''></img>
                 <p>Menu</p>
             </button>
-            
         </nav>
         );
       

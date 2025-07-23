@@ -1,3 +1,5 @@
+// The Activity Module shows some basic numbers such as the number of exercises done, workouts, and active time, with today's activity logs (which includes workouts, exercises, and activity logs)
+// I plan to make add more stats, maybe an average workout/exercise time, average rest time, records broken, etc. (still thinking on this)
 import styles from './ActivityComponent.module.css';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,20 +10,20 @@ import { getAllItems } from '../../../db.js';
 
 const ActivityComponent = ({isSmallScreen, showMessage}) => {
     const dispatch = useDispatch();
-
-    const dashboardSections = useSelector((state)=>state.user.dashboardSections);
+    const dashboardSections = useSelector((state)=>state.user.dashboardSections); // Gets the list of enabled dashboard components to check if this one is enabled
     const [showMenu, setShowMenu] = useState(false);
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
-    const [userActivity, setUserActivity] = useState([]);
+    const [userActivity, setUserActivity] = useState([]); // All logs recorded today
 
     const getUserLogs = async () =>{
         const items = await getAllItems('logs',{date: getCurrentDay()});
-        setUserActivity(items.filter(item=>item.type === 'exercise' || item.type === 'workout' || item.type === 'activity'));
+        setUserActivity(items.filter(item=>item.type === 'exercise' || item.type === 'workout' || item.type === 'activity')); // Filter only exercises, workout, and activity logs
     };
     useEffect(()=>{
         getUserLogs();
-    },[])
+    },[]); // Fetch logs only on the first load
 
+    // Handles hiding the module
     const hideModule = () =>{
         dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'activity')));
         showMessage({message: "Activity was hidden", type: 'success'});

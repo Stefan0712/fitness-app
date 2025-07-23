@@ -1,3 +1,6 @@
+// SeachBar component contains the search bar and filters. It takes the entire list of items and updates them based on the filters selected by the user
+// It takes in the original list of all items and then saves the filtered list to a separate one so it won't modify the original list
+
 import { useEffect, useState } from 'react';
 import styles from './SearchBar.module.css';
 import { IconLibrary } from '../../../IconLibrary';
@@ -12,7 +15,7 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
 
     const [expandFilters, setExpandFilters] = useState(false);
 
-    const [query, setQuery] = useState<string>('');
+    const [query, setQuery] = useState<string>(''); // Search query
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedMuscles, setSelectedMuscles] = useState([]);
     const [selectedEquipment, setSelectedEquipment] = useState([]);
@@ -24,12 +27,15 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
     const [showMusclePicker, setShowMusclePicker] = useState(false);
     const [showEquipmentPicker, setShowEquipmentPicker] = useState(false);
 
+    // Since the results in the Library components are rendered based on filteredItems, this sets that list to the originalItemList so that all items are shown by default
     useEffect(()=>{
         if(originalItemList && originalItemList.length > 0){
             setFilteredItems(originalItemList);
         }
-    },[originalItemList]);
+    },[originalItemList]); 
 
+
+    // A simple function that applies filters one by one which triggers only when the user press the Apply filters button
     const applyFilters = () => {
         let filtered = [...originalItemList];
         // Filter by tags
@@ -53,6 +59,8 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
         setFilteredItems(filtered);
         showMessage('Filters were applied', "success");
     };
+
+    // This will show only items with names matchingthe search query (trimmed) and resets them if the query is empty
     const handleQuerySearch = (searchQuery) => {
         setQuery(searchQuery);
         const tempQuery = searchQuery.trim().toLowerCase();
@@ -64,7 +72,8 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
             setFilteredItems(originalItemList);
         }
     };
-
+    
+    // Triggers filtering by order when this filter is changed
     const handleOrder = (order) => {
         setOrderBy(order)
         const sorted = [...originalItemList]; 

@@ -1,3 +1,9 @@
+// The Dashboard is also the default and home page of the app. It shows a quick overview of user's progress for the current day
+
+
+//TODO: Bring back the day selector so the user can see progress from past days
+//TODO: Add Planned activity section
+
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../IconLibrary';
@@ -17,7 +23,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     
     const [userGoals, setUserGoals] = useState([]);
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
     
     const getUserGoals = async () =>{
         const response = await getAllItems('goals');
@@ -25,23 +30,17 @@ const Dashboard = () => {
             setUserGoals([...response]);
         }
     }
-    useEffect(()=>{getUserGoals()},[])
+    useEffect(()=>{getUserGoals()},[]);
 
+    // Will delete the snapshot if the user won't restore it when prompted.
     const handleDeleteSnapshot = (type) =>{
-        console.log("Deleted snapshot: ",type);
         if(type === 'exercise'){
             localStorage.setItem('snapshots', JSON.stringify({exercise: null, workout: snapshots.workout})); 
         }else if(type === 'workout'){
             localStorage.setItem('snapshots', JSON.stringify({exercise: snapshots.exercise, workout: null}));
-        }
-        
+        }  
     }
-    useEffect(() => {
-        const handleResize = () => setIsSmallScreen(window.innerWidth < 800);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
+    // Handles prompts for restoring snapshots
     useEffect(()=>{
         if(snapshots){
             if(snapshots.exercise){
@@ -51,7 +50,7 @@ const Dashboard = () => {
             }
         }
     },[])
-
+    // The warning shown at the top of the page will be removed after I will create a desktop version
     return ( 
         <div className={`${styles.dashboard} page`}>
             <AppHeader title={'Dashboard'} button={<button className={styles.editButton} onClick={()=>navigate('/edit-dashboard')}><img className='small-icon' src={IconLibrary.Edit} alt='edit dashboard' /></button>} />
@@ -62,8 +61,8 @@ const Dashboard = () => {
             <div className={styles.goalsContainer}>
                 {userGoals && userGoals.length > 0 ? userGoals.filter(item=>item.pinToDashboard).map((goal, index)=><SmallGoal key={"dashboard-goal-"+index} goal={goal} />) : null}
             </div>
-            <ActivityComponent key={'activity'} isSmallScreen={isSmallScreen}/>
-            <NutritionComponent key={'nutrition'} isSmallScreen={isSmallScreen}/>   
+            <ActivityComponent key={'activity'}/>
+            <NutritionComponent key={'nutrition'}/>   
             </div>
         </div>
      );

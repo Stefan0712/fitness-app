@@ -1,3 +1,7 @@
+// Library shows all workouts and exercises saved locally by the user. From this screen you can create a new one, explore online workouts/exercises and search and filter through existing ones
+// 
+
+
 import styles from './Library.module.css';
 import { Link } from "react-router-dom";
 import { IconLibrary } from "../../../IconLibrary";
@@ -51,7 +55,7 @@ const Library = () => {
                     libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>
                 )}
             </div>        
-            </div>
+        </div>
      );
 }
  
