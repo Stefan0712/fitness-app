@@ -287,6 +287,34 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 ---
 
 ## Latest Updates
+### 26 July 2025
+* Converted all icons from the Icon List available when creating goals from .svg to .jsx components that accepts props such as fill color, width, height, etc.
+* Updated the icons.js from an array of just SVGs to objects containing an id, a name, and the SVG component.
+* Updated Goal list, Goals page, View Goal, Edit Goal, Create Goal, Dashboard Goal Module to use the new icon format.
+* Added more comments to help others understand the code
+* Improved the Goal Module from the Dashboard (picture 1):
+  - Removed everything related to "edit-mode" that was used when editing the Dashboard layout. 
+  - Changed the text and icon color based on the goal color.
+  - Changed the background color of the progress bar to the app background color.
+  - Added a hide button to quickly hide it from the dashboard.
+  - Increased the border-radius to match the other modules from the Dashboard
+* Improved Target Log Form component (picture 2 and 3):
+  - Added a dropdown to change if the goal is shown on the dashboard or not
+  - Removed the old edit of custom values, where the user had to click on them to change them from p elements to text inputs and then save them, to a better and cleaner way.
+  - Created a new small form for new Custom Values. If the user clicks on an already created custom value, this form will open with that value already in the text input that will allow to update it.
+  - Made the icon inside the progress bar smaller and moved the progress percentage inside the circle, right under the icon. Added goal's color to the current goal progress value.
+  - Switched the position of the bottom buttons (close and log) to make it easier to press Log and harder to press Close by accident. Decreased the height from 50px to 40px to match the other inputs.
+* Smaller UI improvements:
+  - Moved the Explore more and New Workout buttons outside the container with all the workouts and exercises, making them visible at all time.
+  - Added a small padding to the left of custom value in Target Goal form
+* Gallery:
+<p align="center">
+  <img src="https://i.imgur.com/EWE9779.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/mDOpmsA.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/kMcfNZz.png" alt="Screenshot 6" width="30%" />
+</p>
+
+
 
 ### 19 July 2025
 
