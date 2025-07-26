@@ -13,30 +13,28 @@ import { iconList } from '../../../../../icons.js';
 interface SmallGoalProps {
     goal: Goal;
     editMode?: string;
-    toggleGoal: (goal) =>void;
     goalsLength: number;
 }
-const SmallGoal: React.FC<SmallGoalProps> = ({goal, editMode, toggleGoal, goalsLength}) => {
+const SmallGoal: React.FC<SmallGoalProps> = ({goal, goalsLength}) => {
 
-    const navigate = useNavigate();
+    
 
     // Function that WILL be used to pinning a goal to the dashboard
-    const handleTogglePin = async () =>{
+    const hideGoalFromDashboard = async () =>{
         try{
-            const updatedGoal = {...goal, pinToDashboard: !goal.pinToDashboard, order: goalsLength}
+            const updatedGoal = {...goal, pinToDashboard: false, order: goalsLength}
             await saveItem('goals', updatedGoal);
-            toggleGoal(updatedGoal)
         }catch(error){
             console.error(error)
         }
     }
     const IconComponent = iconList.find(item => item.id === goal.icon)?.icon; // Find the icon based on the saved id
     return ( 
-        <div className={styles.smallGoal} onClick={!editMode ? ()=>navigate(`/goals/view/${goal._id}`) : undefined}>
+        <div className={styles.smallGoal}>
             <div className={styles.goalTop}>
                 {IconComponent && <IconComponent fill={goal.color} width="20px" height="20px"/>}
                 <h4 style={{color: goal.color}}>{goal.name}</h4>
-                {editMode ? <button onClick={handleTogglePin} className={styles.pinButton}><img src={goal.pinToDashboard ? IconLibrary.Close : IconLibrary.Add} alt='' /></button> : null}
+                <button onClick={hideGoalFromDashboard} className={styles.pinButton}><img src={IconLibrary.Hide} alt='' /></button>
             </div>
             {goal.type === 'target' ? <TargetGoal goal={goal} /> : goal.type === 'number' ? <NumberGoal goal={goal} /> : goal.type === 'yes-no' ? <BooleanGoal goal={goal} /> : null}
         </div>
@@ -48,6 +46,7 @@ export default SmallGoal;
 const TargetGoal = ({goal}) =>{
 
     const [progress, setProgress] = useState(0);
+    const navigate = useNavigate();
     // Get all logs recorded today and sum their values together to get the progress, which is also used for the progress bar
     const getLogs = async () =>{
         try{
@@ -62,8 +61,8 @@ const TargetGoal = ({goal}) =>{
     useEffect(()=>{getLogs()},[]); // Calculate progress only on first load
 
     return (
-        <div className={styles.targetGoal}>
-            <p style={{color: goal.color}}>{progress} / {goal.target} {goal.unit.shortLabel}</p>
+        <div className={styles.targetGoal} onClick={()=>navigate(`/goals/view/${goal._id}`)}>
+            <p><b style={{color: goal.color}}>{progress}</b> / {goal.target} {goal.unit.shortLabel}</p>
             <div className={styles.progressCircle}>
                 <ProgressBar value={progress} target={goal.target} color={goal.color} /> 
             </div>
@@ -75,6 +74,7 @@ const TargetGoal = ({goal}) =>{
 const NumberGoal = ({goal}) =>{
     const [progress, setProgress] = useState(0);
     const [prevProgress, setPrevProgress] = useState(0);
+    const navigate = useNavigate();
 
 
     const getLogs = async () =>{
@@ -93,15 +93,16 @@ const NumberGoal = ({goal}) =>{
     }
     useEffect(()=>{getLogs()},[]);
     // Compare today's progress with yesterday's progress and show an arrow poiting up or down if the value changed, or a line if the value is the same
-    return <div className={styles.numberGoal}>
+    return (<div className={styles.numberGoal} onClick={()=>navigate(`/goals/view/${goal._id}`)}>
         {progress > prevProgress ? <img className={styles.goalIcon} src={IconLibrary.ArrowUp} alt='' /> : progress < prevProgress ? <img className={styles.goalIcon} src={IconLibrary.ArrowDown} alt='' /> : <img className={styles.goalIcon} src={IconLibrary.Minus} alt='' />}
         <p style={{color: goal.color}}>{progress}</p>
-    </div>
+    </div>)
 }
 
 
 const BooleanGoal = ({ goal }) => {
     const [logs, setLogs] = useState([null, null, null]);
+    const navigate = useNavigate();
 
 
     // Get all logs for this goal from the past three days 
@@ -122,7 +123,7 @@ const BooleanGoal = ({ goal }) => {
     // Shows a Checkmark if the values is yes, an X if the value is no, and a line if there was no value recorded (i.e the user missed to log or just didn't want to)
     if(logs && logs.length > 0){
         return (
-        <div className={styles.booleanGoal}>
+        <div className={styles.booleanGoal} onClick={()=>navigate(`/goals/view/${goal._id}`)}>
             {logs.map((log, i) => (
                 <div className={styles.day} key={i}>
                     {log && log.data && log.data.value === 'yes' ? (

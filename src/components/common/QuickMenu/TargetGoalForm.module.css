@@ -58,7 +58,7 @@ textarea{
     overflow: hidden;
 }
 .submit-button{
-    height: 50px;
+    height: 40px;
     border: 1px solid rgba(211, 211, 211, 0.1);
     background-color: #EB5928;
     width: 100%;
@@ -75,7 +75,7 @@ textarea{
     gap: 10px;    
 }
 .targetLogForm .buttons .close-button{
-    height: 50px;
+    height: 40px;
     width: 100%;
     border: none;
     background-color: var(--background);

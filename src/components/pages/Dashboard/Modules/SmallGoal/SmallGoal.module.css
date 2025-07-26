@@ -3,7 +3,7 @@
     height: 100px;
     background-color: var(--dashboard-module-background);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -14,7 +14,7 @@
     width: 20px;
 }
 .smallGoal .pinButton{
-    background-color: var(--background);
+    background-color: transparent;
     border: none;
     height: 30px;
     width: 30px;
@@ -22,7 +22,6 @@
     position: absolute;
     right: 5px;
     top: 5px;
-    border-radius: 5px;
 }
 .smallGoal .goalTop{
     display: flex;

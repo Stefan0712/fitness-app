@@ -53,7 +53,7 @@ const Dashboard = () => {
     // The warning shown at the top of the page will be removed after I will create a desktop version
     return ( 
         <div className={`${styles.dashboard} page`}>
-            <AppHeader title={'Dashboard'} button={<button className={styles.editButton} onClick={()=>navigate('/edit-dashboard')}><img className='small-icon' src={IconLibrary.Edit} alt='edit dashboard' /></button>} />
+            <AppHeader title={'Dashboard'}/>
             <div className={styles['dashboard-content']}>
                 <div className={styles['dashboard-warning']}>
                     <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>

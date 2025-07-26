@@ -1,5 +1,4 @@
-// Library shows all workouts and exercises saved locally by the user. From this screen you can create a new one, explore online workouts/exercises and search and filter through existing ones
-// 
+// Library shows all workouts and exercises saved locally by the user. From this screen you can create a new one, explore online workouts/exercises and search and filter through existing one
 
 
 import styles from './Library.module.css';
@@ -42,18 +41,16 @@ const Library = () => {
                 <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
             <SearchBar originalItemList={allItems} setFilteredItems={setFilteredItems} />
+            <div className={styles.buttons}>
+                <Link className={styles['category-button']} to={'/explore'}>Explore more</Link>
+                {libraryScreen === "workouts" ? <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link> :  <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>}
+            </div>
             <div className={styles["library-items-container"]}>
-                <div className={styles.buttons}>
-                    <Link className={styles['category-button']} to={'/explore'}>Explore more</Link>
-                    {libraryScreen === "workouts" ? <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link> :  <Link className={`${styles['category-button']} ${styles['add-button']}`} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>}
-                </div>
                 {filteredItems && filteredItems.length > 0 ? (
                     filteredItems.map((data, index) => (
                         libraryScreen === "workouts" ? <Workout key={'workout-'+index} id={data._id} index={index} workout={data} /> : <Exercise key={'exercise-'+index} id={data._id} index={index} data={data} />
                     ))
-                ) : (
-                    libraryScreen === 'workouts' ? <p>No workouts created yet.</p> : <p>No exercises created yet.</p>
-                )}
+                ) : (<p>No items to show.</p>)}
             </div>        
         </div>
      );

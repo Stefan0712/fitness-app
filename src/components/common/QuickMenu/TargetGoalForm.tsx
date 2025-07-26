@@ -1,3 +1,4 @@
+// Log form for Target goals accessed from the quick menu
 import { useEffect, useState } from "react";
 import styles from './TargetGoalForm.module.css';
 import React from "react";
@@ -7,6 +8,8 @@ import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
 import { getCurrentDay } from "../../../helpers.js";
 import { useNavigate } from "react-router-dom";
+import { iconList } from '../../../icons.js';
+
 
 interface LogGoalProps {
     goalData: Goal;
@@ -80,7 +83,7 @@ const TargetGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
             navigate(`/goals/view/${goalData._id}`);
         }
     }
-
+    
     return ( 
         <div className={styles.targetLogForm}>
             <p className={styles.title}>New {goalData.name} Log</p>
@@ -98,8 +101,8 @@ const TargetGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
             <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} placeholder="Name"/>
             <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description} placeholder="Description"></textarea>
             <div className={styles.buttons}>
-                <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
                 <button type="button" className={styles["close-button"]} onClick={close}>Close</button>
+                <button type="button" className={styles["submit-button"]} onClick={submitLog}>Log</button>
             </div>
         </div>
      );
@@ -110,14 +113,16 @@ export default TargetGoalForm;
 
 
 const GoalProgressCircle = ({progress, goal}) =>{
+    const IconComponent = iconList.find(item => item.id === goal.icon)?.icon; // Find the icon based on the saved id
     return(
         <div className={styles.progressCircleContainer}>
             <div className={styles.progressCircleBackground} style={{background: `conic-gradient(${goal.color} ${(progress / goal.target) * 100}%, #111214 0%)`}}>
                 <div className={styles.progressCircleCore}>
-                    <img src={goal.icon} alt="" />
+                    {IconComponent && <IconComponent fill={goal.color} width="30%" height="30%"/>}
+                    <b style={{color: goal.color}}>{(progress / goal.target) * 100} %</b>
                 </div>
             </div>
-            <p className={styles.progressCircleProgress}>{progress}/{goal.target} {goal.unit?.shortLabel || ''} ~ {(progress / goal.target) * 100}%</p>
+            <p className={styles.progressCircleProgress}><b style={{color: goal.color}}>{progress}</b>/{goal.target} {goal.unit?.shortLabel || ''}</p>
         </div>
     )
 }
