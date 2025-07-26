@@ -7,6 +7,7 @@ const ViewLog = ({log, closeViewLog}) => {
         await deleteItem('logs', log._id)
         closeViewLog();
     }
+    
     return ( 
         <div className="view-log">
             <div className="view-log-header">

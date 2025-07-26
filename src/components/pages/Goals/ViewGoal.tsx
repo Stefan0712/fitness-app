@@ -9,6 +9,7 @@ import Loading from "../../common/Loading";
 import { Goal, GoalLog } from "../../common/interfaces.ts";
 import EditGoal from "./EditGoal.tsx";
 import {useUI} from '../../../context/UIContext.jsx';
+import { iconList } from "../../../icons.js";
 
 interface PastLogs {
    date: string; 
@@ -88,6 +89,7 @@ const ViewGoal = () => {
             showMessage("Something went wrong! No goal data found?", "error");
         }
     }
+    const IconComponent = goalData ? iconList.find(item => item.id === goalData.icon)?.icon : null; // Find the icon based on the saved id
     if(!goalData){
         return(<Loading title={'View Goal'}/>)
     }else{
@@ -98,7 +100,7 @@ const ViewGoal = () => {
             {editGoal ? <EditGoal close={()=>setEditGoal(null)} goalData={editGoal} /> : null}
             <div className={styles.goalPreview}>
                 <div className={styles["goal-color"]} style={{backgroundColor: goalData.color}} />
-                <img src={goalData.icon} className={'small-icon'}></img>
+                {IconComponent && <IconComponent fill={goalData.color} width="20px" height="20px"/>}
                 <p className={styles.name}>{goalData.name}</p>
                 <p style={{color: goalData.color}} className={styles.target}>
                     {goalLogs && goalLogs.length > 0 ? (

@@ -33,7 +33,7 @@
     align-items: center;
     gap: 20px;
 }
-.selected-icon{
+.icon-picker .top svg{
     height: 30px;
     width: 30px;
 }
@@ -77,4 +77,11 @@
     border: 1px solid rgba(221, 221, 221, 0.1);
     border-radius: 5px;
     background-color: var(--secondary);
+}
+.icon-picker .container svg{
+    width: 30px;
+    height: 30px;
+    fill: white;
+    stroke: white;
+    
 }

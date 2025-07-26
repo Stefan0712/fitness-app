@@ -9,6 +9,7 @@ import { Goal } from '../../common/interfaces.ts';
 import { getAllItems, saveItem } from '../../../db.js';
 import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
 import { useUI } from '../../../context/UIContext.jsx';
+import { iconList } from '../../../icons.js';
 
 const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
 
@@ -17,7 +18,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [unit, setUnit] = useState<string>('');
     const [target, setTarget] = useState<number>(0);
     const [color, setColor] = useState<string>('#FFFFFF');
-    const [icon, setIcon] = useState<string>(IconLibrary.Dumbbell);
+    const [icon, setIcon] = useState<string>('goal');
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>('target');
@@ -126,6 +127,11 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
         }
     }
     useEffect(()=>{getAllGoals()},[]);
+
+
+    const IconComponent = iconList.find(item => item.id === icon)?.icon;
+
+
     return ( 
         <div className={styles['new-goal']}>
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
@@ -145,7 +151,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 {type === 'target' ? <div className={styles.targetInputs}>
                     <div className={styles.firstRow}>
                         <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill="white" width="30px" height="30px"/>}</button> 
                     </div>
                     <div className={styles.secondRow}>
                         <UnitSelector unit={unit} setUnit={setUnit} />
@@ -155,13 +161,13 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 </div> : type === 'yes-no' ? <div className={styles.yesnoInputs}>
                     <div className={styles.firstRow}>
                         <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill="white" width="30px" height="30px"/>}</button> 
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
                 </div> : type === 'number' ? <div className={styles.numberInputs}>
                     <div className={styles.firstRow}>
                         <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name' autoComplete='false'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
+                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill="white" width="30px" height="30px"/>}</button> 
                     </div>
                     <div className={styles.secondRow}>
                         <UnitSelector unit={unit} setUnit={setUnit} />

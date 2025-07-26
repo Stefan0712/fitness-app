@@ -7,6 +7,7 @@ import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 import NewGoal from './NewGoal.tsx';
 import { IconLibrary } from '../../../IconLibrary';
 import { formatActivityDate, getCurrentDay, makeFirstUpperCase } from '../../../helpers.js';
+import { iconList } from '../../../icons.js';
 
 
 const Goals = () => {
@@ -64,13 +65,13 @@ const GoalBody = ({goal}) => {
         }
     }
     useEffect(()=>{if(goal){getGoalLogs()}},[])
-
+    const IconComponent = iconList.find(item => item.id === goal.icon)?.icon; // Find the icon based on the saved id
 
     return ( 
         <div className={styles.goal} key={goal._id} onClick={()=>navigate(`/goals/view/${goal._id}`)}>
             <div className={styles.goalTop}>
                 <div className={styles["goal-color"]} style={{backgroundColor: goal.color}} />
-                <img src={goal.icon} className={styles['goal-icon']}></img>
+                {IconComponent && <IconComponent fill={goal.color} width="25px" height="25px"/>}
                 <p className={styles.name}>{goal.name}</p>
             </div>
             <div className={styles.goalStatus}>

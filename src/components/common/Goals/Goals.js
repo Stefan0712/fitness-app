@@ -19,6 +19,7 @@ const Goals = ({closeMenu, setSelectedGoal}) => {
         }
     }
     useEffect(()=>{getGoals()},[]);
+    
     return ( 
         <div className={styles.goals}>
             <div className={styles.goalsSection}>
