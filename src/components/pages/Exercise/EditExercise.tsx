@@ -4,14 +4,15 @@ import {useNavigate, useParams} from 'react-router-dom';
 import styles from "./CreateExercise.module.css";
 import { getItemById, saveItem } from "../../../db.js";
 import { Equipment, Field, Tag, TargetGroup, Exercise } from "../../common/interfaces.tsx";
-import TagsScreen from "../Workout/CreateWorkout/Screens/TagsScreen.tsx";
-import EquipmentScreen from "../Workout/CreateWorkout/Screens/EquipmentScreen.tsx";
-import MuscleScreen from "../Workout/CreateWorkout/Screens/MuscleScreen.tsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import FieldsScreen from "./Screens/FieldsScreen/FieldsScreen.tsx";
 import InstructionsScreen from "./Screens/InstructionsScreen/InstructionsScreen.tsx";
 import { useUI } from "../../../context/UIContext.jsx";
 import Loading from '../../common/Loading.js';
+import EquipmentSelector from "../../common/EquipmentSelector/EquipmentSelector.tsx";
+import TagSelector from "../../common/TagSelector/TagSelector.tsx";
+import MuscleSelector from "../../common/MuscleSelector/MuscleSelector.tsx";
+import { IconLibrary } from "../../../IconLibrary.js";
 
 const EditExercise: React.FC = () => {
 
@@ -20,7 +21,14 @@ const EditExercise: React.FC = () => {
     const navigate = useNavigate();
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
     const {showMessage} = useUI();
-    const [exerciseData, setExerciseData] = useState<Exercise | null>(null)
+    const [exerciseData, setExerciseData] = useState<Exercise | null>(null);
+
+    const [showTagSelector, setShowTagSelector] = useState(false);
+    const [showEquipmentSelector, setShowEquipmentSelector] = useState(false);
+    const [showMuscleSelector, setShowMuscleSelector] = useState(false);
+
+
+    
     //form values
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -35,8 +43,8 @@ const EditExercise: React.FC = () => {
     const [rest, setRest] = useState<number>(30);
     const [notes, setNotes] = useState<string>('');
     const [visibility, setVisibility] = useState<string>('private');
-    const [restUnit, setRestUnit] = useState<string>('seconds');
-    const [durationUnit, setDurationUnit] = useState<string>('minutes');
+    const [restUnit, setRestUnit] = useState<'hours' | 'minutes' | 'seconds'>('seconds');
+    const [durationUnit, setDurationUnit] = useState<'hours' | 'minutes' | 'seconds'>('minutes');
     const [instructions, setInstructions] = useState<string[]>([]);
 
     const handleSubmit = async (e)=> {
@@ -51,10 +59,10 @@ const EditExercise: React.FC = () => {
             reference, 
             difficulty, 
             sets, 
-            duration, 
-            durationUnit: 'min',
-            rest,
-            restUnit: 'seconds',
+            duration: convertDuration(duration, durationUnit), 
+            durationUnit,
+            rest: convertDuration(rest, restUnit),
+            restUnit: restUnit,
             visibility: 'private',
             notes,
             targetMuscles, 
@@ -100,16 +108,24 @@ const EditExercise: React.FC = () => {
         setDurationUnit(s.durationUnit || 'minutes');
         setInstructions(s.instructions || []);
     }
+    const convertDuration = (duration: number, unit: 'hours' | 'minutes' | 'seconds'): number =>{
+        if(unit === 'hours') return duration*3600;
+        if(unit === "minutes") return duration*60;
+        if(unit === "seconds") return duration;
 
+        console.log('Invalid value', duration, unit)
+    }
     if(!exerciseData){
         return ( <Loading title={'Edit Exercise'} /> )
     }else {
     return ( 
         <div className={styles.createExercise}>
-            <AppHeader title="Edit Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Save</button>} />
+            {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
+            {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipments} setEquipments={setEquipments} /> : null}
+            {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null}
+            <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />
             <form>
                 <div className={styles.exerciseInfo} >
-                    <h3>Exercise Info</h3> 
                     <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
                     <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={300} placeholder="Description"></input>
                     <div className={styles.twoInputs}>
@@ -121,42 +137,63 @@ const EditExercise: React.FC = () => {
                         </select>
                     </div>
                     <div className={styles.twoInputs}>
-                            <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
-                            <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                                <option value="expert">Expert</option>
+                        <input type="text" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes"></input>
+                        <select name="difficulty" id="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+                    <div style={{width: '100%', height: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignItems: 'center'}}>
+                        <fieldset className={styles.multipleInputs}>
+                            <label htmlFor="duration">Duration</label>
+                            <input className={styles.numberInput} type="number" name="duration" id={styles.durationValue} onChange={(e) => setDuration(parseInt(e.target.value))} value={duration} placeholder="Duration"></input>
+                            <select name="durationUnit" id={styles.durationUnit} onChange={(e) => setDurationUnit(e.target.value)} value={durationUnit}>
+                                <option value={'seconds'}>Seconds</option>
+                                <option value={'minutes'}>Minutes</option>
+                                <option value={'hours'}>Hours</option>
                             </select>
+                        </fieldset>
+                        <fieldset className={styles.multipleInputs}>
+                            <label htmlFor="rest">Rest</label>
+                            <input className={styles.numberInput} type="number" name="rest" id={styles.restValue} onChange={(e) => setRest(parseInt(e.target.value))} value={rest} placeholder="Rest"></input>
+                            <select name="restUnit" id={styles.restUnit} onChange={(e) => setRestUnit(e.target.value)} value={restUnit}>
+                                <option value={'seconds'}>Seconds</option>
+                                <option value={'minutes'}>Minutes</option>
+                                <option value={'hours'}>Hours</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                </div>
+                <div className={styles.customItemsRow}>
+                    <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Tags} alt="" />
+                        <h4>{tags?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowEquipmentSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Equipment} alt="" />
+                        <h4>{equipments?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowMuscleSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Muscle} alt="" />
+                        <h4>{targetMuscles?.length || 0}</h4>
                     </div>
                 </div>
                 <div className={styles.screenSwitcher}>
                     <button type="button" onClick={()=>setCurrentScreen('fields')} className={currentScreen === 'fields' ? styles.selectedButton : ''}>Fields</button>
-                    <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? styles.selectedButton : ''}>Tags</button>
-                    <button type="button" onClick={()=>setCurrentScreen('equipment')} className={currentScreen === 'equipment' ? styles.selectedButton : ''}>Equipment</button>
-                    <button type="button" onClick={()=>setCurrentScreen('groups')} className={currentScreen === 'groups' ? styles.selectedButton : ''}>Groups</button>
                     <button type="button" onClick={()=>setCurrentScreen('instructions')} className={currentScreen === 'instructions' ? styles.selectedButton : ''}>Instructions</button>
                 </div>
                 <div className={styles.screenContainer}>
                     {currentScreen === 'fields' ? (
-                        <FieldsScreen 
-                            values={{ fields, sets, duration, durationUnit, rest, restUnit }}
-                            setters={{ setFields, setSets, setDuration, setDurationUnit, setRest, setRestUnit }}
-                            hasRequiredFields={true}
-                        />
-                    ) : currentScreen === 'tags' ? (
-                        <TagsScreen tags={tags} setTags={setTags} />
-                    ) : currentScreen === 'equipment' ? (
-                        <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
-                    ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} />
+                        <FieldsScreen fields={fields} setFields={setFields}/>
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}
                 </div>
             </form>
         </div>
-     );}
+    );}
 }
  
 export default EditExercise;

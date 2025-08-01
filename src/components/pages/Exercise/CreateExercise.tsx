@@ -163,7 +163,7 @@ const CreateExercise: React.FC = () => {
                 </div>
             </form>
         </div>
-     );
+    );
 }
  
 export default CreateExercise;
