@@ -2,15 +2,16 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import {useNavigate, useParams} from 'react-router-dom'
 import styles from '../CreateWorkout/CreateWorkout.module.css';
+import { IconLibrary } from "../../../../IconLibrary.js";
 
 //default values
 import { getItemById, saveItem } from "../../../../db.js";
 import { Equipment, Phase, Tag as ITag, TargetGroup, Workout } from "../../../common/interfaces.ts";
 import Phases from "../CreateWorkout/Phases/Phases.tsx";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
-import TagsScreen from "../CreateWorkout/Screens/TagsScreen.tsx";
-import EquipmentScreen from "../CreateWorkout/Screens/EquipmentScreen.tsx";
-import MuscleScreen from "../CreateWorkout/Screens/MuscleScreen.tsx";
+import MuscleSelector from "../../../common/MuscleSelector/MuscleSelector.tsx";
+import EquipmentSelector from "../../../common/EquipmentSelector/EquipmentSelector.tsx";
+import TagSelector from '../../../common/TagSelector/TagSelector.tsx';
 
 
 const EditWorkout = () => {
@@ -18,8 +19,11 @@ const EditWorkout = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [workoutData, setWorkoutData] = useState<Workout | null>(null);
-    const [currentScreen, setCurrentScreen] = useState<string>('exercises');
 
+
+    const [showTagSelector, setShowTagSelector] = useState(false);
+    const [showEquipmentSelector, setShowEquipmentSelector] = useState(false);
+    const [showMuscleSelector, setShowMuscleSelector] = useState(false);
 
     //form values
     const [name, setName] = useState<string>('');
@@ -29,7 +33,7 @@ const EditWorkout = () => {
     const [duration, setDuration] = useState<string>('');
     const [tags, setTags] = useState<ITag[]>([])
     const [equipment, setEquipment] = useState<Equipment[]>([]);
-    const [targetMuscles, settargetMuscles] = useState<TargetGroup[]>([])
+    const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([])
     const [notes, setNotes] = useState<string>('');
     const [phases, setPhases] = useState<Phase[]>([]);
 
@@ -82,7 +86,7 @@ const EditWorkout = () => {
                 setTags(data.tags);
             }
             setEquipment(data.equipment);
-            settargetMuscles(data.targetMuscles);
+            setTargetMuscles(data.targetMuscles);
             setNotes(data.notes);
             setPhases(data.phases);
         }else{
@@ -98,6 +102,9 @@ const EditWorkout = () => {
     useEffect(()=>{getWorkoutData()},[])
     return ( 
         <div className={styles.createWorkoutPage}>
+            {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
+            {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipment} setEquipments={setEquipment} /> : null}
+            {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null}
             <AppHeader title="Edit Workout" button={<button className="orange-button submit-button" onClick={handleSubmit}>Save</button>} />
             <form onSubmit={(e)=>e.preventDefault()}>
                 <div className={styles.workoutMeta}>
@@ -114,27 +121,22 @@ const EditWorkout = () => {
                         <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
                     </div>
                     <input type="test" name="notes" id="notes" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes..."></input>
-                    
                 </div>
-                <div className={styles.screenSwitcher}>
-                    <button type="button" onClick={()=>setCurrentScreen('exercises')} className={currentScreen === 'exercises' ? styles.selectedButton : ''}>Exercises</button>
-                    <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? styles.selectedButton : ''}>Tags</button>
-                    <button type="button" onClick={()=>setCurrentScreen('equipment')} className={currentScreen === 'equipment' ? styles.selectedButton : ''}>Equipment</button>
-                    <button type="button" onClick={()=>setCurrentScreen('groups')} className={currentScreen === 'groups' ? styles.selectedButton : ''}>Groups</button>
+                <div className={styles.customItemsRow}>
+                    <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Tags} alt="" />
+                        <h4>{tags?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowEquipmentSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Equipment} alt="" />
+                        <h4>{equipment?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowMuscleSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Muscle} alt="" />
+                        <h4>{targetMuscles?.length || 0}</h4>
+                    </div>
                 </div>
-                <div className={styles.screenContainer}>
-                    {currentScreen === 'exercises' ? (
-                        <Phases phases={phases} setPhases={setPhases} />
-                    ) : currentScreen === 'tags' ? (
-                        <TagsScreen tags={tags} setTags={setTags} />
-                    ) : currentScreen === 'equipment' ? (
-                        <EquipmentScreen equipments={equipment} setEquipments={setEquipment} />
-                    ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={settargetMuscles} />
-                    ) : null}
-                </div>
-                
-                
+                <Phases phases={phases} setPhases={setPhases} />
             </form>
         </div>
      );

@@ -17,28 +17,33 @@ const Library = () => {
     const [filteredItems, setFilteredItems] = useState([]);
     const [allItems, setAllItems] = useState([])
 
-    useEffect(()=>{
-        if(libraryScreen === 'exercises'){
-            getExercises();
-        }else if(libraryScreen === 'workouts'){
-            getWorkouts();
-        }
-    },[libraryScreen])
+    useEffect(()=>{switchToExercises()},[]);
+
 
     const getWorkouts = async () =>{
         const workouts = await getAllItems('workouts');
-        setAllItems(workouts)
+        setFilteredItems(workouts);
+        setAllItems(workouts);
     }
     const getExercises = async () =>{
         const exercises = await getAllItems('exercises');
-        setAllItems(exercises)
+        setFilteredItems(exercises);
+        setAllItems(exercises);
+    }
+    const switchToWorkouts = () =>{
+        setLibraryScreen('workouts');
+        getWorkouts();
+    }
+    const switchToExercises = () =>{
+        setLibraryScreen('exercises')
+        getExercises()
     }
     return ( 
         <div className={`${styles.library}`}>
             <AppHeader title={"Library"} />
             <div className={styles["toggle-buttons"]}>
-                <button onClick={()=>setLibraryScreen('exercises')} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
-                <button onClick={()=>setLibraryScreen('workouts')} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
+                <button onClick={switchToExercises} className={libraryScreen === 'exercises' ? styles['selected-button'] : ''}>Exercises</button>
+                <button onClick={switchToWorkouts} className={libraryScreen === 'workouts' ? styles['selected-button'] : ''}>Workouts</button>
             </div>
             <SearchBar originalItemList={allItems} setFilteredItems={setFilteredItems} />
             <div className={styles.buttons}>

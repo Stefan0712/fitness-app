@@ -9,28 +9,36 @@ import MuscleSelector from '../MuscleSelector/MuscleSelector.tsx';
 import EquipmentSelector from '../EquipmentSelector/EquipmentSelector.tsx';
 import {useUI} from '../../../context/UIContext.jsx'
 
+
+
+
 const SearchBar = ({originalItemList, setFilteredItems}) => {
 
     const {showMessage} = useUI();
 
+    
     const [expandFilters, setExpandFilters] = useState(false);
+    const [maxDuration, setMaxDuration] = useState(999);
 
     const [query, setQuery] = useState<string>(''); // Search query
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedMuscles, setSelectedMuscles] = useState([]);
     const [selectedEquipment, setSelectedEquipment] = useState([]);
     const [selectedDifficulty, setSelectedDifficulty] = useState('beginner');
-    const [selectedDuration, setSelectedDuration] = useState(999);
+    const [selectedDuration, setSelectedDuration] = useState(originalItemList && originalItemList.length > 0 ? Math.max(...originalItemList.map(item=>item.duration))/60 : 60);
     const [orderBy, setOrderBy] = useState('old');
 
     const [showTagPicker, setShowTagPicker] = useState(false);
     const [showMusclePicker, setShowMusclePicker] = useState(false);
     const [showEquipmentPicker, setShowEquipmentPicker] = useState(false);
 
+
     // Since the results in the Library components are rendered based on filteredItems, this sets that list to the originalItemList so that all items are shown by default
     useEffect(()=>{
         if(originalItemList && originalItemList.length > 0){
             setFilteredItems(originalItemList);
+            // Set the max amount of minutes of the Duration slider to avoid having huge values without there being any item with that value
+            setMaxDuration(Math.max(...originalItemList.map(item=>item.duration))/60)
         }
     },[originalItemList]); 
 
@@ -96,6 +104,10 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
         setFilteredItems(sorted);
     };
 
+    
+    
+
+
     return ( 
         <div className={styles.searchBarContainer}>
            <div className={styles.searchBar}>
@@ -149,7 +161,7 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
                 </div>
                 <div className={styles.duration}>
                     <label>Duration</label>
-                    <input type='range' min={0} max={999} onChange={(e)=>setSelectedDuration(parseInt(e.target.value))} value={selectedDuration} />
+                    <input type='range' min={0} max={maxDuration} onChange={(e)=>setSelectedDuration(parseInt(e.target.value))} value={selectedDuration} />
                     <p>{selectedDuration} min</p>
                 </div>
                 <button className={styles.applyFiltersButton} onClick={applyFilters}>Apply Filters</button>

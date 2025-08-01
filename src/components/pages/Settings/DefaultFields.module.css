@@ -6,93 +6,71 @@
     flex-direction: column;
     gap: 15px;
 }
-.new-field-form{
-    width: 100%;
-    height: 50px;
-    margin-top: auto;
-    border-top: 1px solid var(--general-border);
+.default-fields .fields-container{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
-    padding-top: 15px;
-    overflow: hidden;
-    flex-shrink: 0;
-    transition: all 0.1s;
-}
-.new-field-form.extended{
-    height: 350px;
-    transition: all 0.1s;
-}
-.new-field-form h3{
-    height: 30px;
-}
-.new-field-form .row-inputs{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 100%;
-}
-.save-field{
-    height: 40px;
-    width: 150px;
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 5px;
-}
-.fields-container{
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
-    gap: 10px;
-}
-.errors{
-    background-color: var(--cancel);
-    padding: 10px;
-    border-radius: 5px;
-    list-style-type: none;
 }
 .field{
     width: 100%;
-    min-height: 80px;
-    max-height: 120px;
+    padding: 10px;
+    border-radius: 10px;
     background-color: var(--secondary);
-    padding: 5px;
     display: grid;
-    grid-template-columns: 1fr 60px;
-    align-items: center;
-    gap: 10px;
-    border-radius: 5px;
-    flex-shrink: 0;
-    overflow: hidden;
+    grid-template-columns: 1fr 40px;
 }
-.field-info{
+.deleteFieldButton{
+    background-color: transparent;
+    border: none;
+    width: 40px;
+}
+.field .fieldInfo{
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
-.toggle{
-    width: 50px;
-    height: 30px;
-    background-color: var(--text-color);
-    border: 1px solid var(--general-border);
-    border-radius: 25px;
+.field h3{
+    margin-bottom: 10px;
+}
+
+.newCustomField{
+    position: fixed;
+    bottom: 85px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    background-color: var(--modal-bg);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: slideUp 0.1s;
+}
+@keyframes slideUp {
+    from{
+        bottom: -120%;
+        opacity: 0;
+    }
+    to{
+        bottom: 85px;
+        opacity: 1;
+    }
+}
+.newCustomField .row-inputs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.newCustomField .save,
+.newCustomField .cancel{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
-    padding: 4px;
-}
-.toggle-ball{
-    background-color: var(--background);
-    height: 22px;
-    width: 22px;
-    border-radius: 25px;
-}
-.toggle.enabled .toggle-ball{
+    justify-content: center;
+    border: none;
     background-color: var(--accent-color);
 }
-.toggle.enabled{
-    flex-direction: row-reverse;
+.newCustomField .cancel{
+    background-color: var(--background);
 }
