@@ -17,7 +17,7 @@ const Tag: React.FC<TagProps>= ({tag, removeTag}) => {
         alignItems: 'center',
         gap: '10px',
         width: 'fit-content',
-        backgroundColor: 'var(--secondary)',
+        backgroundColor: 'var(--background)',
     }
     const tagColorStyles = {
         width: '10px',

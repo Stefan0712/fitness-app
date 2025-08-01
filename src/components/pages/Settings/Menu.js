@@ -17,9 +17,11 @@ const Settings = ({closeSettings}) => {
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
+            showMessage('Enabled fullscreen mode', "success")
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
+                showMessage('Disabled fullscreen mode', "success")
             }
         }
     };
@@ -63,7 +65,7 @@ const Settings = ({closeSettings}) => {
                 <button className={'clear-button'} onClick={toggleFullscreen}>
                     <img src={IconLibrary.EnableFullscreen} style={{width: '30px', height: '30px'}} alt='toggle fullscreen' />
                 </button>
-                <button className='clear-button' onClick={noSleep.enabled ? ()=>noSleep.disable() : ()=>noSleep.enable()}>
+                <button className='clear-button' onClick={noSleep.enabled ? ()=>(noSleep.disable(), showMessage("Disabled Keep screen awake", "success")) : ()=>(noSleep.enable(), showMessage("Enabled Keep screen awake", "success"))}>
                     <img src={noSleep.enabled ? IconLibrary.EnabledAwake : IconLibrary.DisabledAwake} style={{width: '30px', height: '30px'}} alt='toggle keep screen awake' />
                 </button>
                 

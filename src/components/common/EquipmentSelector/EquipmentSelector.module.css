@@ -1,16 +1,16 @@
 
 .equipmentSelector{
-    width: 100vw;
+    width: calc(100vw - 20px);
     height: 75vh;
     background-color: var(--secondary);
     position: fixed;
-    bottom: 75px;
-    left: 0px;
+    bottom: 85px;
+    left: 10px;
     border-radius: 5px;
     border: 1px solid var(--general-border);
     padding: 10px;
-    z-index: 200;
     animation: slideUp 0.2s;
+    z-index: 500;
 }
 @keyframes slideUp {
     from{
@@ -106,11 +106,11 @@
 }
 .equipmentSelector .equipment{
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 60px 40px;
     padding: 0 10px;
     height: 40px;
     align-items: center;
-    justify-content: space-between;
     background-color: var(--background);
     border-radius: 5px;
     flex-shrink: 0;

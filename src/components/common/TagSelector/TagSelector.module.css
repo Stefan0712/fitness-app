@@ -1,15 +1,16 @@
 .tagSelector{
-    width: 100vw;
+    width: calc(100vw - 20px);
     height: 75vh;
     background-color: var(--secondary);
     position: fixed;
-    bottom: 75px;
-    left: 0;
+    bottom: 85px;
+    left: 10px;
     border-radius: 5px;
     border: 1px solid var(--general-border);
     padding: 10px;
     z-index: 200;
     animation: slideUp 0.2s;
+    z-index: 500;
 }
 @keyframes slideUp {
     from{
@@ -94,6 +95,7 @@
     border-radius: 5px;
     display: flex;
     padding: 10px 0;
+    background-color: var(--background);
 }
 .tagSelector .resultTag button{
     margin-left: auto;

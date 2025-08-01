@@ -283,6 +283,13 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 * \[MP] Rework Default Fields page
 * \[MP] Rework Equipments page
 * \[MP] Rework Tags page
+* \[HP] Add blurred background to menus, submenus, and other components to help keep a hierarchy of elements when multiple of them are open at the same time
+* \[MP] Create settings for hiding/showing nutrition and activity modules in dashboard
+* \[MP] Create a dedicated page for food related features (food logs, meal planning, etc), and activity related features (activity, exercises, and workout logs, workout plants, etc)
+* \[LP] Convert all SVGs to jsx components to make easier to change their colors and other properties
+* \[MP] Rework Library
+* \[MP] Rework View Workout
+* \[MP] Rework View Exercise
 
 ---
 
@@ -307,6 +314,7 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 * Smaller UI improvements:
   - Moved the Explore more and New Workout buttons outside the container with all the workouts and exercises, making them visible at all time.
   - Added a small padding to the left of custom value in Target Goal form
+  - Added a small one line text with the current app version and the date of the update to help keep track of which version is live
 * Gallery:
 <p align="center">
   <img src="https://i.imgur.com/EWE9779.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />

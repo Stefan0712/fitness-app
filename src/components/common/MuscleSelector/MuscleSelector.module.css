@@ -1,14 +1,14 @@
 .muscleSelector{
-    width: 100vw;
+    width: calc(100vw - 20px);
     height: 75vh;
     background-color: var(--secondary);
     position: fixed;
-    bottom: 75px;
-    left: 0px;
+    bottom: 85px;
+    left: 10px;
     border-radius: 5px;
     border: 1px solid var(--general-border);
     padding: 10px;
-    z-index: 200;
+    z-index: 500;
     animation: slideUp 0.2s;
 }
 @keyframes slideUp {
@@ -72,7 +72,8 @@
 .muscleSelector .newMuscle{
     height: 50px;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 50px;
     align-items: center;
     gap: 10px;
 }

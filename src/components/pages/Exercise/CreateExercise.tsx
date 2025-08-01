@@ -5,15 +5,22 @@ import {useNavigate} from 'react-router-dom';
 import styles from "./CreateExercise.module.css";
 import { saveItem } from "../../../db.js";
 import { Equipment, Field, Tag, TargetGroup, Exercise } from "../../common/interfaces.tsx";
-import TagsScreen from "../Workout/CreateWorkout/Screens/TagsScreen.tsx";
-import EquipmentScreen from "../Workout/CreateWorkout/Screens/EquipmentScreen.tsx";
-import MuscleScreen from "../Workout/CreateWorkout/Screens/MuscleScreen.tsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import FieldsScreen from "./Screens/FieldsScreen/FieldsScreen.tsx";
 import InstructionsScreen from "./Screens/InstructionsScreen/InstructionsScreen.tsx";
 import { useUI } from "../../../context/UIContext.jsx";
+import EquipmentSelector from "../../common/EquipmentSelector/EquipmentSelector.tsx";
+import TagSelector from "../../common/TagSelector/TagSelector.tsx";
+import MuscleSelector from "../../common/MuscleSelector/MuscleSelector.tsx";
+import { IconLibrary } from "../../../IconLibrary.js";
 
 const CreateExercise: React.FC = () => {
+
+    const [showTagSelector, setShowTagSelector] = useState(false);
+    const [showEquipmentSelector, setShowEquipmentSelector] = useState(false);
+    const [showMuscleSelector, setShowMuscleSelector] = useState(false);
+
+
 
     const navigate = useNavigate();
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
@@ -77,10 +84,12 @@ const CreateExercise: React.FC = () => {
 
     return ( 
         <div className={styles.createExercise}>
+            {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
+            {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipments} setEquipments={setEquipments} /> : null}
+            {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null}
             <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />
             <form>
                 <div className={styles.exerciseInfo} >
-                    <h3>Exercise Info</h3> 
                     <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
                     <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={300} placeholder="Description"></input>
                     <div className={styles.twoInputs}>
@@ -121,22 +130,27 @@ const CreateExercise: React.FC = () => {
                         </fieldset>
                     </div>
                 </div>
+                <div className={styles.customItemsRow}>
+                    <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Tags} alt="" />
+                        <h4>{tags?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowEquipmentSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Equipment} alt="" />
+                        <h4>{equipments?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowMuscleSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Muscle} alt="" />
+                        <h4>{targetMuscles?.length || 0}</h4>
+                    </div>
+                </div>
                 <div className={styles.screenSwitcher}>
                     <button type="button" onClick={()=>setCurrentScreen('fields')} className={currentScreen === 'fields' ? styles.selectedButton : ''}>Fields</button>
-                    <button type="button" onClick={()=>setCurrentScreen('tags')} className={currentScreen === 'tags' ? styles.selectedButton : ''}>Tags</button>
-                    <button type="button" onClick={()=>setCurrentScreen('equipment')} className={currentScreen === 'equipment' ? styles.selectedButton : ''}>Equipment</button>
-                    <button type="button" onClick={()=>setCurrentScreen('groups')} className={currentScreen === 'groups' ? styles.selectedButton : ''}>Groups</button>
                     <button type="button" onClick={()=>setCurrentScreen('instructions')} className={currentScreen === 'instructions' ? styles.selectedButton : ''}>Instructions</button>
                 </div>
                 <div className={styles.screenContainer}>
                     {currentScreen === 'fields' ? (
                         <FieldsScreen fields={fields} setFields={setFields}/>
-                    ) : currentScreen === 'tags' ? (
-                        <TagsScreen tags={tags} setTags={setTags} />
-                    ) : currentScreen === 'equipment' ? (
-                        <EquipmentScreen equipments={equipments} setEquipments={setEquipments} />
-                    ) : currentScreen === 'groups' ? (
-                        <MuscleScreen targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} />
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}

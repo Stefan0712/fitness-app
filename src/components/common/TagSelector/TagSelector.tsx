@@ -22,7 +22,6 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
     const [name, setName] = useState<string>('');
     const [color, setColor] = useState<string>('#FFFFFF');
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
-    const [error, setError] = useState<boolean>(false);
 
 
 
@@ -63,7 +62,7 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTags, tags}) => {
             </div>
             <div className={styles.top}>
                 <div className={styles.selectedTags}>
-                    {tags?.length > 0 ? tags.map((item, index)=><Tag key={'tag-'+item.name+index} tag={item} removeTag={(id)=>setTags(tags=>[...tags.filter(it=>it._id!==id)])}/>) : <p>No tags selected</p>}
+                    {tags?.length > 0 ? tags.map((item, index)=><Tag key={'tag-'+item.name+index} tag={item} removeTag={()=>setTags(prev=>[...prev.filter(tag=>tag._id!==item._id)])}/>) : <p>No tags selected</p>}
                 </div>
             </div>
             <div className={styles.bottom}>

@@ -5,7 +5,7 @@ import styles from './Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLibrary } from '../../../IconLibrary';
-import { getCurrentDay, getHourFromTimestamp } from '../../../helpers';
+import { getCurrentDay } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
@@ -16,7 +16,6 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
     const dashboardSections = useSelector((state)=>state.user.dashboardSections); // A copy of the list of enlabled dashboard components used to check if this one is enabled
     const [showMenu, setShowMenu] = useState(false); // The state for the small menu with the Hide button
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
-    const [isNutritionExpanded, setIsNutritionExpanded] = useState(false); // The state for expanding the history part of the component
     const [userActivity, setUserActivity] = useState([]); // All food logs recorded today
     
     // This will fetch all food logs from today only on the first load
@@ -103,28 +102,7 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
                         <p className={styles['macro-name']}>Fats</p>
                         <p className={styles['macro-value']}>{foodCardData?.fats || 0}g</p>
                     </div>
-                    
                 </div>
-            </div>
-            <div className={`${styles["section-container"]} ${isNutritionExpanded ? styles['expand-history'] : ''} `}>
-                <div className={styles['section-header']} onClick={()=>setIsNutritionExpanded(isNutritionExpanded=>!isNutritionExpanded)}>
-                    <h3>History</h3>
-                    <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isNutritionExpanded ? '90' : '180'}deg)`}}></img>
-                </div>
-                <div className={styles.tableHeader}>
-                    <p></p>
-                    <p>Name</p>
-                    <p>Qty</p>
-                    <p>Time</p>
-                </div>
-                {userActivity?.length > 0 ? userActivity.map((log)=>(
-                    <div className={`${styles['activity-item']}`} key={log.timestamp}>
-                        <img src={IconLibrary.Food} className='small-icon'></img>
-                        <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                        <p className={styles['activity-duration']}>{log.data.qty} {log.data.unit}</p>
-                        <p className={styles['activity-time']}>{getHourFromTimestamp(log.timestamp)}</p>
-                    </div>
-                )) : <h3>No activity</h3>}
             </div>
         </div>
      );

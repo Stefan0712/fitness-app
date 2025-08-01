@@ -35,8 +35,10 @@ const UnitSelector = ({unit, setUnit}) => {
 
     const handleAddCustomUnit = () =>{
         if(label && label.length > 0 && shortLabel && shortLabel > 0){
-            setUnit({label, shortLabel, value: units.some(item=>item.shortLabel !== shortLabel) ? shortLabel+'-'+units.length : shortLabel, category: 'custom'});
+            const customUnit = {label, shortLabel, value: units.some(item=>item.shortLabel !== shortLabel) ? shortLabel+'-'+units.length : shortLabel, category: 'custom'}
+            setUnit(customUnit);
             showMessage("Unit selected",' success');
+            console.log('customUnit: ',customUnit)
         }else{
             if(!label || label.length < 0){
                 showMessage('Invalid label. Try another one','error');
@@ -48,7 +50,7 @@ const UnitSelector = ({unit, setUnit}) => {
     }
     return ( 
         <div className={styles.unitSelector}>
-            <button type='button' className={styles.unitButton} onClick={()=>setShowList(prev=>!prev)}>{unit.label || 'Unit'}</button>
+            <button type='button' className={styles.unitButton} onClick={()=>setShowList(prev=>!prev)}>{unit?.label || 'Unit'}</button>
             {showList ? <div className={styles.results}>
                 <div className={styles.unitHeader}>
                     <input type='text' id='unit' name='unit' placeholder='Unit' onChange={(e)=>handleSearchUnit(e.target.value)} value={label} />

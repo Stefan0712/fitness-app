@@ -8,7 +8,7 @@ import { getCurrentDay, getHourFromTimestamp } from '../../../helpers';
 import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
-const ActivityComponent = ({isSmallScreen, showMessage}) => {
+const ActivityComponent = ({showMessage}) => {
     const dispatch = useDispatch();
     const dashboardSections = useSelector((state)=>state.user.dashboardSections); // Gets the list of enabled dashboard components to check if this one is enabled
     const [showMenu, setShowMenu] = useState(false);
@@ -56,26 +56,9 @@ const ActivityComponent = ({isSmallScreen, showMessage}) => {
                         <p className={styles['block-value']}>{userActivity?.filter(item=>item.type === 'workout').length || 0}</p>
                     </div>
                 </div>
-            </div>
-            <div className={`${styles["section-container"]} ${isActivityExpanded ? styles['expand-history'] : ''} `}>
-                <div className={styles['section-header']} onClick={()=>setIsActivityExpanded(isActivityExpanded=>!isActivityExpanded)}>
-                    <h3>History</h3>
-                    <img src={IconLibrary.Arrow} className={`small-icon ${isSmallScreen ? '' : 'hide'}`} alt='' style={{transform: `rotateZ(${isActivityExpanded ? '90' : '180'}deg)`}}></img>
+                <div className={styles.lastLog}>
+                    {userActivity && userActivity.length > 0 ? <p>{userActivity[userActivity.length - 1].title} at {getHourFromTimestamp(userActivity[userActivity.length - 1].timestamp)} for {userActivity[userActivity.length - 1].data.duration} minutes</p> : <p>No logs today</p>}
                 </div>
-                <div className={styles.tableHeader}>
-                    <p></p>
-                    <p>Name</p>
-                    <p>Duration</p>
-                    <p>Time</p>
-                </div>
-                {userActivity?.length > 0 ? (userActivity.map((log)=>(
-                    <div className={styles['activity-item']} key={log.timestamp}>
-                        <img src={log.icon} className='small-icon'></img>
-                        <p className={styles['activity-name']}>{log.data.name || log.data.workoutData.name}</p> 
-                        <p className={styles['activity-duration']}>{log.data.duration}</p>
-                        <p className={styles['activity-time']}>{getHourFromTimestamp(log.timestamp)}</p>
-                    </div>
-                ))) : (<h3>No activity</h3>)}
             </div>
         </div>
      );
