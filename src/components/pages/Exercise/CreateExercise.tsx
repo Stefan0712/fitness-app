@@ -38,8 +38,8 @@ const CreateExercise: React.FC = () => {
     const [rest, setRest] = useState<number>(30);
     const [notes, setNotes] = useState<string>('');
     const [visibility, setVisibility] = useState<string>('private');
-    const [restUnit, setRestUnit] = useState<string>('seconds');
-    const [durationUnit, setDurationUnit] = useState<string>('minutes');
+    const [restUnit, setRestUnit] = useState<'hours' | 'minutes' | 'seconds'>('seconds');
+    const [durationUnit, setDurationUnit] = useState<'hours' | 'minutes' | 'seconds'>('minutes');
     const [instructions, setInstructions] = useState<string[]>([]);
 
     const handleSubmit = async (e)=> {
@@ -62,10 +62,10 @@ const CreateExercise: React.FC = () => {
                 reference, 
                 difficulty, 
                 sets: 1, 
-                duration, 
-                durationUnit: 'min',
-                rest,
-                restUnit: 'seconds',
+                duration: convertDuration(duration, durationUnit), 
+                durationUnit,
+                rest: convertDuration(rest, restUnit),
+                restUnit: restUnit,
                 visibility: 'private',
                 notes,
                 targetMuscles, 
@@ -80,7 +80,13 @@ const CreateExercise: React.FC = () => {
         }
     }
 
+    const convertDuration = (duration: number, unit: 'hours' | 'minutes' | 'seconds'): number =>{
+        if(unit === 'hours') return duration*3600;
+        if(unit === "minutes") return duration*60;
+        if(unit === "seconds") return duration;
 
+        console.log('Invalid value', duration, unit)
+    }
 
     return ( 
         <div className={styles.createExercise}>

@@ -18,7 +18,7 @@
     height: 15px;
 }
 .viewExercise .block,
-.viewExercise .twoBlocks{
+.viewExercise .threeBlocks{
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -27,15 +27,15 @@
     flex-direction: column;
     gap: 5px;
 }
-.viewExercise .twoBlocks{
+.viewExercise .threeBlocks{
     flex-direction: row;
     gap: 10px;
 }
-.viewExercise .half{
-    width: 50%;
+.viewExercise .third{
+    width: 100%;
 }
 .viewExercise .block b,
-.viewExercise .twoBlocks .half b{
+.viewExercise .threeBlocks .third b{
     opacity: 0.5;
 }
 .viewExercise .tags{
@@ -67,6 +67,7 @@
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 .viewExercise .equipments .equipment,
 .viewExercise .muscles .muscle,
@@ -120,4 +121,23 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+}
+
+.viewExercise .exerciseInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--secondary);
+    border-radius: 10px;
+}
+.viewExercise .instructions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+.viewExercise .instructions p{
+    background-color: var(--background);
+    padding: 5px 10px;
+    border-radius: 5px;
 }

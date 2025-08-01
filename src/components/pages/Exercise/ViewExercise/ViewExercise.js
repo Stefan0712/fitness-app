@@ -70,39 +70,46 @@ const ViewExercise = () => {
             showMessage("Exercise saved to library", 'success')
         }
     }
+    const convertDuration = (duration, unit) =>{
+            if(unit === 'hours') return duration/3600;
+            if(unit === "minutes") return duration/60;
+            if(unit === "seconds") return duration;
+    
+            console.log('Invalid value', duration, unit)
+        }
     if(exerciseData){
         return ( 
             <div className={styles.viewExercise}>
                 <AppHeader title={exerciseData.name} button={type !== 'online' && type !== 'cached' ? <Link to={`/exercise/${exerciseData._id}/start`} className={styles.startButton}>Start</Link> : <button onClick={handleSaveExercise} className={styles.startButton}>Save</button>} />
                 <div className={styles.content}>
-                    <div className={styles.twoBlocks}>
-                        <div className={styles.half}>
-                            <b>Created at</b>
-                            <p>{exerciseData.createdAt ? formatDate(exerciseData.createdAt) : 'Unset'}</p>
+                    <div className={styles.exerciseInfo}>
+                        <div className={styles.threeBlocks}>
+                            <div className={styles.third}>
+                                <b>Created at</b>
+                                <p>{exerciseData.createdAt ? formatDate(exerciseData.createdAt) : 'Unset'}</p>
+                            </div>
+                            <div className={styles.third}>
+                                <b>UpdatedAt</b>
+                                <p>{exerciseData.updatedAt ? formatDate(exerciseData.updatedAt) : 'Unset'}</p>
+                            </div>
+                            <div className={styles.third}>
+                                <b>Reference (url)</b>
+                                <p>{exerciseData.reference || 'Unset'}</p>
+                            </div>
                         </div>
-                        <div className={styles.half}>
-                            <b>UpdatedAt</b>
-                            <p>{exerciseData.updatedAt ? formatDate(exerciseData.updatedAt) : 'Unset'}</p>
-                        </div>
-                    </div>
-                    <div className={styles.twoBlocks}>
-                        <div className={styles.half}>
-                            <b>Duration</b>
-                            <p>{exerciseData.duration || 'Unset'} {exerciseData.duration ? exerciseData.durationUnit : ''}</p>
-                        </div>
-                        <div className={styles.half}>
-                            <b>Rest</b>
-                            <p>{exerciseData.rest || 'Unset'} {exerciseData.rest ? exerciseData.restUnit : ''}</p>
-                        </div>
-                    </div>
-                    <div className={styles.twoBlocks}>
-                        <div className={styles.half}>
-                            <b>Difficulty</b>
-                            <p>{makeFirstUpperCase(exerciseData.difficulty) || 'Unset'}</p>
-                        </div>
-                        <div className={styles.half}>
-                            <b>Reference (url)</b>
-                            <p>{exerciseData.reference || 'Unset'}</p>
+                        <div className={styles.threeBlocks}>
+                            <div className={styles.third}>
+                                <b>Duration</b>
+                                <p>{convertDuration(exerciseData.duration, exerciseData.durationUnit) || 'Unset'} {exerciseData.durationUnit ?? ''}</p>
+                            </div>
+                            <div className={styles.third}>
+                                <b>Rest</b>
+                                <p>{convertDuration(exerciseData.rest, exerciseData.restUnit) || 'Unset'} {exerciseData.restUnit ?? ''}</p>
+                            </div>
+                            <div className={styles.third}>
+                                <b>Difficulty</b>
+                                <p>{makeFirstUpperCase(exerciseData.difficulty) || 'Unset'}</p>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.block}>
@@ -168,7 +175,7 @@ const ViewExercise = () => {
                             <p>Instructions</p>
                         </div>
                         <div className={styles.instructions}>
-                            {exerciseData?.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{index+1}. {step}</p>)) : 'None'}
+                            {exerciseData?.instructions?.length > 0 ? exerciseData.instructions.map((step, index) => (<p key={'step-'+index}>{step}</p>)) : 'None'}
                         </div>
                     </div>
                     {(userId === exerciseData.author._id) || type !=='online' ? 
