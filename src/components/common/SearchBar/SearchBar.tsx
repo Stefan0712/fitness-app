@@ -93,10 +93,10 @@ const SearchBar = ({originalItemList, setFilteredItems}) => {
                 sorted.sort((a, b) => b.name.localeCompare(a.name));
                 break;
             case 'new':
-                sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
                 break;
             case 'old':
-                sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
                 break;
             default:
             break;

@@ -13,8 +13,9 @@ import { updateCustomFields } from '../../../store/userSlice.ts';
 const DefaultFields: React.FC = () => {
 
     const existingFields = useSelector((state: RootState)=>state.user.customFields);
-    const [fields, setFields] = useState(existingFields ?? [])
+    const [fields, setFields] = useState<Field[]>(existingFields ?? [])
     const [showForm, setShowForm] = useState<boolean>(false);
+    const [editItem, setEditItem] = useState(null)
     const dispatch = useDispatch();
     const {showMessage} = useUI();
 
@@ -30,8 +31,8 @@ const DefaultFields: React.FC = () => {
             <AppHeader title='Custom Fields' button={<button className='clear-button' style={{width: '40px', height: '40px', marginLeft: 'auto'}} onClick={()=>setShowForm(true)}><img src={IconLibrary.Add} className='small-icon' alt='' /></button>}/>
             <div className={styles['fields-container']}>
                 {fields && fields.length > 0 ? fields.map(field=>
-                <div key={field.id} className={styles.field}>
-                    <div className={styles.fieldInfo}>
+                <div key={field._id} className={styles.field}>
+                    <div className={styles.fieldInfo} onClick={()=>setEditItem(field)}>
                         <h3>{field.name}</h3>
                         <p>{field.target} {field.unit?.shortLabel}</p>
                         <p>{field.description ?? 'No description'}</p>
@@ -39,23 +40,28 @@ const DefaultFields: React.FC = () => {
                     <button className={styles.deleteFieldButton} onClick={()=>handleRemove(field)}><img src={IconLibrary.Close} className='small-icon' alt='' /></button>
             </div>) : null}
             </div>
-            {showForm ? <CustomFieldForm setFields={setFields} closeForm={()=>setShowForm(false)}/> : null}
+            {showForm ? <CustomFieldForm setFields={setFields} closeForm={()=>setShowForm(false)} /> : null}
+            {editItem ? <CustomFieldForm setFields={setFields} closeForm={()=>setEditItem(null)} fieldData={editItem}/> : null}
         </div>
      );
 }
  
 export default DefaultFields;
 
-
-const CustomFieldForm = ({setFields, closeForm}) =>{
+interface CustomFieldProps {
+    setFields: React.Dispatch<React.SetStateAction<Field[]>>;
+    closeForm: ()=>void;
+    fieldData?: Field
+}
+const CustomFieldForm: React.FC<CustomFieldProps> = ({setFields, closeForm, fieldData}) =>{
 
     const {showMessage} = useUI();
     const dispatch = useDispatch();
 
-    const [name, setName] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [target, setTarget] = useState<number>('');
-    const [unit, setUnit] = useState<Unit | null>();
+    const [name, setName] = useState<string>(fieldData.name ?? '');
+    const [description, setDescription] = useState<string>(fieldData.description ?? '');
+    const [target, setTarget] = useState<number>(fieldData.target ?? 0);
+    const [unit, setUnit] = useState<Unit | null>(fieldData.unit ?? null);
 
     const handleCreateField = () =>{
         if(!checkForErrors()){
@@ -63,14 +69,18 @@ const CustomFieldForm = ({setFields, closeForm}) =>{
                 _id: uuidv4(),
                 name,
                 description,
-                target,
+                target: target,
                 unit,
                 value: 0,
                 isCompleted: false,
                 isEnabled: true
             }
-            dispatch(updateCustomFields({operation: 'add', data}))
-            setFields(prev=>[...prev, data]);
+            dispatch(updateCustomFields({operation: fieldData ? 'update' : 'add', data}))
+            if(fieldData){
+                setFields(prev=>[...prev.filter(item=>item._id!==fieldData._id), data]);
+            }else{
+                setFields(prev=>[...prev, data]);
+            }
             setName('');
             setDescription('');
             setTarget(0);
@@ -109,7 +119,7 @@ const CustomFieldForm = ({setFields, closeForm}) =>{
             </div>
             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap:'10px'}}>
                 <button className={styles.cancel} onClick={closeForm}>Cancel</button>
-                <button className={styles.save} onClick={handleCreateField}>Create Field</button>
+                <button className={styles.save} onClick={handleCreateField}>{fieldData ? 'Update' : 'Create Field'}</button>
             </div>
         </div>
     )

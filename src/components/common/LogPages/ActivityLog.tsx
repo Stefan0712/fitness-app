@@ -1,15 +1,15 @@
 import { useState } from "react";
-import styles from './ExerciseLogs.module.css'
+import styles from './ActivityLog.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import { IconLibrary } from "../../../IconLibrary";
+import { IconLibrary } from "../../../IconLibrary.js";
 import React from "react";
-import { BaseLog, Equipment, Field as IField, Tag, TargetGroup } from "../interfaces.ts";
+import { ActivityLog, Equipment, Field as IField, Tag, TargetGroup } from "../interfaces.ts";
 import FieldsScreen from '../../pages/Exercise/Screens/FieldsScreen/FieldsScreen.tsx';
-import MuscleSelector from '../../common/MuscleSelector/MuscleSelector.tsx';
+import MuscleSelector from '../MuscleSelector/MuscleSelector.tsx';
 import {saveItem} from '../../../db.js';
 import { useUI } from "../../../context/UIContext.jsx";
 import EquipmentSelector from "../EquipmentSelector/EquipmentSelector.tsx";
-import TagSelector from '../../common/TagSelector/TagSelector.tsx';
+import TagSelector from '../TagSelector/TagSelector.tsx';
 
 
 interface ExerciseLogProps {
@@ -43,22 +43,20 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
 
     const logExercise = async () =>{
         if(name && name.trim().length > 2 && parseInt(sets) > 0){
-            const data: BaseLog = {
+            const data: ActivityLog = {
                 _id: uuidv4(),
-                type: 'exercise',
-                title: "Exercise",
+                type: 'activity',
+                title: "Activity",
                 icon: IconLibrary.Exercise,
                 timestamp: new Date(),
-                data:{
-                    name,
-                    time, 
-                    targetMuscles,
-                    tags,
-                    equipment,
-                    duration: parseInt(duration),
-                    sets: sets === '' ? 1 : parseInt(sets),
-                    fields
-                }
+                name,
+                time, 
+                targetMuscles,
+                tags,
+                equipment,
+                duration: parseInt(duration),
+                sets: sets === '' ? 1 : parseInt(sets),
+                fields
             }
             await saveItem('logs', data);
             showMessage("Exercise logged successfully", 'success');

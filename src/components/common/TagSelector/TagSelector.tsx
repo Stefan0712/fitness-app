@@ -11,7 +11,7 @@ import { defaultTags } from '../../../constants/defaultTags.js';
 
 interface TagPickerProps {
     close: () => void;
-    setTags: (tag: ITag) => void;
+    setTags: React.Dispatch<React.SetStateAction<ITag[]>>;
     tags: ITag[]
 }
 

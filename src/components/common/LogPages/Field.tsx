@@ -70,11 +70,11 @@ const Field: React.FC<FieldParams> = ({fieldData, saveField, type}) => {
                 </fieldset>
                 <fieldset className={styles.value}>
                     <label>Value</label>
-                    <input type='number' name='value' id='value' onChange={(e)=>setValue(e.target.value)} value={value}></input>
+                    <input type='number' name='value' id='value' onChange={(e)=>setValue(parseInt(e.target.value))} value={value}></input>
                 </fieldset>
                 <fieldset className={styles.target}>
                     <label>Target</label>
-                    <input type='number' name='target' id='target' onChange={(e)=>setTarget(e.target.value)} value={target}></input>
+                    <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target}></input>
                 </fieldset>
                 <fieldset className={styles.button}>
                     <label>.</label>

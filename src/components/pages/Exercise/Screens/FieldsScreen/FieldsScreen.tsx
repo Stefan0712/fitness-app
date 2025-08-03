@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './FieldsScreen.module.css';
-import { Field } from '../../../../common/interfaces';
+import { Field, Unit } from '../../../../common/interfaces';
 import {v4 as uuidv4} from 'uuid';
 import { IconLibrary } from '../../../../../IconLibrary';
 import UnitSelector from '../../../../common/UnitSelector/UnitSelector.tsx';
@@ -10,7 +10,7 @@ const FieldsScreen = ({fields, setFields, type='other'}) => {
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [value, setValue] = useState('')
-    const [unit, setUnit] = useState('');
+    const [unit, setUnit] = useState<Unit | null>(null);
 
 
 
@@ -27,7 +27,7 @@ const FieldsScreen = ({fields, setFields, type='other'}) => {
             }
             setFields(prev=>[...prev, fieldData]);
             setName('');
-            setUnit('');
+            setUnit(null);
             setTarget("");
         }
     }

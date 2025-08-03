@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+ import { useState } from "react";
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary";
@@ -9,8 +8,9 @@ import {saveItem} from '../../../db.js';
 import History from './History/History.tsx';
 
 import styles from './FoodLog.module.css';
-import { FoodLog as IFoodLog } from "../interfaces.ts";
+import { FoodLog as IFoodLog, Unit } from "../interfaces.ts";
 import { useUI } from "../../../context/UIContext.jsx";
+import UnitSelector from "../UnitSelector/UnitSelector.tsx";
 
 
 
@@ -30,7 +30,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
 
     const [name, setName] = useState<string>('');
     const [qty, setQty] = useState<number | string>('');
-    const [unit, setUnit] = useState<string>('');
+    const [unit, setUnit] = useState<Unit | null>(null);
     const [protein, setProtein] = useState<number | string>('');
     const [carbs, setCarbs] = useState<number | string>('');
     const [fats, setFats] = useState<number | string>('');
@@ -39,7 +39,7 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
     const [sodium, setSodium] = useState<number | string>('');
     const now = new Date();
     const [time, setTime] = useState<string>(now.toTimeString().slice(0, 5));
-    const [type, setType] = useState<string>('other');
+    const [category, setCategory] = useState<string>('other');
     const [notes, setNotes] = useState<string>('');
     
 
@@ -62,20 +62,18 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
             title: 'Food Log', 
             icon: '/icons/food.svg',
             timestamp: currentDate,
-            data: {
-                name,
-                unit,
-                qty: convertToInt(qty),
-                protein: convertToInt(protein),
-                carbs: convertToInt(carbs),
-                fats: convertToInt(fats),
-                sugar: convertToInt(sugar),
-                calories: convertToInt(calories),
-                sodium: convertToInt(sodium),
-                time,
-                type,
-                notes
-            }
+            name,
+            unit,
+            qty: convertToInt(qty),
+            protein: convertToInt(protein),
+            carbs: convertToInt(carbs),
+            fats: convertToInt(fats),
+            sugar: convertToInt(sugar),
+            calories: convertToInt(calories),
+            sodium: convertToInt(sodium),
+            time,
+            notes,
+            category
         }
         saveItem('logs', data);
         showMessage("Food logged successfully", "success");
@@ -98,8 +96,8 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                         <input className={styles.name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} required={true} placeholder="Name" />
                     </fieldset>
                         <input className={styles['half-input']} type="number" name="qty" id="qty" onChange={(e) => setQty(e.target.value)} value={qty} placeholder="Qty" />
-                        <input className={styles['half-input']} type="text" name="unit" id="unit" onChange={(e) => setUnit(e.target.value)} value={unit} placeholder="Unit" />
-                        <select className={styles['half-input']} name="type" id="type" onChange={(e) => setType(e.target.value)} value={type}>
+                        <UnitSelector unit={unit} setUnit={setUnit} />
+                        <select className={styles['half-input']} name="category" id="category" onChange={(e) => setCategory(e.target.value)} value={category}>
                             <option value={'other'}>Other</option>
                             <option value={'breakfast'}>Breakfast</option>
                             <option value={'lunch'}>Lunch</option>

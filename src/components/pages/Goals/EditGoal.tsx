@@ -6,7 +6,6 @@ import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal, Unit } from '../../common/interfaces.ts';
 import { saveItem } from '../../../db.js';
 import { useUI } from '../../../context/UIContext.jsx';
-import { isObject } from '../../../helpers.js';
 import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
 import { iconList } from '../../../icons.js';
 
@@ -135,7 +134,7 @@ const EditGoal = ({close, goalData}) => {
                         <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
                     </div>
                     <div className={styles.secondRow}>
-                        <input type='text' className={styles.unitInput} name='unit' id='unit' onChange={(e)=>setUnit(e.target.value)} value={unit} placeholder='Unit'></input>
+                        <UnitSelector unit={unit} setUnit={setUnit} />
                         <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
                     </div>
                 </div> : null}
@@ -168,7 +167,7 @@ const CustomValue = ({customValue, setCustomValues, customValues, unit}) => {
 
     return (
         <div className={styles.customValueBody} key={customValue}>
-            {showForm ? <NewCustomValue customValue={customValue} customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowForm(0)} unit={unit}/> : null}
+            {showForm ? <NewCustomValue customValue={customValue} customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowForm(false)} unit={unit}/> : null}
             <p className={styles.customValueInput} onClick={()=>setShowForm(true)}>{customValue}</p>
             <button onClick={()=>setCustomValues(prev=>[...prev.filter(item=>item!==customValue)])}>
                 <img src={IconLibrary.Close} alt='' />
@@ -181,13 +180,9 @@ const CustomValue = ({customValue, setCustomValues, customValues, unit}) => {
 
 interface NewCustomValueProps {
     customValues: number[];
-    setCustomValues: (value: string) =>void;
+    setCustomValues: React.Dispatch<React.SetStateAction<number[]>>;
     customValue?: number;
-    unit: {
-        id: string;
-        label: string;
-        shortLabel: string;
-    };
+    unit: Unit;
     close: () =>void;
 }
 const NewCustomValue: React.FC<NewCustomValueProps> = ({customValues, setCustomValues, customValue, unit, close}) =>{

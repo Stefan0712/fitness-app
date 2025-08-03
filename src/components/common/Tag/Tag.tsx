@@ -29,7 +29,7 @@ const Tag: React.FC<TagProps>= ({tag, removeTag}) => {
         <div style={tagStyles}>
             <div style={tagColorStyles}></div>
             <p style={{color: 'var(--text-color)', fontSize: '14px', fontWeight: '500'}}>{tag.name}</p>
-            {removeTag ? <button type="button" className="clear-button" onClick={()=>removeTag(tag.id)}><img src={IconLibrary.Close} className="small-icon" alt="" /></button> : null}  
+            {removeTag ? <button type="button" className="clear-button" onClick={()=>removeTag(tag._id)}><img src={IconLibrary.Close} className="small-icon" alt="" /></button> : null}  
         </div>
      );
 }

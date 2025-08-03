@@ -16,7 +16,7 @@ const History = () => {
         <div className={`${styles["logs-history"]}`}>
             <div className={styles.logsContainer}>
                 {logs && logs.length > 0 ? logs.map((log, index)=>(
-                    <LogItem data={log.data} timestamp={log.timestamp} key={'history-item-'+index} />
+                    <LogItem data={log} timestamp={log.timestamp} key={'history-item-'+index} />
                 )) : 'No logs'}
             </div>
         </div>

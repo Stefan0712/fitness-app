@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styles from './Auth.module.css';
 import { useNavigate } from "react-router-dom";
 import axios from '../../../axios.js';
+//@ts-ignore
 import Logo from '../../../assets/logo.png';
 import { useUI } from "../../../context/UIContext.jsx";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
@@ -61,14 +62,10 @@ const Auth = () =>{
               }
         } catch (error){
             console.log("Error logging in: ",error);
-            if (axios.isAxiosError(error)) {
-                if (error.response?.data?.error === "Invalid username or password.") {
-                  showMessage("Incorrect username or password", "error");
-                } else {
-                  showMessage("Something went wrong!", "error");
-                }
+            if (error.response?.data?.error === "Invalid username or password.") {
+                showMessage("Incorrect username or password", "error");
             } else {
-                showMessage("Unexpected error occurred!", "error");
+                showMessage("Something went wrong!", "error");
             }
             
         }

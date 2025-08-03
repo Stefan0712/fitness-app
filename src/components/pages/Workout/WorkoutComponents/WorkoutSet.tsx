@@ -53,7 +53,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                 return prevExercises.map(exercise => {
                     if (exercise._id !== set.exerciseId) return exercise;
                     const updatedSets = exercise.sets.map((s, idx) => {
-                        if (idx === setIndex) return { ...s, finishedAt: new Date(), duration: seconds, status: 'completed' };
+                        if (idx === setIndex) return { ...s, finishedAt: new Date(), duration: seconds, status: 'completed' as const};
                         return s;
                     });
                     const allSetsCompleted = updatedSets.every(s => s.isCompleted);

@@ -9,7 +9,7 @@ import { muscles } from '../../../constants/defaultMuscles.js';
 
 interface TagPickerProps {
     close: () => void;
-    setTargetMuscles: (muscle: TargetGroup) => void;
+    setTargetMuscles: React.Dispatch<React.SetStateAction<TargetGroup[]>>;
     targetMuscles: TargetGroup[]
 }
 

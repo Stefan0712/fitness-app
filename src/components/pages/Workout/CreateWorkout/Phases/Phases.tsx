@@ -13,8 +13,6 @@ const Phases = ({phases, setPhases}) => {
 
     const [showAddPhase, setShowAddPhase] = useState(false);
     const [showEditPhase, setShowEditPhase] = useState<IPhase | null>(null);
-
-    const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     
 
     const handleRemoveExercise = (exerciseId: string) => {
@@ -62,17 +60,17 @@ const Phases = ({phases, setPhases}) => {
             setSelectedPhase(null);
         }
     }
-    const handleUpdatePhase = (phase: IPhase) => {
-        const updatedPhases = phases.map(p => {
-            if (p._id === phase._id) {
-                return {...p, name: phase.name};
-            }
-            return p;
-        });
+    // const handleUpdatePhase = (phase: IPhase) => {
+    //     const updatedPhases = phases.map(p => {
+    //         if (p._id === phase._id) {
+    //             return {...p, name: phase.name};
+    //         }
+    //         return p;
+    //     });
 
-        setPhases(updatedPhases);
-        setShowEditPhase(null);
-    }
+    //     setPhases(updatedPhases);
+    //     setShowEditPhase(null);
+    // }
 
     if(phases){
         return ( 
@@ -83,15 +81,15 @@ const Phases = ({phases, setPhases}) => {
                 </div>
                 <div className={styles.phaseButtons}>
                     {selectedPhase ? <div className={styles.selectedPhaseButtons}>
-                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>handleDeletePhase(selectedPhase)}><img src={IconLibrary.Delete} /></button>
-                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>setShowEditPhase(selectedPhase)}><img src={IconLibrary.Edit} /></button>
+                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>handleDeletePhase(selectedPhase)}><img src={IconLibrary.Delete} alt=""/></button>
+                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>setShowEditPhase(selectedPhase)}><img src={IconLibrary.Edit} alt=""/></button>
                     </div> : null}
                     <button className={styles.addPhaseButton} type="button" onClick={()=>setShowAddPhase(true)}><img src={IconLibrary.Add} alt="" /></button>
                 </div>
             </div>
             {showAddPhase ? <NewPhase close={()=>setShowAddPhase(false)} addPhase={(phase: IPhase)=>{setPhases([...phases, phase]); setSelectedPhase(phase);}} lastOrder={phases.length} /> : null}
             <div className={styles.phaseContent}>
-                {selectedPhase ? <Phase phase={selectedPhase} phaseIndex={phases.indexOf(selectedPhase)} handleRemoveExercise={handleRemoveExercise} handleAddExercise={handleAddExercise} /> : null}
+                {selectedPhase ? <Phase phase={selectedPhase} handleRemoveExercise={handleRemoveExercise} handleAddExercise={handleAddExercise} /> : null}
             </div>
         </div>
      );

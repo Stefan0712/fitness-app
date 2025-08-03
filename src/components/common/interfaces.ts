@@ -114,6 +114,21 @@ export interface Workout {
     icon: string,
     data: GoalLog | ExerciseLog | WorkoutLog | FoodLog,
   }
+  export interface ActivityLog{
+    _id: string;
+    type: 'activity';
+    title: string;
+    icon: string;
+    timestamp: Date;
+    name: string;
+    time: string;
+    targetMuscles: TargetGroup[];
+    tags: Tag[];
+    equipment: Equipment[];
+    duration: number;
+    sets: number;
+    fields: Field[];
+  }
   export interface GoalLog{
     _id: string,
     goalId: string,
@@ -151,7 +166,7 @@ export interface Workout {
     value: number,
     target: number,
     description?: string,
-    isCompleted: boolean,
+    isCompleted?: boolean,
     isEnabled?: boolean,
   }
   export interface Unit {
@@ -161,6 +176,9 @@ export interface Workout {
     category: string
   }
   export interface ExerciseLog{
+    _id: string;
+    icon: string;
+    timestamp: string;
     exerciseId: string,
     duration: number,
     name: string,
@@ -168,24 +186,27 @@ export interface Workout {
     targetMuscles: TargetGroup[],
     equipment: Equipment[],
     fields: Field[],
-    sets: number,
+    sets: Set[],
     tags: Tag[],
   }
   export interface FoodLog{
-      name: string,
-      qty: number,
-      unit: Unit,
-      protein: number,
-      carbs: number,
-      fats: number,
-      sugar: number,
-      calories: number,
-      sodium: number,
-      time: string,
-      type: string,
-      notes?: string
-  
-    
+    title: string,
+    icon: string,
+    timestamp: Date,
+    _id: string,
+    name: string,
+    qty: number,
+    unit: Unit,
+    protein: number,
+    carbs: number,
+    fats: number,
+    sugar: number,
+    calories: number,
+    sodium: number,
+    time: string,
+    type: string,
+    notes?: string,
+    category: string,
   }
   export interface Set{
     fields: Field[];

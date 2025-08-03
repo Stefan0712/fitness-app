@@ -4,6 +4,13 @@ import { units as defaultUnits } from '../../../constants/units';
 import { makeFirstUpperCase } from '../../../helpers';
 import { IconLibrary } from '../../../IconLibrary';
 import {useUI} from '../../../context/UIContext';
+import { Unit } from '../interfaces';
+
+
+type GroupedUnits = {
+  [category: string]: Unit[];
+};
+
 
 const UnitSelector = ({unit, setUnit}) => {
 
@@ -14,7 +21,7 @@ const UnitSelector = ({unit, setUnit}) => {
     const [shortLabel, setShortLabel] = useState('');
     const [showList, setShowList] = useState(false);
 
-    const groupByCategory = (items) => {
+    const groupByCategory = (items: Unit[]): GroupedUnits => {
         return items.reduce((acc, item) => {
             if (!acc[item.category]) acc[item.category] = [];
             acc[item.category].push(item);
@@ -34,7 +41,7 @@ const UnitSelector = ({unit, setUnit}) => {
     }
 
     const handleAddCustomUnit = () =>{
-        if(label && label.length > 0 && shortLabel && shortLabel > 0){
+        if(label && label.length > 0 && shortLabel && shortLabel.length > 0){
             const customUnit = {label, shortLabel, value: units.some(item=>item.shortLabel !== shortLabel) ? shortLabel+'-'+units.length : shortLabel, category: 'custom'}
             setUnit(customUnit);
             showMessage("Unit selected",' success');
@@ -65,7 +72,10 @@ const UnitSelector = ({unit, setUnit}) => {
                             <b>{makeFirstUpperCase(category)}</b>
                             <div className={styles["unit-list"]}>
                             {items.map((unit) => (
-                                <button type='button' key={unit.value} onClick={()=>(setUnit(unit), setShowList(false))}>
+                                <button type='button' key={unit.value} onClick={()=>{
+                                        setUnit(unit)
+                                        setShowList(false)
+                                    }}>
                                     {unit.label} ({unit.shortLabel})
                                 </button>
                             ))}

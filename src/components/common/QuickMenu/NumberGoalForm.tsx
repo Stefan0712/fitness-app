@@ -118,7 +118,7 @@ const NumberGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
                 </fieldset>
             </div>
             <div className={styles.defaultValues}>
-                {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(value=><button key={value} className={styles.defaultValue} onClick={()=>setInputValue(value)}>{value}</button>) : null}
+                {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(value=><button key={value} className={styles.defaultValue} onClick={()=>setInputValue(value.toString())}>{value}</button>) : null}
             </div>
             <textarea name="description" id="description" onChange={((e)=>setDescription(e.target.value))} value={description} placeholder="Description"></textarea>
             <div className={styles.buttons}>

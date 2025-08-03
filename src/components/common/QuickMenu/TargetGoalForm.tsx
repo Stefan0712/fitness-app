@@ -95,7 +95,7 @@ const TargetGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
             <div className={styles.valueInput}>
                 <input type="number" step={"0.1"} onChange={(e)=>setInputValue(e.target.value)} value={inputValue} placeholder="Value"></input>
                 <div className={styles.defaultValues}>
-                    {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(value=><button key={value} className={styles.defaultValue} onClick={()=>setInputValue(value)}>{value} {goalData.unit?.shortLabel || ''}</button>) : null}
+                    {goalData && goalData.defaultValues && goalData.defaultValues.length > 0 ? goalData.defaultValues.map(value=><button key={value} className={styles.defaultValue} onClick={()=>setInputValue(value.toString())}>{value} {goalData.unit?.shortLabel || ''}</button>) : null}
                 </div>
             </div>
             <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} placeholder="Name"/>

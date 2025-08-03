@@ -5,7 +5,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../common/IconPicker/IconPicker.tsx';
-import { Goal } from '../../common/interfaces.ts';
+import { Goal, Unit } from '../../common/interfaces.ts';
 import { getAllItems, saveItem } from '../../../db.js';
 import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
 import { useUI } from '../../../context/UIContext.jsx';
@@ -15,7 +15,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
 
     const {showMessage} = useUI();
     const [name, setName] = useState<string>('');
-    const [unit, setUnit] = useState<string>('');
+    const [unit, setUnit] = useState<Unit | null>(null);
     const [target, setTarget] = useState<number>(0);
     const [color, setColor] = useState<string>('#FFFFFF');
     const [icon, setIcon] = useState<string>('goal');

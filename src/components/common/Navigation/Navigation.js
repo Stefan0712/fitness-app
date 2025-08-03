@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
 import {IconLibrary} from '../../../IconLibrary';
 import QuickMenu from '../QuickMenu/QuickMenu';
-import ExerciseLog from '../LogPages/ExerciseLog.tsx';
+import ExerciseLog from '../LogPages/ActivityLog.tsx';
 import FoodLog from '../FoodLog/FoodLog.tsx';
 import Menu from '../../pages/Settings/Menu.js';
 import { useUI } from '../../../context/UIContext.jsx';

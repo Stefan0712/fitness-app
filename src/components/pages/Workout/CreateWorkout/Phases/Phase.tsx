@@ -2,7 +2,17 @@ import { useState } from 'react';
 import { IconLibrary } from '../../../../../IconLibrary';
 import styles from './Phases.module.css';
 import ExerciseSelector from '../../../../common/ExerciseSelector/ExerciseSelector.tsx';
-const Phase = ({phase, handleRemoveExercise, handleAddExercise}) =>{
+import { Phase as IPhase } from '../../../../common/interfaces.ts';
+
+interface PhaseProps {
+    phase: IPhase;
+    handleRemoveExercise: (id: string) => void;
+    handleAddExercise: (exercise) => void;
+}
+
+
+
+const Phase: React.FC<PhaseProps> = ({phase, handleRemoveExercise, handleAddExercise}) =>{
 
     const [showExerciseSelector, setShowExerciseSelector] = useState(null)
 
@@ -13,7 +23,7 @@ const Phase = ({phase, handleRemoveExercise, handleAddExercise}) =>{
                 {phase && phase.exercises && phase.exercises.length > 0 ? phase.exercises.map((exercise, index)=>(
                     <div className={styles.phaseExercise} key={'phase-exercise-'+index}>
                         <b>{exercise.name}</b>
-                        <b>x{exercise.sets}</b>
+                        <b>x{exercise.sets.length}</b>
                         <button type="button" className="clear-btn"><img src={IconLibrary.Close} alt="" onClick={()=>handleRemoveExercise(exercise?._id)} /></button>
                     </div>
                 )) : <p className={styles.noExercises}>No exercises added</p>}

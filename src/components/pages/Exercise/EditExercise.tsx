@@ -115,6 +115,7 @@ const EditExercise: React.FC = () => {
 
         console.log('Invalid value', duration, unit)
     }
+    type DurationUnit = "hours" | "minutes" | "seconds";
     if(!exerciseData){
         return ( <Loading title={'Edit Exercise'} /> )
     }else {
@@ -149,7 +150,7 @@ const EditExercise: React.FC = () => {
                         <fieldset className={styles.multipleInputs}>
                             <label htmlFor="duration">Duration</label>
                             <input className={styles.numberInput} type="number" name="duration" id={styles.durationValue} onChange={(e) => setDuration(parseInt(e.target.value))} value={duration} placeholder="Duration"></input>
-                            <select name="durationUnit" id={styles.durationUnit} onChange={(e) => setDurationUnit(e.target.value)} value={durationUnit}>
+                            <select name="durationUnit" id={styles.durationUnit} onChange={(e) => setDurationUnit(e.target.value as DurationUnit)} value={durationUnit}>
                                 <option value={'seconds'}>Seconds</option>
                                 <option value={'minutes'}>Minutes</option>
                                 <option value={'hours'}>Hours</option>
@@ -158,7 +159,7 @@ const EditExercise: React.FC = () => {
                         <fieldset className={styles.multipleInputs}>
                             <label htmlFor="rest">Rest</label>
                             <input className={styles.numberInput} type="number" name="rest" id={styles.restValue} onChange={(e) => setRest(parseInt(e.target.value))} value={rest} placeholder="Rest"></input>
-                            <select name="restUnit" id={styles.restUnit} onChange={(e) => setRestUnit(e.target.value)} value={restUnit}>
+                            <select name="restUnit" id={styles.restUnit} onChange={(e) => setRestUnit(e.target.value as DurationUnit)} value={restUnit}>
                                 <option value={'seconds'}>Seconds</option>
                                 <option value={'minutes'}>Minutes</option>
                                 <option value={'hours'}>Hours</option>

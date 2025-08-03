@@ -3,7 +3,7 @@ import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
 import { makeFirstUpperCase } from '../../../helpers';
 
-const Exercise = ({data, id, type}) => {
+const Exercise = ({data, id, type, index}) => {
     return ( 
         <Link className={styles.libraryExercise} to={`/exercise/${id}/view/${type === 'online' ? '?type=online' : type !== 'online' && data.isCached ? '?type=cached' : ''}`}>
             <h3>{data.name}</h3>

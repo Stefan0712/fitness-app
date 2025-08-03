@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Unit } from '../components/common/interfaces';
+import { Field, Unit } from '../components/common/interfaces';
 import { units } from '../constants/units';
 
 const initialState = {
@@ -8,8 +8,8 @@ const initialState = {
     language: 'en',
     unitSystem: 'metric',
   },
-  showLocalAccountPrompt: true,
-  customFields: [{_id: 'reps-custom-field', name: 'Repetitions', value: 0, target: '15', unit: units[units.findIndex(item=>item.shortLabel==='reps')]}],
+  showLocalAccountPrompt: false,
+  customFields: [{_id: 'reps-custom-field', name: 'Repetitions', value: 0, target: 15, unit: units[units.findIndex(item=>item.shortLabel==='reps')]}],
   dashboardSections: [
     {type: 'goal', order: 1, identifier: 'bc8d7239-4396-4cc9-b052-6105e3728a15'},
     {type: 'goal', order: 2, identifier: '3d629850-384e-4adf-95f8-6c8209c3fe1f'},
@@ -20,14 +20,7 @@ const initialState = {
 
 interface customFieldProps {
   operation: string;
-  data: {
-    name: string;
-    _id: string;
-    description?: string;
-    value: number;
-    targetValue: number;
-    unit: Unit;
-  }
+  data: Field;
 }
 const userSlice = createSlice({
   name: 'user',
@@ -39,20 +32,26 @@ const userSlice = createSlice({
     updateDashboardLayout: (state, action) =>{
       state.dashboardSections = action.payload;
     },
-    updateCustomFields: ( state, action: { payload: customFieldProps }
-      ) => {
-        const { operation, data } = action.payload;
+    updateCustomFields: (state, action: { payload: customFieldProps }) => {
+      const { operation, data } = action.payload;
 
-        if (operation === 'add') {
-          state.customFields.push(data);
-        } else if (operation === 'remove') {
-          state.customFields = state.customFields.filter(field => field._id !== data._id);
+      if (operation === 'add') {
+        state.customFields.push({...data});
+      } else if (operation === 'remove') {
+        state.customFields = state.customFields.filter(field => field._id !== data._id);
+      } else if (operation === 'update') {
+        const index = state.customFields.findIndex(item => item._id === data._id);
+        console.log(index, data, state.customFields)
+        if (index !== -1) {
+          state.customFields[index] = data;
+          console.log(data)
         }
-      },
+      }
+    },
         reset: () => initialState,
       }
       
-  });
+});
 
 export const {
   reset,
