@@ -73,6 +73,17 @@ export const getLastThreeDays = () => {
 
   return dates;
 };
+export const getLastFiveDays = () => {
+  const dates = [];
+
+  for (let i = 0; i <= 4; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i); // subtract i days from today
+    dates.push(date.toISOString().split('T')[0]);
+  }
+
+  return dates;
+};
 
 export const convertGroupFromLowerToUpperCase = (input)=>{
   return input

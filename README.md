@@ -308,6 +308,8 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
   * Added custom fields right before Recorded values to allow used to quickly add custom fields
   * Changed the max height of FieldsScreen and changed display from flex to grid for more control
 * Created a new View Activity Log component
+* Added transparent background for Activity and Food log components to prevent users from clicking outside elements by accident
+* Updated Create Goal component with the new pop-up for adding custom values and the Pin to dashboard dropdown
 
 
 

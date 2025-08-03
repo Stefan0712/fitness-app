@@ -46,12 +46,12 @@ const Navigation = () => {
     }
 
     // Will check if it's the first time when the user uses the app. If it's their first time, they will be prompted to go and complete a basic profile
-    useEffect(()=>{
-        const userData = localStorage.getItem('user');
-        if(!userData){
-            showConfirmationModal({title: "First time?", message: "Do you want to create a local account? It is not required but it will enhance your experience", onConfirm: ()=>navigate('/get-started')})
-        }
-    },[]);
+    // useEffect(()=>{
+    //     const userData = localStorage.getItem('user');
+    //     if(!userData){
+    //         showConfirmationModal({title: "First time?", message: "Do you want to create a local account? It is not required but it will enhance your experience", onConfirm: ()=>navigate('/get-started')})
+    //     }
+    // },[]);
 
     return ( 
         <nav>
