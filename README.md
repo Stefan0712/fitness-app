@@ -310,6 +310,18 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 * Created a new View Activity Log component
 * Added transparent background for Activity and Food log components to prevent users from clicking outside elements by accident
 * Updated Create Goal component with the new pop-up for adding custom values and the Pin to dashboard dropdown
+* Created a larger version of Goal trackers found in the Dashboard page for each type of goal showing the past 5 days, including the current day:
+  * Target Goals will have a progress circle for each day with either a checkmark inside if the target was met or just the percentage if not
+  * Number Goals will have a vertical bar showing how big is that value compared to the biggest one recorded in those past 5 days
+  * Boolean Goals will have the same icons as the Small Goal except that now there are 5 of them and it shows the date
+  * Updated the 'Pin to dashboard?' dropdown from Create Goal and Edit Goal to let the user pick between hiding the goal or showing the large version or the small version
+  * Updated the dashboard page to show the correct goal module size
+* Gallery:
+<p align="center">
+  <img src="https://i.imgur.com/MupJ8Qi.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/okKFaEh.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/ArNdGAh.png" alt="Screenshot 6" width="30%" />
+</p>
 
 
 
