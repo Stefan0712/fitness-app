@@ -6,7 +6,6 @@
 
 import styles from './Dashboard.module.css'; 
 import { useEffect, useState } from 'react';
-import { IconLibrary } from '../../../IconLibrary';
 import ActivityComponent from './ActivityComponent';
 import NutritionComponent from './NutritionComponent';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';

@@ -307,6 +307,7 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
   * Moved Activity Name, Duration, and Time on the same row making the component more compact
   * Added custom fields right before Recorded values to allow used to quickly add custom fields
   * Changed the max height of FieldsScreen and changed display from flex to grid for more control
+* Created a new View Activity Log component
 
 
 

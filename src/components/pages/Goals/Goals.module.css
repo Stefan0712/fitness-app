@@ -104,7 +104,20 @@
     background-color: var(--secondary);
     border: 1px solid var(--general-border);
     border-radius: 5px;
+    animation: slideUpLog 0.1s;
 }
+
+@keyframes slideUpLog {
+    from{
+        bottom: 0;
+        opacity: 0;
+    }
+    to{
+        bottom: 85px;
+        opacity: 1;
+    }
+}
+
 .new-goal .header{
     width: 100%;
 }

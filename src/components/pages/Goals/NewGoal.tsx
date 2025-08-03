@@ -23,7 +23,9 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>('target');
     const [allGoals, setAllGoals] = useState([]);
-    const [customValues, setCustomValues] = useState<number[]>([])
+    const [customValues, setCustomValues] = useState<number[]>([]);
+    const [showNewCustomValue, setShowNewCustomValue] = useState(false);
+    const [pinToDashboard, setPinToDashboard] = useState(true);
 
     const handleAddGoal = async () =>{
         if(type === 'target' ){
@@ -119,13 +121,6 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
             showMessage("Failed to get all goals", "error")
         }
     }
-    const addDefaultValue = () =>{
-        if(customValues.length < 5){
-            setCustomValues(prev=>[...prev, 0]);
-        }else{
-            showMessage("You cannot have more than 5 custom values for one goal",'error');
-        }
-    }
     useEffect(()=>{getAllGoals()},[]);
 
 
@@ -136,17 +131,27 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
         <div className={styles['new-goal']}>
             {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
             {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
+                {showNewCustomValue ? <NewCustomValue customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowNewCustomValue(false)} unit={unit}/> : null}
             <div className={styles.header}>
                 <h3>New Goal</h3>
             </div>
-            <fieldset>
-                <label>Goal Type</label>
-                <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
-                    <option value={'yes-no'}>Yes/No</option>
-                    <option value={'number'}>Number</option>
-                    <option value={'target'}>Target</option>
-                </select>
-            </fieldset>
+            <div className={styles.goalSettings}>
+                <fieldset className={styles.goalType}>
+                    <label>Goal Type</label>
+                    <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
+                        <option value={'yes-no'}>Yes/No</option>
+                        <option value={'number'}>Number</option>
+                        <option value={'target'}>Target</option>
+                    </select>
+                </fieldset>
+                <fieldset className={styles.goalType}>
+                    <label>Show Goal</label>
+                    <select onChange={(e)=>setPinToDashboard(e.target.value === "true")} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
+                        <option value={'true'}>Yes</option>
+                        <option value={'false'}>No</option>
+                    </select>
+                </fieldset>
+            </div>
             <div className={styles['new-goal-inputs']}>
                 {type === 'target' ? <div className={styles.targetInputs}>
                     <div className={styles.firstRow}>
@@ -179,9 +184,9 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 <>
                     <p style={{width: '100%'}}>Default Values {customValues.length}/5</p>
                     <div className={styles.customValuesSection}>
-                        <button className={styles.addCustomValue} onClick={addDefaultValue}><img src={IconLibrary.Add} alt='add custom value'></img></button>
+                        <button className={styles.addCustomValue} onClick={()=>setShowNewCustomValue(true)}><img src={IconLibrary.Add} alt='add custom value'></img></button>
                         <div className={styles.customValues}>
-                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
+                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue unit={unit} customValues={customValues} customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
                         </div>
                     </div>
                 </>
@@ -197,27 +202,66 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
 export default NewGoal;
 
 
-const CustomValue = ({customValue, setCustomValues}) => {
 
-    const [editMode, setEditMode] = useState(false);
-    const [value, setValue] = useState(customValue || 0);
 
-    const updateValue = () => {
-        setCustomValues(prev => {
-            const index = prev.indexOf(customValue);
-            if (index === -1) return prev;
-            const updated = [...prev];
-            updated[index] = parseInt(value);
-            return updated;
-        });
-        setEditMode(false)
-    };
+const CustomValue = ({customValue, setCustomValues, customValues, unit}) => {
+    const [showForm, setShowForm] = useState(false);
+
     return (
-        <div className={styles.customValueBody} key={customValue} onClick={()=>!editMode ? setEditMode(true) : null}>
-            {editMode ? <input type='number' className={styles.customValueInput} value={value} onChange={(e)=>setValue(e.target.value)}></input> : <p className={styles.customValueInput}>{value}</p>}
-            <button onClick={()=>editMode ? updateValue() : setCustomValues(prev=>[...prev.filter(item=>item!==customValue)])}>
-                <img src={editMode ? IconLibrary.Checkmark : IconLibrary.Close} alt='' />
+        <div className={styles.customValueBody} key={customValue+unit}>
+            {showForm ? <NewCustomValue customValue={customValue} customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowForm(false)} unit={unit}/> : null}
+            <p className={styles.customValueInput} onClick={()=>setShowForm(true)}>{customValue}</p>
+            <button onClick={()=>setCustomValues(prev=>[...prev.filter(item=>item!==customValue)])}>
+                <img src={IconLibrary.Close} alt='' />
             </button>
+        </div>
+    )
+}
+
+
+
+interface NewCustomValueProps {
+    customValues: number[];
+    setCustomValues: React.Dispatch<React.SetStateAction<number[]>>;
+    customValue?: number;
+    unit: Unit;
+    close: () =>void;
+}
+const NewCustomValue: React.FC<NewCustomValueProps> = ({customValues, setCustomValues, customValue, unit, close}) =>{
+
+    const [value, setValue] = useState<number>(customValue ?? 0);
+    const {showMessage} = useUI();
+
+    const handleSaveCustomValue = () =>{
+        // Checks if the value already exists only when there is no custom value provided (if there is a custom value then it will already exist and won't let the user save the already existing value)
+        if(!customValue && customValues.includes(value)){
+            showMessage("Value already exist!", "error");
+        }else if(value < 1 || !value){
+            showMessage("Value is invalid! It should be more than 0", "error"); // Shows an error if the value is 0 or less
+        }else{
+            // If there is a custom value then copy the custom values array without it and add the new value, even if it might be the same. Otherwise, just add the new value
+            if(customValue){
+                setCustomValues(prev=>[...prev.filter(item=>item!==customValue), value]);        
+            }else{
+                setCustomValues(prev=>[...prev, value]);
+            }
+            showMessage("Custom value saved", "success");
+            close();
+        }
+    }
+    return(
+        <div className={styles.newCustomValue}>
+            <fieldset>
+                <label>Custom Value</label>
+                <div className={styles.customValueInput}>
+                    <input type='number' onChange={(e)=>setValue(parseInt(e.target.value))} value={value} required={true} />
+                    <p>{unit.shortLabel}</p>
+                </div>
+            </fieldset>
+            <div className={styles.buttonsContainer}>
+                <button className={styles.closeButton} onClick={close}>Close</button>
+                <button className={styles.saveButton} onClick={handleSaveCustomValue}>Save</button>
+            </div>
         </div>
     )
 }

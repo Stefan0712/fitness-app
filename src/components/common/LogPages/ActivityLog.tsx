@@ -23,7 +23,6 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     
     const {showMessage} = useUI();
     const defaultFields = useSelector((state: RootState)=>state.user.customFields);
-    console.log(defaultFields)
     const [showTagSelector, setShowTagSelector] = useState(false);
     const [showEquipmentSelector, setShowEquipmentSelector] = useState(false);
     const [showMuscleSelector, setShowMuscleSelector] = useState(false);
@@ -72,39 +71,41 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
         }
     }
     return ( 
-        <div className={styles['exercise-log']}>
-            <div className={styles['top-bar']}>
-                <h1>Log Activity</h1>
-                <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
-            </div>
+        <div className={styles['new-exercise-log']}>
+            <div className={styles.content}>
+                <div className={styles['top-bar']}>
+                    <h1>Log Activity</h1>
+                    <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
+                </div>
 
-            {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
-            {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipment} setEquipments={setEquipment} /> : null}
-            {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null} 
+                {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
+                {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipment} setEquipments={setEquipment} /> : null}
+                {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null} 
 
-            <div className={styles.threeInputs}>
-                <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Activity Name*" required></input>
-                <input type="number" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)"></input>
-                <input type="time" name="time" id="time" className={styles.timeInput} onChange={(e)=>setTime(e.target.value)} value={time}></input>
-            </div>
-            <div className={styles.customItemsRow}>
-                <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
-                    <img className={styles.categoryIcon} src={IconLibrary.Tags} alt="" />
-                    <h4>{tags?.length || 0}</h4>
+                <div className={styles.threeInputs}>
+                    <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Activity Name*" required></input>
+                    <input type="number" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)"></input>
+                    <input type="time" name="time" id="time" className={styles.timeInput} onChange={(e)=>setTime(e.target.value)} value={time}></input>
                 </div>
-                <div className={styles.customItemsButton} onClick={()=>setShowEquipmentSelector(true)}>
-                    <img className={styles.categoryIcon} src={IconLibrary.Equipment} alt="" />
-                    <h4>{equipment?.length || 0}</h4>
+                <div className={styles.customItemsRow}>
+                    <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Tags} alt="" />
+                        <h4>{tags?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowEquipmentSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Equipment} alt="" />
+                        <h4>{equipment?.length || 0}</h4>
+                    </div>
+                    <div className={styles.customItemsButton} onClick={()=>setShowMuscleSelector(true)}>
+                        <img className={styles.categoryIcon} src={IconLibrary.Muscle} alt="" />
+                        <h4>{targetMuscles?.length || 0}</h4>
+                    </div>
                 </div>
-                <div className={styles.customItemsButton} onClick={()=>setShowMuscleSelector(true)}>
-                    <img className={styles.categoryIcon} src={IconLibrary.Muscle} alt="" />
-                    <h4>{targetMuscles?.length || 0}</h4>
+                <div className={styles.fieldsContainer}>
+                    <FieldsScreen type={'log'} fields={fields} setFields={setFields} defaultFields={defaultFields}/>
                 </div>
+                <button className={styles.submit} onClick={logExercise}>Log Exercise</button>
             </div>
-            <div className={styles.fieldsContainer}>
-                <FieldsScreen type={'log'} fields={fields} setFields={setFields} defaultFields={defaultFields}/>
-            </div>
-            <button className={styles.submit} onClick={logExercise}>Log Exercise</button>
         </div>
      );
 }

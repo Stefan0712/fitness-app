@@ -1,4 +1,13 @@
 .food-log-form{
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 60;
+    backdrop-filter: blur(10px);
+}
+.food-log-form .component-content{
     width: calc(100vw - 20px);
     height: 600px;
     position: absolute;
@@ -69,7 +78,6 @@
         height: calc(100vh - 60px);
     }
 }
-
 .top-bar img{
     width: 30px;
     height: 30px;

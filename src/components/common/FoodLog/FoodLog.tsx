@@ -2,11 +2,8 @@
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary";
-
 import {saveItem} from '../../../db.js';
-
 import History from './History/History.tsx';
-
 import styles from './FoodLog.module.css';
 import { FoodLog as IFoodLog, Unit } from "../interfaces.ts";
 import { useUI } from "../../../context/UIContext.jsx";
@@ -81,50 +78,47 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
     }
     return ( 
         <div className={styles["food-log-form"]}>
-            <div className={styles["top-bar"]}>
-                <h1>Food Log</h1>
-                <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
-            </div>
-            <div className={styles['toggle-buttons-container']}>
-                <button className={`${styles['toggle-button']} ${currentScreen === 'log' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('log')}>Log</button>
-                <button className={`${styles['toggle-button']} ${currentScreen === 'history' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('history')}>History</button>
-            </div>
-            <div className={styles.content}>
-                {currentScreen === 'log' ? (
-                    <div className={styles['log-screen']}>
-                    <fieldset>
-                        <input className={styles.name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} required={true} placeholder="Name" />
-                    </fieldset>
-                        <input className={styles['half-input']} type="number" name="qty" id="qty" onChange={(e) => setQty(e.target.value)} value={qty} placeholder="Qty" />
-                        <UnitSelector unit={unit} setUnit={setUnit} />
-                        <select className={styles['half-input']} name="category" id="category" onChange={(e) => setCategory(e.target.value)} value={category}>
-                            <option value={'other'}>Other</option>
-                            <option value={'breakfast'}>Breakfast</option>
-                            <option value={'lunch'}>Lunch</option>
-                            <option value={'dinner'}>Dinner</option>
-                            <option value={'snack'}>Snack</option>
-                        </select>
-                        <input className={styles['half-input']} type="time" name="time" id="time" onChange={(e) => setTime(e.target.value)} value={time} placeholder="Time" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} placeholder="Calories" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="protein" id="protein" onChange={(e) => setProtein(e.target.value)} value={protein} placeholder="Protein" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="carbs" id="carbs" onChange={(e) => setCarbs(e.target.value)} value={carbs} placeholder="Carbs" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="fats" id="fats" onChange={(e) => setFats(e.target.value)} value={fats} placeholder="Fats" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="sugar" id="sugar" onChange={(e) => setSugar(e.target.value)} value={sugar} placeholder="Sugar" />
-                        <input className={styles['half-input']} step={"0.1"} type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
-                    <fieldset>
-                        <label>Notes</label>
-                        <input type="text" id="note-content" name="note-content" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes" />
-                    </fieldset>
-                    <button className={`${styles["log-food-btn"]} orange-button`} onClick={handleLog}>Log</button>
+            <div className={styles['component-content']}>
+                <div className={styles["top-bar"]}>
+                    <h1>Food Log</h1>
+                    <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
                 </div>
-                
-                ) : currentScreen === 'history' ? <History /> : null}
+                <div className={styles['toggle-buttons-container']}>
+                    <button className={`${styles['toggle-button']} ${currentScreen === 'log' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('log')}>Log</button>
+                    <button className={`${styles['toggle-button']} ${currentScreen === 'history' ? styles['selected-button'] : ''}`} onClick={()=>setCurrentScreen('history')}>History</button>
+                </div>
+                <div className={styles.content}>
+                    {currentScreen === 'log' ? (
+                        <div className={styles['log-screen']}>
+                        <fieldset>
+                            <input className={styles.name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} required={true} placeholder="Name" />
+                        </fieldset>
+                            <input className={styles['half-input']} type="number" name="qty" id="qty" onChange={(e) => setQty(e.target.value)} value={qty} placeholder="Qty" />
+                            <UnitSelector unit={unit} setUnit={setUnit} />
+                            <select className={styles['half-input']} name="category" id="category" onChange={(e) => setCategory(e.target.value)} value={category}>
+                                <option value={'other'}>Other</option>
+                                <option value={'breakfast'}>Breakfast</option>
+                                <option value={'lunch'}>Lunch</option>
+                                <option value={'dinner'}>Dinner</option>
+                                <option value={'snack'}>Snack</option>
+                            </select>
+                            <input className={styles['half-input']} type="time" name="time" id="time" onChange={(e) => setTime(e.target.value)} value={time} placeholder="Time" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="calories" id="calories" onChange={(e) => setCalories(e.target.value)} value={calories} placeholder="Calories" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="protein" id="protein" onChange={(e) => setProtein(e.target.value)} value={protein} placeholder="Protein" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="carbs" id="carbs" onChange={(e) => setCarbs(e.target.value)} value={carbs} placeholder="Carbs" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="fats" id="fats" onChange={(e) => setFats(e.target.value)} value={fats} placeholder="Fats" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="sugar" id="sugar" onChange={(e) => setSugar(e.target.value)} value={sugar} placeholder="Sugar" />
+                            <input className={styles['half-input']} step={"0.1"} type="number" name="sodium" id="sodium" onChange={(e) => setSodium(e.target.value)} value={sodium} placeholder="Sodium" />
+                        <fieldset>
+                            <label>Notes</label>
+                            <input type="text" id="note-content" name="note-content" onChange={(e) => setNotes(e.target.value)} value={notes} placeholder="Notes" />
+                        </fieldset>
+                        <button className={`${styles["log-food-btn"]} orange-button`} onClick={handleLog}>Log</button>
+                    </div>
+                    
+                    ) : currentScreen === 'history' ? <History /> : null}
+                </div>
             </div>
-
-
-    
-            
-            
         </div>
      );
 }

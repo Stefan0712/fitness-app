@@ -145,7 +145,7 @@ const EditGoal = ({close, goalData}) => {
                     <div className={styles.customValuesSection}>
                         <button className={styles.addCustomValue} onClick={()=>setShowNewCustomValue(true)}><img src={IconLibrary.Add} alt='add custom value'></img></button>
                         <div className={styles.customValues}>
-                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue unit={goalData.unit} customValues={customValues} customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
+                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue index={value} unit={goalData.unit} customValues={customValues} customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
                         </div>
                     </div>
                 </>
@@ -162,11 +162,11 @@ export default EditGoal;
 
 
 
-const CustomValue = ({customValue, setCustomValues, customValues, unit}) => {
+const CustomValue = ({customValue, setCustomValues, customValues, unit, index}) => {
     const [showForm, setShowForm] = useState(false);
 
     return (
-        <div className={styles.customValueBody} key={customValue}>
+        <div className={styles.customValueBody} key={index}>
             {showForm ? <NewCustomValue customValue={customValue} customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowForm(false)} unit={unit}/> : null}
             <p className={styles.customValueInput} onClick={()=>setShowForm(true)}>{customValue}</p>
             <button onClick={()=>setCustomValues(prev=>[...prev.filter(item=>item!==customValue)])}>

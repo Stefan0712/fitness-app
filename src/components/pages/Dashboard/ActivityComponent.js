@@ -25,7 +25,7 @@ const ActivityComponent = ({showMessage}) => {
 
     // Handles hiding the module
     const hideModule = () =>{
-        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'activity')));
+        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier !== 'activity')));
         showMessage({message: "Activity was hidden", type: 'success'});
     }
 
@@ -45,7 +45,7 @@ const ActivityComponent = ({showMessage}) => {
                 <div className={styles["card-content"]}>
                     <div className={styles['card-content-block']}>
                         <p className={styles['block-title']}>Active Time</p>
-                        <p className={styles['block-value']}>{userActivity?.reduce((sum, obj)=> sum + parseInt(obj.data.duration,10), 0) || 0} min</p>
+                        <p className={styles['block-value']}>{userActivity?.reduce((sum, obj)=> sum + parseInt(obj.duration,10), 0) || 0} min</p>
                     </div>
                     <div className={styles['card-content-block']}>
                         <p className={styles['block-title']}>Exercises</p>
@@ -57,7 +57,7 @@ const ActivityComponent = ({showMessage}) => {
                     </div>
                 </div>
                 <div className={styles.lastLog}>
-                    {userActivity && userActivity.length > 0 ? <p>{userActivity[userActivity.length - 1].title} at {getHourFromTimestamp(userActivity[userActivity.length - 1].timestamp)} for {userActivity[userActivity.length - 1].data.duration} minutes</p> : <p>No logs today</p>}
+                    {userActivity && userActivity.length > 0 ? <p>{userActivity[userActivity.length - 1].title} at {getHourFromTimestamp(userActivity[userActivity.length - 1].timestamp)} for {userActivity[userActivity.length - 1].duration} minutes</p> : <p>No logs today</p>}
                 </div>
             </div>
         </div>
