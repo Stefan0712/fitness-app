@@ -56,9 +56,9 @@ const ActivityComponent = ({showMessage}) => {
                         <p className={styles['block-value']}>{userActivity?.filter(item=>item.type === 'workout').length || 0}</p>
                     </div>
                 </div>
-                <div className={styles.lastLog}>
-                    {userActivity && userActivity.length > 0 ? <p>{userActivity[userActivity.length - 1].title} at {getHourFromTimestamp(userActivity[userActivity.length - 1].timestamp)} for {userActivity[userActivity.length - 1].duration} minutes</p> : <p>No logs today</p>}
-                </div>
+            </div>
+            <div className={styles.lastLog}>
+                {userActivity && userActivity.length > 0 ? <p>{userActivity[userActivity.length - 1].title} at {getHourFromTimestamp(userActivity[userActivity.length - 1].timestamp)} for {userActivity[userActivity.length - 1].duration} minutes</p> : <p>No logs today</p>}
             </div>
         </div>
      );

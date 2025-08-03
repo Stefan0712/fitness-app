@@ -1,6 +1,6 @@
 import { IconLibrary } from "../../../IconLibrary"
 
-const ProgressCircle = ({width, height, backgroundColor, barColor, progress, centerContent='text'}) => {
+const ProgressCircle = ({width, height, backgroundColor, barColor, progress}) => {
 
     const background = {
         background: `conic-gradient( ${barColor} calc(${progress} * 1%), #e5e7eb 0% )`,
@@ -22,13 +22,13 @@ const ProgressCircle = ({width, height, backgroundColor, barColor, progress, cen
         borderRadius: '100%',
     }
     const text = {
-        fontSize: '80%'
+        fontSize: '60%'
     }
 
     return ( 
         <div style={background}>
             <div style={core}>
-                {centerContent === 'text' ? <p style={text}>{progress}%</p> : centerContent==='icon' && progress >= 100 ? <img style={{width: '70%', height: '70%'}} alt="" src={IconLibrary.Checkmark} /> : null}
+                {progress >= 100 ? <img style={{width: '70%', height: '70%'}} alt="" src={IconLibrary.Checkmark} /> : <p style={text}>{Number(progress.toFixed(1))}%</p> }
             </div>
         </div>
      );

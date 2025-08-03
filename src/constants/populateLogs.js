@@ -20,17 +20,17 @@ export const addLog = async (goalId) =>{
         type: 'goal', 
         goalId: goalId, // Ref of the logged goal
         _id: ObjectID().toHexString(),
-        title: `Weight Log`, 
+        title: `Steps Log`, 
         icon: IconLibrary.Weight,
         timestamp: dateObject,
         data: {
-            value: 60,
+            value: 1600,
             time: getCurrentTime(dateObject),
             description: "This log was added via a script",
             name: "Test LOG",
             unit: units.find(item=>item.shortLabel === 'kg'),
             date: dateObject.toISOString().split('T')[0],
-            type: 'number'
+            type: 'target'
                         }
     }
     console.log(logData)

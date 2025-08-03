@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react';
 import styles from './LargeGoal.module.css';
 import { getAllItems, saveItem } from '../../../../../db';
-import { getCurrentDay, getDateFromTimestamp, getHourFromTimestamp, getLastFiveDays } from '../../../../../helpers';
+import { getDateFromTimestamp, getLastFiveDays } from '../../../../../helpers';
 import {Goal} from '../../../../common/interfaces';
-import ProgressBar from '../../../../common/SVG/ProgressBar.tsx';
 import {IconLibrary} from '../../../../../IconLibrary.js';
 import { useNavigate } from 'react-router-dom';
 import { iconList } from '../../../../../icons.js';
@@ -76,7 +75,7 @@ const TargetGoal = ({goal}) =>{
                         const progress = ( total|| 0)/goal.target*100;
                         return (
                             <div className={styles.day} key={goal.name+index}>
-                                <ProgressCircle width={'40px'} height={'40px'} barColor={goal.color} backgroundColor={'var(--background)'} progress={progress} centerContent='icon' />
+                                <ProgressCircle width={'40px'} height={'40px'} barColor={goal.color} backgroundColor={'var(--background)'} progress={progress} />
                             </div>
                         )
                     }else{

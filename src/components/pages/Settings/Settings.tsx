@@ -67,14 +67,14 @@ const Settings = () => {
             <AppHeader title={'Settings'} />
             <div className={styles['settings-container']}>
                 
-                {goals && goals.length > 0 ? goals.map(goal=><button key={goal._id} className={styles['setting']} onClick={()=>addLog(goal._id)}>Add one {goal.type} log</button>) : null}
-                <button key={'reset-button1'} className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your store and cannot be undone", onConfirm: handleStoreReset})}>Reset Store</button>
-                <button key={'reset-button2'} className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your profile and cannot be undone", onConfirm: handleResetProfile})}>Reset Profile</button>
-                <button className={styles['setting']} onClick={enableLightTheme}>Light Theme</button>
+                {goals && goals.length > 0 ? goals.map(goal=><button key={goal._id} className={styles['setting']} onClick={()=>addLog(goal._id)}>[DEV ONLY] Add one {goal.name} log</button>) : null}
+                <button key={'reset-button1'} className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your store and cannot be undone", onConfirm: handleStoreReset})}>[DEV ONLY] Reset Store</button>
+                <button key={'reset-button2'} className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your profile and cannot be undone", onConfirm: handleResetProfile})}>[DEV ONLY] Reset Profile</button>
+                <button className={styles['setting']} onClick={enableLightTheme}>[NOT WORKING] Light Theme</button>
                 <button className={styles['setting']} onClick={enableDarkTheme}>Dark Theme</button>
-                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your workouts and cannot be undone", onConfirm: ()=>resetStore('workouts')})}>Reset Workouts</button>
-                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your exercises and cannot be undone", onConfirm: ()=>resetStore('exercises')})}>Reset Exercises</button>
-                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your logs and cannot be undone", onConfirm: ()=>resetStore('logs')})}>Reset Logs</button>
+                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your workouts and cannot be undone", onConfirm: ()=>resetStore('workouts')})}>[DEV ONLY] Reset Workouts</button>
+                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your exercises and cannot be undone", onConfirm: ()=>resetStore('exercises')})}>[DEV ONLY] Reset Exercises</button>
+                <button className={styles['setting']} onClick={()=>showConfirmationModal({message: "This will reset your logs and cannot be undone", onConfirm: ()=>resetStore('logs')})}>[DEV ONLY] Reset Logs</button>
             </div>
         </div>
     );

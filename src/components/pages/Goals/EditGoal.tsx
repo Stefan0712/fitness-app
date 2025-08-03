@@ -20,7 +20,7 @@ const EditGoal = ({close, goalData}) => {
     const [target, setTarget] = useState<number>(goalData.target || 0);
     const [color, setColor] = useState<string>(goalData.color || '#FFFFFF');
     const [icon, setIcon] = useState<string>(goalData.icon || IconLibrary.Dumbbell);
-    const [pinToDashboard, setPinToDashboard] = useState<boolean>(goalData.pinToDashboard || false);
+    const [pinToDashboard, setPinToDashboard] = useState<string>(goalData.pinToDashboard || 'hide');
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [customValues, setCustomValues] = useState<number[]>(goalData.defaultValues || [])
@@ -104,10 +104,11 @@ const EditGoal = ({close, goalData}) => {
                     </select>
                 </fieldset>
                 <fieldset className={styles.goalType}>
-                    <label>Show Goal</label>
-                    <select onChange={(e)=>setPinToDashboard(e.target.value === "true")} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
-                        <option value={'true'}>Yes</option>
-                        <option value={'false'}>No</option>
+                    <label>Tracker Type</label>
+                    <select onChange={(e)=>setPinToDashboard(e.target.value)} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
+                        <option value={'large'}>Large</option>
+                        <option value={'small'}>Small</option>
+                        <option value={'hide'}>Hide</option>
                     </select>
                 </fieldset>
             </div>

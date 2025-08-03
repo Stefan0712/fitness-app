@@ -25,7 +25,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [allGoals, setAllGoals] = useState([]);
     const [customValues, setCustomValues] = useState<number[]>([]);
     const [showNewCustomValue, setShowNewCustomValue] = useState(false);
-    const [pinToDashboard, setPinToDashboard] = useState(true);
+    const [pinToDashboard, setPinToDashboard] = useState('large');
 
     const handleAddGoal = async () =>{
         if(type === 'target' ){
@@ -38,7 +38,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     color,
                     icon,
                     type,
-                    pinToDashboard: true,
+                    pinToDashboard,
                     defaultValues: customValues,
                     order: allGoals.length
                 }
@@ -146,9 +146,10 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                 </fieldset>
                 <fieldset className={styles.goalType}>
                     <label>Show Goal</label>
-                    <select onChange={(e)=>setPinToDashboard(e.target.value === "true")} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
-                        <option value={'true'}>Yes</option>
-                        <option value={'false'}>No</option>
+                    <select onChange={(e)=>setPinToDashboard(e.target.value)} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
+                        <option value={'large'}>Large</option>
+                        <option value={'small'}>Small</option>
+                        <option value={'hide'}>Hide</option>
                     </select>
                 </fieldset>
             </div>

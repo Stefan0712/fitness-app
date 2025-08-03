@@ -59,7 +59,7 @@ const Dashboard = () => {
                     <h3>Please open Developer Tools and enable Device Emulation for a mobile phone. This app doesn't have a desktop layout yet since it's made only for mobile phones.</h3>
                 </div>
             <div className={styles.goalsContainer}>
-                {userGoals && userGoals.length > 0 ? userGoals.filter(item=>item.pinToDashboard).map((goal, index)=><LargeGoal key={"dashboard-goal-"+index} goal={goal} />) : null}
+                {userGoals && userGoals.length > 0 ? userGoals.map((goal, index)=> goal.pinToDashboard === 'large' ? <LargeGoal key={"dashboard-goal-"+index} goal={goal} /> : goal.pinToDashboard === "small" ? <SmallGoal key={"dashboard-goal-"+index} goal={goal} /> : null) : null}
             </div>
             <ActivityComponent key={'activity'}/>
             <NutritionComponent key={'nutrition'}/>   

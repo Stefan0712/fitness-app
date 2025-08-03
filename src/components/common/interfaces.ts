@@ -101,7 +101,7 @@ export interface Workout {
     icon: string,
     color: string,
     type: string,
-    pinToDashboard: boolean,
+    pinToDashboard: string,
     order: number,
     defaultValues?: number[];
   }

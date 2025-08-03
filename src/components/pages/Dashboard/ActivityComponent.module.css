@@ -1,6 +1,6 @@
 .activityModule{
     width: 100%;
-    height: 170px;
+    height: auto;
     display: flex;
     flex-direction: column;
     background-color: #1A1A1B;
@@ -110,6 +110,12 @@
     transform-origin: top right;
     overflow: hidden;
     animation: showDashboardMenu 0.1s;
+}
+.activityModule .lastLog{
+    height: 30px;
+    background-color: var(--background);
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 .activityModule .menu button{
     height: 40px;
