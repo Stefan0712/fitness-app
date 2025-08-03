@@ -13,6 +13,8 @@ import EquipmentSelector from "../../common/EquipmentSelector/EquipmentSelector.
 import TagSelector from "../../common/TagSelector/TagSelector.tsx";
 import MuscleSelector from "../../common/MuscleSelector/MuscleSelector.tsx";
 import { IconLibrary } from "../../../IconLibrary.js";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/index.ts";
 
 
 type DurationUnit = "hours" | "minutes" | "seconds";
@@ -29,6 +31,9 @@ const CreateExercise: React.FC = () => {
     const navigate = useNavigate();
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
     const {showMessage} = useUI();
+    const defaultFields = useSelector((state: RootState)=>state.user.customFields);
+
+
     //form values
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -160,7 +165,7 @@ const CreateExercise: React.FC = () => {
                 </div>
                 <div className={styles.screenContainer}>
                     {currentScreen === 'fields' ? (
-                        <FieldsScreen fields={fields} setFields={setFields}/>
+                        <FieldsScreen fields={fields} setFields={setFields} defaultFields={defaultFields}/>
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}

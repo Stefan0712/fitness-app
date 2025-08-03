@@ -13,10 +13,14 @@ import EquipmentSelector from "../../common/EquipmentSelector/EquipmentSelector.
 import TagSelector from "../../common/TagSelector/TagSelector.tsx";
 import MuscleSelector from "../../common/MuscleSelector/MuscleSelector.tsx";
 import { IconLibrary } from "../../../IconLibrary.js";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/index.ts";
 
 const EditExercise: React.FC = () => {
 
     const {id} = useParams();
+    const defaultFields = useSelector((state: RootState)=>state.user.customFields);
+
 
     const navigate = useNavigate();
     const [currentScreen, setCurrentScreen] = useState<string>('fields');
@@ -187,7 +191,7 @@ const EditExercise: React.FC = () => {
                 </div>
                 <div className={styles.screenContainer}>
                     {currentScreen === 'fields' ? (
-                        <FieldsScreen fields={fields} setFields={setFields}/>
+                        <FieldsScreen fields={fields} setFields={setFields} defaultFields={defaultFields}/>
                     ) : currentScreen === 'instructions' ? (
                         <InstructionsScreen instructions={instructions} setInstructions={setInstructions} />
                     ) :null}

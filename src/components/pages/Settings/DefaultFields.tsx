@@ -58,10 +58,10 @@ const CustomFieldForm: React.FC<CustomFieldProps> = ({setFields, closeForm, fiel
     const {showMessage} = useUI();
     const dispatch = useDispatch();
 
-    const [name, setName] = useState<string>(fieldData.name ?? '');
-    const [description, setDescription] = useState<string>(fieldData.description ?? '');
-    const [target, setTarget] = useState<number>(fieldData.target ?? 0);
-    const [unit, setUnit] = useState<Unit | null>(fieldData.unit ?? null);
+    const [name, setName] = useState<string>(fieldData?.name ?? '');
+    const [description, setDescription] = useState<string>(fieldData?.description ?? '');
+    const [target, setTarget] = useState<number>(fieldData?.target ?? 0);
+    const [unit, setUnit] = useState<Unit | null>(fieldData?.unit ?? null);
 
     const handleCreateField = () =>{
         if(!checkForErrors()){
@@ -77,7 +77,7 @@ const CustomFieldForm: React.FC<CustomFieldProps> = ({setFields, closeForm, fiel
             }
             dispatch(updateCustomFields({operation: fieldData ? 'update' : 'add', data}))
             if(fieldData){
-                setFields(prev=>[...prev.filter(item=>item._id!==fieldData._id), data]);
+                setFields(prev=>[...prev.filter(item=>item._id!==fieldData?._id), data]);
             }else{
                 setFields(prev=>[...prev, data]);
             }
@@ -102,7 +102,7 @@ const CustomFieldForm: React.FC<CustomFieldProps> = ({setFields, closeForm, fiel
         }
         if(!target || target < 1 ){
             showMessage("Target should be above 0", "error");
-            if(target > 99999){
+            if(target > 999){
                 showMessage("Target is too high", "error");
             }
             return false;

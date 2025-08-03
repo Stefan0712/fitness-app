@@ -3,15 +3,13 @@ import { getDateFromTimestamp, getHourFromTimestamp } from '../../../../../helpe
 import { IconLibrary } from '../../../../../IconLibrary.js';
 import { ExerciseLog } from '../../../../common/interfaces.ts';
 import styles from './ViewExerciseLog.module.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface ViewExerciseLogProps {
     logData: ExerciseLog;
     closeLog: ()=>void;
 }
 const ViewExerciseLog: React.FC<ViewExerciseLogProps> = ({logData, closeLog}) => {
-
-    useEffect(()=>console.log(logData),[]);
 
     const handleDelete = async () =>{
         await deleteItem('logs', logData._id);

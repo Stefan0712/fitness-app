@@ -294,6 +294,23 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 ---
 
 ## Latest Updates
+
+### 03 August 2025
+* Created a new tsconfig and global.d.ts and fixed all important typescript errors.
+* Fixed multiple small issues found during the purse of typescript errors. Created new interfaces and updated old ones.
+* Updated the Fields page with a new pop-up form for new custom fields and a simpler list of existing fields. Updated the userSlide to handle custom fields. Created an updateCustomFields reducer to handle creating, editing, and deleting of custom fields.
+* Added some checks before accessing fieldData in the New Custom Field form preventing it crashing.
+* Updated FieldsScreen to take default fields from the redux store and added useSelectors in components where FieldsScreen is used.
+* Updated Activity Log component:
+  * Changed the title from Log Exercise to Log Activity to be more general
+  * Removed Sets input since it can be added as a custom field or value and it is not used by all activities
+  * Moved Activity Name, Duration, and Time on the same row making the component more compact
+  * Added custom fields right before Recorded values to allow used to quickly add custom fields
+  * Changed the max height of FieldsScreen and changed display from flex to grid for more control
+
+
+
+
 ### 26 July 2025
 * Converted all icons from the Icon List available when creating goals from .svg to .jsx components that accepts props such as fill color, width, height, etc.
 * Updated the icons.js from an array of just SVGs to objects containing an id, a name, and the SVG component.

@@ -1,8 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Field, Unit } from '../components/common/interfaces';
+import { Field } from '../components/common/interfaces';
 import { units } from '../constants/units';
 
-const initialState = {
+interface InitialStateInterface {
+  preferences: {
+    theme: string;
+    language: string;
+    unitSystem: string;
+  };
+  showLocalAccountPrompt: boolean;
+  customFields: Field[];
+  dashboardSections: any;
+}
+const initialState: InitialStateInterface = {
   preferences: {
     theme: 'dark',
     language: 'en',

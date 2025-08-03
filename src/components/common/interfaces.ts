@@ -126,7 +126,6 @@ export interface Workout {
     tags: Tag[];
     equipment: Equipment[];
     duration: number;
-    sets: number;
     fields: Field[];
   }
   export interface GoalLog{

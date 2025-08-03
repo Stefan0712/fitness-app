@@ -16,9 +16,6 @@
     align-items: center;
     padding: 15px;
 }
-.exercise-log .fields{
-    max-height: 200px;
-}
 @keyframes slideUp {
     from{
         height: 0;
@@ -126,4 +123,8 @@
 .exercise-log .customItemsRow .customItemsButton img{
     width: 15px;
     height: 15px;
+}
+.exercise-log .fieldsContainer{
+    height: 400px;
+    overflow: hidden;
 }

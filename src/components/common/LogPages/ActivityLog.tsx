@@ -10,14 +10,20 @@ import {saveItem} from '../../../db.js';
 import { useUI } from "../../../context/UIContext.jsx";
 import EquipmentSelector from "../EquipmentSelector/EquipmentSelector.tsx";
 import TagSelector from '../TagSelector/TagSelector.tsx';
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/index.ts";
 
 
 interface ExerciseLogProps {
     closeMenu: ()=> void;
 }
+
+
 const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     
-
+    const {showMessage} = useUI();
+    const defaultFields = useSelector((state: RootState)=>state.user.customFields);
+    console.log(defaultFields)
     const [showTagSelector, setShowTagSelector] = useState(false);
     const [showEquipmentSelector, setShowEquipmentSelector] = useState(false);
     const [showMuscleSelector, setShowMuscleSelector] = useState(false);
@@ -26,11 +32,9 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     const [equipment, setEquipment] = useState<Equipment[]>([]);
     const [targetMuscles, setTargetMuscles] = useState<TargetGroup[]>([])
     const [duration, setDuration] = useState<string>('');
-    const [sets, setSets] = useState<string>('');
     const [fields, setFields] = useState<IField[]>([])
 
 
-    const {showMessage} = useUI();
 
 
     const getCurrentTime = () => {
@@ -42,7 +46,7 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
     const [time, setTime] = useState<string>(getCurrentTime());
 
     const logExercise = async () =>{
-        if(name && name.trim().length > 2 && parseInt(sets) > 0){
+        if(name && name.trim().length > 2){
             const data: ActivityLog = {
                 _id: uuidv4(),
                 type: 'activity',
@@ -55,7 +59,6 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
                 tags,
                 equipment,
                 duration: parseInt(duration),
-                sets: sets === '' ? 1 : parseInt(sets),
                 fields
             }
             await saveItem('logs', data);
@@ -65,15 +68,13 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
             if(!name || name.trim().length < 3){
                 showMessage('Name is invalid. It should be at least three characters long',"error")
             }
-            if(parseInt(sets) < 1){
-                showMessage('Sets cannot be less than 1.','error');
-            }
+
         }
     }
     return ( 
         <div className={styles['exercise-log']}>
             <div className={styles['top-bar']}>
-                <h1>Log Exercise</h1>
+                <h1>Log Activity</h1>
                 <button onClick={closeMenu}><img src={IconLibrary.Close} alt=""></img></button>
             </div>
 
@@ -81,11 +82,10 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
             {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipment} setEquipments={setEquipment} /> : null}
             {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null} 
 
-            <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Exercise Name*" required></input>
             <div className={styles.threeInputs}>
-                <input type="time" name="time" id="time" className={styles.timeInput} onChange={(e)=>setTime(e.target.value)} value={time}></input>
+                <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Activity Name*" required></input>
                 <input type="number" name="duration" id="duration" onChange={(e)=>setDuration(e.target.value)} value={duration} placeholder="Duration (min)"></input>
-                <input type="number" name="sets" id="sets" onChange={(e)=>setSets(e.target.value)} value={sets} placeholder={"Sets*"} required></input>
+                <input type="time" name="time" id="time" className={styles.timeInput} onChange={(e)=>setTime(e.target.value)} value={time}></input>
             </div>
             <div className={styles.customItemsRow}>
                 <div className={styles.customItemsButton} onClick={()=>setShowTagSelector(true)}>
@@ -101,9 +101,8 @@ const ExerciseLog: React.FC<ExerciseLogProps> = ({closeMenu}) => {
                     <h4>{targetMuscles?.length || 0}</h4>
                 </div>
             </div>
-            <h4>Values</h4>
-            <div className={styles.fields}>
-                <FieldsScreen type={'log'} fields={fields} setFields={setFields} />
+            <div className={styles.fieldsContainer}>
+                <FieldsScreen type={'log'} fields={fields} setFields={setFields} defaultFields={defaultFields}/>
             </div>
             <button className={styles.submit} onClick={logExercise}>Log Exercise</button>
         </div>

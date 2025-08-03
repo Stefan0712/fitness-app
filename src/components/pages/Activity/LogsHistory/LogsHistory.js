@@ -10,6 +10,8 @@ import ViewGoalLog from './ViewGoalLog.tsx';
 import ViewFoodLog from './ViewFoodLog.tsx';
 import { getAllItems } from '../../../../db.js';
 import { IconLibrary } from '../../../../IconLibrary.js';
+import ViewExerciseLog from './ViewExerciseLog/ViewExerciseLog.tsx';
+import ActivityLog from './ActivityLog/ActivityLog.tsx';
 
 
 
@@ -33,7 +35,6 @@ const LogsHistory = () => {
         const result = await getAllItems('logs', {date: selectedDay});
         if(result){
             setLogs(result);
-            console.log(result)
         }
     }
 
@@ -46,9 +47,26 @@ const LogsHistory = () => {
     }
     return ( 
         <div className={styles['logs-history']}>
-                {openedLog && openedLog.type === 'workout' ? <ViewWorkoutLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
-                {openedLog && openedLog.type === 'goal' ? <ViewGoalLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
-                {openedLog && openedLog.type === 'food' ? <ViewFoodLog logData={openedLog} closeLog={()=>(setOpenedLog(null), getLogs())} /> : null}
+                {openedLog && openedLog.type === 'workout' ? 
+                    <ViewWorkoutLog logData={openedLog} closeLog={()=>{
+                        setOpenedLog(null);
+                        getLogs();
+                }} /> : null}
+                {openedLog && openedLog.type === 'goal' ? 
+                    <ViewGoalLog logData={openedLog} closeLog={()=>{
+                        setOpenedLog(null);
+                        getLogs();
+                }} /> : null}
+                {openedLog && openedLog.type === 'food' ? 
+                    <ViewFoodLog logData={openedLog} closeLog={()=>{
+                        setOpenedLog(null);
+                        getLogs();
+                }} /> : null}
+                {openedLog && openedLog.type === 'activity' ? 
+                    <ActivityLog logData={openedLog} closeLog={()=>{
+                        setOpenedLog(null);
+                        getLogs();
+                }} /> : null}
                 {weekData ? <DaySelector weekData={weekData} selectedDay={selectedDay} selectDay={handleDaySelect} /> : null}
                 <div className={styles["logs-container"]}>
                 {logs && logs.length > 0 ? logs.map((item, index) => (

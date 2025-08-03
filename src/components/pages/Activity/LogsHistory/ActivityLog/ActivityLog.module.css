@@ -1,0 +1,124 @@
+.activityLog{
+    position: fixed;
+    bottom: 85px;
+    width: calc(100vw - 20px);
+    height: 400px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 40px 1fr 50px;
+    background-color: var(--modal-bg);
+    padding: 10px;
+    border-radius: 10px;
+    animation: slideUpLog 0.1s;
+}
+
+@keyframes slideUpLog {
+    from{
+        bottom: 0;
+        opacity: 0;
+    }
+    to{
+        bottom: 85px;
+        opacity: 1;
+    }
+}
+
+.activityLog .top{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.activityLog .top .log-name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.activityLog .sectionIcon{
+    width: 20px;
+    height: 20px;
+}
+.activityLog .timestamp{
+    color: rgba(255, 255, 255, 0.5);
+}
+.activityLog .deleteLogButton{
+    height: 40px;
+    width: 80%;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--cancel);
+    justify-self: center;
+}
+.activityLog .logContent{
+    display: grid;
+    grid-template-rows: 20px 30px 30px 30px 20px 1fr;
+    gap: 10px;
+}
+.tags,
+.targetMuscles,
+.equipments{
+    width: 100%;
+    height: 30px !important;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+.tags .tagsContainer,
+.targetMuscles .musclesContainer,
+.equipments, .equipmentContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.tags .tagsContainer .tag-body,
+.targetMuscles .musclesContainer .muscle,
+.equipments .equipmentContainer .equipmentBody{
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+    background-color: var(--background);
+    align-items: center;
+}
+.tags .tagsContainer .tag-body .tag-color{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+.sectionIconContainer{
+    height: 30px;
+    width: 30px;
+    background-color: var(--background);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.values{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.values .value{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary);
+    padding: 0 10px;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
