@@ -23,6 +23,8 @@ import Auth from './components/pages/Auth/Auth.tsx';
 import Sync from './components/pages/Sync/Sync.tsx';
 import Goals from './components/pages/Goals/Goals.tsx';
 import ViewGoal from './components/pages/Goals/ViewGoal.tsx';
+import WorkoutsLibrary from './components/pages/Library/WorkoutsLibrary/WorkoutsLibrary.tsx';
+import ExerciseLibrary from './components/pages/Library/ExercisesLibrary/ExercisesLibrary.tsx';
 
 
 function AppRoutes() {
@@ -49,6 +51,8 @@ function AppRoutes() {
       <Route path='/tags' element={<Tags />} />
       <Route path='/sync' element={<Sync />} />
       <Route path='/explore' element={<Explore />} />
+      <Route path='/exercises-library' element={<ExerciseLibrary />} />
+      <Route path='/workouts-library' element={<WorkoutsLibrary />} />
       <Route path='/equipment' element={<Equipment />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/edit-dashboard' element={<DashboardLayout />} />

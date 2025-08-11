@@ -51,10 +51,10 @@ const ViewExercise = () => {
     },[]);
 
     const getExerciseFromDb = async (source) =>{
-            const exercise = await getItemById(source, id);
-            setExerciseData(exercise);
-            console.log(exercise)
-        }
+        const exercise = await getItemById(source, id);
+        setExerciseData(exercise);
+        console.log(exercise)
+    }
     const deleteEx = async () =>{
         if(type !== 'online' || exerciseData.author._id === userId){
             await deleteItem('exercises', exerciseData._id)
@@ -71,12 +71,11 @@ const ViewExercise = () => {
         }
     }
     const convertDuration = (duration, unit) =>{
-            if(unit === 'hours') return duration/3600;
-            if(unit === "minutes") return duration/60;
-            if(unit === "seconds") return duration;
-    
-            console.log('Invalid value', duration, unit)
-        }
+        if(unit === 'hours') return duration/3600;
+        if(unit === "minutes") return duration/60;
+        if(unit === "seconds") return duration;
+        console.log('Invalid value', duration, unit)
+    }
     if(exerciseData){
         return ( 
             <div className={styles.viewExercise}>

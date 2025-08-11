@@ -1,0 +1,70 @@
+.library{
+    height: calc(100vh - 75px);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+.library .newItemBtn img{
+    width: 35px;
+    height: 35px;
+    justify-self:  center;
+}
+.library b{
+    color: rgba(225, 225, 225, 0.5);
+}
+.library .workouts{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* workout component */
+.library .workout{
+    display: grid;
+    grid-template-rows: 2fr 3fr;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+}
+.library .workout .meta p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(225, 225, 225, 0.5);
+}
+.library .workout .metaIcon{
+    width: 15px;
+    height: 15px;
+}
+.library .workout .header{
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.library .workout .header h4{
+    width: fit-content;
+}
+.library .workout .header .exercises{
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+.library .workout .meta{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.library .workout .tags,
+.library .workout .muscles{
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    align-items: center;
+    gap: 5px;
+}
+
+

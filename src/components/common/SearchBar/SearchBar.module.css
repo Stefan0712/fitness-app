@@ -31,11 +31,10 @@
     justify-content: center;
     height: 0px;
     transition: all 0.1s;
-    opacity: 0;
+    transform-origin: top;
 }
 .searchBarContainer .filters.expandedFilters{
     height: 320px;
-    opacity: 1;
     transition: all 0.1s;
 }
 .searchBarContainer .filterIcon{

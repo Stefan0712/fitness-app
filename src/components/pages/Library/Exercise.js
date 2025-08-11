@@ -1,11 +1,9 @@
 import styles from './Library.module.css';
 import { IconLibrary } from '../../../IconLibrary';
-import { Link } from 'react-router-dom';
-import { makeFirstUpperCase } from '../../../helpers';
 
 const Exercise = ({data, id, type, index}) => {
     return ( 
-        <Link className={styles.libraryExercise} to={`/exercise/${id}/view/${type === 'online' ? '?type=online' : type !== 'online' && data.isCached ? '?type=cached' : ''}`}>
+        <div className={styles.libraryExercise}>
             <h3>{data.name}</h3>
             <div className={styles.bottom}>
                 <div className={styles.tags}>
@@ -17,7 +15,7 @@ const Exercise = ({data, id, type, index}) => {
                     {data.targetMuscles && data.targetMuscles.length > 0 ? data.targetMuscles.map((muscle, index)=><p className={styles.tag} key={'Muscle-'+index}>{muscle.name}</p>) : <p className={styles.muscle}>No target muscles specified</p>}
                 </div>
             </div>
-        </Link>
+        </div>
      );
 }
  

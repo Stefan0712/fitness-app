@@ -1,0 +1,200 @@
+.viewWorkout{
+    position: fixed;
+    bottom: 75px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    backdrop-filter: blur(25px);
+}
+@keyframes SlideUp{
+    from{
+        opacity: 0;
+        bottom: -120%;
+    }
+    to{
+        opacity: 1;
+        bottom: 10px;
+    }
+}
+.viewWorkout .bg{
+    position: absolute;
+}
+.viewWorkout .currentCategory{
+    height: 100%;
+}
+.viewWorkout .content{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    height: 100%;
+    max-height: calc(100vh - 100px);
+    border-radius: 5px;
+    background-color: var(--modal-bg);
+    display: grid;
+    grid-template-rows: 50px 1fr 50px;
+    padding: 10px;
+    animation: SlideUp 0.2s;
+}
+.viewWorkout .header{
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    align-items: center;
+    gap: 10px;
+}
+.viewWorkout .header button{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+}
+.viewWorkout .header button img{
+    width: 30px;
+    height: 30px;
+}
+
+.viewWorkout .buttonsContainer{
+    display: grid;
+    grid-template-columns: 40px 40px 1fr;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 5px;
+    background-color: var(--background);
+    border-radius: 5px;
+}
+.viewWorkout .buttonsContainer button{
+    background-color: transparent;
+    border: none;
+}
+.viewWorkout .buttonsContainer img{
+    width: 25px;
+    height: 25px;
+}
+.viewWorkout .startBtn{
+    background-color: var(--accent-color) !important;
+    height: 100%;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.switcher{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    background-color: var(--secondary);
+    border-radius: 5px;
+}
+.viewWorkout .categoryBtn{
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+.viewWorkout .categoryBtn.selectedCategoryBtn{
+    background-color: var(--accent-color);
+}
+
+
+
+
+/* OVERVIEW */
+
+.viewWorkout .overview{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 0;
+}
+.viewWorkout .overview .tags,
+.viewWorkout .overview .muscles,
+.viewWorkout .overview .fields,
+.viewWorkout .overview .equipmentContainer{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-height: 100px;
+    overflow-y: auto;
+}
+.overview .tagBody,
+.overview .muscleBody,
+.overview .fieldBody,
+.overview .equipmentItem{
+    height: 30px;
+    padding: 0 10px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.overview .fieldBody .fieldBar,
+.overview .equipmentItem .bar{
+    height: 50%;
+    width: 2px;
+    background-color: rgba(225, 225, 225, 0.25);
+    margin: 0 10px;
+}
+
+/* Equipment component */
+
+.overview .equipmentAtt{
+    display: flex;
+    gap: 10px;
+}
+
+/* INSTRUCTIONS */
+
+.viewWorkout .exercises{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 0;
+}
+.exercises .exercisesContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+.phase{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.phaseHeader{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.2);
+    padding-bottom: 10px;
+}
+.phaseHeader h4{
+    margin-right: auto;
+    width: fit-content;
+}
+.phaseMeta{
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    gap: 5px;
+    align-items: center;
+}
+.exercises .exercisesContainer .exercise{
+    display: flex;
+    background-color: var(--background);
+    border-radius: 5px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
