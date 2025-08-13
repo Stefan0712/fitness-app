@@ -19,6 +19,7 @@ const ExercisesLibrary = () => {
         const exercises = await getAllItems('exercises');
         setFilteredItems(exercises);
         setAllItems(exercises);
+        console.log(exercises)
     }
     useEffect(()=>{
         getExercises();

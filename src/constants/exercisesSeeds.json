@@ -1,0 +1,588 @@
+{
+  "type": "exercises",
+  "version": "1.0",
+  "createdAt": "2025-06-08T11:40:27.760Z",
+  "source": "local",
+  "itemCount": 5,
+  "data": [
+    {
+        "_id": "ex-kneeling-hip-flexor-001",
+        "id": "ex-kneeling-hip-flexor-001",
+        "author": "local-user",
+        "createdAt": "2025-08-13T19:10:00.000Z",
+        "updatedAt": "2025-08-13T19:10:00.000Z",
+        "isCompleted": false,
+        "sourceId": "ex-kneeling-hip-flexor-001",
+        "name": "Kneeling Hip Flexor Stretch",
+        "description": "A stretch to lengthen the hip flexors and improve mobility in the hips and lower back.",
+        "reference": "",
+        "difficulty": "beginner",
+        "sets": 1,
+        "duration": 30,
+        "durationUnit": "seconds",
+        "rest": 15,
+        "restUnit": "seconds",
+        "visibility": "private",
+        "fields": [],
+        "notes": "Keep your torso upright and avoid overarching your lower back.",
+        "equipment": [
+            { "_id": "eq1", "name": "Yoga Mat" }
+        ],
+        "targetMuscles": [
+            { "_id": "tg1", "name": "Hip Flexors", "author": "local-user" },
+            { "_id": "tg2", "name": "Quadriceps", "author": "local-user" }
+        ],
+        "tags": [
+            { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+            { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+            { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+        ],
+        "instructions": [
+            "Kneel on one leg with the other foot in front, knee bent at 90 degrees.",
+            "Keep torso upright and engage core.",
+            "Gently push hips forward until a stretch is felt in the front of the hip.",
+            "Hold for 30 seconds, then switch sides."
+        ]
+    },
+    {
+  "_id": "ex-childs-pose-001",
+  "id": "ex-childs-pose-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:12:00.000Z",
+  "updatedAt": "2025-08-13T19:12:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-childs-pose-001",
+  "name": "Child’s Pose",
+  "description": "A gentle stretch that lengthens the spine, relaxes the lower back, and opens the hips.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Breathe deeply and relax your shoulders away from your ears.",
+  "equipment": [
+    { "_id": "eq1", "name": "Yoga Mat" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Lower Back", "author": "local-user" },
+    { "_id": "tg2", "name": "Lats", "author": "local-user" },
+    { "_id": "tg3", "name": "Hips", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag3", "name": "Relaxation", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Kneel on the mat with big toes touching and knees apart.",
+    "Sit back onto your heels.",
+    "Reach your arms forward and lower your torso toward the mat.",
+    "Relax your forehead on the mat and breathe deeply."
+  ]
+},
+{
+  "_id": "ex-supine-twist-001",
+  "id": "ex-supine-twist-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:14:00.000Z",
+  "updatedAt": "2025-08-13T19:14:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-supine-twist-001",
+  "name": "Supine Twist",
+  "description": "A lying spinal twist that stretches the lower back, obliques, and promotes spinal mobility.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep shoulders flat on the floor and avoid forcing the twist.",
+  "equipment": [
+    { "_id": "eq1", "name": "Yoga Mat" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Lower Back", "author": "local-user" },
+    { "_id": "tg2", "name": "Obliques", "author": "local-user" },
+    { "_id": "tg3", "name": "Spine", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag3", "name": "Spinal Health", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Lie on your back with arms extended out to the sides.",
+    "Bend your right knee and bring it across your body toward the floor on the left side.",
+    "Keep both shoulders in contact with the floor.",
+    "Turn your head gently to the right and hold the stretch.",
+    "Repeat on the other side."
+  ]
+},
+{
+  "_id": "ex-doorway-pec-stretch-001",
+  "id": "ex-doorway-pec-stretch-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:16:00.000Z",
+  "updatedAt": "2025-08-13T19:16:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-doorway-pec-stretch-001",
+  "name": "Doorway Pec Stretch",
+  "description": "A chest-opening stretch performed using a doorway to target the pectoral muscles and improve shoulder mobility.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep neck relaxed and avoid leaning forward excessively.",
+  "equipment": [
+    { "_id": "eq1", "name": "Doorway" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Pectoralis Major", "author": "local-user" },
+    { "_id": "tg2", "name": "Anterior Deltoids", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Chest", "color": "#FF6347", "author": "local-user" },
+    { "_id": "tag3", "name": "Mobility", "color": "#1E90FF", "author": "local-user" }
+  ],
+  "instructions": [
+    "Stand in a doorway and place your forearm on the door frame with your elbow at shoulder height.",
+    "Step forward with one foot to feel a stretch across your chest.",
+    "Keep torso upright and avoid arching your back.",
+    "Hold for 30 seconds, then switch sides."
+  ]
+},
+{
+  "_id": "ex-wall-pec-minor-stretch-001",
+  "id": "ex-wall-pec-minor-stretch-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:18:00.000Z",
+  "updatedAt": "2025-08-13T19:18:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-wall-pec-minor-stretch-001",
+  "name": "Wall Pec Minor Stretch",
+  "description": "A stretch targeting the pec minor and front of the shoulders to help improve posture and shoulder mobility.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Focus on a gentle stretch—avoid forcing the movement.",
+  "equipment": [
+    { "_id": "eq1", "name": "Wall" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Pectoralis Minor", "author": "local-user" },
+    { "_id": "tg2", "name": "Anterior Deltoids", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Posture", "color": "#FFD700", "author": "local-user" },
+    { "_id": "tag3", "name": "Chest", "color": "#FF6347", "author": "local-user" }
+  ],
+  "instructions": [
+    "Stand next to a wall with your arm straight up and palm facing forward.",
+    "Place your hand against the wall and rotate your torso slightly away from it.",
+    "Keep your shoulder relaxed and feel the stretch in the front of your shoulder and chest.",
+    "Hold for 30 seconds, then switch sides."
+  ]
+},
+    {
+  "_id": "ex-upper-trap-stretch-001",
+  "id": "ex-upper-trap-stretch-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:20:00.000Z",
+  "updatedAt": "2025-08-13T19:20:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-upper-trap-stretch-001",
+  "name": "Upper Trap Stretch",
+  "description": "A neck stretch that targets the upper trapezius to relieve tension and improve neck mobility.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep shoulders relaxed and avoid pulling too hard on the head.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Upper Trapezius", "author": "local-user" },
+    { "_id": "tg2", "name": "Neck", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Sit or stand tall with your back straight.",
+    "Tilt your head to one side, bringing your ear toward your shoulder.",
+    "Use your hand on the same side to gently deepen the stretch.",
+    "Hold for 30 seconds, then switch sides."
+  ]
+},
+{
+  "_id": "ex-levator-scapulae-stretch-001",
+  "id": "ex-levator-scapulae-stretch-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:22:00.000Z",
+  "updatedAt": "2025-08-13T19:22:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-levator-scapulae-stretch-001",
+  "name": "Levator Scapulae Stretch",
+  "description": "A stretch to relieve tension in the levator scapulae, a muscle that runs along the side and back of the neck.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Do not force the stretch; keep the movement gentle and controlled.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Levator Scapulae", "author": "local-user" },
+    { "_id": "tg2", "name": "Neck", "author": "local-user" },
+    { "_id": "tg3", "name": "Upper Back", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Sit or stand tall with your back straight.",
+    "Turn your head about 45 degrees toward one side.",
+    "Gently lower your chin toward your armpit.",
+    "Place your hand on the back of your head and apply gentle pressure to deepen the stretch.",
+    "Hold for 30 seconds, then switch sides."
+  ]
+},
+{
+  "_id": "ex-neck-flexion-stretch-001",
+  "id": "ex-neck-flexion-stretch-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:24:00.000Z",
+  "updatedAt": "2025-08-13T19:24:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-neck-flexion-stretch-001",
+  "name": "Neck Flexion Stretch (Chin to Chest)",
+  "description": "A gentle stretch for the muscles along the back of the neck, promoting flexibility and reducing stiffness.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 1,
+  "duration": 30,
+  "durationUnit": "seconds",
+  "rest": 15,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Avoid rounding the shoulders; keep the stretch gentle.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Neck Extensors", "author": "local-user" },
+    { "_id": "tg2", "name": "Upper Trapezius", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag3", "name": "Mobility", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Sit or stand with your back straight.",
+    "Slowly lower your chin toward your chest.",
+    "Keep shoulders relaxed and avoid slouching.",
+    "Hold the position for 30 seconds while breathing deeply."
+  ]
+},
+{
+  "_id": "ex-glute-bridge-001",
+  "id": "ex-glute-bridge-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:28:00.000Z",
+  "updatedAt": "2025-08-13T19:28:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-glute-bridge-001",
+  "name": "Glute Bridge",
+  "description": "A lower-body exercise that targets the glutes, hamstrings, and core. Can be performed with bodyweight or with added resistance from a dumbbell.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 3,
+  "duration": 720,
+  "durationUnit": "minutes",
+  "rest": 30,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep your core engaged and avoid arching your lower back.",
+  "equipment": [
+    { "_id": "eq1", "name": "Dumbbell" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Glutes", "author": "local-user" },
+    { "_id": "tg2", "name": "Hamstrings", "author": "local-user" },
+    { "_id": "tg3", "name": "Core", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Strength", "color": "#FF6347", "author": "local-user" },
+    { "_id": "tag2", "name": "Glutes", "color": "#FF1493", "author": "local-user" },
+    { "_id": "tag3", "name": "Lower Body", "color": "#8A2BE2", "author": "local-user" }
+  ],
+  "instructions": [
+    "Lie on your back with knees bent and feet flat on the floor, hip-width apart.",
+    "Place a dumbbell across your hips if using resistance.",
+    "Engage your core and squeeze your glutes as you lift your hips toward the ceiling.",
+    "Pause at the top, then slowly lower back down.",
+    "Repeat for the desired number of reps."
+  ]
+},
+{
+  "_id": "ex-crunches-001",
+  "id": "ex-crunches-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:30:00.000Z",
+  "updatedAt": "2025-08-13T19:30:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-crunches-001",
+  "name": "Crunches (on mat)",
+  "description": "A core exercise focusing on the rectus abdominis, improving abdominal strength and endurance.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 3,
+  "duration": 720,
+  "durationUnit": "minutes",
+  "rest": 30,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Avoid pulling your neck forward; movement should come from the abs.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Rectus Abdominis", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Strength", "color": "#FF6347", "author": "local-user" },
+    { "_id": "tag2", "name": "Core", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Lie on your back on a mat with knees bent and feet flat on the floor.",
+    "Place your hands behind your head or crossed over your chest.",
+    "Engage your core and lift your shoulder blades off the floor.",
+    "Lower slowly back down and repeat."
+  ]
+},
+{
+  "_id": "ex-wall-head-press-001",
+  "id": "ex-wall-head-press-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:35:00.000Z",
+  "updatedAt": "2025-08-13T19:35:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-wall-head-press-001",
+  "name": "Wall Head Press",
+  "description": "An isometric neck and upper back strengthening exercise to improve posture and counteract forward head position.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 3,
+  "duration": 1200,
+  "durationUnit": "minutes",
+  "rest": 20,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep your chin slightly tucked and avoid tilting your head up or down.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Neck Extensors", "author": "local-user" },
+    { "_id": "tg2", "name": "Upper Trapezius", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag2", "name": "Neck", "color": "#FF4500", "author": "local-user" }
+  ],
+  "instructions": [
+    "Stand with your back against a wall, feet shoulder-width apart.",
+    "Place the back of your head gently against the wall.",
+    "Tuck your chin slightly and press your head into the wall without moving it.",
+    "Hold for the prescribed time, then relax.",
+    "Repeat for the set duration."
+  ]
+},
+{
+  "_id": "ex-chin-tucks-001",
+  "id": "ex-chin-tucks-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:37:00.000Z",
+  "updatedAt": "2025-08-13T19:37:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-chin-tucks-001",
+  "name": "Chin Tucks",
+  "description": "A posture correction exercise that strengthens deep neck flexors and reduces forward head posture.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 3,
+  "duration": 600,
+  "durationUnit": "minutes",
+  "rest": 20,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Movement should be subtle — avoid bending your neck forward.",
+  "equipment": [],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Deep Neck Flexors", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "tag2", "name": "Neck", "color": "#FF4500", "author": "local-user" }
+  ],
+  "instructions": [
+    "Sit or stand tall with shoulders relaxed.",
+    "Gently tuck your chin toward your neck without looking down.",
+    "Hold for 2–3 seconds, then release.",
+    "Repeat for the set number of reps."
+  ]
+},
+{
+  "_id": "ex-trx-rows-001",
+  "id": "ex-trx-rows-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:42:00.000Z",
+  "updatedAt": "2025-08-13T19:42:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-trx-rows-001",
+  "name": "TRX Rows",
+  "description": "A bodyweight pulling exercise using TRX straps to strengthen the upper back, lats, and biceps.",
+  "reference": "",
+  "difficulty": "beginner",
+  "sets": 3,
+  "duration": 720,
+  "durationUnit": "minutes",
+  "rest": 60,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep your core tight and avoid shrugging your shoulders during the pull.",
+  "equipment": [
+    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Latissimus Dorsi", "author": "local-user" },
+    { "_id": "tg2", "name": "Rhomboids", "author": "local-user" },
+    { "_id": "tg3", "name": "Biceps", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Anchor your TRX straps securely.",
+    "Hold the handles with palms facing each other and walk your feet forward to set your desired angle.",
+    "Keep your body straight from head to heels.",
+    "Pull your chest toward the handles by squeezing your shoulder blades together.",
+    "Lower back down with control and repeat."
+  ]
+},
+{
+  "_id": "ex-trx-face-pulls-001",
+  "id": "ex-trx-face-pulls-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:45:00.000Z",
+  "updatedAt": "2025-08-13T19:45:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-trx-face-pulls-001",
+  "name": "TRX Face Pulls",
+  "description": "A TRX pulling exercise targeting the rear delts, traps, and external rotators for better posture and shoulder stability.",
+  "reference": "",
+  "difficulty": "intermediate",
+  "sets": 3,
+  "duration": 720,
+  "durationUnit": "minutes",
+  "rest": 60,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Lead the pull with your elbows high and keep your wrists straight.",
+  "equipment": [
+    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Rear Deltoids", "author": "local-user" },
+    { "_id": "tg2", "name": "Trapezius", "author": "local-user" },
+    { "_id": "tg3", "name": "External Rotators", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Anchor the TRX straps securely.",
+    "Hold the handles with an overhand grip and walk your feet forward until your body is at a slight angle.",
+    "With arms extended, engage your core and pull the handles toward your face, leading with your elbows high and out to the sides.",
+    "Squeeze your shoulder blades together at the end of the movement.",
+    "Lower back with control and repeat."
+  ]
+},
+{
+  "_id": "ex-trx-reverse-flys-001",
+  "id": "ex-trx-reverse-flys-001",
+  "author": "local-user",
+  "createdAt": "2025-08-13T19:48:00.000Z",
+  "updatedAt": "2025-08-13T19:48:00.000Z",
+  "isCompleted": false,
+  "sourceId": "ex-trx-reverse-flys-001",
+  "name": "TRX Reverse Flys",
+  "description": "A TRX exercise that strengthens the rear delts, rhomboids, and upper back by pulling the arms outward in a reverse fly motion.",
+  "reference": "",
+  "difficulty": "intermediate",
+  "sets": 3,
+  "duration": 720,
+  "durationUnit": "minutes",
+  "rest": 60,
+  "restUnit": "seconds",
+  "visibility": "private",
+  "fields": [],
+  "notes": "Keep a slight bend in your elbows and move in a controlled manner to avoid swinging.",
+  "equipment": [
+    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+  ],
+  "targetMuscles": [
+    { "_id": "tg1", "name": "Rear Deltoids", "author": "local-user" },
+    { "_id": "tg2", "name": "Rhomboids", "author": "local-user" },
+    { "_id": "tg3", "name": "Trapezius", "author": "local-user" }
+  ],
+  "tags": [
+    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+  ],
+  "instructions": [
+    "Anchor the TRX straps securely.",
+    "Hold the handles with palms facing each other and walk your feet forward to set your angle.",
+    "Keep your arms straight or with a slight bend in the elbows.",
+    "Pull your arms outward in a wide arc until they are in line with your shoulders, squeezing your shoulder blades together.",
+    "Return to the start position slowly and repeat."
+  ]
+}
+]
+}
