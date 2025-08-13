@@ -97,9 +97,6 @@ option{
     justify-content: center;
     gap: 10px;
 }
-h4{
-    width: 100%;
-}
 .submit{
     width: 125px;
     border: none;
@@ -127,7 +124,7 @@ h4{
     justify-content: center;
 }
 .customItemsRow .customItemsButton h4{
-    width: auto;
+    width: fit-content;
 }
 .customItemsRow .customItemsButton img{
     width: 15px;

@@ -77,7 +77,7 @@ const EditExercise: React.FC = () => {
         };
         await saveItem('exercises', newData);
         showMessage('Exercise updated', 'success')
-        navigate('/library');
+        navigate('/exercises-library');
         }
     }
 

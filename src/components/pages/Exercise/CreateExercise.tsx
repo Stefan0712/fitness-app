@@ -85,7 +85,7 @@ const CreateExercise: React.FC = () => {
             };
             await saveItem('exercises', exerciseData);
             showMessage('Exercise created', 'success')
-            navigate('/library');
+            navigate('/exercises-library');
         }
     }
 

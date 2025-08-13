@@ -68,7 +68,7 @@ const CreateWorkout: React.FC = () => {
             };
             await saveItem('workouts', workoutData);
             showMessage("Workout created successfully", "success");
-            navigate('/library');
+            navigate('/workouts-library');
         }
     }
     return ( 

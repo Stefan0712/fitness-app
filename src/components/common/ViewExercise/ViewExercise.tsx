@@ -17,8 +17,10 @@ const ViewExercise = ({data, close}) => {
     const deleteExercise = async () =>{
         await deleteItem('exercises', data._id);
         showMessage("Exercise deleted successfully!", "success");
-        navigate('/exercises-library');             
+        navigate('/exercises-library');
+        close();
     }
+
 
     return ( 
         <div className={styles.viewExercise}>
@@ -49,9 +51,7 @@ const ViewExercise = ({data, close}) => {
                 <button className={styles.deleteBtn} onClick={()=>showConfirmationModal({title: 'Delete exercise?', message: "This will delete exercise from your library and cannot be undone", onConfirm: deleteExercise})}>
                     <img src={IconLibrary.Delete} alt='delete exercise' />
                 </button>
-                <button className={styles.editBtn}>
-                    <img src={IconLibrary.Edit} alt='edit exercise' />
-                </button>
+                <Link className={styles.editBtn} to={`/exercise/${data._id}/edit`}><img src={IconLibrary.Edit} alt='edit exercise' /></Link> 
                 <Link to={`/exercise/${data._id}/start`} className={styles.startBtn}>Start</Link>
             </div>
             </div>

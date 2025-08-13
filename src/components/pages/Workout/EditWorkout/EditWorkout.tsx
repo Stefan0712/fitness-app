@@ -68,7 +68,7 @@ const EditWorkout = () => {
             }else{
                 console.log(newData)
                 await  saveItem('workouts', newData)
-                navigate('/library');
+                navigate('/workouts-library');
             }
         }
        

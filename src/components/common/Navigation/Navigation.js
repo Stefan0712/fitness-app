@@ -39,6 +39,7 @@ const Navigation = () => {
         closeExerciseLogs();
         closeFoodLogs();
         closeQuickmenu();
+        setShowLibraryMenu(false);
     }
 
     return ( 
@@ -83,18 +84,25 @@ export default Navigation;
 const LibraryMenu = ({close}) => {
     return(
         <div className={styles.libraryMenu}>
-            <Link to={'/exercises-library'} className={styles.libraryMenuBtn} onClick={close}>
-                <img src={IconLibrary.Exercise} alt='' />
-                <p>My Exercises</p>
-            </Link>
-            <Link to={'/workouts-library'} className={styles.libraryMenuBtn} onClick={close}>
-                <img src={IconLibrary.Workout} alt='' />
-                <p>My Workouts</p>
-            </Link>
-            <Link to={'/explore'} className={styles.libraryMenuBtn} onClick={close}>
-                <img src={IconLibrary.List} alt='' />
-                <p>Explore</p>
-            </Link>
+            <div className={styles.bg} />
+            <div className={styles.menuContainer}>
+                <Link to={'/exercises-library'} className={styles.libraryMenuBtn} onClick={close}>
+                    <p>My Exercises</p>
+                    <img src={IconLibrary.Exercise} alt='' />
+                </Link>
+                <Link to={'/workouts-library'} className={styles.libraryMenuBtn} onClick={close}>
+                    <p>My Workouts</p>
+                    <img src={IconLibrary.Workout} alt='' />
+                </Link>
+                <Link to={'/explore'} className={styles.libraryMenuBtn} onClick={close}>
+                    <p>Explore</p>
+                    <img src={IconLibrary.List} alt='' />
+                </Link>
+                <button className={styles.libraryMenuBtn} onClick={close}>
+                    <p>Close</p>
+                    <img src={IconLibrary.Close} alt='' />
+                </button>
+            </div>
         </div>
     )
 }

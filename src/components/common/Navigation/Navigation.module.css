@@ -67,17 +67,25 @@ nav{
 .libraryMenu{
   position: fixed;
   bottom: 75px;
-  width: 100%;
-  height: 100px;
-  background-color: var(--modal-bg);
-  border-radius: 10px;
+  width: 100vw;
+  height: calc(100vh - 75px);
   display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: center;
   animation: slideUp 0.2s;
 }
-
+.libraryMenu .bg{
+  width: 100vw;
+  height: 100%;
+  backdrop-filter: blur(20px);
+}
+.libraryMenu .menuContainer{
+  position: absolute;
+  bottom: 15px; 
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 10px;
+}
 @keyframes slideUp{
   from{
     opacity: 0;
@@ -90,20 +98,46 @@ nav{
 }
   
 .libraryMenuBtn img{
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--background);
 }
 .libraryMenuBtn{
-  height: 80%;
-  width: calc((100% / 3) - 20px);
-  background-color: var(--secondary);
-  border-radius: 5px;
+  height: 40px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
+  align-items: center;
   text-decoration: none;
+  animation: slideFromRight 0.2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(10px);
+  background-color: transparent;
+  border: none;
+  font-size: 1.1rem;
+}
+.libraryMenuBtn:nth-child(1){
+    animation-delay: 300ms;
+}
+.libraryMenuBtn:nth-child(2){
+    animation-delay: 200ms;
+}
+.libraryMenuBtn:nth-child(3){
+    animation-delay: 100ms;
+}
+@keyframes slideFromRight {
+  from{
+      transform: translatey(10px);
+      opacity: 0;
+  }
+  to{
+      transform: translateY(0);
+      opacity: 1;
+  }
+    
 }
 
 

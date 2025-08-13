@@ -54,11 +54,11 @@ const Exercise = ({data, selectItem}) =>{
             <div className={styles.meta}>
                 <div className={styles.tags}>
                     <img className={styles.metaIcon} alt='' src={IconLibrary.Tags} />
-                    <p>{data.tags.map(item=>item.name).join(', ')}</p>
+                    <p>{data.tags.map(item=>item.name).join(', ') || 'No tags'}</p>
                 </div>
                 <div className={styles.muscles}>
                     <img className={styles.metaIcon} alt='' src={IconLibrary.Muscle} />
-                    <p>{data.targetMuscles.map(item=>item.name).join(', ')}</p>
+                    <p>{data.targetMuscles.map(item=>item.name).join(', ') || 'No target muscles'}</p>
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ const FieldsScreen = ({fields, setFields, type='other', defaultFields}) => {
     const [target, setTarget] = useState('');
     const [value, setValue] = useState('')
     const [unit, setUnit] = useState<Unit | null>(null);
+    const [showDefaultFields, setShowDefaultFields] = useState(false);
 
 
 
@@ -33,10 +34,7 @@ const FieldsScreen = ({fields, setFields, type='other', defaultFields}) => {
     }
     return ( 
         <div className={`${styles.fieldsScreen} ${styles.screen}`}>
-            <h4>Custom fields</h4>
-            <div className={styles.customFields}>
-                {defaultFields?.length > 0 ? defaultFields.map((field, index)=><CustomFieldBody key={'Custom-field-'+index} field={field} setFields={setFields} />) : null}
-            </div>
+            {showDefaultFields ? <CustomFields defaultFields={defaultFields} setFields={setFields} close={()=>setShowDefaultFields(false)} /> : null}
             <h4>Recorded values</h4>
             <div className={styles.newField}>
                 <input type='text' id='name' name='name' value={name} onChange={(e)=>setName(e.target.value)} minLength={0} maxLength={20} placeholder='Name' />
@@ -48,6 +46,7 @@ const FieldsScreen = ({fields, setFields, type='other', defaultFields}) => {
                 <button onClick={handleAddField} type='button' className='clear-button'><img src={IconLibrary.Add} alt='add new field' style={{width: '30px', height: '30px'}} /></button>
             </div>
             <div className={styles.fields}>
+                
                 {fields?.length > 0 ? fields?.map((field, index)=><FieldBody key={'Created-field-'+index} field={field} setFields={setFields} />) : <p>No fields</p>}
             </div>
         </div>
@@ -86,6 +85,21 @@ const CustomFieldBody = ({field, setFields}) =>{
             <input type='number' min={0} value={value} onChange={(e)=>setValue(parseInt(e.target.value))} />
             <b>{field.unit.shortLabel || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={handleAddField}><img src={IconLibrary.Add} alt='add field' style={{width: '30px', height: '30px'}} /></button>
+        </div>
+    )
+}
+
+const CustomFields = ({defaultFields, setFields, close}) =>{
+    return(
+        <div className={styles.customFieldsContainer}>
+            <div className={styles.header}>
+                <h3>Custom Fields</h3>
+                <button onClick={close}><img style={{width: '30px', height: '30px'}} src={IconLibrary.Close}/></button>
+            </div>
+            <div className={styles.customFieldsContainer}>
+                {defaultFields?.length > 0 ? defaultFields.map((field, index)=><CustomFieldBody key={'Custom-field-'+index} field={field} setFields={setFields} />) : null}
+            </div>
+            <button onClick={close}>Close</button>
         </div>
     )
 }
