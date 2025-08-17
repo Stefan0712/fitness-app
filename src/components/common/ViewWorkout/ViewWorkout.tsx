@@ -30,7 +30,7 @@ const ViewWorkout = ({data, close}) => {
                     <img src={IconLibrary.Close} alt='close workout view' />
                 </button>
             </div>
-            <div className={styles.exerciseInfo}>
+            <div className={styles.workoutInfo}>
                 <div className={styles.switcher}>
                     <button className={`${styles.categoryBtn} ${selectedCategory === 'overview' ? styles.selectedCategoryBtn : ''}`} onClick={()=>setSelectedCategory('overview')}>Overview</button>
                     <button className={`${styles.categoryBtn} ${selectedCategory === 'exercises' ? styles.selectedCategoryBtn : ''}`} onClick={()=>setSelectedCategory('exercises')}>Exercises</button>
@@ -49,9 +49,7 @@ const ViewWorkout = ({data, close}) => {
                 <button className={styles.deleteBtn} onClick={()=>showConfirmationModal({title: 'Delete workout?', message: "Delete workout from your library? This cannot be undone", onConfirm: deleteWorkout})}>
                     <img src={IconLibrary.Delete} alt='delete workout' />
                 </button>
-                <button className={styles.editBtn}>
-                    <img src={IconLibrary.Edit} alt='edit workout' />
-                </button>
+                <Link className={styles.editBtn} to={`/workout/${data._id}/edit`}><img src={IconLibrary.Edit} alt='edit workout' /></Link> 
                 <Link to={`/workout/${data._id}/start`} className={styles.startBtn}>Start</Link>
             </div>
             </div>

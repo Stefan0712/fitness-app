@@ -71,11 +71,13 @@ nav{
   height: calc(100vh - 75px);
   display: flex;
   animation: slideUp 0.2s;
+  z-index: 9999;
 }
 .libraryMenu .bg{
   width: 100vw;
   height: 100%;
   backdrop-filter: blur(20px);
+  z-index: 9999;
 }
 .libraryMenu .menuContainer{
   position: absolute;
@@ -85,6 +87,7 @@ nav{
   flex-direction: column;
   align-items: end;
   gap: 10px;
+  z-index: 9999;
 }
 @keyframes slideUp{
   from{

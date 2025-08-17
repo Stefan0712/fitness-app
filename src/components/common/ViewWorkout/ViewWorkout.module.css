@@ -5,6 +5,7 @@
     width: 100vw;
     height: calc(100vh - 75px);
     backdrop-filter: blur(25px);
+    overflow: hidden;
 }
 @keyframes SlideUp{
     from{
@@ -21,6 +22,7 @@
 }
 .viewWorkout .currentCategory{
     height: 100%;
+    overflow-y: auto;
 }
 .viewWorkout .content{
     position: fixed;
@@ -35,6 +37,13 @@
     grid-template-rows: 50px 1fr 50px;
     padding: 10px;
     animation: SlideUp 0.2s;
+    overflow: hidden;
+}
+.viewWorkout .workoutInfo{
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    gap: 10px;
+    overflow: hidden;
 }
 .viewWorkout .header{
     display: grid;
@@ -113,6 +122,9 @@
     flex-direction: column;
     gap: 10px;
     padding: 15px 0;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
 }
 .viewWorkout .overview .tags,
 .viewWorkout .overview .muscles,
@@ -123,6 +135,7 @@
     flex-wrap: wrap;
     max-height: 100px;
     overflow-y: auto;
+    flex-shrink: 0;
 }
 .overview .tagBody,
 .overview .muscleBody,
@@ -151,13 +164,14 @@
     gap: 10px;
 }
 
-/* INSTRUCTIONS */
+/* EXERCISES */
 
 .viewWorkout .exercises{
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 15px 0;
+    overflow-y: auto;
 }
 .exercises .exercisesContainer{
     display: flex;

@@ -64,8 +64,8 @@
     gap: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 200px;
-    min-height: 60px;
+    max-height: 300px;
+    min-height: 100px;
     flex-shrink: 0;
 }
 .fieldsScreen .customField{

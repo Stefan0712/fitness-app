@@ -84,7 +84,7 @@ export default Navigation;
 const LibraryMenu = ({close}) => {
     return(
         <div className={styles.libraryMenu}>
-            <div className={styles.bg} />
+            <div className={styles.bg} onClick={close}/>
             <div className={styles.menuContainer}>
                 <Link to={'/exercises-library'} className={styles.libraryMenuBtn} onClick={close}>
                     <p>My Exercises</p>

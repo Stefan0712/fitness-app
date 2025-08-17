@@ -46,7 +46,6 @@ const FieldsScreen = ({fields, setFields, type='other', defaultFields}) => {
                 <button onClick={handleAddField} type='button' className='clear-button'><img src={IconLibrary.Add} alt='add new field' style={{width: '30px', height: '30px'}} /></button>
             </div>
             <div className={styles.fields}>
-                
                 {fields?.length > 0 ? fields?.map((field, index)=><FieldBody key={'Created-field-'+index} field={field} setFields={setFields} />) : <p>No fields</p>}
             </div>
         </div>
@@ -60,7 +59,7 @@ const FieldBody = ({field, setFields}) =>{
     return(
         <div className={styles.field}>
             <h4>{field.name}</h4>
-            <b>{field.target || field.value || ''} {field.unit.shortLabel || 'No unit'}</b>
+            <b>{field.target || field.value || ''} {field.unit?.shortLabel || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={()=>setFields(prev=>[...prev.filter(item=>item._id !== field._id)])}><img src={IconLibrary.Close} alt='remove field' style={{width: '30px', height: '30px'}} /></button>
         </div>
     )
@@ -83,7 +82,7 @@ const CustomFieldBody = ({field, setFields}) =>{
         <div className={styles.customField}>
             <h4>{field.name}</h4>
             <input type='number' min={0} value={value} onChange={(e)=>setValue(parseInt(e.target.value))} />
-            <b>{field.unit.shortLabel || 'No unit'}</b>
+            <b>{field.unit?.shortLabel || 'No unit'}</b>
             <button type='button' className='clear-button' onClick={handleAddField}><img src={IconLibrary.Add} alt='add field' style={{width: '30px', height: '30px'}} /></button>
         </div>
     )
@@ -94,7 +93,7 @@ const CustomFields = ({defaultFields, setFields, close}) =>{
         <div className={styles.customFieldsContainer}>
             <div className={styles.header}>
                 <h3>Custom Fields</h3>
-                <button onClick={close}><img style={{width: '30px', height: '30px'}} src={IconLibrary.Close}/></button>
+                <button onClick={close}><img style={{width: '30px', height: '30px'}} src={IconLibrary.Close} alt=''/></button>
             </div>
             <div className={styles.customFieldsContainer}>
                 {defaultFields?.length > 0 ? defaultFields.map((field, index)=><CustomFieldBody key={'Custom-field-'+index} field={field} setFields={setFields} />) : null}

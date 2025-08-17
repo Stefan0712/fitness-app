@@ -103,9 +103,9 @@ const EditExercise: React.FC = () => {
         setTags(s.tags || []);
         setEquipments(s.equipment || []);
         setSets(s.sets || 1);
-        setDuration(s.duration ?? 0);
+        setDuration(convertDuration(s.duration, s.durationUnit) ?? 0);
         setFields(s.fields || []);
-        setRest(s.rest || 30);
+        setRest(convertDuration(s.duration, s.restUnit) ?? 0);
         setNotes(s.notes || '');
         setVisibility(s.visibility || 'private');
         setRestUnit(s.restUnit || 'seconds');
@@ -128,7 +128,7 @@ const EditExercise: React.FC = () => {
             {showMuscleSelector ? <MuscleSelector close={()=>setShowMuscleSelector(false)} targetMuscles={targetMuscles} setTargetMuscles={setTargetMuscles} /> : null}
             {showEquipmentSelector ? <EquipmentSelector close={()=>setShowEquipmentSelector(false)} equipments={equipments} setEquipments={setEquipments} /> : null}
             {showTagSelector ? <TagSelector close={()=>setShowTagSelector(false)} tags={tags} setTags={setTags} /> : null}
-            <AppHeader title="Create Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Create</button>} />
+            <AppHeader title="Edit Exercise" button={<button className={styles.submit} onClick={handleSubmit}>Save</button>} />
             <form>
                 <div className={styles.exerciseInfo} >
                     <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
