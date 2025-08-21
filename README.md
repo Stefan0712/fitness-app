@@ -310,10 +310,10 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
   - Fixed added Values from Create Exercise having a small container making them scrollable even though there being enough space for them to show multiple items at once
 * Gallery:
 <p align="center">
-  <img src="https://i.imgur.com/ekSg2Cg.png" alt="Screenshot 4" width="25%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/gBcw00l.png" alt="Screenshot 5" width="25%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/8MYhNyb.png" alt="Screenshot 6" width="25%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/o6fyN20.png" alt="Screenshot 6" width="25%" />
+  <img src="https://i.imgur.com/ekSg2Cg.png" alt="Screenshot 4" width="20%" />
+  <img src="https://i.imgur.com/gBcw00l.png" alt="Screenshot 5" width="20%" />
+  <img src="https://i.imgur.com/8MYhNyb.png" alt="Screenshot 6" width="20%" />
+  <img src="https://i.imgur.com/o6fyN20.png" alt="Screenshot 6" width="20%" />
 </p>
 
 ### 03 August 2025
