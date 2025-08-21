@@ -6,7 +6,7 @@ import NewPhase from "./AddPhase.tsx";
 import Phase from './Phase.tsx';
 
 
-const Phases = ({phases, setPhases}) => {
+const Phases = ({phases, setPhases, setDuration}) => {
 
     const [selectedPhase, setSelectedPhase] = useState<IPhase | null>(phases[0] || null);
     
@@ -34,9 +34,15 @@ const Phases = ({phases, setPhases}) => {
     };
 
     const handleAddExercise = (exercise: WorkoutExercise) => {
+    console.log(exercise)
        if(selectedPhase){
         const updatedPhases = phases.map(phase => {
             if (phase._id === selectedPhase._id) {
+                setDuration(prev=>{
+                        const newValue = parseInt(prev) + exercise.duration
+                        return newValue.toString()
+                    }
+                )
                 return {...phase, exercises: [...phase.exercises, exercise]};
             }
             return phase;

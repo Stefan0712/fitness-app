@@ -295,6 +295,27 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 ## Latest Updates
 
+### 18 August 2025
+* Created separate library screens for workouts and exercises
+* Added a Library Menu that shows up when the user taps on the Library button from the nagivation, allowing the user to go to "My Workouts", "My Exercises", or "Explore"
+* Created a View Exercise and View Workout screens instead of the separate page used for viewing them.
+* Minor fixes:
+  - Fixed Unit button showing on top of other components
+  - Fixed View Workout and View Exercises not behaving correctly when the content was overflowing
+  - Fixed duration and rest not being converted correctly when going to the edit page
+  - Fixed View Exercise and View Workout not closing after deleting 
+  - Fixed Create Workout and Create Exercise having elements overflow on smaller screen instead of becoming scrollable
+  - Fixed exercises and workouts from their libraries not being scrollable when there were multiple of them
+  - Fixed Edit Exercise page having the wrong title and button text
+  - Fixed added Values from Create Exercise having a small container making them scrollable even though there being enough space for them to show multiple items at once
+* Gallery:
+<p align="center">
+  <img src="https://i.imgur.com/ekSg2Cg.png" alt="Screenshot 4" width="25%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/gBcw00l.png" alt="Screenshot 5" width="25%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/8MYhNyb.png" alt="Screenshot 6" width="25%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/o6fyN20.png" alt="Screenshot 6" width="25%" />
+</p>
+
 ### 03 August 2025
 * Created a new tsconfig and global.d.ts and fixed all important typescript errors.
 * Fixed multiple small issues found during the purse of typescript errors. Created new interfaces and updated old ones.

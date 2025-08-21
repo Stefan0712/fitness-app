@@ -55,6 +55,7 @@ export interface Workout {
     sets: Set[],
     fields: Field[],
     tags: Tag[];
+    duration: number;
   }
   
   export interface TargetGroup {

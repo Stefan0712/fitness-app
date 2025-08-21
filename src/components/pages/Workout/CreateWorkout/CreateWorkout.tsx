@@ -107,7 +107,7 @@ const CreateWorkout: React.FC = () => {
                         <h4>{targetMuscles?.length || 0}</h4>
                     </div>
                 </div>
-                <Phases phases={phases} setPhases={setPhases} />
+                <Phases phases={phases} setPhases={setPhases} setDuration={setDuration} />
             </form>
         </div>
      );

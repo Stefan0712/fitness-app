@@ -6,6 +6,7 @@ import { getAllItems } from '../../../db';
 import { IconLibrary } from '../../../IconLibrary';
 import { WorkoutExercise } from '../interfaces';
 import axios from '../../../axios';
+import {v4 as uuidv4} from "uuid";
 
 
 type SourceType = 'library' | 'online';
@@ -78,7 +79,7 @@ const ExerciseBody = ({addExercise, exercise, index}) =>{
 
 
     const handleAddExercise = (exercise) => { 
-        addExercise({...exercise, sets});
+        addExercise({...exercise, sets, sourceId: exercise._id, id: uuidv4()});
         setIsAdded(true);
         setSets(1);
         setTimeout(() => {
