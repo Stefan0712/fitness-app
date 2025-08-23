@@ -25,6 +25,7 @@ import Goals from './components/pages/Goals/Goals.tsx';
 import ViewGoal from './components/pages/Goals/ViewGoal.tsx';
 import WorkoutsLibrary from './components/pages/Library/WorkoutsLibrary/WorkoutsLibrary.tsx';
 import ExerciseLibrary from './components/pages/Library/ExercisesLibrary/ExercisesLibrary.tsx';
+import Muscles from './components/pages/Muscles/Muscles.tsx';
 
 
 function AppRoutes() {
@@ -58,6 +59,7 @@ function AppRoutes() {
       <Route path='/edit-dashboard' element={<DashboardLayout />} />
       <Route path='/default-fields' element={<DefaultFields />} />
       <Route path='/goals' element={<Goals />} />
+      <Route path='/muscles' element={<Muscles />} />
       <Route path='/goals/view/:id' element={<ViewGoal />} />
       <Route path="*" element={<Dashboard />} />
       

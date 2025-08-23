@@ -1,0 +1,126 @@
+.musclesPage {
+    width: 100vw;
+    height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.musclesPage .listFilters{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: 50px;
+    flex-shrink: 0;
+}
+.musclesPage .listFilters fieldset{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    gap: 10px;
+}
+.musclesPage .listFilters fieldset input{
+    width: 20px;
+    height: 20px;
+}
+.musclesPage .musclesContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.customMuscle,
+.defaultMuscle{
+    width: 100%;
+    height: 40px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    flex-shrink: 0;
+}
+.customMuscle img{
+    width: 20px;
+    height: 20px;
+}
+.customMuscle button{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+.musclesPage .itemsContainer{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 10px;
+}
+
+
+
+/* New Muscle Form */
+.newMuscle{
+    width: calc(100vw - 20px);
+    position: fixed;
+    bottom: 85px;
+    left: 10px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid var(--general-border);
+    background-color: var(--modal-bg);
+    padding: 10px;
+    gap: 10px;
+    animation: slideUp 0.1s;
+}
+
+@keyframes slideUp {
+    from{
+        bottom: -120%;
+        opacity: 0;
+    }
+    to{
+        bottom: 85px;
+        opacity: 1;
+    }
+}
+
+.newMuscleForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.newMuscleForm .buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    height: 40px;
+}
+.newMuscleForm .buttons button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.newMuscleForm .cancelButton{
+    background-color: var(--background);
+}
+.newMuscleForm .saveButton{
+    background-color: var(--accent-color);
+}
+.newMuscle .deleteButton{
+    height: 40px;
+    width: 100%;
+    background-color: var(--cancel);
+    border-radius: 5px;
+    border: none;
+}

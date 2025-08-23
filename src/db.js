@@ -1,7 +1,7 @@
 import { openDB } from 'idb';
 
 export const initDB = async () => {
-  return openDB('EasyFitDB', 4, {
+  return openDB('EasyFitDB', 5, {
     upgrade(db, oldVersion) {
       const stores = [
         'exercises',
@@ -15,8 +15,8 @@ export const initDB = async () => {
         'cachedTags',
         'equipment',
         'cachedEquipment',
-        'targetMuscles',
-        'cachedTargetMuscles',
+        'muscles',
+        'cachedMuscles',
       ];
 
       for (const storeName of stores) {
