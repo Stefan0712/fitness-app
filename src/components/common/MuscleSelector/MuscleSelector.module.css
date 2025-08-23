@@ -10,6 +10,10 @@
     padding: 10px;
     z-index: 500;
     animation: slideUp 0.2s;
+    gap: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 @keyframes slideUp {
     from{
@@ -26,39 +30,27 @@
     align-items: center;
     justify-content: space-between;
 }
-.muscleSelector .top{
-    width: 100%;
-    height: calc(40% - 40px);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow: hidden;
-}
-.muscleSelector .top h3{
+.muscleSelector h3{
     height: 30px;
     width: 100%;
 }
-.muscleSelector .top .selectedMuscles{
+.muscleSelector .selectedMuscles{
     width: 100%;
-    min-height: 50px;
-    max-height: calc(100% - 30px);
+    flex: 1 1 100px; /* grow=2, shrink=1, basis=100px */
+    min-height: 100px;
+    max-height: 50%;
     display: flex;
     flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: auto;
     gap: 10px;
     align-items: center;
-}
-
-.muscleSelector .bottom{
-    width: 100%;
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-bottom: 10px;
 }
 .muscleSelector .results{
-    height: calc(100% - 50px);
+    flex: 1 1 30%; /* grow=1, shrink=1, basis=30% */
+    min-height: 30%;
+    max-height: 60%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -93,13 +85,12 @@
     margin-left: auto;
 }
 .muscleSelector .muscle{
-    width: 100%;
     display: flex;
     padding: 0 10px;
     height: 40px;
     align-items: center;
-    justify-content: space-between;
     background-color: var(--background);
     border-radius: 5px;
     flex-shrink: 0;
+    gap: 10px;
 }

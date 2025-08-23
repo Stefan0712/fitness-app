@@ -47,33 +47,32 @@ const TagPicker: React.FC<TagPickerProps> = ({close, setTargetMuscles, targetMus
             setTargetMuscles((prev: TargetGroup[]) => [...prev, newGroup]);
         }
     }
+    const selectItem = (item) =>{
+        setTargetMuscles(prev =>[...prev, item])
+    }
+    const deselectItem = (itemId) =>{
+        setTargetMuscles(prev =>[...prev.filter(item=>item._id !==itemId)])
+    }
     return ( 
         <div className={styles.muscleSelector}>
             <div className={styles.header}>
                 <h3>Muscle Groups</h3>
                 <button type="button" className="clear-button" onClick={close}><img src={IconLibrary.Close} className="small-icon" alt="" /></button>
             </div>
-            <div className={styles.top}>
-                <div className={styles.selectedMuscles}>
-                    {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Close} alt="" /></button></div>) : <p>No muscle added</p>}
-                </div>
+            <div className={styles.selectedMuscles}>
+                {targetMuscles?.length > 0 ? targetMuscles.map((item, index)=><div key={'Selected-muscle-'+index} className={styles.muscle}><b>{item.name}</b><button className="clear-button" onClick={()=>setTargetMuscles(prev=>[...prev.filter(it=>it._id!==item._id)])}><img className="small-icon" src={IconLibrary.Close} alt="" /></button></div>) : <p>No muscle added</p>}
             </div>
-            <div className={styles.bottom}>
-                <h3>All muscle groups</h3>
-                <div className={styles.results}>
-                    {items?.length > 0 ? items.map((item,index)=>
-                        checkIfAdded(item) ? null : (
-                            <div className={styles.resultMuscle} key={'muscle-'+item.name+index}>
-                                <p className={styles.name}>{item.name}</p>
-                                <button type="button" className="clear-button" onClick={()=>setTargetMuscles(prev =>[...prev, item])}><img src={IconLibrary.Add} className="small-icon" alt="" /></button>
-                            </div>
-                        )
-                    ):<p>Items not found</p>}
-                </div>
-                <div className={styles.newMuscle}>
-                    <input type="text" minLength={0} maxLength={50} onChange={(e)=>handleSeach(e.target.value)} value={name} placeholder='Muscle name'></input>
-                    <button type="button" className='clear-button' onClick={handleAddMuscle}><img style={{width: '40px', height: '40px'}} src={IconLibrary.Add} alt="" /></button>
-                </div>
+            <div className={styles.results}>
+                {items?.length > 0 ? items.map((item,index)=>
+                    <div className={styles.resultMuscle} key={'muscle-'+item.name+index}>
+                        <p className={styles.name}>{item.name}</p>
+                        <button type="button" className="clear-button" onClick={()=>checkIfAdded(item) ? deselectItem(item._id) : selectItem(item)}><img src={checkIfAdded(item) ? IconLibrary.Checkmark : IconLibrary.Add} className="small-icon" alt="" /></button>
+                    </div>
+                ):<p>Items not found</p>}
+            </div>
+            <div className={styles.newMuscle}>
+                <input type="text" minLength={0} maxLength={50} onChange={(e)=>handleSeach(e.target.value)} value={name} placeholder='Muscle name'></input>
+                <button type="button" className='clear-button' onClick={handleAddMuscle}><img style={{width: '40px', height: '40px'}} src={IconLibrary.Add} alt="" /></button>
             </div>
         </div>
      );
