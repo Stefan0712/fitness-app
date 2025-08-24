@@ -6,7 +6,7 @@ import NewPhase from "./AddPhase.tsx";
 import Phase from './Phase.tsx';
 
 
-const Phases = ({phases, setPhases, setDuration}) => {
+const Phases = ({phases, setPhases, setDuration, setTargetMuscles, setTags, setEquipment}) => {
 
     const [selectedPhase, setSelectedPhase] = useState<IPhase | null>(phases[0] || null);
     
@@ -34,7 +34,6 @@ const Phases = ({phases, setPhases, setDuration}) => {
     };
 
     const handleAddExercise = (exercise: WorkoutExercise) => {
-    console.log(exercise)
        if(selectedPhase){
         const updatedPhases = phases.map(phase => {
             if (phase._id === selectedPhase._id) {
@@ -42,7 +41,31 @@ const Phases = ({phases, setPhases, setDuration}) => {
                         const newValue = parseInt(prev) + exercise.duration
                         return newValue.toString()
                     }
-                )
+                );
+                setTags(prev => {
+                    const combined = [...prev, ...exercise.tags];
+                    const uniqueMap = new Map(); // Use a Map to ensure uniqueness by _id
+                    combined.forEach(tag => {
+                        if (tag._id) uniqueMap.set(tag._id.toString(), tag);
+                    });
+                    return Array.from(uniqueMap.values());
+                });
+                setEquipment(prev => {
+                    const combined = [...prev, ...exercise.equipment];
+                    const uniqueMap = new Map();
+                    combined.forEach(eq => {
+                        if (eq._id) uniqueMap.set(eq._id.toString(), eq);
+                    });
+                    return Array.from(uniqueMap.values());
+                });
+                setTargetMuscles(prev => {
+                    const combined = [...prev, ...exercise.targetMuscles];
+                    const uniqueMap = new Map();
+                    combined.forEach(muscle => {
+                        if (muscle._id) uniqueMap.set(muscle._id.toString(), muscle);
+                    });
+                    return Array.from(uniqueMap.values());
+                });
                 return {...phase, exercises: [...phase.exercises, exercise]};
             }
             return phase;
@@ -66,37 +89,20 @@ const Phases = ({phases, setPhases, setDuration}) => {
             setSelectedPhase(null);
         }
     }
-    // const handleUpdatePhase = (phase: IPhase) => {
-    //     const updatedPhases = phases.map(p => {
-    //         if (p._id === phase._id) {
-    //             return {...p, name: phase.name};
-    //         }
-    //         return p;
-    //     });
-
-    //     setPhases(updatedPhases);
-    //     setShowEditPhase(null);
-    // }
 
     if(phases){
         return ( 
         <div className={styles.phases}>
+            {showAddPhase ? <NewPhase close={()=>setShowAddPhase(false)} addPhase={(phase: IPhase)=>{setPhases([...phases, phase]); setSelectedPhase(phase);}} lastOrder={phases.length} /> : null}
             <div className={styles.phaseList}>
                 <div className={styles.phasesContainer}>
                     {phases && phases.length > 0 ? phases.map(item=><button type="button" key={item._id} onClick={()=>setSelectedPhase(item)} className={`${selectedPhase?._id === item._id ? styles.selectedButton : ''} ${styles.phaseButton}`}>{item.name}</button>) : null}
                 </div>
                 <div className={styles.phaseButtons}>
-                    {selectedPhase ? <div className={styles.selectedPhaseButtons}>
-                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>handleDeletePhase(selectedPhase)}><img src={IconLibrary.Delete} alt=""/></button>
-                        <button type="button" style={{background: 'none', border: 'none'}} onClick={()=>setShowEditPhase(selectedPhase)}><img src={IconLibrary.Edit} alt=""/></button>
-                    </div> : null}
                     <button className={styles.addPhaseButton} type="button" onClick={()=>setShowAddPhase(true)}><img src={IconLibrary.Add} alt="" /></button>
                 </div>
             </div>
-            {showAddPhase ? <NewPhase close={()=>setShowAddPhase(false)} addPhase={(phase: IPhase)=>{setPhases([...phases, phase]); setSelectedPhase(phase);}} lastOrder={phases.length} /> : null}
-            <div className={styles.phaseContent}>
-                {selectedPhase ? <Phase phase={selectedPhase} handleRemoveExercise={handleRemoveExercise} handleAddExercise={handleAddExercise} /> : null}
-            </div>
+            {selectedPhase ? <Phase phase={selectedPhase} handleRemoveExercise={handleRemoveExercise} handleAddExercise={handleAddExercise} handleDeletePhase={handleDeletePhase} setShowEditPhase={setShowEditPhase}/> : null}
         </div>
      );
     }

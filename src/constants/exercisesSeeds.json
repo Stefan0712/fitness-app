@@ -26,16 +26,16 @@
         "fields": [],
         "notes": "Keep your torso upright and avoid overarching your lower back.",
         "equipment": [
-            { "_id": "eq1", "name": "Yoga Mat" }
+            { "_id": "yoga-mat", "name": "Yoga Mat" }
         ],
         "targetMuscles": [
-            { "_id": "tg1", "name": "Hip Flexors", "author": "local-user" },
-            { "_id": "tg2", "name": "Quadriceps", "author": "local-user" }
+            { "_id": "hip-flexors", "name": "Hip Flexors", "author": "local-user" },
+            { "_id": "tgghfj6662", "name": "Quadriceps", "author": "local-user" }
         ],
         "tags": [
-            { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-            { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
-            { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+            { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+            { "_id": "mobility", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+            { "_id": "posture", "name": "Posture", "color": "#FFD700", "author": "local-user" }
         ],
         "instructions": [
             "Kneel on one leg with the other foot in front, knee bent at 90 degrees.",
@@ -65,17 +65,17 @@
   "fields": [],
   "notes": "Breathe deeply and relax your shoulders away from your ears.",
   "equipment": [
-    { "_id": "eq1", "name": "Yoga Mat" }
+    { "_id": "yoga-mat", "name": "Yoga Mat" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Lower Back", "author": "local-user" },
-    { "_id": "tg2", "name": "Lats", "author": "local-user" },
-    { "_id": "tg3", "name": "Hips", "author": "local-user" }
+    { "_id": "lower-back", "name": "Lower Back", "author": "local-user" },
+    { "_id": "lats", "name": "Lats", "author": "local-user" },
+    { "_id": "hips", "name": "Hips", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag3", "name": "Relaxation", "color": "#FFD700", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "mobility", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "relaxation", "name": "Relaxation", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Kneel on the mat with big toes touching and knees apart.",
@@ -105,17 +105,17 @@
   "fields": [],
   "notes": "Keep shoulders flat on the floor and avoid forcing the twist.",
   "equipment": [
-    { "_id": "eq1", "name": "Yoga Mat" }
+    { "_id": "yoga-mat", "name": "Yoga Mat" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Lower Back", "author": "local-user" },
-    { "_id": "tg2", "name": "Obliques", "author": "local-user" },
-    { "_id": "tg3", "name": "Spine", "author": "local-user" }
+    { "_id": "lower-back", "name": "Lower Back", "author": "local-user" },
+    { "_id": "obliques", "name": "Obliques", "author": "local-user" },
+    { "_id": "spine", "name": "Spine", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag3", "name": "Spinal Health", "color": "#FFD700", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "mobility", "name": "Mobility", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "spinal-health", "name": "Spinal Health", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Lie on your back with arms extended out to the sides.",
@@ -145,17 +145,15 @@
   "visibility": "private",
   "fields": [],
   "notes": "Keep neck relaxed and avoid leaning forward excessively.",
-  "equipment": [
-    { "_id": "eq1", "name": "Doorway" }
-  ],
+  "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Pectoralis Major", "author": "local-user" },
-    { "_id": "tg2", "name": "Anterior Deltoids", "author": "local-user" }
+    { "_id": "pectoralis-major", "name": "Pectoralis Major", "author": "local-user" },
+    { "_id": "anterior-deltoids", "name": "Anterior Deltoids", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Chest", "color": "#FF6347", "author": "local-user" },
-    { "_id": "tag3", "name": "Mobility", "color": "#1E90FF", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "chest", "name": "Chest", "color": "#FF6347", "author": "local-user" },
+    { "_id": "mobility", "name": "Mobility", "color": "#1E90FF", "author": "local-user" }
   ],
   "instructions": [
     "Stand in a doorway and place your forearm on the door frame with your elbow at shoulder height.",
@@ -185,16 +183,16 @@
   "fields": [],
   "notes": "Focus on a gentle stretch—avoid forcing the movement.",
   "equipment": [
-    { "_id": "eq1", "name": "Wall" }
+    { "_id": "wall", "name": "Wall" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Pectoralis Minor", "author": "local-user" },
-    { "_id": "tg2", "name": "Anterior Deltoids", "author": "local-user" }
+    { "_id": "pectoralis-minor", "name": "Pectoralis Minor", "author": "local-user" },
+    { "_id": "anterior-deltoids", "name": "Anterior Deltoids", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Posture", "color": "#FFD700", "author": "local-user" },
-    { "_id": "tag3", "name": "Chest", "color": "#FF6347", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "posture", "name": "Posture", "color": "#FFD700", "author": "local-user" },
+    { "_id": "chest", "name": "Chest", "color": "#FF6347", "author": "local-user" }
   ],
   "instructions": [
     "Stand next to a wall with your arm straight up and palm facing forward.",
@@ -225,13 +223,13 @@
   "notes": "Keep shoulders relaxed and avoid pulling too hard on the head.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Upper Trapezius", "author": "local-user" },
-    { "_id": "tg2", "name": "Neck", "author": "local-user" }
+    { "_id": "upper-trapezius", "name": "Upper Trapezius", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "posture", "name": "Posture", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Sit or stand tall with your back straight.",
@@ -262,14 +260,14 @@
   "notes": "Do not force the stretch; keep the movement gentle and controlled.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Levator Scapulae", "author": "local-user" },
-    { "_id": "tg2", "name": "Neck", "author": "local-user" },
-    { "_id": "tg3", "name": "Upper Back", "author": "local-user" }
+    { "_id": "levator0scapulae", "name": "Levator Scapulae", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "author": "local-user" },
+    { "_id": "upper-back", "name": "Upper Back", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag3", "name": "Posture", "color": "#FFD700", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "ne", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "posture", "name": "Posture", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Sit or stand tall with your back straight.",
@@ -301,13 +299,13 @@
   "notes": "Avoid rounding the shoulders; keep the stretch gentle.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Neck Extensors", "author": "local-user" },
-    { "_id": "tg2", "name": "Upper Trapezius", "author": "local-user" }
+    { "_id": "neck-extensors", "name": "Neck Extensors", "author": "local-user" },
+    { "_id": "upper-trapezius", "name": "Upper Trapezius", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
-    { "_id": "tag2", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag3", "name": "Mobility", "color": "#FFD700", "author": "local-user" }
+    { "_id": "stretching", "name": "Stretching", "color": "#32CD32", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "mobility", "name": "Mobility", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Sit or stand with your back straight.",
@@ -337,17 +335,17 @@
   "fields": [],
   "notes": "Keep your core engaged and avoid arching your lower back.",
   "equipment": [
-    { "_id": "eq1", "name": "Dumbbell" }
+    { "_id": "dumbbell", "name": "Dumbbell" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Glutes", "author": "local-user" },
-    { "_id": "tg2", "name": "Hamstrings", "author": "local-user" },
-    { "_id": "tg3", "name": "Core", "author": "local-user" }
+    { "_id": "glutes", "name": "Glutes", "author": "local-user" },
+    { "_id": "hamstring", "name": "Hamstrings", "author": "local-user" },
+    { "_id": "core", "name": "Core", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Strength", "color": "#FF6347", "author": "local-user" },
-    { "_id": "tag2", "name": "Glutes", "color": "#FF1493", "author": "local-user" },
-    { "_id": "tag3", "name": "Lower Body", "color": "#8A2BE2", "author": "local-user" }
+    { "_id": "strength", "name": "Strength", "color": "#FF6347", "author": "local-user" },
+    { "_id": "glutes", "name": "Glutes", "color": "#FF1493", "author": "local-user" },
+    { "_id": "lower-body", "name": "Lower Body", "color": "#8A2BE2", "author": "local-user" }
   ],
   "instructions": [
     "Lie on your back with knees bent and feet flat on the floor, hip-width apart.",
@@ -379,11 +377,11 @@
   "notes": "Avoid pulling your neck forward; movement should come from the abs.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Rectus Abdominis", "author": "local-user" }
+    { "_id": "rectus-abdominis", "name": "Rectus Abdominis", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Strength", "color": "#FF6347", "author": "local-user" },
-    { "_id": "tag2", "name": "Core", "color": "#FFD700", "author": "local-user" }
+    { "_id": "strength", "name": "Strength", "color": "#FF6347", "author": "local-user" },
+    { "_id": "core", "name": "Core", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Lie on your back on a mat with knees bent and feet flat on the floor.",
@@ -414,12 +412,12 @@
   "notes": "Keep your chin slightly tucked and avoid tilting your head up or down.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Neck Extensors", "author": "local-user" },
-    { "_id": "tg2", "name": "Upper Trapezius", "author": "local-user" }
+    { "_id": "neck-extensors", "name": "Neck Extensors", "author": "local-user" },
+    { "_id": "upper-trapezius", "name": "Upper Trapezius", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag2", "name": "Neck", "color": "#FF4500", "author": "local-user" }
+    { "_id": "posture", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "color": "#FF4500", "author": "local-user" }
   ],
   "instructions": [
     "Stand with your back against a wall, feet shoulder-width apart.",
@@ -451,11 +449,11 @@
   "notes": "Movement should be subtle — avoid bending your neck forward.",
   "equipment": [],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Deep Neck Flexors", "author": "local-user" }
+    { "_id": "deep-neck-flexors", "name": "Deep Neck Flexors", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
-    { "_id": "tag2", "name": "Neck", "color": "#FF4500", "author": "local-user" }
+    { "_id": "posture", "name": "Posture", "color": "#1E90FF", "author": "local-user" },
+    { "_id": "neck", "name": "Neck", "color": "#FF4500", "author": "local-user" }
   ],
   "instructions": [
     "Sit or stand tall with shoulders relaxed.",
@@ -485,16 +483,16 @@
   "fields": [],
   "notes": "Keep your core tight and avoid shrugging your shoulders during the pull.",
   "equipment": [
-    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+    { "_id": "trx-suspension-trainer", "name": "TRX Suspension Trainer" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Latissimus Dorsi", "author": "local-user" },
-    { "_id": "tg2", "name": "Rhomboids", "author": "local-user" },
-    { "_id": "tg3", "name": "Biceps", "author": "local-user" }
+    { "_id": "latissimus-dorsi", "name": "Latissimus Dorsi", "author": "local-user" },
+    { "_id": "rhomboids", "name": "Rhomboids", "author": "local-user" },
+    { "_id": "biceps", "name": "Biceps", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
-    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+    { "_id": "strength", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "upper-body", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Anchor your TRX straps securely.",
@@ -525,16 +523,16 @@
   "fields": [],
   "notes": "Lead the pull with your elbows high and keep your wrists straight.",
   "equipment": [
-    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+    { "_id": "eqfgbgfhtry5dg1", "name": "TRX Suspension Trainer" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Rear Deltoids", "author": "local-user" },
-    { "_id": "tg2", "name": "Trapezius", "author": "local-user" },
-    { "_id": "tg3", "name": "External Rotators", "author": "local-user" }
+    { "_id": "rear-deltoids", "name": "Rear Deltoids", "author": "local-user" },
+    { "_id": "trapezius", "name": "Trapezius", "author": "local-user" },
+    { "_id": "external-rotators", "name": "External Rotators", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
-    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+    { "_id": "strength", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "upper-body", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Anchor the TRX straps securely.",
@@ -565,16 +563,16 @@
   "fields": [],
   "notes": "Keep a slight bend in your elbows and move in a controlled manner to avoid swinging.",
   "equipment": [
-    { "_id": "eq1", "name": "TRX Suspension Trainer" }
+    { "_id": "trx-suspension-trainer", "name": "TRX Suspension Trainer" }
   ],
   "targetMuscles": [
-    { "_id": "tg1", "name": "Rear Deltoids", "author": "local-user" },
-    { "_id": "tg2", "name": "Rhomboids", "author": "local-user" },
-    { "_id": "tg3", "name": "Trapezius", "author": "local-user" }
+    { "_id": "rear-deltoids", "name": "Rear Deltoids", "author": "local-user" },
+    { "_id": "rhomboids", "name": "Rhomboids", "author": "local-user" },
+    { "_id": "trapezius", "name": "Trapezius", "author": "local-user" }
   ],
   "tags": [
-    { "_id": "tag1", "name": "Strength", "color": "#228B22", "author": "local-user" },
-    { "_id": "tag2", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
+    { "_id": "strength", "name": "Strength", "color": "#228B22", "author": "local-user" },
+    { "_id": "upper-body", "name": "Upper Body", "color": "#FFD700", "author": "local-user" }
   ],
   "instructions": [
     "Anchor the TRX straps securely.",

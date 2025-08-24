@@ -59,7 +59,7 @@ const Navigation = () => {
                 }}  
                 className={styles['nav-button']}
             >
-                <img src={showLibraryMenu ? IconLibrary.Close : IconLibrary.Library} alt=''></img>
+                <img src={IconLibrary.Library} alt=''></img>
                 <p>Library</p>
             </button>
             <button type='button' className={`${styles['nav-button']} ${styles.center}`} onClick={()=>setShowQuickmenu(!showQuickmenu)}>

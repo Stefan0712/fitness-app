@@ -70,7 +70,7 @@ nav{
   width: 100vw;
   height: calc(100vh - 75px);
   display: flex;
-  animation: slideUp 0.2s;
+  animation: slideUp 0.1s;
   z-index: 9999;
 }
 .libraryMenu .bg{
@@ -114,7 +114,7 @@ nav{
   gap: 10px;
   align-items: center;
   text-decoration: none;
-  animation: slideFromRight 0.2s;
+  animation: slideFromRight 0.1s;
   animation-fill-mode: forwards;
   opacity: 0;
   transform: translateY(10px);
@@ -123,13 +123,13 @@ nav{
   font-size: 1.1rem;
 }
 .libraryMenuBtn:nth-child(1){
-    animation-delay: 300ms;
+    animation-delay: 150ms;
 }
 .libraryMenuBtn:nth-child(2){
-    animation-delay: 200ms;
+    animation-delay: 100ms;
 }
 .libraryMenuBtn:nth-child(3){
-    animation-delay: 100ms;
+    animation-delay: 50ms;
 }
 @keyframes slideFromRight {
   from{

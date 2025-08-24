@@ -7,6 +7,7 @@ import { getAllItems } from "../../../../db";
 import AppHeader from "../../../common/AppHeader/AppHeader.tsx";
 import SearchBar from '../../../common/SearchBar/SearchBar.tsx';
 import ViewExercise from '../../../common/ViewExercise/ViewExercise.tsx';
+import { ConvertMetaDuration } from '../../../../helpers/exerciseHelpers.js';
 
 
 const ExercisesLibrary = () => {
@@ -49,7 +50,7 @@ const Exercise = ({data, selectItem}) =>{
                 <h4>{data.name}</h4>
                 <div className={styles.duration}>
                     <img className={styles.metaIcon} alt='' src={IconLibrary.Time} />
-                    <p>{data.duration / 60} min</p>
+                    <p>{ConvertMetaDuration(data.duration)}</p>
                 </div>
             </div>
             <div className={styles.meta}>

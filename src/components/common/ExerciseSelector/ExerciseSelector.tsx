@@ -61,7 +61,7 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({addExercise, close})
                     <div className={styles['loading']}>Loading...</div>
                 ) : (
                     filteredExercises.map((ex, index) => (
-                        <ExerciseBody addExercise={addExercise} exercise={ex} index={index} />
+                        <ExerciseBody key={"exercise-"+index} addExercise={addExercise} exercise={ex} index={index} />
                     ))
                 )}
             </div>

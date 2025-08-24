@@ -1,13 +1,14 @@
 .phases{
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    max-height: 40vh;
+    display: grid;
+    grid-template-rows: 40px 1fr;
     align-items: center;
     background-color: var(--secondary);
     position: relative;
     border-radius: 5px;
     z-index: 10;
+    overflow: hidden;
 }
 .phaseList{
     display: grid;
@@ -15,8 +16,6 @@
     height: 50px;
     width: 100%;
     background-color: var(--secondary);
-    padding: 0 10px;
-    margin-top: 10px;
 }
 .phaseList .phasesContainer{
     display: flex;
@@ -56,7 +55,8 @@
 .phaseButton{
     height: 40px;
     padding: 0 10px;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     border: none;
     background-color: transparent;
 }
@@ -66,7 +66,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0 1rem;
 }
 .addExerciseButton{
     background-color: var(--background);
@@ -79,7 +78,7 @@
 .phaseExercise{
     width: 100%;
     padding: 10px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     display: grid;
     grid-template-columns: 1fr 30px 30px;
     align-items: center;
@@ -102,10 +101,11 @@
 .phaseBody{
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 50px;
     gap: 10px;
-    padding: 10px 0;
+    padding: 10px;
+    overflow: hidden;
 }
 .phaseBody .phaseExercises{
     height: 100%;
@@ -113,7 +113,28 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: var(--background);
+    padding: 10px;
+    overflow-y: auto;
 }
 .phaseBody .addExerciseButton{
     margin-top: auto;
+}
+.phaseBody .phaseButtons{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+}
+.phaseBody .modifyPhaseButtons{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.phaseBody .modifyPhaseButtons button img{
+    width: 30px;
+    height: 30px;
 }

@@ -133,7 +133,6 @@
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    max-height: 100px;
     overflow-y: auto;
     flex-shrink: 0;
 }
@@ -203,6 +202,11 @@
     grid-template-columns: 15px 1fr;
     gap: 5px;
     align-items: center;
+}
+.phaseExercises{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .exercises .exercisesContainer .exercise{
     display: flex;

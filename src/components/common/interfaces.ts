@@ -56,6 +56,7 @@ export interface Workout {
     fields: Field[],
     tags: Tag[];
     duration: number;
+    targetMuscles?: TargetGroup[];
   }
   
   export interface TargetGroup {

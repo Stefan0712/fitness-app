@@ -20,3 +20,14 @@ export const normalizeExercise = (ex) =>{
     }
     console.log(convertedExercise)
 }
+
+
+export const ConvertMetaDuration = (seconds) => {
+  if (seconds < 60) {
+    return `${seconds} s`;
+  } else {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, "0")}`;
+  }
+};

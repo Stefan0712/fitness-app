@@ -203,20 +203,6 @@ fieldset{
   
   
   
-  
-  /* Activity page */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   /* message modal */
   
   .message-modal{
@@ -462,6 +448,7 @@ fieldset{
   --tag-background: #111214;
   --tag-text: white;
   --log-bg: #3a3a38;
+  --bottom-margin: 85px;
 
 }
 .light{
@@ -485,8 +472,19 @@ fieldset{
   
 }
 
-
-
+.slideUpBottom{
+  animation: slideUpBottomAnimation 0.1s;
+}
+@keyframes slideUpBottomAnimation {
+  from{
+    opacity: 0;
+    bottom: -120%;
+  }
+  to{
+    opacity: 1;
+    bottom: var(--bottom-margin);
+  }
+}
 
 /* Loading page */
 .loadingPage {

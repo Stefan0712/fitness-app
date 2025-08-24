@@ -136,7 +136,7 @@ const EditWorkout = () => {
                         <h4>{targetMuscles?.length || 0}</h4>
                     </div>
                 </div>
-                <Phases phases={phases} setPhases={setPhases} setDuration={setDuration}/>
+                <Phases phases={phases} setPhases={setPhases} setDuration={setDuration} setTags={setTags} setEquipment={setEquipment} setTargetMuscles={setTargetMuscles}/>
             </form>
         </div>
      );

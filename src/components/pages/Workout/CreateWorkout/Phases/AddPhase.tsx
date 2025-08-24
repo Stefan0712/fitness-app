@@ -18,12 +18,36 @@ const NewPhase = ({close, addPhase, lastOrder}) => {
             close();
         }
     }
+    const formStyles: React.CSSProperties = {
+        height: 'auto', 
+        width: 'calc(100vw - 20px)', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        gap: '10px', 
+        position: 'fixed', 
+        bottom: '85px',
+        left: '10px',
+        backgroundColor: 'var(--background)', 
+        padding: '20px 10px', 
+        borderRadius: '10px', 
+        boxShadow: '0 0 10px var(--general-border)'
+    }
+    const buttonsContainer = {
+        width: "100%",
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '10px',
+        height: '40px'
+    }
     return ( 
-        <div style={{height: '200px', width: '300px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--background)', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.5)'}}>
+        <div style={formStyles} className='slideUpBottom'>
             <h2>New Phase</h2>
             <input type="text" placeholder="Phase name" value={name} onChange={(e)=>setName(e.target.value)}/>
-            <button type="button" onClick={handleSubmit} style={{width: '100px', height: '40px', borderRadius: '5px', backgroundColor: 'var(--accent-color)', border: 'none'}}>Create</button>
-            <button type="button" onClick={close} style={{width: '100px', height: '40px', borderRadius: '5px', backgroundColor: 'var(--secondary)', border: 'none'}}>Cancel</button>
+            <div style={buttonsContainer}>
+                <button type="button" onClick={close} style={{width: '100%', height: '100%', borderRadius: '5px', backgroundColor: 'var(--secondary)', border: 'none'}}>Cancel</button>
+                <button type="button" onClick={handleSubmit} style={{width: '100%', height: '100%', borderRadius: '5px', backgroundColor: 'var(--accent-color)', border: 'none'}}>Create</button>
+            </div>
         </div>
      );
 }

@@ -295,6 +295,12 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 ## Latest Updates
 
+### 24 August 2025
+* Created a separate page for viewing and creating new muscles
+* Remade the list of default muscles
+* Updated the Muscle Selector component to be simpler and more straighforward
+* 
+
 ### 18 August 2025
 * Created separate library screens for workouts and exercises
 * Added a Library Menu that shows up when the user taps on the Library button from the nagivation, allowing the user to go to "My Workouts", "My Exercises", or "Explore"
