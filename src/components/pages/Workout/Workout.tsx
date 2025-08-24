@@ -10,6 +10,7 @@ import { useUI } from "../../../context/UIContext.jsx";
 import { Field, Workout as IWorkout, Set as ISet } from "../../common/interfaces.ts";
 import WorkoutSet from "./WorkoutComponents/WorkoutSet.tsx";
 import { format } from "date-fns";
+import Stopwatch from "../../common/Stopwatch/Stopwatch.tsx";
  
 
 interface IExercise {
@@ -46,6 +47,7 @@ const Workout = () => {
     
 
     const [extendedMode, setExtendedMode] = useState(true);
+    const [showStopwatch, setShowStopwatch] = useState(false);
 
 
 
@@ -290,7 +292,8 @@ const Workout = () => {
 
     const handleChangeCurrentExercise = (id) =>{
         setCurrentSet(null);
-        setCurrentExercise(id)
+        setCurrentExercise(id);
+        setShowExercises(false);
     }
 
     // Handles going to the next set
@@ -310,20 +313,13 @@ const Workout = () => {
                 handleCompleteExercise(currentEx._id);
                 console.log(currentEx)
             }
-
-            // Move to next unfinished exercise
-            // const nextUnfinishedEx = exercises.slice(currentExIndex + 1).find(ex => !ex.isCompleted);
-            // if (nextUnfinishedEx) {
-            //     setCurrentExercise(nextUnfinishedEx._id);
-            //     const firstUnfinishedSet = nextUnfinishedEx.sets.find(set => !set.isCompleted);
-            //     setCurrentSet(firstUnfinishedSet?._id ?? nextUnfinishedEx.sets[nextUnfinishedEx.sets.length - 1]?._id ?? null);
-            // }
         }
     };
 
     if(workoutData){
         return (
             <div className={`${styles["workout-page"]} page`}>
+                {showStopwatch ? <Stopwatch close={()=>setShowStopwatch(false)} /> : null}
                 <div className={styles['page-header']}>
                     <div className={styles.timer}>{formatTime(seconds)}</div>
                     <h2>{workoutData.name}</h2>
@@ -400,7 +396,7 @@ const Workout = () => {
                     <button className={styles['navigation-button']} onClick={prevExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img>
                     </button>
-                    <button onClick={()=>setExtendedMode(extendedMode=>!extendedMode)}>{extendedMode ? 'Minimize Sets' : 'Extend Sets'}</button>
+                    <button onClick={()=>setShowStopwatch(prev=>!prev)}>Stopwatch</button>
                     <button onClick={()=>(setIsRunning(prev=>!prev), saveProgress())}>{isRunning ? 'Pause' : 'Resume'}</button>
                     <button className={styles['navigation-button']} onClick={nextExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} style={{transform: 'rotateZ(180deg)'}} alt="next exercise"></img>

@@ -178,6 +178,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                     <input type='text' min={0} max={9999} className={styles.fieldInput} placeholder={`0/${field.target} ${field.unit.shortLabel || ''}`} disabled={currentSet !== set._id} value={field.value || 0}
                         onChange={(e)=>updateFieldValue(set.exerciseId, setIndex, field._id, parseInt(e.target.value))}
                     />
+                    <p>/{field.target}</p>
                     {currentSet === set._id ? <input type='checkbox' checked={field.isCompleted} onChange={(e)=>toggleFieldCompletion(set.exerciseId, setIndex, field._id, e.target.checked)} className={styles.fieldCheckbox}></input> : null}
                 </div>) : <p>No fields</p>}
             </div>
@@ -188,7 +189,7 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                 </button>
                 <div className={styles.currentProgress}>{formatTime(seconds)}</div>
                 <button className={styles.timerButton} onClick={()=>setIsStarted(prev=>!prev)}>
-                    <img src={isStarted ? IconLibrary.Pause : IconLibrary.Start} alt='pause/start rest'></img>
+                    <img src={isStarted ? IconLibrary.Pause : IconLibrary.Start} alt=''></img>
                 </button>
             </div> : null}
         </div>
