@@ -20,7 +20,7 @@ const ExerciseImport = ({item, index, library, selectedItems, handleItemSelectio
             </div>
             <div className={styles.rowList}>
                 <p>{item.sets}x </p>
-                {item.fields?.map((field, index)=><p key={'tax-'+index}>{field.target} {field.unit}</p>)}
+                {item.fields?.map((field, index)=><p key={'tax-'+index}>{field.target} {field.unit.shortLabel}</p>)}
             </div>
         </div>
      );
