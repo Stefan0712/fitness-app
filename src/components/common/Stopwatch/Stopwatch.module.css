@@ -1,11 +1,12 @@
 .stopwatch{
     width: calc(100vw - 20px);
-    height: 300px;
+    height: 400px;
     border-radius: 5px;
     background-color: var(--modal-bg);
     border: 1px solid var(--general-border);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 40px 150px 1fr 50px;
+    gap: 20px;
     position: fixed;
     bottom: 85px;
     left: 10px;
@@ -55,16 +56,62 @@
     width: 50%;
     height: 50%;
 }
+.stopwatch .lap{
+    display: flex;
+    justify-content: space-between;
+}
+.stopwatch .lap p{
+    color: rgba(255, 255, 255, 0.5);
+}
+.stopwatch .laps{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px;
+    max-height: 150px;
+    overflow-y: auto;
+}
 .stopwatch .time{
     width: 100%;
-    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+}
+.progressCircle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: lightgray;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressCircle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    transform: rotate(-90deg); /* start from top */
+}
+
+.progressInner {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);;
+    border-radius: 50%;
+    background: var(--modal-bg, #1e1e1e);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
-.stopwatch .time h4{
+.progressInner h3,
+.progressInner h1{
     width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
