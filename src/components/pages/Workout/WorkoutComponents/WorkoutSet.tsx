@@ -22,7 +22,7 @@ interface WorkoutSetProps{
     setExercises: React.Dispatch<React.SetStateAction<IExercise[]>>;
     allSets: Set[],
 }
-const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, currentSet, setExercises, setCurrentSet, allSets}) => {
+const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, setExercises}) => {
 
     const [seconds, setSeconds] = useState(set.duration || 0);
 

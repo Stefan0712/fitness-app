@@ -2,20 +2,21 @@ import { useState } from 'react';
 import styles from './ExercisesList.module.css';
 import { IconLibrary } from '../../../../IconLibrary';
 import ExerciseSelector from '../../../common/ExerciseSelector/ExerciseSelector';
+import { formatExercise } from '../WorkoutHelpers';
 
 
-const ExercisesList = ({exercises, setExercises, close}) => {
+const ExercisesList = ({exercises, setExercises, close, setCurrentExercise}) => {
 
     const [showExercisePicker, setShowExercisePicker] = useState(false);
     return ( 
         <div className={styles.exercisesList}>
-            {showExercisePicker ? <ExerciseSelector addExercise={(newEx)=>setExercises(prev=>[...prev, newEx])} close={()=>setShowExercisePicker(false)} /> : null}
+            {showExercisePicker ? <ExerciseSelector addExercise={(newEx)=>setExercises(prev=>[...prev, formatExercise(newEx)])} close={()=>setShowExercisePicker(false)} /> : null}
             <div className={styles.header}>
                 <h3>Exercises: {exercises.length}</h3>
                 <button onClick={close}><img src={IconLibrary.Close} className='small-icon' alt='' /></button>
             </div>
             <div className={styles.exercisesContainer}>
-                {exercises && exercises.length > 0 ? exercises.map((ex, index)=><Exercise key={'Exercise-'+index} data={ex} />): <p>No exercises</p>}
+                {exercises && exercises.length > 0 ? exercises.map((ex, index)=><Exercise setCurrentExercise={setCurrentExercise} close={close} key={'Exercise-'+index} data={ex} />): <p>No exercises</p>}
             </div>
             <button onClick={()=>setShowExercisePicker(true)} className={styles.closeButton}>Add exercise</button>
         </div>
@@ -25,9 +26,9 @@ const ExercisesList = ({exercises, setExercises, close}) => {
 export default ExercisesList;
 
 
-const Exercise = ({data}) =>{
+const Exercise = ({data, setCurrentExercise, close}) =>{
     return (
-        <div className={styles.exercise}>
+        <div className={styles.exercise} onClick={()=>(setCurrentExercise(data._id), close())}>
             <div className={styles.header}>
                 <h4>{data.name}</h4>
                 <p>x{data.sets?.length}</p>

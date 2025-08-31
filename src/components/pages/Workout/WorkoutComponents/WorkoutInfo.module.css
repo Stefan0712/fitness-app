@@ -27,6 +27,16 @@
     flex-shrink: 0;
     padding: 0 10px;
 }
+.workoutInfo .closeButton{
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
 .switcherContainer{
     width: 100%;
     display: flex;

@@ -295,11 +295,33 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 ## Latest Updates
 
-### 24 August 2025
+### 31 August 2025
 * Created a separate page for viewing and creating new muscles
 * Remade the list of default muscles
 * Updated the Muscle Selector component to be simpler and more straighforward
-* 
+* Polished running workouts:
+  - Removed the border of each set, alongside with skip buttons and individual timers.
+  - Changed the input and target of each field to fit more with the ui.
+  - Added a rest timer after each set with a progress bar showing the progress of the rest timer.
+  - Rearranged most elements making them more accessible and easier to see. Moved the progress bar at the top, the timer and completed exercises under it, followed by the current exercise sets.
+  - Moved exercises list button at the bottom and created a new component with better layout and colors.
+  - Created a stopwatch component and added a stopwatch button at the bottom that can be used to track time for exercises with time units.
+  - Created an Info pop-up containing instructions, tags, equipment, and targeted muscles for the selected exercise.
+  - Removed unused functions, useless html elements, moved formatExercise function to a separate file so it can be used in other components and some other minor improvements like fallback values, etc.
+* Minor fixes across the app: 
+  - Fixed crashing when importing exercises using the new unit format
+  - Fixed some lists going outside of the viewport in Create Workout and Create Exercise screens
+  - Fixed exercise list not closing when pressing the close button
+  - Fixed some typos 
+  - Fixed some wrong margins and paddings
+* Gallery:
+<p align="center">
+  <img src="https://i.imgur.com/W5kFUJF.png" alt="Screenshot 4" width="20%" />
+  <img src="https://i.imgur.com/IP7K3vE.png" alt="Screenshot 5" width="20%" />
+  <img src="https://i.imgur.com/xIRK64N.png" alt="Screenshot 6" width="20%" />
+  <img src="https://i.imgur.com/n1TU3cD.png" alt="Screenshot 6" width="20%" />
+</p>
+
 
 ### 18 August 2025
 * Created separate library screens for workouts and exercises

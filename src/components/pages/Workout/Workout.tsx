@@ -12,6 +12,8 @@ import { format } from "date-fns";
 import Stopwatch from "../../common/Stopwatch/Stopwatch.tsx";
 import WorkoutInfo from "./WorkoutComponents/WorkoutInfo.tsx";
 import ExercisesList from "./WorkoutComponents/ExercisesList.tsx";
+import { formatExercise } from "./WorkoutHelpers.ts";
+import Rest from "./WorkoutComponents/Rest.js";
  
 
 interface IExercise {
@@ -129,43 +131,7 @@ const Workout = () => {
         return exercises;
     };
     
-    // Format the original exercises array form workoutData 
-    const formatExercise = (exercise) =>{
-        // Initialize an empty array of sets
-        const newSets: ISet[] = [];
-        const newExerciseId = uuidv4(); // Set a new ID so that even if two identical exercises are inside a workout there won't be any issues
-        // Defining the template for all sets
-        const setTemplate: ISet = {
-            exerciseId: newExerciseId,
-            isCompleted: false,
-            isSkipped: false,
-            rest: exercise.rest,
-            order: exercise.length,
-            fields: exercise.fields.length > 0 ? [...exercise.fields] : [],
-            duration: 0,
-            startedAt: undefined,
-            finishedAt: undefined,
-            status:'not-started'
-        }
-        // Add one set by default if sets is less than one not not defined at all
-        if(!exercise.sets || exercise.sets < 1){
-            newSets.push({...setTemplate, _id: uuidv4()});
-        }else{
-            // Or add setTemple for the number of times that sets property specify
-            for (let i = 0; i < exercise.sets; i++) {
-                newSets.push({...setTemplate, _id: uuidv4()});
-            }
-        }
-        // Create a simple new exercise instance with only needed information
-        const ex = {
-            ...exercise,
-            initialId: exercise._id,
-            _id: newExerciseId,
-            sets: newSets,
-            isCompleted: false,
-        };
-        return ex;
-    }
+    
     
 
     // Functions to move through exercises
@@ -267,7 +233,7 @@ const Workout = () => {
         return (
             <div className={`${styles["workout-page"]} page`}>
                 {showStopwatch ? <Stopwatch close={()=>setShowStopwatch(false)} /> : null}
-                {showExerciseList ? <ExercisesList close={()=>setShowExerciseList(false)} exercises={exercises} setExercises={setExercises} /> : null}
+                {showExerciseList ? <ExercisesList close={()=>setShowExerciseList(false)} exercises={exercises} setExercises={setExercises} setCurrentExercise={setCurrentExercise} /> : null}
                 <div className={styles['page-header']}>
                     <h2>{workoutData.name}</h2>
                     <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
@@ -293,10 +259,14 @@ const Workout = () => {
                 </div>
                 <div className={styles['sets-container']}>
                     {exercises && exercises.length > 0 ? exercises.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
-                        <WorkoutSet key={item && item._id ? item._id+index : index+'set'} setExercises={setExercises} allSets={exercises.find(ex=>ex._id === item.exerciseId)?.sets ?? []} setCurrentSet={setCurrentSet} currentSet={currentSet} setIndex={index} set={item} />
+                        <>
+                            <WorkoutSet key={item && item._id ? item._id+index : index+'set'} setExercises={setExercises} allSets={exercises.find(ex=>ex._id === item.exerciseId)?.sets ?? []} setCurrentSet={setCurrentSet} currentSet={currentSet} setIndex={index} set={item} />
+                            <Rest duration={item.rest}/>
+                        </>
                     )) : null}
+                    
                 </div>
-                <WorkoutInfo enabled={showWorkoutInfo} close={()=>setShowWorkoutInfo(false)} data={exercises.find(ex=>ex._id === currentExercise)} exercises={exercises} />
+                <WorkoutInfo enabled={showWorkoutInfo} setEnabled={setShowWorkoutInfo} close={()=>setShowWorkoutInfo(false)} data={exercises.find(ex=>ex._id === currentExercise)} exercises={exercises} />
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img>
