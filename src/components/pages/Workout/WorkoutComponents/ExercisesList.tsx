@@ -4,7 +4,7 @@ import { IconLibrary } from '../../../../IconLibrary';
 import ExerciseSelector from '../../../common/ExerciseSelector/ExerciseSelector';
 
 
-const ExercisesList = ({exercises, setExercises}) => {
+const ExercisesList = ({exercises, setExercises, close}) => {
 
     const [showExercisePicker, setShowExercisePicker] = useState(false);
     return ( 
@@ -12,7 +12,7 @@ const ExercisesList = ({exercises, setExercises}) => {
             {showExercisePicker ? <ExerciseSelector addExercise={(newEx)=>setExercises(prev=>[...prev, newEx])} close={()=>setShowExercisePicker(false)} /> : null}
             <div className={styles.header}>
                 <h3>Exercises: {exercises.length}</h3>
-                <button><img src={IconLibrary.Close} className='small-icon' alt='' /></button>
+                <button onClick={close}><img src={IconLibrary.Close} className='small-icon' alt='' /></button>
             </div>
             <div className={styles.exercisesContainer}>
                 {exercises && exercises.length > 0 ? exercises.map((ex, index)=><Exercise key={'Exercise-'+index} data={ex} />): <p>No exercises</p>}

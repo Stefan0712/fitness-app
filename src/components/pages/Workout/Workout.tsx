@@ -267,7 +267,7 @@ const Workout = () => {
         return (
             <div className={`${styles["workout-page"]} page`}>
                 {showStopwatch ? <Stopwatch close={()=>setShowStopwatch(false)} /> : null}
-                {showExerciseList ? <ExercisesList exercises={exercises} setExercises={setExercises} /> : null}
+                {showExerciseList ? <ExercisesList close={()=>setShowExerciseList(false)} exercises={exercises} setExercises={setExercises} /> : null}
                 <div className={styles['page-header']}>
                     <h2>{workoutData.name}</h2>
                     <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
