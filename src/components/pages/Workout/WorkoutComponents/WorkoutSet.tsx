@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { IconLibrary } from '../../../../IconLibrary';
 import { Field, Set } from '../../../common/interfaces';
 import styles from './WorkoutSet.module.css';
-import { formatTime } from '../../../../helpers.js';
 
 interface IExercise {
     _id: string,
@@ -19,31 +18,14 @@ interface WorkoutSetProps{
     set: Set,
     setIndex: number;
     currentSet: string | null;
-    goToNextSetOrExercise: () => void;
     setCurrentSet: (setId: string) => void;
     setExercises: React.Dispatch<React.SetStateAction<IExercise[]>>;
     allSets: Set[],
 }
-const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExercise, currentSet, setExercises, setCurrentSet, allSets}) => {
+const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, currentSet, setExercises, setCurrentSet, allSets}) => {
 
     const [seconds, setSeconds] = useState(set.duration || 0);
-    const [isStarted, setIsStarted] = useState(currentSet === set._id ? true : false);
 
-    useEffect(() => {
-        let interval: NodeJS.Timeout | null = null;
-        if(set.isCompleted){
-            setIsStarted(false)
-        }
-        if (isStarted && currentSet === set._id && !set.isCompleted) {
-            interval = setInterval(() => {
-                setSeconds(prev => prev + 1);
-            }, 1000);
-        }else if(!isStarted && interval !== null) {
-            clearInterval(interval);
-            updateSetMetadata(set.exerciseId, setIndex, {duration: seconds});
-        }
-        return () => {if(interval !== null) clearInterval(interval)};
-    }, [isStarted, currentSet, set.isCompleted]);
     
     useEffect(() => {
         if (set.isCompleted && set.status !== 'completed') {
@@ -59,11 +41,10 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                     const allSetsCompleted = updatedSets.every(s => s.isCompleted);
                     const updatedExercise = { ...exercise, sets: updatedSets, isCompleted: allSetsCompleted };
                     // Only call next set/exercise if all are done
-                    if (allSetsCompleted) {goToNextSetOrExercise()}
+                    
                     return updatedExercise;
                 });
             });
-            setIsStarted(false);
             setSeconds(0);
         }
     }, [set]);
@@ -71,18 +52,8 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
 
     useEffect(()=>{
         updateSetMetadata(set.exerciseId, setIndex, {startedAt: new Date()});
-        setIsStarted(true)
     },[]);
 
-    const nextSet = (currentSet) =>{
-        const currentSetIndex = allSets.findIndex(item=> item._id === currentSet)
-        if(allSets && currentSetIndex < allSets.length - 1){
-            const nextIndex = allSets[currentSetIndex+1]._id
-            if(nextIndex){
-                setCurrentSet(nextIndex)
-            }
-        }
-    }
     // Handle completing one field
     const toggleFieldCompletion = ( exerciseId: string, setIndex: number, fieldId: string, checked: boolean ) => {
         setExercises(prevExercises =>
@@ -138,12 +109,6 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
             })
         );
     };
-    const completeCurrentSetAndGoNext = () => {
-        updateSetMetadata(set.exerciseId, setIndex, {finishedAt: new Date(), duration: seconds, status: 'completed'});
-        setTimeout(() => {
-            goToNextSetOrExercise();
-        }, 50);
-    };
     const toggleSetCompletion = () => {
         setExercises(prevExercises =>
             prevExercises.map(exercise => {
@@ -162,36 +127,28 @@ const WorkoutSet: React.FC<WorkoutSetProps> = ({set, setIndex, goToNextSetOrExer
                 return { ...exercise, sets: updatedSets, isCompleted: isExerciseCompleted };
             })
         );
-        setTimeout(()=>{goToNextSetOrExercise()}, 100)
     };
 
-
     return ( 
-        <div className={`${styles.workoutSet} ${currentSet === set._id ? styles.selectedSet : ''}`} onClick={()=>set._id ? (setCurrentSet(set._id), setIsStarted(true)) : null}>
+        <div className={styles.workoutSet}>
             <div className={styles.setHeader}>
-                <button onClick={currentSet === set._id ? toggleSetCompletion : ()=>console.log('You are not supposed to click this now')} className={styles.setCompletionButton}><img src={set.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' /></button>
+                <button onClick={toggleSetCompletion} className={styles.setCompletionButton}><img src={set.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' /></button>
                 <h3>Set {setIndex+1}</h3>
             </div>
             <div className={styles.setFields}>
                 {set.fields && set.fields.length > 0 ? set.fields.map((field, index)=><div className={styles.setField} key={`set-${set._id}-field-${index}`}>
                     <p>{field.name}</p>
-                    <input type='text' min={0} max={9999} className={styles.fieldInput} placeholder={`0/${field.target} ${field.unit.shortLabel || ''}`} disabled={currentSet !== set._id} value={field.value || 0}
-                        onChange={(e)=>updateFieldValue(set.exerciseId, setIndex, field._id, parseInt(e.target.value))}
-                    />
-                    <p>/{field.target}</p>
-                    {currentSet === set._id ? <input type='checkbox' checked={field.isCompleted} onChange={(e)=>toggleFieldCompletion(set.exerciseId, setIndex, field._id, e.target.checked)} className={styles.fieldCheckbox}></input> : null}
+                    <div className={styles.inputSet}>
+                        <input type='text' min={0} max={9999} className={styles.fieldInput} value={field.value || 0}
+                            onChange={(e)=>updateFieldValue(set.exerciseId, setIndex, field._id, parseInt(e.target.value))}
+                        />
+                        <p className={styles.fieldTarget}> / {field.target}</p>
+                    </div>
+                    <button onClick={()=>toggleFieldCompletion(set.exerciseId, setIndex, field._id, !field.isCompleted)} className={styles.fieldCheckbox} >
+                        <img src={field.isCompleted ? IconLibrary.CircleCheckmark : IconLibrary.Circle} alt='' />
+                    </button>
                 </div>) : <p>No fields</p>}
             </div>
-            {currentSet === set._id ? 
-            <div className={styles.setTimer}>
-                <button className={styles.timerButton} onClick={completeCurrentSetAndGoNext}>
-                <img src={IconLibrary.Next} alt='skip set'></img>
-                </button>
-                <div className={styles.currentProgress}>{formatTime(seconds)}</div>
-                <button className={styles.timerButton} onClick={()=>setIsStarted(prev=>!prev)}>
-                    <img src={isStarted ? IconLibrary.Pause : IconLibrary.Start} alt=''></img>
-                </button>
-            </div> : null}
         </div>
      );
 }

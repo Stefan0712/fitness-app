@@ -1,6 +1,7 @@
 .workoutSet{
     width: 100%;
-    max-height: 40px;
+    height: auto;
+    max-height: 500px;
     overflow: hidden;
     background-color: var(--secondary);
     border-radius: 10px;
@@ -8,15 +9,9 @@
     flex-direction: column;
     padding-bottom: 5px;
     border: 1px solid transparent;
-    transition: max-height 0.1s;
+    transition: all 0.1s;
+    flex-shrink: 0;
 }
-.workoutSet.selectedSet{
-    border-color: rgba(211, 211, 211, 0.397);
-    transition: max-height 0.2s;
-    height: auto;
-    max-height: 500px;
-}
-
 .workoutSet .setHeader{
     height: 40px;
     width: 100%;
@@ -35,7 +30,7 @@
 .workoutSet .setFields .setField{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 75px 30px 30px;
+    grid-template-columns: 1fr auto 30px;
     gap: 10px;
     align-items: center;
 }
@@ -43,7 +38,14 @@
 .workoutSet .fieldCheckbox{
     width: 30px;
     height: 30px;
-    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+}
+.workoutSet .fieldCheckbox img {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
 }
 .workoutSet .setHeader .setCompletionButton{
     background-color: transparent;
@@ -52,7 +54,11 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    widtH: 40px;
+    width: 40px;
+}
+.workoutSet .inputSet{
+    display: flex;
+    align-items: center;
 }
 .workoutSet .setHeader .setCompletionButton img{
     width: 20px;
@@ -61,6 +67,25 @@
 .workoutSet .fieldInput{
     height: 40px;
     background-color: var(--background);
+    width: 50px;
+    border-right: none;
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.workoutSet .fieldTarget{
+    background-color: var(--background);
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--general-border);
+    border-left: none;
 }
 .workoutSet .restTitle{
     width: 100%;
@@ -70,18 +95,18 @@
 
 
 
-/* Timer */
+/* Controls */
 
-.setTimer{
+.setControls{
     width: 100%;
     height: 50px;
-    display: grid;
-    grid-template-columns: 30px 1fr 30px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     overflow: hidden;
+    flex-shrink: 0;
 }
-.setTimer .timerButton{
+.setControls .setButton{
     width: 30px;
     height: 30px;
     background-color: transparent;
@@ -91,16 +116,8 @@
     justify-content: center;
     z-index: 2;
 }
-.setTimer .timerButton img{
+.setControls .setButton img{
     height: 15px;
     width: 15px;
-    z-index: 2;
-}
-.setTimer .currentProgress{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 2;
 }

@@ -1,0 +1,143 @@
+.workoutInfo{
+    height: 50px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 50px 1fr 50px;
+    gap: 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+    position: fixed;
+    bottom: 160px;
+    border: 1px solid rgba(211, 211, 211, 0.2);
+    transition: height 0.1s;
+}
+.workoutInfo.expandedInfo{
+    height: 60vh;
+    flex-shrink: 0;
+    z-index: 100;
+    transition: height 0.1s;
+}
+.workoutInfo .header{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0 10px;
+}
+.switcherContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.switcherContainer button{
+    height: 100%;
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-top: 2px solid transparent;
+    transition: all 0.1s;
+}
+.switcherContainer button.selectedButton{
+    border-color: white;
+    transition: all 0.1s;
+}
+.workoutInfo .content{
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+
+
+
+/* Instructions screen */
+
+.instructionsScreen{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+.instructionsScreen .instructionsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+.instructionsScreen .instructionsContainer p{
+    background-color: var(--background);
+    padding: 5px 10px;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+
+
+/* Equipment screen */
+
+.equipmentScreen{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+.equipmentScreen .equipmentBody{
+    display: flex;
+    width: 100%;
+    background-color: var(--background);
+    border-radius: 5px;
+    padding: 10px;
+    flex-direction: column;
+    gap: 5px;
+}
+.equipmentScreen .equipmentBody .equipmentAttributes{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+}
+.equipmentScreen .equipmentBody .equipmentAttributes p{
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+/* Tags screen and Muscles screen */
+
+.tagsScreen,
+.musclesScreen{
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    align-content: flex-start
+}
+
+.tagsScreen .tagBody,
+.musclesScreen .muscleBody {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--background);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tagsScreen .tagBody .tagColor{
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+}

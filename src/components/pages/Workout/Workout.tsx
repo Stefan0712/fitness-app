@@ -4,13 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { IconLibrary } from "../../../IconLibrary.js";
 import styles from './Workout.module.css';
-import ExerciseSelector from "../../common/ExerciseSelector/ExerciseSelector.tsx";
 import { getItemById, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
 import { Field, Workout as IWorkout, Set as ISet } from "../../common/interfaces.ts";
 import WorkoutSet from "./WorkoutComponents/WorkoutSet.tsx";
 import { format } from "date-fns";
 import Stopwatch from "../../common/Stopwatch/Stopwatch.tsx";
+import WorkoutInfo from "./WorkoutComponents/WorkoutInfo.tsx";
+import ExercisesList from "./WorkoutComponents/ExercisesList.tsx";
  
 
 interface IExercise {
@@ -30,28 +31,17 @@ const Workout = () => {
     const navigate = useNavigate();
     const {showMessage} = useUI();
 
-    const [showInstructions, setShowInstructions] = useState<boolean>(false);
-    const [showExercises, setShowExercises] = useState<boolean>(false);
-    const [showExercisePicker, setShowExercisePicker] = useState<boolean>(false);
-    
+    const [showExerciseList, setShowExerciseList] = useState(false);
+    const [showWorkoutInfo, setShowWorkoutInfo] = useState<boolean>(false);    
     const [workoutData, setWorkoutData] = useState<IWorkout | null>(null);
     const [exercises, setExercises] = useState<IExercise[]>([]);
-
-
     const [currentExercise, setCurrentExercise] = useState<string | null>(null); 
     const [currentSet, setCurrentSet] = useState<string | null>(null);
-
     // Timer seconds
     const [seconds, setSeconds] = useState(0);
     const [isRunning, setIsRunning] = useState(true);
-    
 
-    const [extendedMode, setExtendedMode] = useState(true);
     const [showStopwatch, setShowStopwatch] = useState(false);
-
-
-
-
 
     useEffect(() => {
         if(isRunning){
@@ -196,12 +186,6 @@ const Workout = () => {
         }
     };
 
-    const addExercise = (exercise) =>{
-        setExercises(exercises=>[...exercises, {...formatExercise(exercise), setName: 'Post-added'}]);
-        setShowExercisePicker(false);
-        showMessage("Exercise added", 'success');
-    }
-
     //finish the workout by saving it as a log and redirrecting the user to he activity page
     const finishWorkout = async () =>{
         //create the log object that will be saved to the redux store
@@ -262,6 +246,7 @@ const Workout = () => {
                 //creates a new set object and appends it to the current exercise sets array
                 return { ...ex, sets: [...ex.sets, {
                     exerciseId: ex._id,
+                    _id: uuidv4(),
                     isCompleted: false,
                     isSkipped: false,
                     rest: ex.rest,
@@ -278,126 +263,56 @@ const Workout = () => {
         setExercises(updatedExercises);
         showMessage("New set added", 'success');
     }
-    
-    const handleCompleteExercise = (exerciseId) =>{
-        const updatedExercises = exercises.map((ex) => {
-            if (ex._id === exerciseId) {
-                return { ...ex, isCompleted: !ex.isCompleted}; //toggle is completed for this exercise
-            }
-            return ex; // If not the correct exercise, return as is
-        });
-    
-        setExercises(updatedExercises);
-    }
-
-    const handleChangeCurrentExercise = (id) =>{
-        setCurrentSet(null);
-        setCurrentExercise(id);
-        setShowExercises(false);
-    }
-
-    // Handles going to the next set
-    const goToNextSetOrExercise = () => {
-        const currentExIndex = exercises.findIndex(ex => ex._id === currentExercise); // Find the index of the current exercise
-        if (currentExIndex === -1) return; // Exit the function if the exercise is not found
-
-        const currentEx = exercises[currentExIndex]; 
-        const currentSetIndex = currentEx.sets.findIndex(set => set._id === currentSet); // Find the current set inside the current exercise
-        const nextUncompletedSet = currentEx.sets.slice(currentSetIndex + 1).find(set => !set.isCompleted)?._id; // Finds the next set that is not completed
-        
-        if (nextUncompletedSet) {
-            setCurrentSet(nextUncompletedSet);
-        } else {
-            // Mark current exercise as complete
-            if (!currentEx.isCompleted) {
-                handleCompleteExercise(currentEx._id);
-                console.log(currentEx)
-            }
-        }
-    };
-
     if(workoutData){
         return (
             <div className={`${styles["workout-page"]} page`}>
                 {showStopwatch ? <Stopwatch close={()=>setShowStopwatch(false)} /> : null}
+                {showExerciseList ? <ExercisesList exercises={exercises} setExercises={setExercises} /> : null}
                 <div className={styles['page-header']}>
-                    <div className={styles.timer}>{formatTime(seconds)}</div>
                     <h2>{workoutData.name}</h2>
                     <button onClick={()=>finishWorkout()} className={styles['finish-button']}>Finish</button>
                 </div>
-                <div className={styles.content}>
-                    {showExercisePicker ? <ExerciseSelector close={()=>setShowExercisePicker(false)} addExercise={addExercise} /> : null}
-
-                    {showExercises ? (
-                        <div className={styles.exercises}>
-                        <div className={styles['exercises-header']}>
-                            <h3>Exercises</h3>
-                            <button className={styles['hide-exercises']}>
-                                <img src={IconLibrary.Add} onClick={()=>setShowExercisePicker(true)} className="small-icon" alt="add exercise"></img>
-                            </button>
-                        </div>
-                
-                        <div className={styles["exercises-container"]}>
-                            {exercises?.map((exercise, index) => (
-                                <div className={`${styles["exercise-body"]} ${currentExercise === exercise._id ? styles['selected-exercise'] : ''}`} key={index + 'exercise'} onClick={() => handleChangeCurrentExercise(exercise._id)}>
-                                    <p>{exercise.name}</p>
-                                    <b>x{exercise.sets.length}</b>
-                                </div>
-                            ))}
-                        </div>  
-                    </div>
-                    ) : null}
-
-                <div className={styles.workoutProgress}>
-                    <p>{exercises.filter(item=>item.isCompleted).length}/{exercises.length}</p>
-                    <div className={styles.progressBarContainer}>
-                        <div className={styles.progressBar} style={{width: `${Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%`}}></div>
-                    </div>
-                    <p>{Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%</p>
-                </div>
-                <div className={styles.exerciseHeader}>
-                    <h3>{exercises.find(item=>item._id === currentExercise)?.name || ''}</h3>
-                    {currentExercise ? <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentExercise)}>
-                        <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
-                    </button> : null}
-                    <button className={styles.showExerciseListButton} onClick={()=>setShowExercises(showExercises=>!showExercises)}>
-                        <img src={IconLibrary.List} alt="" className="small-icon" />
-                    </button>
-                </div>
-                <div className={styles['current-exercise']}>
-                        <div className={styles['sets-container']}>
-                            {exercises && exercises.length > 0 ? exercises.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
-                                <WorkoutSet key={item && item._id ? item._id+index : index+'set'} setExercises={setExercises} allSets={exercises.find(ex=>ex._id === item.exerciseId)?.sets ?? []} setCurrentSet={setCurrentSet} currentSet={currentSet} setIndex={index} set={item} goToNextSetOrExercise={goToNextSetOrExercise}/>
-                            )) : null}
+                <div className={styles.workoutSummary}>
+                    <div className={styles.workoutProgress}>
+                        <div className={styles.progressBarContainer}>
+                            <div className={styles.progressBar} style={{width: `${Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%`}}>
+                                <p className={styles.percentage}>{Math.round((exercises.filter(item=>item.isCompleted).length / exercises.length)*100)}%</p>
+                            </div>
                         </div>
                     </div>
-                </div> 
-                <div className={`${styles.instructionsSection} ${showInstructions ? styles.expandedInstructions : ''}`}>
-                    <div className={styles.instructionsHeader} onClick={()=>setShowInstructions(prev=>!prev)}>
-                        <h3>Instructions</h3>
-                        <button className={styles.toggleInstructionsButton}>
-                            <img src={IconLibrary.Arrow} className="small-icon" alt="toggle instructions"></img>
-                        </button>
-                    </div>
-                    <div className={styles.instructionsContainer}>
-                        {(() => {
-                            const exercise = exercises?.find(item => item._id === currentExercise);
-                            if (exercise && exercise.instructions?.length > 0) {
-                                return exercise.instructions.map((item, index) => (
-                                    <p key={`instruction-${index}`}>{index + 1}. {item}</p>
-                                ));
-                            } else {
-                                return <p>No instructions for this exercise</p>;
-                            }
-                        })()}
+                    <div className={styles.top}>
+                        <div className={styles.textInfo}>
+                            <img src={IconLibrary.Time} className={styles.summaryIcon} alt="" />
+                            <p>{formatTime(seconds)}</p>
+                        </div>
+                        <div className={styles.textInfo}>
+                            <img src={IconLibrary.Completed} className={styles.summaryIcon} alt="" />
+                            <p>{exercises.filter(item=>item.isCompleted).length}/{exercises.length}</p>
+                        </div>
                     </div>
                 </div>
+                <div className={styles['sets-container']}>
+                    {exercises && exercises.length > 0 ? exercises.find((ex) => ex._id === currentExercise)?.sets.map((item, index)=>(
+                        <WorkoutSet key={item && item._id ? item._id+index : index+'set'} setExercises={setExercises} allSets={exercises.find(ex=>ex._id === item.exerciseId)?.sets ?? []} setCurrentSet={setCurrentSet} currentSet={currentSet} setIndex={index} set={item} />
+                    )) : null}
+                </div>
+                <WorkoutInfo enabled={showWorkoutInfo} close={()=>setShowWorkoutInfo(false)} data={exercises.find(ex=>ex._id === currentExercise)} exercises={exercises} />
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img>
                     </button>
-                    <button onClick={()=>setShowStopwatch(prev=>!prev)}>Stopwatch</button>
-                    <button onClick={()=>(setIsRunning(prev=>!prev), saveProgress())}>{isRunning ? 'Pause' : 'Resume'}</button>
+                    <button onClick={()=>setShowStopwatch(prev=>!prev)}>
+                        <img className="small-icon" src={IconLibrary.Stopwatch} alt=""></img>
+                    </button>
+                    <button onClick={()=>setShowWorkoutInfo(prev=>!prev)}>
+                        <img className="small-icon" src={IconLibrary.InfoCircle} alt=""></img>
+                    </button>
+                    <button onClick={()=>currentExercise ? handleAddSet(currentExercise) : showMessage("No exercise selected")}>
+                        <img className="small-icon" src={IconLibrary.Add} alt=""></img>
+                    </button>
+                    <button onClick={()=>setShowExerciseList(prev=>!prev)}>
+                        <img className="small-icon" src={IconLibrary.List} alt=""></img>
+                    </button>
                     <button className={styles['navigation-button']} onClick={nextExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} style={{transform: 'rotateZ(180deg)'}} alt="next exercise"></img>
                     </button>
