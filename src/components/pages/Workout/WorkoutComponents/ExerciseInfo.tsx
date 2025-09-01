@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import styles from './WorkoutInfo.module.css';
+import styles from './ExerciseInfo.module.css';
 import { IconLibrary } from '../../../../IconLibrary';
 
 
-const WorkoutInfo = ({data, close, exercises, enabled, setEnabled}) => {
+const ExerciseInfo = ({data, close, exercises, enabled, setEnabled}) => {
 
     const [selectedScreen, setSelectedScreen] = useState('instructions');
     if(data){
         return ( 
             <div className={`${styles.workoutInfo} ${enabled ? styles.expandedInfo : ''}`}>
                 <div className={styles.header} onClick={!enabled ? ()=>setEnabled(true) : null}>
-                    <h3>{data?.name ?? "Exercise name"}</h3>
-                    <b>{exercises.findIndex(item => item._id === data._id) + 1}/{exercises.length}</b>
+                    {exercises ? <>
+                        <h3>{data?.name ?? "Exercise name"}</h3>
+                        <b>{exercises.findIndex(item => item._id === data._id) + 1}/{exercises.length}</b> 
+                    </> : <h3>{data.name}</h3>}
                     {enabled ? <button onClick={close} className={styles.closeButton}><img className='small-icon' alt='' src={IconLibrary.Close}/></button> : null}
                 </div>
                 <div className={styles.content}>
@@ -31,7 +33,7 @@ const WorkoutInfo = ({data, close, exercises, enabled, setEnabled}) => {
     }
 }
  
-export default WorkoutInfo;
+export default ExerciseInfo;
 
 
 const InstructionsScreen = ({data}) =>{

@@ -8,6 +8,10 @@ import { getItemById, saveItem } from '../../../db.js';
 import { getDateForHeader } from '../../../helpers';
 import { useUI } from '../../../context/UIContext.jsx';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
+import Rest from '../Workout/WorkoutComponents/Rest.js';
+import ExerciseSet from './ExerciseSet.tsx';
+import ExerciseInfo from '../Workout/WorkoutComponents/ExerciseInfo.tsx';
+import Stopwatch from '../../common/Stopwatch/Stopwatch.tsx';
  
 
 
@@ -16,11 +20,12 @@ const Exercise = () => {
     const {id, snapshotId} = useParams(); //get the id of the exercise from url
     const navigate = useNavigate();
     const {showMessage} = useUI();
-
+    const [showExerciseInfo, setShowExerciseInfo] = useState(false)
     const [originalExercise, setOriginalExercise] = useState();
     const [seconds, setSeconds] = useState(0); //the exercise timer
     const [currentSet, setCurrentSet] = useState(0); //tracks the current selected set
     const [exerciseData, setExerciseData] = useState(null); //here will be stored the formated original exercise
+    const [showStopwatch, setShowStopwatch] = useState(false);
 
     const getExerciseData = async () => {
         if(snapshotId){
@@ -222,9 +227,9 @@ const Exercise = () => {
     
 
     const handleAddSet = () =>{
-
         //creates a new set object and appends it to the current exercise sets array
         setExerciseData({ ...exerciseData, sets: [...exerciseData.sets, {
+            _id: uuidv4(),
             order: exerciseData.sets.length,
             fields: exerciseData.fields ? [...JSON.parse(JSON.stringify(exerciseData.fields)), {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exerciseData?.rest, isCompleted: false}] : [], // Deep copy of fields array
             isCompleted: false,
@@ -253,54 +258,52 @@ const Exercise = () => {
 
    
 
-
-    //TODO: Make instructions collapsed by default
+    // <p className={styles.timer}>{formatTime(seconds)}</p>
     if(exerciseData){
         return ( 
             <div className={`page ${styles['exercise-page']}`}>
-                <AppHeader title={exerciseData?.name} button={<p className={styles.timer}>{formatTime(seconds)}</p>} />
-                <div className={styles.content}>                
-            <div className={styles['current-exercise']}>
-                    <div className={styles["current-exercise-header"]}>
-                        <h3>{exerciseData?.name}</h3>
-                        <button type="button" className={styles['new-set-button']} onClick={()=>handleAddSet(currentSet)}>
-                            <img className="small-icon" src={IconLibrary.Add} alt="add-set"></img>
-                        </button>
-                    </div>
-                    <div className={styles['sets-container']}>
-                        {exerciseData?.sets.map((item, index)=>(
-                            <div className={`${styles.set} ${currentSet === index ? styles['current-set'] : ''} ${item.isCompleted ? styles['completed-set'] : ''}`} onClick={()=>setCurrentSet(index)} key={'set-'+index}>
-                                <div className={styles['set-top']}>
-                                    <p className={styles['set-title']}>{`Set ${index+1}`}</p>
-                                    <input type="checkbox" className={styles['set-checkbox']} onChange={()=>toggleSetCompletion(index, !item.isCompleted)} checked={item.isCompleted}></input>
-                                </div>
-                                <div className={styles['set-fields']}>
-                                    {item?.fields?.map((field)=>(
-                                        <div className={styles["field"]} key={field._id}>
-                                            <p className={styles["field-name"]}>{field.name}</p>
-                                            <div className={styles["field-input"]}>
-                                                <button onClick={()=>handleChangeFieldValue(index, field.id, -1)}><img src={IconLibrary.Minus} className="small-icon" alt="" ></img></button>
-                                                <p>{field.value || 0}/{field.target || 0}</p>
-                                                <button onClick={()=>handleChangeFieldValue(index, field.id, 1)}><img src={IconLibrary.Plus} className="small-icon" alt="" ></img></button>
-                                            </div>
-                                            <input type="checkbox" checked={field.isCompleted} className={styles["field-checkbox"]} onChange={()=>handleCompleteField(index, field.id)}></input>
-                                        </div>
-                                    ))}
-                                </div>
+                {showStopwatch ? <Stopwatch close={()=>setShowStopwatch(false)} /> : null}
+                <AppHeader title={exerciseData?.name} button={<button className={styles['finish-button']} onClick={finishExercise}>Finish</button>} />
+                <div className={styles.exerciseSummary}>
+                    <div className={styles.exerciseProgress}>
+                        <div className={styles.progressBarContainer}>
+                            <div className={styles.progressBar} style={{width: `${Math.round((exerciseData.sets.filter(item=>item.isCompleted).length / exerciseData.sets.length)*100)}%`}}>
+                                <p className={styles.percentage}>{Math.round((exerciseData.sets.filter(item=>item.isCompleted).length / exerciseData.sets.length)*100)}%</p>
                             </div>
-                        ))}
-                        
+                        </div>
                     </div>
+                    <div className={styles.top}>
+                        <div className={styles.textInfo}>
+                            <img src={IconLibrary.Time} className={styles.summaryIcon} alt="" />
+                            <p>{formatTime(seconds)}</p>
+                        </div>
+                        <div className={styles.textInfo}>
+                            <img src={IconLibrary.Completed} className={styles.summaryIcon} alt="" />
+                            <p>{exerciseData.sets.filter(item=>item.isCompleted).length}/{exerciseData.sets.length}</p>
+                        </div>
+                    </div>
+                </div>            
+                <div className={styles['sets-container']}>
+                    {exerciseData?.sets?.map((item, index)=>(
+                        <>
+                            <ExerciseSet key={item && item._id ? item._id+index : index+'set'} allSets={exerciseData?.sets ?? []} setExerciseData={setExerciseData} setCurrentSet={setCurrentSet} currentSet={currentSet} setIndex={index} set={item} />
+                            <Rest duration={item.rest}/>
+                        </>
+                    ))}
                 </div>
-            </div> 
-            <div className={styles.instructionsContainer}>
-                {exerciseData.instructions && exerciseData.instructions.length > 0 ? exerciseData.instructions.map((item, index)=><p key={'instruction-'+index}>{index+1}. {item}</p>):<p>No instructions for this exercise</p>}
+                <ExerciseInfo enabled={showExerciseInfo} setEnabled={setShowExerciseInfo} close={()=>setShowExerciseInfo(false)} data={exerciseData} />
+                <div className={styles['buttons-container']}>
+                    <button onClick={()=>setShowStopwatch(prev=>!prev)}>
+                        <img className="small-icon" src={IconLibrary.Stopwatch} alt=""></img>
+                    </button>
+                    <button onClick={()=>setShowExerciseInfo(prev=>!prev)}>
+                        <img className="small-icon" src={IconLibrary.InfoCircle} alt=""></img>
+                    </button>
+                    <button onClick={()=>handleAddSet(currentSet)}>
+                        <img className="small-icon" src={IconLibrary.Add} alt=""></img>
+                    </button>
+                </div>
             </div>
-            <div className={styles['buttons-container']}>
-                <button onClick={finishExercise}>Finish</button>
-            </div>
-        </div>
-         
         )
     }else{
         return(

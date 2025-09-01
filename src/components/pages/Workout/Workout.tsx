@@ -10,7 +10,7 @@ import { Field, Workout as IWorkout, Set as ISet } from "../../common/interfaces
 import WorkoutSet from "./WorkoutComponents/WorkoutSet.tsx";
 import { format } from "date-fns";
 import Stopwatch from "../../common/Stopwatch/Stopwatch.tsx";
-import WorkoutInfo from "./WorkoutComponents/WorkoutInfo.tsx";
+import ExerciseInfo from "./WorkoutComponents/ExerciseInfo.tsx";
 import ExercisesList from "./WorkoutComponents/ExercisesList.tsx";
 import { formatExercise } from "./WorkoutHelpers.ts";
 import Rest from "./WorkoutComponents/Rest.js";
@@ -266,7 +266,7 @@ const Workout = () => {
                     )) : null}
                     
                 </div>
-                <WorkoutInfo enabled={showWorkoutInfo} setEnabled={setShowWorkoutInfo} close={()=>setShowWorkoutInfo(false)} data={exercises.find(ex=>ex._id === currentExercise)} exercises={exercises} />
+                <ExerciseInfo enabled={showWorkoutInfo} setEnabled={setShowWorkoutInfo} close={()=>setShowWorkoutInfo(false)} data={exercises.find(ex=>ex._id === currentExercise)} exercises={exercises} />
                 <div className={styles['buttons-container']}>
                     <button className={styles['navigation-button']} onClick={prevExercise}>
                         <img className="small-icon" src={IconLibrary.BackArrow} alt="previous exercise"></img>
