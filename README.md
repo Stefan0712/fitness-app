@@ -295,6 +295,13 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 ## Latest Updates
 
+### 1 September 2025
+* Updated running exercise component to match the new workout component
+* Fixed minor bugs for exercise component
+* Created a separate ExerciseSet component
+
+
+
 ### 31 August 2025
 * Created a separate page for viewing and creating new muscles
 * Remade the list of default muscles

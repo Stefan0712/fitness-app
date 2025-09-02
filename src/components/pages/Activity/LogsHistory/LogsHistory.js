@@ -10,7 +10,6 @@ import ViewGoalLog from './ViewGoalLog.tsx';
 import ViewFoodLog from './ViewFoodLog.tsx';
 import { getAllItems } from '../../../../db.js';
 import { IconLibrary } from '../../../../IconLibrary.js';
-import ViewExerciseLog from './ViewExerciseLog/ViewExerciseLog.tsx';
 import ActivityLog from './ActivityLog/ActivityLog.tsx';
 
 
