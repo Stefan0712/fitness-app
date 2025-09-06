@@ -31,7 +31,7 @@ export interface Workout {
     description: string;
     reference: string;
     difficulty: string;
-    sets: number;
+    sets: number | Set[];
     duration: number;
     durationUnit: string;
     rest: number;
@@ -216,35 +216,41 @@ export interface Workout {
   }
 
   export interface WorkoutLog{
-      duration: string,
-      finishedAt: string,
-      startedAt: string,
+    _id: string,
+    icon: string,
+    type: string,
+    title: string,
+    timestamp: Date,
+    data: {
+      duration: number,
+      finishedAt: any,
       workoutId: string,
       isCompleted: boolean,
-      targetMuscles: TargetGroup[],
+      targetGroup: TargetGroup[],
       name: string,
       difficulty: string,
       description: string,
-      phases: Phase[]
-    
+      exercises: Exercise[],
+      tags: Tag[]
+    }
   }
   export interface Section {
-    type: string,
-    order: number, 
-    identifier: string,
-  }
+  type: string,
+  order: number, 
+  identifier: string,
+}
   export interface Badges {
-    _id: string,
-    name: string,
-    value: number
-  }
+  _id: string,
+  name: string,
+  value: number
+}
   export interface InitialStateObject {
-    preferences: {
-      theme: string,
-      language: string,
-      unitSystem: string,
-    },
-    dashboardSections: Section[],
+  preferences: {
+    theme: string,
+    language: string,
+    unitSystem: string,
+  },
+  dashboardSections: Section[],
 }
 
 export interface Phase {

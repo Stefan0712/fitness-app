@@ -5,7 +5,7 @@ import ViewLog from "../../../common/LogPages/ViewLog";
 import { getWeekRange, getCurrentDay, getHourFromTimestamp } from "../../../../helpers";
 import { useState, useEffect } from "react";
 import DaySelector from './DaySelector';
-import ViewWorkoutLog from './ViewWorkoutLog.tsx';
+import ViewWorkoutLog from './ViewWorkoutLog/ViewWorkoutLog.tsx';
 import ViewGoalLog from './ViewGoalLog.tsx';
 import ViewFoodLog from './ViewFoodLog.tsx';
 import { getAllItems } from '../../../../db.js';
