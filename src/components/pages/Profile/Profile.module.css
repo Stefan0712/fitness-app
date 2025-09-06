@@ -40,9 +40,9 @@ fieldset{
     width: 100%;
     gap: 5px;
 }
-input,
-select,
-option{
+.edit-profile input,
+.edit-profile select,
+.edit-profile option{
     height: 40px;
     background-color: var(--input-bg);
     border: 1px solid rgba(65, 65, 65, 0.5);

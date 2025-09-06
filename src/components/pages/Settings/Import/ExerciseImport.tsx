@@ -1,5 +1,5 @@
-import { IconLibrary } from "../../../IconLibrary";
-import styles from './Sync.module.css';
+import { IconLibrary } from "../../../../IconLibrary";
+import styles from './Import.module.css';
 
 const ExerciseImport = ({item, index, library, selectedItems, handleItemSelection}) => {
     return ( 

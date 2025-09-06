@@ -52,9 +52,9 @@
     display: flex;
     align-items: center;
 }
-input,
-select,
-option{
+.new-exercise-log input,
+.new-exercise-log select,
+.new-exercise-log option{
     height: 40px;
     flex-shrink: 0;
     border: none;

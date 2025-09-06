@@ -85,8 +85,18 @@ import ArrowUp from './assets/arrowUp.svg';
 import ArrowDown from './assets/arrowDown.svg';
 import Sort from './assets/sort.svg';
 import Levels from './assets/levels.svg';
+import Import from './assets/import.svg';
+import Export from './assets/export.svg';
+import ItemList from './assets/item-list.svg';
+import CardList from './assets/cards.svg';
+import ExpandedList from './assets/expanded-list.svg';
 
 export const IconLibrary = {
+    Import,
+    Export,
+    ItemList,
+    CardList,
+    ExpandedList,
     Sort,
     Levels,
     ArrowUp,
