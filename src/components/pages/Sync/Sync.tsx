@@ -1,7 +1,6 @@
 import styles from './Sync.module.css';
 import AppHeader from '../../common/AppHeader/AppHeader.tsx';
 import { useState } from 'react';
-import Export from './Export.tsx';
 
 
 const Sync = () => {
@@ -18,7 +17,6 @@ const Sync = () => {
                 <button onClick={()=>setCurrentScreen('export')} className={`${styles.switchButton} ${currentScreen === 'export' ? styles.selected : ''}`}>Export</button>
                 <button onClick={()=>setCurrentScreen('backup')} className={`${styles.switchButton} ${currentScreen === 'backup' ? styles.selected : ''}`}>Backup</button>
             </div>
-            <Export />
         </div>
     )
     

@@ -27,6 +27,7 @@ import WorkoutsLibrary from './components/pages/Library/WorkoutsLibrary/Workouts
 import ExerciseLibrary from './components/pages/Library/ExercisesLibrary/ExercisesLibrary.tsx';
 import Muscles from './components/pages/Muscles/Muscles.tsx';
 import Import from './components/pages/Settings/Import/Import.tsx';
+import Export from './components/pages/Settings/Export/Export.tsx';
 
 
 function AppRoutes() {
@@ -62,6 +63,7 @@ function AppRoutes() {
       <Route path='/goals' element={<Goals />} />
       <Route path='/muscles' element={<Muscles />} />
       <Route path='/import' element={<Import />} />
+      <Route path='/export' element={<Export />} />
       <Route path='/goals/view/:id' element={<ViewGoal />} />
       <Route path="*" element={<Dashboard />} />
       
