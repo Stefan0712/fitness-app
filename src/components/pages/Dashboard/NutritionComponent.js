@@ -49,12 +49,12 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
                 fats: 0,
             };
             userActivity.forEach(obj => {
-                totals.calories += obj.data.calories ? parseInt(obj.data.calories, 10) : 0;
-                totals.protein += obj.data.protein ? parseInt(obj.data.protein, 10) : 0;
-                totals.carbs += obj.data.carbs ? parseInt(obj.data.carbs, 10) : 0;
-                totals.sodium += obj.data.sodium ? parseInt(obj.data.sodium, 10) : 0;
-                totals.sugar += obj.data.sugar ? parseInt(obj.data.sugar, 10) : 0;
-                totals.fats += obj.data.fats ? parseInt(obj.data.fats, 10) : 0;
+                totals.calories += obj.calories ? parseInt(obj.calories, 10) : 0;
+                totals.protein += obj.protein ? parseInt(obj.protein, 10) : 0;
+                totals.carbs += obj.carbs ? parseInt(obj.carbs, 10) : 0;
+                totals.sodium += obj.sodium ? parseInt(obj.sodium, 10) : 0;
+                totals.sugar += obj.sugar ? parseInt(obj.sugar, 10) : 0;
+                totals.fats += obj.fats ? parseInt(obj.fats, 10) : 0;
             });
             return totals;
         }

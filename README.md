@@ -295,6 +295,30 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 ## Latest Updates
 
+### 06 September 2025
+* Created a new component for viewing Workout logs
+* Updated and fixed the components for Viewing Exercise and Activity Logs
+* Fixed small issues with Log Food component: Unit button had the wrong size, changed logs inside history screen, etc.
+* Small fixed for Activity page and the components used for viewing logs, like moving them to their own folders, files, and css modules
+* Removed unused files and code
+* Created separage pages for Import and Export and added links to them to the app menu
+* Other small fixes:
+  - Library menu was shifted 15px to the right on some devices
+  - Increased the min width for the dashboard warning message to appear notifying users with large screen that the app is not intended for being used on large screens
+  - Added more blurred background to avoid users accidentally pressing on other buttons when smaller pop-ups were present
+  - Fixed each set from a running exercise not having unique ids
+* Gallery:
+<p align="center">
+  <img src="https://i.imgur.com/A4d8w4U.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/XUa2iJS.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/GK2SQ5l.png" alt="Screenshot 6" width="30%" />
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/O50noOp.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/60IQ6yD.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
+  <img src="https://i.imgur.com/HtTSSug.png" alt="Screenshot 6" width="30%" />
+</p>
+
 ### 1 September 2025
 * Updated running exercise component to match the new workout component
 * Fixed minor bugs for exercise component
