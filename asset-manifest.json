@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/fitness-app/static/css/main.27eb45cc.css",
-    "main.js": "/fitness-app/static/js/main.036d8c03.js",
+    "main.css": "/fitness-app/static/css/main.3ab762cf.css",
+    "main.js": "/fitness-app/static/js/main.c2992df0.js",
     "static/media/logo.png": "/fitness-app/static/media/logo.3884486c9e6daaac17d4.png",
     "static/media/enableFullscreen.svg": "/fitness-app/static/media/enableFullscreen.e931b2a9bdd2e5057a610426735cb800.svg",
+    "static/media/expanded-list.svg": "/fitness-app/static/media/expanded-list.040376a7bd272e2b145f07b9a5a79568.svg",
     "static/media/disableFullscreen.svg": "/fitness-app/static/media/disableFullscreen.32f3fde386e02f778f0edc31d9715ac2.svg",
     "static/media/settings.svg": "/fitness-app/static/media/settings.a6c1480282c0a14dc79c0ca07d0e0035.svg",
     "static/media/muscle.svg": "/fitness-app/static/media/muscle.2e4dde1846aa7d14dfb5f1ecac32e4dc.svg",
@@ -14,13 +15,16 @@
     "static/media/tags.svg": "/fitness-app/static/media/tags.ba853dad7377792b6b8d564efdad6ef6.svg",
     "static/media/library.svg": "/fitness-app/static/media/library.fa81ac3f1725511ebae7e4a73f538efc.svg",
     "static/media/hide.svg": "/fitness-app/static/media/hide.9be35eaa007cb44c5768991eb3b9eee6.svg",
+    "static/media/item-list.svg": "/fitness-app/static/media/item-list.f334e73f54d9773a8943f434eb756a5f.svg",
     "static/media/equipment.svg": "/fitness-app/static/media/equipment.2c2bbd08834c8b1f3bf7ba436d884d05.svg",
     "static/media/activity.svg": "/fitness-app/static/media/activity.0089d5d6013e4dd6db2c55a553e82291.svg",
     "static/media/quantity.svg": "/fitness-app/static/media/quantity.71035e71fd9f55b9c42f8175ee72cbcc.svg",
     "static/media/disabledScreenWake.svg": "/fitness-app/static/media/disabledScreenWake.5bb776d8caa194982ea0a93c638cab2d.svg",
     "static/media/enabledScreenWake.svg": "/fitness-app/static/media/enabledScreenWake.b66dedf6e92e91a05b6aed82393a5647.svg",
+    "static/media/export.svg": "/fitness-app/static/media/export.e7bc2c5692ace02dafbf87e924d962b0.svg",
     "static/media/edit.svg": "/fitness-app/static/media/edit.5b2e8ed164287e5ead4d77ba82812c51.svg",
     "static/media/goals.svg": "/fitness-app/static/media/goals.bed7ff00bcde93d3f14eb249b3ba1ab2.svg",
+    "static/media/import.svg": "/fitness-app/static/media/import.8519ad7af1be6647f7e1ba72a5546ed0.svg",
     "static/media/log.svg": "/fitness-app/static/media/log.4a31e6812b50cc04ded0e7bfb1dcaf33.svg",
     "static/media/download.svg": "/fitness-app/static/media/download.876191660fee459e1e3611a61a1c06c0.svg",
     "static/media/x.svg": "/fitness-app/static/media/x.796ef091f70d2ab7349123d9e13ddaba.svg",
@@ -42,6 +46,7 @@
     "static/media/food.svg": "/fitness-app/static/media/food.a72fe281f28d4837296ccf2749319b1d.svg",
     "static/media/no.svg": "/fitness-app/static/media/no.e656c70adb2f4a9f6516643d7f02403e.svg",
     "static/media/help.svg": "/fitness-app/static/media/help.683deb703c9ceb9c0c74faabb8696de4.svg",
+    "static/media/cards.svg": "/fitness-app/static/media/cards.96b4e3163f592fa01837676fceae90af.svg",
     "static/media/login.svg": "/fitness-app/static/media/login.4cfb30e962b22d1ab4291ae3963ba4fc.svg",
     "static/media/logout.svg": "/fitness-app/static/media/logout.66eb43e0185d67acecfc15fb51e6ba36.svg",
     "static/media/infoCircle.svg": "/fitness-app/static/media/infoCircle.2637b42f93f8681ed0b5fac2b6a2bca9.svg",
@@ -84,11 +89,11 @@
     "static/media/clipboard.svg": "/fitness-app/static/media/clipboard.53cc1850890226ef59696d900a462e70.svg",
     "static/media/previous.svg": "/fitness-app/static/media/previous.4528e00ca79116a0ff2cd0959b69761d.svg",
     "static/media/next.svg": "/fitness-app/static/media/next.6b955df1f3d138d59fa4db1f4697229a.svg",
-    "main.27eb45cc.css.map": "/fitness-app/static/css/main.27eb45cc.css.map",
-    "main.036d8c03.js.map": "/fitness-app/static/js/main.036d8c03.js.map"
+    "main.3ab762cf.css.map": "/fitness-app/static/css/main.3ab762cf.css.map",
+    "main.c2992df0.js.map": "/fitness-app/static/js/main.c2992df0.js.map"
   },
   "entrypoints": [
-    "static/css/main.27eb45cc.css",
-    "static/js/main.036d8c03.js"
+    "static/css/main.3ab762cf.css",
+    "static/js/main.c2992df0.js"
   ]
 }
