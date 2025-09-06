@@ -307,6 +307,7 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
   - Increased the min width for the dashboard warning message to appear notifying users with large screen that the app is not intended for being used on large screens
   - Added more blurred background to avoid users accidentally pressing on other buttons when smaller pop-ups were present
   - Fixed each set from a running exercise not having unique ids
+  - Fixed Nutrition module not accessing the correct properties
 * Gallery:
 <p align="center">
   <img src="https://i.imgur.com/A4d8w4U.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
