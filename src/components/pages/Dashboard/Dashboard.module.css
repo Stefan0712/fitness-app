@@ -10,7 +10,7 @@
 .dashboard-content::-webkit-scrollbar{
     display: none;
 }
-@media (max-width: 400px){
+@media (max-width: 600px){
     .dashboard-warning{
         display: none;
     }

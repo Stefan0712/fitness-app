@@ -81,7 +81,6 @@ const Exercise = () => {
             
         let exercise = JSON.parse(JSON.stringify(originalExercise)); //creates a deep copy to make sure everything is copied correctly
     
-        
         // Add a completedSet property to the exercise object to keep track of how many sets were completed if not existent already
         if (exercise) {
             if (!exercise.completedSets) {
@@ -93,6 +92,7 @@ const Exercise = () => {
             //append to that empty array new objects representing sets, populated with the existing fields and new fields to make it easier to track and edit
             for (let i = 0; i < exercise.sets; i++) {
                 setsArray.push({
+                _id: uuidv4(),
                 order: i + 1,
                 fields: exercise.fields ? [...JSON.parse(JSON.stringify(exercise.fields)), {_id: uuidv4(), name:'Rest', unit:'sec',value: 0, target:  exercise?.rest, isCompleted: false}] : [], // Deep copy of fields array
                 isCompleted: false,
