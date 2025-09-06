@@ -94,7 +94,9 @@ const FoodLog: React.FC<FoodLogProps> = ({closeMenu}) => {
                             <input className={styles.name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} required={true} placeholder="Name" />
                         </fieldset>
                             <input className={styles['half-input']} type="number" name="qty" id="qty" onChange={(e) => setQty(e.target.value)} value={qty} placeholder="Qty" />
-                            <UnitSelector unit={unit} setUnit={setUnit} />
+                            <div className={styles.unitSelectorContainer}>
+                                <UnitSelector unit={unit} setUnit={setUnit} />
+                            </div>
                             <select className={styles['half-input']} name="category" id="category" onChange={(e) => setCategory(e.target.value)} value={category}>
                                 <option value={'other'}>Other</option>
                                 <option value={'breakfast'}>Breakfast</option>

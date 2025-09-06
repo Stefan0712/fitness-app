@@ -9,14 +9,15 @@ import React from 'react';
 interface ViewFoodLogProps {
     logData: FoodLog;
     closeLog: ()=>void;
+    disableBlur: boolean;
 }
-const ViewFoodLog: React.FC<ViewFoodLogProps> = ({logData, closeLog}) => {
+const ViewFoodLog: React.FC<ViewFoodLogProps> = ({logData, closeLog, disableBlur="false"}) => {
     const handleDelete = async () =>{
         await deleteItem('logs', logData._id);
         closeLog();
     }
     return ( 
-        <div className={styles['view-food-log']}>
+        <div className={styles['view-food-log']} style={{backdropFilter: disableBlur ? 'none' : 'blur(25px)'}}>
             <div className={styles.content}>
                 <div className={styles.header}>
                     <img src={IconLibrary.Food} alt=''/>

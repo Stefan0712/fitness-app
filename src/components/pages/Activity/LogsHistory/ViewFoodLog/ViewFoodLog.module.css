@@ -5,7 +5,9 @@
     width: 100vw;
     height: calc(100vh - 75px);
     backdrop-filter: blur(25px);
+    background-color: rgba(0, 0, 0, 0.212);
     overflow: hidden;
+    z-index: 500;
 }
 @keyframes SlideUp{
     from{
@@ -38,6 +40,7 @@
     padding: 10px;
     animation: SlideUp 0.2s;
     overflow: hidden;
+    border: 1px solid rgba(211, 211, 211, 0.3);
 }
 .view-food-log .header{
     display: grid;

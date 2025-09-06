@@ -13,3 +13,13 @@
     overflow-y: auto;
     gap: 10px;  
 }
+.logs-history .logItem{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background);
+    border-radius: 5px;
+    padding: 0 10px;
+}

@@ -1,7 +1,7 @@
 .food-log-form{
     width: 100vw;
-    height: 100vh;
-    bottom: 0;
+    height: calc(100vh - 75px);
+    bottom: 75px;
     left: 0;
     position: fixed;
     z-index: 60;
@@ -13,7 +13,7 @@
     position: absolute;
     background-color: var(--modal-bg);
     left: 10px;
-    bottom: 85px;
+    bottom: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,6 +137,10 @@
     margin-top: auto;
     margin-bottom: 25px;
     margin-left: calc(50% - 75px);
+}
+.food-log-form .unitSelectorContainer{
+    width: calc(50% - 10px);
+    background-color: var(--input-bg);
 }
 h3{
     width: 100%;
