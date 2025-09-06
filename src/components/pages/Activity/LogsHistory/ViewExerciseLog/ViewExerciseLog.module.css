@@ -1,15 +1,26 @@
-.view-exercise-log{
-    width: calc(100% - 20px);
-    height: 450px;
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    background-color: var(--modal-bg);
+.view-exercise-log {
+    position: fixed;
+    left: 0;
+    bottom: 75px;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    overflow: hidden;
+    backdrop-filter: blur(25px);
+}
+.view-exercise-log .content{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-radius: 5px;
+    width: calc(100% - 20px);
+    height: 90%;
+    background-color: var(--modal-bg);
+    border-radius: 10px;
+    animation: slideUpLog 0.1s;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow: hidden;
     padding: 0 10px;
+    gap: 10px;
 }
 .view-exercise-log .top{
     height: 50px;
@@ -44,6 +55,11 @@
     overflow-x: hidden;
     flex-shrink: 0;
 }
+.view-exercise-log .tag-body .tag-color{
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+}
 .view-exercise-log .tag-body,
 .view-exercise-log .muscle{
     height: 30px;
@@ -62,9 +78,6 @@
     gap: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    min-height: 80px;
-    max-height: 160px;
-    flex-shrink: 0;
 }
 .view-exercise-log .deleteLogButton{
     height: 40px;
@@ -78,22 +91,20 @@
 .view-exercise-log .set{
     width: 100%;
     display: grid;
-    grid-template-columns: 30px 1fr 30px;
+    grid-template-rows: 30px 1fr;
     align-items: center;
-    gap: 10px;
-    height: 40px;
+    height: auto;
     background-color: var(--secondary);
     border-radius: 5px;
-    padding: 0 10px;
+    padding: 10px;
 }
 .view-exercise-log .set .setNo{
     color: rgba(255, 255, 255, 0.411);
 }
 .view-exercise-log .set .setFields{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 5px;
-    justify-content: flex-end;
     width: 100%;
 }
 .view-exercise-log .set img{

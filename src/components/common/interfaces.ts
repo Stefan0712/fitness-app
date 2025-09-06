@@ -177,18 +177,21 @@ export interface Workout {
     category: string
   }
   export interface ExerciseLog{
-    _id: string;
-    icon: string;
-    timestamp: string;
-    exerciseId: string,
-    duration: number,
-    name: string,
-    finishedAt: string,
-    targetMuscles: TargetGroup[],
-    equipment: Equipment[],
-    fields: Field[],
-    sets: Set[],
-    tags: Tag[],
+    _id: string,
+    icon: string,
+    type: string,
+    timestamp: string,
+    title: string,
+    data: {
+      duration: string,
+      exerciseId: string,
+      name: string,
+      finishedAt: string,
+      targetMuscles: TargetGroup[],
+      fields: Field[],
+      sets: Set[],
+      tags: Tag[],
+    }
   }
   export interface FoodLog{
     title: string,

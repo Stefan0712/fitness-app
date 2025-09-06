@@ -11,6 +11,7 @@ import ViewFoodLog from './ViewFoodLog/ViewFoodLog.tsx';
 import { getAllItems } from '../../../../db.js';
 import { IconLibrary } from '../../../../IconLibrary.js';
 import ActivityLog from './ActivityLog/ActivityLog.tsx';
+import ViewExerciseLog from './ViewExerciseLog/ViewExerciseLog.tsx';
 
 
 
@@ -61,8 +62,13 @@ const LogsHistory = () => {
                         setOpenedLog(null);
                         getLogs();
                 }} /> : null}
-                {openedLog && openedLog.type === 'activity' ? 
+                {(openedLog && openedLog.type === 'activity') ? 
                     <ActivityLog logData={openedLog} closeLog={()=>{
+                        setOpenedLog(null);
+                        getLogs();
+                }} /> : null}
+                {(openedLog && openedLog.type === 'exercise') ? 
+                    <ViewExerciseLog logData={openedLog} closeLog={()=>{
                         setOpenedLog(null);
                         getLogs();
                 }} /> : null}
