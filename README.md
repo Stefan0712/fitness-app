@@ -263,13 +263,13 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
 
 * ~~\[HP] Require name when creating exercises/workouts~~
 * ~~\[QOL] Fix menu not closing when clicking outside~~
-* \[QOL] Improve quick menu behavior
+* ~~\[QOL] Improve quick menu behavior~~
 * ~~\[QOL] Add default goal values (e.g. 100ml, 250ml)~~
 * \[QOL] Add default exercise fields (e.g. reps, duration)
 * ~~\[MP] Style Hide Menu for Home modules~~
 * \[LP] Enable dashboard reorder
 * \[MP] Full app backup/export
-* \[MP] Redesign Create Exercise layout
+* ~~\[MP] Redesign Create Exercise layout
 * ~~\[MP] Improve Log Exercise UX~~
 * \[QOL] Add Help page
 * \[MP] Sync items with API
@@ -279,17 +279,20 @@ These are just some of the current tasks I'm working on. Larger or less urgent t
   2. Allow side-by-side comparison
   3. Let users merge or keep data separate
   4. Auto backup local exercises/workouts to the API
-* \[MP] Rework View Log screens in Activity page
-* \[MP] Rework Default Fields page
-* \[MP] Rework Equipments page
+* ~~\[MP] Rework View Log screens in Activity page~~
+* ~~\[MP] Rework Default Fields page~~
+~~* \[MP] Rework Equipments page~~
 * \[MP] Rework Tags page
-* \[HP] Add blurred background to menus, submenus, and other components to help keep a hierarchy of elements when multiple of them are open at the same time
+* ~~\[HP] Add blurred background to menus, submenus, and other components to help keep a hierarchy of elements when multiple of them are open at the same time~~
 * \[MP] Create settings for hiding/showing nutrition and activity modules in dashboard
 * \[MP] Create a dedicated page for food related features (food logs, meal planning, etc), and activity related features (activity, exercises, and workout logs, workout plants, etc)
 * \[LP] Convert all SVGs to jsx components to make easier to change their colors and other properties
-* \[MP] Rework Library
-* \[MP] Rework View Workout
-* \[MP] Rework View Exercise
+* ~~\[MP] Rework Library~~
+* ~~\[MP] Rework View Workout~~
+* ~~\[MP] Rework View Exercise~~
+* \[MP] Export only shows exercises and no workout
+* \[MP] Import page doesn't check for duplicates
+* \[HP] Import page doesn't validate data before importing
 
 ---
 
