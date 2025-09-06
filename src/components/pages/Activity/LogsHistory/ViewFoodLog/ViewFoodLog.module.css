@@ -1,0 +1,79 @@
+.view-food-log{
+    position: fixed;
+    bottom: 75px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    backdrop-filter: blur(25px);
+    overflow: hidden;
+}
+@keyframes SlideUp{
+    from{
+        opacity: 0;
+        bottom: -120%;
+    }
+    to{
+        opacity: 1;
+        bottom: 10px;
+    }
+}
+.view-food-log .bg{
+    position: absolute;
+}
+.view-food-log .currentCategory{
+    height: 100%;
+    overflow-y: auto;
+}
+.view-food-log .content{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    height: auto;
+    max-height: calc(100vh - 100px);
+    border-radius: 5px;
+    background-color: var(--modal-bg);
+    display: grid;
+    grid-template-rows: 50px 1fr 50px;
+    padding: 10px;
+    animation: SlideUp 0.2s;
+    overflow: hidden;
+}
+.view-food-log .header{
+    display: grid;
+    grid-template-columns: 20px 1fr 30px;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+}
+.view-food-log .header img{
+    width: 20px;
+    height: 20px;
+}
+.view-food-log label{
+  opacity: 0.5;
+}
+.view-food-log .timestamp{
+  height: 30px;
+}
+.view-food-log .log-details{
+  gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  height: 50px;
+  flex-shrink: 0;
+}
+.view-food-log .description{
+  height: 80px;
+}
+.view-food-log .deleteLogButton{
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: var(--cancel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import DaySelector from './DaySelector';
 import ViewWorkoutLog from './ViewWorkoutLog/ViewWorkoutLog.tsx';
 import ViewGoalLog from './ViewGoalLog.tsx';
-import ViewFoodLog from './ViewFoodLog.tsx';
+import ViewFoodLog from './ViewFoodLog/ViewFoodLog.tsx';
 import { getAllItems } from '../../../../db.js';
 import { IconLibrary } from '../../../../IconLibrary.js';
 import ActivityLog from './ActivityLog/ActivityLog.tsx';
