@@ -106,6 +106,7 @@ export interface Workout {
     pinToDashboard: string,
     order: number,
     defaultValues?: number[];
+    pinnedToQuickmenu?: boolean;
   }
   export interface BaseLog{
     _id: string,

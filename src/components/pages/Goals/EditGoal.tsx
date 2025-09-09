@@ -26,6 +26,7 @@ const EditGoal = ({close, goalData}) => {
     const [customValues, setCustomValues] = useState<number[]>(goalData.defaultValues || [])
     const [type, setType] = useState<string>(goalData.type || 'target');
     const [showNewCustomValue, setShowNewCustomValue] = useState(false);
+    const [pinnedToQuickmenu, setPinnedToQuickmenu] = useState(goalData.pinnedToQuickmenu || false)
 
     const handleEditGoal = async () =>{
         if(type === 'target' && target && name && unit){
@@ -39,6 +40,7 @@ const EditGoal = ({close, goalData}) => {
                 type,
                 pinToDashboard,
                 defaultValues: customValues,
+                pinnedToQuickmenu,
                 order: goalData.order || -1
             }
             await saveItem('goals',newData);
@@ -52,6 +54,7 @@ const EditGoal = ({close, goalData}) => {
                 icon,
                 type,
                 pinToDashboard,
+                pinnedToQuickmenu,
                 order: goalData.order || -1
             }
             await saveItem('goals',newData);
@@ -66,6 +69,7 @@ const EditGoal = ({close, goalData}) => {
                 icon,
                 type,
                 pinToDashboard,
+                pinnedToQuickmenu,
                 order: goalData.order || -1
             }
             await saveItem('goals',newData);
@@ -78,6 +82,7 @@ const EditGoal = ({close, goalData}) => {
                 target,
                 color,
                 icon,
+                pinnedToQuickmenu,
                 type,
                 pinToDashboard
             })
@@ -88,73 +93,82 @@ const EditGoal = ({close, goalData}) => {
 
     return ( 
         <div className={styles['new-goal']}>
-            {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
-            {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
-            {showNewCustomValue ? <NewCustomValue customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowNewCustomValue(false)} unit={unit}/> : null}
-            <div className={styles.header}>
-                <h3>Edit Goal</h3>
-            </div>
-            <div className={styles.goalSettings}>
-                <fieldset className={styles.goalType}>
-                    <label>Goal Type</label>
-                    <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
-                        <option value={'yes-no'}>Yes/No</option>
-                        <option value={'number'}>Number</option>
-                        <option value={'target'}>Target</option>
-                    </select>
-                </fieldset>
-                <fieldset className={styles.goalType}>
-                    <label>Tracker Type</label>
-                    <select onChange={(e)=>setPinToDashboard(e.target.value)} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
-                        <option value={'large'}>Large</option>
-                        <option value={'small'}>Small</option>
-                        <option value={'hide'}>Hide</option>
-                    </select>
-                </fieldset>
-            </div>
-            <div className={styles['new-goal-inputs']}>
-                {type === 'target' ? <div className={styles.targetInputs}>
-                    <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
-                    </div>
-                    <div className={styles.secondRow}>
-                        <UnitSelector unit={unit} setUnit={setUnit} />
-                        <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
-                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-                    </div>
-                </div> : type === 'yes-no' ? <div className={styles.yesnoInputs}>
-                    <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}><img src={icon} className='small-icon'/></button> 
-                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-                    </div>
-                </div> : type === 'number' ? <div className={styles.numberInputs}>
-                    <div className={styles.firstRow}>
-                        <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
-                        <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
-                    </div>
-                    <div className={styles.secondRow}>
-                        <UnitSelector unit={unit} setUnit={setUnit} />
-                        <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
-                    </div>
-                </div> : null}
-            </div>
-            {type === 'target' ?
-                <>
-                    <p style={{width: '100%'}}>Default Values {customValues.length}/5</p>
-                    <div className={styles.customValuesSection}>
-                        <button className={styles.addCustomValue} onClick={()=>setShowNewCustomValue(true)}><img src={IconLibrary.Add} alt='add custom value'></img></button>
-                        <div className={styles.customValues}>
-                            {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue index={value} unit={goalData.unit} customValues={customValues} customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
+           <div className={styles.content}>
+                {showColorPicker ? <ColorPicker getColor={setColor} closeModal={()=>setShowColorPicker(false)} /> : null}
+                {showIconPicker ? <IconPicker handleIcon={setIcon} closeModal={()=>setShowIconPicker(false)} currentIcon={icon} /> : null}
+                {showNewCustomValue ? <NewCustomValue customValues={customValues} setCustomValues={setCustomValues} close={()=>setShowNewCustomValue(false)} unit={unit}/> : null}
+                <div className={styles.header}>
+                    <h3>Edit Goal</h3>
+                </div>
+                <div className={styles.goalSettings}>
+                    <fieldset className={styles.goalType}>
+                        <label>Type</label>
+                        <select onChange={(e)=>setType(e.target.value)} value={type} id='type' className={styles.targetButton} name='type'>
+                            <option value={'yes-no'}>Yes/No</option>
+                            <option value={'number'}>Number</option>
+                            <option value={'target'}>Target</option>
+                        </select>
+                    </fieldset>
+                    <fieldset className={styles.goalType}>
+                        <label>Pin</label>
+                        <select onChange={(e)=>setPinnedToQuickmenu(e.target.value)} value={pinnedToQuickmenu} id='pin' className={styles.targetButton} name='pin'>
+                            <option value={'true'}>Yes</option>
+                            <option value={'false'}>No</option>
+                        </select>
+                    </fieldset>
+                    <fieldset className={styles.goalType}>
+                        <label>Size</label>
+                        <select onChange={(e)=>setPinToDashboard(e.target.value)} value={pinToDashboard.toString()} id='dashboardShow' className={styles.targetButton} name='dashboardShow'>
+                            <option value={'large'}>Large</option>
+                            <option value={'small'}>Small</option>
+                            <option value={'hide'}>Hide</option>
+                        </select>
+                    </fieldset>
+                </div>
+                <div className={styles['new-goal-inputs']}>
+                    {type === 'target' ? <div className={styles.targetInputs}>
+                        <div className={styles.firstRow}>
+                            <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                            <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
                         </div>
-                    </div>
-                </>
-             : null}
-            <div className={styles['new-goal-buttons']}>
-                <button type="button" className={styles.submit} onClick={handleEditGoal}>Update Goal</button>
-                <button type="button" className={styles.cancel} onClick={close}>Cancel</button>
-            </div>
+                        <div className={styles.secondRow}>
+                            <UnitSelector unit={unit} setUnit={setUnit} />
+                            <input type='number' name='target' id='target' onChange={(e)=>setTarget(parseInt(e.target.value))} value={target} placeholder='Target'></input>
+                            <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                        </div>
+                    </div> : type === 'yes-no' ? <div className={styles.yesnoInputs}>
+                        <div className={styles.firstRow}>
+                            <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                            <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
+                            <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                        </div>
+                    </div> : type === 'number' ? <div className={styles.numberInputs}>
+                        <div className={styles.firstRow}>
+                            <input type='text' name='name' id='name' onChange={(e)=>setName(e.target.value)} value={name} placeholder='Name'></input>
+                            <button className={styles['icon-button']} onClick={()=>setShowIconPicker(true)}>{IconComponent && <IconComponent fill={goalData.color} width="30%" height="30%"/>}</button> 
+                        </div>
+                        <div className={styles.secondRow}>
+                            <UnitSelector unit={unit} setUnit={setUnit} />
+                            <button className={styles['color-button']} style={{backgroundColor: color}} onClick={()=>setShowColorPicker(true)}></button> 
+                        </div>
+                    </div> : null}
+                </div>
+                {type === 'target' ?
+                    <>
+                        <p style={{width: '100%'}}>Default Values {customValues.length}/5</p>
+                        <div className={styles.customValuesSection}>
+                            <button className={styles.addCustomValue} onClick={()=>setShowNewCustomValue(true)}><img src={IconLibrary.Add} alt='add custom value'></img></button>
+                            <div className={styles.customValues}>
+                                {customValues && customValues.length > 0 ? customValues.map(value=><CustomValue index={value} unit={goalData.unit} customValues={customValues} customValue={value} setCustomValues={setCustomValues} />) : <p className={styles.customValue}>No custom values</p>}
+                            </div>
+                        </div>
+                    </>
+                : null}
+                <div className={styles['new-goal-buttons']}>
+                    <button type="button" className={styles.submit} onClick={handleEditGoal}>Update Goal</button>
+                    <button type="button" className={styles.cancel} onClick={close}>Cancel</button>
+                </div>
+           </div>
         </div>
      );
 }

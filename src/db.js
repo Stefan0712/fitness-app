@@ -83,6 +83,23 @@ export const getAllItems = async (storeName, filterOptions = {}) => {
     return matches;
   });
 };
+
+// General function to filter items by property
+export async function getItems(storeName, filters = {}) {
+  const db = await openDB('EasyFitDB', 5);
+  let items = await db.getAll(storeName);
+
+  // Apply filters only if provided
+  if (filters && Object.keys(filters).length > 0) {
+      items = items.filter(item =>
+          Object.entries(filters).every(([key, value]) => item[key] === value)
+      );
+  }
+
+  return items;
+}
+
+
 // Save multiple items at once
 export const saveMultipleItems = async (storeName, items) => {
   if (!Array.isArray(items)) return;

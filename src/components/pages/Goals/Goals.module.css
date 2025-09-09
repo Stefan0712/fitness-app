@@ -89,31 +89,37 @@
 /* New Goal component */
 
 .new-goal{
-    width: calc(100vw - 20px);
-    height: auto;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    position: fixed;
+    left: 0;
+    bottom: 75px;
+    z-index: 500;
+    backdrop-filter: blur(25px);
+}
+.new-goal .content{
+    width: calc(100% - 20px);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: var(--secondary);
+    border: 1px solid var(--general-border);
+    border-radius: 5px;
+    animation: slideUpLog 0.1s;
     padding: 15px;
     gap: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
-    left: 10px;
-    bottom: 100px;
-    z-index: 500;
-    background-color: var(--secondary);
-    border: 1px solid var(--general-border);
-    border-radius: 5px;
-    animation: slideUpLog 0.1s;
 }
-
 @keyframes slideUpLog {
     from{
-        bottom: 0;
+        bottom: -120%;
         opacity: 0;
     }
     to{
-        bottom: 85px;
+        bottom: 0;
         opacity: 1;
     }
 }
@@ -130,7 +136,7 @@
 .new-goal .goalSettings{
     width: 100%;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
 }
 .goalPin{

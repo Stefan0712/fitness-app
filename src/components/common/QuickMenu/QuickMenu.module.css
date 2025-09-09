@@ -26,14 +26,38 @@
 .quick-menu .buttonsContainer{
     z-index: 20;
     margin-top: auto;
-    height: 250px;
+    height: 300px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: end;
     gap: 20px;
 }
-
+.quick-menu .pinsContainer{
+    height: 50px;
+    flex-shrink: 0;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    overflow-x: auto;
+}
+.quick-menu .pinnedGoal{
+    height: 50px;
+    width: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+}
+.quick-menu .pinnedGoal img{
+    width: 80%;
+    height: 80%;
+}
 .quick-menu .quick-button{
     width: fit-content;
     height: 50px;
