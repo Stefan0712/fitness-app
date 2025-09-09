@@ -29,7 +29,7 @@ const IconPicker: React.FC<IconPickerProps> = ({handleIcon, closeModal, currentI
                         <div
                             key={index}
                             className={`${styles['icon-button']} ${currentIcon === icon.id ? styles['selected'] : ''}`}
-                            onClick={() => handleIcon(icon.id)}
+                            onClick={() => (handleIcon(icon.id), closeModal())}
                         >
                             <ItemIcon fill="white" stroke="none" width="30px" height="30px" />
                         </div>

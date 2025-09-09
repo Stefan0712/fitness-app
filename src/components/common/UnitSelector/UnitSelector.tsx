@@ -33,7 +33,7 @@ const UnitSelector = ({unit, setUnit}) => {
         setLabel(query);
         const searchQuery = query.trim().toLowerCase();
         if(searchQuery && searchQuery.length > 0){
-            const filtered = defaultUnits.filter(item=>item.label.toLowerCase().includes(searchQuery));
+            const filtered = defaultUnits.filter(item=>item.label.toLowerCase().includes(searchQuery) || item.shortLabel.toLowerCase().includes(searchQuery));
             setUnits(filtered);
         }else{
             setUnit(defaultUnits);
@@ -59,29 +59,30 @@ const UnitSelector = ({unit, setUnit}) => {
         <div className={styles.unitSelector}>
             <button type='button' className={styles.unitButton} onClick={()=>setShowList(prev=>!prev)}>{unit?.label || 'Unit'}</button>
             {showList ? <div className={styles.results}>
-                <div className={styles.unitHeader}>
-                    <input type='text' id='unit' name='unit' placeholder='Unit' onChange={(e)=>handleSearchUnit(e.target.value)} value={label} />
-                    <input type='text' id='unit' name='shortLabel' placeholder='Short name' onChange={(e)=>setShortLabel(e.target.value)} value={shortLabel} />
-                    <button type='button' className={styles.addUnitButton} onClick={handleAddCustomUnit}>
-                        <img src={IconLibrary.Add} alt=''></img>
-                    </button>
-                </div>
+                <h3>Select Unit</h3>
                 <div className={styles.units}>
                     {Object.entries(groupByCategory(units)).map(([category, items]) => (
-                        <div key={category}>
-                            <b>{makeFirstUpperCase(category)}</b>
+                        <div className={styles.category} key={category}>
+                            <h4>{makeFirstUpperCase(category)}</h4>
                             <div className={styles["unit-list"]}>
                             {items.map((unit) => (
                                 <button type='button' key={unit.value} onClick={()=>{
                                         setUnit(unit)
                                         setShowList(false)
                                     }}>
-                                    {unit.label} ({unit.shortLabel})
+                                    <b>{unit.label}</b><p>{unit.shortLabel}</p>
                                 </button>
                             ))}
                             </div>
                         </div>
                     ))}
+                </div>
+                <div className={styles.unitHeader}>
+                    <input type='text' id='unit' name='unit' placeholder='Unit' onChange={(e)=>handleSearchUnit(e.target.value)} value={label} />
+                    <input type='text' id='unit' name='shortLabel' placeholder='Short name' onChange={(e)=>setShortLabel(e.target.value)} value={shortLabel} />
+                    <button type='button' className={styles.addUnitButton} onClick={handleAddCustomUnit}>
+                        <img src={IconLibrary.Add} alt=''></img>
+                    </button>
                 </div>
                 <button type='button' className={styles.cancelButton} onClick={()=>setShowList(false)}>Cancel</button>
             </div> : null}

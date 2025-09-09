@@ -15,9 +15,13 @@
 }
 .unitSelector .unitHeader{
     display: grid;
-    grid-template-columns: 1fr 100px 50px;
+    grid-template-columns: 1fr 100px 40px;
+    height: 40px;
     gap: 10px;
     align-items: center;
+}
+.unitSelector .unitHeader input{
+    height: 40px;
 }
 .addUnitButton{
     background-color: transparent;
@@ -30,13 +34,12 @@
 .unitSelector .results{
     position: fixed;
     display: grid;
-    grid-template-rows: 50px 1fr 40px;
+    grid-template-rows: 30px 1fr 40px 40px;
     gap: 10px;
-    height: 400px;
+    height: calc(100vh - 100px);
     width: calc(100vw - 20px);
     left: 10px;
-    bottom: 50vh;
-    transform: translateY(50%);
+    top: 10px;
     background-color: var(--modal-bg);
     overflow-x: hidden;
     overflow-y: auto;
@@ -56,9 +59,14 @@
         opacity: 1;
     }
 }
+.unitSelector .results .units h4{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
 
 .unitSelector .results b{
-    border-bottom: 1px solid rgba(211, 211, 211, 0.2);
     width: 100%;
     padding-bottom: 5px;
     display: flex;
@@ -75,14 +83,19 @@
     background-color: transparent;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding: 0 20px 0 10px;
+    background-color: var(--background);
+    border-radius: 5px;
 }
 .unitSelector .results .units{
     overflow-y: auto;
+
 }
+
 .unitSelector .cancelButton{
     width: 100%;
     height: 40px;
     background-color: var(--secondary);
-    border: 1px solid rgba(211, 211, 211, 0.2);
+    border: none;
+    border-radius: 5px;
 }
