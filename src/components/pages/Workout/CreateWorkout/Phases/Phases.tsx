@@ -4,6 +4,8 @@ import styles from './Phases.module.css';
 import { IconLibrary } from "../../../../../IconLibrary.js";
 import NewPhase from "./AddPhase.tsx";
 import Phase from './Phase.tsx';
+import { useUI } from "../../../../../context/UIContext.jsx";
+import EditPhase from "./EditPhase.tsx";
 
 
 const Phases = ({phases, setPhases, setDuration, setTargetMuscles, setTags, setEquipment}) => {
@@ -13,10 +15,9 @@ const Phases = ({phases, setPhases, setDuration, setTargetMuscles, setTags, setE
 
     const [showAddPhase, setShowAddPhase] = useState(false);
     const [showEditPhase, setShowEditPhase] = useState<IPhase | null>(null);
-    
+    const {showMessage, showConfirmationModal} = useUI();
 
     const handleRemoveExercise = (exerciseId: string) => {
-        console.log(exerciseId)
         const updatedPhases = phases.map(phase => {
             if (phase._id === selectedPhase?._id) {
                 return {...phase, exercises: phase.exercises.filter(ex => ex._id !== exerciseId)};
@@ -89,11 +90,26 @@ const Phases = ({phases, setPhases, setDuration, setTargetMuscles, setTags, setE
             setSelectedPhase(null);
         }
     }
-
+    const handleUpdatePhase = (updatedPhase) =>{
+        
+        setPhases(prev=>{
+            const tempPhases = [...prev];
+            const phaseIndex = tempPhases.findIndex(item=>item._id === updatedPhase._id);
+            if(phaseIndex > -1){
+                tempPhases[phaseIndex] = updatedPhase;
+                showMessage('Phase updated successfully', "success");
+                return tempPhases;
+            }else{
+                showMessage('Failed to update phase', "error");
+                return prev;
+            }
+        })
+    }
     if(phases){
         return ( 
         <div className={styles.phases}>
             {showAddPhase ? <NewPhase close={()=>setShowAddPhase(false)} addPhase={(phase: IPhase)=>{setPhases([...phases, phase]); setSelectedPhase(phase);}} lastOrder={phases.length} /> : null}
+            {showEditPhase ? <EditPhase updatePhase={handleUpdatePhase} close={()=>setShowEditPhase(null)} phaseData={showEditPhase}/> : null}
             <div className={styles.phaseList}>
                 <div className={styles.phasesContainer}>
                     {phases && phases.length > 0 ? phases.map(item=><button type="button" key={item._id} onClick={()=>setSelectedPhase(item)} className={`${selectedPhase?._id === item._id ? styles.selectedButton : ''} ${styles.phaseButton}`}>{item.name}</button>) : null}

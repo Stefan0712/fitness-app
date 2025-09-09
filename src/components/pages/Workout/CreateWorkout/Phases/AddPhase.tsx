@@ -9,7 +9,7 @@ const NewPhase = ({close, addPhase, lastOrder}) => {
     const handleSubmit = () =>{
         if(name.length > 0){
             const newPhase = {
-                id: uuidv4(),
+                _id: uuidv4(),
                 name,
                 order: lastOrder + 1,
                 exercises: []

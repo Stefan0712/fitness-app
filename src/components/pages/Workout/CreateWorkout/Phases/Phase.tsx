@@ -17,7 +17,6 @@ interface PhaseProps {
 const Phase: React.FC<PhaseProps> = ({phase, handleRemoveExercise, handleAddExercise, handleDeletePhase, setShowEditPhase}) =>{
 
     const [showExerciseSelector, setShowExerciseSelector] = useState(null)
-    console.log(phase)
     return(
         <div className={styles.phaseBody}>
             {showExerciseSelector ? <ExerciseSelector addExercise={handleAddExercise} phaseId={phase._id} close={()=>setShowExerciseSelector(null)} /> : null}
