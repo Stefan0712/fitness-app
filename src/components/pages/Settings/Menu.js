@@ -60,13 +60,11 @@ const Settings = ({closeSettings}) => {
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/muscles'}><img className={styles.menuIcon} src={IconLibrary.Muscle} alt='' /> Muscles </Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/tags'}><img className={styles.menuIcon} src={IconLibrary.Tags} alt='' /> Tags </Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/default-fields'}><img className={styles.menuIcon} src={IconLibrary.Fields} alt='' /> Fields</Link>
-                <Link className={styles.menuButton} onClick={closeSettings} to={'/about'}><img className={styles.menuIcon} src={IconLibrary.Help} alt='' /> Help</Link>
-                <Link className={styles.menuButton} onClick={closeSettings} to={'/sync'}><img className={styles.menuIcon} src={IconLibrary.Sync} alt='' /> Sync</Link>
+                
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/import'}><img className={styles.menuIcon} src={IconLibrary.Import} alt='' /> Import</Link>
                 <Link className={styles.menuButton} onClick={closeSettings} to={'/export'}><img className={styles.menuIcon} src={IconLibrary.Export} alt='' /> Export</Link>
                 {isLoggedIn ? <button className={styles.menuButton} onClick={handleLogout}><img className={styles.authIcon} src={IconLibrary.Logout} alt='' /> Logout</button> : <Link onClick={closeSettings} to={'/auth'} className={styles.menuButton}> <img className={styles.settingButtonIcon} src={IconLibrary.Login} alt='' />Login</Link>}
             </div>
-            <div className={styles.appVersion}>v0.1.6 - 06-09-2025 18:30</div>
            <div className={styles.bottom}>
                 <button className={'clear-button'} onClick={toggleFullscreen}>
                     <img src={IconLibrary.EnableFullscreen} style={{width: '30px', height: '30px'}} alt='toggle fullscreen' />
