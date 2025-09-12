@@ -83,8 +83,8 @@ const Settings = () => {
                 <div className={styles.section}>
                     <button className={styles.settingButton}><img className={styles.menuIcon} src={IconLibrary.Settings} alt='' /><p>Backups</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></button>
                     <Link className={styles.settingButton} to={'/sync'}><img className={styles.menuIcon} src={IconLibrary.Sync} alt='' /><p>Sync</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></Link>
-                    <button className={styles.settingButton}><img className={styles.menuIcon} src={IconLibrary.Settings} alt='' /><p>Setting</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></button>
-                    <button className={styles.settingButton}><img className={styles.menuIcon} src={IconLibrary.Settings} alt='' /><p>Setting</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></button>
+                    <Link className={styles.settingButton} to={'/import'}><img className={styles.menuIcon} src={IconLibrary.Import} alt='' /><p>Import</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></Link>
+                    <Link className={styles.settingButton} to={'/import'}><img className={styles.menuIcon} src={IconLibrary.Export} alt='' /><p>Export</p><img className='small-icon' src={IconLibrary.Arrow} alt='' /></Link>
                 </div>
                 <h4>Dev settings</h4>
                 <div className={styles.section}>

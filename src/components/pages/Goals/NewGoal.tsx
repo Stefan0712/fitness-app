@@ -1,12 +1,12 @@
 import styles from './Goals.module.css';
 import { IconLibrary } from '../../../IconLibrary.js';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ColorPicker from '../../common/ColorPicker/ColorPicker.tsx';
 import IconPicker from '../../common/IconPicker/IconPicker.tsx';
 import { Goal, Unit } from '../../common/interfaces.ts';
-import { getAllItems, saveItem } from '../../../db.js';
+import { saveItem } from '../../../db.js';
 import UnitSelector from '../../common/UnitSelector/UnitSelector.tsx';
 import { useUI } from '../../../context/UIContext.jsx';
 import { iconList } from '../../../icons.js';
@@ -22,7 +22,6 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
     const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
     const [type, setType] = useState<string>('target');
-    const [allGoals, setAllGoals] = useState([]);
     const [customValues, setCustomValues] = useState<number[]>([]);
     const [showNewCustomValue, setShowNewCustomValue] = useState(false);
     const [pinToDashboard, setPinToDashboard] = useState('large');
@@ -42,7 +41,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     pinToDashboard,
                     defaultValues: customValues,
                     pinnedToQuickmenu,
-                    order: allGoals.length
+                    order: 0
                 }
                 await saveItem('goals',goalData);
                 showMessage("Goal created!",'success');
@@ -70,7 +69,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     type,
                     pinToDashboard: true,
                     pinnedToQuickmenu,
-                    order: allGoals.length
+                    order: 0
                 }
                 await saveItem('goals',goalData);
                 showMessage("Goal created!",'success');
@@ -89,7 +88,7 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
                     type,
                     pinToDashboard: true,
                     pinnedToQuickmenu,
-                    order: allGoals.length
+                    order: 0
                 }
                 await saveItem('goals',goalData);
                 showMessage("Goal created!",'success');
@@ -117,16 +116,6 @@ const NewGoal: React.FC<{ close: ()=>void}> = ({close}) => {
         }
         
     }
-    const getAllGoals = async () =>{
-        try{
-            const result = await getAllItems('goals');
-            setAllGoals(result);
-        }catch(error){
-            console.error(error);
-            showMessage("Failed to get all goals", "error")
-        }
-    }
-    useEffect(()=>{getAllGoals()},[]);
 
 
     const IconComponent = iconList.find(item => item.id === icon)?.icon;

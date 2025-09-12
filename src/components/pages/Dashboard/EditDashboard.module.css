@@ -1,0 +1,203 @@
+/* LARGE GOALS */
+.largeGoal{
+    width: 100%;
+    height: fit-content;
+    background-color: var(--dashboard-module-background);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+.largeGoal .pinButton img{
+    height: 20px;
+    width: 20px;
+}
+.largeGoal .pinButton{
+    background-color: transparent;
+    border: none;
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.largeGoal .goalTop{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.largeGoal .goalIcon{
+    height: 20px;
+    width: 20px;
+}
+.largeGoal .numberGoal{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-grow: 1;
+}
+.largeGoal .targetGoal{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.largeGoal .booleanGoal{
+    flex-grow: 1;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+.largeGoal .booleanGoal .day{
+    height: 60px;
+    width: calc((100% / 5) - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: var(--modal-bg);
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+    align-items: center;
+}
+.largeGoal .booleanGoal .day .timestamp{
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+.largeGoal .targetGoal .daysContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.largeGoal .numberGoal{
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+.largeGoal .numberGoal .day{
+    display: grid;
+    grid-template-rows: 1fr 15px 15px;
+    height: 100px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.largeGoal .numberGoal .day .bar{
+    width: 60%;
+    min-width: 25px;
+    max-width: 100px;
+    border-radius: 5px;
+    margin: auto auto 0 auto;
+}
+.largeGoal .numberGoal .value{
+    text-align: center;
+}
+.largeGoal .numberGoal .date{
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+/* SMALL GOALS */
+
+.smallGoal{
+    width: calc(50% - 10px);
+    height: 100px;
+    background-color: var(--dashboard-module-background);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+.smallGoal .pinButton img{
+    height: 20px;
+    width: 20px;
+}
+.smallGoal .pinButton{
+    background-color: transparent;
+    border: none;
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.smallGoal .goalTop{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.smallGoal .goalIcon{
+    height: 20px;
+    width: 20px;
+}
+.smallGoal .numberGoal{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-grow: 1;
+}
+.smallGoal .targetGoal{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.smallGoal .booleanGoal{
+    flex-grow: 1;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+/* EDIT PAGE */
+.dashboardPage{
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    padding: 15px;
+    height: calc(100vh - 75px);
+    width: 100vw;
+}
+.dashboardContent{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: flex-start;
+}
+.changeOrderButton{
+    width: 70px;
+    height: 30px;
+    display: grid;
+    grid-template-columns: 30px 30px;
+    gap: 10px;
+}
+.changeOrderButton button{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+}
+.changeOrderButton button img{
+    width: 75%;
+    height: 75%;
+}

@@ -104,7 +104,7 @@ export interface Workout {
     color: string,
     type: string,
     pinToDashboard: string,
-    order: number,
+    order?: number,
     defaultValues?: number[];
     pinnedToQuickmenu?: boolean | string;
   }

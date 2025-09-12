@@ -1,11 +1,9 @@
 .dashboard{
-    display: flex;
-    flex-direction: column;    
-    align-items: center;
-    background-color: var(--background);
-    min-height: 100vh;
-    z-index: 1;
-    color: var(--text-color) !important;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    padding: 15px;
+    height: calc(100vh - 75px);
+    width: 100vw;
 }
 .dashboard-content::-webkit-scrollbar{
     display: none;
