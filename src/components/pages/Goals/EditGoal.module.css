@@ -1,0 +1,214 @@
+/* Edit Goal component */
+
+.editGoal{
+    width: 100vw;
+    height: calc(100vh - 75px);
+    position: fixed;
+    left: 0;
+    bottom: 75px;
+    z-index: 500;
+    backdrop-filter: blur(25px);
+}
+.editGoal .content{
+    width: calc(100% - 20px);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: var(--secondary);
+    border: 1px solid var(--general-border);
+    border-radius: 5px;
+    animation: slideUpLog 0.1s;
+    padding: 15px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+@keyframes slideUpLog {
+    from{
+        bottom: -120%;
+        opacity: 0;
+    }
+    to{
+        bottom: 0;
+        opacity: 1;
+    }
+}
+.goalSettings{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.editGoal fieldset{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+.editGoal .toggleInput{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.editGoal input,
+.editGoal select,
+.editGoal option{
+    height: 40px;
+    width: fit-content;
+}
+.editGoal .toggleInput button{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+}
+.generalInputs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.dangerButton{
+    width: 100%;
+    height: 40px;
+    background-color: var(--cancel);
+    border-radius: 5px;
+    border: none;
+}
+.confirmButtons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+.confirmButtons button{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--background);
+    border: none;
+}
+.confirmButtons .cancel{
+    background-color: var(--cancel);
+}
+/* Custom Values */
+
+.addCustomValue{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.addCustomValue img{
+    width: 70%;
+    height: 70%;;
+}
+.customValueHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.customValueBody{
+    height: 40px;
+    background-color: var(--background);
+    border-radius: 5px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 40px;
+    gap: 10px;
+    width: fit-content;
+    flex-shrink: 0;
+    padding-left: 10px;
+}
+.customValueBody button{
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.customValueBody button img{
+    height: 25px;
+    width: 25px;
+}
+.newCustomValue{
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 20px);
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--modal-bg);
+    animation: SlideUpNewCustomValue 0.1s;
+    gap: 10px;
+    z-index: 300;
+    border: 1px solid var(--general-border)
+}
+@keyframes SlideUpNewCustomValue {
+    from{
+        bottom: -110%;
+    }
+    tp{
+        bottom: 0;
+    }
+}
+.customValues{
+    width: 100%;
+    height: 40px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.dangerButtons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    height: 40px;
+}
+.newCustomValue .customValueInput{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    align-items: center;
+    gap: 10px;
+}
+.newCustomValue .customValue input{
+    width: 100%;
+    min-height: auto;
+    max-height: auto;
+}
+.newCustomValue .buttonsContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.newCustomValue .buttonsContainer button{
+    height: 40px;
+    width: 100%;
+    border: none;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+}
+.newCustomValue .buttonsContainer .closeButton{
+    background-color: var(--background);
+}

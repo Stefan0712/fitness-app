@@ -3,8 +3,8 @@ import { IconLibrary } from "../../../IconLibrary";
 import AppHeader from "../../common/AppHeader/AppHeader.tsx";
 import styles from './ViewGoal.module.css';
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteAllGoalLogs, deleteGoalLogs, deleteItem, deleteItemsByGoalId, getAllItems, getItemById } from "../../../db";
-import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, isObject, makeDateNice, makeFirstUpperCase } from "../../../helpers";
+import { getAllItems, getItemById } from "../../../db";
+import { getCurrentDay, getHourFromTimestamp, getLastThreeDays, makeDateNice, makeFirstUpperCase } from "../../../helpers";
 import Loading from "../../common/Loading";
 import { Goal, GoalLog } from "../../common/interfaces.ts";
 import EditGoal from "./EditGoal.tsx";
@@ -69,26 +69,6 @@ const ViewGoal = () => {
 
     useEffect(() => {getPastLogs()},[id]);
 
-    const handleDeleteGoal = async () =>{
-        try{
-            await deleteItem('goals', id);
-            await deleteAllGoalLogs(id);
-            showMessage("Goal deleted successfully!", "success");
-            navigate('/goals');
-        }catch(error){
-            console.error(error)
-        }
-    }
-    const handleResetGoal = async () =>{
-        if(goalData){
-            const todayDate = getCurrentDay();
-            await deleteGoalLogs(id, todayDate);
-            await getGoalLogs(id);
-            await getPastLogs();
-        }else{
-            showMessage("Something went wrong! No goal data found?", "error");
-        }
-    }
     const IconComponent = goalData ? iconList.find(item => item.id === goalData.icon)?.icon : null; // Find the icon based on the saved id
     if(!goalData){
         return(<Loading title={'View Goal'}/>)
@@ -96,7 +76,6 @@ const ViewGoal = () => {
         return ( 
         <div className={styles.viewGoalPage}>
             <AppHeader title={goalData.name} button={<button onClick={()=>setEditGoal(goalData)} className={styles.editGoalButton}><img className='small-icon' src={IconLibrary.Edit} alt='' /></button>} />
-            <Link to={'/goals'}>Back to All Goals</Link>
             {editGoal ? <EditGoal close={()=>setEditGoal(null)} goalData={editGoal} /> : null}
             <div className={styles.goalPreview}>
                 <div className={styles["goal-color"]} style={{backgroundColor: goalData.color}} />
@@ -151,8 +130,7 @@ const ViewGoal = () => {
                 )) : <p className={styles.noItemsText}>No logs today</p>}
             </div>
             <div className={styles.buttonsContainer}>
-                <button className={styles.resetButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete all logs recorded today and cannot be undone. Are you sure you want to continue?', onConfirm: handleResetGoal})}>Reset</button>
-                <button className={styles.deleteButton} onClick={()=>showConfirmationModal({title: 'Are you sure?', message:'This will delete your goal and all related logs. Are you sure you want to continue?', onConfirm: handleDeleteGoal})}>Delete Goal</button>
+            <Link className={styles.goBackButton} to={'/goals'}>Back to All Goals</Link>
             </div>
         </div>
      );

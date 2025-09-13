@@ -159,7 +159,7 @@ const NumberGoal = ({goal}) =>{
 }
 
 
-const BooleanGoal = ({ goal }) => {
+const BooleanGoal = () => {
   return (
     <div className={styles.booleanGoal}>
         <div className={styles.day}>
