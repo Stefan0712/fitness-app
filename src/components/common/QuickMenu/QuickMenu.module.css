@@ -71,8 +71,8 @@
 .quick-menu .pinnedGoal p{
     width: 100%;
 }
-.quick-menu .pinnedGoal:first-child{
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+.quick-menu .pinnedGoal:nth-child(2){
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 .quick-menu .pinnedGoal img{
     width: 30px;

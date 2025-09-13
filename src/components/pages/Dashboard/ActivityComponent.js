@@ -1,17 +1,10 @@
-// The Activity Module shows some basic numbers such as the number of exercises done, workouts, and active time, with today's activity logs (which includes workouts, exercises, and activity logs)
-// I plan to make add more stats, maybe an average workout/exercise time, average rest time, records broken, etc. (still thinking on this)
 import styles from './ActivityComponent.module.css';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { IconLibrary } from '../../../IconLibrary';
 import { getCurrentDay, getHourFromTimestamp } from '../../../helpers';
-import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
-const ActivityComponent = ({showMessage}) => {
-    const dispatch = useDispatch();
-    const dashboardSections = useSelector((state)=>state.user.dashboardSections); // Gets the list of enabled dashboard components to check if this one is enabled
-    const [showMenu, setShowMenu] = useState(false);
+const ActivityComponent = () => {
+
     const [isActivityExpanded, setIsActivityExpanded] = useState(false);
     const [userActivity, setUserActivity] = useState([]); // All logs recorded today
 
@@ -22,25 +15,12 @@ const ActivityComponent = ({showMessage}) => {
     useEffect(()=>{
         getUserLogs();
     },[]); // Fetch logs only on the first load
-
-    // Handles hiding the module
-    const hideModule = () =>{
-        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier !== 'activity')));
-        showMessage({message: "Activity was hidden", type: 'success'});
-    }
-
+    
     return ( 
         <div className={`${styles.activityModule} ${isActivityExpanded ? styles.expandActivity : ''}`}>
-            {showMenu ? (
-                <div className={styles.menu}>
-                    <button type='button' className='clear-button' onClick={hideModule}>Hide</button>
-                    <button type='button' className='clear-button' onClick={()=>setShowMenu(false)}>Cancel</button>
-                </div>
-            ):null}
             <div className={styles['summary-card']}>
                 <div className={styles['summary-card-header']}>
                     <h2>Activity</h2>
-                    <button className={`clear-button ${styles['options-button']}`} onClick={()=>setShowMenu(true)}><img className='small-icon' src={IconLibrary.Hide} alt=''></img></button>
                 </div>
                 <div className={styles["card-content"]}>
                     <div className={styles['card-content-block']}>

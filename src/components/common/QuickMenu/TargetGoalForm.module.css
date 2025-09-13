@@ -17,16 +17,14 @@
     padding: 10px;
     animation: slideGoalLogUp 0.2s;
 }
-.targetLogForm .title{
+.targetLogForm .goalHeader{
     width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
 }
+
 @keyframes slideGoalLogUp {
     from{
         bottom: -100%;

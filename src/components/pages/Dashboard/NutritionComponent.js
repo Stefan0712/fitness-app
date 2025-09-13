@@ -1,20 +1,11 @@
-// The Nutrition module will be visible on the Dashboard page.
-// It shows the total amount of each macros for all logs recorded in the current day, together with a list of today's food logs
-
 import styles from './Dashboard.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { IconLibrary } from '../../../IconLibrary';
 import { getCurrentDay } from '../../../helpers';
-import { updateDashboardLayout } from '../../../store/userSlice.ts';
 import { getAllItems } from '../../../db.js';
 
-const NutritionComponent = ({isSmallScreen, showMessage}) => {
+const NutritionComponent = () => {
 
-    const dispatch = useDispatch();
 
-    const dashboardSections = useSelector((state)=>state.user.dashboardSections); // A copy of the list of enlabled dashboard components used to check if this one is enabled
-    const [showMenu, setShowMenu] = useState(false); // The state for the small menu with the Hide button
     const [foodCardData, setFoodCardData] = useState({calories: 0, protein: 0, carbs: 0, sodium: 0, sugar: 0, fats: 0,})
     const [userActivity, setUserActivity] = useState([]); // All food logs recorded today
     
@@ -59,23 +50,11 @@ const NutritionComponent = ({isSmallScreen, showMessage}) => {
             return totals;
         }
     };
-    // Updates the list of enabled dashboard section and shown a confirmation message
-    const hideModule = () =>{
-        dispatch(updateDashboardLayout(dashboardSections.filter(item=>item.identifier != 'nutrition')));
-        showMessage({message: "Nutrition was hidden", type: 'success'});
-    }
     return ( 
         <div className={`${styles.section} ${styles.nutrition}`}> 
-            {showMenu ? (
-                <div className={styles.menu}>
-                    <button type='button' className='clear-button' onClick={hideModule}>Hide</button>
-                    <button type='button' className='clear-button' onClick={()=>setShowMenu(false)}>Cancel</button>
-                </div>
-            ):null}
             <div className={`${styles['summary-card']} ${styles['nutrition-section']}`}>
             <div className={styles['summary-card-header']}>
                     <h2>Nutrition</h2>
-                    <button className={`clear-button ${styles['options-button']}`} onClick={()=>setShowMenu(true)}><img className='small-icon' src={IconLibrary.Hide} alt=''></img></button>
                 </div>
                 <div className={styles["card-content"]}>
                     <div className={styles['card-content-block']}>

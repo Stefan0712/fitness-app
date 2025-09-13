@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from './BooleanGoalForm.module.css';
 import React from "react";
-import { BaseLog, Goal, GoalLog } from "../interfaces.ts";
+import { Goal, GoalLog } from "../interfaces.ts";
 import { deleteGoalLogs, getAllItems, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
 import { getCurrentDay } from "../../../helpers.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IconLibrary } from "../../../IconLibrary.js";
 
 interface LogGoalProps {
     goalData: Goal;
@@ -96,7 +97,10 @@ const BooleanGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
 
     return ( 
         <div className={styles.log}>
-            <h3>{goalData.name}</h3>
+            <div className={styles.goalHeader}>
+                <p className={styles.title}>New {goalData.name} Log</p>
+                <Link to={'/goals/view/'+goalData._id}><img src={IconLibrary.Link} alt="" className="small-icon" /></Link>
+            </div>
             <input type="text" name="name" id="name" onChange={((e)=>setName(e.target.value))} value={name} placeholder="Name"/>
             <div className={styles.threeItems}>
                 <fieldset>

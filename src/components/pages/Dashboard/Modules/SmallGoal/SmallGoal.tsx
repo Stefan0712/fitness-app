@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './SmallGoal.module.css';
-import { getAllItems, saveItem } from '../../../../../db';
+import { getAllItems } from '../../../../../db';
 import { getCurrentDay, getLastThreeDays } from '../../../../../helpers';
 import {Goal} from '../../../../common/interfaces';
 import ProgressBar from '../../../../common/SVG/ProgressBar.tsx';
@@ -15,26 +15,13 @@ interface SmallGoalProps {
     editMode?: string;
     goalsLength: number;
 }
-const SmallGoal: React.FC<SmallGoalProps> = ({goal, goalsLength}) => {
-
-    
-
-    // Function that WILL be used to pinning a goal to the dashboard
-    const hideGoalFromDashboard = async () =>{
-        try{
-            const updatedGoal = {...goal, pinToDashboard: false, order: goalsLength}
-            await saveItem('goals', updatedGoal);
-        }catch(error){
-            console.error(error)
-        }
-    }
+const SmallGoal: React.FC<SmallGoalProps> = ({goal}) => {
     const IconComponent = iconList.find(item => item.id === goal.icon)?.icon; // Find the icon based on the saved id
     return ( 
         <div className={styles.smallGoal}>
             <div className={styles.goalTop}>
                 {IconComponent && <IconComponent fill={goal.color} width="20px" height="20px"/>}
                 <h4 style={{color: goal.color}}>{goal.name}</h4>
-                <button onClick={hideGoalFromDashboard} className={styles.pinButton}><img src={IconLibrary.Hide} alt='' /></button>
             </div>
             {goal.type === 'target' ? <TargetGoal goal={goal} /> : goal.type === 'number' ? <NumberGoal goal={goal} /> : goal.type === 'yes-no' ? <BooleanGoal goal={goal} /> : null}
         </div>

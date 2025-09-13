@@ -7,8 +7,9 @@ import { getAllItems, saveItem } from "../../../db.js";
 import { useUI } from "../../../context/UIContext.jsx";
 import ObjectID from "bson-objectid";
 import { getCurrentDay } from "../../../helpers.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { iconList } from '../../../icons.js';
+import { IconLibrary } from "../../../IconLibrary.js";
 
 
 interface LogGoalProps {
@@ -86,7 +87,10 @@ const TargetGoalForm: React.FC<LogGoalProps> = ({goalData, close}) => {
     
     return ( 
         <div className={styles.targetLogForm}>
-            <p className={styles.title}>New {goalData.name} Log</p>
+            <div className={styles.goalHeader}>
+                <h3>New {goalData.name} Log</h3>
+                <Link to={'/goals/view/'+goalData._id}><img src={IconLibrary.Link} alt="" className="small-icon" /></Link>
+            </div>
             <GoalProgressCircle progress={progress} goal={goalData} />
             <div className={styles.twoItems}>
                 <input type="time" name="time" id="time" onChange={((e)=>setTime(e.target.value))} value={time} />
