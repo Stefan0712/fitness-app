@@ -16,6 +16,7 @@ const Import = () => {
     const {showMessage, showConfirmationModal} = useUI();
 
     const [viewMode, setViewMode] = useState("list")
+    const [type, setType] = useState('')
 
     const [importData, setImportData] = useState<any>(null);
     const [selectedItems, setSelectedItems] = useState([])
@@ -27,7 +28,6 @@ const Import = () => {
         const exercises = await getAllItems('exercises');
         const workouts = await getAllItems('workouts');
         setLibrary({exercises, workouts});
-        console.log(library)
     }
     useEffect(()=>{handleGetLibrary()},[])
 
@@ -47,8 +47,10 @@ const Import = () => {
                     return item;
                 });
             }
-            console.log(parsed)
             setImportData(parsed);
+            if(parsed.type === 'exercises' || parsed.type === 'workouts') {
+                setType(parsed.type)
+            }
             showMessage("File successfully imported!", "success");
         } catch (err) {
             console.error("Failed to parse JSON:", err);
@@ -100,7 +102,7 @@ const Import = () => {
                 </div>
             </div>
             <div className={styles.viewContainer}>
-                    <ListView items={importData?.data} handleItemSelection={handleItemSelection} selectedItems={selectedItems}/>
+                    <ListView type={type} items={importData?.data} handleItemSelection={handleItemSelection} selectedItems={selectedItems}/>
             </div>
             <div className={styles.buttons}>
                 <button onClick={(()=>showConfirmationModal({title: "Are you sure?", message: "All items will be imported to your library, even duplicates. Do you want to continue?", onConfirm: handleImportAll}))}>Import All</button>
@@ -114,7 +116,7 @@ const Import = () => {
 export default Import;
 
 
-const ListView = ({items, handleItemSelection, selectedItems}) =>{
+const ListView = ({items, handleItemSelection, selectedItems, type}) =>{
 
     return(
         <div className={styles.ListView}>
@@ -133,10 +135,14 @@ const ListView = ({items, handleItemSelection, selectedItems}) =>{
                         <img src={IconLibrary.Equipment} style={{width: '15px', height: '15px'}} alt="" />
                         <p className={styles.metaString}>{item.equpment?.length > 0 ? item.equipment?.map(i => i.name).join(", ") : "None"}</p>
                     </div>
-                    <div className={styles.meta}>
-                        <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
-                        <p className={styles.metaString}>{item.fields?.length > 0 ? item.fields?.map(i => `${i.name} - ${i.target} ${i.unit.shortLabel}`).join(", ") : "None"}</p>
-                    </div>
+                    {type === 'exercise' ? <div className={styles.meta}>
+                            <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
+                            <p className={styles.metaString}>{item.fields?.length > 0 ? item.fields?.map(i => `${i.name} - ${i.target} ${i.unit.shortLabel}`).join(", ") : "None"}</p>
+                        </div> : <div className={styles.meta}>
+                            <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
+                            <p className={styles.metaString}>{item.exercises?.length > 0 ? item.exercises?.map(i => i.name) : "None"}</p>
+                        </div>
+                    }
                 </div>
                 <img onClick={()=>handleItemSelection(item)} className={styles.checkMarkIcon} src={selectedItems.some(obj=>obj._id === item._id) ? IconLibrary.Checkmark : IconLibrary.Plus} alt="" />
             </div>) 

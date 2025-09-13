@@ -28,6 +28,7 @@ import ExerciseLibrary from './components/pages/Library/ExercisesLibrary/Exercis
 import Muscles from './components/pages/Muscles/Muscles.tsx';
 import Import from './components/pages/Settings/Import/Import.tsx';
 import Export from './components/pages/Settings/Export/Export.tsx';
+import GetStarted from './components/pages/GetStarted/GetStarted.tsx';
 
 
 function AppRoutes() {
@@ -35,7 +36,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/get-started" element={<StartingPage />} />
+      <Route path="/get-started" element={<GetStarted />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/library" element={<Library />} />
       <Route path="/logs" element={<Logs />} />

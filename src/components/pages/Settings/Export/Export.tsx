@@ -14,7 +14,8 @@ const Export = () => {
 
     const [viewMode, setViewMode] = useState("list")
 
-    const [selectedItems, setSelectedItems] = useState([])
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [type, setType] = useState('exercises');
     const [library, setLibrary] = useState({exercises:[], workouts: []});
 
 
@@ -26,9 +27,9 @@ const Export = () => {
     }
     useEffect(()=>{handleGetLibrary()},[])
 
-    function downloadJsonFile() {
+    const downloadJsonFile = () => {
         const jsonData = {
-            type: "exercises",
+            type,
             version: "1.0",
             createdAt: new Date().toISOString(),
             source: "local",
@@ -42,7 +43,7 @@ const Export = () => {
 
         const link = document.createElement("a");
         link.href = url;
-        link.download = "exercises.json";
+        link.download = `${type}.json`;
         document.body.appendChild(link);
         link.click();
 
@@ -51,7 +52,6 @@ const Export = () => {
         URL.revokeObjectURL(url);
         showMessage(`Successfully exported ${selectedItems.length} items`, "success");
     }
-
 
     const handleItemSelection = (item) =>{
         if(selectedItems.includes(item)){
@@ -79,8 +79,12 @@ const Export = () => {
                     <button className={viewMode === "cards" ? styles.selectedViewButton : ''} onClick={()=>setViewMode('cards')}><img src={IconLibrary.CardList} alt=""/></button>
                 </div>
             </div>
+            <div className={styles.switch}>
+                <button className={type === 'exercises' ? styles.selectedButton : ''} onClick={()=>setType('exercises')}>Exercises</button>
+                <button className={type === 'workouts' ? styles.selectedButton : ''} onClick={()=>setType('workouts')}>Workouts</button>
+            </div>
             <div className={styles.viewContainer}>
-                    <ListView items={library.exercises} handleItemSelection={handleItemSelection} selectedItems={selectedItems}/>
+                <ListView type={type} items={type === 'exercises' ? library.exercises : type === 'workouts' ? library.workouts : library.exercises} handleItemSelection={handleItemSelection} selectedItems={selectedItems}/>
             </div>
             <div className={styles.buttons}>
                 <button onClick={handleSelectAll}>Select All</button>
@@ -93,7 +97,7 @@ const Export = () => {
 export default Export;
 
 
-const ListView = ({items, handleItemSelection, selectedItems}) =>{
+const ListView = ({items, handleItemSelection, selectedItems, type}) =>{
 
     return(
         <div className={styles.ListView}>
@@ -110,12 +114,15 @@ const ListView = ({items, handleItemSelection, selectedItems}) =>{
                     </div>
                     <div className={styles.meta}>
                         <img src={IconLibrary.Equipment} style={{width: '15px', height: '15px'}} alt="" />
-                        <p className={styles.metaString}>{item.equpment?.length > 0 ? item.equipment?.map(i => i.name).join(", ") : "None"}</p>
+                        <p className={styles.metaString}>{item.equipment?.length > 0 ? item.equipment?.map(i => i.name).join(", ") : "None"}</p>
                     </div>
-                    <div className={styles.meta}>
-                        <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
-                        <p className={styles.metaString}>{item.fields?.length > 0 ? item.fields?.map(i => `${i.name} - ${i.target} ${i.unit.shortLabel}`).join(", ") : "None"}</p>
-                    </div>
+                    {type === 'exercise' ? <div className={styles.meta}>
+                            <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
+                            <p className={styles.metaString}>{item.fields?.length > 0 ? item.fields?.map(i => `${i.name} - ${i.target} ${i.unit.shortLabel}`).join(", ") : "None"}</p>
+                        </div> : <div className={styles.meta}>
+                            <img src={IconLibrary.Fields} style={{width: '15px', height: '15px'}} alt="" />
+                            <p className={styles.metaString}>{item.exercises?.length > 0 ? item.exercises?.map(i => i.name) : "None"}</p>
+                    </div>}
                 </div>
                 <img onClick={()=>handleItemSelection(item)} className={styles.checkMarkIcon} src={selectedItems.some(obj=>obj._id === item._id) ? IconLibrary.Checkmark : IconLibrary.Plus} alt="" />
             </div>) 
