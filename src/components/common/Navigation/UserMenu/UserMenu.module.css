@@ -1,0 +1,92 @@
+.userMenu{
+    width: 100vw;
+    height: auto;
+    position: fixed;
+    bottom: 75px;
+    left: 0;
+    background-color: var(--modal-bg);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid rgba(211, 211, 211, 0.2);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    animation: slideUp 0.1s;
+}
+@keyframes slideUp {
+    from{
+        opacity: 0;
+        bottom: -120%;
+    }
+    to{
+        opacity: 1;
+        bottom: 75px;
+    }
+}
+.userMenu .menuIcon{
+    width: 15px;
+    height: 15px;
+}
+
+.userMenu .user{
+    width: 100%;
+    height: 50px;
+    background-color: var(--background);
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+.userMenu .userInfo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.userMenu .logoutButton,
+.userMenu .loginButton{
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    width: fit-content;
+    gap: 10px;
+    height: 40px;
+    align-items: center;
+    background-color: var(--cancel);
+    padding: 5px;
+    border-radius: 5px;
+}
+.userMenu .loginButton{
+    background-color: transparent;
+}
+.userMenu .profileImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 7px;
+}
+.userMenu .container,
+.userMenu .bottom{
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--background);
+}
+.userMenu .menuButton{
+    display: grid;
+    grid-template-columns: 20px 1fr 30px;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    text-decoration: none;
+    padding: 5px 10px;
+}

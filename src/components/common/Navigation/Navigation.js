@@ -7,14 +7,14 @@ import {IconLibrary} from '../../../IconLibrary';
 import QuickMenu from '../QuickMenu/QuickMenu';
 import ExerciseLog from '../LogPages/ActivityLog.tsx';
 import FoodLog from '../FoodLog/FoodLog.tsx';
-import Menu from '../../pages/Settings/Menu.js';
+import UserMenu from './UserMenu/UserMenu.tsx';
 
 
 const Navigation = () => {
     const [showQuickmenu, setShowQuickmenu] = useState(false)
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [showExerciseLog, setShowExerciseLog] = useState(false);
-    const [showSettings, setShowSettings] = useState(false);
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const [showLibraryMenu, setShowLibraryMenu] = useState(false);
    
     const closeQuickmenu = () =>{
@@ -46,9 +46,9 @@ const Navigation = () => {
         <nav>
             {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
             {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
-            {showSettings ? <Menu closeSettings={()=>setShowSettings(false)} /> : null}
             {showQuickmenu ? <QuickMenu closeQuickMenu={closeQuickmenu} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
             {showLibraryMenu ? <LibraryMenu close={()=>setShowLibraryMenu(false)} /> : null}
+            {showUserMenu ? <UserMenu close={()=>setShowUserMenu(false)} /> : null}
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
@@ -69,8 +69,8 @@ const Navigation = () => {
                 <img src={IconLibrary.Activity} alt=''></img>
                 <p>Activity</p>
             </Link>
-            <button onClick={()=>setShowSettings(prev=>!prev)} className={styles['nav-button']}>
-                <img src={IconLibrary.Menu} alt=''></img>
+            <button onClick={()=>setShowUserMenu(prev=>!prev)} className={styles['nav-button']}>
+                <img src={IconLibrary.Menu} alt='' /> 
                 <p>Menu</p>
             </button>
         </nav>
