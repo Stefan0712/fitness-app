@@ -69,7 +69,7 @@ export default Library;
 
 const Exercise = ({data, selectItem}) =>{
     return(
-        <div className={styles.exercise} onClick={selectItem} key={data._id}>
+        <div className={styles.exercise} onClick={()=>selectItem(data)} key={data._id}>
             <div className={styles.header}>
                 <h4>{data.name}</h4>
                 <div className={styles.duration}>
@@ -93,7 +93,7 @@ const Exercise = ({data, selectItem}) =>{
 
 const Workout = ({data, selectItem}) =>{
     return(
-        <div className={styles.workout} onClick={selectItem}>
+        <div className={styles.workout} onClick={()=>selectItem(data)}>
             <div className={styles.header}>
                 <h4>{data.name}</h4>
                 <div className={styles.exercises}>

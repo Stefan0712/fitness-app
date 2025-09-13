@@ -50,6 +50,7 @@ const EditExercise: React.FC = () => {
     const [restUnit, setRestUnit] = useState<'hours' | 'minutes' | 'seconds'>('seconds');
     const [durationUnit, setDurationUnit] = useState<'hours' | 'minutes' | 'seconds'>('minutes');
     const [instructions, setInstructions] = useState<string[]>([]);
+    const [isPinned, setIsPinned] = useState('false');
 
     const handleSubmit = async (e)=> {
         if(exerciseData){
@@ -73,7 +74,8 @@ const EditExercise: React.FC = () => {
             fields, 
             tags, 
             equipment: equipments, 
-            instructions
+            instructions,
+            isPinned
         };
         await saveItem('exercises', newData);
         showMessage('Exercise updated', 'success')
@@ -133,8 +135,12 @@ const EditExercise: React.FC = () => {
                 <div className={styles.exerciseInfo} >
                     <input  type="text" name="name" id="name" required={true} minLength={3} maxLength={20} onChange={(e) => setName(e.target.value)} value={name} placeholder="Name"></input>
                     <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} minLength={0} maxLength={300} placeholder="Description"></input>
-                    <div className={styles.twoInputs}>
+                    <div className={styles.threeInputs}>
                         <input type="url" name="reference" id="reference" onChange={(e) => setReference(e.target.value)} value={reference} placeholder="Reference URL"></input>
+                        <select name="pin" id="pin" onChange={(e) => setIsPinned(e.target.value)} value={isPinned}>
+                            <option value="true">Pinned</option>
+                            <option value="false">Not Pinned</option>
+                        </select>
                         <select name="visibility" id="visibility" onChange={(e) => setVisibility(e.target.value)} value={visibility}>
                             <option value="private">Private</option>
                             <option value="friends">Friends only</option>

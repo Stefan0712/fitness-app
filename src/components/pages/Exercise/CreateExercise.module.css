@@ -12,6 +12,7 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    padding-right: 10px;
 }
 .createExercise .exerciseInfo{
     display: flex;
@@ -19,6 +20,12 @@
     gap: 10px;
     height: 320px;
     flex-shrink: 0;
+}
+
+.createExercise input,
+.createExercise select,
+.createExercise option{
+    height: 40px;
 }
 .createExercise .inputGroup{
     display: grid;
@@ -39,6 +46,11 @@
     background-color: var(--accent-color);
     border: none;
     border-radius: 5px;
+    flex-shrink: 0;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .createExercise .screenSwitcher button{
     background-color: transparent;
@@ -118,6 +130,11 @@
 .timeInputs {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+.createExercise .threeInputs{
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
     gap: 10px;
 }
 .timeInputs{

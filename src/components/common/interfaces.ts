@@ -43,6 +43,7 @@ export interface Workout {
     targetMuscles: TargetGroup[];
     tags: Tag[];
     instructions: string[];
+    isPinned?: string;
   }
   export interface WorkoutExercise {
     _id: string,
