@@ -1,7 +1,7 @@
 import styles from './Library.module.css';
 import { IconLibrary } from '../../../IconLibrary';
 
-const Exercise = ({data, id, type, index}) => {
+const Exercise = ({data}) => {
     return ( 
         <div className={styles.libraryExercise}>
             <h3>{data.name}</h3>

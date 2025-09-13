@@ -29,7 +29,6 @@ const WorkoutsLibrary = () => {
             {selectedItem ? <ViewWorkout data={selectedItem} close={()=>setSelectedItem(null)} /> : null}
             <AppHeader title={"My Workouts"} button={<Link className={styles.newItemBtn} to={'/create-workout'}><img src={IconLibrary.Add} alt="" /></Link>} />
             <SearchBar originalItemList={allItems} setFilteredItems={setFilteredItems} />
-            <b>Workouts</b>
             <div className={styles.workouts}>
                 {filteredItems && filteredItems.length > 0 ? filteredItems.map(item=><Workout key={item._id} data={item} selectItem={()=>setSelectedItem(item)} />) : <p>No items to show</p>}
             </div>

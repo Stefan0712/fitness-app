@@ -1,231 +1,128 @@
+/* Library Page */
 .library{
-    padding: 20px 15px;
+    height: calc(100vh - 75px);
+    width: 100vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    height: calc(100vh - 60px);
-}
-@media (min-width: 800px) {
-    .library{
-        grid-column: 2 / 4;
-        padding: 20px 50px;
-        width: 100%;
-        height: 100%;
-    }
-
-}
-
-.header-title{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    
-}
-.toggle-buttons{
-    width: 100%;
-    height: 50px;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1A1A1B;
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 5px;
-}
-.toggle-buttons button{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid transparent;
-    background-color: transparent;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 5px;
-}
-.toggle-buttons .selected-button{
-    background-color: white;
-    color: black;
-}
-.explore-button p{
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-
-.library .subtitle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.library-items-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    padding: 0 10px 0 5px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 100%;
-}
-
-.item-body{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 3px;
-    text-decoration: none;
-    flex-shrink: 0;
-}
-.workout-body{
-    height: 80px;
-    background-color: #1A1A1B;
     padding: 10px;
-    border-radius: 5px;
 }
-.workout-tags{
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    max-width: 100%;
-    overflow: hidden;
-}
-.workout-tag-body{
-    height: 20px;
-    display: flex;
-    gap: 5px;
-    border-radius: 5px;
-    align-items: center;
-    white-space: nowrap;
-    
-}
-.workout-tag-name{
-    color: white;
-    opacity: 0.6;
-}
-
-.item-body .item-info{
-    height: 100%;
-    width: calc(100% - 60px);
+.library .category{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.library .category .header{
+    width: 100%;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
     text-decoration: none;
 }
-.item-info h4{
-    width: 100%;
-}
-.item-info .item-description{
-    width: 100%;
+.library .category .container{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
-    
-}
-.item-description p{
-    color: rgba(255, 255, 255, 0.6);
-}
-.browse-button{
-    position: fixed;
-    bottom: 100px;
-    border: 1px solid rgba(211, 211, 211, 0.336);
-    width: 150px;
-    height: 50px;
-    text-decoration: none;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    gap: 5px;
-}
-
-.buttons{
-    width: 100%;
-    display: flex;
-    gap: 10px;
-}
-
-.category-button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border-radius: 5px;
-    gap: 10px;
-    height: 50px;
-    width: calc(100% - 60px);
-    background-color: transparent;
-    border: 1px solid var(--general-border);
-}
-.add-button{
-    width: 50px;
-}
-.add-button img{
-    width: 25px;
-    height: 25px;
-}
-
-
-
-/* browse page */
-.library-items-container .item-button button{
-    background-color: transparent;
-    border: 1px solid transparent;
-}
-
-
-.libraryExercise{
-    height: 90px;
-    width: 100%;
-    border-radius: 5px;
     background-color: var(--secondary);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Exercise component */
+.library .exercise{
+    display: grid;
+    grid-template-rows: 2fr 3fr;
+    align-items: center;
     gap: 10px;
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+    height: 75px;
 }
-.libraryExercise  h3{
-    margin-right: auto;
+.library .exercise .meta p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(225, 225, 225, 0.5);
 }
-.libraryExercise .bottom{
-    height: 60px;
-    width: 100%;
-    flex-direction: column;
-}
-.libraryExercise .exerciseIcon{
+.library .exercise .metaIcon{
     width: 15px;
     height: 15px;
-    opacity: 0.7;
 }
-.libraryExercise .muscles,
-.libraryExercise .tags{
-    width: 100%;
-    height: 20px;
+.library .exercise .header{
     display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 20px;
+}
+.library .exercise .header h4{
+    width: fit-content;
+}
+.library .exercise .header .duration{
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+.library .exercise .meta{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.library .exercise .tags,
+.library .exercise .muscles{
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    align-items: center;
+    gap: 5px;
+}
+
+/* workout component */
+.library .workout{
+    display: grid;
+    grid-template-rows: 2fr 3fr;
     align-items: center;
     gap: 10px;
-    overflow: hidden;
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 5px;
+    height: 75px;
 }
-.libraryExercise .tag p,
-.libraryExercise .muscle{
-    height: 100%;
-    flex-shrink: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    align-items: center;
+.library .workout .meta p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(225, 225, 225, 0.5);
+}
+.library .workout .metaIcon{
+    width: 15px;
+    height: 15px;
+}
+.library .workout .header{
     display: flex;
-    color: rgba(255, 255, 255, 0.5);
+    justify-content: space-between;
+    overflow: hidden;
+    height: 30px;
 }
-
-
-
+.library .workout .header h4{
+    width: fit-content;
+}
+.library .workout .header .exercises{
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+.library .workout .meta{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.library .workout .tags,
+.library .workout .muscles{
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    align-items: center;
+    gap: 5px;
+}

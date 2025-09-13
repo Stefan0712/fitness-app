@@ -24,13 +24,13 @@ const ExercisesLibrary = () => {
     }
     useEffect(()=>{
         getExercises();
-    },[])
+    },[]);
+    
     return ( 
         <div className={`${styles.library}`}>
             {selectedItem ? <ViewExercise data={selectedItem} close={()=>setSelectedItem(null)} /> : null}
             <AppHeader title={"My Exercises"} button={<Link className={styles.newItemBtn} to={'/create-exercise'}><img src={IconLibrary.Add} alt="" /></Link>} />
             <SearchBar originalItemList={allItems} setFilteredItems={setFilteredItems} />
-            <b>Exercises</b>
             <div className={styles.exercises}>
                 {filteredItems && filteredItems.length > 0 ? filteredItems.map(item=><Exercise key={item._id} data={item} selectItem={()=>setSelectedItem(item)} />) : <p>No items to show</p>}
             </div>
@@ -43,7 +43,6 @@ export default ExercisesLibrary;
 
 
 const Exercise = ({data, selectItem}) =>{
-
     return(
         <div className={styles.exercise} onClick={selectItem} key={data._id}>
             <div className={styles.header}>

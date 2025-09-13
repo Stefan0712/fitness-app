@@ -1,5 +1,3 @@
-// Navigation Bar component
-// It is always visible at the bottom of the page so I placed Log screen inside of this to make sure they will be visible across the entire app
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Navigation.module.css';
@@ -15,11 +13,7 @@ const Navigation = () => {
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [showExerciseLog, setShowExerciseLog] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
-    const [showLibraryMenu, setShowLibraryMenu] = useState(false);
    
-    const closeQuickmenu = () =>{
-        setShowQuickmenu(false);
-    }
     const openFoodLogs = () =>{
         setShowFoodLog(true);
         setShowQuickmenu(false);
@@ -28,48 +22,46 @@ const Navigation = () => {
         setShowExerciseLog(true);
         setShowQuickmenu(false);
     }
-    const closeFoodLogs = () =>{
-        setShowFoodLog(false)
+    const toggleUserMenu = () =>{
+        setShowQuickmenu(false);
+        setShowUserMenu(prev=>!prev);
     }
-    const closeExerciseLogs = () =>{
-        setShowExerciseLog(false)
-    }
-    // Used to close everything when the user clicks on a link
-    const closeAll = () =>{
-        closeExerciseLogs();
-        closeFoodLogs();
-        closeQuickmenu();
-        setShowLibraryMenu(false);
+    const toggleQuickMenu = () =>{
+        setShowUserMenu(false);
+        setShowQuickmenu(prev=>!prev);
     }
 
+    // Used to close everything when the user clicks on a link
+    const closeAll = () =>{
+        setShowExerciseLog(false)
+        setShowFoodLog(false)
+        setShowQuickmenu(false);
+        setShowUserMenu(false);
+    }
     return ( 
         <nav>
-            {showExerciseLog ? <ExerciseLog closeMenu={closeExerciseLogs}/> : null}
-            {showFoodLog ? <FoodLog closeMenu={closeFoodLogs}/> : null}
-            {showQuickmenu ? <QuickMenu closeQuickMenu={closeQuickmenu} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
-            {showLibraryMenu ? <LibraryMenu close={()=>setShowLibraryMenu(false)} /> : null}
+            {showExerciseLog ? <ExerciseLog closeMenu={()=>setShowExerciseLog(false)}/> : null}
+            {showFoodLog ? <FoodLog closeMenu={()=>setShowFoodLog(false)}/> : null}
+            {showQuickmenu ? <QuickMenu closeQuickMenu={()=>setShowQuickmenu(false)} openFoodLogs={openFoodLogs} openExerciseLogs={openExerciseLogs} /> : null}
             {showUserMenu ? <UserMenu close={()=>setShowUserMenu(false)} /> : null}
+
+                
             <Link to='/dashboard' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Home} alt=''></img>
                 <p>Home</p>
             </Link>
-            <button onClick={()=>{
-                    closeAll();
-                    setShowLibraryMenu(prev=>!prev);
-                }}  
-                className={styles['nav-button']}
-            >
+            <Link to='/library' onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Library} alt=''></img>
                 <p>Library</p>
-            </button>
-            <button type='button' className={`${styles['nav-button']} ${styles.center}`} onClick={()=>setShowQuickmenu(!showQuickmenu)}>
+            </Link>
+            <button type='button' className={`${styles['nav-button']} ${styles.center}`} onClick={toggleQuickMenu}>
                 <img src={showQuickmenu ? IconLibrary.Close : IconLibrary.Add} alt='' />
             </button>
             <Link to='/logs'  onClick={closeAll} className={styles['nav-button']}>
                 <img src={IconLibrary.Activity} alt=''></img>
                 <p>Activity</p>
             </Link>
-            <button onClick={()=>setShowUserMenu(prev=>!prev)} className={styles['nav-button']}>
+            <button onClick={toggleUserMenu} className={styles['nav-button']}>
                 <img src={IconLibrary.Menu} alt='' /> 
                 <p>Menu</p>
             </button>
@@ -79,30 +71,3 @@ const Navigation = () => {
 }
  
 export default Navigation;
-
-
-const LibraryMenu = ({close}) => {
-    return(
-        <div className={styles.libraryMenu}>
-            <div className={styles.bg} onClick={close}/>
-            <div className={styles.menuContainer}>
-                <Link to={'/exercises-library'} className={styles.libraryMenuBtn} onClick={close}>
-                    <p>My Exercises</p>
-                    <img src={IconLibrary.Exercise} alt='' />
-                </Link>
-                <Link to={'/workouts-library'} className={styles.libraryMenuBtn} onClick={close}>
-                    <p>My Workouts</p>
-                    <img src={IconLibrary.Workout} alt='' />
-                </Link>
-                <Link to={'/explore'} className={styles.libraryMenuBtn} onClick={close}>
-                    <p>Explore</p>
-                    <img src={IconLibrary.List} alt='' />
-                </Link>
-                <button className={styles.libraryMenuBtn} onClick={close}>
-                    <p>Close</p>
-                    <img src={IconLibrary.Close} alt='' />
-                </button>
-            </div>
-        </div>
-    )
-}

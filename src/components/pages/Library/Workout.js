@@ -3,7 +3,7 @@ import { IconLibrary } from '../../../IconLibrary';
 import { Link } from 'react-router-dom';
 import { makeFirstUpperCase } from '../../../helpers';
 
-const Workout = ({workout, id, type, index}) => {
+const Workout = ({workout, id, type}) => {
 
     const getNumberOfExercises = () => {
         if(workout.phases){

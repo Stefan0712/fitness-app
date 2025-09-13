@@ -7,7 +7,6 @@ import BooleanGoalForm from './BooleanGoalForm.tsx';
 import NumberGoalForm from './NumberGoalForm.tsx';
 import { getItems } from '../../../db.js';
 import { iconList } from '../../../icons.js';
-import { useNavigate } from 'react-router-dom';
 
 
 const QuickMenu = ({openExerciseLogs, openFoodLogs, closeQuickMenu}) => {
@@ -47,33 +46,35 @@ const QuickMenu = ({openExerciseLogs, openFoodLogs, closeQuickMenu}) => {
         <div className={styles["quick-menu"]}>  
             {showGoals ? <Goals closeMenu={()=>setShowGoals(false)} selectedGoal={selectedGoal} setSelectedGoal={openGoal}/> : null}
             {selectedGoal ? 
-                selectedGoal.type === 'target' ? <TargetGoalForm close={closeLogScreen} goalData={selectedGoal} /> 
+                  selectedGoal.type === 'target' ? <TargetGoalForm close={closeLogScreen} goalData={selectedGoal} /> 
                 : selectedGoal.type === 'yes-no' ? <BooleanGoalForm close={closeLogScreen} goalData={selectedGoal} /> 
                 : selectedGoal.type === 'number' ? <NumberGoalForm close={closeLogScreen} goalData={selectedGoal} /> 
                 : null 
             : null}
             <div className={styles.menuBg} onClick={closeQuickMenu}></div>
-            {showGoals || selectedGoal ? null : <div className={styles.buttonsContainer}>
-                <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
-                    <p>Log Food</p>
-                    <div className={styles.iconBg}>
+            {showGoals || selectedGoal ? null : 
+            <div className={styles.content}>
+                <h4>Quick Menu</h4>
+                <div className={styles.buttonsContainer}>
+                    <button className={styles['quick-button']} onClick={openFoodLogs} key={"food"}>
                         <img src={IconLibrary.Food} alt=''></img>
-                    </div>
-                </button>
-                <button className={styles['quick-button']} onClick={openExerciseLogs} key={'exercise'}>
-                    <p>Log Activity</p>
-                    <div className={styles.iconBg}>
+                        <p>Log Food</p>
+                        <img src={IconLibrary.Arrow} className='small-icon' alt=''></img>
+                    </button>
+                    <button className={styles['quick-button']} onClick={openExerciseLogs} key={'exercise'}>
                         <img src={IconLibrary.Exercise} alt=''></img>
-                    </div>
-                </button>
-                <button className={styles['quick-button']} onClick={()=>setShowGoals(true)} key={'goals'}>
-                    <p>Log Goal</p>
-                    <div className={styles.iconBg}>
+                        <p>Log Activity</p>
+                        <img src={IconLibrary.Arrow} className='small-icon' alt=''></img>
+                    </button>
+                    <button className={styles['quick-button']} onClick={()=>setShowGoals(true)} key={'goals'}>
                         <img src={IconLibrary.Goals} alt=''></img>
-                    </div>
-                </button> 
+                        <p>Log Goal</p>
+                        <img src={IconLibrary.Arrow} className='small-icon' alt=''></img>
+                    </button> 
+                </div>
+                <h4>Pinned Goals</h4>
                 <div className={styles.pinsContainer}>
-                    {pinnedGoals?.length > 0 ? pinnedGoals.map((goal, index)=><PinnedGoal openGoal={()=>setSelectedGoal(goal)} close={closeQuickMenu} goal={goal}  key={'goal-'+index} className={styles.pinnedGoal} />) : null}
+                    {pinnedGoals?.length > 0 ? pinnedGoals.slice(-2).map((goal, index)=><PinnedGoal openGoal={()=>setSelectedGoal(goal)} close={closeQuickMenu} goal={goal}  key={'goal-'+index} className={styles.pinnedGoal} />) : null}
                 </div>
             </div>}
         </div>
@@ -82,13 +83,12 @@ const QuickMenu = ({openExerciseLogs, openFoodLogs, closeQuickMenu}) => {
 export default QuickMenu;
 
 
-const PinnedGoal = ({goal, close, openGoal}) =>{
-
+const PinnedGoal = ({goal, openGoal}) =>{
     const IconComponent = iconList.find(item => item.id === goal.icon)?.icon; // Find the icon based on the saved id
-
     return ( 
         <div className={styles.pinnedGoal} onClick={()=>openGoal()}>
             {IconComponent && <IconComponent fill={'white'} width="70%" height="70%"/>}
+            <p>{goal.name}</p>
         </div>
-     )
+    )
 }
