@@ -133,3 +133,47 @@
     background-color: white;
     color: black;
 }
+
+
+
+/* Goal Log */
+
+
+.goalMenu{
+  width: 100vw;
+  height: calc(100vh - 75px);
+  position: fixed;
+  left: 0;
+  bottom: 75px;
+  backdrop-filter: blur(25px);
+}
+.goalMenu .content{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  padding: 10px;
+  background-color: var(--modal-bg);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.goalMenu .menuButtons{
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.goalMenu .menuButtons button{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}
+.goalMenu .menuButtons button:nth-child(2){
+  color: var(--cancel);
+}
