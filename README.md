@@ -1,56 +1,26 @@
  ---
 
-# EasyFit (Work in Progress and Open to Name Suggestions)
+# EasyFit - Fitness and Nutrition tracker
 
-Welcome to **EasyFit**! 🚀
-This is a **React-based web application** designed to help users manage their fitness goals, track workouts, and monitor progress—all in one place. The app is currently a **work in progress**, but the goal is to create a simple, effective, and **free-to-use** alternative to the complicated and expensive fitness apps on the market.
-
----
-## 📖 Table of Contents
-- [Purpose](#-purpose)
-- [About the App](#️-about-the-app)
-- [Features](#-features)
-- [What Can the App Do](#-what-can-the-app-do)
-- [Workouts](#-manage-workouts)
-- [Exercises](#-manage-exercises)
-- [Goals](#-goals)
-- [Logs](#-logs)
-- [Complete Workouts](#-complete-workouts)
-- [Other Screenshots](#-other-screenshots)
-- [Filter and Search](#-filter-and-search)
-- [Upcoming Features](#-upcoming-features)
-- [Known Issues](#-known-issues)
-- [To-Do List](#-to-do-list)
-- [Latest Updates](#latest-updates)
-- [How to Run the App](#-how-to-run-the-app)
-- [Contributing](#-contributing)
-- [Feedback](#-feedback)
-
-## 🎯 Purpose
-
-This app is designed to:
-
-* Showcase my **web development skills** in React
-* Provide a **personal fitness tracking tool** for myself and anyone else who wants to use it
-* Serve as a **free** alternative to paid fitness apps
+This is a **React-based web application** designed to help users manage their fitness goals, track workouts, and monitor progress, all in one place. The app is currently a **work in progress**, but the goal is to create a simple, effective, and a good alternative to the complicated and expensive fitness apps on the market.
 
 ---
+### 🛠️ Technologies Used
 
-## ℹ️ About the App
+<p align="left">
+  <img src="https://img.shields.io/badge/TypeScript-333?style=flat&logo=typescript&logoColor=3178C6" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-333?style=flat&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/React_Router-333?style=flat&logo=reactrouter&logoColor=CA4245" alt="React Router" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-333?style=flat&logo=tailwind-css&logoColor=38B2AC" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Redux-333?style=flat&logo=redux&logoColor=764ABC" alt="Redux" />
+  <img src="https://img.shields.io/badge/Redux_Persist-333?style=flat&logo=redux&logoColor=764ABC" alt="Redux Persist" />
+  <img src="https://img.shields.io/badge/IndexedDB-333?style=flat&logo=databricks&logoColor=FF3621" alt="IndexedDB" />
+  <img src="https://img.shields.io/badge/Axios-333?style=flat&logo=axios&logoColor=5A29E4" alt="Axios" />
+  <img src="https://img.shields.io/badge/UUID_&_BSON-333?style=flat&logo=json&logoColor=white" alt="UUID & BSON" />
+  <img src="https://img.shields.io/badge/Recharts-333?style=flat&logo=react&logoColor=22B5BF" alt="Recharts" />
+  <img src="https://img.shields.io/badge/NoSleep.js-333?style=flat&logo=javascript&logoColor=F7DF1E" alt="NoSleep.js" />
+</p>
 
-EasyFit is your best option at keeping track of your fitness progress, be it activities, nutrition, or goals. With a simple interface that gives you the freedom to customize your experience, you can choose to keep either a detailed or minimal record of your progress. Say goodbye to wasting time logging your breakfast, figuring out how the app works, or being hit in the face all the time with prompts asking you to buy a subscription or to pay once to get rid of ads.
-
-### Technologies Used
-
-* **React** – The core library for building the app's user interface
-* **React Router** – Enables seamless navigation between pages and sections
-* **Redux** – Manages the application's state efficiently, ensuring a predictable data flow
-* **Redux Persist** – Preserves the state across browser sessions for a better user experience
-* **IndexedDB** – Used for saving all items locally
-* **UUID** and **bson-objectid** – Generates unique identifiers for app components like goals, exercises, and logs
-* **Axios** - Handling API requests
-* **NoSleepJs** - For the Keep Screen Awake feature
-* **TypeScript** - For keeping the code clean and safe
 
 ---
 
@@ -71,7 +41,7 @@ EasyFit is your best option at keeping track of your fitness progress, be it act
 
 ## 📋 What Can the App Do
 
-Please keep in mind that the app is still work in progress. That said, some features may still change, contain bugs, or be non-functional, but I will update this ReadME as often as possible.
+Please keep in mind that the app is still work in progress. That said, some features may still change, contain bugs, or be non-functional
 
 ### Manage Exercises
 
@@ -112,20 +82,11 @@ Similar to exercises, creating a workout allows the user to use either just a na
 * Targeted muscles
 * Phases
 
-Workouts are split into **phases** (with “Warm-up” and “Workout” being the default phases) to allow users to build full sessions. Users can add/edit/remove phases (with at least one required). Exercises are added to phases, with a dropdown to choose number of sets (1–10). Each exercise can be added multiple times to the same phase and workout.
-
-The **View Workout** page resembles the View Exercise page, with exercises grouped by phase. Workouts are saved and cached like exercises, follow the same rules for editing/deleting, and can be exported/imported via JSON.
-
-When a workout is created, a **copy of all exercises** is saved into the workout instead of IDs to prevent accidental breaking due to external changes. An update button allows syncing to the latest versions if desired.
-
 ---
 
 ## 🎯 Goals
 
 Another core functionality of this app is the ability to **easily track goals**. The system is simple and doesn’t require much input, making it fast and effective.
-
-Goals can be created from:
-`Menu > Goals > New Goal`
 
 Each goal requires a name, a color (default: white), and an icon (default: dumbbell). There are three types of goals, each with a different way of tracking progress:
 
@@ -134,8 +95,6 @@ Each goal requires a name, a color (default: white), and an icon (default: dumbb
 * **Boolean goals** where you can answer only with Yes or No. It also accepts only one log per day like the number goals (e.g. keeping track if you smoked today)
 
 Goals appear on the **Home page**, with different visuals depending on type. The *target goal* will have your current progress out of the target value and a progress bar. The *number goal* displays today’s logged value (if available), and an arrow showing whether it's higher, lower, or the same as the previous one. And the *boolean goal* will have three icons representing the last three days. If you logged "Yes" there will be a checkmark, "No" will have an "X", and there will be a "-" if there is no goal. 
-
-For those goals with only one log per day, there will be a prompt if the user tries to log another one for the same day, telling them that the other log will be replaced by the new log if they continue, avoiding having multiple ones.
 
 ![Goals](https://i.imgur.com/MV4nLAB.png)
 
@@ -242,240 +201,10 @@ Filter workouts and exercises using search, difficulty, tags, muscles, equipment
 
 * **Food Database** – Pre-filled database for common foods
 * **Meal Plans** – Importable meal schedules with logging support
-* **Activity Plans** – Schedule weekly activities
+* **Workout Plans** – Schedule weekly activities
 * **Online Exercise & Workout Database**
 * **Sharing** – Share your plans via link or in-app
 * **Social** – Forum, guides, and shared resources
-
----
-
-## 🐞 Known Issues
-
-* Component layout issues on smaller screens
-* Completing the last field of a set when doing a workout will show that it is completed for a moment and then revert back and only working when completing the second time
-
----
-
-## 📋 To-Do List
-
-These are just some of the current tasks I'm working on. Larger or less urgent tasks are not included here. 
-**HP = High Priority | MP = Medium Priority | LP = Low Priority | QOL = Quality of Life**
-
-* ~~\[HP] Require name when creating exercises/workouts~~
-* ~~\[QOL] Fix menu not closing when clicking outside~~
-* ~~\[QOL] Improve quick menu behavior~~
-* ~~\[QOL] Add default goal values (e.g. 100ml, 250ml)~~
-* \[QOL] Add default exercise fields (e.g. reps, duration)
-* ~~\[MP] Style Hide Menu for Home modules~~
-* \[LP] Enable dashboard reorder
-* \[MP] Full app backup/export
-* ~~\[MP] Redesign Create Exercise layout
-* ~~\[MP] Improve Log Exercise UX~~
-* \[QOL] Add Help page
-* \[MP] Sync items with API
-* \[MP] Finish Light Theme
-* \[HP] Sync local and online accounts:
-  1. Prompt user if there's a conflict
-  2. Allow side-by-side comparison
-  3. Let users merge or keep data separate
-  4. Auto backup local exercises/workouts to the API
-* ~~\[MP] Rework View Log screens in Activity page~~
-* ~~\[MP] Rework Default Fields page~~
-~~* \[MP] Rework Equipments page~~
-* \[MP] Rework Tags page
-* ~~\[HP] Add blurred background to menus, submenus, and other components to help keep a hierarchy of elements when multiple of them are open at the same time~~
-* \[MP] Create settings for hiding/showing nutrition and activity modules in dashboard
-* \[MP] Create a dedicated page for food related features (food logs, meal planning, etc), and activity related features (activity, exercises, and workout logs, workout plants, etc)
-* \[LP] Convert all SVGs to jsx components to make easier to change their colors and other properties
-* ~~\[MP] Rework Library~~
-* ~~\[MP] Rework View Workout~~
-* ~~\[MP] Rework View Exercise~~
-* \[MP] Export only shows exercises and no workout
-* \[MP] Import page doesn't check for duplicates
-* \[HP] Import page doesn't validate data before importing
-
----
-
-## Latest Updates
-
-### 06 September 2025
-* Created a new component for viewing Workout logs
-* Updated and fixed the components for Viewing Exercise and Activity Logs
-* Fixed small issues with Log Food component: Unit button had the wrong size, changed logs inside history screen, etc.
-* Small fixed for Activity page and the components used for viewing logs, like moving them to their own folders, files, and css modules
-* Removed unused files and code
-* Created separage pages for Import and Export and added links to them to the app menu
-* Other small fixes:
-  - Library menu was shifted 15px to the right on some devices
-  - Increased the min width for the dashboard warning message to appear notifying users with large screen that the app is not intended for being used on large screens
-  - Added more blurred background to avoid users accidentally pressing on other buttons when smaller pop-ups were present
-  - Fixed each set from a running exercise not having unique ids
-  - Fixed Nutrition module not accessing the correct properties
-* Gallery:
-<p align="center">
-  <img src="https://i.imgur.com/A4d8w4U.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/XUa2iJS.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/GK2SQ5l.png" alt="Screenshot 6" width="30%" />
-</p>
-<p align="center">
-  <img src="https://i.imgur.com/O50noOp.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/60IQ6yD.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/HtTSSug.png" alt="Screenshot 6" width="30%" />
-</p>
-
-### 1 September 2025
-* Updated running exercise component to match the new workout component
-* Fixed minor bugs for exercise component
-* Created a separate ExerciseSet component
-
-
-
-### 31 August 2025
-* Created a separate page for viewing and creating new muscles
-* Remade the list of default muscles
-* Updated the Muscle Selector component to be simpler and more straighforward
-* Polished running workouts:
-  - Removed the border of each set, alongside with skip buttons and individual timers.
-  - Changed the input and target of each field to fit more with the ui.
-  - Added a rest timer after each set with a progress bar showing the progress of the rest timer.
-  - Rearranged most elements making them more accessible and easier to see. Moved the progress bar at the top, the timer and completed exercises under it, followed by the current exercise sets.
-  - Moved exercises list button at the bottom and created a new component with better layout and colors.
-  - Created a stopwatch component and added a stopwatch button at the bottom that can be used to track time for exercises with time units.
-  - Created an Info pop-up containing instructions, tags, equipment, and targeted muscles for the selected exercise.
-  - Removed unused functions, useless html elements, moved formatExercise function to a separate file so it can be used in other components and some other minor improvements like fallback values, etc.
-* Minor fixes across the app: 
-  - Fixed crashing when importing exercises using the new unit format
-  - Fixed some lists going outside of the viewport in Create Workout and Create Exercise screens
-  - Fixed exercise list not closing when pressing the close button
-  - Fixed some typos 
-  - Fixed some wrong margins and paddings
-* Gallery:
-<p align="center">
-  <img src="https://i.imgur.com/W5kFUJF.png" alt="Screenshot 4" width="20%" />
-  <img src="https://i.imgur.com/IP7K3vE.png" alt="Screenshot 5" width="20%" />
-  <img src="https://i.imgur.com/xIRK64N.png" alt="Screenshot 6" width="20%" />
-  <img src="https://i.imgur.com/n1TU3cD.png" alt="Screenshot 6" width="20%" />
-</p>
-
-
-### 18 August 2025
-* Created separate library screens for workouts and exercises
-* Added a Library Menu that shows up when the user taps on the Library button from the nagivation, allowing the user to go to "My Workouts", "My Exercises", or "Explore"
-* Created a View Exercise and View Workout screens instead of the separate page used for viewing them.
-* Minor fixes:
-  - Fixed Unit button showing on top of other components
-  - Fixed View Workout and View Exercises not behaving correctly when the content was overflowing
-  - Fixed duration and rest not being converted correctly when going to the edit page
-  - Fixed View Exercise and View Workout not closing after deleting 
-  - Fixed Create Workout and Create Exercise having elements overflow on smaller screen instead of becoming scrollable
-  - Fixed exercises and workouts from their libraries not being scrollable when there were multiple of them
-  - Fixed Edit Exercise page having the wrong title and button text
-  - Fixed added Values from Create Exercise having a small container making them scrollable even though there being enough space for them to show multiple items at once
-* Gallery:
-<p align="center">
-  <img src="https://i.imgur.com/ekSg2Cg.png" alt="Screenshot 4" width="20%" />
-  <img src="https://i.imgur.com/gBcw00l.png" alt="Screenshot 5" width="20%" />
-  <img src="https://i.imgur.com/8MYhNyb.png" alt="Screenshot 6" width="20%" />
-  <img src="https://i.imgur.com/o6fyN20.png" alt="Screenshot 6" width="20%" />
-</p>
-
-### 03 August 2025
-* Created a new tsconfig and global.d.ts and fixed all important typescript errors.
-* Fixed multiple small issues found during the purse of typescript errors. Created new interfaces and updated old ones.
-* Updated the Fields page with a new pop-up form for new custom fields and a simpler list of existing fields. Updated the userSlide to handle custom fields. Created an updateCustomFields reducer to handle creating, editing, and deleting of custom fields.
-* Added some checks before accessing fieldData in the New Custom Field form preventing it crashing.
-* Updated FieldsScreen to take default fields from the redux store and added useSelectors in components where FieldsScreen is used.
-* Updated Activity Log component:
-  * Changed the title from Log Exercise to Log Activity to be more general
-  * Removed Sets input since it can be added as a custom field or value and it is not used by all activities
-  * Moved Activity Name, Duration, and Time on the same row making the component more compact
-  * Added custom fields right before Recorded values to allow used to quickly add custom fields
-  * Changed the max height of FieldsScreen and changed display from flex to grid for more control
-* Created a new View Activity Log component
-* Added transparent background for Activity and Food log components to prevent users from clicking outside elements by accident
-* Updated Create Goal component with the new pop-up for adding custom values and the Pin to dashboard dropdown
-* Created a larger version of Goal trackers found in the Dashboard page for each type of goal showing the past 5 days, including the current day:
-  * Target Goals will have a progress circle for each day with either a checkmark inside if the target was met or just the percentage if not
-  * Number Goals will have a vertical bar showing how big is that value compared to the biggest one recorded in those past 5 days
-  * Boolean Goals will have the same icons as the Small Goal except that now there are 5 of them and it shows the date
-  * Updated the 'Pin to dashboard?' dropdown from Create Goal and Edit Goal to let the user pick between hiding the goal or showing the large version or the small version
-  * Updated the dashboard page to show the correct goal module size
-* Gallery:
-<p align="center">
-  <img src="https://i.imgur.com/MupJ8Qi.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/okKFaEh.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/ArNdGAh.png" alt="Screenshot 6" width="30%" />
-</p>
-
-
-
-
-### 26 July 2025
-* Converted all icons from the Icon List available when creating goals from .svg to .jsx components that accepts props such as fill color, width, height, etc.
-* Updated the icons.js from an array of just SVGs to objects containing an id, a name, and the SVG component.
-* Updated Goal list, Goals page, View Goal, Edit Goal, Create Goal, Dashboard Goal Module to use the new icon format.
-* Added more comments to help others understand the code
-* Improved the Goal Module from the Dashboard (picture 1):
-  - Removed everything related to "edit-mode" that was used when editing the Dashboard layout. 
-  - Changed the text and icon color based on the goal color.
-  - Changed the background color of the progress bar to the app background color.
-  - Added a hide button to quickly hide it from the dashboard.
-  - Increased the border-radius to match the other modules from the Dashboard
-* Improved Target Log Form component (picture 2 and 3):
-  - Added a dropdown to change if the goal is shown on the dashboard or not
-  - Removed the old edit of custom values, where the user had to click on them to change them from p elements to text inputs and then save them, to a better and cleaner way.
-  - Created a new small form for new Custom Values. If the user clicks on an already created custom value, this form will open with that value already in the text input that will allow to update it.
-  - Made the icon inside the progress bar smaller and moved the progress percentage inside the circle, right under the icon. Added goal's color to the current goal progress value.
-  - Switched the position of the bottom buttons (close and log) to make it easier to press Log and harder to press Close by accident. Decreased the height from 50px to 40px to match the other inputs.
-* Smaller UI improvements:
-  - Moved the Explore more and New Workout buttons outside the container with all the workouts and exercises, making them visible at all time.
-  - Added a small padding to the left of custom value in Target Goal form
-  - Added a small one line text with the current app version and the date of the update to help keep track of which version is live
-* Gallery:
-<p align="center">
-  <img src="https://i.imgur.com/EWE9779.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/mDOpmsA.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/kMcfNZz.png" alt="Screenshot 6" width="30%" />
-</p>
-
-
-
-### 19 July 2025
-
-* Fixed set timer not starting automatically when switching a new set and not stopping when the set was completed
-* Removed the auto-advance to the next exercise feature for now and the auto-finish workout in case the user might want to add new exercises or sets
-* Added a progress circle and the goal icon to the Target Goal screen
-* Added a preview of the current progress for each Goal in the Goals page. The target goal has a progress bar, while the other two have a text with today's logged value (e.g. "500 ml water recorded at 12:30")
-* Added a Reset button to View Log which will delete all logs for that Goal from the current day. 
-* Created a function inside db.js to remove all logs for a certain goal and another one for removing all logs of a certain goal for a specified date
-* Created separate Log Goal Form components for each type of goal
-* Added Equipment and Tags for Activity logs
-* Added custom default values for Target Goals
-* Small UI improvements: 
-  - A back button from View Goal 
-  - Quick menu will close if you click outside the three button on the bottom right
-  - Closing a Goal Log form will also close the quick menu
-  - Added stylings to the small menu used for hiding Nutrition and Activity modules
-  - Improved the layout of Activity Log by using the same three button layout for tags, target muscles, and equipment used in Create Workout
-  - In the Target Goal Log: Moved Name right before Description, placed Value input on the same line as default values, removed labels, placed Date and Time on the same row, changed component height to auto
-* Code improvements:
-  - Removed unused components and files
-  - Replaced old instances of "unit" when it was just a string with the next "unit" object
-  - Added fallbacks for not existing units in Activity page
-  - Removed some unused imports
-  - Added a check to make sure that name is at least three characters long when creating an exercise or a workout
-* Discovered bugs:
-  - Completing the last field of a set when doing a workout will show that it is completed for a moment and then revert back and only working when completing the second time.
-* Gallery: 
-<p align="center">
-  <img src="https://i.imgur.com/VrHPYXF.png" alt="Screenshot 4" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/N6LbmEA.png" alt="Screenshot 5" width="30%" style="margin-right: 10px;" />
-  <img src="https://i.imgur.com/BbDlf8s.png" alt="Screenshot 6" width="30%" />
-</p>
-
-
-
-
 
 ## 🚀 How to Run the App
 
