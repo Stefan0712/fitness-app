@@ -5,6 +5,8 @@
 This is a **React-based web application** designed to help users manage their fitness goals, track workouts, and monitor progress, all in one place. The app is currently a **work in progress**, but the goal is to create a simple, effective, and a good alternative to the complicated and expensive fitness apps on the market.
 
 [Live Demo](https://stefan0712.github.io/fitness-app/)
+
+
 ---
 ### 🛠️ Technologies Used
 
